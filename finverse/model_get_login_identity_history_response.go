@@ -17,7 +17,7 @@ import (
 
 // GetLoginIdentityHistoryResponse struct for GetLoginIdentityHistoryResponse
 type GetLoginIdentityHistoryResponse struct {
-	LoginIdentity *LoginIdentity `json:"login_identity,omitempty"`
+	LoginIdentity *LoginIdentity               `json:"login_identity,omitempty"`
 	StatusHistory []LoginIdentityStatusDetails `json:"status_history,omitempty"`
 }
 
@@ -148,5 +148,3 @@ func (v *NullableGetLoginIdentityHistoryResponse) UnmarshalJSON(src []byte) erro
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

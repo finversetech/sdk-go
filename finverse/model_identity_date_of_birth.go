@@ -17,11 +17,11 @@ import (
 
 // IdentityDateOfBirth struct for IdentityDateOfBirth
 type IdentityDateOfBirth struct {
-	Raw *string `json:"raw,omitempty"`
-	DateOfBirth *string `json:"date_of_birth,omitempty"`
-	Source *string `json:"source,omitempty"`
-	SourceId *string `json:"source_id,omitempty"`
-	AccountIds []string `json:"account_ids,omitempty"`
+	Raw         *string  `json:"raw,omitempty"`
+	DateOfBirth *string  `json:"date_of_birth,omitempty"`
+	Source      *string  `json:"source,omitempty"`
+	SourceId    *string  `json:"source_id,omitempty"`
+	AccountIds  []string `json:"account_ids,omitempty"`
 }
 
 // NewIdentityDateOfBirth instantiates a new IdentityDateOfBirth object
@@ -256,5 +256,3 @@ func (v *NullableIdentityDateOfBirth) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

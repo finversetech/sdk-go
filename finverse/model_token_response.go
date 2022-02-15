@@ -18,7 +18,7 @@ import (
 // TokenResponse struct for TokenResponse
 type TokenResponse struct {
 	AccessToken string `json:"access_token"`
-	TokenType string `json:"token_type"`
+	TokenType   string `json:"token_type"`
 	// seconds
 	ExpiresIn float32 `json:"expires_in"`
 }
@@ -56,7 +56,7 @@ func (o *TokenResponse) GetAccessToken() string {
 // GetAccessTokenOk returns a tuple with the AccessToken field value
 // and a boolean to check if the value has been set.
 func (o *TokenResponse) GetAccessTokenOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.AccessToken, true
@@ -80,7 +80,7 @@ func (o *TokenResponse) GetTokenType() string {
 // GetTokenTypeOk returns a tuple with the TokenType field value
 // and a boolean to check if the value has been set.
 func (o *TokenResponse) GetTokenTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.TokenType, true
@@ -104,7 +104,7 @@ func (o *TokenResponse) GetExpiresIn() float32 {
 // GetExpiresInOk returns a tuple with the ExpiresIn field value
 // and a boolean to check if the value has been set.
 func (o *TokenResponse) GetExpiresInOk() (*float32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ExpiresIn, true
@@ -164,5 +164,3 @@ func (v *NullableTokenResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -28,12 +28,12 @@ var (
 type CustomerApi interface {
 
 	/*
-	GenerateLinkToken Method for GenerateLinkToken
+		GenerateLinkToken Method for GenerateLinkToken
 
-	generate a link token that can be used to create link
+		generate a link token that can be used to create link
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return CustomerApiApiGenerateLinkTokenRequest
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return CustomerApiApiGenerateLinkTokenRequest
 	*/
 	GenerateLinkToken(ctx context.Context) CustomerApiApiGenerateLinkTokenRequest
 
@@ -42,13 +42,13 @@ type CustomerApi interface {
 	GenerateLinkTokenExecute(r CustomerApiApiGenerateLinkTokenRequest) (*LinkTokenResponse, *http.Response, error)
 
 	/*
-	GetInstitution Method for GetInstitution
+		GetInstitution Method for GetInstitution
 
-	Get a specific institution by institutionId
+		Get a specific institution by institutionId
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param institutionId The institution id
-	 @return CustomerApiApiGetInstitutionRequest
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @param institutionId The institution id
+		 @return CustomerApiApiGetInstitutionRequest
 	*/
 	GetInstitution(ctx context.Context, institutionId string) CustomerApiApiGetInstitutionRequest
 
@@ -57,13 +57,13 @@ type CustomerApi interface {
 	GetInstitutionExecute(r CustomerApiApiGetInstitutionRequest) (*Institution, *http.Response, error)
 
 	/*
-	GetLoginIdentityById Method for GetLoginIdentityById
+		GetLoginIdentityById Method for GetLoginIdentityById
 
-	Get a specific loginIdentity
+		Get a specific loginIdentity
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param loginIdentityId The login identity id
-	 @return CustomerApiApiGetLoginIdentityByIdRequest
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @param loginIdentityId The login identity id
+		 @return CustomerApiApiGetLoginIdentityByIdRequest
 	*/
 	GetLoginIdentityById(ctx context.Context, loginIdentityId string) CustomerApiApiGetLoginIdentityByIdRequest
 
@@ -72,13 +72,13 @@ type CustomerApi interface {
 	GetLoginIdentityByIdExecute(r CustomerApiApiGetLoginIdentityByIdRequest) (*GetLoginIdentityByIdResponse, *http.Response, error)
 
 	/*
-	GetLoginIdentityHistory Method for GetLoginIdentityHistory
+		GetLoginIdentityHistory Method for GetLoginIdentityHistory
 
-	Get a history of events for a specific loginIdentity
+		Get a history of events for a specific loginIdentity
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @param loginIdentityId The login identity id
-	 @return CustomerApiApiGetLoginIdentityHistoryRequest
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @param loginIdentityId The login identity id
+		 @return CustomerApiApiGetLoginIdentityHistoryRequest
 	*/
 	GetLoginIdentityHistory(ctx context.Context, loginIdentityId string) CustomerApiApiGetLoginIdentityHistoryRequest
 
@@ -87,12 +87,12 @@ type CustomerApi interface {
 	GetLoginIdentityHistoryExecute(r CustomerApiApiGetLoginIdentityHistoryRequest) (*GetLoginIdentityHistoryResponse, *http.Response, error)
 
 	/*
-	ListInstitutions Method for ListInstitutions
+		ListInstitutions Method for ListInstitutions
 
-	Get a list of institutions
+		Get a list of institutions
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return CustomerApiApiListInstitutionsRequest
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return CustomerApiApiListInstitutionsRequest
 	*/
 	ListInstitutions(ctx context.Context) CustomerApiApiListInstitutionsRequest
 
@@ -101,12 +101,12 @@ type CustomerApi interface {
 	ListInstitutionsExecute(r CustomerApiApiListInstitutionsRequest) ([]Institution, *http.Response, error)
 
 	/*
-	RefreshToken Method for RefreshToken
+		RefreshToken Method for RefreshToken
 
-	Refresh an access token
+		Refresh an access token
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return CustomerApiApiRefreshTokenRequest
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return CustomerApiApiRefreshTokenRequest
 	*/
 	RefreshToken(ctx context.Context) CustomerApiApiRefreshTokenRequest
 
@@ -119,8 +119,8 @@ type CustomerApi interface {
 type CustomerApiService service
 
 type CustomerApiApiGenerateLinkTokenRequest struct {
-	ctx context.Context
-	ApiService CustomerApi
+	ctx              context.Context
+	ApiService       CustomerApi
 	linkTokenRequest *LinkTokenRequest
 }
 
@@ -145,7 +145,7 @@ generate a link token that can be used to create link
 func (a *CustomerApiService) GenerateLinkToken(ctx context.Context) CustomerApiApiGenerateLinkTokenRequest {
 	return CustomerApiApiGenerateLinkTokenRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -153,10 +153,10 @@ func (a *CustomerApiService) GenerateLinkToken(ctx context.Context) CustomerApiA
 //  @return LinkTokenResponse
 func (a *CustomerApiService) GenerateLinkTokenExecute(r CustomerApiApiGenerateLinkTokenRequest) (*LinkTokenResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *LinkTokenResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *LinkTokenResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GenerateLinkToken")
@@ -249,11 +249,10 @@ func (a *CustomerApiService) GenerateLinkTokenExecute(r CustomerApiApiGenerateLi
 }
 
 type CustomerApiApiGetInstitutionRequest struct {
-	ctx context.Context
-	ApiService CustomerApi
+	ctx           context.Context
+	ApiService    CustomerApi
 	institutionId string
 }
-
 
 func (r CustomerApiApiGetInstitutionRequest) Execute() (*Institution, *http.Response, error) {
 	return r.ApiService.GetInstitutionExecute(r)
@@ -270,8 +269,8 @@ Get a specific institution by institutionId
 */
 func (a *CustomerApiService) GetInstitution(ctx context.Context, institutionId string) CustomerApiApiGetInstitutionRequest {
 	return CustomerApiApiGetInstitutionRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:    a,
+		ctx:           ctx,
 		institutionId: institutionId,
 	}
 }
@@ -280,10 +279,10 @@ func (a *CustomerApiService) GetInstitution(ctx context.Context, institutionId s
 //  @return Institution
 func (a *CustomerApiService) GetInstitutionExecute(r CustomerApiApiGetInstitutionRequest) (*Institution, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *Institution
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *Institution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetInstitution")
@@ -372,11 +371,10 @@ func (a *CustomerApiService) GetInstitutionExecute(r CustomerApiApiGetInstitutio
 }
 
 type CustomerApiApiGetLoginIdentityByIdRequest struct {
-	ctx context.Context
-	ApiService CustomerApi
+	ctx             context.Context
+	ApiService      CustomerApi
 	loginIdentityId string
 }
-
 
 func (r CustomerApiApiGetLoginIdentityByIdRequest) Execute() (*GetLoginIdentityByIdResponse, *http.Response, error) {
 	return r.ApiService.GetLoginIdentityByIdExecute(r)
@@ -393,8 +391,8 @@ Get a specific loginIdentity
 */
 func (a *CustomerApiService) GetLoginIdentityById(ctx context.Context, loginIdentityId string) CustomerApiApiGetLoginIdentityByIdRequest {
 	return CustomerApiApiGetLoginIdentityByIdRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		loginIdentityId: loginIdentityId,
 	}
 }
@@ -403,10 +401,10 @@ func (a *CustomerApiService) GetLoginIdentityById(ctx context.Context, loginIden
 //  @return GetLoginIdentityByIdResponse
 func (a *CustomerApiService) GetLoginIdentityByIdExecute(r CustomerApiApiGetLoginIdentityByIdRequest) (*GetLoginIdentityByIdResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *GetLoginIdentityByIdResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetLoginIdentityByIdResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetLoginIdentityById")
@@ -505,11 +503,10 @@ func (a *CustomerApiService) GetLoginIdentityByIdExecute(r CustomerApiApiGetLogi
 }
 
 type CustomerApiApiGetLoginIdentityHistoryRequest struct {
-	ctx context.Context
-	ApiService CustomerApi
+	ctx             context.Context
+	ApiService      CustomerApi
 	loginIdentityId string
 }
-
 
 func (r CustomerApiApiGetLoginIdentityHistoryRequest) Execute() (*GetLoginIdentityHistoryResponse, *http.Response, error) {
 	return r.ApiService.GetLoginIdentityHistoryExecute(r)
@@ -526,8 +523,8 @@ Get a history of events for a specific loginIdentity
 */
 func (a *CustomerApiService) GetLoginIdentityHistory(ctx context.Context, loginIdentityId string) CustomerApiApiGetLoginIdentityHistoryRequest {
 	return CustomerApiApiGetLoginIdentityHistoryRequest{
-		ApiService: a,
-		ctx: ctx,
+		ApiService:      a,
+		ctx:             ctx,
 		loginIdentityId: loginIdentityId,
 	}
 }
@@ -536,10 +533,10 @@ func (a *CustomerApiService) GetLoginIdentityHistory(ctx context.Context, loginI
 //  @return GetLoginIdentityHistoryResponse
 func (a *CustomerApiService) GetLoginIdentityHistoryExecute(r CustomerApiApiGetLoginIdentityHistoryRequest) (*GetLoginIdentityHistoryResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *GetLoginIdentityHistoryResponse
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetLoginIdentityHistoryResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetLoginIdentityHistory")
@@ -638,12 +635,12 @@ func (a *CustomerApiService) GetLoginIdentityHistoryExecute(r CustomerApiApiGetL
 }
 
 type CustomerApiApiListInstitutionsRequest struct {
-	ctx context.Context
-	ApiService CustomerApi
-	country *string
-	countries *[]string
+	ctx               context.Context
+	ApiService        CustomerApi
+	country           *string
+	countries         *[]string
 	productsSupported *string
-	institutionType *string
+	institutionType   *string
 }
 
 // The country the institution belongs to
@@ -651,16 +648,19 @@ func (r CustomerApiApiListInstitutionsRequest) Country(country string) CustomerA
 	r.country = &country
 	return r
 }
+
 // The countries the institution belongs to
 func (r CustomerApiApiListInstitutionsRequest) Countries(countries []string) CustomerApiApiListInstitutionsRequest {
 	r.countries = &countries
 	return r
 }
+
 // The products that this institution supports
 func (r CustomerApiApiListInstitutionsRequest) ProductsSupported(productsSupported string) CustomerApiApiListInstitutionsRequest {
 	r.productsSupported = &productsSupported
 	return r
 }
+
 // The type of institution
 func (r CustomerApiApiListInstitutionsRequest) InstitutionType(institutionType string) CustomerApiApiListInstitutionsRequest {
 	r.institutionType = &institutionType
@@ -682,7 +682,7 @@ Get a list of institutions
 func (a *CustomerApiService) ListInstitutions(ctx context.Context) CustomerApiApiListInstitutionsRequest {
 	return CustomerApiApiListInstitutionsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -690,10 +690,10 @@ func (a *CustomerApiService) ListInstitutions(ctx context.Context) CustomerApiAp
 //  @return []Institution
 func (a *CustomerApiService) ListInstitutionsExecute(r CustomerApiApiListInstitutionsRequest) ([]Institution, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Institution
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Institution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.ListInstitutions")
@@ -793,8 +793,8 @@ func (a *CustomerApiService) ListInstitutionsExecute(r CustomerApiApiListInstitu
 }
 
 type CustomerApiApiRefreshTokenRequest struct {
-	ctx context.Context
-	ApiService CustomerApi
+	ctx            context.Context
+	ApiService     CustomerApi
 	refreshRequest *RefreshRequest
 }
 
@@ -819,7 +819,7 @@ Refresh an access token
 func (a *CustomerApiService) RefreshToken(ctx context.Context) CustomerApiApiRefreshTokenRequest {
 	return CustomerApiApiRefreshTokenRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -827,10 +827,10 @@ func (a *CustomerApiService) RefreshToken(ctx context.Context) CustomerApiApiRef
 //  @return AccessTokenResponse
 func (a *CustomerApiService) RefreshTokenExecute(r CustomerApiApiRefreshTokenRequest) (*AccessTokenResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *AccessTokenResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AccessTokenResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.RefreshToken")

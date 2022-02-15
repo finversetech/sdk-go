@@ -21,8 +21,8 @@ type ProductStatus struct {
 	// The current health of this product
 	Status *string `json:"status,omitempty"`
 	// The detailed event name
-	StatusDetails *string `json:"status_details,omitempty"`
-	LastUpdate NullableTime `json:"last_update,omitempty"`
+	StatusDetails        *string      `json:"status_details,omitempty"`
+	LastUpdate           NullableTime `json:"last_update,omitempty"`
 	LastSuccessfulUpdate NullableTime `json:"last_successful_update,omitempty"`
 }
 
@@ -120,7 +120,7 @@ func (o *ProductStatus) GetLastUpdate() time.Time {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ProductStatus) GetLastUpdateOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.LastUpdate.Get(), o.LastUpdate.IsSet()
@@ -139,6 +139,7 @@ func (o *ProductStatus) HasLastUpdate() bool {
 func (o *ProductStatus) SetLastUpdate(v time.Time) {
 	o.LastUpdate.Set(&v)
 }
+
 // SetLastUpdateNil sets the value for LastUpdate to be an explicit nil
 func (o *ProductStatus) SetLastUpdateNil() {
 	o.LastUpdate.Set(nil)
@@ -162,7 +163,7 @@ func (o *ProductStatus) GetLastSuccessfulUpdate() time.Time {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *ProductStatus) GetLastSuccessfulUpdateOk() (*time.Time, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.LastSuccessfulUpdate.Get(), o.LastSuccessfulUpdate.IsSet()
@@ -181,6 +182,7 @@ func (o *ProductStatus) HasLastSuccessfulUpdate() bool {
 func (o *ProductStatus) SetLastSuccessfulUpdate(v time.Time) {
 	o.LastSuccessfulUpdate.Set(&v)
 }
+
 // SetLastSuccessfulUpdateNil sets the value for LastSuccessfulUpdate to be an explicit nil
 func (o *ProductStatus) SetLastSuccessfulUpdateNil() {
 	o.LastSuccessfulUpdate.Set(nil)
@@ -243,5 +245,3 @@ func (v *NullableProductStatus) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

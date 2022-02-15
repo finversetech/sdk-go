@@ -17,8 +17,8 @@ import (
 
 // LoginIdentityError struct for LoginIdentityError
 type LoginIdentityError struct {
-	Code *int32 `json:"code,omitempty"`
-	Type *string `json:"type,omitempty"`
+	Code    *int32  `json:"code,omitempty"`
+	Type    *string `json:"type,omitempty"`
 	Message *string `json:"message,omitempty"`
 	Details *string `json:"details,omitempty"`
 }
@@ -220,5 +220,3 @@ func (v *NullableLoginIdentityError) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -20,21 +20,21 @@ import (
 type Account struct {
 	AccountId string `json:"account_id"`
 	// The SHA3-256 hash of the account number, salted with the loginIdentityId
-	GroupId string `json:"group_id"`
-	AccountHolderName *string `json:"account_holder_name,omitempty"`
-	AccountName string `json:"account_name"`
-	AccountNickname *string `json:"account_nickname,omitempty"`
-	AccountType *string `json:"account_type,omitempty"`
-	AccountSubType *string `json:"account_sub_type,omitempty"`
-	Country *string `json:"country,omitempty"`
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-	AccountCurrency *string `json:"account_currency,omitempty"`
-	Balance *CurrencyAmount `json:"balance,omitempty"`
-	StatementBalance *CurrencyAmount `json:"statement_balance,omitempty"`
-	IsParent bool `json:"is_parent"`
-	IsClosed bool `json:"is_closed"`
-	IsExcluded bool `json:"is_excluded"`
+	GroupId           string          `json:"group_id"`
+	AccountHolderName *string         `json:"account_holder_name,omitempty"`
+	AccountName       string          `json:"account_name"`
+	AccountNickname   *string         `json:"account_nickname,omitempty"`
+	AccountType       *string         `json:"account_type,omitempty"`
+	AccountSubType    *string         `json:"account_sub_type,omitempty"`
+	Country           *string         `json:"country,omitempty"`
+	CreatedAt         *time.Time      `json:"created_at,omitempty"`
+	UpdatedAt         *time.Time      `json:"updated_at,omitempty"`
+	AccountCurrency   *string         `json:"account_currency,omitempty"`
+	Balance           *CurrencyAmount `json:"balance,omitempty"`
+	StatementBalance  *CurrencyAmount `json:"statement_balance,omitempty"`
+	IsParent          bool            `json:"is_parent"`
+	IsClosed          bool            `json:"is_closed"`
+	IsExcluded        bool            `json:"is_excluded"`
 }
 
 // NewAccount instantiates a new Account object
@@ -73,7 +73,7 @@ func (o *Account) GetAccountId() string {
 // GetAccountIdOk returns a tuple with the AccountId field value
 // and a boolean to check if the value has been set.
 func (o *Account) GetAccountIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.AccountId, true
@@ -97,7 +97,7 @@ func (o *Account) GetGroupId() string {
 // GetGroupIdOk returns a tuple with the GroupId field value
 // and a boolean to check if the value has been set.
 func (o *Account) GetGroupIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.GroupId, true
@@ -153,7 +153,7 @@ func (o *Account) GetAccountName() string {
 // GetAccountNameOk returns a tuple with the AccountName field value
 // and a boolean to check if the value has been set.
 func (o *Account) GetAccountNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.AccountName, true
@@ -465,7 +465,7 @@ func (o *Account) GetIsParent() bool {
 // GetIsParentOk returns a tuple with the IsParent field value
 // and a boolean to check if the value has been set.
 func (o *Account) GetIsParentOk() (*bool, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.IsParent, true
@@ -489,7 +489,7 @@ func (o *Account) GetIsClosed() bool {
 // GetIsClosedOk returns a tuple with the IsClosed field value
 // and a boolean to check if the value has been set.
 func (o *Account) GetIsClosedOk() (*bool, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.IsClosed, true
@@ -513,7 +513,7 @@ func (o *Account) GetIsExcluded() bool {
 // GetIsExcludedOk returns a tuple with the IsExcluded field value
 // and a boolean to check if the value has been set.
 func (o *Account) GetIsExcludedOk() (*bool, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.IsExcluded, true
@@ -612,5 +612,3 @@ func (v *NullableAccount) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

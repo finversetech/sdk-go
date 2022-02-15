@@ -61,7 +61,7 @@ func (o *CreateCustomerRequest) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *CreateCustomerRequest) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -85,7 +85,7 @@ func (o *CreateCustomerRequest) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value
 // and a boolean to check if the value has been set.
 func (o *CreateCustomerRequest) GetEmailOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Email, true
@@ -109,7 +109,7 @@ func (o *CreateCustomerRequest) GetCustomerAppId() string {
 // GetCustomerAppIdOk returns a tuple with the CustomerAppId field value
 // and a boolean to check if the value has been set.
 func (o *CreateCustomerRequest) GetCustomerAppIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.CustomerAppId, true
@@ -133,7 +133,7 @@ func (o *CreateCustomerRequest) GetRedirectUris() []string {
 // GetRedirectUrisOk returns a tuple with the RedirectUris field value
 // and a boolean to check if the value has been set.
 func (o *CreateCustomerRequest) GetRedirectUrisOk() ([]string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.RedirectUris, true
@@ -196,5 +196,3 @@ func (v *NullableCreateCustomerRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -17,13 +17,13 @@ import (
 
 // PaymentDetails struct for PaymentDetails
 type PaymentDetails struct {
-	Format *string `json:"format,omitempty"`
-	Bic *string `json:"bic,omitempty"`
-	BankFullname *string `json:"bank_fullname,omitempty"`
-	BankShortname *string `json:"bank_shortname,omitempty"`
-	BankAddress *string `json:"bank_address,omitempty"`
-	BankCountry *string `json:"bank_country,omitempty"`
-	OtherInfo *OtherInfo `json:"other_info,omitempty"`
+	Format        *string    `json:"format,omitempty"`
+	Bic           *string    `json:"bic,omitempty"`
+	BankFullname  *string    `json:"bank_fullname,omitempty"`
+	BankShortname *string    `json:"bank_shortname,omitempty"`
+	BankAddress   *string    `json:"bank_address,omitempty"`
+	BankCountry   *string    `json:"bank_country,omitempty"`
+	OtherInfo     *OtherInfo `json:"other_info,omitempty"`
 }
 
 // NewPaymentDetails instantiates a new PaymentDetails object
@@ -328,5 +328,3 @@ func (v *NullablePaymentDetails) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

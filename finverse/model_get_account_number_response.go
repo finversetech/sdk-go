@@ -17,11 +17,11 @@ import (
 
 // GetAccountNumberResponse struct for GetAccountNumberResponse
 type GetAccountNumberResponse struct {
-	AccountNumber *AccountNumber `json:"account_number,omitempty"`
-	Account *Account `json:"account,omitempty"`
-	LoginIdentity *LoginIdentityShort `json:"login_identity,omitempty"`
-	Institution *InstitutionShort `json:"institution,omitempty"`
-	PaymentDetails []PaymentDetails `json:"payment_details,omitempty"`
+	AccountNumber  *AccountNumber      `json:"account_number,omitempty"`
+	Account        *Account            `json:"account,omitempty"`
+	LoginIdentity  *LoginIdentityShort `json:"login_identity,omitempty"`
+	Institution    *InstitutionShort   `json:"institution,omitempty"`
+	PaymentDetails []PaymentDetails    `json:"payment_details,omitempty"`
 }
 
 // NewGetAccountNumberResponse instantiates a new GetAccountNumberResponse object
@@ -256,5 +256,3 @@ func (v *NullableGetAccountNumberResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

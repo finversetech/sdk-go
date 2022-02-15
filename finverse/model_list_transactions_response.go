@@ -17,11 +17,11 @@ import (
 
 // ListTransactionsResponse struct for ListTransactionsResponse
 type ListTransactionsResponse struct {
-	Accounts []Account `json:"accounts,omitempty"`
-	Transactions []Transaction `json:"transactions,omitempty"`
-	LoginIdentity *LoginIdentityShort `json:"login_identity,omitempty"`
-	Institution *InstitutionShort `json:"institution,omitempty"`
-	TotalTransactions int32 `json:"total_transactions"`
+	Accounts          []Account           `json:"accounts,omitempty"`
+	Transactions      []Transaction       `json:"transactions,omitempty"`
+	LoginIdentity     *LoginIdentityShort `json:"login_identity,omitempty"`
+	Institution       *InstitutionShort   `json:"institution,omitempty"`
+	TotalTransactions int32               `json:"total_transactions"`
 }
 
 // NewListTransactionsResponse instantiates a new ListTransactionsResponse object
@@ -183,7 +183,7 @@ func (o *ListTransactionsResponse) GetTotalTransactions() int32 {
 // GetTotalTransactionsOk returns a tuple with the TotalTransactions field value
 // and a boolean to check if the value has been set.
 func (o *ListTransactionsResponse) GetTotalTransactionsOk() (*int32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.TotalTransactions, true
@@ -249,5 +249,3 @@ func (v *NullableListTransactionsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

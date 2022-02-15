@@ -17,12 +17,12 @@ import (
 
 // IdentityEmail struct for IdentityEmail
 type IdentityEmail struct {
-	Raw *string `json:"raw,omitempty"`
-	Email *string `json:"email,omitempty"`
-	MaskedEmail *string `json:"masked_email,omitempty"`
-	Source *string `json:"source,omitempty"`
-	SourceId *string `json:"source_id,omitempty"`
-	AccountIds []string `json:"account_ids,omitempty"`
+	Raw         *string  `json:"raw,omitempty"`
+	Email       *string  `json:"email,omitempty"`
+	MaskedEmail *string  `json:"masked_email,omitempty"`
+	Source      *string  `json:"source,omitempty"`
+	SourceId    *string  `json:"source_id,omitempty"`
+	AccountIds  []string `json:"account_ids,omitempty"`
 }
 
 // NewIdentityEmail instantiates a new IdentityEmail object
@@ -292,5 +292,3 @@ func (v *NullableIdentityEmail) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

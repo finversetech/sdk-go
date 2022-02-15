@@ -27,12 +27,12 @@ var (
 type LinkApi interface {
 
 	/*
-	CreateLink Method for CreateLink
+		CreateLink Method for CreateLink
 
-	Creates a new link
+		Creates a new link
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return LinkApiApiCreateLinkRequest
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return LinkApiApiCreateLinkRequest
 	*/
 	CreateLink(ctx context.Context) LinkApiApiCreateLinkRequest
 
@@ -41,12 +41,12 @@ type LinkApi interface {
 	CreateLinkExecute(r LinkApiApiCreateLinkRequest) (*LinkResponse, *http.Response, error)
 
 	/*
-	GetCustomization Method for GetCustomization
+		GetCustomization Method for GetCustomization
 
-	Get the customization details
+		Get the customization details
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return LinkApiApiGetCustomizationRequest
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return LinkApiApiGetCustomizationRequest
 	*/
 	GetCustomization(ctx context.Context) LinkApiApiGetCustomizationRequest
 
@@ -55,12 +55,12 @@ type LinkApi interface {
 	GetCustomizationExecute(r LinkApiApiGetCustomizationRequest) (*CustomizationDetails, *http.Response, error)
 
 	/*
-	ListInstitutions Method for ListInstitutions
+		ListInstitutions Method for ListInstitutions
 
-	Get a list of institutions
+		Get a list of institutions
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return LinkApiApiListInstitutionsRequest
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return LinkApiApiListInstitutionsRequest
 	*/
 	ListInstitutions(ctx context.Context) LinkApiApiListInstitutionsRequest
 
@@ -69,12 +69,12 @@ type LinkApi interface {
 	ListInstitutionsExecute(r LinkApiApiListInstitutionsRequest) ([]Institution, *http.Response, error)
 
 	/*
-	Relink Method for Relink
+		Relink Method for Relink
 
-	Update an existing link
+		Update an existing link
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return LinkApiApiRelinkRequest
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return LinkApiApiRelinkRequest
 	*/
 	Relink(ctx context.Context) LinkApiApiRelinkRequest
 
@@ -83,12 +83,12 @@ type LinkApi interface {
 	RelinkExecute(r LinkApiApiRelinkRequest) (*LinkResponse, *http.Response, error)
 
 	/*
-	Token Method for Token
+		Token Method for Token
 
-	Exchange authorization code for token
+		Exchange authorization code for token
 
-	 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-	 @return LinkApiApiTokenRequest
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return LinkApiApiTokenRequest
 	*/
 	Token(ctx context.Context) LinkApiApiTokenRequest
 
@@ -101,8 +101,8 @@ type LinkApi interface {
 type LinkApiService service
 
 type LinkApiApiCreateLinkRequest struct {
-	ctx context.Context
-	ApiService LinkApi
+	ctx         context.Context
+	ApiService  LinkApi
 	linkRequest *LinkRequest
 }
 
@@ -127,7 +127,7 @@ Creates a new link
 func (a *LinkApiService) CreateLink(ctx context.Context) LinkApiApiCreateLinkRequest {
 	return LinkApiApiCreateLinkRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -135,10 +135,10 @@ func (a *LinkApiService) CreateLink(ctx context.Context) LinkApiApiCreateLinkReq
 //  @return LinkResponse
 func (a *LinkApiService) CreateLinkExecute(r LinkApiApiCreateLinkRequest) (*LinkResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *LinkResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *LinkResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkApiService.CreateLink")
@@ -241,10 +241,9 @@ func (a *LinkApiService) CreateLinkExecute(r LinkApiApiCreateLinkRequest) (*Link
 }
 
 type LinkApiApiGetCustomizationRequest struct {
-	ctx context.Context
+	ctx        context.Context
 	ApiService LinkApi
 }
-
 
 func (r LinkApiApiGetCustomizationRequest) Execute() (*CustomizationDetails, *http.Response, error) {
 	return r.ApiService.GetCustomizationExecute(r)
@@ -261,7 +260,7 @@ Get the customization details
 func (a *LinkApiService) GetCustomization(ctx context.Context) LinkApiApiGetCustomizationRequest {
 	return LinkApiApiGetCustomizationRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -269,10 +268,10 @@ func (a *LinkApiService) GetCustomization(ctx context.Context) LinkApiApiGetCust
 //  @return CustomizationDetails
 func (a *LinkApiService) GetCustomizationExecute(r LinkApiApiGetCustomizationRequest) (*CustomizationDetails, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *CustomizationDetails
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CustomizationDetails
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkApiService.GetCustomization")
@@ -360,12 +359,12 @@ func (a *LinkApiService) GetCustomizationExecute(r LinkApiApiGetCustomizationReq
 }
 
 type LinkApiApiListInstitutionsRequest struct {
-	ctx context.Context
-	ApiService LinkApi
-	country *string
-	countries *[]string
+	ctx               context.Context
+	ApiService        LinkApi
+	country           *string
+	countries         *[]string
 	productsSupported *string
-	institutionType *string
+	institutionType   *string
 }
 
 // The country the institution belongs to
@@ -373,16 +372,19 @@ func (r LinkApiApiListInstitutionsRequest) Country(country string) LinkApiApiLis
 	r.country = &country
 	return r
 }
+
 // The countries the institution belongs to
 func (r LinkApiApiListInstitutionsRequest) Countries(countries []string) LinkApiApiListInstitutionsRequest {
 	r.countries = &countries
 	return r
 }
+
 // The products that this institution supports
 func (r LinkApiApiListInstitutionsRequest) ProductsSupported(productsSupported string) LinkApiApiListInstitutionsRequest {
 	r.productsSupported = &productsSupported
 	return r
 }
+
 // The type of institution
 func (r LinkApiApiListInstitutionsRequest) InstitutionType(institutionType string) LinkApiApiListInstitutionsRequest {
 	r.institutionType = &institutionType
@@ -404,7 +406,7 @@ Get a list of institutions
 func (a *LinkApiService) ListInstitutions(ctx context.Context) LinkApiApiListInstitutionsRequest {
 	return LinkApiApiListInstitutionsRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -412,10 +414,10 @@ func (a *LinkApiService) ListInstitutions(ctx context.Context) LinkApiApiListIns
 //  @return []Institution
 func (a *LinkApiService) ListInstitutionsExecute(r LinkApiApiListInstitutionsRequest) ([]Institution, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodGet
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  []Institution
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue []Institution
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkApiService.ListInstitutions")
@@ -515,8 +517,8 @@ func (a *LinkApiService) ListInstitutionsExecute(r LinkApiApiListInstitutionsReq
 }
 
 type LinkApiApiRelinkRequest struct {
-	ctx context.Context
-	ApiService LinkApi
+	ctx           context.Context
+	ApiService    LinkApi
 	relinkRequest *RelinkRequest
 }
 
@@ -541,7 +543,7 @@ Update an existing link
 func (a *LinkApiService) Relink(ctx context.Context) LinkApiApiRelinkRequest {
 	return LinkApiApiRelinkRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -549,10 +551,10 @@ func (a *LinkApiService) Relink(ctx context.Context) LinkApiApiRelinkRequest {
 //  @return LinkResponse
 func (a *LinkApiService) RelinkExecute(r LinkApiApiRelinkRequest) (*LinkResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *LinkResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *LinkResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkApiService.Relink")
@@ -655,11 +657,11 @@ func (a *LinkApiService) RelinkExecute(r LinkApiApiRelinkRequest) (*LinkResponse
 }
 
 type LinkApiApiTokenRequest struct {
-	ctx context.Context
-	ApiService LinkApi
-	grantType *string
-	code *string
-	clientId *string
+	ctx         context.Context
+	ApiService  LinkApi
+	grantType   *string
+	code        *string
+	clientId    *string
 	redirectUri *string
 }
 
@@ -695,7 +697,7 @@ Exchange authorization code for token
 func (a *LinkApiService) Token(ctx context.Context) LinkApiApiTokenRequest {
 	return LinkApiApiTokenRequest{
 		ApiService: a,
-		ctx: ctx,
+		ctx:        ctx,
 	}
 }
 
@@ -703,10 +705,10 @@ func (a *LinkApiService) Token(ctx context.Context) LinkApiApiTokenRequest {
 //  @return AccessTokenResponse
 func (a *LinkApiService) TokenExecute(r LinkApiApiTokenRequest) (*AccessTokenResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod   = http.MethodPost
-		localVarPostBody     interface{}
-		formFiles            []formFile
-		localVarReturnValue  *AccessTokenResponse
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *AccessTokenResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkApiService.Token")

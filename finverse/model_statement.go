@@ -20,8 +20,8 @@ import (
 type Statement struct {
 	Id *string `json:"id,omitempty"`
 	// YYYY-MM-DD
-	Date *string `json:"date,omitempty"`
-	Name *string `json:"name,omitempty"`
+	Date      *string    `json:"date,omitempty"`
+	Name      *string    `json:"name,omitempty"`
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 }
 
@@ -222,5 +222,3 @@ func (v *NullableStatement) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

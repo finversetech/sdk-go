@@ -17,9 +17,9 @@ import (
 
 // AccountNumber struct for AccountNumber
 type AccountNumber struct {
-	AccountId string `json:"account_id"`
-	Number *string `json:"number,omitempty"`
-	Raw string `json:"raw"`
+	AccountId string  `json:"account_id"`
+	Number    *string `json:"number,omitempty"`
+	Raw       string  `json:"raw"`
 }
 
 // NewAccountNumber instantiates a new AccountNumber object
@@ -54,7 +54,7 @@ func (o *AccountNumber) GetAccountId() string {
 // GetAccountIdOk returns a tuple with the AccountId field value
 // and a boolean to check if the value has been set.
 func (o *AccountNumber) GetAccountIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.AccountId, true
@@ -110,7 +110,7 @@ func (o *AccountNumber) GetRaw() string {
 // GetRawOk returns a tuple with the Raw field value
 // and a boolean to check if the value has been set.
 func (o *AccountNumber) GetRawOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Raw, true
@@ -170,5 +170,3 @@ func (v *NullableAccountNumber) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

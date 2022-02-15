@@ -17,10 +17,10 @@ import (
 
 // InstitutionShort struct for InstitutionShort
 type InstitutionShort struct {
-	InstitutionId *string `json:"institution_id,omitempty"`
-	Countries []string `json:"countries,omitempty"`
-	InstitutionName *string `json:"institution_name,omitempty"`
-	PortalName *string `json:"portal_name,omitempty"`
+	InstitutionId   *string  `json:"institution_id,omitempty"`
+	Countries       []string `json:"countries,omitempty"`
+	InstitutionName *string  `json:"institution_name,omitempty"`
+	PortalName      *string  `json:"portal_name,omitempty"`
 }
 
 // NewInstitutionShort instantiates a new InstitutionShort object
@@ -220,5 +220,3 @@ func (v *NullableInstitutionShort) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

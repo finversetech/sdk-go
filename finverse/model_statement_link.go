@@ -21,8 +21,8 @@ type StatementLink struct {
 	// signedURL to download statement
 	Url *string `json:"url,omitempty"`
 	// expiry of the signedURL
-	Expiry *time.Time `json:"expiry,omitempty"`
-	StatementId *string `json:"statement_id,omitempty"`
+	Expiry      *time.Time `json:"expiry,omitempty"`
+	StatementId *string    `json:"statement_id,omitempty"`
 }
 
 // NewStatementLink instantiates a new StatementLink object
@@ -187,5 +187,3 @@ func (v *NullableStatementLink) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

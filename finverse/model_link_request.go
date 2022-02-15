@@ -17,8 +17,8 @@ import (
 
 // LinkRequest struct for LinkRequest
 type LinkRequest struct {
-	InstitutionId string `json:"institution_id"`
-	StoreCredential bool `json:"store_credential"`
+	InstitutionId   string `json:"institution_id"`
+	StoreCredential bool   `json:"store_credential"`
 }
 
 // NewLinkRequest instantiates a new LinkRequest object
@@ -53,7 +53,7 @@ func (o *LinkRequest) GetInstitutionId() string {
 // GetInstitutionIdOk returns a tuple with the InstitutionId field value
 // and a boolean to check if the value has been set.
 func (o *LinkRequest) GetInstitutionIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.InstitutionId, true
@@ -77,7 +77,7 @@ func (o *LinkRequest) GetStoreCredential() bool {
 // GetStoreCredentialOk returns a tuple with the StoreCredential field value
 // and a boolean to check if the value has been set.
 func (o *LinkRequest) GetStoreCredentialOk() (*bool, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.StoreCredential, true
@@ -134,5 +134,3 @@ func (v *NullableLinkRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

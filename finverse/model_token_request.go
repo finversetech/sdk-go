@@ -17,7 +17,7 @@ import (
 
 // TokenRequest struct for TokenRequest
 type TokenRequest struct {
-	ClientId string `json:"client_id"`
+	ClientId     string `json:"client_id"`
 	ClientSecret string `json:"client_secret"`
 	// support only client_credentials
 	GrantType string `json:"grant_type"`
@@ -56,7 +56,7 @@ func (o *TokenRequest) GetClientId() string {
 // GetClientIdOk returns a tuple with the ClientId field value
 // and a boolean to check if the value has been set.
 func (o *TokenRequest) GetClientIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ClientId, true
@@ -80,7 +80,7 @@ func (o *TokenRequest) GetClientSecret() string {
 // GetClientSecretOk returns a tuple with the ClientSecret field value
 // and a boolean to check if the value has been set.
 func (o *TokenRequest) GetClientSecretOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ClientSecret, true
@@ -104,7 +104,7 @@ func (o *TokenRequest) GetGrantType() string {
 // GetGrantTypeOk returns a tuple with the GrantType field value
 // and a boolean to check if the value has been set.
 func (o *TokenRequest) GetGrantTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.GrantType, true
@@ -164,5 +164,3 @@ func (v *NullableTokenRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

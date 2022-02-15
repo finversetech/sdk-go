@@ -17,13 +17,13 @@ import (
 
 // AllProductStatus struct for AllProductStatus
 type AllProductStatus struct {
-	Accounts *ProductStatus `json:"accounts,omitempty"`
-	OnlineTransactions *ProductStatus `json:"online_transactions,omitempty"`
-	Statements *ProductStatus `json:"statements,omitempty"`
+	Accounts               *ProductStatus `json:"accounts,omitempty"`
+	OnlineTransactions     *ProductStatus `json:"online_transactions,omitempty"`
+	Statements             *ProductStatus `json:"statements,omitempty"`
 	HistoricalTransactions *ProductStatus `json:"historical_transactions,omitempty"`
-	AccountNumbers *ProductStatus `json:"account_numbers,omitempty"`
-	Identity *ProductStatus `json:"identity,omitempty"`
-	BalanceHistory *ProductStatus `json:"balance_history,omitempty"`
+	AccountNumbers         *ProductStatus `json:"account_numbers,omitempty"`
+	Identity               *ProductStatus `json:"identity,omitempty"`
+	BalanceHistory         *ProductStatus `json:"balance_history,omitempty"`
 }
 
 // NewAllProductStatus instantiates a new AllProductStatus object
@@ -328,5 +328,3 @@ func (v *NullableAllProductStatus) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

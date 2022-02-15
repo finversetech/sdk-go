@@ -17,8 +17,8 @@ import (
 
 // LoginMethod struct for LoginMethod
 type LoginMethod struct {
-	Id *string `json:"id,omitempty"`
-	Name *string `json:"name,omitempty"`
+	Id          *string      `json:"id,omitempty"`
+	Name        *string      `json:"name,omitempty"`
 	LoginFields []LoginField `json:"login_fields,omitempty"`
 }
 
@@ -184,5 +184,3 @@ func (v *NullableLoginMethod) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

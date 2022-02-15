@@ -17,13 +17,13 @@ import (
 
 // ErrorResponse struct for ErrorResponse
 type ErrorResponse struct {
-	Err *string `json:"err,omitempty"`
+	Err            *string  `json:"err,omitempty"`
 	HttpStatusCode *float32 `json:"http_status_code,omitempty"`
-	StatusText *string `json:"status_text,omitempty"`
-	AppCode *float32 `json:"app_code,omitempty"`
-	ErrorCategory *string `json:"error_category,omitempty"`
-	ErrorText *string `json:"error_text,omitempty"`
-	RequestId *string `json:"request_id,omitempty"`
+	StatusText     *string  `json:"status_text,omitempty"`
+	AppCode        *float32 `json:"app_code,omitempty"`
+	ErrorCategory  *string  `json:"error_category,omitempty"`
+	ErrorText      *string  `json:"error_text,omitempty"`
+	RequestId      *string  `json:"request_id,omitempty"`
 }
 
 // NewErrorResponse instantiates a new ErrorResponse object
@@ -328,5 +328,3 @@ func (v *NullableErrorResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -17,10 +17,10 @@ import (
 
 // GetBalanceHistoryResponse struct for GetBalanceHistoryResponse
 type GetBalanceHistoryResponse struct {
-	Account *Account `json:"account,omitempty"`
-	LoginIdentity *LoginIdentityShort `json:"login_identity,omitempty"`
-	Institution *InstitutionShort `json:"institution,omitempty"`
-	BalanceHistory []BalanceHistory `json:"balance_history,omitempty"`
+	Account        *Account            `json:"account,omitempty"`
+	LoginIdentity  *LoginIdentityShort `json:"login_identity,omitempty"`
+	Institution    *InstitutionShort   `json:"institution,omitempty"`
+	BalanceHistory []BalanceHistory    `json:"balance_history,omitempty"`
 }
 
 // NewGetBalanceHistoryResponse instantiates a new GetBalanceHistoryResponse object
@@ -220,5 +220,3 @@ func (v *NullableGetBalanceHistoryResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

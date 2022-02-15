@@ -18,22 +18,22 @@ import (
 
 // Institution struct for Institution
 type Institution struct {
-	InstitutionId string `json:"institution_id"`
-	Countries []string `json:"countries"`
-	Tags []string `json:"tags,omitempty"`
-	InstitutionType string `json:"institution_type"`
-	ProductsSupported []string `json:"products_supported"`
-	ParentInstitutionName *string `json:"parent_institution_name,omitempty"`
-	InstitutionName string `json:"institution_name"`
-	PortalName *string `json:"portal_name,omitempty"`
-	UserType string `json:"user_type"`
-	Status string `json:"status"`
-	StatusDetails map[string]interface{} `json:"status_details,omitempty"`
-	LoginUrl *string `json:"login_url,omitempty"`
-	LoginDetails map[string]interface{} `json:"login_details,omitempty"`
-	LoginMethods []LoginMethod `json:"login_methods,omitempty"`
-	Color *string `json:"color,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	InstitutionId         string                 `json:"institution_id"`
+	Countries             []string               `json:"countries"`
+	Tags                  []string               `json:"tags,omitempty"`
+	InstitutionType       string                 `json:"institution_type"`
+	ProductsSupported     []string               `json:"products_supported"`
+	ParentInstitutionName *string                `json:"parent_institution_name,omitempty"`
+	InstitutionName       string                 `json:"institution_name"`
+	PortalName            *string                `json:"portal_name,omitempty"`
+	UserType              string                 `json:"user_type"`
+	Status                string                 `json:"status"`
+	StatusDetails         map[string]interface{} `json:"status_details,omitempty"`
+	LoginUrl              *string                `json:"login_url,omitempty"`
+	LoginDetails          map[string]interface{} `json:"login_details,omitempty"`
+	LoginMethods          []LoginMethod          `json:"login_methods,omitempty"`
+	Color                 *string                `json:"color,omitempty"`
+	UpdatedAt             *time.Time             `json:"updated_at,omitempty"`
 }
 
 // NewInstitution instantiates a new Institution object
@@ -73,7 +73,7 @@ func (o *Institution) GetInstitutionId() string {
 // GetInstitutionIdOk returns a tuple with the InstitutionId field value
 // and a boolean to check if the value has been set.
 func (o *Institution) GetInstitutionIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.InstitutionId, true
@@ -97,7 +97,7 @@ func (o *Institution) GetCountries() []string {
 // GetCountriesOk returns a tuple with the Countries field value
 // and a boolean to check if the value has been set.
 func (o *Institution) GetCountriesOk() ([]string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.Countries, true
@@ -153,7 +153,7 @@ func (o *Institution) GetInstitutionType() string {
 // GetInstitutionTypeOk returns a tuple with the InstitutionType field value
 // and a boolean to check if the value has been set.
 func (o *Institution) GetInstitutionTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.InstitutionType, true
@@ -177,7 +177,7 @@ func (o *Institution) GetProductsSupported() []string {
 // GetProductsSupportedOk returns a tuple with the ProductsSupported field value
 // and a boolean to check if the value has been set.
 func (o *Institution) GetProductsSupportedOk() ([]string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.ProductsSupported, true
@@ -233,7 +233,7 @@ func (o *Institution) GetInstitutionName() string {
 // GetInstitutionNameOk returns a tuple with the InstitutionName field value
 // and a boolean to check if the value has been set.
 func (o *Institution) GetInstitutionNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.InstitutionName, true
@@ -289,7 +289,7 @@ func (o *Institution) GetUserType() string {
 // GetUserTypeOk returns a tuple with the UserType field value
 // and a boolean to check if the value has been set.
 func (o *Institution) GetUserTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.UserType, true
@@ -313,7 +313,7 @@ func (o *Institution) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *Institution) GetStatusOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Status, true
@@ -604,5 +604,3 @@ func (v *NullableInstitution) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

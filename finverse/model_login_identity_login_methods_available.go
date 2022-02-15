@@ -18,7 +18,7 @@ import (
 // LoginIdentityLoginMethodsAvailable struct for LoginIdentityLoginMethodsAvailable
 type LoginIdentityLoginMethodsAvailable struct {
 	HavePassword *bool `json:"havePassword,omitempty"`
-	HaveSecret *bool `json:"haveSecret,omitempty"`
+	HaveSecret   *bool `json:"haveSecret,omitempty"`
 }
 
 // NewLoginIdentityLoginMethodsAvailable instantiates a new LoginIdentityLoginMethodsAvailable object
@@ -148,5 +148,3 @@ func (v *NullableLoginIdentityLoginMethodsAvailable) UnmarshalJSON(src []byte) e
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

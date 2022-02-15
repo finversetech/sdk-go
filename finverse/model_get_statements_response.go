@@ -17,9 +17,9 @@ import (
 
 // GetStatementsResponse struct for GetStatementsResponse
 type GetStatementsResponse struct {
-	Statements []Statement `json:"statements,omitempty"`
+	Statements    []Statement         `json:"statements,omitempty"`
 	LoginIdentity *LoginIdentityShort `json:"login_identity,omitempty"`
-	Institution *InstitutionShort `json:"institution,omitempty"`
+	Institution   *InstitutionShort   `json:"institution,omitempty"`
 }
 
 // NewGetStatementsResponse instantiates a new GetStatementsResponse object
@@ -184,5 +184,3 @@ func (v *NullableGetStatementsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

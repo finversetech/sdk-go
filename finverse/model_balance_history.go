@@ -58,7 +58,7 @@ func (o *BalanceHistory) GetDate() string {
 // GetDateOk returns a tuple with the Date field value
 // and a boolean to check if the value has been set.
 func (o *BalanceHistory) GetDateOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Date, true
@@ -82,7 +82,7 @@ func (o *BalanceHistory) GetAmount() float32 {
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
 func (o *BalanceHistory) GetAmountOk() (*float32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Amount, true
@@ -106,7 +106,7 @@ func (o *BalanceHistory) GetCurrency() string {
 // GetCurrencyOk returns a tuple with the Currency field value
 // and a boolean to check if the value has been set.
 func (o *BalanceHistory) GetCurrencyOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Currency, true
@@ -166,5 +166,3 @@ func (v *NullableBalanceHistory) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

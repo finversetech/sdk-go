@@ -17,8 +17,8 @@ import (
 
 // CustomizationDetails struct for CustomizationDetails
 type CustomizationDetails struct {
-	LogoId *string `json:"logo_id,omitempty"`
-	DisplayName *string `json:"display_name,omitempty"`
+	LogoId          *string `json:"logo_id,omitempty"`
+	DisplayName     *string `json:"display_name,omitempty"`
 	CustomerAppName *string `json:"customer_app_name,omitempty"`
 }
 
@@ -184,5 +184,3 @@ func (v *NullableCustomizationDetails) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

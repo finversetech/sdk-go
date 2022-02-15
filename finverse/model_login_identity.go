@@ -18,30 +18,30 @@ import (
 
 // LoginIdentity struct for LoginIdentity
 type LoginIdentity struct {
-	LoginIdentityId *string `json:"login_identity_id,omitempty"`
-	CustomerAppId string `json:"customer_app_id"`
-	UserId string `json:"user_id"`
+	LoginIdentityId       *string                             `json:"login_identity_id,omitempty"`
+	CustomerAppId         string                              `json:"customer_app_id"`
+	UserId                string                              `json:"user_id"`
 	LoginMethodsAvailable *LoginIdentityLoginMethodsAvailable `json:"login_methods_available,omitempty"`
-	PermissionsGrantDate *time.Time `json:"permissions_grant_date,omitempty"`
-	PermissionsExpiryDate *time.Time `json:"permissions_expiry_date,omitempty"`
-	Permissions []string `json:"permissions,omitempty"`
-	BillingDetails *LoginIdentityBillingDetails `json:"billing_details,omitempty"`
-	Status *string `json:"status,omitempty"`
-	StatusDetails *LoginIdentityStatusDetails `json:"status_details,omitempty"`
-	ProductStatus *AllProductStatus `json:"product_status,omitempty"`
-	AuthenticationStatus *ProductStatus `json:"authentication_status,omitempty"`
-	Error *LoginIdentityError `json:"error,omitempty"`
-	LastSuccess *time.Time `json:"last_success,omitempty"`
-	FirstSuccess *time.Time `json:"first_success,omitempty"`
-	Webhook *string `json:"webhook,omitempty"`
-	InstitutionId string `json:"institution_id"`
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	PermissionsGrantDate  *time.Time                          `json:"permissions_grant_date,omitempty"`
+	PermissionsExpiryDate *time.Time                          `json:"permissions_expiry_date,omitempty"`
+	Permissions           []string                            `json:"permissions,omitempty"`
+	BillingDetails        *LoginIdentityBillingDetails        `json:"billing_details,omitempty"`
+	Status                *string                             `json:"status,omitempty"`
+	StatusDetails         *LoginIdentityStatusDetails         `json:"status_details,omitempty"`
+	ProductStatus         *AllProductStatus                   `json:"product_status,omitempty"`
+	AuthenticationStatus  *ProductStatus                      `json:"authentication_status,omitempty"`
+	Error                 *LoginIdentityError                 `json:"error,omitempty"`
+	LastSuccess           *time.Time                          `json:"last_success,omitempty"`
+	FirstSuccess          *time.Time                          `json:"first_success,omitempty"`
+	Webhook               *string                             `json:"webhook,omitempty"`
+	InstitutionId         string                              `json:"institution_id"`
+	CreatedAt             *time.Time                          `json:"created_at,omitempty"`
+	UpdatedAt             *time.Time                          `json:"updated_at,omitempty"`
 	// a login attempt id which is unique per login_identity
 	LinkingAttemptId *string `json:"linking_attempt_id,omitempty"`
 	// a successful login attempt id which is unique per login_identity
 	AuthenticationId *string `json:"authentication_id,omitempty"`
-	LastSessionId *string `json:"last_session_id,omitempty"`
+	LastSessionId    *string `json:"last_session_id,omitempty"`
 }
 
 // NewLoginIdentity instantiates a new LoginIdentity object
@@ -109,7 +109,7 @@ func (o *LoginIdentity) GetCustomerAppId() string {
 // GetCustomerAppIdOk returns a tuple with the CustomerAppId field value
 // and a boolean to check if the value has been set.
 func (o *LoginIdentity) GetCustomerAppIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.CustomerAppId, true
@@ -133,7 +133,7 @@ func (o *LoginIdentity) GetUserId() string {
 // GetUserIdOk returns a tuple with the UserId field value
 // and a boolean to check if the value has been set.
 func (o *LoginIdentity) GetUserIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.UserId, true
@@ -573,7 +573,7 @@ func (o *LoginIdentity) GetInstitutionId() string {
 // GetInstitutionIdOk returns a tuple with the InstitutionId field value
 // and a boolean to check if the value has been set.
 func (o *LoginIdentity) GetInstitutionIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.InstitutionId, true
@@ -850,5 +850,3 @@ func (v *NullableLoginIdentity) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -18,8 +18,8 @@ import (
 // CurrencyAmount struct for CurrencyAmount
 type CurrencyAmount struct {
 	Currency *string `json:"currency,omitempty"`
-	Value float32 `json:"value"`
-	Raw *string `json:"raw,omitempty"`
+	Value    float32 `json:"value"`
+	Raw      *string `json:"raw,omitempty"`
 }
 
 // NewCurrencyAmount instantiates a new CurrencyAmount object
@@ -85,7 +85,7 @@ func (o *CurrencyAmount) GetValue() float32 {
 // GetValueOk returns a tuple with the Value field value
 // and a boolean to check if the value has been set.
 func (o *CurrencyAmount) GetValueOk() (*float32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Value, true
@@ -177,5 +177,3 @@ func (v *NullableCurrencyAmount) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

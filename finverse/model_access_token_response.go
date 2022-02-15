@@ -17,12 +17,12 @@ import (
 
 // AccessTokenResponse struct for AccessTokenResponse
 type AccessTokenResponse struct {
-	AccessToken string `json:"access_token"`
+	AccessToken     string `json:"access_token"`
 	LoginIdentityId string `json:"login_identity_id"`
-	TokenType string `json:"token_type"`
+	TokenType       string `json:"token_type"`
 	// seconds
-	ExpiresIn float32 `json:"expires_in"`
-	RefreshToken string `json:"refresh_token"`
+	ExpiresIn    float32 `json:"expires_in"`
+	RefreshToken string  `json:"refresh_token"`
 }
 
 // NewAccessTokenResponse instantiates a new AccessTokenResponse object
@@ -60,7 +60,7 @@ func (o *AccessTokenResponse) GetAccessToken() string {
 // GetAccessTokenOk returns a tuple with the AccessToken field value
 // and a boolean to check if the value has been set.
 func (o *AccessTokenResponse) GetAccessTokenOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.AccessToken, true
@@ -84,7 +84,7 @@ func (o *AccessTokenResponse) GetLoginIdentityId() string {
 // GetLoginIdentityIdOk returns a tuple with the LoginIdentityId field value
 // and a boolean to check if the value has been set.
 func (o *AccessTokenResponse) GetLoginIdentityIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LoginIdentityId, true
@@ -108,7 +108,7 @@ func (o *AccessTokenResponse) GetTokenType() string {
 // GetTokenTypeOk returns a tuple with the TokenType field value
 // and a boolean to check if the value has been set.
 func (o *AccessTokenResponse) GetTokenTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.TokenType, true
@@ -132,7 +132,7 @@ func (o *AccessTokenResponse) GetExpiresIn() float32 {
 // GetExpiresInOk returns a tuple with the ExpiresIn field value
 // and a boolean to check if the value has been set.
 func (o *AccessTokenResponse) GetExpiresInOk() (*float32, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ExpiresIn, true
@@ -156,7 +156,7 @@ func (o *AccessTokenResponse) GetRefreshToken() string {
 // GetRefreshTokenOk returns a tuple with the RefreshToken field value
 // and a boolean to check if the value has been set.
 func (o *AccessTokenResponse) GetRefreshTokenOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.RefreshToken, true
@@ -222,5 +222,3 @@ func (v *NullableAccessTokenResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

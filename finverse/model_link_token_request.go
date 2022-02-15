@@ -18,21 +18,21 @@ import (
 // LinkTokenRequest struct for LinkTokenRequest
 type LinkTokenRequest struct {
 	// support only client_credentials
-	GrantType string `json:"grant_type"`
+	GrantType    string `json:"grant_type"`
 	ResponseType string `json:"response_type"`
 	ResponseMode string `json:"response_mode"`
 	// required when creating new Link, ignored when updating existing Link
-	UserId *string `json:"user_id,omitempty"`
-	ClientId string `json:"client_id"`
-	RedirectUri string `json:"redirect_uri"`
-	State *string `json:"state,omitempty"`
-	Scope *string `json:"scope,omitempty"`
+	UserId      *string `json:"user_id,omitempty"`
+	ClientId    string  `json:"client_id"`
+	RedirectUri string  `json:"redirect_uri"`
+	State       *string `json:"state,omitempty"`
+	Scope       *string `json:"scope,omitempty"`
 	// Space separated list of the tags of the institutions to view.
 	LinkMode *string `json:"link_mode,omitempty"`
 	// The UI mode link is intended to be used in - \"iframe\" (default) or \"redirect\"
-	UiMode *string `json:"ui_mode,omitempty"`
-	Language *string `json:"language,omitempty"`
-	CodeChallenge *string `json:"code_challenge,omitempty"`
+	UiMode              *string `json:"ui_mode,omitempty"`
+	Language            *string `json:"language,omitempty"`
+	CodeChallenge       *string `json:"code_challenge,omitempty"`
 	CodeChallengeMethod *string `json:"code_challenge_method,omitempty"`
 	// use this to update a specific login identity
 	LoginIdentityId *string `json:"login_identity_id,omitempty"`
@@ -81,7 +81,7 @@ func (o *LinkTokenRequest) GetGrantType() string {
 // GetGrantTypeOk returns a tuple with the GrantType field value
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetGrantTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.GrantType, true
@@ -105,7 +105,7 @@ func (o *LinkTokenRequest) GetResponseType() string {
 // GetResponseTypeOk returns a tuple with the ResponseType field value
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetResponseTypeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ResponseType, true
@@ -129,7 +129,7 @@ func (o *LinkTokenRequest) GetResponseMode() string {
 // GetResponseModeOk returns a tuple with the ResponseMode field value
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetResponseModeOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ResponseMode, true
@@ -185,7 +185,7 @@ func (o *LinkTokenRequest) GetClientId() string {
 // GetClientIdOk returns a tuple with the ClientId field value
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetClientIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ClientId, true
@@ -209,7 +209,7 @@ func (o *LinkTokenRequest) GetRedirectUri() string {
 // GetRedirectUriOk returns a tuple with the RedirectUri field value
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetRedirectUriOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.RedirectUri, true
@@ -698,5 +698,3 @@ func (v *NullableLinkTokenRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -17,13 +17,13 @@ import (
 
 // IdentityName struct for IdentityName
 type IdentityName struct {
-	Raw *string `json:"raw,omitempty"`
-	FullName *string `json:"full_name,omitempty"`
-	FirstName *string `json:"first_name,omitempty"`
-	LastName *string `json:"last_name,omitempty"`
-	OtherName *string `json:"other_name,omitempty"`
-	Source *string `json:"source,omitempty"`
-	SourceId *string `json:"source_id,omitempty"`
+	Raw        *string  `json:"raw,omitempty"`
+	FullName   *string  `json:"full_name,omitempty"`
+	FirstName  *string  `json:"first_name,omitempty"`
+	LastName   *string  `json:"last_name,omitempty"`
+	OtherName  *string  `json:"other_name,omitempty"`
+	Source     *string  `json:"source,omitempty"`
+	SourceId   *string  `json:"source_id,omitempty"`
 	AccountIds []string `json:"account_ids,omitempty"`
 }
 
@@ -364,5 +364,3 @@ func (v *NullableIdentityName) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

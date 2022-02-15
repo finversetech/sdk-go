@@ -17,7 +17,7 @@ import (
 
 // LoginField struct for LoginField
 type LoginField struct {
-	Key *string `json:"key,omitempty"`
+	Key  *string `json:"key,omitempty"`
 	Name *string `json:"name,omitempty"`
 	// could be password, text, number
 	Type *string `json:"type,omitempty"`
@@ -185,5 +185,3 @@ func (v *NullableLoginField) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

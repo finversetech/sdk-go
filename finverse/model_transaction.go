@@ -18,25 +18,25 @@ import (
 
 // Transaction struct for Transaction
 type Transaction struct {
-	TransactionId *string `json:"transaction_id,omitempty"`
-	AccountId *string `json:"account_id,omitempty"`
+	TransactionId    *string `json:"transaction_id,omitempty"`
+	AccountId        *string `json:"account_id,omitempty"`
 	TransactionState *string `json:"transaction_state,omitempty"`
-	TransactionType *string `json:"transaction_type,omitempty"`
-	Category *string `json:"category,omitempty"`
-	CategoryId *string `json:"category_id,omitempty"`
-	MerchantName *string `json:"merchant_name,omitempty"`
-	Description *string `json:"description,omitempty"`
-	Location *string `json:"location,omitempty"`
-	IsPending bool `json:"is_pending"`
-	Status *string `json:"status,omitempty"`
+	TransactionType  *string `json:"transaction_type,omitempty"`
+	Category         *string `json:"category,omitempty"`
+	CategoryId       *string `json:"category_id,omitempty"`
+	MerchantName     *string `json:"merchant_name,omitempty"`
+	Description      *string `json:"description,omitempty"`
+	Location         *string `json:"location,omitempty"`
+	IsPending        bool    `json:"is_pending"`
+	Status           *string `json:"status,omitempty"`
 	// YYYY-MM-DD
 	PostedDate *string `json:"posted_date,omitempty"`
 	// YYYY-MM-DD
-	TransactionDate *string `json:"transaction_date,omitempty"`
-	Amount *CurrencyAmount `json:"amount,omitempty"`
+	TransactionDate *string                `json:"transaction_date,omitempty"`
+	Amount          *CurrencyAmount        `json:"amount,omitempty"`
 	TransferDetails map[string]interface{} `json:"transfer_details,omitempty"`
-	CreatedAt *time.Time `json:"created_at,omitempty"`
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	CreatedAt       *time.Time             `json:"created_at,omitempty"`
+	UpdatedAt       *time.Time             `json:"updated_at,omitempty"`
 }
 
 // NewTransaction instantiates a new Transaction object
@@ -358,7 +358,7 @@ func (o *Transaction) GetIsPending() bool {
 // GetIsPendingOk returns a tuple with the IsPending field value
 // and a boolean to check if the value has been set.
 func (o *Transaction) GetIsPendingOk() (*bool, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.IsPending, true
@@ -684,5 +684,3 @@ func (v *NullableTransaction) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

@@ -17,9 +17,9 @@ import (
 
 // Identity struct for Identity
 type Identity struct {
-	Names []IdentityName `json:"names,omitempty"`
-	Addresses []IdentityAddress `json:"addresses,omitempty"`
-	Emails []IdentityEmail `json:"emails,omitempty"`
+	Names        []IdentityName        `json:"names,omitempty"`
+	Addresses    []IdentityAddress     `json:"addresses,omitempty"`
+	Emails       []IdentityEmail       `json:"emails,omitempty"`
 	PhoneNumbers []IdentityPhoneNumber `json:"phone_numbers,omitempty"`
 	DateOfBirths []IdentityDateOfBirth `json:"date_of_births,omitempty"`
 }
@@ -256,5 +256,3 @@ func (v *NullableIdentity) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

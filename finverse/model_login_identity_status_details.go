@@ -19,7 +19,7 @@ import (
 // LoginIdentityStatusDetails struct for LoginIdentityStatusDetails
 type LoginIdentityStatusDetails struct {
 	EventDate *time.Time `json:"event_date,omitempty"`
-	EventName *string `json:"event_name,omitempty"`
+	EventName *string    `json:"event_name,omitempty"`
 }
 
 // NewLoginIdentityStatusDetails instantiates a new LoginIdentityStatusDetails object
@@ -149,5 +149,3 @@ func (v *NullableLoginIdentityStatusDetails) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

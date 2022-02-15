@@ -17,14 +17,14 @@ import (
 
 // Principal struct for Principal
 type Principal struct {
-	Subject string `json:"subject"`
-	Token *string `json:"token,omitempty"`
-	ClientId string `json:"client_id"`
-	CustomerAppId string `json:"customer_app_id"`
-	LoginIdentityId string `json:"login_identity_id"`
-	CustomizationId *string `json:"customization_id,omitempty"`
-	ExpiresIn *float32 `json:"expires_in,omitempty"`
-	Scopes []string `json:"scopes,omitempty"`
+	Subject          string            `json:"subject"`
+	Token            *string           `json:"token,omitempty"`
+	ClientId         string            `json:"client_id"`
+	CustomerAppId    string            `json:"customer_app_id"`
+	LoginIdentityId  string            `json:"login_identity_id"`
+	CustomizationId  *string           `json:"customization_id,omitempty"`
+	ExpiresIn        *float32          `json:"expires_in,omitempty"`
+	Scopes           []string          `json:"scopes,omitempty"`
 	LinkTokenRequest *LinkTokenRequest `json:"link_token_request,omitempty"`
 }
 
@@ -62,7 +62,7 @@ func (o *Principal) GetSubject() string {
 // GetSubjectOk returns a tuple with the Subject field value
 // and a boolean to check if the value has been set.
 func (o *Principal) GetSubjectOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Subject, true
@@ -118,7 +118,7 @@ func (o *Principal) GetClientId() string {
 // GetClientIdOk returns a tuple with the ClientId field value
 // and a boolean to check if the value has been set.
 func (o *Principal) GetClientIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ClientId, true
@@ -142,7 +142,7 @@ func (o *Principal) GetCustomerAppId() string {
 // GetCustomerAppIdOk returns a tuple with the CustomerAppId field value
 // and a boolean to check if the value has been set.
 func (o *Principal) GetCustomerAppIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.CustomerAppId, true
@@ -166,7 +166,7 @@ func (o *Principal) GetLoginIdentityId() string {
 // GetLoginIdentityIdOk returns a tuple with the LoginIdentityId field value
 // and a boolean to check if the value has been set.
 func (o *Principal) GetLoginIdentityIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.LoginIdentityId, true
@@ -372,5 +372,3 @@ func (v *NullablePrincipal) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

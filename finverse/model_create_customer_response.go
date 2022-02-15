@@ -25,8 +25,8 @@ type CreateCustomerResponse struct {
 	CustomerAppId string `json:"customer_app_id"`
 	// The redirect callback
 	RedirectUris []string `json:"redirect_uris"`
-	ClientId string `json:"client_id"`
-	ClientSecret string `json:"client_secret"`
+	ClientId     string   `json:"client_id"`
+	ClientSecret string   `json:"client_secret"`
 }
 
 // NewCreateCustomerResponse instantiates a new CreateCustomerResponse object
@@ -65,7 +65,7 @@ func (o *CreateCustomerResponse) GetName() string {
 // GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *CreateCustomerResponse) GetNameOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Name, true
@@ -89,7 +89,7 @@ func (o *CreateCustomerResponse) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value
 // and a boolean to check if the value has been set.
 func (o *CreateCustomerResponse) GetEmailOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.Email, true
@@ -113,7 +113,7 @@ func (o *CreateCustomerResponse) GetCustomerAppId() string {
 // GetCustomerAppIdOk returns a tuple with the CustomerAppId field value
 // and a boolean to check if the value has been set.
 func (o *CreateCustomerResponse) GetCustomerAppIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.CustomerAppId, true
@@ -137,7 +137,7 @@ func (o *CreateCustomerResponse) GetRedirectUris() []string {
 // GetRedirectUrisOk returns a tuple with the RedirectUris field value
 // and a boolean to check if the value has been set.
 func (o *CreateCustomerResponse) GetRedirectUrisOk() ([]string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return o.RedirectUris, true
@@ -161,7 +161,7 @@ func (o *CreateCustomerResponse) GetClientId() string {
 // GetClientIdOk returns a tuple with the ClientId field value
 // and a boolean to check if the value has been set.
 func (o *CreateCustomerResponse) GetClientIdOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ClientId, true
@@ -185,7 +185,7 @@ func (o *CreateCustomerResponse) GetClientSecret() string {
 // GetClientSecretOk returns a tuple with the ClientSecret field value
 // and a boolean to check if the value has been set.
 func (o *CreateCustomerResponse) GetClientSecretOk() (*string, bool) {
-	if o == nil  {
+	if o == nil {
 		return nil, false
 	}
 	return &o.ClientSecret, true
@@ -254,5 +254,3 @@ func (v *NullableCreateCustomerResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

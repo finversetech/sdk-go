@@ -17,23 +17,23 @@ import (
 
 // IdentityAddress struct for IdentityAddress
 type IdentityAddress struct {
-	Raw *string `json:"raw,omitempty"`
-	FullAddress *string `json:"full_address,omitempty"`
-	UnitNumber *string `json:"unit_number,omitempty"`
-	FloorNumber *string `json:"floor_number,omitempty"`
-	BuildingName *string `json:"building_name,omitempty"`
-	StreetNumber *string `json:"street_number,omitempty"`
-	StreetName *string `json:"street_name,omitempty"`
-	City *string `json:"city,omitempty"`
-	District *string `json:"district,omitempty"`
-	Ward *string `json:"ward,omitempty"`
-	StreetAddress *string `json:"street_address,omitempty"`
-	Province *string `json:"province,omitempty"`
-	Country *string `json:"country,omitempty"`
-	PostalCode *string `json:"postal_code,omitempty"`
-	Source *string `json:"source,omitempty"`
-	SourceId *string `json:"source_id,omitempty"`
-	AccountIds []string `json:"account_ids,omitempty"`
+	Raw           *string  `json:"raw,omitempty"`
+	FullAddress   *string  `json:"full_address,omitempty"`
+	UnitNumber    *string  `json:"unit_number,omitempty"`
+	FloorNumber   *string  `json:"floor_number,omitempty"`
+	BuildingName  *string  `json:"building_name,omitempty"`
+	StreetNumber  *string  `json:"street_number,omitempty"`
+	StreetName    *string  `json:"street_name,omitempty"`
+	City          *string  `json:"city,omitempty"`
+	District      *string  `json:"district,omitempty"`
+	Ward          *string  `json:"ward,omitempty"`
+	StreetAddress *string  `json:"street_address,omitempty"`
+	Province      *string  `json:"province,omitempty"`
+	Country       *string  `json:"country,omitempty"`
+	PostalCode    *string  `json:"postal_code,omitempty"`
+	Source        *string  `json:"source,omitempty"`
+	SourceId      *string  `json:"source_id,omitempty"`
+	AccountIds    []string `json:"account_ids,omitempty"`
 }
 
 // NewIdentityAddress instantiates a new IdentityAddress object
@@ -688,5 +688,3 @@ func (v *NullableIdentityAddress) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

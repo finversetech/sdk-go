@@ -17,9 +17,9 @@ import (
 
 // BadRequestModelError struct for BadRequestModelError
 type BadRequestModelError struct {
-	Code *float32 `json:"code,omitempty"`
-	Name *string `json:"name,omitempty"`
-	Message *string `json:"message,omitempty"`
+	Code    *float32 `json:"code,omitempty"`
+	Name    *string  `json:"name,omitempty"`
+	Message *string  `json:"message,omitempty"`
 	// A link to visit for further action
 	Link *string `json:"link,omitempty"`
 }
@@ -221,5 +221,3 @@ func (v *NullableBadRequestModelError) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

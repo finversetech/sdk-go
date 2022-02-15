@@ -17,9 +17,9 @@ import (
 
 // GetAccountResponse struct for GetAccountResponse
 type GetAccountResponse struct {
-	Account *Account `json:"account,omitempty"`
+	Account       *Account            `json:"account,omitempty"`
 	LoginIdentity *LoginIdentityShort `json:"login_identity,omitempty"`
-	Institution *InstitutionShort `json:"institution,omitempty"`
+	Institution   *InstitutionShort   `json:"institution,omitempty"`
 }
 
 // NewGetAccountResponse instantiates a new GetAccountResponse object
@@ -184,5 +184,3 @@ func (v *NullableGetAccountResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

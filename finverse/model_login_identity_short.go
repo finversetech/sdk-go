@@ -18,8 +18,8 @@ import (
 // LoginIdentityShort struct for LoginIdentityShort
 type LoginIdentityShort struct {
 	LoginIdentityId *string `json:"login_identity_id,omitempty"`
-	Status *string `json:"status,omitempty"`
-	LastSessionId *string `json:"last_session_id,omitempty"`
+	Status          *string `json:"status,omitempty"`
+	LastSessionId   *string `json:"last_session_id,omitempty"`
 }
 
 // NewLoginIdentityShort instantiates a new LoginIdentityShort object
@@ -184,5 +184,3 @@ func (v *NullableLoginIdentityShort) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-

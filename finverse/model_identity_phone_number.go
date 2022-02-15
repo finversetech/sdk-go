@@ -17,13 +17,13 @@ import (
 
 // IdentityPhoneNumber struct for IdentityPhoneNumber
 type IdentityPhoneNumber struct {
-	Raw *string `json:"raw,omitempty"`
-	MobilePhone *string `json:"mobile_phone,omitempty"`
-	OtherPhone *string `json:"other_phone,omitempty"`
-	MaskedPhone *string `json:"masked_phone,omitempty"`
-	Source *string `json:"source,omitempty"`
-	SourceId *string `json:"source_id,omitempty"`
-	AccountIds []string `json:"account_ids,omitempty"`
+	Raw         *string  `json:"raw,omitempty"`
+	MobilePhone *string  `json:"mobile_phone,omitempty"`
+	OtherPhone  *string  `json:"other_phone,omitempty"`
+	MaskedPhone *string  `json:"masked_phone,omitempty"`
+	Source      *string  `json:"source,omitempty"`
+	SourceId    *string  `json:"source_id,omitempty"`
+	AccountIds  []string `json:"account_ids,omitempty"`
 }
 
 // NewIdentityPhoneNumber instantiates a new IdentityPhoneNumber object
@@ -328,5 +328,3 @@ func (v *NullableIdentityPhoneNumber) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
-
-
