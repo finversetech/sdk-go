@@ -1,0 +1,3250 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: devs@finverse.com
+    name: Maintainers
+  description: Documentation of the early finverse services
+  license:
+    name: unknown license
+  termsOfService: https://example.com
+  title: Finverse Public
+  version: 0.0.1
+servers:
+- url: http://api.sandbox.finverse.net/
+security:
+- Oauth2:
+  - test
+tags:
+- description: Operations does not required an access token
+  name: public
+- description: Operations required a customer access token
+  name: customer
+- description: Operations required a login identity access token
+  name: login_identity
+- description: Operations required a link token
+  name: link
+paths:
+  /auth/customer/token:
+    post:
+      description: generate an access_token
+      operationId: generateCustomerAccessToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/TokenRequest'
+        description: token request
+        required: false
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TokenResponse'
+          description: ok
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      tags:
+      - public
+      x-codegen-request-body-name: tokenRequest
+  /accounts/{accountId}:
+    get:
+      description: Get a specific account's information
+      operationId: getAccount
+      parameters:
+      - description: The account id
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAccountResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - account
+      tags:
+      - login_identity
+  /accounts:
+    get:
+      description: Get a list of accounts for a login identity
+      operationId: listAccounts
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListAccountsResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - account
+      tags:
+      - login_identity
+  /account_numbers/{accountId}:
+    get:
+      description: Get the account number for a specific account
+      operationId: getAccountNumber
+      parameters:
+      - description: The account id
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetAccountNumberResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - account_number
+      tags:
+      - login_identity
+  /balance_history/{accountId}:
+    get:
+      description: Get the balance history for a specific account
+      operationId: getBalanceHistory
+      parameters:
+      - description: The account id
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetBalanceHistoryResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - balance_history
+      tags:
+      - login_identity
+  /transactions/{accountId}:
+    get:
+      description: Get a list of transactions for a particular account. The transactions
+        are returned in sorted order, with the most recent one appearing first.
+      operationId: listTransactionsByAccountId
+      parameters:
+      - description: The account id (ULID, example - 01EP4A1MZDHKETZFRPF0K62S6S)
+        in: path
+        name: accountId
+        required: true
+        schema:
+          type: string
+      - description: default is 0
+        in: query
+        name: offset
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+      - description: default is 500, max is 1000
+        in: query
+        name: limit
+        schema:
+          default: 500
+          maximum: 1000
+          minimum: 1
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTransactionsResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - transaction
+      tags:
+      - login_identity
+  /transactions:
+    get:
+      description: Get a list of transactions for a login identity. The transactions
+        are returned in sorted order, with the most recent one appearing first.
+      operationId: listTransactionsByLoginIdentityId
+      parameters:
+      - description: default is 0
+        in: query
+        name: offset
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+      - description: default is 500, max is 1000
+        in: query
+        name: limit
+        schema:
+          default: 500
+          maximum: 1000
+          minimum: 1
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListTransactionsResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - transaction
+      tags:
+      - login_identity
+  /institutions/{institutionId}:
+    get:
+      description: Get a specific institution by institutionId
+      operationId: getInstitution
+      parameters:
+      - description: The institution id
+        in: path
+        name: institutionId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Institution'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - institution
+      tags:
+      - customer
+  /institutions:
+    get:
+      description: Get a list of institutions
+      operationId: listInstitutions
+      parameters:
+      - description: The country the institution belongs to
+        in: query
+        name: country
+        schema:
+          type: string
+      - description: The countries the institution belongs to
+        explode: false
+        in: query
+        name: countries
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: The products that this institution supports
+        in: query
+        name: products_supported
+        schema:
+          type: string
+      - description: The type of institution
+        in: query
+        name: institution_type
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListInstitutionsResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - institution
+      tags:
+      - customer
+      - link
+  /identity:
+    get:
+      description: Get a list of identity data for a given login identity
+      operationId: getIdentity
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetIdentityResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - identity
+      tags:
+      - login_identity
+  /link:
+    post:
+      description: Creates a new link
+      operationId: createLink
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkRequest'
+        description: Request body for starting a new Link
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkResponse'
+          description: Service Okay
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - link
+      tags:
+      - link
+      x-codegen-request-body-name: linkRequest
+  /link/token:
+    post:
+      description: generate a link token that can be used to create link
+      operationId: generateLinkToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkTokenRequest'
+        description: token request
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkTokenResponse'
+          description: ok
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - link:token
+      tags:
+      - customer
+      - login_identity
+      x-codegen-request-body-name: linkTokenRequest
+  /link/relink:
+    post:
+      description: Update an existing link
+      operationId: relink
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RelinkRequest'
+        description: Request body for updating Link
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkResponse'
+          description: Service Okay
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - loginIdentity:update
+      tags:
+      - link
+      x-codegen-request-body-name: relinkRequest
+  /customer/customizations:
+    get:
+      description: Get the customization details
+      operationId: getCustomization
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CustomizationDetails'
+          description: Customization information
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - link
+      tags:
+      - link
+  /auth/callback:
+    get:
+      description: Callback url to get the oauth authorization token
+      operationId: authCallback
+      parameters:
+      - description: The state of the client when oauth was initialized
+        in: query
+        name: state
+        required: true
+        schema:
+          type: string
+      - description: The authorization code generated by the Oauth provider
+        in: query
+        name: code
+        schema:
+          type: string
+      - description: error
+        in: query
+        name: error
+        schema:
+          type: string
+      - description: error description
+        in: query
+        name: error_description
+        schema:
+          type: string
+      - description: error details
+        in: query
+        name: error_details
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RedirectUriResponse'
+          description: Returns the redirect uri with either sucess or error
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid Request
+        "422":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Unprocessable Entity
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      tags:
+      - public
+  /auth/token:
+    post:
+      description: Exchange authorization code for token
+      operationId: token
+      requestBody:
+        content:
+          application/x-www-form-urlencoded:
+            schema:
+              properties:
+                grant_type:
+                  enum:
+                  - authorization_code
+                  type: string
+                code:
+                  type: string
+                client_id:
+                  type: string
+                redirect_uri:
+                  type: string
+              required:
+              - client_id
+              - code
+              - grant_type
+              - redirect_uri
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+          description: Service Okay
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - loginIdentity:token
+      tags:
+      - link
+  /auth/token/refresh:
+    post:
+      description: Refresh an access token
+      operationId: refreshToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshRequest'
+        description: The refresh token
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AccessTokenResponse'
+          description: New refresh, access token
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - loginIdentity:token
+      tags:
+      - customer
+      x-codegen-request-body-name: refreshRequest
+  /login_identity/{loginIdentityId}:
+    get:
+      description: Get a specific loginIdentity
+      operationId: getLoginIdentityById
+      parameters:
+      - description: The login identity id
+        in: path
+        name: loginIdentityId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLoginIdentityByIdResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - loginIdentity:get
+      tags:
+      - customer
+  /login_identity/{loginIdentityId}/history:
+    get:
+      description: Get a history of events for a specific loginIdentity
+      operationId: getLoginIdentityHistory
+      parameters:
+      - description: The login identity id
+        in: path
+        name: loginIdentityId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLoginIdentityHistoryResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - loginIdentity:get
+      tags:
+      - customer
+  /login_identity:
+    delete:
+      description: Delete a specific loginIdentity
+      operationId: deleteLoginIdentity
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DeleteLoginIdentityResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - loginIdentity:delete
+      tags:
+      - login_identity
+    get:
+      description: Get a specific loginIdentity
+      operationId: getLoginIdentity
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLoginIdentityByIdResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - loginIdentity:self
+      tags:
+      - login_identity
+  /login_identity/refresh:
+    post:
+      description: Create a refresh job for a login identity
+      operationId: refreshLoginIdentity
+      responses:
+        "200":
+          content: {}
+          description: Refresh queued
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Refresh error
+        "401":
+          content: {}
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - loginIdentity:update
+      tags:
+      - login_identity
+  /statements:
+    get:
+      description: Get list of available statements
+      operationId: getStatements
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetStatementsResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - statement:read
+      tags:
+      - login_identity
+  /statements/{statementId}:
+    get:
+      description: Download statement
+      operationId: getStatement
+      parameters:
+      - description: The statement id
+        in: path
+        name: statementId
+        required: true
+        schema:
+          type: string
+      responses:
+        "307":
+          content: {}
+          description: Redirect
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - statement:read
+      tags:
+      - login_identity
+  /statement_links/{statementId}:
+    get:
+      description: Get statement link for download
+      operationId: getStatementLink
+      parameters:
+      - description: The statement id
+        in: path
+        name: statementId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetStatementLinkResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - statement:read
+      tags:
+      - login_identity
+components:
+  schemas:
+    ErrorResponse:
+      properties:
+        err:
+          type: string
+        http_status_code:
+          format: int
+          type: number
+        status_text:
+          type: string
+        app_code:
+          format: int64
+          type: number
+        error_category:
+          type: string
+        error_text:
+          type: string
+        request_id:
+          type: string
+      type: object
+    Principal:
+      properties:
+        subject:
+          example: could be clientId/customerAppId/loginIdentityId depends on the
+            type of token, see also the explict claims for each of these ids
+          type: string
+        token:
+          example: algorithm.claims.hmac
+          type: string
+        client_id:
+          example: someClientId
+          type: string
+        customer_app_id:
+          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          type: string
+        login_identity_id:
+          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          type: string
+        customization_id:
+          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          type: string
+        expires_in:
+          example: 3600.0
+          type: number
+        scopes:
+          example:
+          - link
+          - transaction
+          items:
+            type: string
+          type: array
+        link_token_request:
+          $ref: '#/components/schemas/LinkTokenRequest'
+      required:
+      - client_id
+      - customer_app_id
+      - login_identity_id
+      - subject
+      type: object
+    GetAccountResponse:
+      example:
+        institution:
+          portal_name: Personal Internet Banking
+          countries:
+          - HKG
+          institution_name: Mock Bank
+          institution_id: "123"
+        login_identity:
+          login_identity_id: login_identity_id
+          last_session_id: last_session_id
+          status: LINKING
+        account:
+          country: HKG
+          account_type: SAVINGS
+          account_currency: HKD
+          account_holder_name: John Doe
+          account_sub_type: TIME_DEPOSIT
+          created_at: 2000-01-23T04:56:07.000+00:00
+          account_nickname: Emergency Fund
+          is_parent: false
+          statement_balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          is_excluded: false
+          group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
+          account_name: HKD Savings
+          is_closed: false
+      properties:
+        account:
+          $ref: '#/components/schemas/Account'
+        login_identity:
+          $ref: '#/components/schemas/LoginIdentityShort'
+        institution:
+          $ref: '#/components/schemas/InstitutionShort'
+      type: object
+    GetAccountNumberResponse:
+      example:
+        account_number:
+          number: "1234567890123"
+          account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          raw: 123-4567890-123
+        institution:
+          portal_name: Personal Internet Banking
+          countries:
+          - HKG
+          institution_name: Mock Bank
+          institution_id: "123"
+        payment_details:
+        - other_info:
+            bank_code: bank_code
+          bank_shortname: testbank
+          format: SWIFT
+          bank_address: 99 Stree, Building, City
+          bank_country: Country
+          bank_fullname: Finverse test bank
+          bic: BKCHHKHHXXX
+        - other_info:
+            bank_code: bank_code
+          bank_shortname: testbank
+          format: SWIFT
+          bank_address: 99 Stree, Building, City
+          bank_country: Country
+          bank_fullname: Finverse test bank
+          bic: BKCHHKHHXXX
+        login_identity:
+          login_identity_id: login_identity_id
+          last_session_id: last_session_id
+          status: LINKING
+        account:
+          country: HKG
+          account_type: SAVINGS
+          account_currency: HKD
+          account_holder_name: John Doe
+          account_sub_type: TIME_DEPOSIT
+          created_at: 2000-01-23T04:56:07.000+00:00
+          account_nickname: Emergency Fund
+          is_parent: false
+          statement_balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          is_excluded: false
+          group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
+          account_name: HKD Savings
+          is_closed: false
+      properties:
+        account_number:
+          $ref: '#/components/schemas/AccountNumber'
+        account:
+          $ref: '#/components/schemas/Account'
+        login_identity:
+          $ref: '#/components/schemas/LoginIdentityShort'
+        institution:
+          $ref: '#/components/schemas/InstitutionShort'
+        payment_details:
+          items:
+            $ref: '#/components/schemas/PaymentDetails'
+          type: array
+      type: object
+    GetBalanceHistoryResponse:
+      example:
+        institution:
+          portal_name: Personal Internet Banking
+          countries:
+          - HKG
+          institution_name: Mock Bank
+          institution_id: "123"
+        login_identity:
+          login_identity_id: login_identity_id
+          last_session_id: last_session_id
+          status: LINKING
+        balance_history:
+        - date: 2021-10-27
+          amount: 69.0
+          currency: HKD
+        - date: 2021-10-27
+          amount: 69.0
+          currency: HKD
+        account:
+          country: HKG
+          account_type: SAVINGS
+          account_currency: HKD
+          account_holder_name: John Doe
+          account_sub_type: TIME_DEPOSIT
+          created_at: 2000-01-23T04:56:07.000+00:00
+          account_nickname: Emergency Fund
+          is_parent: false
+          statement_balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          is_excluded: false
+          group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
+          account_name: HKD Savings
+          is_closed: false
+      properties:
+        account:
+          $ref: '#/components/schemas/Account'
+        login_identity:
+          $ref: '#/components/schemas/LoginIdentityShort'
+        institution:
+          $ref: '#/components/schemas/InstitutionShort'
+        balance_history:
+          items:
+            $ref: '#/components/schemas/BalanceHistory'
+          type: array
+      type: object
+    GetIdentityResponse:
+      example:
+        institution:
+          portal_name: Personal Internet Banking
+          countries:
+          - HKG
+          institution_name: Mock Bank
+          institution_id: "123"
+        identity:
+          emails:
+          - account_ids:
+            - account_ids
+            - account_ids
+            raw: example123@example.com
+            source: INTERNET_BANKING
+            source_id: Online Accounts
+            email: example123@example.com
+            masked_email: exam******@example.com
+          - account_ids:
+            - account_ids
+            - account_ids
+            raw: example123@example.com
+            source: INTERNET_BANKING
+            source_id: Online Accounts
+            email: example123@example.com
+            masked_email: exam******@example.com
+          phone_numbers:
+          - account_ids:
+            - account_ids
+            - account_ids
+            mobile_phone: +12345678901
+            raw: +123 4567 8901
+            masked_phone: +12345****01
+            source: INTERNET_BANKING
+            source_id: Online Accounts
+            other_phone: +12345678901
+          - account_ids:
+            - account_ids
+            - account_ids
+            mobile_phone: +12345678901
+            raw: +123 4567 8901
+            masked_phone: +12345****01
+            source: INTERNET_BANKING
+            source_id: Online Accounts
+            other_phone: +12345678901
+          addresses:
+          - building_name: Building A
+            street_address: 221B Baker Street
+            country: United Kingdom
+            account_ids:
+            - account_ids
+            - account_ids
+            city: London
+            raw: 221B Baker Street, Westminster, London
+            floor_number: "2"
+            full_address: 221B Baker Street, Westminster, London
+            ward: Sheung Wan
+            source: INTERNET_BANKING
+            street_name: Baker Street
+            unit_number: 221B
+            province: Westminster
+            district: Marleybone
+            street_number: 221B
+            source_id: Online Accounts
+            postal_code: NW1 6XE
+          - building_name: Building A
+            street_address: 221B Baker Street
+            country: United Kingdom
+            account_ids:
+            - account_ids
+            - account_ids
+            city: London
+            raw: 221B Baker Street, Westminster, London
+            floor_number: "2"
+            full_address: 221B Baker Street, Westminster, London
+            ward: Sheung Wan
+            source: INTERNET_BANKING
+            street_name: Baker Street
+            unit_number: 221B
+            province: Westminster
+            district: Marleybone
+            street_number: 221B
+            source_id: Online Accounts
+            postal_code: NW1 6XE
+          names:
+          - full_name: John Maximus Doe
+            account_ids:
+            - account_ids
+            - account_ids
+            raw: John Maximus Doe
+            last_name: Doe
+            other_name: Maximus
+            source: INTERNET_BANKING
+            source_id: Online Accounts
+            first_name: John
+          - full_name: John Maximus Doe
+            account_ids:
+            - account_ids
+            - account_ids
+            raw: John Maximus Doe
+            last_name: Doe
+            other_name: Maximus
+            source: INTERNET_BANKING
+            source_id: Online Accounts
+            first_name: John
+          date_of_births:
+          - account_ids:
+            - account_ids
+            - account_ids
+            date_of_birth: 1999-01-22
+            raw: 1999-01-22
+            source: INTERNET_BANKING
+            source_id: Online Accounts
+          - account_ids:
+            - account_ids
+            - account_ids
+            date_of_birth: 1999-01-22
+            raw: 1999-01-22
+            source: INTERNET_BANKING
+            source_id: Online Accounts
+        login_identity:
+          login_identity_id: login_identity_id
+          last_session_id: last_session_id
+          status: LINKING
+      properties:
+        identity:
+          $ref: '#/components/schemas/Identity'
+        login_identity:
+          $ref: '#/components/schemas/LoginIdentityShort'
+        institution:
+          $ref: '#/components/schemas/InstitutionShort'
+      type: object
+    Identity:
+      example:
+        emails:
+        - account_ids:
+          - account_ids
+          - account_ids
+          raw: example123@example.com
+          source: INTERNET_BANKING
+          source_id: Online Accounts
+          email: example123@example.com
+          masked_email: exam******@example.com
+        - account_ids:
+          - account_ids
+          - account_ids
+          raw: example123@example.com
+          source: INTERNET_BANKING
+          source_id: Online Accounts
+          email: example123@example.com
+          masked_email: exam******@example.com
+        phone_numbers:
+        - account_ids:
+          - account_ids
+          - account_ids
+          mobile_phone: +12345678901
+          raw: +123 4567 8901
+          masked_phone: +12345****01
+          source: INTERNET_BANKING
+          source_id: Online Accounts
+          other_phone: +12345678901
+        - account_ids:
+          - account_ids
+          - account_ids
+          mobile_phone: +12345678901
+          raw: +123 4567 8901
+          masked_phone: +12345****01
+          source: INTERNET_BANKING
+          source_id: Online Accounts
+          other_phone: +12345678901
+        addresses:
+        - building_name: Building A
+          street_address: 221B Baker Street
+          country: United Kingdom
+          account_ids:
+          - account_ids
+          - account_ids
+          city: London
+          raw: 221B Baker Street, Westminster, London
+          floor_number: "2"
+          full_address: 221B Baker Street, Westminster, London
+          ward: Sheung Wan
+          source: INTERNET_BANKING
+          street_name: Baker Street
+          unit_number: 221B
+          province: Westminster
+          district: Marleybone
+          street_number: 221B
+          source_id: Online Accounts
+          postal_code: NW1 6XE
+        - building_name: Building A
+          street_address: 221B Baker Street
+          country: United Kingdom
+          account_ids:
+          - account_ids
+          - account_ids
+          city: London
+          raw: 221B Baker Street, Westminster, London
+          floor_number: "2"
+          full_address: 221B Baker Street, Westminster, London
+          ward: Sheung Wan
+          source: INTERNET_BANKING
+          street_name: Baker Street
+          unit_number: 221B
+          province: Westminster
+          district: Marleybone
+          street_number: 221B
+          source_id: Online Accounts
+          postal_code: NW1 6XE
+        names:
+        - full_name: John Maximus Doe
+          account_ids:
+          - account_ids
+          - account_ids
+          raw: John Maximus Doe
+          last_name: Doe
+          other_name: Maximus
+          source: INTERNET_BANKING
+          source_id: Online Accounts
+          first_name: John
+        - full_name: John Maximus Doe
+          account_ids:
+          - account_ids
+          - account_ids
+          raw: John Maximus Doe
+          last_name: Doe
+          other_name: Maximus
+          source: INTERNET_BANKING
+          source_id: Online Accounts
+          first_name: John
+        date_of_births:
+        - account_ids:
+          - account_ids
+          - account_ids
+          date_of_birth: 1999-01-22
+          raw: 1999-01-22
+          source: INTERNET_BANKING
+          source_id: Online Accounts
+        - account_ids:
+          - account_ids
+          - account_ids
+          date_of_birth: 1999-01-22
+          raw: 1999-01-22
+          source: INTERNET_BANKING
+          source_id: Online Accounts
+      properties:
+        names:
+          items:
+            $ref: '#/components/schemas/IdentityName'
+          type: array
+        addresses:
+          items:
+            $ref: '#/components/schemas/IdentityAddress'
+          type: array
+        emails:
+          items:
+            $ref: '#/components/schemas/IdentityEmail'
+          type: array
+        phone_numbers:
+          items:
+            $ref: '#/components/schemas/IdentityPhoneNumber'
+          type: array
+        date_of_births:
+          items:
+            $ref: '#/components/schemas/IdentityDateOfBirth'
+          type: array
+      type: object
+    ListAccountsResponse:
+      example:
+        institution:
+          portal_name: Personal Internet Banking
+          countries:
+          - HKG
+          institution_name: Mock Bank
+          institution_id: "123"
+        login_identity:
+          login_identity_id: login_identity_id
+          last_session_id: last_session_id
+          status: LINKING
+        accounts:
+        - country: HKG
+          account_type: SAVINGS
+          account_currency: HKD
+          account_holder_name: John Doe
+          account_sub_type: TIME_DEPOSIT
+          created_at: 2000-01-23T04:56:07.000+00:00
+          account_nickname: Emergency Fund
+          is_parent: false
+          statement_balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          is_excluded: false
+          group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
+          account_name: HKD Savings
+          is_closed: false
+        - country: HKG
+          account_type: SAVINGS
+          account_currency: HKD
+          account_holder_name: John Doe
+          account_sub_type: TIME_DEPOSIT
+          created_at: 2000-01-23T04:56:07.000+00:00
+          account_nickname: Emergency Fund
+          is_parent: false
+          statement_balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          is_excluded: false
+          group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
+          account_name: HKD Savings
+          is_closed: false
+      properties:
+        accounts:
+          items:
+            $ref: '#/components/schemas/Account'
+          type: array
+        login_identity:
+          $ref: '#/components/schemas/LoginIdentityShort'
+        institution:
+          $ref: '#/components/schemas/InstitutionShort'
+      type: object
+    RefreshRequest:
+      example:
+        refresh_token: refresh_token
+      properties:
+        refresh_token:
+          type: string
+      required:
+      - refresh_token
+      type: object
+    Account:
+      example:
+        country: HKG
+        account_type: SAVINGS
+        account_currency: HKD
+        account_holder_name: John Doe
+        account_sub_type: TIME_DEPOSIT
+        created_at: 2000-01-23T04:56:07.000+00:00
+        account_nickname: Emergency Fund
+        is_parent: false
+        statement_balance:
+          raw: "69.00"
+          currency: HKD
+          value: 69.0
+        account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        balance:
+          raw: "69.00"
+          currency: HKD
+          value: 69.0
+        is_excluded: false
+        group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
+        account_name: HKD Savings
+        is_closed: false
+      properties:
+        account_id:
+          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          type: string
+        group_id:
+          description: The SHA3-256 hash of the account number, salted with the loginIdentityId
+          example: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
+          type: string
+        account_holder_name:
+          example: John Doe
+          type: string
+        account_name:
+          example: HKD Savings
+          type: string
+        account_nickname:
+          example: Emergency Fund
+          type: string
+        account_type:
+          example: SAVINGS
+          type: string
+        account_sub_type:
+          example: TIME_DEPOSIT
+          type: string
+        country:
+          example: HKG
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        account_currency:
+          example: HKD
+          type: string
+        balance:
+          $ref: '#/components/schemas/CurrencyAmount'
+        statement_balance:
+          $ref: '#/components/schemas/CurrencyAmount'
+        is_parent:
+          example: false
+          type: boolean
+        is_closed:
+          example: false
+          type: boolean
+        is_excluded:
+          example: false
+          type: boolean
+      required:
+      - account_id
+      - account_name
+      - group_id
+      - is_closed
+      - is_excluded
+      - is_parent
+      type: object
+    BalanceHistory:
+      example:
+        date: 2021-10-27
+        amount: 69.0
+        currency: HKD
+      properties:
+        date:
+          description: The date the balance was recorded
+          example: 2021-10-27
+          type: string
+        amount:
+          description: The end of day balance for this account on this specific date
+          example: 69.0
+          type: number
+        currency:
+          description: The currency the balance
+          example: HKD
+          type: string
+      required:
+      - amount
+      - currency
+      - date
+      type: object
+    AccountNumber:
+      example:
+        number: "1234567890123"
+        account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+        raw: 123-4567890-123
+      properties:
+        account_id:
+          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          type: string
+        number:
+          example: "1234567890123"
+          type: string
+        raw:
+          example: 123-4567890-123
+          type: string
+      required:
+      - account_id
+      - raw
+      type: object
+    CurrencyAmount:
+      example:
+        raw: "69.00"
+        currency: HKD
+        value: 69.0
+      properties:
+        currency:
+          example: HKD
+          type: string
+        value:
+          example: 69.0
+          type: number
+        raw:
+          example: "69.00"
+          type: string
+      required:
+      - value
+      type: object
+    CustomizationDetails:
+      example:
+        customer_app_name: Demo App
+        logo_id: dev-secret-something/a_ulid_goes_here_probably
+        display_name: Generic Finance App Name
+      properties:
+        logo_id:
+          example: dev-secret-something/a_ulid_goes_here_probably
+          type: string
+        display_name:
+          example: Generic Finance App Name
+          type: string
+        customer_app_name:
+          example: Demo App
+          type: string
+      type: object
+    Transaction:
+      example:
+        transaction_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+        transaction_date: 2020-10-08T00:00:00.000+0000
+        amount:
+          raw: "69.00"
+          currency: HKD
+          value: 69.0
+        transfer_details: '{}'
+        merchant_name: FUEL COFFEE
+        description: Latte
+        created_at: 2000-01-23T04:56:07.000+00:00
+        transaction_type: OTHER
+        account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+        category_id: OTHER
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        transaction_state: ACTIVE
+        location: Pacific Place
+        category: OTHER
+        posted_date: 2020-10-10T00:00:00.000+0000
+        is_pending: false
+        status: COMPLETED
+      properties:
+        transaction_id:
+          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          type: string
+        account_id:
+          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          type: string
+        transaction_state:
+          example: ACTIVE
+          type: string
+        transaction_type:
+          example: OTHER
+          type: string
+        category:
+          example: OTHER
+          type: string
+        category_id:
+          example: OTHER
+          type: string
+        merchant_name:
+          example: FUEL COFFEE
+          type: string
+        description:
+          example: Latte
+          type: string
+        location:
+          example: Pacific Place
+          type: string
+        is_pending:
+          example: false
+          type: boolean
+        status:
+          example: COMPLETED
+          type: string
+        posted_date:
+          description: YYYY-MM-DD
+          example: 2020-10-10T00:00:00.000+0000
+          type: string
+        transaction_date:
+          description: YYYY-MM-DD
+          example: 2020-10-08T00:00:00.000+0000
+          type: string
+        amount:
+          $ref: '#/components/schemas/CurrencyAmount'
+        transfer_details:
+          properties: {}
+          type: object
+        created_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      required:
+      - is_pending
+      type: object
+    ListTransactionsResponse:
+      example:
+        institution:
+          portal_name: Personal Internet Banking
+          countries:
+          - HKG
+          institution_name: Mock Bank
+          institution_id: "123"
+        login_identity:
+          login_identity_id: login_identity_id
+          last_session_id: last_session_id
+          status: LINKING
+        total_transactions: 0
+        accounts:
+        - country: HKG
+          account_type: SAVINGS
+          account_currency: HKD
+          account_holder_name: John Doe
+          account_sub_type: TIME_DEPOSIT
+          created_at: 2000-01-23T04:56:07.000+00:00
+          account_nickname: Emergency Fund
+          is_parent: false
+          statement_balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          is_excluded: false
+          group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
+          account_name: HKD Savings
+          is_closed: false
+        - country: HKG
+          account_type: SAVINGS
+          account_currency: HKD
+          account_holder_name: John Doe
+          account_sub_type: TIME_DEPOSIT
+          created_at: 2000-01-23T04:56:07.000+00:00
+          account_nickname: Emergency Fund
+          is_parent: false
+          statement_balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          is_excluded: false
+          group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
+          account_name: HKD Savings
+          is_closed: false
+        transactions:
+        - transaction_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          transaction_date: 2020-10-08T00:00:00.000+0000
+          amount:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          transfer_details: '{}'
+          merchant_name: FUEL COFFEE
+          description: Latte
+          created_at: 2000-01-23T04:56:07.000+00:00
+          transaction_type: OTHER
+          account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          category_id: OTHER
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          transaction_state: ACTIVE
+          location: Pacific Place
+          category: OTHER
+          posted_date: 2020-10-10T00:00:00.000+0000
+          is_pending: false
+          status: COMPLETED
+        - transaction_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          transaction_date: 2020-10-08T00:00:00.000+0000
+          amount:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          transfer_details: '{}'
+          merchant_name: FUEL COFFEE
+          description: Latte
+          created_at: 2000-01-23T04:56:07.000+00:00
+          transaction_type: OTHER
+          account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          category_id: OTHER
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          transaction_state: ACTIVE
+          location: Pacific Place
+          category: OTHER
+          posted_date: 2020-10-10T00:00:00.000+0000
+          is_pending: false
+          status: COMPLETED
+      properties:
+        accounts:
+          items:
+            $ref: '#/components/schemas/Account'
+          type: array
+        transactions:
+          items:
+            $ref: '#/components/schemas/Transaction'
+          type: array
+        login_identity:
+          $ref: '#/components/schemas/LoginIdentityShort'
+        institution:
+          $ref: '#/components/schemas/InstitutionShort'
+        total_transactions:
+          type: integer
+      required:
+      - total_transactions
+      type: object
+    ListInstitutionsResponse:
+      items:
+        $ref: '#/components/schemas/Institution'
+      type: array
+    CreateInstitutionResponse:
+      $ref: '#/components/schemas/Institution'
+    DeleteInstitutionResponse:
+      properties:
+        success:
+          example: true
+          type: boolean
+      type: object
+    IdentityName:
+      example:
+        full_name: John Maximus Doe
+        account_ids:
+        - account_ids
+        - account_ids
+        raw: John Maximus Doe
+        last_name: Doe
+        other_name: Maximus
+        source: INTERNET_BANKING
+        source_id: Online Accounts
+        first_name: John
+      properties:
+        raw:
+          example: John Maximus Doe
+          type: string
+        full_name:
+          example: John Maximus Doe
+          type: string
+        first_name:
+          example: John
+          type: string
+        last_name:
+          example: Doe
+          type: string
+        other_name:
+          example: Maximus
+          type: string
+        source:
+          example: INTERNET_BANKING
+          type: string
+        source_id:
+          example: Online Accounts
+          type: string
+        account_ids:
+          items:
+            type: string
+          type: array
+      type: object
+    IdentityAddress:
+      example:
+        building_name: Building A
+        street_address: 221B Baker Street
+        country: United Kingdom
+        account_ids:
+        - account_ids
+        - account_ids
+        city: London
+        raw: 221B Baker Street, Westminster, London
+        floor_number: "2"
+        full_address: 221B Baker Street, Westminster, London
+        ward: Sheung Wan
+        source: INTERNET_BANKING
+        street_name: Baker Street
+        unit_number: 221B
+        province: Westminster
+        district: Marleybone
+        street_number: 221B
+        source_id: Online Accounts
+        postal_code: NW1 6XE
+      properties:
+        raw:
+          example: 221B Baker Street, Westminster, London
+          type: string
+        full_address:
+          example: 221B Baker Street, Westminster, London
+          type: string
+        unit_number:
+          example: 221B
+          type: string
+        floor_number:
+          example: "2"
+          type: string
+        building_name:
+          example: Building A
+          type: string
+        street_number:
+          example: 221B
+          type: string
+        street_name:
+          example: Baker Street
+          type: string
+        city:
+          example: London
+          type: string
+        district:
+          example: Marleybone
+          type: string
+        ward:
+          example: Sheung Wan
+          type: string
+        street_address:
+          example: 221B Baker Street
+          type: string
+        province:
+          example: Westminster
+          type: string
+        country:
+          example: United Kingdom
+          type: string
+        postal_code:
+          example: NW1 6XE
+          type: string
+        source:
+          example: INTERNET_BANKING
+          type: string
+        source_id:
+          example: Online Accounts
+          type: string
+        account_ids:
+          items:
+            type: string
+          type: array
+      type: object
+    IdentityEmail:
+      example:
+        account_ids:
+        - account_ids
+        - account_ids
+        raw: example123@example.com
+        source: INTERNET_BANKING
+        source_id: Online Accounts
+        email: example123@example.com
+        masked_email: exam******@example.com
+      properties:
+        raw:
+          example: example123@example.com
+          type: string
+        email:
+          example: example123@example.com
+          type: string
+        masked_email:
+          example: exam******@example.com
+          type: string
+        source:
+          example: INTERNET_BANKING
+          type: string
+        source_id:
+          example: Online Accounts
+          type: string
+        account_ids:
+          items:
+            type: string
+          type: array
+      type: object
+    IdentityPhoneNumber:
+      example:
+        account_ids:
+        - account_ids
+        - account_ids
+        mobile_phone: +12345678901
+        raw: +123 4567 8901
+        masked_phone: +12345****01
+        source: INTERNET_BANKING
+        source_id: Online Accounts
+        other_phone: +12345678901
+      properties:
+        raw:
+          example: +123 4567 8901
+          type: string
+        mobile_phone:
+          example: +12345678901
+          type: string
+        other_phone:
+          example: +12345678901
+          type: string
+        masked_phone:
+          example: +12345****01
+          type: string
+        source:
+          example: INTERNET_BANKING
+          type: string
+        source_id:
+          example: Online Accounts
+          type: string
+        account_ids:
+          items:
+            type: string
+          type: array
+      type: object
+    IdentityDateOfBirth:
+      example:
+        account_ids:
+        - account_ids
+        - account_ids
+        date_of_birth: 1999-01-22
+        raw: 1999-01-22
+        source: INTERNET_BANKING
+        source_id: Online Accounts
+      properties:
+        raw:
+          example: 1999-01-22
+          type: string
+        date_of_birth:
+          example: 1999-01-22
+          type: string
+        source:
+          example: INTERNET_BANKING
+          type: string
+        source_id:
+          example: Online Accounts
+          type: string
+        account_ids:
+          items:
+            type: string
+          type: array
+      type: object
+    InstitutionShort:
+      example:
+        portal_name: Personal Internet Banking
+        countries:
+        - HKG
+        institution_name: Mock Bank
+        institution_id: "123"
+      properties:
+        institution_id:
+          example: "123"
+          type: string
+        countries:
+          example:
+          - HKG
+          items:
+            type: string
+          type: array
+        institution_name:
+          example: Mock Bank
+          type: string
+        portal_name:
+          example: Personal Internet Banking
+          type: string
+      type: object
+    Institution:
+      example:
+        portal_name: Personal Internet Banking
+        login_methods:
+        - name: SMS OTP
+          id: SMS OTP
+          login_fields:
+          - name: Password
+            type: password
+            key: password
+          - name: Password
+            type: password
+            key: password
+        - name: SMS OTP
+          id: SMS OTP
+          login_fields:
+          - name: Password
+            type: password
+            key: password
+          - name: Password
+            type: password
+            key: password
+        institution_type: BANK
+        color: '#FFFFFF'
+        parent_institution_name: Parent Mock Bank
+        countries:
+        - HKG
+        institution_name: Mock Bank
+        login_details: {}
+        institution_id: "123"
+        tags:
+        - real
+        products_supported:
+        - ACCOUNTS
+        - BALANCES
+        - BALANCE_HISTORY
+        - TRANSACTIONS
+        - ACCOUNT_NUMBER
+        - IDENTITY
+        - CREDIT_DETAILS
+        - AUTO_REFRESH
+        login_url: https://example.com/login
+        user_type: INDIVIDUAL
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        status_details: {}
+        status: SUPPORTED
+      properties:
+        institution_id:
+          example: "123"
+          type: string
+        countries:
+          example:
+          - HKG
+          items:
+            type: string
+          type: array
+        tags:
+          example:
+          - real
+          items:
+            type: string
+          type: array
+        institution_type:
+          example: BANK
+          type: string
+        products_supported:
+          example:
+          - ACCOUNTS
+          - BALANCES
+          - BALANCE_HISTORY
+          - TRANSACTIONS
+          - ACCOUNT_NUMBER
+          - IDENTITY
+          - CREDIT_DETAILS
+          - AUTO_REFRESH
+          items:
+            type: string
+          type: array
+        parent_institution_name:
+          example: Parent Mock Bank
+          type: string
+        institution_name:
+          example: Mock Bank
+          type: string
+        portal_name:
+          example: Personal Internet Banking
+          type: string
+        user_type:
+          example: INDIVIDUAL
+          type: string
+        status:
+          example: SUPPORTED
+          type: string
+        status_details:
+          example: {}
+          properties: {}
+          type: object
+        login_url:
+          example: https://example.com/login
+          type: string
+        login_details:
+          example: {}
+          properties: {}
+          type: object
+        login_methods:
+          items:
+            $ref: '#/components/schemas/LoginMethod'
+          type: array
+        color:
+          example: '#FFFFFF'
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+      required:
+      - countries
+      - institution_id
+      - institution_name
+      - institution_type
+      - products_supported
+      - status
+      - user_type
+      type: object
+    LoginMethod:
+      example:
+        name: SMS OTP
+        id: SMS OTP
+        login_fields:
+        - name: Password
+          type: password
+          key: password
+        - name: Password
+          type: password
+          key: password
+      properties:
+        id:
+          example: SMS OTP
+          type: string
+        name:
+          example: SMS OTP
+          type: string
+        login_fields:
+          items:
+            $ref: '#/components/schemas/LoginField'
+          type: array
+      type: object
+    LoginField:
+      example:
+        name: Password
+        type: password
+        key: password
+      properties:
+        key:
+          example: password
+          type: string
+        name:
+          example: Password
+          type: string
+        type:
+          description: could be password, text, number
+          example: password
+          type: string
+      type: object
+    CreateCustomerRequest:
+      properties:
+        name:
+          description: The email of the customer. This has to be unique.
+          example: Acme Corporation
+          type: string
+        email:
+          description: The email of the customer. This has to be unique.
+          type: string
+        customer_app_id:
+          description: Primary key to identity the customer
+          type: string
+        redirect_uris:
+          description: The redirect callback
+          example:
+          - https://example.com/callback
+          items:
+            type: string
+          minItems: 1
+          type: array
+      required:
+      - customer_app_id
+      - email
+      - name
+      - redirect_uris
+      type: object
+    CreateCustomerResponse:
+      properties:
+        name:
+          description: The email of the customer. This has to be unique.
+          example: Acme Corporation
+          type: string
+        email:
+          description: The email of the customer. This has to be unique.
+          type: string
+        customer_app_id:
+          description: Primary key to identity the customer
+          type: string
+        redirect_uris:
+          description: The redirect callback
+          example:
+          - https://example.com/callback
+          items:
+            type: string
+          type: array
+        client_id:
+          example: 6779ef20e75817b79602
+          type: string
+        client_secret:
+          example: GBAyfVL7YWtP6gudLIjbRZV_N0dW4f3xETiIxqtokEAZ6FAsBtgyIq0MpU1uQ7J08xOTO2zwP0OuO3pMVAUTid
+          type: string
+      required:
+      - client_id
+      - client_secret
+      - customer_app_id
+      - email
+      - name
+      - redirect_uris
+      type: object
+    TokenRequest:
+      example:
+        grant_type: grant_type
+        client_secret: client_secret
+        client_id: client_id
+      properties:
+        client_id:
+          maxLength: 26
+          minLength: 26
+          type: string
+        client_secret:
+          maxLength: 80
+          minLength: 64
+          type: string
+        grant_type:
+          description: support only client_credentials
+          type: string
+      required:
+      - client_id
+      - client_secret
+      - grant_type
+      type: object
+    TokenResponse:
+      example:
+        access_token: access_token
+        token_type: token_type
+        expires_in: 0.8008281904610115
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+        expires_in:
+          description: seconds
+          format: int64
+          type: number
+      required:
+      - access_token
+      - expires_in
+      - token_type
+      type: object
+    LinkTokenRequest:
+      example:
+        link_mode: real
+        response_type: code
+        language: en
+        code_challenge_method: code-challenge-method
+        countries:
+        - HKG
+        - SGP
+        client_id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+        response_mode: form_post
+        products_supported:
+        - ACCOUNTS
+        - TRANSACTIONS
+        customization_id: AULIDGOESHERE
+        user_type:
+        - PERSONAL
+        grant_type: grant_type
+        user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
+        scope: coma,separated,scopes
+        redirect_uri: https://example.com/callback
+        state: user-state-passed
+        login_identity_id: uhdasidasodaso
+        ui_mode: redirect
+        code_challenge: code-challenge
+      properties:
+        grant_type:
+          description: support only client_credentials
+          type: string
+        response_type:
+          example: code
+          type: string
+        response_mode:
+          example: form_post
+          type: string
+        user_id:
+          description: required when creating new Link, ignored when updating existing
+            Link
+          example: 01BX5ZZKBKACTAV9WEVGEMMVRY
+          minLength: 4
+          type: string
+        client_id:
+          example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          minLength: 4
+          type: string
+        redirect_uri:
+          example: https://example.com/callback
+          minLength: 4
+          type: string
+        state:
+          example: user-state-passed
+          type: string
+        scope:
+          example: coma,separated,scopes
+          type: string
+        link_mode:
+          description: Space separated list of the tags of the institutions to view.
+          example: real
+          type: string
+        ui_mode:
+          description: The UI mode link is intended to be used in - "iframe" (default)
+            or "redirect"
+          enum:
+          - iframe
+          - redirect
+          example: redirect
+          type: string
+        language:
+          example: en
+          type: string
+        code_challenge:
+          example: code-challenge
+          type: string
+        code_challenge_method:
+          example: code-challenge-method
+          type: string
+        login_identity_id:
+          description: use this to update a specific login identity
+          example: uhdasidasodaso
+          type: string
+        customization_id:
+          description: The customization id if the customer wishes to embed it into
+            link token for spawning link with their choice of stuffs
+          example: AULIDGOESHERE
+          type: string
+        countries:
+          description: institution's country filter
+          example:
+          - HKG
+          - SGP
+          items:
+            type: string
+          type: array
+        user_type:
+          description: institution's supported user_type filter
+          example:
+          - PERSONAL
+          items:
+            type: string
+          type: array
+        products_supported:
+          description: institution's supported product filter
+          example:
+          - ACCOUNTS
+          - TRANSACTIONS
+          items:
+            type: string
+          type: array
+      required:
+      - client_id
+      - grant_type
+      - redirect_uri
+      - response_mode
+      - response_type
+      type: object
+    LinkTokenResponse:
+      example:
+        access_token: access_token
+        link_url: https://link.dev.finverse.net/onboarding?token=dasdsa8erhiu7rey78r
+        token_type: token_type
+        expires_in: 0.8008281904610115
+      properties:
+        access_token:
+          type: string
+        token_type:
+          type: string
+        expires_in:
+          description: seconds
+          format: int64
+          type: number
+        link_url:
+          example: https://link.dev.finverse.net/onboarding?token=dasdsa8erhiu7rey78r
+          type: string
+      required:
+      - access_token
+      - expires_in
+      - link_url
+      - token_type
+      type: object
+    LinkRequest:
+      example:
+        store_credential: true
+        institution_id: ez-bank
+      properties:
+        institution_id:
+          example: ez-bank
+          minLength: 2
+          type: string
+        store_credential:
+          example: true
+          type: boolean
+      required:
+      - institution_id
+      - store_credential
+      type: object
+    RelinkRequest:
+      example:
+        store_credential: true
+      properties:
+        store_credential:
+          example: true
+          type: boolean
+      required:
+      - store_credential
+      type: object
+    GetLoginIdentityByIdResponse:
+      example:
+        institution:
+          portal_name: Personal Internet Banking
+          countries:
+          - HKG
+          institution_name: Mock Bank
+          institution_id: "123"
+        login_identity:
+          login_methods_available:
+            havePassword: true
+            haveSecret: true
+          customer_app_id: customer_app_id
+          permissions_expiry_date: 2000-01-23T04:56:07.000+00:00
+          billing_details:
+            billed_products:
+            - billed_products
+            - billed_products
+          webhook: https://auth.example.com/callback
+          last_success: 2000-01-23T04:56:07.000+00:00
+          permissions_grant_date: 2000-01-23T04:56:07.000+00:00
+          product_status:
+            identity:
+              last_successful_update: 2021-02-01T10:01:02.333Z
+              last_update: 2021-02-01T10:01:02.333Z
+              status_details: AUTHENTICATION_INITIALIZED
+              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            balance_history:
+              last_successful_update: 2021-02-01T10:01:02.333Z
+              last_update: 2021-02-01T10:01:02.333Z
+              status_details: AUTHENTICATION_INITIALIZED
+              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            statements:
+              last_successful_update: 2021-02-01T10:01:02.333Z
+              last_update: 2021-02-01T10:01:02.333Z
+              status_details: AUTHENTICATION_INITIALIZED
+              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            accounts:
+              last_successful_update: 2021-02-01T10:01:02.333Z
+              last_update: 2021-02-01T10:01:02.333Z
+              status_details: AUTHENTICATION_INITIALIZED
+              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            account_numbers:
+              last_successful_update: 2021-02-01T10:01:02.333Z
+              last_update: 2021-02-01T10:01:02.333Z
+              status_details: AUTHENTICATION_INITIALIZED
+              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            historical_transactions:
+              last_successful_update: 2021-02-01T10:01:02.333Z
+              last_update: 2021-02-01T10:01:02.333Z
+              status_details: AUTHENTICATION_INITIALIZED
+              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            online_transactions:
+              last_successful_update: 2021-02-01T10:01:02.333Z
+              last_update: 2021-02-01T10:01:02.333Z
+              status_details: AUTHENTICATION_INITIALIZED
+              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          created_at: 2000-01-23T04:56:07.000+00:00
+          error:
+            code: 0
+            details: Credentials are invalid. Please try again.
+            type: INVALID_CREDENTIALS
+            message: Credentials invalid
+          last_session_id: last_session_id
+          authentication_id: "123"
+          institution_id: "123"
+          linking_attempt_id: "123"
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          user_id: form_post
+          permissions:
+          - permissions
+          - permissions
+          authentication_status:
+            last_successful_update: 2021-02-01T10:01:02.333Z
+            last_update: 2021-02-01T10:01:02.333Z
+            status_details: AUTHENTICATION_INITIALIZED
+            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          first_success: 2000-01-23T04:56:07.000+00:00
+          login_identity_id: login_identity_id
+          status_details:
+            event_date: 2000-01-23T04:56:07.000+00:00
+            event_name: event_name
+          status: LINKING
+      properties:
+        login_identity:
+          $ref: '#/components/schemas/LoginIdentity'
+        institution:
+          $ref: '#/components/schemas/InstitutionShort'
+      type: object
+    GetLoginIdentityHistoryResponse:
+      example:
+        login_identity:
+          login_methods_available:
+            havePassword: true
+            haveSecret: true
+          customer_app_id: customer_app_id
+          permissions_expiry_date: 2000-01-23T04:56:07.000+00:00
+          billing_details:
+            billed_products:
+            - billed_products
+            - billed_products
+          webhook: https://auth.example.com/callback
+          last_success: 2000-01-23T04:56:07.000+00:00
+          permissions_grant_date: 2000-01-23T04:56:07.000+00:00
+          product_status:
+            identity:
+              last_successful_update: 2021-02-01T10:01:02.333Z
+              last_update: 2021-02-01T10:01:02.333Z
+              status_details: AUTHENTICATION_INITIALIZED
+              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            balance_history:
+              last_successful_update: 2021-02-01T10:01:02.333Z
+              last_update: 2021-02-01T10:01:02.333Z
+              status_details: AUTHENTICATION_INITIALIZED
+              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            statements:
+              last_successful_update: 2021-02-01T10:01:02.333Z
+              last_update: 2021-02-01T10:01:02.333Z
+              status_details: AUTHENTICATION_INITIALIZED
+              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            accounts:
+              last_successful_update: 2021-02-01T10:01:02.333Z
+              last_update: 2021-02-01T10:01:02.333Z
+              status_details: AUTHENTICATION_INITIALIZED
+              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            account_numbers:
+              last_successful_update: 2021-02-01T10:01:02.333Z
+              last_update: 2021-02-01T10:01:02.333Z
+              status_details: AUTHENTICATION_INITIALIZED
+              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            historical_transactions:
+              last_successful_update: 2021-02-01T10:01:02.333Z
+              last_update: 2021-02-01T10:01:02.333Z
+              status_details: AUTHENTICATION_INITIALIZED
+              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            online_transactions:
+              last_successful_update: 2021-02-01T10:01:02.333Z
+              last_update: 2021-02-01T10:01:02.333Z
+              status_details: AUTHENTICATION_INITIALIZED
+              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          created_at: 2000-01-23T04:56:07.000+00:00
+          error:
+            code: 0
+            details: Credentials are invalid. Please try again.
+            type: INVALID_CREDENTIALS
+            message: Credentials invalid
+          last_session_id: last_session_id
+          authentication_id: "123"
+          institution_id: "123"
+          linking_attempt_id: "123"
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          user_id: form_post
+          permissions:
+          - permissions
+          - permissions
+          authentication_status:
+            last_successful_update: 2021-02-01T10:01:02.333Z
+            last_update: 2021-02-01T10:01:02.333Z
+            status_details: AUTHENTICATION_INITIALIZED
+            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          first_success: 2000-01-23T04:56:07.000+00:00
+          login_identity_id: login_identity_id
+          status_details:
+            event_date: 2000-01-23T04:56:07.000+00:00
+            event_name: event_name
+          status: LINKING
+        status_history:
+        - event_date: 2000-01-23T04:56:07.000+00:00
+          event_name: event_name
+        - event_date: 2000-01-23T04:56:07.000+00:00
+          event_name: event_name
+      properties:
+        login_identity:
+          $ref: '#/components/schemas/LoginIdentity'
+        status_history:
+          items:
+            $ref: '#/components/schemas/LoginIdentityStatusDetails'
+          type: array
+      type: object
+    LoginIdentityStatusDetails:
+      example:
+        event_date: 2000-01-23T04:56:07.000+00:00
+        event_name: event_name
+      properties:
+        event_date:
+          format: date-time
+          type: string
+        event_name:
+          type: string
+      type: object
+    LoginIdentityLoginMethodsAvailable:
+      example:
+        havePassword: true
+        haveSecret: true
+      properties:
+        havePassword:
+          type: boolean
+        haveSecret:
+          type: boolean
+      type: object
+    LoginIdentityBillingDetails:
+      example:
+        billed_products:
+        - billed_products
+        - billed_products
+      properties:
+        billed_products:
+          items:
+            type: string
+          type: array
+      type: object
+    LoginIdentityShort:
+      example:
+        login_identity_id: login_identity_id
+        last_session_id: last_session_id
+        status: LINKING
+      properties:
+        login_identity_id:
+          format: ulid
+          type: string
+        status:
+          example: LINKING
+          type: string
+        last_session_id:
+          format: ulid
+          type: string
+      type: object
+    LoginIdentity:
+      example:
+        login_methods_available:
+          havePassword: true
+          haveSecret: true
+        customer_app_id: customer_app_id
+        permissions_expiry_date: 2000-01-23T04:56:07.000+00:00
+        billing_details:
+          billed_products:
+          - billed_products
+          - billed_products
+        webhook: https://auth.example.com/callback
+        last_success: 2000-01-23T04:56:07.000+00:00
+        permissions_grant_date: 2000-01-23T04:56:07.000+00:00
+        product_status:
+          identity:
+            last_successful_update: 2021-02-01T10:01:02.333Z
+            last_update: 2021-02-01T10:01:02.333Z
+            status_details: AUTHENTICATION_INITIALIZED
+            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          balance_history:
+            last_successful_update: 2021-02-01T10:01:02.333Z
+            last_update: 2021-02-01T10:01:02.333Z
+            status_details: AUTHENTICATION_INITIALIZED
+            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          statements:
+            last_successful_update: 2021-02-01T10:01:02.333Z
+            last_update: 2021-02-01T10:01:02.333Z
+            status_details: AUTHENTICATION_INITIALIZED
+            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          accounts:
+            last_successful_update: 2021-02-01T10:01:02.333Z
+            last_update: 2021-02-01T10:01:02.333Z
+            status_details: AUTHENTICATION_INITIALIZED
+            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          account_numbers:
+            last_successful_update: 2021-02-01T10:01:02.333Z
+            last_update: 2021-02-01T10:01:02.333Z
+            status_details: AUTHENTICATION_INITIALIZED
+            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          historical_transactions:
+            last_successful_update: 2021-02-01T10:01:02.333Z
+            last_update: 2021-02-01T10:01:02.333Z
+            status_details: AUTHENTICATION_INITIALIZED
+            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          online_transactions:
+            last_successful_update: 2021-02-01T10:01:02.333Z
+            last_update: 2021-02-01T10:01:02.333Z
+            status_details: AUTHENTICATION_INITIALIZED
+            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+        created_at: 2000-01-23T04:56:07.000+00:00
+        error:
+          code: 0
+          details: Credentials are invalid. Please try again.
+          type: INVALID_CREDENTIALS
+          message: Credentials invalid
+        last_session_id: last_session_id
+        authentication_id: "123"
+        institution_id: "123"
+        linking_attempt_id: "123"
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        user_id: form_post
+        permissions:
+        - permissions
+        - permissions
+        authentication_status:
+          last_successful_update: 2021-02-01T10:01:02.333Z
+          last_update: 2021-02-01T10:01:02.333Z
+          status_details: AUTHENTICATION_INITIALIZED
+          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+        first_success: 2000-01-23T04:56:07.000+00:00
+        login_identity_id: login_identity_id
+        status_details:
+          event_date: 2000-01-23T04:56:07.000+00:00
+          event_name: event_name
+        status: LINKING
+      properties:
+        login_identity_id:
+          format: ulid
+          type: string
+        customer_app_id:
+          format: ulid
+          type: string
+        user_id:
+          example: form_post
+          type: string
+        login_methods_available:
+          $ref: '#/components/schemas/LoginIdentityLoginMethodsAvailable'
+        permissions_grant_date:
+          format: date-time
+          type: string
+        permissions_expiry_date:
+          format: date-time
+          type: string
+        permissions:
+          items:
+            type: string
+          type: array
+        billing_details:
+          $ref: '#/components/schemas/LoginIdentityBillingDetails'
+        status:
+          example: LINKING
+          type: string
+        status_details:
+          $ref: '#/components/schemas/LoginIdentityStatusDetails'
+        product_status:
+          $ref: '#/components/schemas/AllProductStatus'
+        authentication_status:
+          $ref: '#/components/schemas/ProductStatus'
+        error:
+          $ref: '#/components/schemas/LoginIdentityError'
+        last_success:
+          format: date-time
+          type: string
+        first_success:
+          format: date-time
+          type: string
+        webhook:
+          example: https://auth.example.com/callback
+          format: uri
+          type: string
+        institution_id:
+          example: "123"
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        linking_attempt_id:
+          description: a login attempt id which is unique per login_identity
+          example: "123"
+          type: string
+        authentication_id:
+          description: a successful login attempt id which is unique per login_identity
+          example: "123"
+          type: string
+        last_session_id:
+          format: ulid
+          type: string
+      required:
+      - customer_app_id
+      - institution_id
+      - user_id
+      type: object
+    LoginIdentityError:
+      example:
+        code: 0
+        details: Credentials are invalid. Please try again.
+        type: INVALID_CREDENTIALS
+        message: Credentials invalid
+      properties:
+        code:
+          type: integer
+        type:
+          example: INVALID_CREDENTIALS
+          type: string
+        message:
+          example: Credentials invalid
+          type: string
+        details:
+          example: Credentials are invalid. Please try again.
+          type: string
+      type: object
+    DeleteLoginIdentityResponse:
+      example:
+        success: true
+      properties:
+        success:
+          example: true
+          type: boolean
+      type: object
+    LinkResponse:
+      example:
+        auth_url: https://auth.example.com/auth?client_id=clientIDstate=userState&redirect_url=callback
+      properties:
+        auth_url:
+          example: https://auth.example.com/auth?client_id=clientIDstate=userState&redirect_url=callback
+          type: string
+      type: object
+    AccessTokenResponse:
+      example:
+        access_token: access_token
+        refresh_token: refresh_token
+        login_identity_id: login_identity_id
+        token_type: token_type
+        expires_in: 0.8008281904610115
+      properties:
+        access_token:
+          type: string
+        login_identity_id:
+          type: string
+        token_type:
+          type: string
+        expires_in:
+          description: seconds
+          format: int64
+          type: number
+        refresh_token:
+          type: string
+      required:
+      - access_token
+      - expires_in
+      - login_identity_id
+      - refresh_token
+      - token_type
+      type: object
+    BadRequestModel:
+      properties:
+        error:
+          $ref: '#/components/schemas/BadRequestModel_error'
+      type: object
+    GetStatementsResponse:
+      example:
+        institution:
+          portal_name: Personal Internet Banking
+          countries:
+          - HKG
+          institution_name: Mock Bank
+          institution_id: "123"
+        login_identity:
+          login_identity_id: login_identity_id
+          last_session_id: last_session_id
+          status: LINKING
+        statements:
+        - date: 2021-02-01
+          name: BusinessVantage
+          created_at: 2021-02-01T10:01:02.333Z
+          id: daiosdosi7823e43
+        - date: 2021-02-01
+          name: BusinessVantage
+          created_at: 2021-02-01T10:01:02.333Z
+          id: daiosdosi7823e43
+      properties:
+        statements:
+          items:
+            $ref: '#/components/schemas/Statement'
+          type: array
+        login_identity:
+          $ref: '#/components/schemas/LoginIdentityShort'
+        institution:
+          $ref: '#/components/schemas/InstitutionShort'
+      type: object
+    GetStatementLinkResponse:
+      example:
+        statement_links:
+        - expiry: 2000-01-23T04:56:07.000+00:00
+          statement_id: sadasd
+          url: https://www.finverse.net/statement.pdf
+        - expiry: 2000-01-23T04:56:07.000+00:00
+          statement_id: sadasd
+          url: https://www.finverse.net/statement.pdf
+      properties:
+        statement_links:
+          items:
+            $ref: '#/components/schemas/StatementLink'
+          type: array
+      type: object
+    Statement:
+      example:
+        date: 2021-02-01
+        name: BusinessVantage
+        created_at: 2021-02-01T10:01:02.333Z
+        id: daiosdosi7823e43
+      properties:
+        id:
+          example: daiosdosi7823e43
+          type: string
+        date:
+          description: YYYY-MM-DD
+          example: 2021-02-01
+          type: string
+        name:
+          example: BusinessVantage
+          type: string
+        created_at:
+          example: 2021-02-01T10:01:02.333Z
+          format: date-time
+          type: string
+      type: object
+    StatementLink:
+      example:
+        expiry: 2000-01-23T04:56:07.000+00:00
+        statement_id: sadasd
+        url: https://www.finverse.net/statement.pdf
+      properties:
+        url:
+          description: signedURL to download statement
+          example: https://www.finverse.net/statement.pdf
+          type: string
+        expiry:
+          description: expiry of the signedURL
+          format: date-time
+          type: string
+        statement_id:
+          example: sadasd
+          type: string
+      type: object
+    AllProductStatus:
+      example:
+        identity:
+          last_successful_update: 2021-02-01T10:01:02.333Z
+          last_update: 2021-02-01T10:01:02.333Z
+          status_details: AUTHENTICATION_INITIALIZED
+          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+        balance_history:
+          last_successful_update: 2021-02-01T10:01:02.333Z
+          last_update: 2021-02-01T10:01:02.333Z
+          status_details: AUTHENTICATION_INITIALIZED
+          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+        statements:
+          last_successful_update: 2021-02-01T10:01:02.333Z
+          last_update: 2021-02-01T10:01:02.333Z
+          status_details: AUTHENTICATION_INITIALIZED
+          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+        accounts:
+          last_successful_update: 2021-02-01T10:01:02.333Z
+          last_update: 2021-02-01T10:01:02.333Z
+          status_details: AUTHENTICATION_INITIALIZED
+          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+        account_numbers:
+          last_successful_update: 2021-02-01T10:01:02.333Z
+          last_update: 2021-02-01T10:01:02.333Z
+          status_details: AUTHENTICATION_INITIALIZED
+          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+        historical_transactions:
+          last_successful_update: 2021-02-01T10:01:02.333Z
+          last_update: 2021-02-01T10:01:02.333Z
+          status_details: AUTHENTICATION_INITIALIZED
+          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+        online_transactions:
+          last_successful_update: 2021-02-01T10:01:02.333Z
+          last_update: 2021-02-01T10:01:02.333Z
+          status_details: AUTHENTICATION_INITIALIZED
+          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+      properties:
+        accounts:
+          $ref: '#/components/schemas/ProductStatus'
+        online_transactions:
+          $ref: '#/components/schemas/ProductStatus'
+        statements:
+          $ref: '#/components/schemas/ProductStatus'
+        historical_transactions:
+          $ref: '#/components/schemas/ProductStatus'
+        account_numbers:
+          $ref: '#/components/schemas/ProductStatus'
+        identity:
+          $ref: '#/components/schemas/ProductStatus'
+        balance_history:
+          $ref: '#/components/schemas/ProductStatus'
+      type: object
+    ProductStatus:
+      example:
+        last_successful_update: 2021-02-01T10:01:02.333Z
+        last_update: 2021-02-01T10:01:02.333Z
+        status_details: AUTHENTICATION_INITIALIZED
+        status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+      properties:
+        status:
+          description: The current health of this product
+          example: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          type: string
+        status_details:
+          description: The detailed event name
+          example: AUTHENTICATION_INITIALIZED
+          type: string
+        last_update:
+          example: 2021-02-01T10:01:02.333Z
+          format: date-time
+          nullable: true
+          type: string
+        last_successful_update:
+          example: 2021-02-01T10:01:02.333Z
+          format: date-time
+          nullable: true
+          type: string
+      type: object
+    PaymentDetails:
+      example:
+        other_info:
+          bank_code: bank_code
+        bank_shortname: testbank
+        format: SWIFT
+        bank_address: 99 Stree, Building, City
+        bank_country: Country
+        bank_fullname: Finverse test bank
+        bic: BKCHHKHHXXX
+      properties:
+        format:
+          example: SWIFT
+          type: string
+        bic:
+          example: BKCHHKHHXXX
+          type: string
+        bank_fullname:
+          example: Finverse test bank
+          type: string
+        bank_shortname:
+          example: testbank
+          type: string
+        bank_address:
+          example: 99 Stree, Building, City
+          type: string
+        bank_country:
+          example: Country
+          type: string
+        other_info:
+          $ref: '#/components/schemas/OtherInfo'
+      type: object
+    OtherInfo:
+      example:
+        bank_code: bank_code
+      properties:
+        bank_code:
+          type: string
+      type: object
+    RedirectUriResponse:
+      example:
+        redirect_uri: redirect_uri
+      properties:
+        redirect_uri:
+          type: string
+      type: object
+    BadRequestModel_error:
+      properties:
+        code:
+          example: 40004.0
+          type: number
+        name:
+          example: CREDENTIAL_NOT_STORED
+          type: string
+        message:
+          example: Credential for this LoginIdentity is not stored. Please relink.
+          type: string
+        link:
+          description: A link to visit for further action
+          example: link.finverse.com
+          type: string
+      type: object
+  securitySchemes:
+    Oauth2:
+      flows:
+        clientCredentials:
+          scopes:
+            test: Test
+            account: Account
+            balance: Balance
+            transaction: Transaction
+            credit: Credit
+            investment: Investment
+            institution: Institution
+            link: Link
+          tokenUrl: https://finverse-dev.us.auth0.com/oauth/token
+      type: oauth2
+x-original-swagger-version: "2.0"
