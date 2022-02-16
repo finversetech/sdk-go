@@ -1,4 +1,4 @@
-# Finverse Go SDK
+# Finverse API - Go SDK
 
 ## Installation
 ```
@@ -8,7 +8,7 @@ go get -u github.com/finversetech/sdk-go
 
 ## Getting started
 
-### Obtain customer access token
+### 1. Authenticate with Finverse API: Obtain Customer Access Token
 ```go
 	// obtain these from https://dashboard.finverse.com
 	apiHost := "https://api.sandbox.finverse.net"
@@ -37,7 +37,7 @@ go get -u github.com/finversetech/sdk-go
 	customerAccessToken := customerTokenResp.AccessToken
 ```
 
-### Obtain Link token and linkUrl for initiate Finverse Link
+### 2. Link new institution: Obtain Link Token and Link URL to launch Finverse Link UI
 ```go
 	// generate a link token
 	userId := "someUserId"     // reference back to your system userId, finverse does not use this
@@ -60,9 +60,9 @@ go get -u github.com/finversetech/sdk-go
 	t.Logf("linkUrl: %s", linkTokenResp.LinkUrl)
 ```
 
-### Exchange code for LoginIdentity Access Token
+### 3. Finalize linking: Exchange code for Login Identity Access Token
 ```go
-	// When Finverse link is done, obtain the code and use it to exchange for login identity access token
+	// when Finverse Link UI is successful, obtain the code from Finverse Link and exchange it for a Login Identity Access Token
 	code := "obtainAfterLink"
 	loginIdentityTokenResp, _, err := client.LinkApi.Token(customerCtx).
 		Code(code).
@@ -78,12 +78,14 @@ go get -u github.com/finversetech/sdk-go
 	loginIdentityToken := loginIdentityTokenResp.AccessToken
 ```
 
-### Get data using LoginIdentity Access Token
+### Retrieve data: Get data using Login Identity Access Token
 ```go
 	loginIdentityCtx := context.WithValue(context.Background(), finverse.ContextAccessToken, loginIdentityToken)
 
-	// Get LoginIdentity
+	// get LoginIdentity
 	loginIdentityResp, _, err := client.LoginIdentityApi.GetLoginIdentity(loginIdentityCtx).Execute()
 
 	t.Logf("login identity: %+v", loginIdentityResp.LoginIdentity)
+	
+	// get other products (Accounts, Account Numbers, Transactions)
 ```
