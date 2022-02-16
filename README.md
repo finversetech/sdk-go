@@ -1,4 +1,5 @@
-# Finverse API - Go SDK
+# Finverse API - Go SDK 
+Usage: This SDK enables a basic end-to-end backend integration with the Finverse API, including API authentication, institution linking, and data retrieval.
 
 ## Installation
 ```
@@ -78,7 +79,7 @@ go get -u github.com/finversetech/sdk-go
 	loginIdentityToken := loginIdentityTokenResp.AccessToken
 ```
 
-### Retrieve data: Get data using Login Identity Access Token
+### 4. Retrieve data: Get data using Login Identity Access Token
 ```go
 	loginIdentityCtx := context.WithValue(context.Background(), finverse.ContextAccessToken, loginIdentityToken)
 
