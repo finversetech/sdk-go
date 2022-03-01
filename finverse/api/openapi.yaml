@@ -2460,11 +2460,12 @@ components:
           example: real
           type: string
         ui_mode:
-          description: The UI mode link is intended to be used in - "iframe" (default)
-            or "redirect"
+          description: The UI mode link is intended to be used in - "iframe" (default),
+            "auto_redirect" or "redirect"
           enum:
           - iframe
           - redirect
+          - auto_redirect
           example: redirect
           type: string
         language:

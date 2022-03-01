@@ -29,7 +29,7 @@ type LinkTokenRequest struct {
 	Scope       *string `json:"scope,omitempty"`
 	// Space separated list of the tags of the institutions to view.
 	LinkMode *string `json:"link_mode,omitempty"`
-	// The UI mode link is intended to be used in - \"iframe\" (default) or \"redirect\"
+	// The UI mode link is intended to be used in - \"iframe\" (default), \"auto_redirect\" or \"redirect\"
 	UiMode              *string `json:"ui_mode,omitempty"`
 	Language            *string `json:"language,omitempty"`
 	CodeChallenge       *string `json:"code_challenge,omitempty"`
