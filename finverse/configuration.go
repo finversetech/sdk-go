@@ -110,7 +110,7 @@ func NewConfiguration() *Configuration {
 		Debug:         false,
 		Servers: ServerConfigurations{
 			{
-				URL:         "https://api.sandbox.finverse.net",
+				URL:         "http://api.sandbox.finverse.net",
 				Description: "No description provided",
 			},
 		},
