@@ -10,7 +10,7 @@ info:
   title: Finverse Public
   version: 0.0.1
 servers:
-- url: http://api.sandbox.finverse.net/
+- url: https://api.sandbox.finverse.net/
 security:
 - Oauth2:
   - test
@@ -2320,6 +2320,14 @@ components:
             type: string
           minItems: 1
           type: array
+        webhook_uris:
+          description: The webhook uris
+          example:
+          - https://example.com/callback
+          items:
+            type: string
+          maxItems: 10
+          type: array
       required:
       - customer_app_id
       - email
@@ -2351,6 +2359,13 @@ components:
         client_secret:
           example: GBAyfVL7YWtP6gudLIjbRZV_N0dW4f3xETiIxqtokEAZ6FAsBtgyIq0MpU1uQ7J08xOTO2zwP0OuO3pMVAUTid
           type: string
+        webhook_uris:
+          description: The webhook uris
+          example:
+          - https://example.com/callback
+          items:
+            type: string
+          type: array
       required:
       - client_id
       - client_secret
