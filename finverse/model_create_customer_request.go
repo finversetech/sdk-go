@@ -25,6 +25,8 @@ type CreateCustomerRequest struct {
 	CustomerAppId string `json:"customer_app_id"`
 	// The redirect callback
 	RedirectUris []string `json:"redirect_uris"`
+	// The webhook uris
+	WebhookUris []string `json:"webhook_uris,omitempty"`
 }
 
 // NewCreateCustomerRequest instantiates a new CreateCustomerRequest object
@@ -144,6 +146,38 @@ func (o *CreateCustomerRequest) SetRedirectUris(v []string) {
 	o.RedirectUris = v
 }
 
+// GetWebhookUris returns the WebhookUris field value if set, zero value otherwise.
+func (o *CreateCustomerRequest) GetWebhookUris() []string {
+	if o == nil || o.WebhookUris == nil {
+		var ret []string
+		return ret
+	}
+	return o.WebhookUris
+}
+
+// GetWebhookUrisOk returns a tuple with the WebhookUris field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCustomerRequest) GetWebhookUrisOk() ([]string, bool) {
+	if o == nil || o.WebhookUris == nil {
+		return nil, false
+	}
+	return o.WebhookUris, true
+}
+
+// HasWebhookUris returns a boolean if a field has been set.
+func (o *CreateCustomerRequest) HasWebhookUris() bool {
+	if o != nil && o.WebhookUris != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetWebhookUris gets a reference to the given []string and assigns it to the WebhookUris field.
+func (o *CreateCustomerRequest) SetWebhookUris(v []string) {
+	o.WebhookUris = v
+}
+
 func (o CreateCustomerRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -157,6 +191,9 @@ func (o CreateCustomerRequest) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["redirect_uris"] = o.RedirectUris
+	}
+	if o.WebhookUris != nil {
+		toSerialize["webhook_uris"] = o.WebhookUris
 	}
 	return json.Marshal(toSerialize)
 }
