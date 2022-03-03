@@ -38,6 +38,8 @@ type LinkTokenRequest struct {
 	LoginIdentityId *string `json:"login_identity_id,omitempty"`
 	// The customization id if the customer wishes to embed it into link token for spawning link with their choice of stuffs
 	CustomizationId *string `json:"customization_id,omitempty"`
+	// Institution to preselect
+	InstitutionId *string `json:"institution_id,omitempty"`
 	// institution's country filter
 	Countries []string `json:"countries,omitempty"`
 	// institution's supported user_type filter
@@ -508,6 +510,38 @@ func (o *LinkTokenRequest) SetCustomizationId(v string) {
 	o.CustomizationId = &v
 }
 
+// GetInstitutionId returns the InstitutionId field value if set, zero value otherwise.
+func (o *LinkTokenRequest) GetInstitutionId() string {
+	if o == nil || o.InstitutionId == nil {
+		var ret string
+		return ret
+	}
+	return *o.InstitutionId
+}
+
+// GetInstitutionIdOk returns a tuple with the InstitutionId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LinkTokenRequest) GetInstitutionIdOk() (*string, bool) {
+	if o == nil || o.InstitutionId == nil {
+		return nil, false
+	}
+	return o.InstitutionId, true
+}
+
+// HasInstitutionId returns a boolean if a field has been set.
+func (o *LinkTokenRequest) HasInstitutionId() bool {
+	if o != nil && o.InstitutionId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInstitutionId gets a reference to the given string and assigns it to the InstitutionId field.
+func (o *LinkTokenRequest) SetInstitutionId(v string) {
+	o.InstitutionId = &v
+}
+
 // GetCountries returns the Countries field value if set, zero value otherwise.
 func (o *LinkTokenRequest) GetCountries() []string {
 	if o == nil || o.Countries == nil {
@@ -650,6 +684,9 @@ func (o LinkTokenRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.CustomizationId != nil {
 		toSerialize["customization_id"] = o.CustomizationId
+	}
+	if o.InstitutionId != nil {
+		toSerialize["institution_id"] = o.InstitutionId
 	}
 	if o.Countries != nil {
 		toSerialize["countries"] = o.Countries

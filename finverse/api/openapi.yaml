@@ -2426,6 +2426,7 @@ components:
         - SGP
         client_id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
         response_mode: form_post
+        institution_id: hsbc-hk
         products_supported:
         - ACCOUNTS
         - TRANSACTIONS
@@ -2500,6 +2501,10 @@ components:
           description: The customization id if the customer wishes to embed it into
             link token for spawning link with their choice of stuffs
           example: AULIDGOESHERE
+          type: string
+        institution_id:
+          description: Institution to preselect
+          example: hsbc-hk
           type: string
         countries:
           description: institution's country filter
