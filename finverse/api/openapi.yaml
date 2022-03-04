@@ -11,6 +11,7 @@ info:
   version: 0.0.1
 servers:
 - url: http://api.sandbox.finverse.net/
+- url: https://api.sandbox.finverse.net/
 security:
 - Oauth2:
   - test

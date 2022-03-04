@@ -113,6 +113,10 @@ func NewConfiguration() *Configuration {
 				URL:         "http://api.sandbox.finverse.net",
 				Description: "No description provided",
 			},
+			{
+				URL:         "https://api.sandbox.finverse.net",
+				Description: "No description provided",
+			},
 		},
 		OperationServers: map[string]ServerConfigurations{},
 	}
