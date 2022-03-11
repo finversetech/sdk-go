@@ -21,7 +21,7 @@ type IdentityEmail struct {
 	Email       *string  `json:"email,omitempty"`
 	MaskedEmail *string  `json:"masked_email,omitempty"`
 	Source      *string  `json:"source,omitempty"`
-	SourceId    *string  `json:"source_id,omitempty"`
+	SourceIds   []string `json:"source_ids,omitempty"`
 	AccountIds  []string `json:"account_ids,omitempty"`
 }
 
@@ -170,36 +170,36 @@ func (o *IdentityEmail) SetSource(v string) {
 	o.Source = &v
 }
 
-// GetSourceId returns the SourceId field value if set, zero value otherwise.
-func (o *IdentityEmail) GetSourceId() string {
-	if o == nil || o.SourceId == nil {
-		var ret string
+// GetSourceIds returns the SourceIds field value if set, zero value otherwise.
+func (o *IdentityEmail) GetSourceIds() []string {
+	if o == nil || o.SourceIds == nil {
+		var ret []string
 		return ret
 	}
-	return *o.SourceId
+	return o.SourceIds
 }
 
-// GetSourceIdOk returns a tuple with the SourceId field value if set, nil otherwise
+// GetSourceIdsOk returns a tuple with the SourceIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IdentityEmail) GetSourceIdOk() (*string, bool) {
-	if o == nil || o.SourceId == nil {
+func (o *IdentityEmail) GetSourceIdsOk() ([]string, bool) {
+	if o == nil || o.SourceIds == nil {
 		return nil, false
 	}
-	return o.SourceId, true
+	return o.SourceIds, true
 }
 
-// HasSourceId returns a boolean if a field has been set.
-func (o *IdentityEmail) HasSourceId() bool {
-	if o != nil && o.SourceId != nil {
+// HasSourceIds returns a boolean if a field has been set.
+func (o *IdentityEmail) HasSourceIds() bool {
+	if o != nil && o.SourceIds != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetSourceId gets a reference to the given string and assigns it to the SourceId field.
-func (o *IdentityEmail) SetSourceId(v string) {
-	o.SourceId = &v
+// SetSourceIds gets a reference to the given []string and assigns it to the SourceIds field.
+func (o *IdentityEmail) SetSourceIds(v []string) {
+	o.SourceIds = v
 }
 
 // GetAccountIds returns the AccountIds field value if set, zero value otherwise.
@@ -248,8 +248,8 @@ func (o IdentityEmail) MarshalJSON() ([]byte, error) {
 	if o.Source != nil {
 		toSerialize["source"] = o.Source
 	}
-	if o.SourceId != nil {
-		toSerialize["source_id"] = o.SourceId
+	if o.SourceIds != nil {
+		toSerialize["source_ids"] = o.SourceIds
 	}
 	if o.AccountIds != nil {
 		toSerialize["account_ids"] = o.AccountIds

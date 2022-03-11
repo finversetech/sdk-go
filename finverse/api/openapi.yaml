@@ -377,7 +377,7 @@ paths:
       - link
   /identity:
     get:
-      description: Get a list of identity data for a given login identity
+      description: \[BETA] Get a list of identity data for a given login identity
       operationId: getIdentity
       responses:
         "200":
@@ -1210,40 +1210,48 @@ components:
           institution_id: "123"
         identity:
           emails:
-          - account_ids:
+          - source_ids:
+            - source_ids
+            - source_ids
+            account_ids:
             - account_ids
             - account_ids
             raw: example123@example.com
             source: INTERNET_BANKING
-            source_id: Online Accounts
             email: example123@example.com
             masked_email: exam******@example.com
-          - account_ids:
+          - source_ids:
+            - source_ids
+            - source_ids
+            account_ids:
             - account_ids
             - account_ids
             raw: example123@example.com
             source: INTERNET_BANKING
-            source_id: Online Accounts
             email: example123@example.com
             masked_email: exam******@example.com
           phone_numbers:
-          - account_ids:
+          - source_ids:
+            - source_ids
+            - source_ids
+            account_ids:
             - account_ids
             - account_ids
             mobile_phone: +12345678901
             raw: +123 4567 8901
             masked_phone: +12345****01
             source: INTERNET_BANKING
-            source_id: Online Accounts
             other_phone: +12345678901
-          - account_ids:
+          - source_ids:
+            - source_ids
+            - source_ids
+            account_ids:
             - account_ids
             - account_ids
             mobile_phone: +12345678901
             raw: +123 4567 8901
             masked_phone: +12345****01
             source: INTERNET_BANKING
-            source_id: Online Accounts
             other_phone: +12345678901
           addresses:
           - building_name: Building A
@@ -1259,11 +1267,13 @@ components:
             ward: Sheung Wan
             source: INTERNET_BANKING
             street_name: Baker Street
+            source_ids:
+            - source_ids
+            - source_ids
             unit_number: 221B
             province: Westminster
             district: Marleybone
             street_number: 221B
-            source_id: Online Accounts
             postal_code: NW1 6XE
           - building_name: Building A
             street_address: 221B Baker Street
@@ -1278,14 +1288,19 @@ components:
             ward: Sheung Wan
             source: INTERNET_BANKING
             street_name: Baker Street
+            source_ids:
+            - source_ids
+            - source_ids
             unit_number: 221B
             province: Westminster
             district: Marleybone
             street_number: 221B
-            source_id: Online Accounts
             postal_code: NW1 6XE
           names:
-          - full_name: John Maximus Doe
+          - source_ids:
+            - source_ids
+            - source_ids
+            full_name: John Maximus Doe
             account_ids:
             - account_ids
             - account_ids
@@ -1293,9 +1308,11 @@ components:
             last_name: Doe
             other_name: Maximus
             source: INTERNET_BANKING
-            source_id: Online Accounts
             first_name: John
-          - full_name: John Maximus Doe
+          - source_ids:
+            - source_ids
+            - source_ids
+            full_name: John Maximus Doe
             account_ids:
             - account_ids
             - account_ids
@@ -1303,23 +1320,26 @@ components:
             last_name: Doe
             other_name: Maximus
             source: INTERNET_BANKING
-            source_id: Online Accounts
             first_name: John
           date_of_births:
-          - account_ids:
+          - source_ids:
+            - source_ids
+            - source_ids
+            account_ids:
             - account_ids
             - account_ids
             date_of_birth: 1999-01-22
             raw: 1999-01-22
             source: INTERNET_BANKING
-            source_id: Online Accounts
-          - account_ids:
+          - source_ids:
+            - source_ids
+            - source_ids
+            account_ids:
             - account_ids
             - account_ids
             date_of_birth: 1999-01-22
             raw: 1999-01-22
             source: INTERNET_BANKING
-            source_id: Online Accounts
         login_identity:
           login_identity_id: login_identity_id
           last_session_id: last_session_id
@@ -1335,40 +1355,48 @@ components:
     Identity:
       example:
         emails:
-        - account_ids:
+        - source_ids:
+          - source_ids
+          - source_ids
+          account_ids:
           - account_ids
           - account_ids
           raw: example123@example.com
           source: INTERNET_BANKING
-          source_id: Online Accounts
           email: example123@example.com
           masked_email: exam******@example.com
-        - account_ids:
+        - source_ids:
+          - source_ids
+          - source_ids
+          account_ids:
           - account_ids
           - account_ids
           raw: example123@example.com
           source: INTERNET_BANKING
-          source_id: Online Accounts
           email: example123@example.com
           masked_email: exam******@example.com
         phone_numbers:
-        - account_ids:
+        - source_ids:
+          - source_ids
+          - source_ids
+          account_ids:
           - account_ids
           - account_ids
           mobile_phone: +12345678901
           raw: +123 4567 8901
           masked_phone: +12345****01
           source: INTERNET_BANKING
-          source_id: Online Accounts
           other_phone: +12345678901
-        - account_ids:
+        - source_ids:
+          - source_ids
+          - source_ids
+          account_ids:
           - account_ids
           - account_ids
           mobile_phone: +12345678901
           raw: +123 4567 8901
           masked_phone: +12345****01
           source: INTERNET_BANKING
-          source_id: Online Accounts
           other_phone: +12345678901
         addresses:
         - building_name: Building A
@@ -1384,11 +1412,13 @@ components:
           ward: Sheung Wan
           source: INTERNET_BANKING
           street_name: Baker Street
+          source_ids:
+          - source_ids
+          - source_ids
           unit_number: 221B
           province: Westminster
           district: Marleybone
           street_number: 221B
-          source_id: Online Accounts
           postal_code: NW1 6XE
         - building_name: Building A
           street_address: 221B Baker Street
@@ -1403,14 +1433,19 @@ components:
           ward: Sheung Wan
           source: INTERNET_BANKING
           street_name: Baker Street
+          source_ids:
+          - source_ids
+          - source_ids
           unit_number: 221B
           province: Westminster
           district: Marleybone
           street_number: 221B
-          source_id: Online Accounts
           postal_code: NW1 6XE
         names:
-        - full_name: John Maximus Doe
+        - source_ids:
+          - source_ids
+          - source_ids
+          full_name: John Maximus Doe
           account_ids:
           - account_ids
           - account_ids
@@ -1418,9 +1453,11 @@ components:
           last_name: Doe
           other_name: Maximus
           source: INTERNET_BANKING
-          source_id: Online Accounts
           first_name: John
-        - full_name: John Maximus Doe
+        - source_ids:
+          - source_ids
+          - source_ids
+          full_name: John Maximus Doe
           account_ids:
           - account_ids
           - account_ids
@@ -1428,23 +1465,26 @@ components:
           last_name: Doe
           other_name: Maximus
           source: INTERNET_BANKING
-          source_id: Online Accounts
           first_name: John
         date_of_births:
-        - account_ids:
+        - source_ids:
+          - source_ids
+          - source_ids
+          account_ids:
           - account_ids
           - account_ids
           date_of_birth: 1999-01-22
           raw: 1999-01-22
           source: INTERNET_BANKING
-          source_id: Online Accounts
-        - account_ids:
+        - source_ids:
+          - source_ids
+          - source_ids
+          account_ids:
           - account_ids
           - account_ids
           date_of_birth: 1999-01-22
           raw: 1999-01-22
           source: INTERNET_BANKING
-          source_id: Online Accounts
       properties:
         names:
           items:
@@ -1908,6 +1948,9 @@ components:
       type: object
     IdentityName:
       example:
+        source_ids:
+        - source_ids
+        - source_ids
         full_name: John Maximus Doe
         account_ids:
         - account_ids
@@ -1916,7 +1959,6 @@ components:
         last_name: Doe
         other_name: Maximus
         source: INTERNET_BANKING
-        source_id: Online Accounts
         first_name: John
       properties:
         raw:
@@ -1937,9 +1979,10 @@ components:
         source:
           example: INTERNET_BANKING
           type: string
-        source_id:
-          example: Online Accounts
-          type: string
+        source_ids:
+          items:
+            type: string
+          type: array
         account_ids:
           items:
             type: string
@@ -1960,11 +2003,13 @@ components:
         ward: Sheung Wan
         source: INTERNET_BANKING
         street_name: Baker Street
+        source_ids:
+        - source_ids
+        - source_ids
         unit_number: 221B
         province: Westminster
         district: Marleybone
         street_number: 221B
-        source_id: Online Accounts
         postal_code: NW1 6XE
       properties:
         raw:
@@ -2012,9 +2057,10 @@ components:
         source:
           example: INTERNET_BANKING
           type: string
-        source_id:
-          example: Online Accounts
-          type: string
+        source_ids:
+          items:
+            type: string
+          type: array
         account_ids:
           items:
             type: string
@@ -2022,12 +2068,14 @@ components:
       type: object
     IdentityEmail:
       example:
+        source_ids:
+        - source_ids
+        - source_ids
         account_ids:
         - account_ids
         - account_ids
         raw: example123@example.com
         source: INTERNET_BANKING
-        source_id: Online Accounts
         email: example123@example.com
         masked_email: exam******@example.com
       properties:
@@ -2043,9 +2091,10 @@ components:
         source:
           example: INTERNET_BANKING
           type: string
-        source_id:
-          example: Online Accounts
-          type: string
+        source_ids:
+          items:
+            type: string
+          type: array
         account_ids:
           items:
             type: string
@@ -2053,6 +2102,9 @@ components:
       type: object
     IdentityPhoneNumber:
       example:
+        source_ids:
+        - source_ids
+        - source_ids
         account_ids:
         - account_ids
         - account_ids
@@ -2060,7 +2112,6 @@ components:
         raw: +123 4567 8901
         masked_phone: +12345****01
         source: INTERNET_BANKING
-        source_id: Online Accounts
         other_phone: +12345678901
       properties:
         raw:
@@ -2078,9 +2129,10 @@ components:
         source:
           example: INTERNET_BANKING
           type: string
-        source_id:
-          example: Online Accounts
-          type: string
+        source_ids:
+          items:
+            type: string
+          type: array
         account_ids:
           items:
             type: string
@@ -2088,13 +2140,15 @@ components:
       type: object
     IdentityDateOfBirth:
       example:
+        source_ids:
+        - source_ids
+        - source_ids
         account_ids:
         - account_ids
         - account_ids
         date_of_birth: 1999-01-22
         raw: 1999-01-22
         source: INTERNET_BANKING
-        source_id: Online Accounts
       properties:
         raw:
           example: 1999-01-22
@@ -2105,9 +2159,10 @@ components:
         source:
           example: INTERNET_BANKING
           type: string
-        source_id:
-          example: Online Accounts
-          type: string
+        source_ids:
+          items:
+            type: string
+          type: array
         account_ids:
           items:
             type: string

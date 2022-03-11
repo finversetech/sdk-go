@@ -103,7 +103,7 @@ type LoginIdentityApi interface {
 	/*
 		GetIdentity Method for GetIdentity
 
-		Get a list of identity data for a given login identity
+		\[BETA] Get a list of identity data for a given login identity
 
 		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		 @return LoginIdentityApiApiGetIdentityRequest
@@ -857,7 +857,7 @@ func (r LoginIdentityApiApiGetIdentityRequest) Execute() (*GetIdentityResponse, 
 /*
 GetIdentity Method for GetIdentity
 
-Get a list of identity data for a given login identity
+\[BETA] Get a list of identity data for a given login identity
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return LoginIdentityApiApiGetIdentityRequest
