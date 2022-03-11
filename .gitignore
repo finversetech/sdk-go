@@ -15,4 +15,4 @@
 # vendor/
 
 # Files used during CICD
-**/bump-server.py
+**/*.py
