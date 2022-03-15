@@ -28,6 +28,20 @@ var (
 type CustomerApi interface {
 
 	/*
+		CreatePaymentInstruction Method for CreatePaymentInstruction
+
+		Create a new payment instruction to be used when linking to perform debit authorization
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return CustomerApiApiCreatePaymentInstructionRequest
+	*/
+	CreatePaymentInstruction(ctx context.Context) CustomerApiApiCreatePaymentInstructionRequest
+
+	// CreatePaymentInstructionExecute executes the request
+	//  @return CreatePaymentInstructionResponse
+	CreatePaymentInstructionExecute(r CustomerApiApiCreatePaymentInstructionRequest) (*CreatePaymentInstructionResponse, *http.Response, error)
+
+	/*
 		GenerateLinkToken Method for GenerateLinkToken
 
 		generate a link token that can be used to create link
@@ -117,6 +131,136 @@ type CustomerApi interface {
 
 // CustomerApiService CustomerApi service
 type CustomerApiService service
+
+type CustomerApiApiCreatePaymentInstructionRequest struct {
+	ctx                context.Context
+	ApiService         CustomerApi
+	paymentInstruction *PaymentInstruction
+}
+
+// Request body for starting a new Link
+func (r CustomerApiApiCreatePaymentInstructionRequest) PaymentInstruction(paymentInstruction PaymentInstruction) CustomerApiApiCreatePaymentInstructionRequest {
+	r.paymentInstruction = &paymentInstruction
+	return r
+}
+
+func (r CustomerApiApiCreatePaymentInstructionRequest) Execute() (*CreatePaymentInstructionResponse, *http.Response, error) {
+	return r.ApiService.CreatePaymentInstructionExecute(r)
+}
+
+/*
+CreatePaymentInstruction Method for CreatePaymentInstruction
+
+Create a new payment instruction to be used when linking to perform debit authorization
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return CustomerApiApiCreatePaymentInstructionRequest
+*/
+func (a *CustomerApiService) CreatePaymentInstruction(ctx context.Context) CustomerApiApiCreatePaymentInstructionRequest {
+	return CustomerApiApiCreatePaymentInstructionRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return CreatePaymentInstructionResponse
+func (a *CustomerApiService) CreatePaymentInstructionExecute(r CustomerApiApiCreatePaymentInstructionRequest) (*CreatePaymentInstructionResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreatePaymentInstructionResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.CreatePaymentInstruction")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/payments/instruction"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.paymentInstruction == nil {
+		return localVarReturnValue, nil, reportError("paymentInstruction is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.paymentInstruction
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v BadRequestModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
 
 type CustomerApiApiGenerateLinkTokenRequest struct {
 	ctx              context.Context

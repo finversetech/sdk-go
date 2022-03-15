@@ -973,6 +973,46 @@ paths:
         - statement:read
       tags:
       - login_identity
+  /payments/instruction:
+    post:
+      description: Create a new payment instruction to be used when linking to perform
+        debit authorization
+      operationId: createPaymentInstruction
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PaymentInstruction'
+        description: Request body for starting a new Link
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentInstructionResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Refresh error
+        "401":
+          content: {}
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payment:create
+      tags:
+      - customer
+      x-codegen-request-body-name: paymentInstruction
 components:
   schemas:
     ErrorResponse:
@@ -3290,6 +3330,69 @@ components:
         redirect_uri: redirect_uri
       properties:
         redirect_uri:
+          type: string
+      type: object
+    CreatePaymentInstructionResponse:
+      example:
+        payment_instruction_id: payment_instruction_id
+      properties:
+        payment_instruction_id:
+          type: string
+      type: object
+    PaymentInstruction:
+      example:
+        end_date: 2000-01-23
+        amount: 123.45
+        idempotence_key: a_unique_id
+        sender_account_id: Something
+        sender_name: Jane Doe
+        currency: HKD
+        recipient_name: John Wick
+        remarks: This is regular payment to pay for loan
+        start_date: 2000-01-23
+        frequency: DAILY, WEEKLY OR MONTHLY
+      properties:
+        recipient_name:
+          description: The recipient name
+          example: John Wick
+          type: string
+        sender_name:
+          description: The sender name
+          example: Jane Doe
+          type: string
+        sender_account_id:
+          description: The sender account Id
+          example: Something
+          type: string
+        start_date:
+          description: When the payment should start
+          format: date
+          nullable: true
+          type: string
+        end_date:
+          description: When the payment should stop
+          format: date
+          nullable: true
+          type: string
+        currency:
+          description: The currency for the payment
+          example: HKD
+          type: string
+        amount:
+          description: The payment amount
+          example: 123.45
+          type: number
+        frequency:
+          description: How often the payment is executed
+          example: DAILY, WEEKLY OR MONTHLY
+          type: string
+        remarks:
+          description: Related remarks
+          example: This is regular payment to pay for loan
+          type: string
+        idempotence_key:
+          description: A customer provided key to ensure ideompotency
+          example: a_unique_id
           type: string
       type: object
     BadRequestModel_error:

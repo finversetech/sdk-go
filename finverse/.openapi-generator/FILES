@@ -15,6 +15,7 @@ model_bad_request_model_error.go
 model_balance_history.go
 model_create_customer_request.go
 model_create_customer_response.go
+model_create_payment_instruction_response.go
 model_currency_amount.go
 model_customization_details.go
 model_delete_institution_response.go
@@ -52,6 +53,7 @@ model_login_identity_status_details.go
 model_login_method.go
 model_other_info.go
 model_payment_details.go
+model_payment_instruction.go
 model_principal.go
 model_product_status.go
 model_redirect_uri_response.go
