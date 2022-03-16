@@ -2513,6 +2513,7 @@ components:
     LinkTokenRequest:
       example:
         link_mode: real
+        payment_instruction_id: payment_instruction_id
         response_type: code
         language: en
         code_challenge_method: code-challenge-method
@@ -2536,6 +2537,10 @@ components:
         login_identity_id: uhdasidasodaso
         ui_mode: redirect
         code_challenge: code-challenge
+        products_requested:
+        - ACCOUNTS
+        - TRANSACTIONS
+        - DEBIT_AUTHORIZATION
       properties:
         grant_type:
           description: support only client_credentials
@@ -2624,6 +2629,19 @@ components:
           items:
             type: string
           type: array
+        products_requested:
+          description: products that is requested
+          example:
+          - ACCOUNTS
+          - TRANSACTIONS
+          - DEBIT_AUTHORIZATION
+          items:
+            type: string
+          type: array
+        payment_instruction_id:
+          description: The identifier returned after creating payment instruction
+          example: payment_instruction_id
+          type: string
       required:
       - client_id
       - grant_type
