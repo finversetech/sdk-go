@@ -19,6 +19,10 @@ import (
 type LinkRequest struct {
 	InstitutionId   string `json:"institution_id"`
 	StoreCredential bool   `json:"store_credential"`
+	// products that is requested
+	ProductsRequested []string `json:"products_requested,omitempty"`
+	// The identifier returned after creating payment instruction
+	PaymentInstructionId *string `json:"payment_instruction_id,omitempty"`
 }
 
 // NewLinkRequest instantiates a new LinkRequest object
@@ -88,6 +92,70 @@ func (o *LinkRequest) SetStoreCredential(v bool) {
 	o.StoreCredential = v
 }
 
+// GetProductsRequested returns the ProductsRequested field value if set, zero value otherwise.
+func (o *LinkRequest) GetProductsRequested() []string {
+	if o == nil || o.ProductsRequested == nil {
+		var ret []string
+		return ret
+	}
+	return o.ProductsRequested
+}
+
+// GetProductsRequestedOk returns a tuple with the ProductsRequested field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LinkRequest) GetProductsRequestedOk() ([]string, bool) {
+	if o == nil || o.ProductsRequested == nil {
+		return nil, false
+	}
+	return o.ProductsRequested, true
+}
+
+// HasProductsRequested returns a boolean if a field has been set.
+func (o *LinkRequest) HasProductsRequested() bool {
+	if o != nil && o.ProductsRequested != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProductsRequested gets a reference to the given []string and assigns it to the ProductsRequested field.
+func (o *LinkRequest) SetProductsRequested(v []string) {
+	o.ProductsRequested = v
+}
+
+// GetPaymentInstructionId returns the PaymentInstructionId field value if set, zero value otherwise.
+func (o *LinkRequest) GetPaymentInstructionId() string {
+	if o == nil || o.PaymentInstructionId == nil {
+		var ret string
+		return ret
+	}
+	return *o.PaymentInstructionId
+}
+
+// GetPaymentInstructionIdOk returns a tuple with the PaymentInstructionId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LinkRequest) GetPaymentInstructionIdOk() (*string, bool) {
+	if o == nil || o.PaymentInstructionId == nil {
+		return nil, false
+	}
+	return o.PaymentInstructionId, true
+}
+
+// HasPaymentInstructionId returns a boolean if a field has been set.
+func (o *LinkRequest) HasPaymentInstructionId() bool {
+	if o != nil && o.PaymentInstructionId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentInstructionId gets a reference to the given string and assigns it to the PaymentInstructionId field.
+func (o *LinkRequest) SetPaymentInstructionId(v string) {
+	o.PaymentInstructionId = &v
+}
+
 func (o LinkRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -95,6 +163,12 @@ func (o LinkRequest) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["store_credential"] = o.StoreCredential
+	}
+	if o.ProductsRequested != nil {
+		toSerialize["products_requested"] = o.ProductsRequested
+	}
+	if o.PaymentInstructionId != nil {
+		toSerialize["payment_instruction_id"] = o.PaymentInstructionId
 	}
 	return json.Marshal(toSerialize)
 }

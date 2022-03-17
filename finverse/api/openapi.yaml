@@ -2675,7 +2675,12 @@ components:
       type: object
     LinkRequest:
       example:
+        payment_instruction_id: payment_instruction_id
         store_credential: true
+        products_requested:
+        - ACCOUNTS
+        - TRANSACTIONS
+        - DEBIT_AUTHORIZATION
         institution_id: ez-bank
       properties:
         institution_id:
@@ -2685,6 +2690,19 @@ components:
         store_credential:
           example: true
           type: boolean
+        products_requested:
+          description: products that is requested
+          example:
+          - ACCOUNTS
+          - TRANSACTIONS
+          - DEBIT_AUTHORIZATION
+          items:
+            type: string
+          type: array
+        payment_instruction_id:
+          description: The identifier returned after creating payment instruction
+          example: payment_instruction_id
+          type: string
       required:
       - institution_id
       - store_credential
