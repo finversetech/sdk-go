@@ -17,6 +17,8 @@ import (
 
 // PaymentInstruction struct for PaymentInstruction
 type PaymentInstruction struct {
+	// What type of payment is being created
+	PaymentType string `json:"payment_type"`
 	// The recipient name
 	RecipientName *string `json:"recipient_name,omitempty"`
 	// The sender name
@@ -43,8 +45,9 @@ type PaymentInstruction struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentInstruction() *PaymentInstruction {
+func NewPaymentInstruction(paymentType string) *PaymentInstruction {
 	this := PaymentInstruction{}
+	this.PaymentType = paymentType
 	return &this
 }
 
@@ -54,6 +57,30 @@ func NewPaymentInstruction() *PaymentInstruction {
 func NewPaymentInstructionWithDefaults() *PaymentInstruction {
 	this := PaymentInstruction{}
 	return &this
+}
+
+// GetPaymentType returns the PaymentType field value
+func (o *PaymentInstruction) GetPaymentType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.PaymentType
+}
+
+// GetPaymentTypeOk returns a tuple with the PaymentType field value
+// and a boolean to check if the value has been set.
+func (o *PaymentInstruction) GetPaymentTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PaymentType, true
+}
+
+// SetPaymentType sets field value
+func (o *PaymentInstruction) SetPaymentType(v string) {
+	o.PaymentType = v
 }
 
 // GetRecipientName returns the RecipientName field value if set, zero value otherwise.
@@ -400,6 +427,9 @@ func (o *PaymentInstruction) SetIdempotenceKey(v string) {
 
 func (o PaymentInstruction) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if true {
+		toSerialize["payment_type"] = o.PaymentType
+	}
 	if o.RecipientName != nil {
 		toSerialize["recipient_name"] = o.RecipientName
 	}

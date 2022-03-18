@@ -3378,6 +3378,7 @@ components:
     PaymentInstruction:
       example:
         end_date: 2000-01-23
+        payment_type: DEBIT_AUTHORIZATION
         amount: 123.45
         idempotence_key: a_unique_id
         sender_account_id: Something
@@ -3388,6 +3389,11 @@ components:
         start_date: 2000-01-23
         frequency: DAILY, WEEKLY OR MONTHLY
       properties:
+        payment_type:
+          description: What type of payment is being created
+          enum:
+          - DEBIT_AUTHORIZATION
+          type: string
         recipient_name:
           description: The recipient name
           example: John Wick
@@ -3430,6 +3436,8 @@ components:
           description: A customer provided key to ensure ideompotency
           example: a_unique_id
           type: string
+      required:
+      - payment_type
       type: object
     BadRequestModel_error:
       properties:
