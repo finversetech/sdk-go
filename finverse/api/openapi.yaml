@@ -999,7 +999,10 @@ paths:
                 $ref: '#/components/schemas/BadRequestModel'
           description: Refresh error
         "401":
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
           description: Unauthorized
         "500":
           content:
