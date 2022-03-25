@@ -2588,6 +2588,8 @@ components:
           example: redirect
           type: string
         language:
+          description: ISO639-1 language code. Language to display when user open
+            the link, default to English (en) if not specified
           example: en
           type: string
         code_challenge:

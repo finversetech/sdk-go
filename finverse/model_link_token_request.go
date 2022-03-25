@@ -30,7 +30,8 @@ type LinkTokenRequest struct {
 	// Space separated list of the tags of the institutions to view.
 	LinkMode *string `json:"link_mode,omitempty"`
 	// The UI mode link is intended to be used in - \"iframe\" (default), \"auto_redirect\" or \"redirect\"
-	UiMode              *string `json:"ui_mode,omitempty"`
+	UiMode *string `json:"ui_mode,omitempty"`
+	// ISO639-1 language code. Language to display when user open the link, default to English (en) if not specified
 	Language            *string `json:"language,omitempty"`
 	CodeChallenge       *string `json:"code_challenge,omitempty"`
 	CodeChallengeMethod *string `json:"code_challenge_method,omitempty"`
