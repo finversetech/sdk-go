@@ -19,6 +19,8 @@ import (
 type PaymentInstruction struct {
 	// What type of payment is being created
 	PaymentType string `json:"payment_type"`
+	// The customer provided userId that needs to match the one passed when generating link token
+	UserId string `json:"user_id"`
 	// The recipient name
 	RecipientName *string `json:"recipient_name,omitempty"`
 	// The sender name
@@ -45,9 +47,10 @@ type PaymentInstruction struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentInstruction(paymentType string) *PaymentInstruction {
+func NewPaymentInstruction(paymentType string, userId string) *PaymentInstruction {
 	this := PaymentInstruction{}
 	this.PaymentType = paymentType
+	this.UserId = userId
 	return &this
 }
 
@@ -81,6 +84,30 @@ func (o *PaymentInstruction) GetPaymentTypeOk() (*string, bool) {
 // SetPaymentType sets field value
 func (o *PaymentInstruction) SetPaymentType(v string) {
 	o.PaymentType = v
+}
+
+// GetUserId returns the UserId field value
+func (o *PaymentInstruction) GetUserId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.UserId
+}
+
+// GetUserIdOk returns a tuple with the UserId field value
+// and a boolean to check if the value has been set.
+func (o *PaymentInstruction) GetUserIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.UserId, true
+}
+
+// SetUserId sets field value
+func (o *PaymentInstruction) SetUserId(v string) {
+	o.UserId = v
 }
 
 // GetRecipientName returns the RecipientName field value if set, zero value otherwise.
@@ -429,6 +456,9 @@ func (o PaymentInstruction) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["payment_type"] = o.PaymentType
+	}
+	if true {
+		toSerialize["user_id"] = o.UserId
 	}
 	if o.RecipientName != nil {
 		toSerialize["recipient_name"] = o.RecipientName
