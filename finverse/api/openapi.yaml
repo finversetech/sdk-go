@@ -2543,7 +2543,7 @@ components:
         products_requested:
         - ACCOUNTS
         - TRANSACTIONS
-        - DEBIT_AUTHORIZATION
+        - PAYMENTS
       properties:
         grant_type:
           description: support only client_credentials
@@ -2639,7 +2639,7 @@ components:
           example:
           - ACCOUNTS
           - TRANSACTIONS
-          - DEBIT_AUTHORIZATION
+          - PAYMENTS
           items:
             type: string
           type: array
