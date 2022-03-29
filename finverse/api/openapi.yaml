@@ -286,6 +286,34 @@ paths:
         - transaction
       tags:
       - login_identity
+  /income:
+    get:
+      description: Get income figures for a login identity
+      operationId: getIncomeByLoginIdentityId
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IncomeResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - income
+      tags:
+      - login_identity
   /institutions/{institutionId}:
     get:
       description: Get a specific institution by institutionId
@@ -3451,6 +3479,266 @@ components:
       - payment_type
       - user_id
       type: object
+    IncomeEstimate:
+      example:
+        amount: 100.0
+        currency: HKD
+      properties:
+        amount:
+          description: Income amount
+          example: 100.0
+          type: number
+        currency:
+          description: Currency
+          example: HKD
+          type: string
+      type: object
+    MonthlyIncomeEstimate:
+      example:
+        month: 1.0
+        year: 2020.0
+        estimated_income:
+          amount: 100.0
+          currency: HKD
+      properties:
+        estimated_income:
+          $ref: '#/components/schemas/IncomeEstimate'
+        month:
+          description: The numeric month
+          example: 1.0
+          type: number
+        year:
+          description: The year
+          example: 2020.0
+          type: number
+      type: object
+    IncomeStream:
+      example:
+        account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+        estimated_monthly_income:
+          amount: 100.0
+          currency: HKD
+        transaction_count: 3.0
+        monthly_history:
+        - month: 1.0
+          year: 2020.0
+          estimated_income:
+            amount: 100.0
+            currency: HKD
+        - month: 1.0
+          year: 2020.0
+          estimated_income:
+            amount: 100.0
+            currency: HKD
+      properties:
+        account_id:
+          description: Account this income estimate is associated with
+          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          type: string
+        estimated_monthly_income:
+          $ref: '#/components/schemas/IncomeEstimate'
+        transaction_count:
+          description: Number of transactions counted towards income
+          example: 3.0
+          type: number
+        monthly_history:
+          items:
+            $ref: '#/components/schemas/MonthlyIncomeEstimate'
+          type: array
+      type: object
+    SingleSourceIncome:
+      example:
+        income_total:
+          estmated_monthly_income:
+            amount: 100.0
+            currency: HKD
+          transaction_count: 3.0
+          monthly_history:
+          - month: 1.0
+            year: 2020.0
+            estimated_income:
+              amount: 100.0
+              currency: HKD
+          - month: 1.0
+            year: 2020.0
+            estimated_income:
+              amount: 100.0
+              currency: HKD
+        income_streams:
+        - account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          estimated_monthly_income:
+            amount: 100.0
+            currency: HKD
+          transaction_count: 3.0
+          monthly_history:
+          - month: 1.0
+            year: 2020.0
+            estimated_income:
+              amount: 100.0
+              currency: HKD
+          - month: 1.0
+            year: 2020.0
+            estimated_income:
+              amount: 100.0
+              currency: HKD
+        - account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          estimated_monthly_income:
+            amount: 100.0
+            currency: HKD
+          transaction_count: 3.0
+          monthly_history:
+          - month: 1.0
+            year: 2020.0
+            estimated_income:
+              amount: 100.0
+              currency: HKD
+          - month: 1.0
+            year: 2020.0
+            estimated_income:
+              amount: 100.0
+              currency: HKD
+        source: DEPOSITS_ANALYSIS
+        source_id: source_id
+      properties:
+        income_streams:
+          items:
+            $ref: '#/components/schemas/IncomeStream'
+          type: array
+        income_total:
+          $ref: '#/components/schemas/SingleSourceIncome_income_total'
+        source:
+          description: Where the income estimate was sourced from
+          example: DEPOSITS_ANALYSIS
+          type: string
+        source_id:
+          description: Unknown
+          type: string
+      type: object
+    IncomeResponse:
+      example:
+        income:
+        - income_total:
+            estmated_monthly_income:
+              amount: 100.0
+              currency: HKD
+            transaction_count: 3.0
+            monthly_history:
+            - month: 1.0
+              year: 2020.0
+              estimated_income:
+                amount: 100.0
+                currency: HKD
+            - month: 1.0
+              year: 2020.0
+              estimated_income:
+                amount: 100.0
+                currency: HKD
+          income_streams:
+          - account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+            estimated_monthly_income:
+              amount: 100.0
+              currency: HKD
+            transaction_count: 3.0
+            monthly_history:
+            - month: 1.0
+              year: 2020.0
+              estimated_income:
+                amount: 100.0
+                currency: HKD
+            - month: 1.0
+              year: 2020.0
+              estimated_income:
+                amount: 100.0
+                currency: HKD
+          - account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+            estimated_monthly_income:
+              amount: 100.0
+              currency: HKD
+            transaction_count: 3.0
+            monthly_history:
+            - month: 1.0
+              year: 2020.0
+              estimated_income:
+                amount: 100.0
+                currency: HKD
+            - month: 1.0
+              year: 2020.0
+              estimated_income:
+                amount: 100.0
+                currency: HKD
+          source: DEPOSITS_ANALYSIS
+          source_id: source_id
+        - income_total:
+            estmated_monthly_income:
+              amount: 100.0
+              currency: HKD
+            transaction_count: 3.0
+            monthly_history:
+            - month: 1.0
+              year: 2020.0
+              estimated_income:
+                amount: 100.0
+                currency: HKD
+            - month: 1.0
+              year: 2020.0
+              estimated_income:
+                amount: 100.0
+                currency: HKD
+          income_streams:
+          - account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+            estimated_monthly_income:
+              amount: 100.0
+              currency: HKD
+            transaction_count: 3.0
+            monthly_history:
+            - month: 1.0
+              year: 2020.0
+              estimated_income:
+                amount: 100.0
+                currency: HKD
+            - month: 1.0
+              year: 2020.0
+              estimated_income:
+                amount: 100.0
+                currency: HKD
+          - account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+            estimated_monthly_income:
+              amount: 100.0
+              currency: HKD
+            transaction_count: 3.0
+            monthly_history:
+            - month: 1.0
+              year: 2020.0
+              estimated_income:
+                amount: 100.0
+                currency: HKD
+            - month: 1.0
+              year: 2020.0
+              estimated_income:
+                amount: 100.0
+                currency: HKD
+          source: DEPOSITS_ANALYSIS
+          source_id: source_id
+        institution:
+          portal_name: Personal Internet Banking
+          countries:
+          - HKG
+          institution_name: Mock Bank
+          institution_id: "123"
+        login_identity:
+          login_identity_id: login_identity_id
+          last_session_id: last_session_id
+          status: LINKING
+      properties:
+        income:
+          items:
+            $ref: '#/components/schemas/SingleSourceIncome'
+          type: array
+        login_identity:
+          $ref: '#/components/schemas/LoginIdentityShort'
+        institution:
+          $ref: '#/components/schemas/InstitutionShort'
+      type: object
     BadRequestModel_error:
       properties:
         code:
@@ -3466,6 +3754,35 @@ components:
           description: A link to visit for further action
           example: link.finverse.com
           type: string
+      type: object
+    SingleSourceIncome_income_total:
+      example:
+        estmated_monthly_income:
+          amount: 100.0
+          currency: HKD
+        transaction_count: 3.0
+        monthly_history:
+        - month: 1.0
+          year: 2020.0
+          estimated_income:
+            amount: 100.0
+            currency: HKD
+        - month: 1.0
+          year: 2020.0
+          estimated_income:
+            amount: 100.0
+            currency: HKD
+      properties:
+        estmated_monthly_income:
+          $ref: '#/components/schemas/IncomeEstimate'
+        transaction_count:
+          description: Number of transactions counted towards income
+          example: 3.0
+          type: number
+        monthly_history:
+          items:
+            $ref: '#/components/schemas/MonthlyIncomeEstimate'
+          type: array
       type: object
   securitySchemes:
     Oauth2:
