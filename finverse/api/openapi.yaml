@@ -1001,7 +1001,7 @@ paths:
         - statement:read
       tags:
       - login_identity
-  /payments/instruction/:
+  /payments/instruction:
     get:
       description: Get list of payment instructions to be used when linking to perfom
         debit authorization
@@ -1036,7 +1036,6 @@ paths:
         - payment:get
       tags:
       - login_identity
-  /payments/instruction:
     post:
       description: Create a new payment instruction to be used when linking to perform
         debit authorization
@@ -1060,7 +1059,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/BadRequestModel'
-          description: Refresh error
+          description: Invalid Request
         "401":
           content:
             application/json:
@@ -3483,7 +3482,7 @@ components:
           frequency: DAILY, WEEKLY OR MONTHLY
           payment_type: DEBIT_AUTHORIZATION
           idempotence_key: a_unique_id
-          user_id: 01EP4A1MZDHKETZFRPF0K62S6S
+          user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
           sender_account_id: Something
           currency: HKD
           recipient_name: John Wick
@@ -3498,7 +3497,7 @@ components:
           frequency: DAILY, WEEKLY OR MONTHLY
           payment_type: DEBIT_AUTHORIZATION
           idempotence_key: a_unique_id
-          user_id: 01EP4A1MZDHKETZFRPF0K62S6S
+          user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
           sender_account_id: Something
           currency: HKD
           recipient_name: John Wick
@@ -3529,22 +3528,21 @@ components:
         frequency: DAILY, WEEKLY OR MONTHLY
         payment_type: DEBIT_AUTHORIZATION
         idempotence_key: a_unique_id
-        user_id: 01EP4A1MZDHKETZFRPF0K62S6S
+        user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
         sender_account_id: Something
         currency: HKD
         recipient_name: John Wick
         remarks: This is regular payment to pay for loan
         start_date: 2000-01-23
       properties:
+        user_id:
+          description: The user id to which the payment instruction will refer
+          example: 01BX5ZZKBKACTAV9WEVGEMMVRY
+          type: string
         payment_type:
           description: What type of payment is being created
           enum:
           - DEBIT_AUTHORIZATION
-          type: string
-        user_id:
-          description: The customer provided userId that needs to match the one passed
-            when generating link token
-          example: 01EP4A1MZDHKETZFRPF0K62S6S
           type: string
         recipient_name:
           description: The recipient name
