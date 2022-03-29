@@ -1001,6 +1001,41 @@ paths:
         - statement:read
       tags:
       - login_identity
+  /payments/instruction/:
+    get:
+      description: Get list of payment instructions to be used when linking to perfom
+        debit authorization
+      operationId: listPaymentInstructions
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPaymentInstructionsResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payment:get
+      tags:
+      - login_identity
   /payments/instruction:
     post:
       description: Create a new payment instruction to be used when linking to perform
@@ -3408,20 +3443,70 @@ components:
         payment_instruction_id:
           type: string
       type: object
+    ListPaymentInstructionsResponse:
+      example:
+        institution:
+          portal_name: Personal Internet Banking
+          countries:
+          - HKG
+          institution_name: Mock Bank
+          institution_id: "123"
+        payment_instructions:
+        - end_date: 2000-01-23
+          amount: 123.45
+          sender_name: Jane Doe
+          recipient_account_id: Something
+          frequency: DAILY, WEEKLY OR MONTHLY
+          payment_type: DEBIT_AUTHORIZATION
+          idempotence_key: a_unique_id
+          user_id: 01EP4A1MZDHKETZFRPF0K62S6S
+          sender_account_id: Something
+          currency: HKD
+          recipient_name: John Wick
+          remarks: This is regular payment to pay for loan
+          start_date: 2000-01-23
+        - end_date: 2000-01-23
+          amount: 123.45
+          sender_name: Jane Doe
+          recipient_account_id: Something
+          frequency: DAILY, WEEKLY OR MONTHLY
+          payment_type: DEBIT_AUTHORIZATION
+          idempotence_key: a_unique_id
+          user_id: 01EP4A1MZDHKETZFRPF0K62S6S
+          sender_account_id: Something
+          currency: HKD
+          recipient_name: John Wick
+          remarks: This is regular payment to pay for loan
+          start_date: 2000-01-23
+        login_identity:
+          login_identity_id: login_identity_id
+          last_session_id: last_session_id
+          status: LINKING
+      properties:
+        payment_instructions:
+          items:
+            $ref: '#/components/schemas/PaymentInstruction'
+          type: array
+        login_identity:
+          $ref: '#/components/schemas/LoginIdentityShort'
+        institution:
+          $ref: '#/components/schemas/InstitutionShort'
+      type: object
     PaymentInstruction:
       example:
         end_date: 2000-01-23
-        payment_type: DEBIT_AUTHORIZATION
         amount: 123.45
+        sender_name: Jane Doe
+        recipient_account_id: Something
+        frequency: DAILY, WEEKLY OR MONTHLY
+        payment_type: DEBIT_AUTHORIZATION
         idempotence_key: a_unique_id
         user_id: 01EP4A1MZDHKETZFRPF0K62S6S
         sender_account_id: Something
-        sender_name: Jane Doe
         currency: HKD
         recipient_name: John Wick
         remarks: This is regular payment to pay for loan
         start_date: 2000-01-23
-        frequency: DAILY, WEEKLY OR MONTHLY
       properties:
         payment_type:
           description: What type of payment is being created
@@ -3436,6 +3521,10 @@ components:
         recipient_name:
           description: The recipient name
           example: John Wick
+          type: string
+        recipient_account_id:
+          description: The recipient account Id
+          example: Something
           type: string
         sender_name:
           description: The sender name

@@ -23,6 +23,8 @@ type PaymentInstruction struct {
 	UserId string `json:"user_id"`
 	// The recipient name
 	RecipientName *string `json:"recipient_name,omitempty"`
+	// The recipient account Id
+	RecipientAccountId *string `json:"recipient_account_id,omitempty"`
 	// The sender name
 	SenderName *string `json:"sender_name,omitempty"`
 	// The sender account Id
@@ -140,6 +142,38 @@ func (o *PaymentInstruction) HasRecipientName() bool {
 // SetRecipientName gets a reference to the given string and assigns it to the RecipientName field.
 func (o *PaymentInstruction) SetRecipientName(v string) {
 	o.RecipientName = &v
+}
+
+// GetRecipientAccountId returns the RecipientAccountId field value if set, zero value otherwise.
+func (o *PaymentInstruction) GetRecipientAccountId() string {
+	if o == nil || o.RecipientAccountId == nil {
+		var ret string
+		return ret
+	}
+	return *o.RecipientAccountId
+}
+
+// GetRecipientAccountIdOk returns a tuple with the RecipientAccountId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentInstruction) GetRecipientAccountIdOk() (*string, bool) {
+	if o == nil || o.RecipientAccountId == nil {
+		return nil, false
+	}
+	return o.RecipientAccountId, true
+}
+
+// HasRecipientAccountId returns a boolean if a field has been set.
+func (o *PaymentInstruction) HasRecipientAccountId() bool {
+	if o != nil && o.RecipientAccountId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRecipientAccountId gets a reference to the given string and assigns it to the RecipientAccountId field.
+func (o *PaymentInstruction) SetRecipientAccountId(v string) {
+	o.RecipientAccountId = &v
 }
 
 // GetSenderName returns the SenderName field value if set, zero value otherwise.
@@ -462,6 +496,9 @@ func (o PaymentInstruction) MarshalJSON() ([]byte, error) {
 	}
 	if o.RecipientName != nil {
 		toSerialize["recipient_name"] = o.RecipientName
+	}
+	if o.RecipientAccountId != nil {
+		toSerialize["recipient_account_id"] = o.RecipientAccountId
 	}
 	if o.SenderName != nil {
 		toSerialize["sender_name"] = o.SenderName
