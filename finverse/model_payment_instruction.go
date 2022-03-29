@@ -43,6 +43,8 @@ type PaymentInstruction struct {
 	Remarks *string `json:"remarks,omitempty"`
 	// A customer provided key to ensure ideompotency
 	IdempotenceKey *string `json:"idempotence_key,omitempty"`
+	// Status of the payment
+	PaymentStatus *string `json:"payment_status,omitempty"`
 }
 
 // NewPaymentInstruction instantiates a new PaymentInstruction object
@@ -486,6 +488,38 @@ func (o *PaymentInstruction) SetIdempotenceKey(v string) {
 	o.IdempotenceKey = &v
 }
 
+// GetPaymentStatus returns the PaymentStatus field value if set, zero value otherwise.
+func (o *PaymentInstruction) GetPaymentStatus() string {
+	if o == nil || o.PaymentStatus == nil {
+		var ret string
+		return ret
+	}
+	return *o.PaymentStatus
+}
+
+// GetPaymentStatusOk returns a tuple with the PaymentStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentInstruction) GetPaymentStatusOk() (*string, bool) {
+	if o == nil || o.PaymentStatus == nil {
+		return nil, false
+	}
+	return o.PaymentStatus, true
+}
+
+// HasPaymentStatus returns a boolean if a field has been set.
+func (o *PaymentInstruction) HasPaymentStatus() bool {
+	if o != nil && o.PaymentStatus != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentStatus gets a reference to the given string and assigns it to the PaymentStatus field.
+func (o *PaymentInstruction) SetPaymentStatus(v string) {
+	o.PaymentStatus = &v
+}
+
 func (o PaymentInstruction) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -526,6 +560,9 @@ func (o PaymentInstruction) MarshalJSON() ([]byte, error) {
 	}
 	if o.IdempotenceKey != nil {
 		toSerialize["idempotence_key"] = o.IdempotenceKey
+	}
+	if o.PaymentStatus != nil {
+		toSerialize["payment_status"] = o.PaymentStatus
 	}
 	return json.Marshal(toSerialize)
 }

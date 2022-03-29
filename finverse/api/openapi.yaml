@@ -3454,6 +3454,7 @@ components:
         payment_instructions:
         - end_date: 2000-01-23
           amount: 123.45
+          payment_status: UNKOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVILABLE_FOR_INSTITUTION
           sender_name: Jane Doe
           recipient_account_id: Something
           frequency: DAILY, WEEKLY OR MONTHLY
@@ -3467,6 +3468,7 @@ components:
           start_date: 2000-01-23
         - end_date: 2000-01-23
           amount: 123.45
+          payment_status: UNKOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVILABLE_FOR_INSTITUTION
           sender_name: Jane Doe
           recipient_account_id: Something
           frequency: DAILY, WEEKLY OR MONTHLY
@@ -3496,6 +3498,7 @@ components:
       example:
         end_date: 2000-01-23
         amount: 123.45
+        payment_status: UNKOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVILABLE_FOR_INSTITUTION
         sender_name: Jane Doe
         recipient_account_id: Something
         frequency: DAILY, WEEKLY OR MONTHLY
@@ -3563,6 +3566,10 @@ components:
         idempotence_key:
           description: A customer provided key to ensure ideompotency
           example: a_unique_id
+          type: string
+        payment_status:
+          description: Status of the payment
+          example: UNKOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVILABLE_FOR_INSTITUTION
           type: string
       required:
       - payment_type
