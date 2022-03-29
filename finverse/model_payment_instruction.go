@@ -45,6 +45,8 @@ type PaymentInstruction struct {
 	IdempotenceKey *string `json:"idempotence_key,omitempty"`
 	// Status of the payment
 	PaymentStatus *string `json:"payment_status,omitempty"`
+	// Reference identification returned by institution
+	ReferenceId *string `json:"reference_id,omitempty"`
 }
 
 // NewPaymentInstruction instantiates a new PaymentInstruction object
@@ -520,6 +522,38 @@ func (o *PaymentInstruction) SetPaymentStatus(v string) {
 	o.PaymentStatus = &v
 }
 
+// GetReferenceId returns the ReferenceId field value if set, zero value otherwise.
+func (o *PaymentInstruction) GetReferenceId() string {
+	if o == nil || o.ReferenceId == nil {
+		var ret string
+		return ret
+	}
+	return *o.ReferenceId
+}
+
+// GetReferenceIdOk returns a tuple with the ReferenceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentInstruction) GetReferenceIdOk() (*string, bool) {
+	if o == nil || o.ReferenceId == nil {
+		return nil, false
+	}
+	return o.ReferenceId, true
+}
+
+// HasReferenceId returns a boolean if a field has been set.
+func (o *PaymentInstruction) HasReferenceId() bool {
+	if o != nil && o.ReferenceId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetReferenceId gets a reference to the given string and assigns it to the ReferenceId field.
+func (o *PaymentInstruction) SetReferenceId(v string) {
+	o.ReferenceId = &v
+}
+
 func (o PaymentInstruction) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -563,6 +597,9 @@ func (o PaymentInstruction) MarshalJSON() ([]byte, error) {
 	}
 	if o.PaymentStatus != nil {
 		toSerialize["payment_status"] = o.PaymentStatus
+	}
+	if o.ReferenceId != nil {
+		toSerialize["reference_id"] = o.ReferenceId
 	}
 	return json.Marshal(toSerialize)
 }

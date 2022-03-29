@@ -3454,6 +3454,7 @@ components:
         payment_instructions:
         - end_date: 2000-01-23
           amount: 123.45
+          reference_id: reference_id
           payment_status: UNKOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVILABLE_FOR_INSTITUTION
           sender_name: Jane Doe
           recipient_account_id: Something
@@ -3468,6 +3469,7 @@ components:
           start_date: 2000-01-23
         - end_date: 2000-01-23
           amount: 123.45
+          reference_id: reference_id
           payment_status: UNKOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVILABLE_FOR_INSTITUTION
           sender_name: Jane Doe
           recipient_account_id: Something
@@ -3498,6 +3500,7 @@ components:
       example:
         end_date: 2000-01-23
         amount: 123.45
+        reference_id: reference_id
         payment_status: UNKOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVILABLE_FOR_INSTITUTION
         sender_name: Jane Doe
         recipient_account_id: Something
@@ -3570,6 +3573,9 @@ components:
         payment_status:
           description: Status of the payment
           example: UNKOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVILABLE_FOR_INSTITUTION
+          type: string
+        reference_id:
+          description: Reference identification returned by institution
           type: string
       required:
       - payment_type
