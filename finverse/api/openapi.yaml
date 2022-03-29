@@ -289,7 +289,7 @@ paths:
   /income:
     get:
       description: Get income figures for a login identity
-      operationId: getIncomeByLoginIdentityId
+      operationId: getIncomeEstimateByLoginIdentityId
       responses:
         "200":
           content:

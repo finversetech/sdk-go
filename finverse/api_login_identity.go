@@ -115,18 +115,18 @@ type LoginIdentityApi interface {
 	GetIdentityExecute(r LoginIdentityApiApiGetIdentityRequest) (*GetIdentityResponse, *http.Response, error)
 
 	/*
-		GetIncomeByLoginIdentityId Method for GetIncomeByLoginIdentityId
+		GetIncomeEstimateByLoginIdentityId Method for GetIncomeEstimateByLoginIdentityId
 
 		Get income figures for a login identity
 
 		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return LoginIdentityApiApiGetIncomeByLoginIdentityIdRequest
+		 @return LoginIdentityApiApiGetIncomeEstimateByLoginIdentityIdRequest
 	*/
-	GetIncomeByLoginIdentityId(ctx context.Context) LoginIdentityApiApiGetIncomeByLoginIdentityIdRequest
+	GetIncomeEstimateByLoginIdentityId(ctx context.Context) LoginIdentityApiApiGetIncomeEstimateByLoginIdentityIdRequest
 
-	// GetIncomeByLoginIdentityIdExecute executes the request
+	// GetIncomeEstimateByLoginIdentityIdExecute executes the request
 	//  @return IncomeResponse
-	GetIncomeByLoginIdentityIdExecute(r LoginIdentityApiApiGetIncomeByLoginIdentityIdRequest) (*IncomeResponse, *http.Response, error)
+	GetIncomeEstimateByLoginIdentityIdExecute(r LoginIdentityApiApiGetIncomeEstimateByLoginIdentityIdRequest) (*IncomeResponse, *http.Response, error)
 
 	/*
 		GetLoginIdentity Method for GetLoginIdentity
@@ -991,25 +991,25 @@ func (a *LoginIdentityApiService) GetIdentityExecute(r LoginIdentityApiApiGetIde
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LoginIdentityApiApiGetIncomeByLoginIdentityIdRequest struct {
+type LoginIdentityApiApiGetIncomeEstimateByLoginIdentityIdRequest struct {
 	ctx        context.Context
 	ApiService LoginIdentityApi
 }
 
-func (r LoginIdentityApiApiGetIncomeByLoginIdentityIdRequest) Execute() (*IncomeResponse, *http.Response, error) {
-	return r.ApiService.GetIncomeByLoginIdentityIdExecute(r)
+func (r LoginIdentityApiApiGetIncomeEstimateByLoginIdentityIdRequest) Execute() (*IncomeResponse, *http.Response, error) {
+	return r.ApiService.GetIncomeEstimateByLoginIdentityIdExecute(r)
 }
 
 /*
-GetIncomeByLoginIdentityId Method for GetIncomeByLoginIdentityId
+GetIncomeEstimateByLoginIdentityId Method for GetIncomeEstimateByLoginIdentityId
 
 Get income figures for a login identity
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return LoginIdentityApiApiGetIncomeByLoginIdentityIdRequest
+ @return LoginIdentityApiApiGetIncomeEstimateByLoginIdentityIdRequest
 */
-func (a *LoginIdentityApiService) GetIncomeByLoginIdentityId(ctx context.Context) LoginIdentityApiApiGetIncomeByLoginIdentityIdRequest {
-	return LoginIdentityApiApiGetIncomeByLoginIdentityIdRequest{
+func (a *LoginIdentityApiService) GetIncomeEstimateByLoginIdentityId(ctx context.Context) LoginIdentityApiApiGetIncomeEstimateByLoginIdentityIdRequest {
+	return LoginIdentityApiApiGetIncomeEstimateByLoginIdentityIdRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1017,7 +1017,7 @@ func (a *LoginIdentityApiService) GetIncomeByLoginIdentityId(ctx context.Context
 
 // Execute executes the request
 //  @return IncomeResponse
-func (a *LoginIdentityApiService) GetIncomeByLoginIdentityIdExecute(r LoginIdentityApiApiGetIncomeByLoginIdentityIdRequest) (*IncomeResponse, *http.Response, error) {
+func (a *LoginIdentityApiService) GetIncomeEstimateByLoginIdentityIdExecute(r LoginIdentityApiApiGetIncomeEstimateByLoginIdentityIdRequest) (*IncomeResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1025,7 +1025,7 @@ func (a *LoginIdentityApiService) GetIncomeByLoginIdentityIdExecute(r LoginIdent
 		localVarReturnValue *IncomeResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.GetIncomeByLoginIdentityId")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.GetIncomeEstimateByLoginIdentityId")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
