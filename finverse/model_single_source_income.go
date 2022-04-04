@@ -17,8 +17,8 @@ import (
 
 // SingleSourceIncome struct for SingleSourceIncome
 type SingleSourceIncome struct {
-	IncomeStreams []IncomeStream                 `json:"income_streams,omitempty"`
-	IncomeTotal   *SingleSourceIncomeIncomeTotal `json:"income_total,omitempty"`
+	IncomeStreams []IncomeStream `json:"income_streams,omitempty"`
+	IncomeTotal   *IncomeTotal   `json:"income_total,omitempty"`
 	// Where the income estimate was sourced from
 	Source *string `json:"source,omitempty"`
 	// Unknown
@@ -75,9 +75,9 @@ func (o *SingleSourceIncome) SetIncomeStreams(v []IncomeStream) {
 }
 
 // GetIncomeTotal returns the IncomeTotal field value if set, zero value otherwise.
-func (o *SingleSourceIncome) GetIncomeTotal() SingleSourceIncomeIncomeTotal {
+func (o *SingleSourceIncome) GetIncomeTotal() IncomeTotal {
 	if o == nil || o.IncomeTotal == nil {
-		var ret SingleSourceIncomeIncomeTotal
+		var ret IncomeTotal
 		return ret
 	}
 	return *o.IncomeTotal
@@ -85,7 +85,7 @@ func (o *SingleSourceIncome) GetIncomeTotal() SingleSourceIncomeIncomeTotal {
 
 // GetIncomeTotalOk returns a tuple with the IncomeTotal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SingleSourceIncome) GetIncomeTotalOk() (*SingleSourceIncomeIncomeTotal, bool) {
+func (o *SingleSourceIncome) GetIncomeTotalOk() (*IncomeTotal, bool) {
 	if o == nil || o.IncomeTotal == nil {
 		return nil, false
 	}
@@ -101,8 +101,8 @@ func (o *SingleSourceIncome) HasIncomeTotal() bool {
 	return false
 }
 
-// SetIncomeTotal gets a reference to the given SingleSourceIncomeIncomeTotal and assigns it to the IncomeTotal field.
-func (o *SingleSourceIncome) SetIncomeTotal(v SingleSourceIncomeIncomeTotal) {
+// SetIncomeTotal gets a reference to the given IncomeTotal and assigns it to the IncomeTotal field.
+func (o *SingleSourceIncome) SetIncomeTotal(v IncomeTotal) {
 	o.IncomeTotal = &v
 }
 

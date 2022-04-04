@@ -311,7 +311,7 @@ paths:
           description: Internal Server Error
       security:
       - Oauth2:
-        - income
+        - income:get
       tags:
       - login_identity
   /institutions/{institutionId}:
@@ -3668,6 +3668,35 @@ components:
             $ref: '#/components/schemas/MonthlyIncomeEstimate'
           type: array
       type: object
+    IncomeTotal:
+      example:
+        estmated_monthly_income:
+          amount: 100.0
+          currency: HKD
+        transaction_count: 3.0
+        monthly_history:
+        - month: 1.0
+          year: 2020.0
+          estimated_income:
+            amount: 100.0
+            currency: HKD
+        - month: 1.0
+          year: 2020.0
+          estimated_income:
+            amount: 100.0
+            currency: HKD
+      properties:
+        estmated_monthly_income:
+          $ref: '#/components/schemas/IncomeEstimate'
+        transaction_count:
+          description: Number of transactions counted towards income
+          example: 3.0
+          type: number
+        monthly_history:
+          items:
+            $ref: '#/components/schemas/MonthlyIncomeEstimate'
+          type: array
+      type: object
     SingleSourceIncome:
       example:
         income_total:
@@ -3727,7 +3756,7 @@ components:
             $ref: '#/components/schemas/IncomeStream'
           type: array
         income_total:
-          $ref: '#/components/schemas/SingleSourceIncome_income_total'
+          $ref: '#/components/schemas/IncomeTotal'
         source:
           description: Where the income estimate was sourced from
           example: DEPOSITS_ANALYSIS
@@ -3876,35 +3905,6 @@ components:
           description: A link to visit for further action
           example: link.finverse.com
           type: string
-      type: object
-    SingleSourceIncome_income_total:
-      example:
-        estmated_monthly_income:
-          amount: 100.0
-          currency: HKD
-        transaction_count: 3.0
-        monthly_history:
-        - month: 1.0
-          year: 2020.0
-          estimated_income:
-            amount: 100.0
-            currency: HKD
-        - month: 1.0
-          year: 2020.0
-          estimated_income:
-            amount: 100.0
-            currency: HKD
-      properties:
-        estmated_monthly_income:
-          $ref: '#/components/schemas/IncomeEstimate'
-        transaction_count:
-          description: Number of transactions counted towards income
-          example: 3.0
-          type: number
-        monthly_history:
-          items:
-            $ref: '#/components/schemas/MonthlyIncomeEstimate'
-          type: array
       type: object
   securitySchemes:
     Oauth2:

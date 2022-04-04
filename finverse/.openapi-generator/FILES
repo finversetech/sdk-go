@@ -38,6 +38,7 @@ model_identity_phone_number.go
 model_income_estimate.go
 model_income_response.go
 model_income_stream.go
+model_income_total.go
 model_institution.go
 model_institution_short.go
 model_link_request.go
@@ -65,7 +66,6 @@ model_redirect_uri_response.go
 model_refresh_request.go
 model_relink_request.go
 model_single_source_income.go
-model_single_source_income_income_total.go
 model_statement.go
 model_statement_link.go
 model_token_request.go
