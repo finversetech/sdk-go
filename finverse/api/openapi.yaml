@@ -2811,6 +2811,11 @@ components:
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
               status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            income_estimation:
+              last_successful_update: 2021-02-01T10:01:02.333Z
+              last_update: 2021-02-01T10:01:02.333Z
+              status_details: AUTHENTICATION_INITIALIZED
+              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
             payments:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
@@ -2895,6 +2900,11 @@ components:
           permissions_grant_date: 2000-01-23T04:56:07.000+00:00
           product_status:
             identity:
+              last_successful_update: 2021-02-01T10:01:02.333Z
+              last_update: 2021-02-01T10:01:02.333Z
+              status_details: AUTHENTICATION_INITIALIZED
+              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            income_estimation:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
@@ -3037,6 +3047,11 @@ components:
         permissions_grant_date: 2000-01-23T04:56:07.000+00:00
         product_status:
           identity:
+            last_successful_update: 2021-02-01T10:01:02.333Z
+            last_update: 2021-02-01T10:01:02.333Z
+            status_details: AUTHENTICATION_INITIALIZED
+            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          income_estimation:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
@@ -3332,6 +3347,11 @@ components:
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
           status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+        income_estimation:
+          last_successful_update: 2021-02-01T10:01:02.333Z
+          last_update: 2021-02-01T10:01:02.333Z
+          status_details: AUTHENTICATION_INITIALIZED
+          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
         payments:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
@@ -3383,6 +3403,8 @@ components:
         balance_history:
           $ref: '#/components/schemas/ProductStatus'
         payments:
+          $ref: '#/components/schemas/ProductStatus'
+        income_estimation:
           $ref: '#/components/schemas/ProductStatus'
       type: object
     ProductStatus:
