@@ -3,6 +3,7 @@ api/openapi.yaml
 api_customer.go
 api_link.go
 api_login_identity.go
+api_payment.go
 api_public.go
 client.go
 configuration.go
@@ -17,6 +18,7 @@ model_create_customer_request.go
 model_create_customer_response.go
 model_create_payment_instruction_response.go
 model_currency_amount.go
+model_customer_payment_instruction.go
 model_customization_details.go
 model_delete_institution_response.go
 model_delete_login_identity_response.go
@@ -27,6 +29,7 @@ model_get_balance_history_response.go
 model_get_identity_response.go
 model_get_login_identity_by_id_response.go
 model_get_login_identity_history_response.go
+model_get_payment_instructions_response.go
 model_get_statement_link_response.go
 model_get_statements_response.go
 model_identity.go
@@ -46,7 +49,6 @@ model_link_response.go
 model_link_token_request.go
 model_link_token_response.go
 model_list_accounts_response.go
-model_list_payment_instructions_response.go
 model_list_transactions_response.go
 model_login_field.go
 model_login_identity.go

@@ -56,6 +56,8 @@ type APIClient struct {
 
 	LoginIdentityApi LoginIdentityApi
 
+	PaymentApi PaymentApi
+
 	PublicApi PublicApi
 }
 
@@ -78,6 +80,7 @@ func NewAPIClient(cfg *Configuration) *APIClient {
 	c.CustomerApi = (*CustomerApiService)(&c.common)
 	c.LinkApi = (*LinkApiService)(&c.common)
 	c.LoginIdentityApi = (*LoginIdentityApiService)(&c.common)
+	c.PaymentApi = (*PaymentApiService)(&c.common)
 	c.PublicApi = (*PublicApiService)(&c.common)
 
 	return c

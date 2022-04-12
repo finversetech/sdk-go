@@ -17,7 +17,7 @@ import (
 
 // IncomeTotal struct for IncomeTotal
 type IncomeTotal struct {
-	EstmatedMonthlyIncome *IncomeEstimate `json:"estmated_monthly_income,omitempty"`
+	EstimatedMonthlyIncome *IncomeEstimate `json:"estimated_monthly_income,omitempty"`
 	// Number of transactions counted towards income
 	TransactionCount *float32                `json:"transaction_count,omitempty"`
 	MonthlyHistory   []MonthlyIncomeEstimate `json:"monthly_history,omitempty"`
@@ -40,36 +40,36 @@ func NewIncomeTotalWithDefaults() *IncomeTotal {
 	return &this
 }
 
-// GetEstmatedMonthlyIncome returns the EstmatedMonthlyIncome field value if set, zero value otherwise.
-func (o *IncomeTotal) GetEstmatedMonthlyIncome() IncomeEstimate {
-	if o == nil || o.EstmatedMonthlyIncome == nil {
+// GetEstimatedMonthlyIncome returns the EstimatedMonthlyIncome field value if set, zero value otherwise.
+func (o *IncomeTotal) GetEstimatedMonthlyIncome() IncomeEstimate {
+	if o == nil || o.EstimatedMonthlyIncome == nil {
 		var ret IncomeEstimate
 		return ret
 	}
-	return *o.EstmatedMonthlyIncome
+	return *o.EstimatedMonthlyIncome
 }
 
-// GetEstmatedMonthlyIncomeOk returns a tuple with the EstmatedMonthlyIncome field value if set, nil otherwise
+// GetEstimatedMonthlyIncomeOk returns a tuple with the EstimatedMonthlyIncome field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *IncomeTotal) GetEstmatedMonthlyIncomeOk() (*IncomeEstimate, bool) {
-	if o == nil || o.EstmatedMonthlyIncome == nil {
+func (o *IncomeTotal) GetEstimatedMonthlyIncomeOk() (*IncomeEstimate, bool) {
+	if o == nil || o.EstimatedMonthlyIncome == nil {
 		return nil, false
 	}
-	return o.EstmatedMonthlyIncome, true
+	return o.EstimatedMonthlyIncome, true
 }
 
-// HasEstmatedMonthlyIncome returns a boolean if a field has been set.
-func (o *IncomeTotal) HasEstmatedMonthlyIncome() bool {
-	if o != nil && o.EstmatedMonthlyIncome != nil {
+// HasEstimatedMonthlyIncome returns a boolean if a field has been set.
+func (o *IncomeTotal) HasEstimatedMonthlyIncome() bool {
+	if o != nil && o.EstimatedMonthlyIncome != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetEstmatedMonthlyIncome gets a reference to the given IncomeEstimate and assigns it to the EstmatedMonthlyIncome field.
-func (o *IncomeTotal) SetEstmatedMonthlyIncome(v IncomeEstimate) {
-	o.EstmatedMonthlyIncome = &v
+// SetEstimatedMonthlyIncome gets a reference to the given IncomeEstimate and assigns it to the EstimatedMonthlyIncome field.
+func (o *IncomeTotal) SetEstimatedMonthlyIncome(v IncomeEstimate) {
+	o.EstimatedMonthlyIncome = &v
 }
 
 // GetTransactionCount returns the TransactionCount field value if set, zero value otherwise.
@@ -138,8 +138,8 @@ func (o *IncomeTotal) SetMonthlyHistory(v []MonthlyIncomeEstimate) {
 
 func (o IncomeTotal) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EstmatedMonthlyIncome != nil {
-		toSerialize["estmated_monthly_income"] = o.EstmatedMonthlyIncome
+	if o.EstimatedMonthlyIncome != nil {
+		toSerialize["estimated_monthly_income"] = o.EstimatedMonthlyIncome
 	}
 	if o.TransactionCount != nil {
 		toSerialize["transaction_count"] = o.TransactionCount

@@ -1002,40 +1002,6 @@ paths:
       tags:
       - login_identity
   /payments/instruction:
-    get:
-      description: Get list of payment instructions to be used when linking to perfom
-        debit authorization
-      operationId: listPaymentInstructions
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ListPaymentInstructionsResponse'
-          description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Invalid Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - payment:get
-      tags:
-      - login_identity
     post:
       description: Create a new payment instruction to be used when linking to perform
         debit authorization
@@ -1044,7 +1010,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PaymentInstruction'
+              $ref: '#/components/schemas/CustomerPaymentInstruction'
         description: Request body for starting a new Link
         required: true
       responses:
@@ -1076,8 +1042,52 @@ paths:
       - Oauth2:
         - payment:create
       tags:
+      - payment
       - customer
       x-codegen-request-body-name: paymentInstruction
+  /payments/instruction/{paymentInstructionId}:
+    get:
+      description: Get payment instructions to be used when linking to perform debit
+        authorization by id
+      operationId: getPaymentInstruction
+      parameters:
+      - description: The id of a payment instruction
+        in: path
+        name: paymentInstructionId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPaymentInstructionsResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payment:get
+      tags:
+      - payment
+      - customer
 components:
   schemas:
     ErrorResponse:
@@ -3486,7 +3496,7 @@ components:
         payment_instruction_id:
           type: string
       type: object
-    ListPaymentInstructionsResponse:
+    GetPaymentInstructionsResponse:
       example:
         institution:
           portal_name: Personal Internet Banking
@@ -3494,75 +3504,57 @@ components:
           - HKG
           institution_name: Mock Bank
           institution_id: "123"
-        payment_instructions:
-        - end_date: 2000-01-23
-          amount: 123.45
-          reference_id: reference_id
-          payment_status: UNKOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVILABLE_FOR_INSTITUTION
-          sender_name: Jane Doe
-          recipient_account_id: Something
-          frequency: DAILY, WEEKLY OR MONTHLY
-          payment_type: DEBIT_AUTHORIZATION
-          idempotence_key: a_unique_id
-          user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
-          sender_account_id: Something
-          currency: HKD
-          recipient_name: John Wick
-          remarks: This is regular payment to pay for loan
-          start_date: 2000-01-23
-        - end_date: 2000-01-23
-          amount: 123.45
-          reference_id: reference_id
-          payment_status: UNKOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVILABLE_FOR_INSTITUTION
-          sender_name: Jane Doe
-          recipient_account_id: Something
-          frequency: DAILY, WEEKLY OR MONTHLY
-          payment_type: DEBIT_AUTHORIZATION
-          idempotence_key: a_unique_id
-          user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
-          sender_account_id: Something
-          currency: HKD
-          recipient_name: John Wick
-          remarks: This is regular payment to pay for loan
-          start_date: 2000-01-23
         login_identity:
           login_identity_id: login_identity_id
           last_session_id: last_session_id
           status: LINKING
+        payment_instruction:
+          end_date: 2000-01-23
+          amount: 123.45
+          reference_id: reference_id
+          sender_name: Jane Doe
+          recipient_account_id: Something
+          type: DEBIT_AUTHORIZATION
+          frequency: DAILY, WEEKLY OR MONTHLY
+          user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
+          sender_account_id: Something
+          currency: HKD
+          recipient_name: John Wick
+          remarks: This is regular payment to pay for loan
+          start_date: 2000-01-23
+          status: UNKNOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVAILABLE_FOR_INSTITUTION
+          info: '{}'
       properties:
-        payment_instructions:
-          items:
-            $ref: '#/components/schemas/PaymentInstruction'
-          type: array
+        payment_instruction:
+          $ref: '#/components/schemas/PaymentInstruction'
         login_identity:
           $ref: '#/components/schemas/LoginIdentityShort'
         institution:
           $ref: '#/components/schemas/InstitutionShort'
       type: object
-    PaymentInstruction:
+    CustomerPaymentInstruction:
       example:
         end_date: 2000-01-23
         amount: 123.45
-        reference_id: reference_id
-        payment_status: UNKOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVILABLE_FOR_INSTITUTION
-        sender_name: Jane Doe
-        recipient_account_id: Something
-        frequency: DAILY, WEEKLY OR MONTHLY
-        payment_type: DEBIT_AUTHORIZATION
-        idempotence_key: a_unique_id
         user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
         sender_account_id: Something
+        sender_name: Jane Doe
         currency: HKD
+        recipient_account_id: Something
+        type: DEBIT_AUTHORIZATION
         recipient_name: John Wick
         remarks: This is regular payment to pay for loan
         start_date: 2000-01-23
+        frequency: DAILY, WEEKLY OR MONTHLY
       properties:
         user_id:
-          description: The user id to which the payment instruction will refer
+          description: A id of the user of this payment, need to equal to userId when
+            creating link
           example: 01BX5ZZKBKACTAV9WEVGEMMVRY
           type: string
-        payment_type:
-          description: What type of payment is being created
+        type:
+          description: Type of payment is being created, please check Documentation
+            on which payment type is supported in each institution
           enum:
           - DEBIT_AUTHORIZATION
           type: string
@@ -3601,27 +3593,99 @@ components:
           example: 123.45
           type: number
         frequency:
-          description: How often the payment is executed
+          description: How often the payment should be executed
           example: DAILY, WEEKLY OR MONTHLY
           type: string
         remarks:
-          description: Related remarks
+          description: Related remarks about this instruction
           example: This is regular payment to pay for loan
           type: string
-        idempotence_key:
-          description: A customer provided key to ensure ideompotency
-          example: a_unique_id
+      required:
+      - type
+      - user_id
+      type: object
+    PaymentInstruction:
+      example:
+        end_date: 2000-01-23
+        amount: 123.45
+        reference_id: reference_id
+        sender_name: Jane Doe
+        recipient_account_id: Something
+        type: DEBIT_AUTHORIZATION
+        frequency: DAILY, WEEKLY OR MONTHLY
+        user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
+        sender_account_id: Something
+        currency: HKD
+        recipient_name: John Wick
+        remarks: This is regular payment to pay for loan
+        start_date: 2000-01-23
+        status: UNKNOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVAILABLE_FOR_INSTITUTION
+        info: '{}'
+      properties:
+        user_id:
+          description: A id of the user of this payment, need to equal to userId when
+            creating link
+          example: 01BX5ZZKBKACTAV9WEVGEMMVRY
           type: string
-        payment_status:
+        type:
+          description: Type of payment is being created, please check Documentation
+            on which payment type is supported in each institution
+          enum:
+          - DEBIT_AUTHORIZATION
+          type: string
+        recipient_name:
+          description: The recipient name
+          example: John Wick
+          type: string
+        recipient_account_id:
+          description: The recipient account Id
+          example: Something
+          type: string
+        sender_name:
+          description: The sender name
+          example: Jane Doe
+          type: string
+        sender_account_id:
+          description: The sender account Id
+          example: Something
+          type: string
+        start_date:
+          description: When the payment should start
+          format: date
+          nullable: true
+          type: string
+        end_date:
+          description: When the payment should stop
+          format: date
+          nullable: true
+          type: string
+        currency:
+          description: The currency for the payment
+          example: HKD
+          type: string
+        amount:
+          description: The payment amount
+          example: 123.45
+          type: number
+        frequency:
+          description: How often the payment should be executed
+          example: DAILY, WEEKLY OR MONTHLY
+          type: string
+        remarks:
+          description: Related remarks about this instruction
+          example: This is regular payment to pay for loan
+          type: string
+        status:
           description: Status of the payment
-          example: UNKOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVILABLE_FOR_INSTITUTION
+          example: UNKNOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVAILABLE_FOR_INSTITUTION
           type: string
         reference_id:
           description: Reference identification returned by institution
           type: string
-      required:
-      - payment_type
-      - user_id
+        info:
+          description: Extra information collected for this payment instruction
+          properties: {}
+          type: object
       type: object
     IncomeEstimate:
       example:
@@ -3692,7 +3756,7 @@ components:
       type: object
     IncomeTotal:
       example:
-        estmated_monthly_income:
+        estimated_monthly_income:
           amount: 100.0
           currency: HKD
         transaction_count: 3.0
@@ -3708,7 +3772,7 @@ components:
             amount: 100.0
             currency: HKD
       properties:
-        estmated_monthly_income:
+        estimated_monthly_income:
           $ref: '#/components/schemas/IncomeEstimate'
         transaction_count:
           description: Number of transactions counted towards income
@@ -3722,7 +3786,7 @@ components:
     SingleSourceIncome:
       example:
         income_total:
-          estmated_monthly_income:
+          estimated_monthly_income:
             amount: 100.0
             currency: HKD
           transaction_count: 3.0
@@ -3791,7 +3855,7 @@ components:
       example:
         income:
         - income_total:
-            estmated_monthly_income:
+            estimated_monthly_income:
               amount: 100.0
               currency: HKD
             transaction_count: 3.0
@@ -3842,7 +3906,7 @@ components:
           source: DEPOSITS_ANALYSIS
           source_id: source_id
         - income_total:
-            estmated_monthly_income:
+            estimated_monthly_income:
               amount: 100.0
               currency: HKD
             transaction_count: 3.0

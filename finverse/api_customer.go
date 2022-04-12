@@ -101,6 +101,21 @@ type CustomerApi interface {
 	GetLoginIdentityHistoryExecute(r CustomerApiApiGetLoginIdentityHistoryRequest) (*GetLoginIdentityHistoryResponse, *http.Response, error)
 
 	/*
+		GetPaymentInstruction Method for GetPaymentInstruction
+
+		Get payment instructions to be used when linking to perform debit authorization by id
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @param paymentInstructionId The id of a payment instruction
+		 @return CustomerApiApiGetPaymentInstructionRequest
+	*/
+	GetPaymentInstruction(ctx context.Context, paymentInstructionId string) CustomerApiApiGetPaymentInstructionRequest
+
+	// GetPaymentInstructionExecute executes the request
+	//  @return GetPaymentInstructionsResponse
+	GetPaymentInstructionExecute(r CustomerApiApiGetPaymentInstructionRequest) (*GetPaymentInstructionsResponse, *http.Response, error)
+
+	/*
 		ListInstitutions Method for ListInstitutions
 
 		Get a list of institutions
@@ -135,11 +150,11 @@ type CustomerApiService service
 type CustomerApiApiCreatePaymentInstructionRequest struct {
 	ctx                context.Context
 	ApiService         CustomerApi
-	paymentInstruction *PaymentInstruction
+	paymentInstruction *CustomerPaymentInstruction
 }
 
 // Request body for starting a new Link
-func (r CustomerApiApiCreatePaymentInstructionRequest) PaymentInstruction(paymentInstruction PaymentInstruction) CustomerApiApiCreatePaymentInstructionRequest {
+func (r CustomerApiApiCreatePaymentInstructionRequest) PaymentInstruction(paymentInstruction CustomerPaymentInstruction) CustomerApiApiCreatePaymentInstructionRequest {
 	r.paymentInstruction = &paymentInstruction
 	return r
 }
@@ -700,6 +715,138 @@ func (a *CustomerApiService) GetLoginIdentityHistoryExecute(r CustomerApiApiGetL
 
 	localVarPath := localBasePath + "/login_identity/{loginIdentityId}/history"
 	localVarPath = strings.Replace(localVarPath, "{"+"loginIdentityId"+"}", url.PathEscape(parameterToString(r.loginIdentityId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v BadRequestModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v BadRequestModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CustomerApiApiGetPaymentInstructionRequest struct {
+	ctx                  context.Context
+	ApiService           CustomerApi
+	paymentInstructionId string
+}
+
+func (r CustomerApiApiGetPaymentInstructionRequest) Execute() (*GetPaymentInstructionsResponse, *http.Response, error) {
+	return r.ApiService.GetPaymentInstructionExecute(r)
+}
+
+/*
+GetPaymentInstruction Method for GetPaymentInstruction
+
+Get payment instructions to be used when linking to perform debit authorization by id
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param paymentInstructionId The id of a payment instruction
+ @return CustomerApiApiGetPaymentInstructionRequest
+*/
+func (a *CustomerApiService) GetPaymentInstruction(ctx context.Context, paymentInstructionId string) CustomerApiApiGetPaymentInstructionRequest {
+	return CustomerApiApiGetPaymentInstructionRequest{
+		ApiService:           a,
+		ctx:                  ctx,
+		paymentInstructionId: paymentInstructionId,
+	}
+}
+
+// Execute executes the request
+//  @return GetPaymentInstructionsResponse
+func (a *CustomerApiService) GetPaymentInstructionExecute(r CustomerApiApiGetPaymentInstructionRequest) (*GetPaymentInstructionsResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetPaymentInstructionsResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetPaymentInstruction")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/payments/instruction/{paymentInstructionId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentInstructionId"+"}", url.PathEscape(parameterToString(r.paymentInstructionId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
