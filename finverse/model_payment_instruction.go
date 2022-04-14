@@ -22,7 +22,7 @@ type PaymentInstruction struct {
 	UserId *string `json:"user_id,omitempty"`
 	// An id that links this payment to a specific Login Identity
 	LoginIdentityId *string `json:"login_identity_id,omitempty"`
-	// Type of payment is being created, please check Documentation on which payment type is supported in each institution
+	// Type of payment that was created, please check Documentation on which payment type is supported in each institution
 	Type *string `json:"type,omitempty"`
 	// The recipient name
 	RecipientName *string `json:"recipient_name,omitempty"`

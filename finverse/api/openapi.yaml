@@ -1004,7 +1004,7 @@ paths:
   /payments/instruction:
     post:
       description: Create a new payment instruction to be used when linking to perform
-        debit authorization
+        new payment
       operationId: createPaymentInstruction
       requestBody:
         content:
@@ -1047,8 +1047,7 @@ paths:
       x-codegen-request-body-name: paymentInstruction
   /payments/instruction/{paymentInstructionId}:
     get:
-      description: Get payment instructions to be used when linking to perform debit
-        authorization by id
+      description: Get payment instructions by payment_instruction_id
       operationId: getPaymentInstruction
       parameters:
       - description: The id of a payment instruction
@@ -2757,7 +2756,7 @@ components:
         products_requested:
         - ACCOUNTS
         - TRANSACTIONS
-        - DEBIT_AUTHORIZATION
+        - PAYMENTS
         institution_id: ez-bank
       properties:
         institution_id:
@@ -2772,7 +2771,7 @@ components:
           example:
           - ACCOUNTS
           - TRANSACTIONS
-          - DEBIT_AUTHORIZATION
+          - PAYMENTS
           items:
             type: string
           type: array
@@ -3622,7 +3621,7 @@ components:
           example: 01BX5ZZKBKACTAV9WEVGEMMVRY
           type: string
         type:
-          description: Type of payment is being created, please check Documentation
+          description: Type of payment that was created, please check Documentation
             on which payment type is supported in each institution
           enum:
           - DEBIT_AUTHORIZATION

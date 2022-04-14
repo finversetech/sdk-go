@@ -30,7 +30,7 @@ type PaymentApi interface {
 	/*
 		CreatePaymentInstruction Method for CreatePaymentInstruction
 
-		Create a new payment instruction to be used when linking to perform debit authorization
+		Create a new payment instruction to be used when linking to perform new payment
 
 		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		 @return PaymentApiApiCreatePaymentInstructionRequest
@@ -44,7 +44,7 @@ type PaymentApi interface {
 	/*
 		GetPaymentInstruction Method for GetPaymentInstruction
 
-		Get payment instructions to be used when linking to perform debit authorization by id
+		Get payment instructions by payment_instruction_id
 
 		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		 @param paymentInstructionId The id of a payment instruction
@@ -79,7 +79,7 @@ func (r PaymentApiApiCreatePaymentInstructionRequest) Execute() (*CreatePaymentI
 /*
 CreatePaymentInstruction Method for CreatePaymentInstruction
 
-Create a new payment instruction to be used when linking to perform debit authorization
+Create a new payment instruction to be used when linking to perform new payment
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @return PaymentApiApiCreatePaymentInstructionRequest
@@ -213,7 +213,7 @@ func (r PaymentApiApiGetPaymentInstructionRequest) Execute() (*GetPaymentInstruc
 /*
 GetPaymentInstruction Method for GetPaymentInstruction
 
-Get payment instructions to be used when linking to perform debit authorization by id
+Get payment instructions by payment_instruction_id
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param paymentInstructionId The id of a payment instruction
