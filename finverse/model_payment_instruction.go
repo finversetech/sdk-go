@@ -13,12 +13,15 @@ package finverse
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // PaymentInstruction struct for PaymentInstruction
 type PaymentInstruction struct {
 	// A id of the user of this payment, need to equal to userId when creating link
 	UserId *string `json:"user_id,omitempty"`
+	// An id that links this payment to a specific Login Identity
+	LoginIdentityId *string `json:"login_identity_id,omitempty"`
 	// Type of payment is being created, please check Documentation on which payment type is supported in each institution
 	Type *string `json:"type,omitempty"`
 	// The recipient name
@@ -44,7 +47,8 @@ type PaymentInstruction struct {
 	// Status of the payment
 	Status *string `json:"status,omitempty"`
 	// Reference identification returned by institution
-	ReferenceId *string `json:"reference_id,omitempty"`
+	ReferenceId *string    `json:"reference_id,omitempty"`
+	LastUpdate  *time.Time `json:"last_update,omitempty"`
 	// Extra information collected for this payment instruction
 	Info map[string]interface{} `json:"info,omitempty"`
 }
@@ -96,6 +100,38 @@ func (o *PaymentInstruction) HasUserId() bool {
 // SetUserId gets a reference to the given string and assigns it to the UserId field.
 func (o *PaymentInstruction) SetUserId(v string) {
 	o.UserId = &v
+}
+
+// GetLoginIdentityId returns the LoginIdentityId field value if set, zero value otherwise.
+func (o *PaymentInstruction) GetLoginIdentityId() string {
+	if o == nil || o.LoginIdentityId == nil {
+		var ret string
+		return ret
+	}
+	return *o.LoginIdentityId
+}
+
+// GetLoginIdentityIdOk returns a tuple with the LoginIdentityId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentInstruction) GetLoginIdentityIdOk() (*string, bool) {
+	if o == nil || o.LoginIdentityId == nil {
+		return nil, false
+	}
+	return o.LoginIdentityId, true
+}
+
+// HasLoginIdentityId returns a boolean if a field has been set.
+func (o *PaymentInstruction) HasLoginIdentityId() bool {
+	if o != nil && o.LoginIdentityId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLoginIdentityId gets a reference to the given string and assigns it to the LoginIdentityId field.
+func (o *PaymentInstruction) SetLoginIdentityId(v string) {
+	o.LoginIdentityId = &v
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
@@ -536,6 +572,38 @@ func (o *PaymentInstruction) SetReferenceId(v string) {
 	o.ReferenceId = &v
 }
 
+// GetLastUpdate returns the LastUpdate field value if set, zero value otherwise.
+func (o *PaymentInstruction) GetLastUpdate() time.Time {
+	if o == nil || o.LastUpdate == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastUpdate
+}
+
+// GetLastUpdateOk returns a tuple with the LastUpdate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentInstruction) GetLastUpdateOk() (*time.Time, bool) {
+	if o == nil || o.LastUpdate == nil {
+		return nil, false
+	}
+	return o.LastUpdate, true
+}
+
+// HasLastUpdate returns a boolean if a field has been set.
+func (o *PaymentInstruction) HasLastUpdate() bool {
+	if o != nil && o.LastUpdate != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLastUpdate gets a reference to the given time.Time and assigns it to the LastUpdate field.
+func (o *PaymentInstruction) SetLastUpdate(v time.Time) {
+	o.LastUpdate = &v
+}
+
 // GetInfo returns the Info field value if set, zero value otherwise.
 func (o *PaymentInstruction) GetInfo() map[string]interface{} {
 	if o == nil || o.Info == nil {
@@ -572,6 +640,9 @@ func (o PaymentInstruction) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.UserId != nil {
 		toSerialize["user_id"] = o.UserId
+	}
+	if o.LoginIdentityId != nil {
+		toSerialize["login_identity_id"] = o.LoginIdentityId
 	}
 	if o.Type != nil {
 		toSerialize["type"] = o.Type
@@ -611,6 +682,9 @@ func (o PaymentInstruction) MarshalJSON() ([]byte, error) {
 	}
 	if o.ReferenceId != nil {
 		toSerialize["reference_id"] = o.ReferenceId
+	}
+	if o.LastUpdate != nil {
+		toSerialize["last_update"] = o.LastUpdate
 	}
 	if o.Info != nil {
 		toSerialize["info"] = o.Info

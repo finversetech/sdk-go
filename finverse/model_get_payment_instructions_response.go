@@ -18,8 +18,6 @@ import (
 // GetPaymentInstructionsResponse struct for GetPaymentInstructionsResponse
 type GetPaymentInstructionsResponse struct {
 	PaymentInstruction *PaymentInstruction `json:"payment_instruction,omitempty"`
-	LoginIdentity      *LoginIdentityShort `json:"login_identity,omitempty"`
-	Institution        *InstitutionShort   `json:"institution,omitempty"`
 }
 
 // NewGetPaymentInstructionsResponse instantiates a new GetPaymentInstructionsResponse object
@@ -71,80 +69,10 @@ func (o *GetPaymentInstructionsResponse) SetPaymentInstruction(v PaymentInstruct
 	o.PaymentInstruction = &v
 }
 
-// GetLoginIdentity returns the LoginIdentity field value if set, zero value otherwise.
-func (o *GetPaymentInstructionsResponse) GetLoginIdentity() LoginIdentityShort {
-	if o == nil || o.LoginIdentity == nil {
-		var ret LoginIdentityShort
-		return ret
-	}
-	return *o.LoginIdentity
-}
-
-// GetLoginIdentityOk returns a tuple with the LoginIdentity field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GetPaymentInstructionsResponse) GetLoginIdentityOk() (*LoginIdentityShort, bool) {
-	if o == nil || o.LoginIdentity == nil {
-		return nil, false
-	}
-	return o.LoginIdentity, true
-}
-
-// HasLoginIdentity returns a boolean if a field has been set.
-func (o *GetPaymentInstructionsResponse) HasLoginIdentity() bool {
-	if o != nil && o.LoginIdentity != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLoginIdentity gets a reference to the given LoginIdentityShort and assigns it to the LoginIdentity field.
-func (o *GetPaymentInstructionsResponse) SetLoginIdentity(v LoginIdentityShort) {
-	o.LoginIdentity = &v
-}
-
-// GetInstitution returns the Institution field value if set, zero value otherwise.
-func (o *GetPaymentInstructionsResponse) GetInstitution() InstitutionShort {
-	if o == nil || o.Institution == nil {
-		var ret InstitutionShort
-		return ret
-	}
-	return *o.Institution
-}
-
-// GetInstitutionOk returns a tuple with the Institution field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GetPaymentInstructionsResponse) GetInstitutionOk() (*InstitutionShort, bool) {
-	if o == nil || o.Institution == nil {
-		return nil, false
-	}
-	return o.Institution, true
-}
-
-// HasInstitution returns a boolean if a field has been set.
-func (o *GetPaymentInstructionsResponse) HasInstitution() bool {
-	if o != nil && o.Institution != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetInstitution gets a reference to the given InstitutionShort and assigns it to the Institution field.
-func (o *GetPaymentInstructionsResponse) SetInstitution(v InstitutionShort) {
-	o.Institution = &v
-}
-
 func (o GetPaymentInstructionsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.PaymentInstruction != nil {
 		toSerialize["payment_instruction"] = o.PaymentInstruction
-	}
-	if o.LoginIdentity != nil {
-		toSerialize["login_identity"] = o.LoginIdentity
-	}
-	if o.Institution != nil {
-		toSerialize["institution"] = o.Institution
 	}
 	return json.Marshal(toSerialize)
 }

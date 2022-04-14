@@ -3498,16 +3498,6 @@ components:
       type: object
     GetPaymentInstructionsResponse:
       example:
-        institution:
-          portal_name: Personal Internet Banking
-          countries:
-          - HKG
-          institution_name: Mock Bank
-          institution_id: "123"
-        login_identity:
-          login_identity_id: login_identity_id
-          last_session_id: last_session_id
-          status: LINKING
         payment_instruction:
           end_date: 2000-01-23
           amount: 123.45
@@ -3517,8 +3507,10 @@ components:
           type: DEBIT_AUTHORIZATION
           frequency: DAILY, WEEKLY OR MONTHLY
           user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
+          last_update: 2000-01-23T04:56:07.000+00:00
           sender_account_id: Something
           currency: HKD
+          login_identity_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
           recipient_name: John Wick
           remarks: This is regular payment to pay for loan
           start_date: 2000-01-23
@@ -3527,10 +3519,6 @@ components:
       properties:
         payment_instruction:
           $ref: '#/components/schemas/PaymentInstruction'
-        login_identity:
-          $ref: '#/components/schemas/LoginIdentityShort'
-        institution:
-          $ref: '#/components/schemas/InstitutionShort'
       type: object
     CustomerPaymentInstruction:
       example:
@@ -3614,8 +3602,10 @@ components:
         type: DEBIT_AUTHORIZATION
         frequency: DAILY, WEEKLY OR MONTHLY
         user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
+        last_update: 2000-01-23T04:56:07.000+00:00
         sender_account_id: Something
         currency: HKD
+        login_identity_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
         recipient_name: John Wick
         remarks: This is regular payment to pay for loan
         start_date: 2000-01-23
@@ -3625,6 +3615,10 @@ components:
         user_id:
           description: A id of the user of this payment, need to equal to userId when
             creating link
+          example: 01BX5ZZKBKACTAV9WEVGEMMVRY
+          type: string
+        login_identity_id:
+          description: An id that links this payment to a specific Login Identity
           example: 01BX5ZZKBKACTAV9WEVGEMMVRY
           type: string
         type:
@@ -3681,6 +3675,9 @@ components:
           type: string
         reference_id:
           description: Reference identification returned by institution
+          type: string
+        last_update:
+          format: date-time
           type: string
         info:
           description: Extra information collected for this payment instruction
