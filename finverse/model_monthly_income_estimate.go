@@ -17,19 +17,22 @@ import (
 
 // MonthlyIncomeEstimate struct for MonthlyIncomeEstimate
 type MonthlyIncomeEstimate struct {
-	EstimatedIncome *IncomeEstimate `json:"estimated_income,omitempty"`
+	EstimatedIncome IncomeEstimate `json:"estimated_income"`
 	// The numeric month
-	Month *float32 `json:"month,omitempty"`
+	Month float32 `json:"month"`
 	// The year
-	Year *float32 `json:"year,omitempty"`
+	Year float32 `json:"year"`
 }
 
 // NewMonthlyIncomeEstimate instantiates a new MonthlyIncomeEstimate object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMonthlyIncomeEstimate() *MonthlyIncomeEstimate {
+func NewMonthlyIncomeEstimate(estimatedIncome IncomeEstimate, month float32, year float32) *MonthlyIncomeEstimate {
 	this := MonthlyIncomeEstimate{}
+	this.EstimatedIncome = estimatedIncome
+	this.Month = month
+	this.Year = year
 	return &this
 }
 
@@ -41,111 +44,87 @@ func NewMonthlyIncomeEstimateWithDefaults() *MonthlyIncomeEstimate {
 	return &this
 }
 
-// GetEstimatedIncome returns the EstimatedIncome field value if set, zero value otherwise.
+// GetEstimatedIncome returns the EstimatedIncome field value
 func (o *MonthlyIncomeEstimate) GetEstimatedIncome() IncomeEstimate {
-	if o == nil || o.EstimatedIncome == nil {
+	if o == nil {
 		var ret IncomeEstimate
 		return ret
 	}
-	return *o.EstimatedIncome
+
+	return o.EstimatedIncome
 }
 
-// GetEstimatedIncomeOk returns a tuple with the EstimatedIncome field value if set, nil otherwise
+// GetEstimatedIncomeOk returns a tuple with the EstimatedIncome field value
 // and a boolean to check if the value has been set.
 func (o *MonthlyIncomeEstimate) GetEstimatedIncomeOk() (*IncomeEstimate, bool) {
-	if o == nil || o.EstimatedIncome == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.EstimatedIncome, true
+	return &o.EstimatedIncome, true
 }
 
-// HasEstimatedIncome returns a boolean if a field has been set.
-func (o *MonthlyIncomeEstimate) HasEstimatedIncome() bool {
-	if o != nil && o.EstimatedIncome != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetEstimatedIncome gets a reference to the given IncomeEstimate and assigns it to the EstimatedIncome field.
+// SetEstimatedIncome sets field value
 func (o *MonthlyIncomeEstimate) SetEstimatedIncome(v IncomeEstimate) {
-	o.EstimatedIncome = &v
+	o.EstimatedIncome = v
 }
 
-// GetMonth returns the Month field value if set, zero value otherwise.
+// GetMonth returns the Month field value
 func (o *MonthlyIncomeEstimate) GetMonth() float32 {
-	if o == nil || o.Month == nil {
+	if o == nil {
 		var ret float32
 		return ret
 	}
-	return *o.Month
+
+	return o.Month
 }
 
-// GetMonthOk returns a tuple with the Month field value if set, nil otherwise
+// GetMonthOk returns a tuple with the Month field value
 // and a boolean to check if the value has been set.
 func (o *MonthlyIncomeEstimate) GetMonthOk() (*float32, bool) {
-	if o == nil || o.Month == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.Month, true
+	return &o.Month, true
 }
 
-// HasMonth returns a boolean if a field has been set.
-func (o *MonthlyIncomeEstimate) HasMonth() bool {
-	if o != nil && o.Month != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMonth gets a reference to the given float32 and assigns it to the Month field.
+// SetMonth sets field value
 func (o *MonthlyIncomeEstimate) SetMonth(v float32) {
-	o.Month = &v
+	o.Month = v
 }
 
-// GetYear returns the Year field value if set, zero value otherwise.
+// GetYear returns the Year field value
 func (o *MonthlyIncomeEstimate) GetYear() float32 {
-	if o == nil || o.Year == nil {
+	if o == nil {
 		var ret float32
 		return ret
 	}
-	return *o.Year
+
+	return o.Year
 }
 
-// GetYearOk returns a tuple with the Year field value if set, nil otherwise
+// GetYearOk returns a tuple with the Year field value
 // and a boolean to check if the value has been set.
 func (o *MonthlyIncomeEstimate) GetYearOk() (*float32, bool) {
-	if o == nil || o.Year == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.Year, true
+	return &o.Year, true
 }
 
-// HasYear returns a boolean if a field has been set.
-func (o *MonthlyIncomeEstimate) HasYear() bool {
-	if o != nil && o.Year != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetYear gets a reference to the given float32 and assigns it to the Year field.
+// SetYear sets field value
 func (o *MonthlyIncomeEstimate) SetYear(v float32) {
-	o.Year = &v
+	o.Year = v
 }
 
 func (o MonthlyIncomeEstimate) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.EstimatedIncome != nil {
+	if true {
 		toSerialize["estimated_income"] = o.EstimatedIncome
 	}
-	if o.Month != nil {
+	if true {
 		toSerialize["month"] = o.Month
 	}
-	if o.Year != nil {
+	if true {
 		toSerialize["year"] = o.Year
 	}
 	return json.Marshal(toSerialize)

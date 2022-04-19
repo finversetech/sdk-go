@@ -17,17 +17,20 @@ import (
 
 // IncomeResponse struct for IncomeResponse
 type IncomeResponse struct {
-	Income        []SingleSourceIncome `json:"income,omitempty"`
-	LoginIdentity *LoginIdentityShort  `json:"login_identity,omitempty"`
-	Institution   *InstitutionShort    `json:"institution,omitempty"`
+	Income        []SingleSourceIncome `json:"income"`
+	LoginIdentity LoginIdentityShort   `json:"login_identity"`
+	Institution   InstitutionShort     `json:"institution"`
 }
 
 // NewIncomeResponse instantiates a new IncomeResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIncomeResponse() *IncomeResponse {
+func NewIncomeResponse(income []SingleSourceIncome, loginIdentity LoginIdentityShort, institution InstitutionShort) *IncomeResponse {
 	this := IncomeResponse{}
+	this.Income = income
+	this.LoginIdentity = loginIdentity
+	this.Institution = institution
 	return &this
 }
 
@@ -39,111 +42,87 @@ func NewIncomeResponseWithDefaults() *IncomeResponse {
 	return &this
 }
 
-// GetIncome returns the Income field value if set, zero value otherwise.
+// GetIncome returns the Income field value
 func (o *IncomeResponse) GetIncome() []SingleSourceIncome {
-	if o == nil || o.Income == nil {
+	if o == nil {
 		var ret []SingleSourceIncome
 		return ret
 	}
+
 	return o.Income
 }
 
-// GetIncomeOk returns a tuple with the Income field value if set, nil otherwise
+// GetIncomeOk returns a tuple with the Income field value
 // and a boolean to check if the value has been set.
 func (o *IncomeResponse) GetIncomeOk() ([]SingleSourceIncome, bool) {
-	if o == nil || o.Income == nil {
+	if o == nil {
 		return nil, false
 	}
 	return o.Income, true
 }
 
-// HasIncome returns a boolean if a field has been set.
-func (o *IncomeResponse) HasIncome() bool {
-	if o != nil && o.Income != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetIncome gets a reference to the given []SingleSourceIncome and assigns it to the Income field.
+// SetIncome sets field value
 func (o *IncomeResponse) SetIncome(v []SingleSourceIncome) {
 	o.Income = v
 }
 
-// GetLoginIdentity returns the LoginIdentity field value if set, zero value otherwise.
+// GetLoginIdentity returns the LoginIdentity field value
 func (o *IncomeResponse) GetLoginIdentity() LoginIdentityShort {
-	if o == nil || o.LoginIdentity == nil {
+	if o == nil {
 		var ret LoginIdentityShort
 		return ret
 	}
-	return *o.LoginIdentity
+
+	return o.LoginIdentity
 }
 
-// GetLoginIdentityOk returns a tuple with the LoginIdentity field value if set, nil otherwise
+// GetLoginIdentityOk returns a tuple with the LoginIdentity field value
 // and a boolean to check if the value has been set.
 func (o *IncomeResponse) GetLoginIdentityOk() (*LoginIdentityShort, bool) {
-	if o == nil || o.LoginIdentity == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.LoginIdentity, true
+	return &o.LoginIdentity, true
 }
 
-// HasLoginIdentity returns a boolean if a field has been set.
-func (o *IncomeResponse) HasLoginIdentity() bool {
-	if o != nil && o.LoginIdentity != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLoginIdentity gets a reference to the given LoginIdentityShort and assigns it to the LoginIdentity field.
+// SetLoginIdentity sets field value
 func (o *IncomeResponse) SetLoginIdentity(v LoginIdentityShort) {
-	o.LoginIdentity = &v
+	o.LoginIdentity = v
 }
 
-// GetInstitution returns the Institution field value if set, zero value otherwise.
+// GetInstitution returns the Institution field value
 func (o *IncomeResponse) GetInstitution() InstitutionShort {
-	if o == nil || o.Institution == nil {
+	if o == nil {
 		var ret InstitutionShort
 		return ret
 	}
-	return *o.Institution
+
+	return o.Institution
 }
 
-// GetInstitutionOk returns a tuple with the Institution field value if set, nil otherwise
+// GetInstitutionOk returns a tuple with the Institution field value
 // and a boolean to check if the value has been set.
 func (o *IncomeResponse) GetInstitutionOk() (*InstitutionShort, bool) {
-	if o == nil || o.Institution == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.Institution, true
+	return &o.Institution, true
 }
 
-// HasInstitution returns a boolean if a field has been set.
-func (o *IncomeResponse) HasInstitution() bool {
-	if o != nil && o.Institution != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetInstitution gets a reference to the given InstitutionShort and assigns it to the Institution field.
+// SetInstitution sets field value
 func (o *IncomeResponse) SetInstitution(v InstitutionShort) {
-	o.Institution = &v
+	o.Institution = v
 }
 
 func (o IncomeResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Income != nil {
+	if true {
 		toSerialize["income"] = o.Income
 	}
-	if o.LoginIdentity != nil {
+	if true {
 		toSerialize["login_identity"] = o.LoginIdentity
 	}
-	if o.Institution != nil {
+	if true {
 		toSerialize["institution"] = o.Institution
 	}
 	return json.Marshal(toSerialize)

@@ -3696,6 +3696,9 @@ components:
           description: Currency
           example: HKD
           type: string
+      required:
+      - amount
+      - currency
       type: object
     MonthlyIncomeEstimate:
       example:
@@ -3710,11 +3713,17 @@ components:
         month:
           description: The numeric month
           example: 1.0
+          format: int32
           type: number
         year:
           description: The year
           example: 2020.0
+          format: int32
           type: number
+      required:
+      - estimated_income
+      - month
+      - year
       type: object
     IncomeStream:
       example:
@@ -3744,11 +3753,16 @@ components:
         transaction_count:
           description: Number of transactions counted towards income
           example: 3.0
+          format: int64
           type: number
         monthly_history:
           items:
             $ref: '#/components/schemas/MonthlyIncomeEstimate'
           type: array
+      required:
+      - account_id
+      - monthly_history
+      - transaction_count
       type: object
     IncomeTotal:
       example:
@@ -3773,11 +3787,15 @@ components:
         transaction_count:
           description: Number of transactions counted towards income
           example: 3.0
+          format: int64
           type: number
         monthly_history:
           items:
             $ref: '#/components/schemas/MonthlyIncomeEstimate'
           type: array
+      required:
+      - monthly_history
+      - transaction_count
       type: object
     SingleSourceIncome:
       example:
@@ -3846,6 +3864,11 @@ components:
         source_id:
           description: Unknown
           type: string
+      required:
+      - income_streams
+      - income_total
+      - source
+      - source_id
       type: object
     IncomeResponse:
       example:
@@ -3971,6 +3994,10 @@ components:
           $ref: '#/components/schemas/LoginIdentityShort'
         institution:
           $ref: '#/components/schemas/InstitutionShort'
+      required:
+      - income
+      - institution
+      - login_identity
       type: object
     BadRequestModel_error:
       properties:

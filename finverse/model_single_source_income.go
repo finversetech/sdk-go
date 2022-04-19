@@ -17,20 +17,24 @@ import (
 
 // SingleSourceIncome struct for SingleSourceIncome
 type SingleSourceIncome struct {
-	IncomeStreams []IncomeStream `json:"income_streams,omitempty"`
-	IncomeTotal   *IncomeTotal   `json:"income_total,omitempty"`
+	IncomeStreams []IncomeStream `json:"income_streams"`
+	IncomeTotal   IncomeTotal    `json:"income_total"`
 	// Where the income estimate was sourced from
-	Source *string `json:"source,omitempty"`
+	Source string `json:"source"`
 	// Unknown
-	SourceId *string `json:"source_id,omitempty"`
+	SourceId string `json:"source_id"`
 }
 
 // NewSingleSourceIncome instantiates a new SingleSourceIncome object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSingleSourceIncome() *SingleSourceIncome {
+func NewSingleSourceIncome(incomeStreams []IncomeStream, incomeTotal IncomeTotal, source string, sourceId string) *SingleSourceIncome {
 	this := SingleSourceIncome{}
+	this.IncomeStreams = incomeStreams
+	this.IncomeTotal = incomeTotal
+	this.Source = source
+	this.SourceId = sourceId
 	return &this
 }
 
@@ -42,146 +46,114 @@ func NewSingleSourceIncomeWithDefaults() *SingleSourceIncome {
 	return &this
 }
 
-// GetIncomeStreams returns the IncomeStreams field value if set, zero value otherwise.
+// GetIncomeStreams returns the IncomeStreams field value
 func (o *SingleSourceIncome) GetIncomeStreams() []IncomeStream {
-	if o == nil || o.IncomeStreams == nil {
+	if o == nil {
 		var ret []IncomeStream
 		return ret
 	}
+
 	return o.IncomeStreams
 }
 
-// GetIncomeStreamsOk returns a tuple with the IncomeStreams field value if set, nil otherwise
+// GetIncomeStreamsOk returns a tuple with the IncomeStreams field value
 // and a boolean to check if the value has been set.
 func (o *SingleSourceIncome) GetIncomeStreamsOk() ([]IncomeStream, bool) {
-	if o == nil || o.IncomeStreams == nil {
+	if o == nil {
 		return nil, false
 	}
 	return o.IncomeStreams, true
 }
 
-// HasIncomeStreams returns a boolean if a field has been set.
-func (o *SingleSourceIncome) HasIncomeStreams() bool {
-	if o != nil && o.IncomeStreams != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetIncomeStreams gets a reference to the given []IncomeStream and assigns it to the IncomeStreams field.
+// SetIncomeStreams sets field value
 func (o *SingleSourceIncome) SetIncomeStreams(v []IncomeStream) {
 	o.IncomeStreams = v
 }
 
-// GetIncomeTotal returns the IncomeTotal field value if set, zero value otherwise.
+// GetIncomeTotal returns the IncomeTotal field value
 func (o *SingleSourceIncome) GetIncomeTotal() IncomeTotal {
-	if o == nil || o.IncomeTotal == nil {
+	if o == nil {
 		var ret IncomeTotal
 		return ret
 	}
-	return *o.IncomeTotal
+
+	return o.IncomeTotal
 }
 
-// GetIncomeTotalOk returns a tuple with the IncomeTotal field value if set, nil otherwise
+// GetIncomeTotalOk returns a tuple with the IncomeTotal field value
 // and a boolean to check if the value has been set.
 func (o *SingleSourceIncome) GetIncomeTotalOk() (*IncomeTotal, bool) {
-	if o == nil || o.IncomeTotal == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.IncomeTotal, true
+	return &o.IncomeTotal, true
 }
 
-// HasIncomeTotal returns a boolean if a field has been set.
-func (o *SingleSourceIncome) HasIncomeTotal() bool {
-	if o != nil && o.IncomeTotal != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetIncomeTotal gets a reference to the given IncomeTotal and assigns it to the IncomeTotal field.
+// SetIncomeTotal sets field value
 func (o *SingleSourceIncome) SetIncomeTotal(v IncomeTotal) {
-	o.IncomeTotal = &v
+	o.IncomeTotal = v
 }
 
-// GetSource returns the Source field value if set, zero value otherwise.
+// GetSource returns the Source field value
 func (o *SingleSourceIncome) GetSource() string {
-	if o == nil || o.Source == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Source
+
+	return o.Source
 }
 
-// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
+// GetSourceOk returns a tuple with the Source field value
 // and a boolean to check if the value has been set.
 func (o *SingleSourceIncome) GetSourceOk() (*string, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.Source, true
+	return &o.Source, true
 }
 
-// HasSource returns a boolean if a field has been set.
-func (o *SingleSourceIncome) HasSource() bool {
-	if o != nil && o.Source != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSource gets a reference to the given string and assigns it to the Source field.
+// SetSource sets field value
 func (o *SingleSourceIncome) SetSource(v string) {
-	o.Source = &v
+	o.Source = v
 }
 
-// GetSourceId returns the SourceId field value if set, zero value otherwise.
+// GetSourceId returns the SourceId field value
 func (o *SingleSourceIncome) GetSourceId() string {
-	if o == nil || o.SourceId == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.SourceId
+
+	return o.SourceId
 }
 
-// GetSourceIdOk returns a tuple with the SourceId field value if set, nil otherwise
+// GetSourceIdOk returns a tuple with the SourceId field value
 // and a boolean to check if the value has been set.
 func (o *SingleSourceIncome) GetSourceIdOk() (*string, bool) {
-	if o == nil || o.SourceId == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.SourceId, true
+	return &o.SourceId, true
 }
 
-// HasSourceId returns a boolean if a field has been set.
-func (o *SingleSourceIncome) HasSourceId() bool {
-	if o != nil && o.SourceId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSourceId gets a reference to the given string and assigns it to the SourceId field.
+// SetSourceId sets field value
 func (o *SingleSourceIncome) SetSourceId(v string) {
-	o.SourceId = &v
+	o.SourceId = v
 }
 
 func (o SingleSourceIncome) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.IncomeStreams != nil {
+	if true {
 		toSerialize["income_streams"] = o.IncomeStreams
 	}
-	if o.IncomeTotal != nil {
+	if true {
 		toSerialize["income_total"] = o.IncomeTotal
 	}
-	if o.Source != nil {
+	if true {
 		toSerialize["source"] = o.Source
 	}
-	if o.SourceId != nil {
+	if true {
 		toSerialize["source_id"] = o.SourceId
 	}
 	return json.Marshal(toSerialize)

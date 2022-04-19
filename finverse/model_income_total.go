@@ -19,16 +19,18 @@ import (
 type IncomeTotal struct {
 	EstimatedMonthlyIncome *IncomeEstimate `json:"estimated_monthly_income,omitempty"`
 	// Number of transactions counted towards income
-	TransactionCount *float32                `json:"transaction_count,omitempty"`
-	MonthlyHistory   []MonthlyIncomeEstimate `json:"monthly_history,omitempty"`
+	TransactionCount float32                 `json:"transaction_count"`
+	MonthlyHistory   []MonthlyIncomeEstimate `json:"monthly_history"`
 }
 
 // NewIncomeTotal instantiates a new IncomeTotal object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIncomeTotal() *IncomeTotal {
+func NewIncomeTotal(transactionCount float32, monthlyHistory []MonthlyIncomeEstimate) *IncomeTotal {
 	this := IncomeTotal{}
+	this.TransactionCount = transactionCount
+	this.MonthlyHistory = monthlyHistory
 	return &this
 }
 
@@ -72,66 +74,50 @@ func (o *IncomeTotal) SetEstimatedMonthlyIncome(v IncomeEstimate) {
 	o.EstimatedMonthlyIncome = &v
 }
 
-// GetTransactionCount returns the TransactionCount field value if set, zero value otherwise.
+// GetTransactionCount returns the TransactionCount field value
 func (o *IncomeTotal) GetTransactionCount() float32 {
-	if o == nil || o.TransactionCount == nil {
+	if o == nil {
 		var ret float32
 		return ret
 	}
-	return *o.TransactionCount
+
+	return o.TransactionCount
 }
 
-// GetTransactionCountOk returns a tuple with the TransactionCount field value if set, nil otherwise
+// GetTransactionCountOk returns a tuple with the TransactionCount field value
 // and a boolean to check if the value has been set.
 func (o *IncomeTotal) GetTransactionCountOk() (*float32, bool) {
-	if o == nil || o.TransactionCount == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.TransactionCount, true
+	return &o.TransactionCount, true
 }
 
-// HasTransactionCount returns a boolean if a field has been set.
-func (o *IncomeTotal) HasTransactionCount() bool {
-	if o != nil && o.TransactionCount != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTransactionCount gets a reference to the given float32 and assigns it to the TransactionCount field.
+// SetTransactionCount sets field value
 func (o *IncomeTotal) SetTransactionCount(v float32) {
-	o.TransactionCount = &v
+	o.TransactionCount = v
 }
 
-// GetMonthlyHistory returns the MonthlyHistory field value if set, zero value otherwise.
+// GetMonthlyHistory returns the MonthlyHistory field value
 func (o *IncomeTotal) GetMonthlyHistory() []MonthlyIncomeEstimate {
-	if o == nil || o.MonthlyHistory == nil {
+	if o == nil {
 		var ret []MonthlyIncomeEstimate
 		return ret
 	}
+
 	return o.MonthlyHistory
 }
 
-// GetMonthlyHistoryOk returns a tuple with the MonthlyHistory field value if set, nil otherwise
+// GetMonthlyHistoryOk returns a tuple with the MonthlyHistory field value
 // and a boolean to check if the value has been set.
 func (o *IncomeTotal) GetMonthlyHistoryOk() ([]MonthlyIncomeEstimate, bool) {
-	if o == nil || o.MonthlyHistory == nil {
+	if o == nil {
 		return nil, false
 	}
 	return o.MonthlyHistory, true
 }
 
-// HasMonthlyHistory returns a boolean if a field has been set.
-func (o *IncomeTotal) HasMonthlyHistory() bool {
-	if o != nil && o.MonthlyHistory != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMonthlyHistory gets a reference to the given []MonthlyIncomeEstimate and assigns it to the MonthlyHistory field.
+// SetMonthlyHistory sets field value
 func (o *IncomeTotal) SetMonthlyHistory(v []MonthlyIncomeEstimate) {
 	o.MonthlyHistory = v
 }
@@ -141,10 +127,10 @@ func (o IncomeTotal) MarshalJSON() ([]byte, error) {
 	if o.EstimatedMonthlyIncome != nil {
 		toSerialize["estimated_monthly_income"] = o.EstimatedMonthlyIncome
 	}
-	if o.TransactionCount != nil {
+	if true {
 		toSerialize["transaction_count"] = o.TransactionCount
 	}
-	if o.MonthlyHistory != nil {
+	if true {
 		toSerialize["monthly_history"] = o.MonthlyHistory
 	}
 	return json.Marshal(toSerialize)

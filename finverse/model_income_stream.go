@@ -18,19 +18,22 @@ import (
 // IncomeStream struct for IncomeStream
 type IncomeStream struct {
 	// Account this income estimate is associated with
-	AccountId              *string         `json:"account_id,omitempty"`
+	AccountId              string          `json:"account_id"`
 	EstimatedMonthlyIncome *IncomeEstimate `json:"estimated_monthly_income,omitempty"`
 	// Number of transactions counted towards income
-	TransactionCount *float32                `json:"transaction_count,omitempty"`
-	MonthlyHistory   []MonthlyIncomeEstimate `json:"monthly_history,omitempty"`
+	TransactionCount float32                 `json:"transaction_count"`
+	MonthlyHistory   []MonthlyIncomeEstimate `json:"monthly_history"`
 }
 
 // NewIncomeStream instantiates a new IncomeStream object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewIncomeStream() *IncomeStream {
+func NewIncomeStream(accountId string, transactionCount float32, monthlyHistory []MonthlyIncomeEstimate) *IncomeStream {
 	this := IncomeStream{}
+	this.AccountId = accountId
+	this.TransactionCount = transactionCount
+	this.MonthlyHistory = monthlyHistory
 	return &this
 }
 
@@ -42,36 +45,28 @@ func NewIncomeStreamWithDefaults() *IncomeStream {
 	return &this
 }
 
-// GetAccountId returns the AccountId field value if set, zero value otherwise.
+// GetAccountId returns the AccountId field value
 func (o *IncomeStream) GetAccountId() string {
-	if o == nil || o.AccountId == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.AccountId
+
+	return o.AccountId
 }
 
-// GetAccountIdOk returns a tuple with the AccountId field value if set, nil otherwise
+// GetAccountIdOk returns a tuple with the AccountId field value
 // and a boolean to check if the value has been set.
 func (o *IncomeStream) GetAccountIdOk() (*string, bool) {
-	if o == nil || o.AccountId == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.AccountId, true
+	return &o.AccountId, true
 }
 
-// HasAccountId returns a boolean if a field has been set.
-func (o *IncomeStream) HasAccountId() bool {
-	if o != nil && o.AccountId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAccountId gets a reference to the given string and assigns it to the AccountId field.
+// SetAccountId sets field value
 func (o *IncomeStream) SetAccountId(v string) {
-	o.AccountId = &v
+	o.AccountId = v
 }
 
 // GetEstimatedMonthlyIncome returns the EstimatedMonthlyIncome field value if set, zero value otherwise.
@@ -106,82 +101,66 @@ func (o *IncomeStream) SetEstimatedMonthlyIncome(v IncomeEstimate) {
 	o.EstimatedMonthlyIncome = &v
 }
 
-// GetTransactionCount returns the TransactionCount field value if set, zero value otherwise.
+// GetTransactionCount returns the TransactionCount field value
 func (o *IncomeStream) GetTransactionCount() float32 {
-	if o == nil || o.TransactionCount == nil {
+	if o == nil {
 		var ret float32
 		return ret
 	}
-	return *o.TransactionCount
+
+	return o.TransactionCount
 }
 
-// GetTransactionCountOk returns a tuple with the TransactionCount field value if set, nil otherwise
+// GetTransactionCountOk returns a tuple with the TransactionCount field value
 // and a boolean to check if the value has been set.
 func (o *IncomeStream) GetTransactionCountOk() (*float32, bool) {
-	if o == nil || o.TransactionCount == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.TransactionCount, true
+	return &o.TransactionCount, true
 }
 
-// HasTransactionCount returns a boolean if a field has been set.
-func (o *IncomeStream) HasTransactionCount() bool {
-	if o != nil && o.TransactionCount != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTransactionCount gets a reference to the given float32 and assigns it to the TransactionCount field.
+// SetTransactionCount sets field value
 func (o *IncomeStream) SetTransactionCount(v float32) {
-	o.TransactionCount = &v
+	o.TransactionCount = v
 }
 
-// GetMonthlyHistory returns the MonthlyHistory field value if set, zero value otherwise.
+// GetMonthlyHistory returns the MonthlyHistory field value
 func (o *IncomeStream) GetMonthlyHistory() []MonthlyIncomeEstimate {
-	if o == nil || o.MonthlyHistory == nil {
+	if o == nil {
 		var ret []MonthlyIncomeEstimate
 		return ret
 	}
+
 	return o.MonthlyHistory
 }
 
-// GetMonthlyHistoryOk returns a tuple with the MonthlyHistory field value if set, nil otherwise
+// GetMonthlyHistoryOk returns a tuple with the MonthlyHistory field value
 // and a boolean to check if the value has been set.
 func (o *IncomeStream) GetMonthlyHistoryOk() ([]MonthlyIncomeEstimate, bool) {
-	if o == nil || o.MonthlyHistory == nil {
+	if o == nil {
 		return nil, false
 	}
 	return o.MonthlyHistory, true
 }
 
-// HasMonthlyHistory returns a boolean if a field has been set.
-func (o *IncomeStream) HasMonthlyHistory() bool {
-	if o != nil && o.MonthlyHistory != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMonthlyHistory gets a reference to the given []MonthlyIncomeEstimate and assigns it to the MonthlyHistory field.
+// SetMonthlyHistory sets field value
 func (o *IncomeStream) SetMonthlyHistory(v []MonthlyIncomeEstimate) {
 	o.MonthlyHistory = v
 }
 
 func (o IncomeStream) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.AccountId != nil {
+	if true {
 		toSerialize["account_id"] = o.AccountId
 	}
 	if o.EstimatedMonthlyIncome != nil {
 		toSerialize["estimated_monthly_income"] = o.EstimatedMonthlyIncome
 	}
-	if o.TransactionCount != nil {
+	if true {
 		toSerialize["transaction_count"] = o.TransactionCount
 	}
-	if o.MonthlyHistory != nil {
+	if true {
 		toSerialize["monthly_history"] = o.MonthlyHistory
 	}
 	return json.Marshal(toSerialize)
