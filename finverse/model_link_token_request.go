@@ -53,6 +53,8 @@ type LinkTokenRequest struct {
 	PaymentInstructionId *string `json:"payment_instruction_id,omitempty"`
 	// Controls the behavior of the automatic data refresh checkbox
 	AutomaticDataRefresh *string `json:"automatic_data_refresh,omitempty"`
+	// institution's status filter
+	InstitutionStatus *string `json:"institution_status,omitempty"`
 }
 
 // NewLinkTokenRequest instantiates a new LinkTokenRequest object
@@ -741,6 +743,38 @@ func (o *LinkTokenRequest) SetAutomaticDataRefresh(v string) {
 	o.AutomaticDataRefresh = &v
 }
 
+// GetInstitutionStatus returns the InstitutionStatus field value if set, zero value otherwise.
+func (o *LinkTokenRequest) GetInstitutionStatus() string {
+	if o == nil || o.InstitutionStatus == nil {
+		var ret string
+		return ret
+	}
+	return *o.InstitutionStatus
+}
+
+// GetInstitutionStatusOk returns a tuple with the InstitutionStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LinkTokenRequest) GetInstitutionStatusOk() (*string, bool) {
+	if o == nil || o.InstitutionStatus == nil {
+		return nil, false
+	}
+	return o.InstitutionStatus, true
+}
+
+// HasInstitutionStatus returns a boolean if a field has been set.
+func (o *LinkTokenRequest) HasInstitutionStatus() bool {
+	if o != nil && o.InstitutionStatus != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInstitutionStatus gets a reference to the given string and assigns it to the InstitutionStatus field.
+func (o *LinkTokenRequest) SetInstitutionStatus(v string) {
+	o.InstitutionStatus = &v
+}
+
 func (o LinkTokenRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -808,6 +842,9 @@ func (o LinkTokenRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.AutomaticDataRefresh != nil {
 		toSerialize["automatic_data_refresh"] = o.AutomaticDataRefresh
+	}
+	if o.InstitutionStatus != nil {
+		toSerialize["institution_status"] = o.InstitutionStatus
 	}
 	return json.Marshal(toSerialize)
 }
