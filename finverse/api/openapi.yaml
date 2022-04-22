@@ -2606,6 +2606,7 @@ components:
         grant_type: grant_type
         user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
         scope: coma,separated,scopes
+        automatic_data_refresh: "ON"
         redirect_uri: https://example.com/callback
         state: user-state-passed
         login_identity_id: uhdasidasodaso
@@ -2717,6 +2718,13 @@ components:
         payment_instruction_id:
           description: The identifier returned after creating payment instruction
           example: payment_instruction_id
+          type: string
+        automatic_data_refresh:
+          description: Controls the behavior of the automatic data refresh checkbox
+          enum:
+          - "ON"
+          - "OFF"
+          - FORCED_ON
           type: string
       required:
       - client_id

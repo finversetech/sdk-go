@@ -51,6 +51,8 @@ type LinkTokenRequest struct {
 	ProductsRequested []string `json:"products_requested,omitempty"`
 	// The identifier returned after creating payment instruction
 	PaymentInstructionId *string `json:"payment_instruction_id,omitempty"`
+	// Controls the behavior of the automatic data refresh checkbox
+	AutomaticDataRefresh *string `json:"automatic_data_refresh,omitempty"`
 }
 
 // NewLinkTokenRequest instantiates a new LinkTokenRequest object
@@ -707,6 +709,38 @@ func (o *LinkTokenRequest) SetPaymentInstructionId(v string) {
 	o.PaymentInstructionId = &v
 }
 
+// GetAutomaticDataRefresh returns the AutomaticDataRefresh field value if set, zero value otherwise.
+func (o *LinkTokenRequest) GetAutomaticDataRefresh() string {
+	if o == nil || o.AutomaticDataRefresh == nil {
+		var ret string
+		return ret
+	}
+	return *o.AutomaticDataRefresh
+}
+
+// GetAutomaticDataRefreshOk returns a tuple with the AutomaticDataRefresh field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LinkTokenRequest) GetAutomaticDataRefreshOk() (*string, bool) {
+	if o == nil || o.AutomaticDataRefresh == nil {
+		return nil, false
+	}
+	return o.AutomaticDataRefresh, true
+}
+
+// HasAutomaticDataRefresh returns a boolean if a field has been set.
+func (o *LinkTokenRequest) HasAutomaticDataRefresh() bool {
+	if o != nil && o.AutomaticDataRefresh != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAutomaticDataRefresh gets a reference to the given string and assigns it to the AutomaticDataRefresh field.
+func (o *LinkTokenRequest) SetAutomaticDataRefresh(v string) {
+	o.AutomaticDataRefresh = &v
+}
+
 func (o LinkTokenRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -771,6 +805,9 @@ func (o LinkTokenRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.PaymentInstructionId != nil {
 		toSerialize["payment_instruction_id"] = o.PaymentInstructionId
+	}
+	if o.AutomaticDataRefresh != nil {
+		toSerialize["automatic_data_refresh"] = o.AutomaticDataRefresh
 	}
 	return json.Marshal(toSerialize)
 }
