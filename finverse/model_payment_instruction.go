@@ -29,7 +29,8 @@ type PaymentInstruction struct {
 	// The recipient account Id
 	RecipientAccountId *string `json:"recipient_account_id,omitempty"`
 	// The sender name
-	SenderName *string `json:"sender_name,omitempty"`
+	SenderName    *string         `json:"sender_name,omitempty"`
+	SenderAccount *PaymentAccount `json:"sender_account,omitempty"`
 	// The sender account Id
 	SenderAccountId *string `json:"sender_account_id,omitempty"`
 	// When the payment should start
@@ -260,6 +261,38 @@ func (o *PaymentInstruction) HasSenderName() bool {
 // SetSenderName gets a reference to the given string and assigns it to the SenderName field.
 func (o *PaymentInstruction) SetSenderName(v string) {
 	o.SenderName = &v
+}
+
+// GetSenderAccount returns the SenderAccount field value if set, zero value otherwise.
+func (o *PaymentInstruction) GetSenderAccount() PaymentAccount {
+	if o == nil || o.SenderAccount == nil {
+		var ret PaymentAccount
+		return ret
+	}
+	return *o.SenderAccount
+}
+
+// GetSenderAccountOk returns a tuple with the SenderAccount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentInstruction) GetSenderAccountOk() (*PaymentAccount, bool) {
+	if o == nil || o.SenderAccount == nil {
+		return nil, false
+	}
+	return o.SenderAccount, true
+}
+
+// HasSenderAccount returns a boolean if a field has been set.
+func (o *PaymentInstruction) HasSenderAccount() bool {
+	if o != nil && o.SenderAccount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSenderAccount gets a reference to the given PaymentAccount and assigns it to the SenderAccount field.
+func (o *PaymentInstruction) SetSenderAccount(v PaymentAccount) {
+	o.SenderAccount = &v
 }
 
 // GetSenderAccountId returns the SenderAccountId field value if set, zero value otherwise.
@@ -655,6 +688,9 @@ func (o PaymentInstruction) MarshalJSON() ([]byte, error) {
 	}
 	if o.SenderName != nil {
 		toSerialize["sender_name"] = o.SenderName
+	}
+	if o.SenderAccount != nil {
+		toSerialize["sender_account"] = o.SenderAccount
 	}
 	if o.SenderAccountId != nil {
 		toSerialize["sender_account_id"] = o.SenderAccountId

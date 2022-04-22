@@ -60,6 +60,7 @@ model_login_identity_status_details.go
 model_login_method.go
 model_monthly_income_estimate.go
 model_other_info.go
+model_payment_account.go
 model_payment_details.go
 model_payment_instruction.go
 model_principal.go

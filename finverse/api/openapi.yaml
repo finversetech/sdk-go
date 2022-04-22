@@ -3519,8 +3519,10 @@ components:
           type: DEBIT_AUTHORIZATION
           frequency: DAILY, WEEKLY OR MONTHLY
           user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
+          sender_account:
+            raw: raw
           last_update: 2000-01-23T04:56:07.000+00:00
-          sender_account_id: Something
+          sender_account_id: The sender account ID
           currency: HKD
           login_identity_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
           recipient_name: John Wick
@@ -3614,8 +3616,10 @@ components:
         type: DEBIT_AUTHORIZATION
         frequency: DAILY, WEEKLY OR MONTHLY
         user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
+        sender_account:
+          raw: raw
         last_update: 2000-01-23T04:56:07.000+00:00
-        sender_account_id: Something
+        sender_account_id: The sender account ID
         currency: HKD
         login_identity_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
         recipient_name: John Wick
@@ -3651,9 +3655,11 @@ components:
           description: The sender name
           example: Jane Doe
           type: string
+        sender_account:
+          $ref: '#/components/schemas/PaymentAccount'
         sender_account_id:
           description: The sender account Id
-          example: Something
+          example: The sender account ID
           type: string
         start_date:
           description: When the payment should start
@@ -4011,6 +4017,15 @@ components:
       - income
       - institution
       - login_identity
+      type: object
+    PaymentAccount:
+      example:
+        raw: raw
+      properties:
+        raw:
+          description: The raw value for the account the user selected when making
+            payment request
+          type: string
       type: object
     BadRequestModel_error:
       properties:
