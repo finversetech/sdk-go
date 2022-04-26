@@ -34,6 +34,7 @@ type LoginIdentity struct {
 	LastSuccess           *time.Time                          `json:"last_success,omitempty"`
 	FirstSuccess          *time.Time                          `json:"first_success,omitempty"`
 	Webhook               *string                             `json:"webhook,omitempty"`
+	SessionStatus         *string                             `json:"session_status,omitempty"`
 	InstitutionId         string                              `json:"institution_id"`
 	CreatedAt             *time.Time                          `json:"created_at,omitempty"`
 	UpdatedAt             *time.Time                          `json:"updated_at,omitempty"`
@@ -560,6 +561,38 @@ func (o *LoginIdentity) SetWebhook(v string) {
 	o.Webhook = &v
 }
 
+// GetSessionStatus returns the SessionStatus field value if set, zero value otherwise.
+func (o *LoginIdentity) GetSessionStatus() string {
+	if o == nil || o.SessionStatus == nil {
+		var ret string
+		return ret
+	}
+	return *o.SessionStatus
+}
+
+// GetSessionStatusOk returns a tuple with the SessionStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LoginIdentity) GetSessionStatusOk() (*string, bool) {
+	if o == nil || o.SessionStatus == nil {
+		return nil, false
+	}
+	return o.SessionStatus, true
+}
+
+// HasSessionStatus returns a boolean if a field has been set.
+func (o *LoginIdentity) HasSessionStatus() bool {
+	if o != nil && o.SessionStatus != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSessionStatus gets a reference to the given string and assigns it to the SessionStatus field.
+func (o *LoginIdentity) SetSessionStatus(v string) {
+	o.SessionStatus = &v
+}
+
 // GetInstitutionId returns the InstitutionId field value
 func (o *LoginIdentity) GetInstitutionId() string {
 	if o == nil {
@@ -793,6 +826,9 @@ func (o LoginIdentity) MarshalJSON() ([]byte, error) {
 	}
 	if o.Webhook != nil {
 		toSerialize["webhook"] = o.Webhook
+	}
+	if o.SessionStatus != nil {
+		toSerialize["session_status"] = o.SessionStatus
 	}
 	if true {
 		toSerialize["institution_id"] = o.InstitutionId

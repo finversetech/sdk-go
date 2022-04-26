@@ -2893,6 +2893,7 @@ components:
             status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
           first_success: 2000-01-23T04:56:07.000+00:00
           login_identity_id: login_identity_id
+          session_status: COMPLETED
           status_details:
             event_date: 2000-01-23T04:56:07.000+00:00
             event_name: event_name
@@ -2986,6 +2987,7 @@ components:
             status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
           first_success: 2000-01-23T04:56:07.000+00:00
           login_identity_id: login_identity_id
+          session_status: COMPLETED
           status_details:
             event_date: 2000-01-23T04:56:07.000+00:00
             event_name: event_name
@@ -3133,6 +3135,7 @@ components:
           status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
         first_success: 2000-01-23T04:56:07.000+00:00
         login_identity_id: login_identity_id
+        session_status: COMPLETED
         status_details:
           event_date: 2000-01-23T04:56:07.000+00:00
           event_name: event_name
@@ -3181,6 +3184,9 @@ components:
         webhook:
           example: https://auth.example.com/callback
           format: uri
+          type: string
+        session_status:
+          example: COMPLETED
           type: string
         institution_id:
           example: "123"
