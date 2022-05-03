@@ -2764,6 +2764,7 @@ components:
       example:
         payment_instruction_id: payment_instruction_id
         store_credential: true
+        consent: true
         products_requested:
         - ACCOUNTS
         - TRANSACTIONS
@@ -2776,6 +2777,11 @@ components:
           type: string
         store_credential:
           example: true
+          type: boolean
+        consent:
+          description: this is a mandatory field
+          example: true
+          nullable: true
           type: boolean
         products_requested:
           description: products that is requested
@@ -2797,9 +2803,15 @@ components:
     RelinkRequest:
       example:
         store_credential: true
+        consent: true
       properties:
         store_credential:
           example: true
+          type: boolean
+        consent:
+          description: this is a mandatory field
+          example: true
+          nullable: true
           type: boolean
       required:
       - store_credential

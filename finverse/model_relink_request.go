@@ -18,6 +18,8 @@ import (
 // RelinkRequest struct for RelinkRequest
 type RelinkRequest struct {
 	StoreCredential bool `json:"store_credential"`
+	// this is a mandatory field
+	Consent NullableBool `json:"consent,omitempty"`
 }
 
 // NewRelinkRequest instantiates a new RelinkRequest object
@@ -62,10 +64,56 @@ func (o *RelinkRequest) SetStoreCredential(v bool) {
 	o.StoreCredential = v
 }
 
+// GetConsent returns the Consent field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *RelinkRequest) GetConsent() bool {
+	if o == nil || o.Consent.Get() == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Consent.Get()
+}
+
+// GetConsentOk returns a tuple with the Consent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *RelinkRequest) GetConsentOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Consent.Get(), o.Consent.IsSet()
+}
+
+// HasConsent returns a boolean if a field has been set.
+func (o *RelinkRequest) HasConsent() bool {
+	if o != nil && o.Consent.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetConsent gets a reference to the given NullableBool and assigns it to the Consent field.
+func (o *RelinkRequest) SetConsent(v bool) {
+	o.Consent.Set(&v)
+}
+
+// SetConsentNil sets the value for Consent to be an explicit nil
+func (o *RelinkRequest) SetConsentNil() {
+	o.Consent.Set(nil)
+}
+
+// UnsetConsent ensures that no value is present for Consent, not even an explicit nil
+func (o *RelinkRequest) UnsetConsent() {
+	o.Consent.Unset()
+}
+
 func (o RelinkRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["store_credential"] = o.StoreCredential
+	}
+	if o.Consent.IsSet() {
+		toSerialize["consent"] = o.Consent.Get()
 	}
 	return json.Marshal(toSerialize)
 }

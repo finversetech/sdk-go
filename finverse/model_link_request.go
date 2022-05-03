@@ -19,6 +19,8 @@ import (
 type LinkRequest struct {
 	InstitutionId   string `json:"institution_id"`
 	StoreCredential bool   `json:"store_credential"`
+	// this is a mandatory field
+	Consent NullableBool `json:"consent,omitempty"`
 	// products that is requested
 	ProductsRequested []string `json:"products_requested,omitempty"`
 	// The identifier returned after creating payment instruction
@@ -92,6 +94,49 @@ func (o *LinkRequest) SetStoreCredential(v bool) {
 	o.StoreCredential = v
 }
 
+// GetConsent returns the Consent field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *LinkRequest) GetConsent() bool {
+	if o == nil || o.Consent.Get() == nil {
+		var ret bool
+		return ret
+	}
+	return *o.Consent.Get()
+}
+
+// GetConsentOk returns a tuple with the Consent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *LinkRequest) GetConsentOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Consent.Get(), o.Consent.IsSet()
+}
+
+// HasConsent returns a boolean if a field has been set.
+func (o *LinkRequest) HasConsent() bool {
+	if o != nil && o.Consent.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetConsent gets a reference to the given NullableBool and assigns it to the Consent field.
+func (o *LinkRequest) SetConsent(v bool) {
+	o.Consent.Set(&v)
+}
+
+// SetConsentNil sets the value for Consent to be an explicit nil
+func (o *LinkRequest) SetConsentNil() {
+	o.Consent.Set(nil)
+}
+
+// UnsetConsent ensures that no value is present for Consent, not even an explicit nil
+func (o *LinkRequest) UnsetConsent() {
+	o.Consent.Unset()
+}
+
 // GetProductsRequested returns the ProductsRequested field value if set, zero value otherwise.
 func (o *LinkRequest) GetProductsRequested() []string {
 	if o == nil || o.ProductsRequested == nil {
@@ -163,6 +208,9 @@ func (o LinkRequest) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["store_credential"] = o.StoreCredential
+	}
+	if o.Consent.IsSet() {
+		toSerialize["consent"] = o.Consent.Get()
 	}
 	if o.ProductsRequested != nil {
 		toSerialize["products_requested"] = o.ProductsRequested
