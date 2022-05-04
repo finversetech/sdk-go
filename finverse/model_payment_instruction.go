@@ -18,7 +18,9 @@ import (
 
 // PaymentInstruction struct for PaymentInstruction
 type PaymentInstruction struct {
-	// A id of the user of this payment, need to equal to userId when creating link
+	// An id of the this payment
+	PaymentInstructionId *string `json:"payment_instruction_id,omitempty"`
+	// An id of the user of this payment, need to equal to userId when creating link
 	UserId *string `json:"user_id,omitempty"`
 	// An id that links this payment to a specific Login Identity
 	LoginIdentityId *string `json:"login_identity_id,omitempty"`
@@ -69,6 +71,38 @@ func NewPaymentInstruction() *PaymentInstruction {
 func NewPaymentInstructionWithDefaults() *PaymentInstruction {
 	this := PaymentInstruction{}
 	return &this
+}
+
+// GetPaymentInstructionId returns the PaymentInstructionId field value if set, zero value otherwise.
+func (o *PaymentInstruction) GetPaymentInstructionId() string {
+	if o == nil || o.PaymentInstructionId == nil {
+		var ret string
+		return ret
+	}
+	return *o.PaymentInstructionId
+}
+
+// GetPaymentInstructionIdOk returns a tuple with the PaymentInstructionId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentInstruction) GetPaymentInstructionIdOk() (*string, bool) {
+	if o == nil || o.PaymentInstructionId == nil {
+		return nil, false
+	}
+	return o.PaymentInstructionId, true
+}
+
+// HasPaymentInstructionId returns a boolean if a field has been set.
+func (o *PaymentInstruction) HasPaymentInstructionId() bool {
+	if o != nil && o.PaymentInstructionId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentInstructionId gets a reference to the given string and assigns it to the PaymentInstructionId field.
+func (o *PaymentInstruction) SetPaymentInstructionId(v string) {
+	o.PaymentInstructionId = &v
 }
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
@@ -671,6 +705,9 @@ func (o *PaymentInstruction) SetInfo(v map[string]interface{}) {
 
 func (o PaymentInstruction) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.PaymentInstructionId != nil {
+		toSerialize["payment_instruction_id"] = o.PaymentInstructionId
+	}
 	if o.UserId != nil {
 		toSerialize["user_id"] = o.UserId
 	}

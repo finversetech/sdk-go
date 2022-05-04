@@ -3530,6 +3530,7 @@ components:
           end_date: 2000-01-23
           amount: 123.45
           reference_id: reference_id
+          payment_instruction_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
           sender_name: Jane Doe
           recipient_account_id: Something
           type: DEBIT_AUTHORIZATION
@@ -3627,6 +3628,7 @@ components:
         end_date: 2000-01-23
         amount: 123.45
         reference_id: reference_id
+        payment_instruction_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
         sender_name: Jane Doe
         recipient_account_id: Something
         type: DEBIT_AUTHORIZATION
@@ -3644,9 +3646,13 @@ components:
         status: UNKNOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVAILABLE_FOR_INSTITUTION
         info: '{}'
       properties:
+        payment_instruction_id:
+          description: An id of the this payment
+          example: 01BX5ZZKBKACTAV9WEVGEMMVRY
+          type: string
         user_id:
-          description: A id of the user of this payment, need to equal to userId when
-            creating link
+          description: An id of the user of this payment, need to equal to userId
+            when creating link
           example: 01BX5ZZKBKACTAV9WEVGEMMVRY
           type: string
         login_identity_id:
