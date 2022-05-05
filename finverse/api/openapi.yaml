@@ -2884,6 +2884,9 @@ components:
               status_details: AUTHENTICATION_INITIALIZED
               status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
           created_at: 2000-01-23T04:56:07.000+00:00
+          refresh:
+            refresh_allowed: true
+            credentials_stored: true
           error:
             code: 0
             details: Credentials are invalid. Please try again.
@@ -2978,6 +2981,9 @@ components:
               status_details: AUTHENTICATION_INITIALIZED
               status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
           created_at: 2000-01-23T04:56:07.000+00:00
+          refresh:
+            refresh_allowed: true
+            credentials_stored: true
           error:
             code: 0
             details: Credentials are invalid. Please try again.
@@ -3126,6 +3132,9 @@ components:
             status_details: AUTHENTICATION_INITIALIZED
             status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
         created_at: 2000-01-23T04:56:07.000+00:00
+        refresh:
+          refresh_allowed: true
+          credentials_stored: true
         error:
           code: 0
           details: Credentials are invalid. Please try again.
@@ -3220,10 +3229,22 @@ components:
         last_session_id:
           format: ulid
           type: string
+        refresh:
+          $ref: '#/components/schemas/RefreshData'
       required:
       - customer_app_id
       - institution_id
       - user_id
+      type: object
+    RefreshData:
+      example:
+        refresh_allowed: true
+        credentials_stored: true
+      properties:
+        credentials_stored:
+          type: boolean
+        refresh_allowed:
+          type: boolean
       type: object
     LoginIdentityError:
       example:

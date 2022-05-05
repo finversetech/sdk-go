@@ -65,6 +65,7 @@ model_payment_instruction.go
 model_principal.go
 model_product_status.go
 model_redirect_uri_response.go
+model_refresh_data.go
 model_refresh_request.go
 model_relink_request.go
 model_single_source_income.go

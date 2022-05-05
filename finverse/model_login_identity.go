@@ -41,8 +41,9 @@ type LoginIdentity struct {
 	// a login attempt id which is unique per login_identity
 	LinkingAttemptId *string `json:"linking_attempt_id,omitempty"`
 	// a successful login attempt id which is unique per login_identity
-	AuthenticationId *string `json:"authentication_id,omitempty"`
-	LastSessionId    *string `json:"last_session_id,omitempty"`
+	AuthenticationId *string      `json:"authentication_id,omitempty"`
+	LastSessionId    *string      `json:"last_session_id,omitempty"`
+	Refresh          *RefreshData `json:"refresh,omitempty"`
 }
 
 // NewLoginIdentity instantiates a new LoginIdentity object
@@ -777,6 +778,38 @@ func (o *LoginIdentity) SetLastSessionId(v string) {
 	o.LastSessionId = &v
 }
 
+// GetRefresh returns the Refresh field value if set, zero value otherwise.
+func (o *LoginIdentity) GetRefresh() RefreshData {
+	if o == nil || o.Refresh == nil {
+		var ret RefreshData
+		return ret
+	}
+	return *o.Refresh
+}
+
+// GetRefreshOk returns a tuple with the Refresh field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LoginIdentity) GetRefreshOk() (*RefreshData, bool) {
+	if o == nil || o.Refresh == nil {
+		return nil, false
+	}
+	return o.Refresh, true
+}
+
+// HasRefresh returns a boolean if a field has been set.
+func (o *LoginIdentity) HasRefresh() bool {
+	if o != nil && o.Refresh != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRefresh gets a reference to the given RefreshData and assigns it to the Refresh field.
+func (o *LoginIdentity) SetRefresh(v RefreshData) {
+	o.Refresh = &v
+}
+
 func (o LoginIdentity) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.LoginIdentityId != nil {
@@ -847,6 +880,9 @@ func (o LoginIdentity) MarshalJSON() ([]byte, error) {
 	}
 	if o.LastSessionId != nil {
 		toSerialize["last_session_id"] = o.LastSessionId
+	}
+	if o.Refresh != nil {
+		toSerialize["refresh"] = o.Refresh
 	}
 	return json.Marshal(toSerialize)
 }
