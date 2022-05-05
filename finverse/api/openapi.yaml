@@ -3245,6 +3245,9 @@ components:
           type: boolean
         refresh_allowed:
           type: boolean
+      required:
+      - credentials_stored
+      - refresh_allowed
       type: object
     LoginIdentityError:
       example:

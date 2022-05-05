@@ -17,16 +17,18 @@ import (
 
 // RefreshData struct for RefreshData
 type RefreshData struct {
-	CredentialsStored *bool `json:"credentials_stored,omitempty"`
-	RefreshAllowed    *bool `json:"refresh_allowed,omitempty"`
+	CredentialsStored bool `json:"credentials_stored"`
+	RefreshAllowed    bool `json:"refresh_allowed"`
 }
 
 // NewRefreshData instantiates a new RefreshData object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRefreshData() *RefreshData {
+func NewRefreshData(credentialsStored bool, refreshAllowed bool) *RefreshData {
 	this := RefreshData{}
+	this.CredentialsStored = credentialsStored
+	this.RefreshAllowed = refreshAllowed
 	return &this
 }
 
@@ -38,76 +40,60 @@ func NewRefreshDataWithDefaults() *RefreshData {
 	return &this
 }
 
-// GetCredentialsStored returns the CredentialsStored field value if set, zero value otherwise.
+// GetCredentialsStored returns the CredentialsStored field value
 func (o *RefreshData) GetCredentialsStored() bool {
-	if o == nil || o.CredentialsStored == nil {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.CredentialsStored
+
+	return o.CredentialsStored
 }
 
-// GetCredentialsStoredOk returns a tuple with the CredentialsStored field value if set, nil otherwise
+// GetCredentialsStoredOk returns a tuple with the CredentialsStored field value
 // and a boolean to check if the value has been set.
 func (o *RefreshData) GetCredentialsStoredOk() (*bool, bool) {
-	if o == nil || o.CredentialsStored == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.CredentialsStored, true
+	return &o.CredentialsStored, true
 }
 
-// HasCredentialsStored returns a boolean if a field has been set.
-func (o *RefreshData) HasCredentialsStored() bool {
-	if o != nil && o.CredentialsStored != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCredentialsStored gets a reference to the given bool and assigns it to the CredentialsStored field.
+// SetCredentialsStored sets field value
 func (o *RefreshData) SetCredentialsStored(v bool) {
-	o.CredentialsStored = &v
+	o.CredentialsStored = v
 }
 
-// GetRefreshAllowed returns the RefreshAllowed field value if set, zero value otherwise.
+// GetRefreshAllowed returns the RefreshAllowed field value
 func (o *RefreshData) GetRefreshAllowed() bool {
-	if o == nil || o.RefreshAllowed == nil {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.RefreshAllowed
+
+	return o.RefreshAllowed
 }
 
-// GetRefreshAllowedOk returns a tuple with the RefreshAllowed field value if set, nil otherwise
+// GetRefreshAllowedOk returns a tuple with the RefreshAllowed field value
 // and a boolean to check if the value has been set.
 func (o *RefreshData) GetRefreshAllowedOk() (*bool, bool) {
-	if o == nil || o.RefreshAllowed == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.RefreshAllowed, true
+	return &o.RefreshAllowed, true
 }
 
-// HasRefreshAllowed returns a boolean if a field has been set.
-func (o *RefreshData) HasRefreshAllowed() bool {
-	if o != nil && o.RefreshAllowed != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRefreshAllowed gets a reference to the given bool and assigns it to the RefreshAllowed field.
+// SetRefreshAllowed sets field value
 func (o *RefreshData) SetRefreshAllowed(v bool) {
-	o.RefreshAllowed = &v
+	o.RefreshAllowed = v
 }
 
 func (o RefreshData) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CredentialsStored != nil {
+	if true {
 		toSerialize["credentials_stored"] = o.CredentialsStored
 	}
-	if o.RefreshAllowed != nil {
+	if true {
 		toSerialize["refresh_allowed"] = o.RefreshAllowed
 	}
 	return json.Marshal(toSerialize)
