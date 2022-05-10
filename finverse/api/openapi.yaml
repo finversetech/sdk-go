@@ -2604,7 +2604,7 @@ components:
         - PERSONAL
         grant_type: grant_type
         user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
-        scope: coma,separated,scopes
+        scope: comma,separated,scopes
         automatic_data_refresh: "ON"
         redirect_uri: https://example.com/callback
         state: user-state-passed
@@ -2643,7 +2643,7 @@ components:
           example: user-state-passed
           type: string
         scope:
-          example: coma,separated,scopes
+          example: comma,separated,scopes
           type: string
         link_mode:
           description: Space separated list of the tags of the institutions to view.
@@ -2651,11 +2651,12 @@ components:
           type: string
         ui_mode:
           description: The UI mode link is intended to be used in - "iframe" (default),
-            "auto_redirect" or "redirect"
+            "auto_redirect" or "redirect" or "standalone"
           enum:
           - iframe
           - redirect
           - auto_redirect
+          - standalone
           example: redirect
           type: string
         language:
