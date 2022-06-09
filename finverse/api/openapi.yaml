@@ -1850,6 +1850,8 @@ components:
         customer_app_name:
           example: Demo App
           type: string
+      required:
+      - customer_app_name
       type: object
     Transaction:
       example:

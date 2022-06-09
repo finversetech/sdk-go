@@ -19,15 +19,16 @@ import (
 type CustomizationDetails struct {
 	LogoId          *string `json:"logo_id,omitempty"`
 	DisplayName     *string `json:"display_name,omitempty"`
-	CustomerAppName *string `json:"customer_app_name,omitempty"`
+	CustomerAppName string  `json:"customer_app_name"`
 }
 
 // NewCustomizationDetails instantiates a new CustomizationDetails object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCustomizationDetails() *CustomizationDetails {
+func NewCustomizationDetails(customerAppName string) *CustomizationDetails {
 	this := CustomizationDetails{}
+	this.CustomerAppName = customerAppName
 	return &this
 }
 
@@ -103,36 +104,28 @@ func (o *CustomizationDetails) SetDisplayName(v string) {
 	o.DisplayName = &v
 }
 
-// GetCustomerAppName returns the CustomerAppName field value if set, zero value otherwise.
+// GetCustomerAppName returns the CustomerAppName field value
 func (o *CustomizationDetails) GetCustomerAppName() string {
-	if o == nil || o.CustomerAppName == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.CustomerAppName
+
+	return o.CustomerAppName
 }
 
-// GetCustomerAppNameOk returns a tuple with the CustomerAppName field value if set, nil otherwise
+// GetCustomerAppNameOk returns a tuple with the CustomerAppName field value
 // and a boolean to check if the value has been set.
 func (o *CustomizationDetails) GetCustomerAppNameOk() (*string, bool) {
-	if o == nil || o.CustomerAppName == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.CustomerAppName, true
+	return &o.CustomerAppName, true
 }
 
-// HasCustomerAppName returns a boolean if a field has been set.
-func (o *CustomizationDetails) HasCustomerAppName() bool {
-	if o != nil && o.CustomerAppName != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCustomerAppName gets a reference to the given string and assigns it to the CustomerAppName field.
+// SetCustomerAppName sets field value
 func (o *CustomizationDetails) SetCustomerAppName(v string) {
-	o.CustomerAppName = &v
+	o.CustomerAppName = v
 }
 
 func (o CustomizationDetails) MarshalJSON() ([]byte, error) {
@@ -143,7 +136,7 @@ func (o CustomizationDetails) MarshalJSON() ([]byte, error) {
 	if o.DisplayName != nil {
 		toSerialize["display_name"] = o.DisplayName
 	}
-	if o.CustomerAppName != nil {
+	if true {
 		toSerialize["customer_app_name"] = o.CustomerAppName
 	}
 	return json.Marshal(toSerialize)
