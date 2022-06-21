@@ -1085,6 +1085,34 @@ paths:
         - payment:get
       tags:
       - customer
+  /composite_statement:
+    get:
+      description: Get composite statement link for download
+      operationId: getCompositeStatementLink
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompositeStatementLink'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - composite_statement
+      tags:
+      - login_identity
 components:
   schemas:
     ErrorResponse:
@@ -4075,6 +4103,23 @@ components:
           description: The raw value for the account the user selected when making
             payment request
           type: string
+      type: object
+    CompositeStatementLink:
+      example:
+        expiry: 2000-01-23T04:56:07.000+00:00
+        url: https://www.finverse.net/statement.pdf
+      properties:
+        url:
+          description: signedURL to download statement
+          example: https://www.finverse.net/statement.pdf
+          type: string
+        expiry:
+          description: expiry of the signedURL
+          format: date-time
+          type: string
+      required:
+      - expiry
+      - url
       type: object
     BadRequestModel_error:
       properties:

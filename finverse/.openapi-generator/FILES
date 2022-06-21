@@ -13,6 +13,7 @@ model_all_product_status.go
 model_bad_request_model.go
 model_bad_request_model_error.go
 model_balance_history.go
+model_composite_statement_link.go
 model_create_customer_request.go
 model_create_customer_response.go
 model_create_payment_instruction_response.go
