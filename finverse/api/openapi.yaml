@@ -1087,6 +1087,31 @@ paths:
       - customer
   /composite_statement:
     get:
+      description: Download composite statement
+      operationId: getCompositeStatement
+      responses:
+        "307":
+          content: {}
+          description: Redirect
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - composite_statement
+      tags:
+      - login_identity
+  /composite_statement_link:
+    get:
       description: Get composite statement link for download
       operationId: getCompositeStatementLink
       responses:
