@@ -101,6 +101,21 @@ type CustomerApi interface {
 	GetLoginIdentityHistoryExecute(r CustomerApiApiGetLoginIdentityHistoryRequest) (*GetLoginIdentityHistoryResponse, *http.Response, error)
 
 	/*
+		GetMandates Method for GetMandates
+
+		Get Mandates details by mandate_id
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @param mandateId mandate id
+		 @return CustomerApiApiGetMandatesRequest
+	*/
+	GetMandates(ctx context.Context, mandateId string) CustomerApiApiGetMandatesRequest
+
+	// GetMandatesExecute executes the request
+	//  @return GetMandatesResponse
+	GetMandatesExecute(r CustomerApiApiGetMandatesRequest) (*GetMandatesResponse, *http.Response, error)
+
+	/*
 		GetPaymentInstruction Method for GetPaymentInstruction
 
 		Get payment instructions by payment_instruction_id
@@ -128,6 +143,20 @@ type CustomerApi interface {
 	// ListInstitutionsExecute executes the request
 	//  @return []Institution
 	ListInstitutionsExecute(r CustomerApiApiListInstitutionsRequest) ([]Institution, *http.Response, error)
+
+	/*
+		PostMandates Method for PostMandates
+
+		CREATE Mandates
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return CustomerApiApiPostMandatesRequest
+	*/
+	PostMandates(ctx context.Context) CustomerApiApiPostMandatesRequest
+
+	// PostMandatesExecute executes the request
+	//  @return PostMandatesResponse
+	PostMandatesExecute(r CustomerApiApiPostMandatesRequest) (*PostMandatesResponse, *http.Response, error)
 
 	/*
 		RefreshToken Method for RefreshToken
@@ -803,6 +832,128 @@ func (a *CustomerApiService) GetLoginIdentityHistoryExecute(r CustomerApiApiGetL
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type CustomerApiApiGetMandatesRequest struct {
+	ctx        context.Context
+	ApiService CustomerApi
+	mandateId  string
+}
+
+func (r CustomerApiApiGetMandatesRequest) Execute() (*GetMandatesResponse, *http.Response, error) {
+	return r.ApiService.GetMandatesExecute(r)
+}
+
+/*
+GetMandates Method for GetMandates
+
+Get Mandates details by mandate_id
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param mandateId mandate id
+ @return CustomerApiApiGetMandatesRequest
+*/
+func (a *CustomerApiService) GetMandates(ctx context.Context, mandateId string) CustomerApiApiGetMandatesRequest {
+	return CustomerApiApiGetMandatesRequest{
+		ApiService: a,
+		ctx:        ctx,
+		mandateId:  mandateId,
+	}
+}
+
+// Execute executes the request
+//  @return GetMandatesResponse
+func (a *CustomerApiService) GetMandatesExecute(r CustomerApiApiGetMandatesRequest) (*GetMandatesResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetMandatesResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetMandates")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/mandates/{mandateId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"mandateId"+"}", url.PathEscape(parameterToString(r.mandateId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v BadRequestModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type CustomerApiApiGetPaymentInstructionRequest struct {
 	ctx                  context.Context
 	ApiService           CustomerApi
@@ -1061,6 +1212,146 @@ func (a *CustomerApiService) ListInstitutionsExecute(r CustomerApiApiListInstitu
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
 			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CustomerApiApiPostMandatesRequest struct {
+	ctx                 context.Context
+	ApiService          CustomerApi
+	postMandatesRequest *PostMandatesRequest
+}
+
+// request body for creating mandate
+func (r CustomerApiApiPostMandatesRequest) PostMandatesRequest(postMandatesRequest PostMandatesRequest) CustomerApiApiPostMandatesRequest {
+	r.postMandatesRequest = &postMandatesRequest
+	return r
+}
+
+func (r CustomerApiApiPostMandatesRequest) Execute() (*PostMandatesResponse, *http.Response, error) {
+	return r.ApiService.PostMandatesExecute(r)
+}
+
+/*
+PostMandates Method for PostMandates
+
+CREATE Mandates
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return CustomerApiApiPostMandatesRequest
+*/
+func (a *CustomerApiService) PostMandates(ctx context.Context) CustomerApiApiPostMandatesRequest {
+	return CustomerApiApiPostMandatesRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return PostMandatesResponse
+func (a *CustomerApiService) PostMandatesExecute(r CustomerApiApiPostMandatesRequest) (*PostMandatesResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PostMandatesResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.PostMandates")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/mandates"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.postMandatesRequest == nil {
+		return localVarReturnValue, nil, reportError("postMandatesRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.postMandatesRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v BadRequestModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v BadRequestModel
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

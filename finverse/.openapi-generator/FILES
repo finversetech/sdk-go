@@ -29,6 +29,8 @@ model_get_balance_history_response.go
 model_get_identity_response.go
 model_get_login_identity_by_id_response.go
 model_get_login_identity_history_response.go
+model_get_mandate_sender.go
+model_get_mandates_response.go
 model_get_payment_instructions_response.go
 model_get_statement_link_response.go
 model_get_statements_response.go
@@ -58,11 +60,17 @@ model_login_identity_login_methods_available.go
 model_login_identity_short.go
 model_login_identity_status_details.go
 model_login_method.go
+model_mandate_details.go
+model_mandate_recipient.go
 model_monthly_income_estimate.go
 model_other_info.go
 model_payment_account.go
 model_payment_details.go
 model_payment_instruction.go
+model_payment_schedule.go
+model_post_mandate_sender.go
+model_post_mandates_request.go
+model_post_mandates_response.go
 model_principal.go
 model_product_status.go
 model_redirect_uri_response.go
@@ -75,5 +83,6 @@ model_statement_link.go
 model_token_request.go
 model_token_response.go
 model_transaction.go
+model_transaction_limits.go
 response.go
 utils.go

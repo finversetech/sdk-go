@@ -1138,6 +1138,83 @@ paths:
         - composite_statement
       tags:
       - login_identity
+  /mandates:
+    post:
+      description: CREATE Mandates
+      operationId: postMandates
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PostMandatesRequest'
+        description: request body for creating mandate
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PostMandatesResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - mandates:post
+      tags:
+      - customer
+      x-codegen-request-body-name: postMandatesRequest
+  /mandates/{mandateId}:
+    get:
+      description: Get Mandates details by mandate_id
+      operationId: getMandates
+      parameters:
+      - description: mandate id
+        in: path
+        name: mandateId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMandatesResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - mandates:get
+      tags:
+      - customer
 components:
   schemas:
     ErrorResponse:
@@ -4145,6 +4222,255 @@ components:
       required:
       - expiry
       - url
+      type: object
+    PostMandatesRequest:
+      example:
+        sender:
+          user_id: user_id
+          name: name
+          sender_reference_id: sender_reference_id
+        mandate_details:
+          end_date: 2000-01-23
+          payment_schedule:
+            amount: 100.0
+            frequency: DAILY
+          transaction_limits:
+            period: DAILY
+            max_period_amount: 0.8008281904610115
+            max_period_count: 6
+            max_transaction_amount: 1.4658129805029452
+          description: description
+          currency: currency
+          start_date: 2000-01-23
+        recipient:
+          recipient_account_id: recipient_account_id
+      properties:
+        recipient:
+          $ref: '#/components/schemas/MandateRecipient'
+        sender:
+          $ref: '#/components/schemas/PostMandateSender'
+        mandate_details:
+          $ref: '#/components/schemas/MandateDetails'
+      required:
+      - mandate_details
+      - recipient
+      - sender
+      type: object
+    PostMandatesResponse:
+      example:
+        mandate_id: mandate_id
+      properties:
+        mandate_id:
+          description: Finverse Mandate ID
+          type: string
+      type: object
+    GetMandatesResponse:
+      example:
+        mandate_status: CREATED
+        sender:
+          user_id: user_id
+          sender_account:
+            raw: raw
+          name: name
+          sender_reference_id: sender_reference_id
+        mandate_details:
+          end_date: 2000-01-23
+          payment_schedule:
+            amount: 100.0
+            frequency: DAILY
+          transaction_limits:
+            period: DAILY
+            max_period_amount: 0.8008281904610115
+            max_period_count: 6
+            max_transaction_amount: 1.4658129805029452
+          description: description
+          currency: currency
+          start_date: 2000-01-23
+        last_update: 2000-01-23T04:56:07.000+00:00
+        recipient:
+          recipient_account_id: recipient_account_id
+        mandate_id: mandate_id
+      properties:
+        last_update:
+          description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+          format: date-time
+          type: string
+        mandate_id:
+          description: Finverse Mandate ID (ULID)
+          type: string
+        mandate_status:
+          description: Mandate status
+          enum:
+          - CREATED
+          - USED
+          - SUBMITTED
+          - ERROR
+          type: string
+        recipient:
+          $ref: '#/components/schemas/MandateRecipient'
+        sender:
+          $ref: '#/components/schemas/GetMandateSender'
+        mandate_details:
+          $ref: '#/components/schemas/MandateDetails'
+      required:
+      - last_update
+      - mandate_details
+      - mandate_id
+      - mandate_status
+      - recipient
+      - sender
+      type: object
+    MandateRecipient:
+      example:
+        recipient_account_id: recipient_account_id
+      properties:
+        recipient_account_id:
+          description: Merchant account ID assigned by Finverse
+          type: string
+      required:
+      - recipient_account_id
+      type: object
+    PostMandateSender:
+      example:
+        user_id: user_id
+        name: name
+        sender_reference_id: sender_reference_id
+      properties:
+        name:
+          type: string
+        user_id:
+          description: Customer App's user ID, representing the end-user making the
+            payment.
+          type: string
+        sender_reference_id:
+          description: Customer App's reference ID, representing the sender's account
+            or billing reference number.
+          type: string
+      required:
+      - user_id
+      type: object
+    GetMandateSender:
+      example:
+        user_id: user_id
+        sender_account:
+          raw: raw
+        name: name
+        sender_reference_id: sender_reference_id
+      properties:
+        name:
+          type: string
+        user_id:
+          description: Customer App's user ID, representing the end-user making the
+            payment.
+          type: string
+        sender_reference_id:
+          description: Customer App's reference ID, representing the sender's account
+            or billing reference number.
+          type: string
+        sender_account:
+          $ref: '#/components/schemas/PaymentAccount'
+      required:
+      - sender_account
+      - user_id
+      type: object
+    MandateDetails:
+      example:
+        end_date: 2000-01-23
+        payment_schedule:
+          amount: 100.0
+          frequency: DAILY
+        transaction_limits:
+          period: DAILY
+          max_period_amount: 0.8008281904610115
+          max_period_count: 6
+          max_transaction_amount: 1.4658129805029452
+        description: description
+        currency: currency
+        start_date: 2000-01-23
+      properties:
+        currency:
+          description: ISO currency code
+          type: string
+        start_date:
+          description: YYYY-MM-DD, must be later than or the same as the date of creation.
+            If unspecified, default to the date of creation.
+          format: date
+          type: string
+        end_date:
+          description: YYYY-MM-DD, must be later than the date of creation.
+          format: date
+          type: string
+        payment_schedule:
+          $ref: '#/components/schemas/PaymentSchedule'
+        transaction_limits:
+          $ref: '#/components/schemas/TransactionLimits'
+        description:
+          description: End-user facing description of the mandate (used in notifications,
+            and in payments if no description is provided)
+          type: string
+      required:
+      - currency
+      type: object
+    PaymentSchedule:
+      example:
+        amount: 100.0
+        frequency: DAILY
+      properties:
+        amount:
+          description: Amount to be paid, in currency’s smallest unit or “minor unit”,
+            as defined in ISO 4217. For example, HKD 100.01 is represented as amount
+            = 10001 (minor unit = cents). For currencies without minor units (e.g.
+            VND, JPY), the amount is represented as is, without modification. For
+            example, VND 15101 is represented as amount = 15101.
+          example: 100.0
+          type: number
+        frequency:
+          description: Frequency of the payment. Possible values (DAILY, WEEKLY, MONTHLY,
+            QUARTERLY, YEARLY)
+          enum:
+          - DAILY
+          - WEEKLY
+          - MONTHLY
+          - QUARTERLY
+          - YEARLY
+          type: string
+      required:
+      - amount
+      - frequency
+      type: object
+    TransactionLimits:
+      example:
+        period: DAILY
+        max_period_amount: 0.8008281904610115
+        max_period_count: 6
+        max_transaction_amount: 1.4658129805029452
+      properties:
+        max_period_amount:
+          description: Maximum amount of money that can be paid during the reference
+            period (across any number of transactions). Expressed in currency’s smallest
+            unit or “minor unit”, as defined in ISO 4217.
+          type: number
+        max_period_count:
+          description: Maximum number of transactions (of any amount) that can be
+            executed during the reference period.
+          type: integer
+        max_transaction_amount:
+          description: The maximum amount of money that can be transferred in a single
+            transaction under this mandate. Expressed in currency’s smallest unit
+            or “minor unit”, as defined in ISO 4217.
+          type: number
+        period:
+          description: Reference calendar periods for the payment limits. Possible
+            values (DAILY, WEEKLY, MONTHLY, QUARTERLY, YEARLY)
+          enum:
+          - DAILY
+          - WEEKLY
+          - MONTHLY
+          - QUARTERLY
+          - YEARLY
+          type: string
+      required:
+      - period
       type: object
     BadRequestModel_error:
       properties:
