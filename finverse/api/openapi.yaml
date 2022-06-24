@@ -1973,7 +1973,6 @@ components:
       type: object
     CustomizationDetails:
       example:
-        customer_app_name: Demo App
         logo_id: dev-secret-something/a_ulid_goes_here_probably
         display_name: Generic Finance App Name
       properties:
@@ -1983,11 +1982,6 @@ components:
         display_name:
           example: Generic Finance App Name
           type: string
-        customer_app_name:
-          example: Demo App
-          type: string
-      required:
-      - customer_app_name
       type: object
     Transaction:
       example:
