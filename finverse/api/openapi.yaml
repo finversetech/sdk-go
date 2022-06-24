@@ -1221,6 +1221,89 @@ paths:
         - mandate:get
       tags:
       - customer
+  /payments:
+    post:
+      description: Create new Payment
+      operationId: createPayment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentRequest'
+        description: request body for creating payment
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payment:create
+      tags:
+      - customer
+      x-codegen-request-body-name: createPaymentRequest
+  /payments/{paymentId}:
+    get:
+      description: Get Payment details by payment_id
+      operationId: getPayment
+      parameters:
+      - description: payment id
+        in: path
+        name: paymentId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPaymentResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payment:get
+      tags:
+      - customer
 components:
   schemas:
     ErrorResponse:
@@ -4471,6 +4554,108 @@ components:
           type: string
       required:
       - period
+      type: object
+    CreatePaymentRequest:
+      example:
+        amount: 100
+        payment_details:
+          transaction_reference_id: transaction_reference_id
+          description: description
+          mandate_id: mandate_id
+        type: MANDATE
+      properties:
+        amount:
+          description: Amount to be paid, in currency’s smallest unit or “minor unit”,
+            as defined in ISO 4217. For example, HKD 100.01 is represented as amount
+            = 10001 (minor unit = cents). For currencies without minor units (e.g.
+            VND, JPY), the amount is represented as is, without modification. For
+            example, VND 15101 is represented as amount = 15101.
+          example: 100
+          type: integer
+        type:
+          description: Indicates whether this is a mandate-based payment or one-off
+            direct payment to an account. Possible values - MANDATE, SINGLE
+          enum:
+          - MANDATE
+          - SINGLE
+          type: string
+        payment_details:
+          $ref: '#/components/schemas/PaymentDetails2'
+      required:
+      - amount
+      - payment_details
+      - type
+      type: object
+    GetPaymentResponse:
+      example:
+        amount: 100
+        payment_details:
+          transaction_reference_id: transaction_reference_id
+          description: description
+          mandate_id: mandate_id
+        payment_id: payment_id
+        type: MANDATE
+        status: CREATED
+      properties:
+        payment_id:
+          description: Finverse Payment ID
+          type: string
+        amount:
+          description: Amount to be paid, in currency’s smallest unit or “minor unit”,
+            as defined in ISO 4217. For example, HKD 100.01 is represented as amount
+            = 10001 (minor unit = cents). For currencies without minor units (e.g.
+            VND, JPY), the amount is represented as is, without modification. For
+            example, VND 15101 is represented as amount = 15101.
+          example: 100
+          type: integer
+        type:
+          description: Indicates whether this is a mandate-based payment or one-off
+            direct payment to an account. Possible values - MANDATE, SINGLE
+          enum:
+          - MANDATE
+          - SINGLE
+          type: string
+        status:
+          description: Possible values - CREATED, AUTHORIZED, SUBMITTED, EXECUTED,
+            FAILED, REJECTED, CANCELLED.
+          enum:
+          - CREATED
+          - AUTHORIZED
+          - SUBMITTED
+          - EXECUTED
+          - FAILED
+          - REJECTED
+          - CANCELLED
+          type: string
+        payment_details:
+          $ref: '#/components/schemas/PaymentDetails2'
+      type: object
+    PaymentDetails2:
+      example:
+        transaction_reference_id: transaction_reference_id
+        description: description
+        mandate_id: mandate_id
+      properties:
+        description:
+          description: The transaction description provided to banks, which banks
+            will show to their customers.
+          type: string
+        mandate_id:
+          description: ID of the mandate this pament is referring to.
+          type: string
+        transaction_reference_id:
+          description: Customer's ID for this transaction
+          type: string
+      required:
+      - mandate_id
+      type: object
+    CreatePaymentResponse:
+      example:
+        payment_id: payment_id
+      properties:
+        payment_id:
+          description: Finverse Payment ID
+          type: string
       type: object
     BadRequestModel_error:
       properties:

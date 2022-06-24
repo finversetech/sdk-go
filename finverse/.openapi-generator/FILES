@@ -17,6 +17,8 @@ model_composite_statement_link.go
 model_create_customer_request.go
 model_create_customer_response.go
 model_create_payment_instruction_response.go
+model_create_payment_request.go
+model_create_payment_response.go
 model_currency_amount.go
 model_customer_payment_instruction.go
 model_customization_details.go
@@ -32,6 +34,7 @@ model_get_login_identity_history_response.go
 model_get_mandate_sender.go
 model_get_mandates_response.go
 model_get_payment_instructions_response.go
+model_get_payment_response.go
 model_get_statement_link_response.go
 model_get_statements_response.go
 model_identity.go
@@ -66,6 +69,7 @@ model_monthly_income_estimate.go
 model_other_info.go
 model_payment_account.go
 model_payment_details.go
+model_payment_details2.go
 model_payment_instruction.go
 model_payment_schedule.go
 model_post_mandate_sender.go
