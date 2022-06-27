@@ -18,7 +18,7 @@ import (
 // PaymentSchedule struct for PaymentSchedule
 type PaymentSchedule struct {
 	// Amount to be paid, in currency’s smallest unit or “minor unit”, as defined in ISO 4217. For example, HKD 100.01 is represented as amount = 10001 (minor unit = cents). For currencies without minor units (e.g. VND, JPY), the amount is represented as is, without modification. For example, VND 15101 is represented as amount = 15101.
-	Amount float32 `json:"amount"`
+	Amount int32 `json:"amount"`
 	// Frequency of the payment. Possible values (DAILY, WEEKLY, MONTHLY, QUARTERLY, YEARLY)
 	Frequency string `json:"frequency"`
 }
@@ -27,7 +27,7 @@ type PaymentSchedule struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentSchedule(amount float32, frequency string) *PaymentSchedule {
+func NewPaymentSchedule(amount int32, frequency string) *PaymentSchedule {
 	this := PaymentSchedule{}
 	this.Amount = amount
 	this.Frequency = frequency
@@ -43,9 +43,9 @@ func NewPaymentScheduleWithDefaults() *PaymentSchedule {
 }
 
 // GetAmount returns the Amount field value
-func (o *PaymentSchedule) GetAmount() float32 {
+func (o *PaymentSchedule) GetAmount() int32 {
 	if o == nil {
-		var ret float32
+		var ret int32
 		return ret
 	}
 
@@ -54,7 +54,7 @@ func (o *PaymentSchedule) GetAmount() float32 {
 
 // GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
-func (o *PaymentSchedule) GetAmountOk() (*float32, bool) {
+func (o *PaymentSchedule) GetAmountOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -62,7 +62,7 @@ func (o *PaymentSchedule) GetAmountOk() (*float32, bool) {
 }
 
 // SetAmount sets field value
-func (o *PaymentSchedule) SetAmount(v float32) {
+func (o *PaymentSchedule) SetAmount(v int32) {
 	o.Amount = v
 }
 

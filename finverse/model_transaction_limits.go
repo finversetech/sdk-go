@@ -18,11 +18,11 @@ import (
 // TransactionLimits struct for TransactionLimits
 type TransactionLimits struct {
 	// Maximum amount of money that can be paid during the reference period (across any number of transactions). Expressed in currency’s smallest unit or “minor unit”, as defined in ISO 4217.
-	MaxPeriodAmount *float32 `json:"max_period_amount,omitempty"`
+	MaxPeriodAmount *int32 `json:"max_period_amount,omitempty"`
 	// Maximum number of transactions (of any amount) that can be executed during the reference period.
 	MaxPeriodCount *int32 `json:"max_period_count,omitempty"`
 	// The maximum amount of money that can be transferred in a single transaction under this mandate. Expressed in currency’s smallest unit or “minor unit”, as defined in ISO 4217.
-	MaxTransactionAmount *float32 `json:"max_transaction_amount,omitempty"`
+	MaxTransactionAmount *int32 `json:"max_transaction_amount,omitempty"`
 	// Reference calendar periods for the payment limits. Possible values (DAILY, WEEKLY, MONTHLY, QUARTERLY, YEARLY)
 	Period string `json:"period"`
 }
@@ -46,9 +46,9 @@ func NewTransactionLimitsWithDefaults() *TransactionLimits {
 }
 
 // GetMaxPeriodAmount returns the MaxPeriodAmount field value if set, zero value otherwise.
-func (o *TransactionLimits) GetMaxPeriodAmount() float32 {
+func (o *TransactionLimits) GetMaxPeriodAmount() int32 {
 	if o == nil || o.MaxPeriodAmount == nil {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.MaxPeriodAmount
@@ -56,7 +56,7 @@ func (o *TransactionLimits) GetMaxPeriodAmount() float32 {
 
 // GetMaxPeriodAmountOk returns a tuple with the MaxPeriodAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TransactionLimits) GetMaxPeriodAmountOk() (*float32, bool) {
+func (o *TransactionLimits) GetMaxPeriodAmountOk() (*int32, bool) {
 	if o == nil || o.MaxPeriodAmount == nil {
 		return nil, false
 	}
@@ -72,8 +72,8 @@ func (o *TransactionLimits) HasMaxPeriodAmount() bool {
 	return false
 }
 
-// SetMaxPeriodAmount gets a reference to the given float32 and assigns it to the MaxPeriodAmount field.
-func (o *TransactionLimits) SetMaxPeriodAmount(v float32) {
+// SetMaxPeriodAmount gets a reference to the given int32 and assigns it to the MaxPeriodAmount field.
+func (o *TransactionLimits) SetMaxPeriodAmount(v int32) {
 	o.MaxPeriodAmount = &v
 }
 
@@ -110,9 +110,9 @@ func (o *TransactionLimits) SetMaxPeriodCount(v int32) {
 }
 
 // GetMaxTransactionAmount returns the MaxTransactionAmount field value if set, zero value otherwise.
-func (o *TransactionLimits) GetMaxTransactionAmount() float32 {
+func (o *TransactionLimits) GetMaxTransactionAmount() int32 {
 	if o == nil || o.MaxTransactionAmount == nil {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.MaxTransactionAmount
@@ -120,7 +120,7 @@ func (o *TransactionLimits) GetMaxTransactionAmount() float32 {
 
 // GetMaxTransactionAmountOk returns a tuple with the MaxTransactionAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *TransactionLimits) GetMaxTransactionAmountOk() (*float32, bool) {
+func (o *TransactionLimits) GetMaxTransactionAmountOk() (*int32, bool) {
 	if o == nil || o.MaxTransactionAmount == nil {
 		return nil, false
 	}
@@ -136,8 +136,8 @@ func (o *TransactionLimits) HasMaxTransactionAmount() bool {
 	return false
 }
 
-// SetMaxTransactionAmount gets a reference to the given float32 and assigns it to the MaxTransactionAmount field.
-func (o *TransactionLimits) SetMaxTransactionAmount(v float32) {
+// SetMaxTransactionAmount gets a reference to the given int32 and assigns it to the MaxTransactionAmount field.
+func (o *TransactionLimits) SetMaxTransactionAmount(v int32) {
 	o.MaxTransactionAmount = &v
 }
 

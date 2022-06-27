@@ -4314,13 +4314,13 @@ components:
         mandate_details:
           end_date: 2000-01-23
           payment_schedule:
-            amount: 100.0
+            amount: 100
             frequency: DAILY
           transaction_limits:
             period: DAILY
-            max_period_amount: 0.8008281904610115
+            max_period_amount: 0
             max_period_count: 6
-            max_transaction_amount: 1.4658129805029452
+            max_transaction_amount: 1
           description: description
           currency: currency
           start_date: 2000-01-23
@@ -4358,13 +4358,13 @@ components:
         mandate_details:
           end_date: 2000-01-23
           payment_schedule:
-            amount: 100.0
+            amount: 100
             frequency: DAILY
           transaction_limits:
             period: DAILY
-            max_period_amount: 0.8008281904610115
+            max_period_amount: 0
             max_period_count: 6
-            max_transaction_amount: 1.4658129805029452
+            max_transaction_amount: 1
           description: description
           currency: currency
           start_date: 2000-01-23
@@ -4459,13 +4459,13 @@ components:
       example:
         end_date: 2000-01-23
         payment_schedule:
-          amount: 100.0
+          amount: 100
           frequency: DAILY
         transaction_limits:
           period: DAILY
-          max_period_amount: 0.8008281904610115
+          max_period_amount: 0
           max_period_count: 6
-          max_transaction_amount: 1.4658129805029452
+          max_transaction_amount: 1
         description: description
         currency: currency
         start_date: 2000-01-23
@@ -4495,7 +4495,7 @@ components:
       type: object
     PaymentSchedule:
       example:
-        amount: 100.0
+        amount: 100
         frequency: DAILY
       properties:
         amount:
@@ -4504,8 +4504,8 @@ components:
             = 10001 (minor unit = cents). For currencies without minor units (e.g.
             VND, JPY), the amount is represented as is, without modification. For
             example, VND 15101 is represented as amount = 15101.
-          example: 100.0
-          type: number
+          example: 100
+          type: integer
         frequency:
           description: Frequency of the payment. Possible values (DAILY, WEEKLY, MONTHLY,
             QUARTERLY, YEARLY)
@@ -4523,15 +4523,15 @@ components:
     TransactionLimits:
       example:
         period: DAILY
-        max_period_amount: 0.8008281904610115
+        max_period_amount: 0
         max_period_count: 6
-        max_transaction_amount: 1.4658129805029452
+        max_transaction_amount: 1
       properties:
         max_period_amount:
           description: Maximum amount of money that can be paid during the reference
             period (across any number of transactions). Expressed in currency’s smallest
             unit or “minor unit”, as defined in ISO 4217.
-          type: number
+          type: integer
         max_period_count:
           description: Maximum number of transactions (of any amount) that can be
             executed during the reference period.
@@ -4540,7 +4540,7 @@ components:
           description: The maximum amount of money that can be transferred in a single
             transaction under this mandate. Expressed in currency’s smallest unit
             or “minor unit”, as defined in ISO 4217.
-          type: number
+          type: integer
         period:
           description: Reference calendar periods for the payment limits. Possible
             values (DAILY, WEEKLY, MONTHLY, QUARTERLY, YEARLY)
