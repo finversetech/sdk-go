@@ -111,21 +111,8 @@ type LoginIdentityApi interface {
 	GetCompositeStatement(ctx context.Context) LoginIdentityApiApiGetCompositeStatementRequest
 
 	// GetCompositeStatementExecute executes the request
-	GetCompositeStatementExecute(r LoginIdentityApiApiGetCompositeStatementRequest) (*http.Response, error)
-
-	/*
-		GetCompositeStatementLink Method for GetCompositeStatementLink
-
-		Get composite statement link for download
-
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return LoginIdentityApiApiGetCompositeStatementLinkRequest
-	*/
-	GetCompositeStatementLink(ctx context.Context) LoginIdentityApiApiGetCompositeStatementLinkRequest
-
-	// GetCompositeStatementLinkExecute executes the request
 	//  @return CompositeStatementLink
-	GetCompositeStatementLinkExecute(r LoginIdentityApiApiGetCompositeStatementLinkRequest) (*CompositeStatementLink, *http.Response, error)
+	GetCompositeStatementExecute(r LoginIdentityApiApiGetCompositeStatementRequest) (*CompositeStatementLink, *http.Response, error)
 
 	/*
 		GetIdentity Method for GetIdentity
@@ -181,12 +168,13 @@ type LoginIdentityApi interface {
 	GetStatement(ctx context.Context, statementId string) LoginIdentityApiApiGetStatementRequest
 
 	// GetStatementExecute executes the request
-	GetStatementExecute(r LoginIdentityApiApiGetStatementRequest) (*http.Response, error)
+	//  @return GetStatementLinkResponse
+	GetStatementExecute(r LoginIdentityApiApiGetStatementRequest) (*GetStatementLinkResponse, *http.Response, error)
 
 	/*
 		GetStatementLink Method for GetStatementLink
 
-		Get statement link for download
+		(Deprecated) Get statement link for download
 
 		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		 @param statementId The statement id
@@ -889,9 +877,16 @@ func (a *LoginIdentityApiService) GetBalanceHistoryExecute(r LoginIdentityApiApi
 type LoginIdentityApiApiGetCompositeStatementRequest struct {
 	ctx        context.Context
 	ApiService LoginIdentityApi
+	redirect   *bool
 }
 
-func (r LoginIdentityApiApiGetCompositeStatementRequest) Execute() (*http.Response, error) {
+// when true, response will be http redirect; otherwise it will be json response with the download link
+func (r LoginIdentityApiApiGetCompositeStatementRequest) Redirect(redirect bool) LoginIdentityApiApiGetCompositeStatementRequest {
+	r.redirect = &redirect
+	return r
+}
+
+func (r LoginIdentityApiApiGetCompositeStatementRequest) Execute() (*CompositeStatementLink, *http.Response, error) {
 	return r.ApiService.GetCompositeStatementExecute(r)
 }
 
@@ -911,16 +906,18 @@ func (a *LoginIdentityApiService) GetCompositeStatement(ctx context.Context) Log
 }
 
 // Execute executes the request
-func (a *LoginIdentityApiService) GetCompositeStatementExecute(r LoginIdentityApiApiGetCompositeStatementRequest) (*http.Response, error) {
+//  @return CompositeStatementLink
+func (a *LoginIdentityApiService) GetCompositeStatementExecute(r LoginIdentityApiApiGetCompositeStatementRequest) (*CompositeStatementLink, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CompositeStatementLink
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.GetCompositeStatement")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/composite_statement"
@@ -929,115 +926,9 @@ func (a *LoginIdentityApiService) GetCompositeStatementExecute(r LoginIdentityAp
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	if r.redirect != nil {
+		localVarQueryParams.Add("redirect", parameterToString(*r.redirect, ""))
 	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
-	}
-
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarHTTPResponse, err
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v BadRequestModel
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-			return localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v ErrorResponse
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
-			}
-			newErr.model = v
-		}
-		return localVarHTTPResponse, newErr
-	}
-
-	return localVarHTTPResponse, nil
-}
-
-type LoginIdentityApiApiGetCompositeStatementLinkRequest struct {
-	ctx        context.Context
-	ApiService LoginIdentityApi
-}
-
-func (r LoginIdentityApiApiGetCompositeStatementLinkRequest) Execute() (*CompositeStatementLink, *http.Response, error) {
-	return r.ApiService.GetCompositeStatementLinkExecute(r)
-}
-
-/*
-GetCompositeStatementLink Method for GetCompositeStatementLink
-
-Get composite statement link for download
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return LoginIdentityApiApiGetCompositeStatementLinkRequest
-*/
-func (a *LoginIdentityApiService) GetCompositeStatementLink(ctx context.Context) LoginIdentityApiApiGetCompositeStatementLinkRequest {
-	return LoginIdentityApiApiGetCompositeStatementLinkRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//  @return CompositeStatementLink
-func (a *LoginIdentityApiService) GetCompositeStatementLinkExecute(r LoginIdentityApiApiGetCompositeStatementLinkRequest) (*CompositeStatementLink, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodGet
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *CompositeStatementLink
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.GetCompositeStatementLink")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/composite_statement_link"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1479,9 +1370,16 @@ type LoginIdentityApiApiGetStatementRequest struct {
 	ctx         context.Context
 	ApiService  LoginIdentityApi
 	statementId string
+	redirect    *bool
 }
 
-func (r LoginIdentityApiApiGetStatementRequest) Execute() (*http.Response, error) {
+// when true, response will be http redirect; otherwise it will be json response with the download link
+func (r LoginIdentityApiApiGetStatementRequest) Redirect(redirect bool) LoginIdentityApiApiGetStatementRequest {
+	r.redirect = &redirect
+	return r
+}
+
+func (r LoginIdentityApiApiGetStatementRequest) Execute() (*GetStatementLinkResponse, *http.Response, error) {
 	return r.ApiService.GetStatementExecute(r)
 }
 
@@ -1503,16 +1401,18 @@ func (a *LoginIdentityApiService) GetStatement(ctx context.Context, statementId 
 }
 
 // Execute executes the request
-func (a *LoginIdentityApiService) GetStatementExecute(r LoginIdentityApiApiGetStatementRequest) (*http.Response, error) {
+//  @return GetStatementLinkResponse
+func (a *LoginIdentityApiService) GetStatementExecute(r LoginIdentityApiApiGetStatementRequest) (*GetStatementLinkResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodGet
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetStatementLinkResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.GetStatement")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/statements/{statementId}"
@@ -1522,6 +1422,9 @@ func (a *LoginIdentityApiService) GetStatementExecute(r LoginIdentityApiApiGetSt
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.redirect != nil {
+		localVarQueryParams.Add("redirect", parameterToString(*r.redirect, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -1541,19 +1444,19 @@ func (a *LoginIdentityApiService) GetStatementExecute(r LoginIdentityApiApiGetSt
 	}
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1566,24 +1469,33 @@ func (a *LoginIdentityApiService) GetStatementExecute(r LoginIdentityApiApiGetSt
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 			newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ErrorResponse
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 			newErr.model = v
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
 type LoginIdentityApiApiGetStatementLinkRequest struct {
@@ -1599,7 +1511,7 @@ func (r LoginIdentityApiApiGetStatementLinkRequest) Execute() (*GetStatementLink
 /*
 GetStatementLink Method for GetStatementLink
 
-Get statement link for download
+(Deprecated) Get statement link for download
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param statementId The statement id

@@ -945,7 +945,20 @@ paths:
         required: true
         schema:
           type: string
+      - description: when true, response will be http redirect; otherwise it will
+          be json response with the download link
+        in: query
+        name: redirect
+        schema:
+          default: true
+          type: boolean
       responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetStatementLinkResponse'
+          description: Successful
         "307":
           content: {}
           description: Redirect
@@ -968,7 +981,7 @@ paths:
       - login_identity
   /statement_links/{statementId}:
     get:
-      description: Get statement link for download
+      description: (Deprecated) Get statement link for download
       operationId: getStatementLink
       parameters:
       - description: The statement id
@@ -1089,31 +1102,14 @@ paths:
     get:
       description: Download composite statement
       operationId: getCompositeStatement
-      responses:
-        "307":
-          content: {}
-          description: Redirect
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Invalid Request
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - composite_statement
-      tags:
-      - login_identity
-  /composite_statement_link:
-    get:
-      description: Get composite statement link for download
-      operationId: getCompositeStatementLink
+      parameters:
+      - description: when true, response will be http redirect; otherwise it will
+          be json response with the download link
+        in: query
+        name: redirect
+        schema:
+          default: true
+          type: boolean
       responses:
         "200":
           content:
@@ -1121,6 +1117,9 @@ paths:
               schema:
                 $ref: '#/components/schemas/CompositeStatementLink'
           description: Successful
+        "307":
+          content: {}
+          description: Redirect
         "400":
           content:
             application/json:
