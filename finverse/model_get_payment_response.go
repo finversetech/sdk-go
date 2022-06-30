@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // GetPaymentResponse struct for GetPaymentResponse
@@ -23,6 +24,8 @@ type GetPaymentResponse struct {
 	Amount *int32 `json:"amount,omitempty"`
 	// Indicates whether this is a mandate-based payment or one-off direct payment to an account. Possible values - MANDATE, SINGLE
 	Type *string `json:"type,omitempty"`
+	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+	LastUpdate *time.Time `json:"last_update,omitempty"`
 	// Possible values - CREATED, AUTHORIZED, SUBMITTED, EXECUTED, FAILED, REJECTED, CANCELLED.
 	Status         *string          `json:"status,omitempty"`
 	PaymentDetails *PaymentDetails2 `json:"payment_details,omitempty"`
@@ -141,6 +144,38 @@ func (o *GetPaymentResponse) SetType(v string) {
 	o.Type = &v
 }
 
+// GetLastUpdate returns the LastUpdate field value if set, zero value otherwise.
+func (o *GetPaymentResponse) GetLastUpdate() time.Time {
+	if o == nil || o.LastUpdate == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.LastUpdate
+}
+
+// GetLastUpdateOk returns a tuple with the LastUpdate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetPaymentResponse) GetLastUpdateOk() (*time.Time, bool) {
+	if o == nil || o.LastUpdate == nil {
+		return nil, false
+	}
+	return o.LastUpdate, true
+}
+
+// HasLastUpdate returns a boolean if a field has been set.
+func (o *GetPaymentResponse) HasLastUpdate() bool {
+	if o != nil && o.LastUpdate != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLastUpdate gets a reference to the given time.Time and assigns it to the LastUpdate field.
+func (o *GetPaymentResponse) SetLastUpdate(v time.Time) {
+	o.LastUpdate = &v
+}
+
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *GetPaymentResponse) GetStatus() string {
 	if o == nil || o.Status == nil {
@@ -215,6 +250,9 @@ func (o GetPaymentResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Type != nil {
 		toSerialize["type"] = o.Type
+	}
+	if o.LastUpdate != nil {
+		toSerialize["last_update"] = o.LastUpdate
 	}
 	if o.Status != nil {
 		toSerialize["status"] = o.Status

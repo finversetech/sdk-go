@@ -4602,6 +4602,7 @@ components:
           description: description
           mandate_id: mandate_id
         payment_id: payment_id
+        last_update: 2000-01-23T04:56:07.000+00:00
         type: MANDATE
         status: CREATED
       properties:
@@ -4622,6 +4623,10 @@ components:
           enum:
           - MANDATE
           - SINGLE
+          type: string
+        last_update:
+          description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+          format: date-time
           type: string
         status:
           description: Possible values - CREATED, AUTHORIZED, SUBMITTED, EXECUTED,
