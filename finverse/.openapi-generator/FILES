@@ -16,6 +16,9 @@ model_balance_history.go
 model_composite_statement_link.go
 model_create_customer_request.go
 model_create_customer_response.go
+model_create_mandate_request.go
+model_create_mandate_response.go
+model_create_mandate_sender.go
 model_create_payment_instruction_response.go
 model_create_payment_request.go
 model_create_payment_response.go
@@ -31,8 +34,8 @@ model_get_balance_history_response.go
 model_get_identity_response.go
 model_get_login_identity_by_id_response.go
 model_get_login_identity_history_response.go
+model_get_mandate_response.go
 model_get_mandate_sender.go
-model_get_mandates_response.go
 model_get_payment_instructions_response.go
 model_get_payment_response.go
 model_get_statement_link_response.go
@@ -72,9 +75,6 @@ model_payment_details.go
 model_payment_details2.go
 model_payment_instruction.go
 model_payment_schedule.go
-model_post_mandate_sender.go
-model_post_mandates_request.go
-model_post_mandates_response.go
 model_principal.go
 model_product_status.go
 model_redirect_uri_response.go

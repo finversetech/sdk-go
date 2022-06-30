@@ -1139,13 +1139,13 @@ paths:
       - login_identity
   /mandates:
     post:
-      description: CREATE Mandates
-      operationId: postMandates
+      description: CREATE Mandate
+      operationId: createMandate
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/PostMandatesRequest'
+              $ref: '#/components/schemas/CreateMandateRequest'
         description: request body for creating mandate
         required: true
       responses:
@@ -1153,7 +1153,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/PostMandatesResponse'
+                $ref: '#/components/schemas/CreateMandateResponse'
           description: Successful
         "400":
           content:
@@ -1178,11 +1178,11 @@ paths:
         - mandate:create
       tags:
       - customer
-      x-codegen-request-body-name: postMandatesRequest
+      x-codegen-request-body-name: createMandateRequest
   /mandates/{mandateId}:
     get:
-      description: Get Mandates details by mandate_id
-      operationId: getMandates
+      description: Get Mandate details by mandate_id
+      operationId: getMandate
       parameters:
       - description: mandate id
         in: path
@@ -1195,7 +1195,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/GetMandatesResponse'
+                $ref: '#/components/schemas/GetMandateResponse'
           description: Successful
         "400":
           content:
@@ -4305,7 +4305,7 @@ components:
       - expiry
       - url
       type: object
-    PostMandatesRequest:
+    CreateMandateRequest:
       example:
         sender:
           user_id: user_id
@@ -4330,7 +4330,7 @@ components:
         recipient:
           $ref: '#/components/schemas/MandateRecipient'
         sender:
-          $ref: '#/components/schemas/PostMandateSender'
+          $ref: '#/components/schemas/CreateMandateSender'
         mandate_details:
           $ref: '#/components/schemas/MandateDetails'
       required:
@@ -4338,7 +4338,7 @@ components:
       - recipient
       - sender
       type: object
-    PostMandatesResponse:
+    CreateMandateResponse:
       example:
         mandate_id: mandate_id
       properties:
@@ -4346,7 +4346,7 @@ components:
           description: Finverse Mandate ID
           type: string
       type: object
-    GetMandatesResponse:
+    GetMandateResponse:
       example:
         mandate_status: CREATED
         sender:
@@ -4412,7 +4412,7 @@ components:
       required:
       - recipient_account_id
       type: object
-    PostMandateSender:
+    CreateMandateSender:
       example:
         user_id: user_id
         name: name
