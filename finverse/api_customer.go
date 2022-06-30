@@ -209,11 +209,18 @@ type CustomerApiApiCreateMandateRequest struct {
 	ctx                  context.Context
 	ApiService           CustomerApi
 	createMandateRequest *CreateMandateRequest
+	idempotencyKey       *string
 }
 
 // request body for creating mandate
 func (r CustomerApiApiCreateMandateRequest) CreateMandateRequest(createMandateRequest CreateMandateRequest) CustomerApiApiCreateMandateRequest {
 	r.createMandateRequest = &createMandateRequest
+	return r
+}
+
+// A random key provided by the customer, per unique payment. If missing we will generate a random one. The purpose for the Idempotency key is to allow safe retrying without the operation being performed multiple times.
+func (r CustomerApiApiCreateMandateRequest) IdempotencyKey(idempotencyKey string) CustomerApiApiCreateMandateRequest {
+	r.idempotencyKey = &idempotencyKey
 	return r
 }
 
@@ -276,6 +283,9 @@ func (a *CustomerApiService) CreateMandateExecute(r CustomerApiApiCreateMandateR
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		localVarHeaderParams["Idempotency-Key"] = parameterToString(*r.idempotencyKey, "")
 	}
 	// body params
 	localVarPostBody = r.createMandateRequest

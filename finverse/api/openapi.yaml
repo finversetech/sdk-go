@@ -1141,6 +1141,15 @@ paths:
     post:
       description: CREATE Mandate
       operationId: createMandate
+      parameters:
+      - description: A random key provided by the customer, per unique payment. If
+          missing we will generate a random one. The purpose for the Idempotency key
+          is to allow safe retrying without the operation being performed multiple
+          times.
+        in: header
+        name: Idempotency-Key
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
