@@ -349,11 +349,18 @@ type CustomerApiApiCreatePaymentRequest struct {
 	ctx                  context.Context
 	ApiService           CustomerApi
 	createPaymentRequest *CreatePaymentRequest
+	idempotencyKey       *string
 }
 
 // request body for creating payment
 func (r CustomerApiApiCreatePaymentRequest) CreatePaymentRequest(createPaymentRequest CreatePaymentRequest) CustomerApiApiCreatePaymentRequest {
 	r.createPaymentRequest = &createPaymentRequest
+	return r
+}
+
+// A random key provided by the customer, per unique payment. If missing we will generate a random one. The purpose for the Idempotency key is to allow safe retrying without the operation being performed multiple times.
+func (r CustomerApiApiCreatePaymentRequest) IdempotencyKey(idempotencyKey string) CustomerApiApiCreatePaymentRequest {
+	r.idempotencyKey = &idempotencyKey
 	return r
 }
 
@@ -416,6 +423,9 @@ func (a *CustomerApiService) CreatePaymentExecute(r CustomerApiApiCreatePaymentR
 	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		localVarHeaderParams["Idempotency-Key"] = parameterToString(*r.idempotencyKey, "")
 	}
 	// body params
 	localVarPostBody = r.createPaymentRequest
