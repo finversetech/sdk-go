@@ -20,21 +20,22 @@ import (
 type Account struct {
 	AccountId string `json:"account_id"`
 	// The SHA3-256 hash of the account number, salted with the loginIdentityId
-	GroupId           string          `json:"group_id"`
-	AccountHolderName *string         `json:"account_holder_name,omitempty"`
-	AccountName       string          `json:"account_name"`
-	AccountNickname   *string         `json:"account_nickname,omitempty"`
-	AccountType       *string         `json:"account_type,omitempty"`
-	AccountSubType    *string         `json:"account_sub_type,omitempty"`
-	Country           *string         `json:"country,omitempty"`
-	CreatedAt         *time.Time      `json:"created_at,omitempty"`
-	UpdatedAt         *time.Time      `json:"updated_at,omitempty"`
-	AccountCurrency   *string         `json:"account_currency,omitempty"`
-	Balance           *CurrencyAmount `json:"balance,omitempty"`
-	StatementBalance  *CurrencyAmount `json:"statement_balance,omitempty"`
-	IsParent          bool            `json:"is_parent"`
-	IsClosed          bool            `json:"is_closed"`
-	IsExcluded        bool            `json:"is_excluded"`
+	GroupId             string          `json:"group_id"`
+	AccountHolderName   *string         `json:"account_holder_name,omitempty"`
+	AccountName         string          `json:"account_name"`
+	AccountNickname     *string         `json:"account_nickname,omitempty"`
+	AccountType         *string         `json:"account_type,omitempty"`
+	AccountSubType      *string         `json:"account_sub_type,omitempty"`
+	AccountNumberMasked *string         `json:"account_number_masked,omitempty"`
+	Country             *string         `json:"country,omitempty"`
+	CreatedAt           *time.Time      `json:"created_at,omitempty"`
+	UpdatedAt           *time.Time      `json:"updated_at,omitempty"`
+	AccountCurrency     *string         `json:"account_currency,omitempty"`
+	Balance             *CurrencyAmount `json:"balance,omitempty"`
+	StatementBalance    *CurrencyAmount `json:"statement_balance,omitempty"`
+	IsParent            bool            `json:"is_parent"`
+	IsClosed            bool            `json:"is_closed"`
+	IsExcluded          bool            `json:"is_excluded"`
 }
 
 // NewAccount instantiates a new Account object
@@ -258,6 +259,38 @@ func (o *Account) HasAccountSubType() bool {
 // SetAccountSubType gets a reference to the given string and assigns it to the AccountSubType field.
 func (o *Account) SetAccountSubType(v string) {
 	o.AccountSubType = &v
+}
+
+// GetAccountNumberMasked returns the AccountNumberMasked field value if set, zero value otherwise.
+func (o *Account) GetAccountNumberMasked() string {
+	if o == nil || o.AccountNumberMasked == nil {
+		var ret string
+		return ret
+	}
+	return *o.AccountNumberMasked
+}
+
+// GetAccountNumberMaskedOk returns a tuple with the AccountNumberMasked field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Account) GetAccountNumberMaskedOk() (*string, bool) {
+	if o == nil || o.AccountNumberMasked == nil {
+		return nil, false
+	}
+	return o.AccountNumberMasked, true
+}
+
+// HasAccountNumberMasked returns a boolean if a field has been set.
+func (o *Account) HasAccountNumberMasked() bool {
+	if o != nil && o.AccountNumberMasked != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountNumberMasked gets a reference to the given string and assigns it to the AccountNumberMasked field.
+func (o *Account) SetAccountNumberMasked(v string) {
+	o.AccountNumberMasked = &v
 }
 
 // GetCountry returns the Country field value if set, zero value otherwise.
@@ -546,6 +579,9 @@ func (o Account) MarshalJSON() ([]byte, error) {
 	}
 	if o.AccountSubType != nil {
 		toSerialize["account_sub_type"] = o.AccountSubType
+	}
+	if o.AccountNumberMasked != nil {
+		toSerialize["account_number_masked"] = o.AccountNumberMasked
 	}
 	if o.Country != nil {
 		toSerialize["country"] = o.Country

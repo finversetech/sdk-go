@@ -1415,6 +1415,7 @@ components:
           is_excluded: false
           group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
           account_name: HKD Savings
+          account_number_masked: 123XXXXXX89
           is_closed: false
       properties:
         account:
@@ -1479,6 +1480,7 @@ components:
           is_excluded: false
           group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
           account_name: HKD Savings
+          account_number_masked: 123XXXXXX89
           is_closed: false
       properties:
         account_number:
@@ -1535,6 +1537,7 @@ components:
           is_excluded: false
           group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
           account_name: HKD Savings
+          account_number_masked: 123XXXXXX89
           is_closed: false
       properties:
         account:
@@ -1889,6 +1892,7 @@ components:
           is_excluded: false
           group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
           account_name: HKD Savings
+          account_number_masked: 123XXXXXX89
           is_closed: false
         - country: HKG
           account_type: SAVINGS
@@ -1911,6 +1915,7 @@ components:
           is_excluded: false
           group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
           account_name: HKD Savings
+          account_number_masked: 123XXXXXX89
           is_closed: false
       properties:
         accounts:
@@ -1954,6 +1959,7 @@ components:
         is_excluded: false
         group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
         account_name: HKD Savings
+        account_number_masked: 123XXXXXX89
         is_closed: false
       properties:
         account_id:
@@ -1977,6 +1983,9 @@ components:
           type: string
         account_sub_type:
           example: TIME_DEPOSIT
+          type: string
+        account_number_masked:
+          example: 123XXXXXX89
           type: string
         country:
           example: HKG
@@ -2196,6 +2205,7 @@ components:
           is_excluded: false
           group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
           account_name: HKD Savings
+          account_number_masked: 123XXXXXX89
           is_closed: false
         - country: HKG
           account_type: SAVINGS
@@ -2218,6 +2228,7 @@ components:
           is_excluded: false
           group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
           account_name: HKD Savings
+          account_number_masked: 123XXXXXX89
           is_closed: false
         transactions:
         - transaction_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
