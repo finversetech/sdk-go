@@ -979,41 +979,6 @@ paths:
         - statement:read
       tags:
       - login_identity
-  /statement_links/{statementId}:
-    get:
-      description: (Deprecated) Get statement link for download
-      operationId: getStatementLink
-      parameters:
-      - description: The statement id
-        in: path
-        name: statementId
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetStatementLinkResponse'
-          description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Invalid Request
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - statement:read
-      tags:
-      - login_identity
   /payments/instruction:
     post:
       description: Create a new payment instruction to be used when linking to perform
