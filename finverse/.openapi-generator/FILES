@@ -32,6 +32,7 @@ model_get_account_number_response.go
 model_get_account_response.go
 model_get_balance_history_response.go
 model_get_identity_response.go
+model_get_jwks_response.go
 model_get_login_identity_by_id_response.go
 model_get_login_identity_history_response.go
 model_get_mandate_response.go
@@ -52,6 +53,7 @@ model_income_stream.go
 model_income_total.go
 model_institution.go
 model_institution_short.go
+model_jwks_key.go
 model_link_request.go
 model_link_response.go
 model_link_token_request.go

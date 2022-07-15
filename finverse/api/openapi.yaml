@@ -24,6 +24,25 @@ tags:
 - description: Operations required a link token
   name: link
 paths:
+  /payments/jwks:
+    get:
+      description: get payment jwks
+      operationId: getPaymentsJwks
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetJWKSResponse'
+          description: Successful
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      tags:
+      - public
   /auth/customer/token:
     post:
       description: generate an access_token
@@ -4654,6 +4673,66 @@ components:
         payment_id:
           description: Finverse Payment ID
           type: string
+      type: object
+    GetJWKSResponse:
+      example:
+        keys:
+        - kty: kty
+          e: e
+          use: use
+          kid: kid
+          x5c:
+          - x5c
+          - x5c
+          n: "n"
+        - kty: kty
+          e: e
+          use: use
+          kid: kid
+          x5c:
+          - x5c
+          - x5c
+          n: "n"
+      properties:
+        keys:
+          items:
+            $ref: '#/components/schemas/JWKSKey'
+          type: array
+      type: object
+    JWKSKey:
+      example:
+        kty: kty
+        e: e
+        use: use
+        kid: kid
+        x5c:
+        - x5c
+        - x5c
+        n: "n"
+      properties:
+        kty:
+          description: The "kty" (key type) parameter identifies the cryptographic
+            algorithm family used with the key, such as "RSA" or "EC".
+          type: string
+        kid:
+          description: The "kid" (key ID) parameter is used to match a specific key
+          type: string
+        use:
+          description: The "use" (public key use) parameter identifies the intended
+            use of the public key
+          type: string
+        e:
+          description: RSA key value "e"
+          type: string
+        n:
+          description: RSA key value "n"
+          type: string
+        x5c:
+          description: The "x5c" (X.509 certificate chain) parameter contains a chain
+            of one or more PKIX certificates
+          items:
+            type: string
+          type: array
       type: object
     BadRequestModel_error:
       properties:
