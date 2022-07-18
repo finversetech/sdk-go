@@ -10,6 +10,8 @@ model_access_token_response.go
 model_account.go
 model_account_number.go
 model_all_product_status.go
+model_auth_checklist_factor.go
+model_auth_checklist_options.go
 model_bad_request_model.go
 model_bad_request_model_error.go
 model_balance_history.go
@@ -35,6 +37,7 @@ model_get_identity_response.go
 model_get_jwks_response.go
 model_get_login_identity_by_id_response.go
 model_get_login_identity_history_response.go
+model_get_mandate_auth_response.go
 model_get_mandate_response.go
 model_get_mandate_sender.go
 model_get_payment_instructions_response.go
@@ -68,6 +71,7 @@ model_login_identity_login_methods_available.go
 model_login_identity_short.go
 model_login_identity_status_details.go
 model_login_method.go
+model_mandate_auth_encryption_info.go
 model_mandate_details.go
 model_mandate_recipient.go
 model_monthly_income_estimate.go

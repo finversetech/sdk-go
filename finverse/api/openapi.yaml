@@ -1305,6 +1305,62 @@ paths:
         - payment:get
       tags:
       - customer
+  /mandates/{mandateId}/auth:
+    get:
+      description: Get Mandate Authorization by mandate id
+      operationId: getMandateAuth
+      parameters:
+      - description: Finverse Mandate ID
+        in: path
+        name: mandateId
+        required: true
+        schema:
+          type: string
+      - description: Finverse Institution ID
+        in: query
+        name: institution_id
+        required: true
+        schema:
+          type: string
+      - description: Type of account held by the Sender at the Institution. Required
+          if institution.user_type is undefined. Possible values are PERSONAL, BUSINESS
+        in: query
+        name: sender_type
+        schema:
+          enum:
+          - PERSONAL
+          - BUSINESS
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMandateAuthResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - mandate:get
+      tags:
+      - customer
 components:
   schemas:
     ErrorResponse:
@@ -4397,7 +4453,7 @@ components:
           description: Mandate status
           enum:
           - CREATED
-          - USED
+          - PROCESSING
           - SUBMITTED
           - ERROR
           type: string
@@ -4733,6 +4789,173 @@ components:
           items:
             type: string
           type: array
+      type: object
+    GetMandateAuthResponse:
+      example:
+        mandate_status: CREATED
+        sender_type: PERSONAL
+        last_update: 2000-01-23T04:56:07.000+00:00
+        mandate_id: mandate_id
+        recipient_account_id: recipient_account_id
+        encryption_info:
+          key_id: key_id
+          jwks_url: jwks_url
+        institution_id: institution_id
+        auth_checklist:
+        - group_id: group_id
+          options:
+          - submitted_at: 2000-01-23T04:56:07.000+00:00
+            name: INSTITUTION_CREDENTIALS_LOGIN
+            submitted_by: CUSTOMER_APP
+          - submitted_at: 2000-01-23T04:56:07.000+00:00
+            name: INSTITUTION_CREDENTIALS_LOGIN
+            submitted_by: CUSTOMER_APP
+          type: ACCOUNT_IDENTIFICATION
+          required: "YES"
+        - group_id: group_id
+          options:
+          - submitted_at: 2000-01-23T04:56:07.000+00:00
+            name: INSTITUTION_CREDENTIALS_LOGIN
+            submitted_by: CUSTOMER_APP
+          - submitted_at: 2000-01-23T04:56:07.000+00:00
+            name: INSTITUTION_CREDENTIALS_LOGIN
+            submitted_by: CUSTOMER_APP
+          type: ACCOUNT_IDENTIFICATION
+          required: "YES"
+      properties:
+        mandate_id:
+          description: Finverse Mandate ID
+          type: string
+        mandate_status:
+          description: Mandate status
+          enum:
+          - CREATED
+          - PROCESSING
+          - SUBMITTED
+          - ERROR
+          type: string
+        recipient_account_id:
+          description: Merchant account ID assigned by Finverse
+          type: string
+        institution_id:
+          description: Finverse Institution ID. Only returned if institution_id was
+            included in the request.
+          type: string
+        sender_type:
+          description: Type of account held by the Sender at the Institution. Possible
+            values are PERSONAL, BUSINESS
+          enum:
+          - PERSONAL
+          - BUSINESS
+          type: string
+        auth_checklist:
+          description: Checklist of the authorization factors needed to complete Mandate
+            authorization
+          items:
+            $ref: '#/components/schemas/AuthChecklistFactor'
+          type: array
+        encryption_info:
+          $ref: '#/components/schemas/MandateAuthEncryptionInfo'
+        last_update:
+          description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+          format: date-time
+          type: string
+      required:
+      - auth_checklist
+      - encryption_info
+      - institution_id
+      - last_update
+      - mandate_id
+      - mandate_status
+      - recipient_account_id
+      - sender_type
+      type: object
+    MandateAuthEncryptionInfo:
+      example:
+        key_id: key_id
+        jwks_url: jwks_url
+      properties:
+        jwks_url:
+          type: string
+        key_id:
+          type: string
+      required:
+      - jwks_url
+      - key_id
+      type: object
+    AuthChecklistFactor:
+      example:
+        group_id: group_id
+        options:
+        - submitted_at: 2000-01-23T04:56:07.000+00:00
+          name: INSTITUTION_CREDENTIALS_LOGIN
+          submitted_by: CUSTOMER_APP
+        - submitted_at: 2000-01-23T04:56:07.000+00:00
+          name: INSTITUTION_CREDENTIALS_LOGIN
+          submitted_by: CUSTOMER_APP
+        type: ACCOUNT_IDENTIFICATION
+        required: "YES"
+      properties:
+        type:
+          description: Type of authorization factor
+          enum:
+          - ACCOUNT_IDENTIFICATION
+          - USER_IDENTIFICATION
+          - ENDUSER_CONSENT
+          - ACCOUNTHOLDER_AUTHENTICATION
+          type: string
+        group_id:
+          description: Allows grouping similar checklist item types together
+          type: string
+        required:
+          description: Indicates whether authorization factor is known to be required
+            at this time.  Possible values are YES, NO, OPTIONAL
+          enum:
+          - "YES"
+          - "NO"
+          - OPTIONAL
+          type: string
+        options:
+          description: Array of the options accepted for a specific authorization
+            factor
+          items:
+            $ref: '#/components/schemas/AuthChecklistOptions'
+          type: array
+      required:
+      - group_id
+      - options
+      - required
+      - type
+      type: object
+    AuthChecklistOptions:
+      example:
+        submitted_at: 2000-01-23T04:56:07.000+00:00
+        name: INSTITUTION_CREDENTIALS_LOGIN
+        submitted_by: CUSTOMER_APP
+      properties:
+        name:
+          description: Name of authorization factor. Possible values are INSTITUTION_CREDENTIALS_LOGIN,
+            INSTITUTION_OAUTH_LOGIN,
+          enum:
+          - INSTITUTION_CREDENTIALS_LOGIN
+          - INSTITUTION_OAUTH_LOGIN
+          type: string
+        submitted_at:
+          description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ) for when
+            the authorization factor was submitted to Finverse
+          format: date-time
+          type: string
+        submitted_by:
+          description: Indicates who submitted the authorization factor to Finverse.
+            Possible values are CUSTOMER_APP, FINVERSE_LINK
+          enum:
+          - CUSTOMER_APP
+          - FINVERSE_LINK
+          type: string
+      required:
+      - name
+      - submitted_at
+      - submitted_by
       type: object
     BadRequestModel_error:
       properties:
