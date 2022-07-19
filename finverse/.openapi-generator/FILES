@@ -93,6 +93,8 @@ model_relink_request.go
 model_single_source_income.go
 model_statement.go
 model_statement_link.go
+model_submit_auth_checklist_request.go
+model_submit_auth_checklist_response.go
 model_token_request.go
 model_token_response.go
 model_transaction.go

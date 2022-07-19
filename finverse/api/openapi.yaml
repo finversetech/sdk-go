@@ -1126,10 +1126,9 @@ paths:
       description: CREATE Mandate
       operationId: createMandate
       parameters:
-      - description: A random key provided by the customer, per unique payment. If
-          missing we will generate a random one. The purpose for the Idempotency key
-          is to allow safe retrying without the operation being performed multiple
-          times.
+      - description: A random key provided by the customer, per unique payment. The
+          purpose for the Idempotency key is to allow safe retrying without the operation
+          being performed multiple times.
         in: header
         name: Idempotency-Key
         schema:
@@ -1260,10 +1259,9 @@ paths:
       description: Create new Payment
       operationId: createPayment
       parameters:
-      - description: A random key provided by the customer, per unique payment. If
-          missing we will generate a random one. The purpose for the Idempotency key
-          is to allow safe retrying without the operation being performed multiple
-          times.
+      - description: A random key provided by the customer, per unique payment. The
+          purpose for the Idempotency key is to allow safe retrying without the operation
+          being performed multiple times.
         in: header
         name: Idempotency-Key
         schema:
@@ -1403,6 +1401,54 @@ paths:
         - mandate:get
       tags:
       - customer
+    post:
+      description: Submit authorization checklist items
+      operationId: submitAuthChecklist
+      parameters:
+      - description: mandate id
+        in: path
+        name: mandateId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SubmitAuthChecklistRequest'
+        description: request body for submitting auth checklist
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitAuthChecklistResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - mandate:create
+      tags:
+      - customer
+      x-codegen-request-body-name: submitAuthChecklistRequest
 components:
   schemas:
     ErrorResponse:
@@ -5136,6 +5182,96 @@ components:
       - name
       - submitted_at
       - submitted_by
+      type: object
+    SubmitAuthChecklistResponse:
+      example:
+        mandate_status: CREATED
+        last_update: 2000-01-23T04:56:07.000+00:00
+        mandate_id: mandate_id
+        auth_checklist:
+        - group_id: group_id
+          options:
+          - submitted_at: 2000-01-23T04:56:07.000+00:00
+            name: INSTITUTION_CREDENTIALS_LOGIN
+            submitted_by: CUSTOMER_APP
+          - submitted_at: 2000-01-23T04:56:07.000+00:00
+            name: INSTITUTION_CREDENTIALS_LOGIN
+            submitted_by: CUSTOMER_APP
+          type: ACCOUNT_IDENTIFICATION
+          required: "YES"
+        - group_id: group_id
+          options:
+          - submitted_at: 2000-01-23T04:56:07.000+00:00
+            name: INSTITUTION_CREDENTIALS_LOGIN
+            submitted_by: CUSTOMER_APP
+          - submitted_at: 2000-01-23T04:56:07.000+00:00
+            name: INSTITUTION_CREDENTIALS_LOGIN
+            submitted_by: CUSTOMER_APP
+          type: ACCOUNT_IDENTIFICATION
+          required: "YES"
+      properties:
+        mandate_id:
+          description: Finverse Mandate ID
+          type: string
+        auth_checklist:
+          description: Checklist of the authorization factors needed to complete Mandate
+            authorization
+          items:
+            $ref: '#/components/schemas/AuthChecklistFactor'
+          type: array
+        mandate_status:
+          description: Mandate status
+          enum:
+          - CREATED
+          - PROCESSING
+          - SUBMITTED
+          - ERROR
+          type: string
+        last_update:
+          description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+          format: date-time
+          type: string
+      required:
+      - auth_checklist
+      - last_update
+      - mandate_id
+      - mandate_status
+      type: object
+    SubmitAuthChecklistRequest:
+      example:
+        message_authentication_code: message_authentication_code
+        ciphertext: ciphertext
+        key_id: key_id
+        initialization_vector: initialization_vector
+        envelope_encryption_key: envelope_encryption_key
+        institution_id: institution_id
+      properties:
+        key_id:
+          description: The key_id that was used to encrypt the envelope key
+          type: string
+        institution_id:
+          description: Finverse Institution ID
+          type: string
+        envelope_encryption_key:
+          description: The encrypted envelope key
+          type: string
+        initialization_vector:
+          description: The initialization vector used for enncrypting the payload
+          type: string
+        message_authentication_code:
+          description: The authentication code is used to authenticate the origin
+            of the message
+          type: string
+        ciphertext:
+          description: The encrypted payload that contains auth checklist items
+          type: string
+      required:
+      - ciphertext
+      - envelope_encryption_key
+      - initialization_vector
+      - institution_id
+      - key_id
+      - message_authentication_code
       type: object
     BadRequestModel_error:
       properties:
