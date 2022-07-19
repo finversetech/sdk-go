@@ -22,6 +22,8 @@ type CreateMandateSender struct {
 	UserId string `json:"user_id"`
 	// Customer App's reference ID, representing the sender's account or billing reference number.
 	SenderReferenceId *string `json:"sender_reference_id,omitempty"`
+	// Type of account held by the Sender at the Institution. Required if institution.user_type is undefined. Possible values are PERSONAL, BUSINESS
+	SenderType *string `json:"sender_type,omitempty"`
 }
 
 // NewCreateMandateSender instantiates a new CreateMandateSender object
@@ -130,6 +132,38 @@ func (o *CreateMandateSender) SetSenderReferenceId(v string) {
 	o.SenderReferenceId = &v
 }
 
+// GetSenderType returns the SenderType field value if set, zero value otherwise.
+func (o *CreateMandateSender) GetSenderType() string {
+	if o == nil || o.SenderType == nil {
+		var ret string
+		return ret
+	}
+	return *o.SenderType
+}
+
+// GetSenderTypeOk returns a tuple with the SenderType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateMandateSender) GetSenderTypeOk() (*string, bool) {
+	if o == nil || o.SenderType == nil {
+		return nil, false
+	}
+	return o.SenderType, true
+}
+
+// HasSenderType returns a boolean if a field has been set.
+func (o *CreateMandateSender) HasSenderType() bool {
+	if o != nil && o.SenderType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSenderType gets a reference to the given string and assigns it to the SenderType field.
+func (o *CreateMandateSender) SetSenderType(v string) {
+	o.SenderType = &v
+}
+
 func (o CreateMandateSender) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Name != nil {
@@ -140,6 +174,9 @@ func (o CreateMandateSender) MarshalJSON() ([]byte, error) {
 	}
 	if o.SenderReferenceId != nil {
 		toSerialize["sender_reference_id"] = o.SenderReferenceId
+	}
+	if o.SenderType != nil {
+		toSerialize["sender_type"] = o.SenderType
 	}
 	return json.Marshal(toSerialize)
 }
