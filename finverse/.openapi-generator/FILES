@@ -37,6 +37,8 @@ model_get_identity_response.go
 model_get_jwks_response.go
 model_get_login_identity_by_id_response.go
 model_get_login_identity_history_response.go
+model_get_mandate_auth_link_request.go
+model_get_mandate_auth_link_response.go
 model_get_mandate_auth_response.go
 model_get_mandate_response.go
 model_get_mandate_sender.go
@@ -72,6 +74,7 @@ model_login_identity_short.go
 model_login_identity_status_details.go
 model_login_method.go
 model_mandate_auth_encryption_info.go
+model_mandate_auth_link_customizations.go
 model_mandate_details.go
 model_mandate_recipient.go
 model_monthly_income_estimate.go

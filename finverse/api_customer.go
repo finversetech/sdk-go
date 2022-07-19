@@ -159,6 +159,20 @@ type CustomerApi interface {
 	GetMandateAuthExecute(r CustomerApiApiGetMandateAuthRequest) (*GetMandateAuthResponse, *http.Response, error)
 
 	/*
+		GetMandateAuthLink Method for GetMandateAuthLink
+
+		Get link to launch FV Link UI in mandate authorization mode
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return CustomerApiApiGetMandateAuthLinkRequest
+	*/
+	GetMandateAuthLink(ctx context.Context) CustomerApiApiGetMandateAuthLinkRequest
+
+	// GetMandateAuthLinkExecute executes the request
+	//  @return GetMandateAuthLinkResponse
+	GetMandateAuthLinkExecute(r CustomerApiApiGetMandateAuthLinkRequest) (*GetMandateAuthLinkResponse, *http.Response, error)
+
+	/*
 		GetPayment Method for GetPayment
 
 		Get Payment details by payment_id
@@ -1395,6 +1409,146 @@ func (a *CustomerApiService) GetMandateAuthExecute(r CustomerApiApiGetMandateAut
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v BadRequestModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v BadRequestModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CustomerApiApiGetMandateAuthLinkRequest struct {
+	ctx                       context.Context
+	ApiService                CustomerApi
+	getMandateAuthLinkRequest *GetMandateAuthLinkRequest
+}
+
+// request body for mandate authorization link
+func (r CustomerApiApiGetMandateAuthLinkRequest) GetMandateAuthLinkRequest(getMandateAuthLinkRequest GetMandateAuthLinkRequest) CustomerApiApiGetMandateAuthLinkRequest {
+	r.getMandateAuthLinkRequest = &getMandateAuthLinkRequest
+	return r
+}
+
+func (r CustomerApiApiGetMandateAuthLinkRequest) Execute() (*GetMandateAuthLinkResponse, *http.Response, error) {
+	return r.ApiService.GetMandateAuthLinkExecute(r)
+}
+
+/*
+GetMandateAuthLink Method for GetMandateAuthLink
+
+Get link to launch FV Link UI in mandate authorization mode
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return CustomerApiApiGetMandateAuthLinkRequest
+*/
+func (a *CustomerApiService) GetMandateAuthLink(ctx context.Context) CustomerApiApiGetMandateAuthLinkRequest {
+	return CustomerApiApiGetMandateAuthLinkRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return GetMandateAuthLinkResponse
+func (a *CustomerApiService) GetMandateAuthLinkExecute(r CustomerApiApiGetMandateAuthLinkRequest) (*GetMandateAuthLinkResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetMandateAuthLinkResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetMandateAuthLink")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/mandates/link"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.getMandateAuthLinkRequest == nil {
+		return localVarReturnValue, nil, reportError("getMandateAuthLinkRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.getMandateAuthLinkRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

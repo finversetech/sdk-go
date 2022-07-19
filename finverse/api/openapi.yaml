@@ -1213,6 +1213,48 @@ paths:
         - mandate:get
       tags:
       - customer
+  /mandates/link:
+    post:
+      description: Get link to launch FV Link UI in mandate authorization mode
+      operationId: getMandateAuthLink
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/GetMandateAuthLinkRequest'
+        description: request body for mandate authorization link
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetMandateAuthLinkResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - mandate:create
+      tags:
+      - customer
+      x-codegen-request-body-name: getMandateAuthLinkRequest
   /payments:
     post:
       description: Create new Payment
@@ -4786,6 +4828,126 @@ components:
         x5c:
           description: The "x5c" (X.509 certificate chain) parameter contains a chain
             of one or more PKIX certificates
+          items:
+            type: string
+          type: array
+      type: object
+    GetMandateAuthLinkResponse:
+      example:
+        access_token: access_token
+        link_url: link_url
+        token_type: Bearer
+        expires_in: 0
+      properties:
+        access_token:
+          description: Short-lived access-token to interact with Finverse Link
+          type: string
+        expires_in:
+          description: Access token validity duration (in seconds)
+          type: integer
+        link_url:
+          description: URL to launch Finverse Link to authorize the mandate
+          type: string
+        token_type:
+          enum:
+          - Bearer
+          type: string
+      required:
+      - access_token
+      - expires_in
+      - link_url
+      - token_type
+      type: object
+    GetMandateAuthLinkRequest:
+      example:
+        link_customizations:
+          products_supported:
+          - ACCOUNTS
+          - TRANSACTIONS
+          institution_status: alpha beta supported
+          user_type:
+          - PERSONAL
+          link_mode: real
+          language: en
+          countries:
+          - HKG
+          - SGP
+          ui_mode: redirect
+          institution_id: hsbc-hk
+        mandate_id: mandate_id
+      properties:
+        mandate_id:
+          description: Mandate ID
+          type: string
+        link_customizations:
+          $ref: '#/components/schemas/MandateAuthLinkCustomizations'
+      required:
+      - link_customizations
+      - mandate_id
+      type: object
+    MandateAuthLinkCustomizations:
+      example:
+        products_supported:
+        - ACCOUNTS
+        - TRANSACTIONS
+        institution_status: alpha beta supported
+        user_type:
+        - PERSONAL
+        link_mode: real
+        language: en
+        countries:
+        - HKG
+        - SGP
+        ui_mode: redirect
+        institution_id: hsbc-hk
+      properties:
+        countries:
+          description: institution's country filter
+          example:
+          - HKG
+          - SGP
+          items:
+            type: string
+          type: array
+        institution_id:
+          description: Institution to preselect
+          example: hsbc-hk
+          type: string
+        institution_status:
+          description: institution's status filter
+          example: alpha beta supported
+          type: string
+        language:
+          description: ISO639-1 language code. Language to display when user open
+            the link, default to English (en) if not specified
+          example: en
+          type: string
+        link_mode:
+          description: Space separated list of the tags of the institutions to view.
+          example: real
+          type: string
+        products_supported:
+          description: institution's supported product filter
+          example:
+          - ACCOUNTS
+          - TRANSACTIONS
+          items:
+            type: string
+          type: array
+        ui_mode:
+          description: The UI mode link is intended to be used in - "iframe" (default),
+            "auto_redirect" or "redirect" or "standalone"
+          enum:
+          - iframe
+          - redirect
+          - auto_redirect
+          - standalone
+          example: redirect
+          type: string
+        user_type:
+          description: institution's supported user_type filter
+          example:
+          - PERSONAL
           items:
             type: string
           type: array
