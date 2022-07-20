@@ -17,11 +17,12 @@ import (
 
 // IdentityDateOfBirth struct for IdentityDateOfBirth
 type IdentityDateOfBirth struct {
-	Raw         *string  `json:"raw,omitempty"`
-	DateOfBirth *string  `json:"date_of_birth,omitempty"`
-	Source      *string  `json:"source,omitempty"`
-	SourceIds   []string `json:"source_ids,omitempty"`
-	AccountIds  []string `json:"account_ids,omitempty"`
+	Raw               *string  `json:"raw,omitempty"`
+	DateOfBirth       *string  `json:"date_of_birth,omitempty"`
+	MaskedDateOfBirth *string  `json:"masked_date_of_birth,omitempty"`
+	Source            *string  `json:"source,omitempty"`
+	SourceIds         []string `json:"source_ids,omitempty"`
+	AccountIds        []string `json:"account_ids,omitempty"`
 }
 
 // NewIdentityDateOfBirth instantiates a new IdentityDateOfBirth object
@@ -103,6 +104,38 @@ func (o *IdentityDateOfBirth) HasDateOfBirth() bool {
 // SetDateOfBirth gets a reference to the given string and assigns it to the DateOfBirth field.
 func (o *IdentityDateOfBirth) SetDateOfBirth(v string) {
 	o.DateOfBirth = &v
+}
+
+// GetMaskedDateOfBirth returns the MaskedDateOfBirth field value if set, zero value otherwise.
+func (o *IdentityDateOfBirth) GetMaskedDateOfBirth() string {
+	if o == nil || o.MaskedDateOfBirth == nil {
+		var ret string
+		return ret
+	}
+	return *o.MaskedDateOfBirth
+}
+
+// GetMaskedDateOfBirthOk returns a tuple with the MaskedDateOfBirth field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *IdentityDateOfBirth) GetMaskedDateOfBirthOk() (*string, bool) {
+	if o == nil || o.MaskedDateOfBirth == nil {
+		return nil, false
+	}
+	return o.MaskedDateOfBirth, true
+}
+
+// HasMaskedDateOfBirth returns a boolean if a field has been set.
+func (o *IdentityDateOfBirth) HasMaskedDateOfBirth() bool {
+	if o != nil && o.MaskedDateOfBirth != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMaskedDateOfBirth gets a reference to the given string and assigns it to the MaskedDateOfBirth field.
+func (o *IdentityDateOfBirth) SetMaskedDateOfBirth(v string) {
+	o.MaskedDateOfBirth = &v
 }
 
 // GetSource returns the Source field value if set, zero value otherwise.
@@ -208,6 +241,9 @@ func (o IdentityDateOfBirth) MarshalJSON() ([]byte, error) {
 	}
 	if o.DateOfBirth != nil {
 		toSerialize["date_of_birth"] = o.DateOfBirth
+	}
+	if o.MaskedDateOfBirth != nil {
+		toSerialize["masked_date_of_birth"] = o.MaskedDateOfBirth
 	}
 	if o.Source != nil {
 		toSerialize["source"] = o.Source

@@ -1809,6 +1809,7 @@ components:
             - account_ids
             date_of_birth: 1999-01-22
             raw: 1999-01-22
+            masked_date_of_birth: XXXX-01-22
             source: INTERNET_BANKING
           - source_ids:
             - source_ids
@@ -1818,6 +1819,7 @@ components:
             - account_ids
             date_of_birth: 1999-01-22
             raw: 1999-01-22
+            masked_date_of_birth: XXXX-01-22
             source: INTERNET_BANKING
         login_identity:
           login_identity_id: login_identity_id
@@ -1954,6 +1956,7 @@ components:
           - account_ids
           date_of_birth: 1999-01-22
           raw: 1999-01-22
+          masked_date_of_birth: XXXX-01-22
           source: INTERNET_BANKING
         - source_ids:
           - source_ids
@@ -1963,6 +1966,7 @@ components:
           - account_ids
           date_of_birth: 1999-01-22
           raw: 1999-01-22
+          masked_date_of_birth: XXXX-01-22
           source: INTERNET_BANKING
       properties:
         names:
@@ -2623,6 +2627,7 @@ components:
         - account_ids
         date_of_birth: 1999-01-22
         raw: 1999-01-22
+        masked_date_of_birth: XXXX-01-22
         source: INTERNET_BANKING
       properties:
         raw:
@@ -2630,6 +2635,9 @@ components:
           type: string
         date_of_birth:
           example: 1999-01-22
+          type: string
+        masked_date_of_birth:
+          example: XXXX-01-22
           type: string
         source:
           example: INTERNET_BANKING
