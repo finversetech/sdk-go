@@ -5177,6 +5177,7 @@ components:
           description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ) for when
             the authorization factor was submitted to Finverse
           format: date-time
+          nullable: true
           type: string
         submitted_by:
           description: Indicates who submitted the authorization factor to Finverse.
@@ -5187,8 +5188,6 @@ components:
           type: string
       required:
       - name
-      - submitted_at
-      - submitted_by
       type: object
     SubmitAuthChecklistResponse:
       example:

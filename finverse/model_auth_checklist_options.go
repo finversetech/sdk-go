@@ -21,20 +21,18 @@ type AuthChecklistOptions struct {
 	// Name of authorization factor. Possible values are INSTITUTION_CREDENTIALS_LOGIN, INSTITUTION_OAUTH_LOGIN,
 	Name string `json:"name"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ) for when the authorization factor was submitted to Finverse
-	SubmittedAt time.Time `json:"submitted_at"`
+	SubmittedAt NullableTime `json:"submitted_at,omitempty"`
 	// Indicates who submitted the authorization factor to Finverse. Possible values are CUSTOMER_APP, FINVERSE_LINK
-	SubmittedBy string `json:"submitted_by"`
+	SubmittedBy *string `json:"submitted_by,omitempty"`
 }
 
 // NewAuthChecklistOptions instantiates a new AuthChecklistOptions object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAuthChecklistOptions(name string, submittedAt time.Time, submittedBy string) *AuthChecklistOptions {
+func NewAuthChecklistOptions(name string) *AuthChecklistOptions {
 	this := AuthChecklistOptions{}
 	this.Name = name
-	this.SubmittedAt = submittedAt
-	this.SubmittedBy = submittedBy
 	return &this
 }
 
@@ -70,52 +68,79 @@ func (o *AuthChecklistOptions) SetName(v string) {
 	o.Name = v
 }
 
-// GetSubmittedAt returns the SubmittedAt field value
+// GetSubmittedAt returns the SubmittedAt field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AuthChecklistOptions) GetSubmittedAt() time.Time {
-	if o == nil {
+	if o == nil || o.SubmittedAt.Get() == nil {
 		var ret time.Time
 		return ret
 	}
-
-	return o.SubmittedAt
+	return *o.SubmittedAt.Get()
 }
 
-// GetSubmittedAtOk returns a tuple with the SubmittedAt field value
+// GetSubmittedAtOk returns a tuple with the SubmittedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *AuthChecklistOptions) GetSubmittedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SubmittedAt, true
+	return o.SubmittedAt.Get(), o.SubmittedAt.IsSet()
 }
 
-// SetSubmittedAt sets field value
+// HasSubmittedAt returns a boolean if a field has been set.
+func (o *AuthChecklistOptions) HasSubmittedAt() bool {
+	if o != nil && o.SubmittedAt.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetSubmittedAt gets a reference to the given NullableTime and assigns it to the SubmittedAt field.
 func (o *AuthChecklistOptions) SetSubmittedAt(v time.Time) {
-	o.SubmittedAt = v
+	o.SubmittedAt.Set(&v)
 }
 
-// GetSubmittedBy returns the SubmittedBy field value
+// SetSubmittedAtNil sets the value for SubmittedAt to be an explicit nil
+func (o *AuthChecklistOptions) SetSubmittedAtNil() {
+	o.SubmittedAt.Set(nil)
+}
+
+// UnsetSubmittedAt ensures that no value is present for SubmittedAt, not even an explicit nil
+func (o *AuthChecklistOptions) UnsetSubmittedAt() {
+	o.SubmittedAt.Unset()
+}
+
+// GetSubmittedBy returns the SubmittedBy field value if set, zero value otherwise.
 func (o *AuthChecklistOptions) GetSubmittedBy() string {
-	if o == nil {
+	if o == nil || o.SubmittedBy == nil {
 		var ret string
 		return ret
 	}
-
-	return o.SubmittedBy
+	return *o.SubmittedBy
 }
 
-// GetSubmittedByOk returns a tuple with the SubmittedBy field value
+// GetSubmittedByOk returns a tuple with the SubmittedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthChecklistOptions) GetSubmittedByOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.SubmittedBy == nil {
 		return nil, false
 	}
-	return &o.SubmittedBy, true
+	return o.SubmittedBy, true
 }
 
-// SetSubmittedBy sets field value
+// HasSubmittedBy returns a boolean if a field has been set.
+func (o *AuthChecklistOptions) HasSubmittedBy() bool {
+	if o != nil && o.SubmittedBy != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSubmittedBy gets a reference to the given string and assigns it to the SubmittedBy field.
 func (o *AuthChecklistOptions) SetSubmittedBy(v string) {
-	o.SubmittedBy = v
+	o.SubmittedBy = &v
 }
 
 func (o AuthChecklistOptions) MarshalJSON() ([]byte, error) {
@@ -123,10 +148,10 @@ func (o AuthChecklistOptions) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["name"] = o.Name
 	}
-	if true {
-		toSerialize["submitted_at"] = o.SubmittedAt
+	if o.SubmittedAt.IsSet() {
+		toSerialize["submitted_at"] = o.SubmittedAt.Get()
 	}
-	if true {
+	if o.SubmittedBy != nil {
 		toSerialize["submitted_by"] = o.SubmittedBy
 	}
 	return json.Marshal(toSerialize)
