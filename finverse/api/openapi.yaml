@@ -2421,14 +2421,6 @@ components:
       items:
         $ref: '#/components/schemas/Institution'
       type: array
-    CreateInstitutionResponse:
-      $ref: '#/components/schemas/Institution'
-    DeleteInstitutionResponse:
-      properties:
-        success:
-          example: true
-          type: boolean
-      type: object
     IdentityName:
       example:
         source_ids:
@@ -2702,6 +2694,9 @@ components:
         parent_institution_name: Parent Mock Bank
         countries:
         - HKG
+        payment_rails:
+        - payment_rails
+        - payment_rails
         institution_name: Mock Bank
         login_details: {}
         institution_id: "123"
@@ -2789,6 +2784,10 @@ components:
         updated_at:
           format: date-time
           type: string
+        payment_rails:
+          items:
+            type: string
+          type: array
       required:
       - countries
       - institution_id

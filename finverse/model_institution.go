@@ -34,6 +34,7 @@ type Institution struct {
 	LoginMethods          []LoginMethod          `json:"login_methods,omitempty"`
 	Color                 *string                `json:"color,omitempty"`
 	UpdatedAt             *time.Time             `json:"updated_at,omitempty"`
+	PaymentRails          []string               `json:"payment_rails,omitempty"`
 }
 
 // NewInstitution instantiates a new Institution object
@@ -516,6 +517,38 @@ func (o *Institution) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = &v
 }
 
+// GetPaymentRails returns the PaymentRails field value if set, zero value otherwise.
+func (o *Institution) GetPaymentRails() []string {
+	if o == nil || o.PaymentRails == nil {
+		var ret []string
+		return ret
+	}
+	return o.PaymentRails
+}
+
+// GetPaymentRailsOk returns a tuple with the PaymentRails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Institution) GetPaymentRailsOk() ([]string, bool) {
+	if o == nil || o.PaymentRails == nil {
+		return nil, false
+	}
+	return o.PaymentRails, true
+}
+
+// HasPaymentRails returns a boolean if a field has been set.
+func (o *Institution) HasPaymentRails() bool {
+	if o != nil && o.PaymentRails != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentRails gets a reference to the given []string and assigns it to the PaymentRails field.
+func (o *Institution) SetPaymentRails(v []string) {
+	o.PaymentRails = v
+}
+
 func (o Institution) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -565,6 +598,9 @@ func (o Institution) MarshalJSON() ([]byte, error) {
 	}
 	if o.UpdatedAt != nil {
 		toSerialize["updated_at"] = o.UpdatedAt
+	}
+	if o.PaymentRails != nil {
+		toSerialize["payment_rails"] = o.PaymentRails
 	}
 	return json.Marshal(toSerialize)
 }
