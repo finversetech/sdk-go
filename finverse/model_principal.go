@@ -23,6 +23,7 @@ type Principal struct {
 	CustomerAppId    string            `json:"customer_app_id"`
 	LoginIdentityId  string            `json:"login_identity_id"`
 	CustomizationId  *string           `json:"customization_id,omitempty"`
+	MandateId        *string           `json:"mandate_id,omitempty"`
 	ExpiresIn        *float32          `json:"expires_in,omitempty"`
 	Scopes           []string          `json:"scopes,omitempty"`
 	LinkTokenRequest *LinkTokenRequest `json:"link_token_request,omitempty"`
@@ -209,6 +210,38 @@ func (o *Principal) SetCustomizationId(v string) {
 	o.CustomizationId = &v
 }
 
+// GetMandateId returns the MandateId field value if set, zero value otherwise.
+func (o *Principal) GetMandateId() string {
+	if o == nil || o.MandateId == nil {
+		var ret string
+		return ret
+	}
+	return *o.MandateId
+}
+
+// GetMandateIdOk returns a tuple with the MandateId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Principal) GetMandateIdOk() (*string, bool) {
+	if o == nil || o.MandateId == nil {
+		return nil, false
+	}
+	return o.MandateId, true
+}
+
+// HasMandateId returns a boolean if a field has been set.
+func (o *Principal) HasMandateId() bool {
+	if o != nil && o.MandateId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMandateId gets a reference to the given string and assigns it to the MandateId field.
+func (o *Principal) SetMandateId(v string) {
+	o.MandateId = &v
+}
+
 // GetExpiresIn returns the ExpiresIn field value if set, zero value otherwise.
 func (o *Principal) GetExpiresIn() float32 {
 	if o == nil || o.ExpiresIn == nil {
@@ -324,6 +357,9 @@ func (o Principal) MarshalJSON() ([]byte, error) {
 	}
 	if o.CustomizationId != nil {
 		toSerialize["customization_id"] = o.CustomizationId
+	}
+	if o.MandateId != nil {
+		toSerialize["mandate_id"] = o.MandateId
 	}
 	if o.ExpiresIn != nil {
 		toSerialize["expires_in"] = o.ExpiresIn

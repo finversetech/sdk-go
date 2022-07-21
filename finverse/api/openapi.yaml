@@ -1345,17 +1345,11 @@ paths:
         - payment:get
       tags:
       - customer
-  /mandates/{mandateId}/auth:
+  /mandates/auth:
     get:
       description: Get Mandate Authorization by mandate id
       operationId: getMandateAuth
       parameters:
-      - description: Finverse Mandate ID
-        in: path
-        name: mandateId
-        required: true
-        schema:
-          type: string
       - description: Finverse Institution ID
         in: query
         name: institution_id
@@ -1398,19 +1392,12 @@ paths:
           description: Internal Server Error
       security:
       - Oauth2:
-        - mandate:get
+        - mandate_auth:get
       tags:
       - customer
     post:
       description: Submit authorization checklist items
       operationId: submitAuthChecklist
-      parameters:
-      - description: mandate id
-        in: path
-        name: mandateId
-        required: true
-        schema:
-          type: string
       requestBody:
         content:
           application/json:
@@ -1445,7 +1432,7 @@ paths:
           description: Internal Server Error
       security:
       - Oauth2:
-        - mandate:create
+        - mandate_auth:update
       tags:
       - customer
       x-codegen-request-body-name: submitAuthChecklistRequest
@@ -1489,6 +1476,9 @@ components:
           example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           type: string
         customization_id:
+          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          type: string
+        mandate_id:
           example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           type: string
         expires_in:

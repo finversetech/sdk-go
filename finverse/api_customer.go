@@ -149,10 +149,9 @@ type CustomerApi interface {
 		Get Mandate Authorization by mandate id
 
 		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param mandateId Finverse Mandate ID
 		 @return CustomerApiApiGetMandateAuthRequest
 	*/
-	GetMandateAuth(ctx context.Context, mandateId string) CustomerApiApiGetMandateAuthRequest
+	GetMandateAuth(ctx context.Context) CustomerApiApiGetMandateAuthRequest
 
 	// GetMandateAuthExecute executes the request
 	//  @return GetMandateAuthResponse
@@ -236,10 +235,9 @@ type CustomerApi interface {
 		Submit authorization checklist items
 
 		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param mandateId mandate id
 		 @return CustomerApiApiSubmitAuthChecklistRequest
 	*/
-	SubmitAuthChecklist(ctx context.Context, mandateId string) CustomerApiApiSubmitAuthChecklistRequest
+	SubmitAuthChecklist(ctx context.Context) CustomerApiApiSubmitAuthChecklistRequest
 
 	// SubmitAuthChecklistExecute executes the request
 	//  @return SubmitAuthChecklistResponse
@@ -1340,7 +1338,6 @@ func (a *CustomerApiService) GetMandateExecute(r CustomerApiApiGetMandateRequest
 type CustomerApiApiGetMandateAuthRequest struct {
 	ctx           context.Context
 	ApiService    CustomerApi
-	mandateId     string
 	institutionId *string
 	senderType    *string
 }
@@ -1367,14 +1364,12 @@ GetMandateAuth Method for GetMandateAuth
 Get Mandate Authorization by mandate id
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param mandateId Finverse Mandate ID
  @return CustomerApiApiGetMandateAuthRequest
 */
-func (a *CustomerApiService) GetMandateAuth(ctx context.Context, mandateId string) CustomerApiApiGetMandateAuthRequest {
+func (a *CustomerApiService) GetMandateAuth(ctx context.Context) CustomerApiApiGetMandateAuthRequest {
 	return CustomerApiApiGetMandateAuthRequest{
 		ApiService: a,
 		ctx:        ctx,
-		mandateId:  mandateId,
 	}
 }
 
@@ -1393,8 +1388,7 @@ func (a *CustomerApiService) GetMandateAuthExecute(r CustomerApiApiGetMandateAut
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/mandates/{mandateId}/auth"
-	localVarPath = strings.Replace(localVarPath, "{"+"mandateId"+"}", url.PathEscape(parameterToString(r.mandateId, "")), -1)
+	localVarPath := localBasePath + "/mandates/auth"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2195,7 +2189,6 @@ func (a *CustomerApiService) RefreshTokenExecute(r CustomerApiApiRefreshTokenReq
 type CustomerApiApiSubmitAuthChecklistRequest struct {
 	ctx                        context.Context
 	ApiService                 CustomerApi
-	mandateId                  string
 	submitAuthChecklistRequest *SubmitAuthChecklistRequest
 }
 
@@ -2215,14 +2208,12 @@ SubmitAuthChecklist Method for SubmitAuthChecklist
 Submit authorization checklist items
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param mandateId mandate id
  @return CustomerApiApiSubmitAuthChecklistRequest
 */
-func (a *CustomerApiService) SubmitAuthChecklist(ctx context.Context, mandateId string) CustomerApiApiSubmitAuthChecklistRequest {
+func (a *CustomerApiService) SubmitAuthChecklist(ctx context.Context) CustomerApiApiSubmitAuthChecklistRequest {
 	return CustomerApiApiSubmitAuthChecklistRequest{
 		ApiService: a,
 		ctx:        ctx,
-		mandateId:  mandateId,
 	}
 }
 
@@ -2241,8 +2232,7 @@ func (a *CustomerApiService) SubmitAuthChecklistExecute(r CustomerApiApiSubmitAu
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/mandates/{mandateId}/auth"
-	localVarPath = strings.Replace(localVarPath, "{"+"mandateId"+"}", url.PathEscape(parameterToString(r.mandateId, "")), -1)
+	localVarPath := localBasePath + "/mandates/auth"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
