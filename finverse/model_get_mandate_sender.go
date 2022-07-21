@@ -23,7 +23,7 @@ type GetMandateSender struct {
 	// Customer App's reference ID, representing the sender's account or billing reference number.
 	SenderReferenceId *string        `json:"sender_reference_id,omitempty"`
 	SenderAccount     PaymentAccount `json:"sender_account"`
-	// Type of account held by the Sender at the Institution. Required if institution.user_type is undefined. Possible values are PERSONAL, BUSINESS
+	// Type of account held by the Sender at the Institution. Required if institution.user_type is undefined. Possible values are INDIVIDUAL, BUSINESS
 	SenderType *string `json:"sender_type,omitempty"`
 }
 

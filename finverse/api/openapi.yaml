@@ -1357,12 +1357,12 @@ paths:
         schema:
           type: string
       - description: Type of account held by the Sender at the Institution. Required
-          if institution.user_type is undefined. Possible values are PERSONAL, BUSINESS
+          if institution.user_type is undefined. Possible values are INDIVIDUAL, BUSINESS
         in: query
         name: sender_type
         schema:
           enum:
-          - PERSONAL
+          - INDIVIDUAL
           - BUSINESS
           type: string
       responses:
@@ -4463,7 +4463,7 @@ components:
       example:
         sender:
           user_id: user_id
-          sender_type: PERSONAL
+          sender_type: INDIVIDUAL
           name: name
           sender_reference_id: sender_reference_id
         mandate_details:
@@ -4506,7 +4506,7 @@ components:
         mandate_status: CREATED
         sender:
           user_id: user_id
-          sender_type: PERSONAL
+          sender_type: INDIVIDUAL
           sender_account:
             raw: raw
           name: name
@@ -4571,7 +4571,7 @@ components:
     CreateMandateSender:
       example:
         user_id: user_id
-        sender_type: PERSONAL
+        sender_type: INDIVIDUAL
         name: name
         sender_reference_id: sender_reference_id
       properties:
@@ -4587,9 +4587,10 @@ components:
           type: string
         sender_type:
           description: Type of account held by the Sender at the Institution. Required
-            if institution.user_type is undefined. Possible values are PERSONAL, BUSINESS
+            if institution.user_type is undefined. Possible values are INDIVIDUAL,
+            BUSINESS
           enum:
-          - PERSONAL
+          - INDIVIDUAL
           - BUSINESS
           type: string
       required:
@@ -4598,7 +4599,7 @@ components:
     GetMandateSender:
       example:
         user_id: user_id
-        sender_type: PERSONAL
+        sender_type: INDIVIDUAL
         sender_account:
           raw: raw
         name: name
@@ -4618,9 +4619,10 @@ components:
           $ref: '#/components/schemas/PaymentAccount'
         sender_type:
           description: Type of account held by the Sender at the Institution. Required
-            if institution.user_type is undefined. Possible values are PERSONAL, BUSINESS
+            if institution.user_type is undefined. Possible values are INDIVIDUAL,
+            BUSINESS
           enum:
-          - PERSONAL
+          - INDIVIDUAL
           - BUSINESS
           type: string
       required:
@@ -5016,7 +5018,7 @@ components:
     GetMandateAuthResponse:
       example:
         mandate_status: CREATED
-        sender_type: PERSONAL
+        sender_type: INDIVIDUAL
         last_update: 2000-01-23T04:56:07.000+00:00
         mandate_id: mandate_id
         recipient_account_id: recipient_account_id
@@ -5066,9 +5068,9 @@ components:
           type: string
         sender_type:
           description: Type of account held by the Sender at the Institution. Possible
-            values are PERSONAL, BUSINESS
+            values are INDIVIDUAL, BUSINESS
           enum:
-          - PERSONAL
+          - INDIVIDUAL
           - BUSINESS
           type: string
         auth_checklist:
@@ -5238,7 +5240,7 @@ components:
         message_authentication_code: message_authentication_code
         ciphertext: ciphertext
         key_id: key_id
-        sender_type: PERSONAL
+        sender_type: INDIVIDUAL
         initialization_vector: initialization_vector
         envelope_encryption_key: envelope_encryption_key
         institution_id: institution_id
@@ -5251,9 +5253,9 @@ components:
           type: string
         sender_type:
           description: Type of account held by the Sender at the Institution. Possible
-            values are PERSONAL, BUSINESS
+            values are INDIVIDUAL, BUSINESS
           enum:
-          - PERSONAL
+          - INDIVIDUAL
           - BUSINESS
           type: string
         envelope_encryption_key:

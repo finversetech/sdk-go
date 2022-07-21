@@ -21,7 +21,7 @@ type SubmitAuthChecklistRequest struct {
 	KeyId string `json:"key_id"`
 	// Finverse Institution ID
 	InstitutionId string `json:"institution_id"`
-	// Type of account held by the Sender at the Institution. Possible values are PERSONAL, BUSINESS
+	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
 	SenderType *string `json:"sender_type,omitempty"`
 	// The encrypted envelope key
 	EnvelopeEncryptionKey string `json:"envelope_encryption_key"`

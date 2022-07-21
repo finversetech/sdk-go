@@ -1348,7 +1348,7 @@ func (r CustomerApiApiGetMandateAuthRequest) InstitutionId(institutionId string)
 	return r
 }
 
-// Type of account held by the Sender at the Institution. Required if institution.user_type is undefined. Possible values are PERSONAL, BUSINESS
+// Type of account held by the Sender at the Institution. Required if institution.user_type is undefined. Possible values are INDIVIDUAL, BUSINESS
 func (r CustomerApiApiGetMandateAuthRequest) SenderType(senderType string) CustomerApiApiGetMandateAuthRequest {
 	r.senderType = &senderType
 	return r

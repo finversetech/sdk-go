@@ -26,7 +26,7 @@ type GetMandateAuthResponse struct {
 	RecipientAccountId string `json:"recipient_account_id"`
 	// Finverse Institution ID. Only returned if institution_id was included in the request.
 	InstitutionId string `json:"institution_id"`
-	// Type of account held by the Sender at the Institution. Possible values are PERSONAL, BUSINESS
+	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
 	SenderType string `json:"sender_type"`
 	// Checklist of the authorization factors needed to complete Mandate authorization
 	AuthChecklist  []AuthChecklistFactor     `json:"auth_checklist"`
