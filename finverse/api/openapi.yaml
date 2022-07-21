@@ -551,8 +551,8 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: Invalid Request
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Bad Request
         "401":
           content:
             application/json:
