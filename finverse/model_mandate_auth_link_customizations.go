@@ -27,7 +27,7 @@ type MandateAuthLinkCustomizations struct {
 	Language *string `json:"language,omitempty"`
 	// Space separated list of the tags of the institutions to view.
 	LinkMode *string `json:"link_mode,omitempty"`
-	// institution's supported product filter
+	// institution's supported product filter. For mandate authorization, this field should contain [\"MANDATE\"]
 	ProductsSupported []string `json:"products_supported,omitempty"`
 	// The UI mode link is intended to be used in - \"iframe\" (default), \"auto_redirect\" or \"redirect\" or \"standalone\"
 	UiMode *string `json:"ui_mode,omitempty"`

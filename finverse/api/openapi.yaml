@@ -4927,6 +4927,7 @@ components:
           products_supported:
           - ACCOUNTS
           - TRANSACTIONS
+          - MANDATE
           institution_status: alpha beta supported
           user_type:
           - PERSONAL
@@ -4953,6 +4954,7 @@ components:
         products_supported:
         - ACCOUNTS
         - TRANSACTIONS
+        - MANDATE
         institution_status: alpha beta supported
         user_type:
         - PERSONAL
@@ -4990,10 +4992,12 @@ components:
           example: real
           type: string
         products_supported:
-          description: institution's supported product filter
+          description: institution's supported product filter. For mandate authorization,
+            this field should contain ["MANDATE"]
           example:
           - ACCOUNTS
           - TRANSACTIONS
+          - MANDATE
           items:
             type: string
           type: array
