@@ -380,6 +380,7 @@ paths:
           enum:
           - BANK
           - WALLET
+          - TEST
           type: string
       responses:
         "200":
@@ -2400,6 +2401,7 @@ components:
           enum:
           - BANK
           - WALLET
+          - TEST
           example: BANK
           type: string
         products_supported:
