@@ -377,6 +377,9 @@ paths:
         in: query
         name: institution_type
         schema:
+          enum:
+          - BANK
+          - WALLET
           type: string
       responses:
         "200":
@@ -2358,9 +2361,6 @@ components:
         parent_institution_name: Parent Mock Bank
         countries:
         - HKG
-        payment_rails:
-        - payment_rails
-        - payment_rails
         institution_name: Mock Bank
         login_details: {}
         institution_id: "123"
@@ -2368,15 +2368,12 @@ components:
         - real
         products_supported:
         - ACCOUNTS
-        - BALANCES
-        - BALANCE_HISTORY
         - TRANSACTIONS
-        - ACCOUNT_NUMBER
+        - STATEMENTS
+        - ACCOUNT_NUMBERS
         - IDENTITY
-        - CREDIT_DETAILS
-        - AUTO_REFRESH
         login_url: https://example.com/login
-        user_type: INDIVIDUAL
+        user_type: PERSONAL
         updated_at: 2000-01-23T04:56:07.000+00:00
         status_details: {}
         status: SUPPORTED
@@ -2394,22 +2391,31 @@ components:
           example:
           - real
           items:
+            enum:
+            - real
+            - test
             type: string
           type: array
         institution_type:
+          enum:
+          - BANK
+          - WALLET
           example: BANK
           type: string
         products_supported:
           example:
           - ACCOUNTS
-          - BALANCES
-          - BALANCE_HISTORY
           - TRANSACTIONS
-          - ACCOUNT_NUMBER
+          - STATEMENTS
+          - ACCOUNT_NUMBERS
           - IDENTITY
-          - CREDIT_DETAILS
-          - AUTO_REFRESH
           items:
+            enum:
+            - ACCOUNTS
+            - TRANSACTIONS
+            - STATEMENTS
+            - ACCOUNT_NUMBERS
+            - IDENTITY
             type: string
           type: array
         parent_institution_name:
@@ -2422,9 +2428,16 @@ components:
           example: Personal Internet Banking
           type: string
         user_type:
-          example: INDIVIDUAL
+          enum:
+          - PERSONAL
+          - BUSINESS
+          example: PERSONAL
           type: string
         status:
+          enum:
+          - SUPPORTED
+          - ALPHA
+          - BETA
           example: SUPPORTED
           type: string
         status_details:
@@ -2448,10 +2461,6 @@ components:
         updated_at:
           format: date-time
           type: string
-        payment_rails:
-          items:
-            type: string
-          type: array
       required:
       - countries
       - institution_id
