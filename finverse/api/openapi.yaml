@@ -24,25 +24,6 @@ tags:
 - description: Operations required a link token
   name: link
 paths:
-  /payments/jwks:
-    get:
-      description: get payment jwks
-      operationId: getPaymentsJwks
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetJWKSResponse'
-          description: Successful
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: Internal Server Error
-      tags:
-      - public
   /auth/customer/token:
     post:
       description: generate an access_token
@@ -1121,321 +1102,6 @@ paths:
         - composite_statement
       tags:
       - login_identity
-  /mandates:
-    post:
-      description: CREATE Mandate
-      operationId: createMandate
-      parameters:
-      - description: A random key provided by the customer, per unique payment. The
-          purpose for the Idempotency key is to allow safe retrying without the operation
-          being performed multiple times.
-        in: header
-        name: Idempotency-Key
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateMandateRequest'
-        description: request body for creating mandate
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CreateMandateResponse'
-          description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Invalid Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - mandate:create
-      tags:
-      - customer
-      x-codegen-request-body-name: createMandateRequest
-  /mandates/{mandateId}:
-    get:
-      description: Get Mandate details by mandate_id
-      operationId: getMandate
-      parameters:
-      - description: mandate id
-        in: path
-        name: mandateId
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetMandateResponse'
-          description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Invalid Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - mandate:get
-      tags:
-      - customer
-  /mandates/link:
-    post:
-      description: Get link to launch FV Link UI in mandate authorization mode
-      operationId: getMandateAuthLink
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/GetMandateAuthLinkRequest'
-        description: request body for mandate authorization link
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetMandateAuthLinkResponse'
-          description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Invalid Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - mandate:create
-      tags:
-      - customer
-      x-codegen-request-body-name: getMandateAuthLinkRequest
-  /payments:
-    post:
-      description: Create new Payment
-      operationId: createPayment
-      parameters:
-      - description: A random key provided by the customer, per unique payment. The
-          purpose for the Idempotency key is to allow safe retrying without the operation
-          being performed multiple times.
-        in: header
-        name: Idempotency-Key
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreatePaymentRequest'
-        description: request body for creating payment
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CreatePaymentResponse'
-          description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Invalid Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - payment:create
-      tags:
-      - customer
-      x-codegen-request-body-name: createPaymentRequest
-  /payments/{paymentId}:
-    get:
-      description: Get Payment details by payment_id
-      operationId: getPayment
-      parameters:
-      - description: payment id
-        in: path
-        name: paymentId
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetPaymentResponse'
-          description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Invalid Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - payment:get
-      tags:
-      - customer
-  /mandates/auth:
-    get:
-      description: Get Mandate Authorization by mandate id
-      operationId: getMandateAuth
-      parameters:
-      - description: Finverse Institution ID
-        in: query
-        name: institution_id
-        required: true
-        schema:
-          type: string
-      - description: Type of account held by the Sender at the Institution. Required
-          if institution.user_type is undefined. Possible values are INDIVIDUAL, BUSINESS
-        in: query
-        name: sender_type
-        schema:
-          enum:
-          - INDIVIDUAL
-          - BUSINESS
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetMandateAuthResponse'
-          description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Invalid Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - mandate_auth:get
-      tags:
-      - customer
-    post:
-      description: Submit authorization checklist items
-      operationId: submitAuthChecklist
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SubmitAuthChecklistRequest'
-        description: request body for submitting auth checklist
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SubmitAuthChecklistResponse'
-          description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Invalid Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - mandate_auth:update
-      tags:
-      - customer
-      x-codegen-request-body-name: submitAuthChecklistRequest
 components:
   schemas:
     ErrorResponse:
@@ -4460,27 +4126,6 @@ components:
       - url
       type: object
     CreateMandateRequest:
-      example:
-        sender:
-          user_id: user_id
-          sender_type: INDIVIDUAL
-          name: name
-          sender_reference_id: sender_reference_id
-        mandate_details:
-          end_date: 2000-01-23
-          payment_schedule:
-            amount: 100
-            frequency: DAILY
-          transaction_limits:
-            period: DAILY
-            max_period_amount: 0
-            max_period_count: 6
-            max_transaction_amount: 1
-          description: description
-          currency: currency
-          start_date: 2000-01-23
-        recipient:
-          recipient_account_id: recipient_account_id
       properties:
         recipient:
           $ref: '#/components/schemas/MandateRecipient'
@@ -4494,40 +4139,12 @@ components:
       - sender
       type: object
     CreateMandateResponse:
-      example:
-        mandate_id: mandate_id
       properties:
         mandate_id:
           description: Finverse Mandate ID
           type: string
       type: object
     GetMandateResponse:
-      example:
-        mandate_status: CREATED
-        sender:
-          user_id: user_id
-          sender_type: INDIVIDUAL
-          sender_account:
-            raw: raw
-          name: name
-          sender_reference_id: sender_reference_id
-        mandate_details:
-          end_date: 2000-01-23
-          payment_schedule:
-            amount: 100
-            frequency: DAILY
-          transaction_limits:
-            period: DAILY
-            max_period_amount: 0
-            max_period_count: 6
-            max_transaction_amount: 1
-          description: description
-          currency: currency
-          start_date: 2000-01-23
-        last_update: 2000-01-23T04:56:07.000+00:00
-        recipient:
-          recipient_account_id: recipient_account_id
-        mandate_id: mandate_id
       properties:
         last_update:
           description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
@@ -4559,8 +4176,6 @@ components:
       - sender
       type: object
     MandateRecipient:
-      example:
-        recipient_account_id: recipient_account_id
       properties:
         recipient_account_id:
           description: Merchant account ID assigned by Finverse
@@ -4569,11 +4184,6 @@ components:
       - recipient_account_id
       type: object
     CreateMandateSender:
-      example:
-        user_id: user_id
-        sender_type: INDIVIDUAL
-        name: name
-        sender_reference_id: sender_reference_id
       properties:
         name:
           type: string
@@ -4597,13 +4207,6 @@ components:
       - user_id
       type: object
     GetMandateSender:
-      example:
-        user_id: user_id
-        sender_type: INDIVIDUAL
-        sender_account:
-          raw: raw
-        name: name
-        sender_reference_id: sender_reference_id
       properties:
         name:
           type: string
@@ -4630,19 +4233,6 @@ components:
       - user_id
       type: object
     MandateDetails:
-      example:
-        end_date: 2000-01-23
-        payment_schedule:
-          amount: 100
-          frequency: DAILY
-        transaction_limits:
-          period: DAILY
-          max_period_amount: 0
-          max_period_count: 6
-          max_transaction_amount: 1
-        description: description
-        currency: currency
-        start_date: 2000-01-23
       properties:
         currency:
           description: ISO currency code
@@ -4668,9 +4258,6 @@ components:
       - currency
       type: object
     PaymentSchedule:
-      example:
-        amount: 100
-        frequency: DAILY
       properties:
         amount:
           description: Amount to be paid, in currency’s smallest unit or “minor unit”,
@@ -4695,11 +4282,6 @@ components:
       - frequency
       type: object
     TransactionLimits:
-      example:
-        period: DAILY
-        max_period_amount: 0
-        max_period_count: 6
-        max_transaction_amount: 1
       properties:
         max_period_amount:
           description: Maximum amount of money that can be paid during the reference
@@ -4729,13 +4311,6 @@ components:
       - period
       type: object
     CreatePaymentRequest:
-      example:
-        amount: 100
-        payment_details:
-          transaction_reference_id: transaction_reference_id
-          description: description
-          mandate_id: mandate_id
-        type: MANDATE
       properties:
         amount:
           description: Amount to be paid, in currency’s smallest unit or “minor unit”,
@@ -4760,16 +4335,6 @@ components:
       - type
       type: object
     GetPaymentResponse:
-      example:
-        amount: 100
-        payment_details:
-          transaction_reference_id: transaction_reference_id
-          description: description
-          mandate_id: mandate_id
-        payment_id: payment_id
-        last_update: 2000-01-23T04:56:07.000+00:00
-        type: MANDATE
-        status: CREATED
       properties:
         payment_id:
           description: Finverse Payment ID
@@ -4809,10 +4374,6 @@ components:
           $ref: '#/components/schemas/PaymentDetails2'
       type: object
     PaymentDetails2:
-      example:
-        transaction_reference_id: transaction_reference_id
-        description: description
-        mandate_id: mandate_id
       properties:
         description:
           description: The transaction description provided to banks, which banks
@@ -4828,32 +4389,12 @@ components:
       - mandate_id
       type: object
     CreatePaymentResponse:
-      example:
-        payment_id: payment_id
       properties:
         payment_id:
           description: Finverse Payment ID
           type: string
       type: object
     GetJWKSResponse:
-      example:
-        keys:
-        - kty: kty
-          e: e
-          use: use
-          kid: kid
-          x5c:
-          - x5c
-          - x5c
-          n: "n"
-        - kty: kty
-          e: e
-          use: use
-          kid: kid
-          x5c:
-          - x5c
-          - x5c
-          n: "n"
       properties:
         keys:
           items:
@@ -4861,15 +4402,6 @@ components:
           type: array
       type: object
     JWKSKey:
-      example:
-        kty: kty
-        e: e
-        use: use
-        kid: kid
-        x5c:
-        - x5c
-        - x5c
-        n: "n"
       properties:
         kty:
           description: The "kty" (key type) parameter identifies the cryptographic
@@ -4896,11 +4428,6 @@ components:
           type: array
       type: object
     GetMandateAuthLinkResponse:
-      example:
-        access_token: access_token
-        link_url: link_url
-        token_type: Bearer
-        expires_in: 0
       properties:
         access_token:
           description: Short-lived access-token to interact with Finverse Link
@@ -4922,23 +4449,6 @@ components:
       - token_type
       type: object
     GetMandateAuthLinkRequest:
-      example:
-        link_customizations:
-          products_supported:
-          - ACCOUNTS
-          - TRANSACTIONS
-          - MANDATE
-          institution_status: alpha beta supported
-          user_type:
-          - PERSONAL
-          link_mode: real
-          language: en
-          countries:
-          - HKG
-          - SGP
-          ui_mode: redirect
-          institution_id: hsbc-hk
-        mandate_id: mandate_id
       properties:
         mandate_id:
           description: Mandate ID
@@ -4950,21 +4460,6 @@ components:
       - mandate_id
       type: object
     MandateAuthLinkCustomizations:
-      example:
-        products_supported:
-        - ACCOUNTS
-        - TRANSACTIONS
-        - MANDATE
-        institution_status: alpha beta supported
-        user_type:
-        - PERSONAL
-        link_mode: real
-        language: en
-        countries:
-        - HKG
-        - SGP
-        ui_mode: redirect
-        institution_id: hsbc-hk
       properties:
         countries:
           description: institution's country filter
@@ -5020,37 +4515,6 @@ components:
           type: array
       type: object
     GetMandateAuthResponse:
-      example:
-        mandate_status: CREATED
-        sender_type: INDIVIDUAL
-        last_update: 2000-01-23T04:56:07.000+00:00
-        mandate_id: mandate_id
-        recipient_account_id: recipient_account_id
-        encryption_info:
-          key_id: key_id
-          jwks_url: jwks_url
-        institution_id: institution_id
-        auth_checklist:
-        - group_id: group_id
-          options:
-          - submitted_at: 2000-01-23T04:56:07.000+00:00
-            name: INSTITUTION_CREDENTIALS_LOGIN
-            submitted_by: CUSTOMER_APP
-          - submitted_at: 2000-01-23T04:56:07.000+00:00
-            name: INSTITUTION_CREDENTIALS_LOGIN
-            submitted_by: CUSTOMER_APP
-          type: ACCOUNT_IDENTIFICATION
-          required: "YES"
-        - group_id: group_id
-          options:
-          - submitted_at: 2000-01-23T04:56:07.000+00:00
-            name: INSTITUTION_CREDENTIALS_LOGIN
-            submitted_by: CUSTOMER_APP
-          - submitted_at: 2000-01-23T04:56:07.000+00:00
-            name: INSTITUTION_CREDENTIALS_LOGIN
-            submitted_by: CUSTOMER_APP
-          type: ACCOUNT_IDENTIFICATION
-          required: "YES"
       properties:
         mandate_id:
           description: Finverse Mandate ID
@@ -5100,9 +4564,6 @@ components:
       - sender_type
       type: object
     MandateAuthEncryptionInfo:
-      example:
-        key_id: key_id
-        jwks_url: jwks_url
       properties:
         jwks_url:
           type: string
@@ -5113,17 +4574,6 @@ components:
       - key_id
       type: object
     AuthChecklistFactor:
-      example:
-        group_id: group_id
-        options:
-        - submitted_at: 2000-01-23T04:56:07.000+00:00
-          name: INSTITUTION_CREDENTIALS_LOGIN
-          submitted_by: CUSTOMER_APP
-        - submitted_at: 2000-01-23T04:56:07.000+00:00
-          name: INSTITUTION_CREDENTIALS_LOGIN
-          submitted_by: CUSTOMER_APP
-        type: ACCOUNT_IDENTIFICATION
-        required: "YES"
       properties:
         type:
           description: Type of authorization factor
@@ -5157,10 +4607,6 @@ components:
       - type
       type: object
     AuthChecklistOptions:
-      example:
-        submitted_at: 2000-01-23T04:56:07.000+00:00
-        name: INSTITUTION_CREDENTIALS_LOGIN
-        submitted_by: CUSTOMER_APP
       properties:
         name:
           description: Name of authorization factor. Possible values are INSTITUTION_CREDENTIALS_LOGIN,
@@ -5186,31 +4632,6 @@ components:
       - name
       type: object
     SubmitAuthChecklistResponse:
-      example:
-        mandate_status: CREATED
-        last_update: 2000-01-23T04:56:07.000+00:00
-        mandate_id: mandate_id
-        auth_checklist:
-        - group_id: group_id
-          options:
-          - submitted_at: 2000-01-23T04:56:07.000+00:00
-            name: INSTITUTION_CREDENTIALS_LOGIN
-            submitted_by: CUSTOMER_APP
-          - submitted_at: 2000-01-23T04:56:07.000+00:00
-            name: INSTITUTION_CREDENTIALS_LOGIN
-            submitted_by: CUSTOMER_APP
-          type: ACCOUNT_IDENTIFICATION
-          required: "YES"
-        - group_id: group_id
-          options:
-          - submitted_at: 2000-01-23T04:56:07.000+00:00
-            name: INSTITUTION_CREDENTIALS_LOGIN
-            submitted_by: CUSTOMER_APP
-          - submitted_at: 2000-01-23T04:56:07.000+00:00
-            name: INSTITUTION_CREDENTIALS_LOGIN
-            submitted_by: CUSTOMER_APP
-          type: ACCOUNT_IDENTIFICATION
-          required: "YES"
       properties:
         mandate_id:
           description: Finverse Mandate ID
@@ -5240,14 +4661,6 @@ components:
       - mandate_status
       type: object
     SubmitAuthChecklistRequest:
-      example:
-        message_authentication_code: message_authentication_code
-        ciphertext: ciphertext
-        key_id: key_id
-        sender_type: INDIVIDUAL
-        initialization_vector: initialization_vector
-        envelope_encryption_key: envelope_encryption_key
-        institution_id: institution_id
       properties:
         key_id:
           description: The key_id that was used to encrypt the envelope key
