@@ -477,6 +477,48 @@ paths:
       tags:
       - link
       x-codegen-request-body-name: linkRequest
+  /link/woauth:
+    post:
+      description: Creates a new link
+      operationId: createLinkWoauth
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LinkRequest'
+        description: Request body for starting a new Link
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkResponse'
+          description: Service Okay
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - link
+      tags:
+      - link
+      x-codegen-request-body-name: linkRequest
   /link/token:
     post:
       description: generate a link token that can be used to create link
