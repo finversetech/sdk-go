@@ -3804,6 +3804,33 @@ components:
             type: string
           type: array
       type: object
+    EncryptedPayload:
+      properties:
+        ciphertext:
+          description: The credential payload encrypted with AES (base64)
+          type: string
+        initializationVector:
+          description: The 16 byte IV used w/ AES (base64)
+          type: string
+        messageAuthenticationCode:
+          description: The MAC to verify AES decryption validity
+          type: string
+        envelopeEncryptionKey:
+          description: The AES key encrypted with an RSA pubkey (base64)
+          type: string
+        keyId:
+          description: The identifier of the public key used to encrypt the AES key
+          type: string
+        state:
+          type: string
+      required:
+      - ciphertext
+      - envelopeEncryptionKey
+      - initializationVector
+      - keyId
+      - messageAuthenticationCode
+      - state
+      type: object
     BadRequestModel_error:
       properties:
         code:
