@@ -10,6 +10,7 @@ model_access_token_response.go
 model_account.go
 model_account_number.go
 model_all_product_status.go
+model_api_link_request.go
 model_bad_request_model.go
 model_bad_request_model_error.go
 model_balance_history.go

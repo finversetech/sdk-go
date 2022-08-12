@@ -519,6 +519,48 @@ paths:
       tags:
       - link
       x-codegen-request-body-name: linkRequest
+  /link/dummy:
+    post:
+      description: Create a new link and submit credentials
+      operationId: createLinkDummy
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiLinkRequest'
+        description: Request body for creating a new link and submitting credentials
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLoginIdentityByIdResponse'
+          description: ok
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - link:api
+      tags:
+      - link
+      x-codegen-request-body-name: apiLinkRequest
   /link/token:
     post:
       description: generate a link token that can be used to create link
@@ -2690,6 +2732,56 @@ components:
       - institution_id
       - store_credential
       type: object
+    ApiLinkRequest:
+      example:
+        user_id: user_id
+        encrypted_credentials:
+          initializationVector: initializationVector
+          ciphertext: ciphertext
+          envelopeEncryptionKey: envelopeEncryptionKey
+          messageAuthenticationCode: messageAuthenticationCode
+          keyId: keyId
+          state: state
+        store_credential: true
+        consent: true
+        products_requested:
+        - ACCOUNTS
+        - TRANSACTIONS
+        - PAYMENTS
+        institution_id: ez-bank
+      properties:
+        institution_id:
+          example: ez-bank
+          minLength: 2
+          type: string
+        user_id:
+          description: Identifier for end user
+          type: string
+        consent:
+          description: this is a mandatory field
+          example: true
+          nullable: true
+          type: boolean
+        products_requested:
+          description: products that are requested
+          example:
+          - ACCOUNTS
+          - TRANSACTIONS
+          - PAYMENTS
+          items:
+            type: string
+          type: array
+        store_credential:
+          example: true
+          type: boolean
+        encrypted_credentials:
+          $ref: '#/components/schemas/EncryptedPayload'
+      required:
+      - consent
+      - encrypted_credentials
+      - institution_id
+      - products_requested
+      type: object
     RelinkRequest:
       example:
         store_credential: true
@@ -3805,6 +3897,13 @@ components:
           type: array
       type: object
     EncryptedPayload:
+      example:
+        initializationVector: initializationVector
+        ciphertext: ciphertext
+        envelopeEncryptionKey: envelopeEncryptionKey
+        messageAuthenticationCode: messageAuthenticationCode
+        keyId: keyId
+        state: state
       properties:
         ciphertext:
           description: The credential payload encrypted with AES (base64)
