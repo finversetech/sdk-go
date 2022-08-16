@@ -640,6 +640,52 @@ paths:
       tags:
       - link
       x-codegen-request-body-name: relinkRequest
+  /link/action/{loginIdentityId}:
+    post:
+      description: Post the user action value
+      operationId: linkAction
+      parameters:
+      - description: The login identity id
+        in: path
+        name: loginIdentityId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ActionRequest'
+        description: Request body for post link action
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLoginIdentityByIdResponse'
+          description: Service Okay
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      tags:
+      - link
+      x-codegen-request-body-name: actionRequest
   /auth/callback:
     get:
       description: Callback url to get the oauth authorization token
@@ -2797,6 +2843,21 @@ components:
           type: boolean
       required:
       - store_credential
+      type: object
+    ActionRequest:
+      example:
+        encrypted_action:
+          initializationVector: initializationVector
+          ciphertext: ciphertext
+          envelopeEncryptionKey: envelopeEncryptionKey
+          messageAuthenticationCode: messageAuthenticationCode
+          keyId: keyId
+          state: state
+      properties:
+        encrypted_action:
+          $ref: '#/components/schemas/EncryptedPayload'
+      required:
+      - encrypted_action
       type: object
     GetLoginIdentityByIdResponse:
       example:

@@ -17,6 +17,7 @@ import (
 	"io/ioutil"
 	"net/http"
 	"net/url"
+	"strings"
 )
 
 // Linger please
@@ -67,6 +68,21 @@ type LinkApi interface {
 	// CreateLinkWoauthExecute executes the request
 	//  @return LinkResponse
 	CreateLinkWoauthExecute(r LinkApiApiCreateLinkWoauthRequest) (*LinkResponse, *http.Response, error)
+
+	/*
+		LinkAction Method for LinkAction
+
+		Post the user action value
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @param loginIdentityId The login identity id
+		 @return LinkApiApiLinkActionRequest
+	*/
+	LinkAction(ctx context.Context, loginIdentityId string) LinkApiApiLinkActionRequest
+
+	// LinkActionExecute executes the request
+	//  @return GetLoginIdentityByIdResponse
+	LinkActionExecute(r LinkApiApiLinkActionRequest) (*GetLoginIdentityByIdResponse, *http.Response, error)
 
 	/*
 		ListInstitutions Method for ListInstitutions
@@ -468,6 +484,150 @@ func (a *LinkApiService) CreateLinkWoauthExecute(r LinkApiApiCreateLinkWoauthReq
 	}
 	// body params
 	localVarPostBody = r.linkRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v BadRequestModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v BadRequestModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type LinkApiApiLinkActionRequest struct {
+	ctx             context.Context
+	ApiService      LinkApi
+	loginIdentityId string
+	actionRequest   *ActionRequest
+}
+
+// Request body for post link action
+func (r LinkApiApiLinkActionRequest) ActionRequest(actionRequest ActionRequest) LinkApiApiLinkActionRequest {
+	r.actionRequest = &actionRequest
+	return r
+}
+
+func (r LinkApiApiLinkActionRequest) Execute() (*GetLoginIdentityByIdResponse, *http.Response, error) {
+	return r.ApiService.LinkActionExecute(r)
+}
+
+/*
+LinkAction Method for LinkAction
+
+Post the user action value
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param loginIdentityId The login identity id
+ @return LinkApiApiLinkActionRequest
+*/
+func (a *LinkApiService) LinkAction(ctx context.Context, loginIdentityId string) LinkApiApiLinkActionRequest {
+	return LinkApiApiLinkActionRequest{
+		ApiService:      a,
+		ctx:             ctx,
+		loginIdentityId: loginIdentityId,
+	}
+}
+
+// Execute executes the request
+//  @return GetLoginIdentityByIdResponse
+func (a *LinkApiService) LinkActionExecute(r LinkApiApiLinkActionRequest) (*GetLoginIdentityByIdResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetLoginIdentityByIdResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkApiService.LinkAction")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/link/action/{loginIdentityId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"loginIdentityId"+"}", url.PathEscape(parameterToString(r.loginIdentityId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.actionRequest == nil {
+		return localVarReturnValue, nil, reportError("actionRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.actionRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
