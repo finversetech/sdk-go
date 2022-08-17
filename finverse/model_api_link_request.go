@@ -19,12 +19,12 @@ import (
 type ApiLinkRequest struct {
 	InstitutionId string `json:"institution_id"`
 	// Identifier for end user
-	UserId *string `json:"user_id,omitempty"`
+	UserId string `json:"user_id"`
 	// this is a mandatory field
 	Consent NullableBool `json:"consent"`
 	// products that are requested
 	ProductsRequested    []string         `json:"products_requested"`
-	StoreCredential      *bool            `json:"store_credential,omitempty"`
+	StoreCredentials     bool             `json:"store_credentials"`
 	EncryptedCredentials EncryptedPayload `json:"encrypted_credentials"`
 }
 
@@ -32,11 +32,13 @@ type ApiLinkRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewApiLinkRequest(institutionId string, consent NullableBool, productsRequested []string, encryptedCredentials EncryptedPayload) *ApiLinkRequest {
+func NewApiLinkRequest(institutionId string, userId string, consent NullableBool, productsRequested []string, storeCredentials bool, encryptedCredentials EncryptedPayload) *ApiLinkRequest {
 	this := ApiLinkRequest{}
 	this.InstitutionId = institutionId
+	this.UserId = userId
 	this.Consent = consent
 	this.ProductsRequested = productsRequested
+	this.StoreCredentials = storeCredentials
 	this.EncryptedCredentials = encryptedCredentials
 	return &this
 }
@@ -73,36 +75,28 @@ func (o *ApiLinkRequest) SetInstitutionId(v string) {
 	o.InstitutionId = v
 }
 
-// GetUserId returns the UserId field value if set, zero value otherwise.
+// GetUserId returns the UserId field value
 func (o *ApiLinkRequest) GetUserId() string {
-	if o == nil || o.UserId == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.UserId
+
+	return o.UserId
 }
 
-// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
+// GetUserIdOk returns a tuple with the UserId field value
 // and a boolean to check if the value has been set.
 func (o *ApiLinkRequest) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.UserId, true
+	return &o.UserId, true
 }
 
-// HasUserId returns a boolean if a field has been set.
-func (o *ApiLinkRequest) HasUserId() bool {
-	if o != nil && o.UserId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUserId gets a reference to the given string and assigns it to the UserId field.
+// SetUserId sets field value
 func (o *ApiLinkRequest) SetUserId(v string) {
-	o.UserId = &v
+	o.UserId = v
 }
 
 // GetConsent returns the Consent field value
@@ -155,36 +149,28 @@ func (o *ApiLinkRequest) SetProductsRequested(v []string) {
 	o.ProductsRequested = v
 }
 
-// GetStoreCredential returns the StoreCredential field value if set, zero value otherwise.
-func (o *ApiLinkRequest) GetStoreCredential() bool {
-	if o == nil || o.StoreCredential == nil {
+// GetStoreCredentials returns the StoreCredentials field value
+func (o *ApiLinkRequest) GetStoreCredentials() bool {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.StoreCredential
+
+	return o.StoreCredentials
 }
 
-// GetStoreCredentialOk returns a tuple with the StoreCredential field value if set, nil otherwise
+// GetStoreCredentialsOk returns a tuple with the StoreCredentials field value
 // and a boolean to check if the value has been set.
-func (o *ApiLinkRequest) GetStoreCredentialOk() (*bool, bool) {
-	if o == nil || o.StoreCredential == nil {
+func (o *ApiLinkRequest) GetStoreCredentialsOk() (*bool, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.StoreCredential, true
+	return &o.StoreCredentials, true
 }
 
-// HasStoreCredential returns a boolean if a field has been set.
-func (o *ApiLinkRequest) HasStoreCredential() bool {
-	if o != nil && o.StoreCredential != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetStoreCredential gets a reference to the given bool and assigns it to the StoreCredential field.
-func (o *ApiLinkRequest) SetStoreCredential(v bool) {
-	o.StoreCredential = &v
+// SetStoreCredentials sets field value
+func (o *ApiLinkRequest) SetStoreCredentials(v bool) {
+	o.StoreCredentials = v
 }
 
 // GetEncryptedCredentials returns the EncryptedCredentials field value
@@ -216,7 +202,7 @@ func (o ApiLinkRequest) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["institution_id"] = o.InstitutionId
 	}
-	if o.UserId != nil {
+	if true {
 		toSerialize["user_id"] = o.UserId
 	}
 	if true {
@@ -225,8 +211,8 @@ func (o ApiLinkRequest) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["products_requested"] = o.ProductsRequested
 	}
-	if o.StoreCredential != nil {
-		toSerialize["store_credential"] = o.StoreCredential
+	if true {
+		toSerialize["store_credentials"] = o.StoreCredentials
 	}
 	if true {
 		toSerialize["encrypted_credentials"] = o.EncryptedCredentials

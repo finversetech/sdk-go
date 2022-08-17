@@ -2795,7 +2795,7 @@ components:
           messageAuthenticationCode: messageAuthenticationCode
           keyId: keyId
           state: state
-        store_credential: true
+        store_credentials: true
         consent: true
         products_requested:
         - ACCOUNTS
@@ -2824,7 +2824,7 @@ components:
           items:
             type: string
           type: array
-        store_credential:
+        store_credentials:
           example: true
           type: boolean
         encrypted_credentials:
@@ -2834,6 +2834,8 @@ components:
       - encrypted_credentials
       - institution_id
       - products_requested
+      - store_credentials
+      - user_id
       type: object
     RelinkRequest:
       example:
