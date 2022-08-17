@@ -2345,7 +2345,8 @@ components:
       example:
         portal_name: Personal Internet Banking
         login_methods:
-        - name: SMS OTP
+        - is_default_method: true
+          name: SMS OTP
           id: SMS OTP
           login_fields:
           - name: Password
@@ -2354,7 +2355,8 @@ components:
           - name: Password
             type: password
             key: password
-        - name: SMS OTP
+        - is_default_method: true
+          name: SMS OTP
           id: SMS OTP
           login_fields:
           - name: Password
@@ -2480,6 +2482,7 @@ components:
       type: object
     LoginMethod:
       example:
+        is_default_method: true
         name: SMS OTP
         id: SMS OTP
         login_fields:
@@ -2496,6 +2499,10 @@ components:
         name:
           example: SMS OTP
           type: string
+        is_default_method:
+          example: true
+          nullable: true
+          type: boolean
         login_fields:
           items:
             $ref: '#/components/schemas/LoginField'

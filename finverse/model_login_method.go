@@ -17,9 +17,10 @@ import (
 
 // LoginMethod struct for LoginMethod
 type LoginMethod struct {
-	Id          *string      `json:"id,omitempty"`
-	Name        *string      `json:"name,omitempty"`
-	LoginFields []LoginField `json:"login_fields,omitempty"`
+	Id              *string      `json:"id,omitempty"`
+	Name            *string      `json:"name,omitempty"`
+	IsDefaultMethod NullableBool `json:"is_default_method,omitempty"`
+	LoginFields     []LoginField `json:"login_fields,omitempty"`
 }
 
 // NewLoginMethod instantiates a new LoginMethod object
@@ -103,6 +104,49 @@ func (o *LoginMethod) SetName(v string) {
 	o.Name = &v
 }
 
+// GetIsDefaultMethod returns the IsDefaultMethod field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *LoginMethod) GetIsDefaultMethod() bool {
+	if o == nil || o.IsDefaultMethod.Get() == nil {
+		var ret bool
+		return ret
+	}
+	return *o.IsDefaultMethod.Get()
+}
+
+// GetIsDefaultMethodOk returns a tuple with the IsDefaultMethod field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *LoginMethod) GetIsDefaultMethodOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.IsDefaultMethod.Get(), o.IsDefaultMethod.IsSet()
+}
+
+// HasIsDefaultMethod returns a boolean if a field has been set.
+func (o *LoginMethod) HasIsDefaultMethod() bool {
+	if o != nil && o.IsDefaultMethod.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetIsDefaultMethod gets a reference to the given NullableBool and assigns it to the IsDefaultMethod field.
+func (o *LoginMethod) SetIsDefaultMethod(v bool) {
+	o.IsDefaultMethod.Set(&v)
+}
+
+// SetIsDefaultMethodNil sets the value for IsDefaultMethod to be an explicit nil
+func (o *LoginMethod) SetIsDefaultMethodNil() {
+	o.IsDefaultMethod.Set(nil)
+}
+
+// UnsetIsDefaultMethod ensures that no value is present for IsDefaultMethod, not even an explicit nil
+func (o *LoginMethod) UnsetIsDefaultMethod() {
+	o.IsDefaultMethod.Unset()
+}
+
 // GetLoginFields returns the LoginFields field value if set, zero value otherwise.
 func (o *LoginMethod) GetLoginFields() []LoginField {
 	if o == nil || o.LoginFields == nil {
@@ -142,6 +186,9 @@ func (o LoginMethod) MarshalJSON() ([]byte, error) {
 	}
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
+	}
+	if o.IsDefaultMethod.IsSet() {
+		toSerialize["is_default_method"] = o.IsDefaultMethod.Get()
 	}
 	if o.LoginFields != nil {
 		toSerialize["login_fields"] = o.LoginFields
