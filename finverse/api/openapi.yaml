@@ -683,9 +683,47 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Internal Server Error
+      security:
+      - Oauth2:
+        - link:api
       tags:
       - link
       x-codegen-request-body-name: actionRequest
+  /link/status/{loginIdentityId}:
+    get:
+      description: Check the status of a given loginIdentity
+      operationId: linkStatus
+      parameters:
+      - description: The login identity id
+        in: path
+        name: loginIdentityId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkStatusResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FvErrorModel'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - link:api
+      tags:
+      - link
   /auth/callback:
     get:
       description: Callback url to get the oauth authorization token
@@ -3999,6 +4037,267 @@ components:
       - keyId
       - messageAuthenticationCode
       - state
+      type: object
+    LinkStatusResponse:
+      example:
+        success:
+          access_token: access_token
+          refresh_token: refresh_token
+          login_identity_id: login_identity_id
+          token_type: token_type
+          expires_in: 0.8008281904610115
+        pending:
+          code: code
+          details: details
+          message: message
+        action:
+          buttons:
+          - name: name
+            type: SUBMIT
+            value: Submit One time password
+          - name: name
+            type: SUBMIT
+            value: Submit One time password
+          name: DEVICE_SELECTION
+          messages:
+          - name: name
+            type: type
+            value: value
+          - name: name
+            type: type
+            value: value
+          id: id
+          type: ACTION
+          fields:
+          - name: name
+            options:
+            - label: joe-iphone-13
+              value: Joe's iPhone 13 Pro Max
+            - label: joe-iphone-13
+              value: Joe's iPhone 13 Pro Max
+            label: label
+            placeholder: placeholder
+            type: SELECT
+          - name: name
+            options:
+            - label: joe-iphone-13
+              value: Joe's iPhone 13 Pro Max
+            - label: joe-iphone-13
+              value: Joe's iPhone 13 Pro Max
+            label: label
+            placeholder: placeholder
+            type: SELECT
+      properties:
+        success:
+          $ref: '#/components/schemas/AccessTokenResponse'
+        pending:
+          $ref: '#/components/schemas/LinkStatusPendingModel'
+        action:
+          $ref: '#/components/schemas/LinkStatusActionModel'
+      type: object
+    LinkStatusPendingModel:
+      example:
+        code: code
+        details: details
+        message: message
+      properties:
+        code:
+          type: string
+        message:
+          type: string
+        details:
+          type: string
+      type: object
+    LinkStatusActionModel:
+      example:
+        buttons:
+        - name: name
+          type: SUBMIT
+          value: Submit One time password
+        - name: name
+          type: SUBMIT
+          value: Submit One time password
+        name: DEVICE_SELECTION
+        messages:
+        - name: name
+          type: type
+          value: value
+        - name: name
+          type: type
+          value: value
+        id: id
+        type: ACTION
+        fields:
+        - name: name
+          options:
+          - label: joe-iphone-13
+            value: Joe's iPhone 13 Pro Max
+          - label: joe-iphone-13
+            value: Joe's iPhone 13 Pro Max
+          label: label
+          placeholder: placeholder
+          type: SELECT
+        - name: name
+          options:
+          - label: joe-iphone-13
+            value: Joe's iPhone 13 Pro Max
+          - label: joe-iphone-13
+            value: Joe's iPhone 13 Pro Max
+          label: label
+          placeholder: placeholder
+          type: SELECT
+      properties:
+        id:
+          description: Unique identifier
+          type: string
+        type:
+          description: The type of user screen the UI is to render
+          example: ACTION
+          type: string
+        name:
+          description: The name of the user screen the UI is to render
+          example: DEVICE_SELECTION
+          type: string
+        messages:
+          items:
+            $ref: '#/components/schemas/UserMessage'
+          type: array
+        fields:
+          items:
+            $ref: '#/components/schemas/UserField'
+          type: array
+        buttons:
+          items:
+            $ref: '#/components/schemas/UserButton'
+          type: array
+      required:
+      - fields
+      - id
+      - messages
+      - name
+      - type
+      type: object
+    UserMessage:
+      example:
+        name: name
+        type: type
+        value: value
+      properties:
+        name:
+          description: The name of the message
+          type: string
+        type:
+          description: The type of the message. This will help how the UI renders
+            this text.
+          type: string
+        value:
+          description: The actual text value.
+          type: string
+      required:
+      - name
+      - type
+      - value
+      type: object
+    UserField:
+      example:
+        name: name
+        options:
+        - label: joe-iphone-13
+          value: Joe's iPhone 13 Pro Max
+        - label: joe-iphone-13
+          value: Joe's iPhone 13 Pro Max
+        label: label
+        placeholder: placeholder
+        type: SELECT
+      properties:
+        name:
+          description: The name of the field. This will be used as the key when submitting
+            response.
+          type: string
+        label:
+          description: The label for this field.
+          type: string
+        placeholder:
+          description: The placeholder for this field.
+          type: string
+        type:
+          description: The type of field. Currently it can only be SELECT, INPUT or
+            PASSWORD
+          example: SELECT
+          type: string
+        options:
+          description: This is only applicable when the field type is SELECT
+          items:
+            $ref: '#/components/schemas/UserFieldOption'
+          type: array
+      required:
+      - name
+      - type
+      type: object
+    UserButton:
+      example:
+        name: name
+        type: SUBMIT
+        value: Submit One time password
+      properties:
+        name:
+          description: The name of the button.
+          type: string
+        value:
+          description: The text that will be displayed for this button
+          example: Submit One time password
+          type: string
+        type:
+          description: The type of button. Currently it can only be SUBMIT
+          example: SUBMIT
+          type: string
+      required:
+      - name
+      - type
+      - value
+      type: object
+    UserFieldOption:
+      example:
+        label: joe-iphone-13
+        value: Joe's iPhone 13 Pro Max
+      properties:
+        label:
+          description: The value displayed in the select element.
+          example: joe-iphone-13
+          type: string
+        value:
+          description: The value that will be submitted if this option was selected.
+          example: Joe's iPhone 13 Pro Max
+          type: string
+      required:
+      - label
+      - value
+      type: object
+    FvErrorModel:
+      properties:
+        type:
+          description: The error type
+          enum:
+          - LINK_ERROR
+          - API_ERROR
+          example: LINKING_ERROR
+          type: string
+        code:
+          example: CREDENTIALS_INVALID
+          type: string
+        message:
+          type: string
+        details:
+          type: string
+        request_id:
+          description: The request_id provided in the request header
+          type: string
+      required:
+      - code
+      - details
+      - message
+      - request_id
+      - type
       type: object
     BadRequestModel_error:
       properties:
