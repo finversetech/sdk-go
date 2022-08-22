@@ -717,7 +717,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/FvErrorModel'
           description: Internal Server Error
       security:
       - Oauth2:
@@ -3381,6 +3381,7 @@ components:
         login_identity_id: login_identity_id
         token_type: token_type
         expires_in: 0.8008281904610115
+        issued_at: 6.027456183070403
       properties:
         access_token:
           type: string
@@ -3394,9 +3395,13 @@ components:
           type: number
         refresh_token:
           type: string
+        issued_at:
+          format: int64
+          type: number
       required:
       - access_token
       - expires_in
+      - issued_at
       - login_identity_id
       - refresh_token
       - token_type
@@ -4046,6 +4051,7 @@ components:
           login_identity_id: login_identity_id
           token_type: token_type
           expires_in: 0.8008281904610115
+          issued_at: 6.027456183070403
         pending:
           code: code
           details: details
