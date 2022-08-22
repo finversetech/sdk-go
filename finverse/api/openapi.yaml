@@ -4273,6 +4273,11 @@ components:
       - label
       - value
       type: object
+    ErrBodyModel:
+      properties:
+        error:
+          $ref: '#/components/schemas/FvErrorModel'
+      type: object
     FvErrorModel:
       properties:
         type:
