@@ -23,19 +23,21 @@ type AccessTokenResponse struct {
 	// seconds
 	ExpiresIn    float32 `json:"expires_in"`
 	RefreshToken string  `json:"refresh_token"`
+	IssuedAt     float32 `json:"issued_at"`
 }
 
 // NewAccessTokenResponse instantiates a new AccessTokenResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccessTokenResponse(accessToken string, loginIdentityId string, tokenType string, expiresIn float32, refreshToken string) *AccessTokenResponse {
+func NewAccessTokenResponse(accessToken string, loginIdentityId string, tokenType string, expiresIn float32, refreshToken string, issuedAt float32) *AccessTokenResponse {
 	this := AccessTokenResponse{}
 	this.AccessToken = accessToken
 	this.LoginIdentityId = loginIdentityId
 	this.TokenType = tokenType
 	this.ExpiresIn = expiresIn
 	this.RefreshToken = refreshToken
+	this.IssuedAt = issuedAt
 	return &this
 }
 
@@ -167,6 +169,30 @@ func (o *AccessTokenResponse) SetRefreshToken(v string) {
 	o.RefreshToken = v
 }
 
+// GetIssuedAt returns the IssuedAt field value
+func (o *AccessTokenResponse) GetIssuedAt() float32 {
+	if o == nil {
+		var ret float32
+		return ret
+	}
+
+	return o.IssuedAt
+}
+
+// GetIssuedAtOk returns a tuple with the IssuedAt field value
+// and a boolean to check if the value has been set.
+func (o *AccessTokenResponse) GetIssuedAtOk() (*float32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IssuedAt, true
+}
+
+// SetIssuedAt sets field value
+func (o *AccessTokenResponse) SetIssuedAt(v float32) {
+	o.IssuedAt = v
+}
+
 func (o AccessTokenResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -183,6 +209,9 @@ func (o AccessTokenResponse) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["refresh_token"] = o.RefreshToken
+	}
+	if true {
+		toSerialize["issued_at"] = o.IssuedAt
 	}
 	return json.Marshal(toSerialize)
 }
