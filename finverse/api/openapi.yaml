@@ -2900,10 +2900,16 @@ components:
           messageAuthenticationCode: messageAuthenticationCode
           keyId: keyId
           state: state
+        actionId: 01ARZ3NDEKTSV4RRFFQ69G5FAV
       properties:
         encrypted_credentials:
           $ref: '#/components/schemas/EncryptedPayload'
+        actionId:
+          description: The action id
+          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          type: string
       required:
+      - actionId
       - encrypted_credentials
       type: object
     GetLoginIdentityByIdResponse:

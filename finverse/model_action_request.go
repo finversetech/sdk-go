@@ -18,15 +18,18 @@ import (
 // ActionRequest struct for ActionRequest
 type ActionRequest struct {
 	EncryptedCredentials EncryptedPayload `json:"encrypted_credentials"`
+	// The action id
+	ActionId string `json:"actionId"`
 }
 
 // NewActionRequest instantiates a new ActionRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewActionRequest(encryptedCredentials EncryptedPayload) *ActionRequest {
+func NewActionRequest(encryptedCredentials EncryptedPayload, actionId string) *ActionRequest {
 	this := ActionRequest{}
 	this.EncryptedCredentials = encryptedCredentials
+	this.ActionId = actionId
 	return &this
 }
 
@@ -62,10 +65,37 @@ func (o *ActionRequest) SetEncryptedCredentials(v EncryptedPayload) {
 	o.EncryptedCredentials = v
 }
 
+// GetActionId returns the ActionId field value
+func (o *ActionRequest) GetActionId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.ActionId
+}
+
+// GetActionIdOk returns a tuple with the ActionId field value
+// and a boolean to check if the value has been set.
+func (o *ActionRequest) GetActionIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.ActionId, true
+}
+
+// SetActionId sets field value
+func (o *ActionRequest) SetActionId(v string) {
+	o.ActionId = v
+}
+
 func (o ActionRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["encrypted_credentials"] = o.EncryptedCredentials
+	}
+	if true {
+		toSerialize["actionId"] = o.ActionId
 	}
 	return json.Marshal(toSerialize)
 }
