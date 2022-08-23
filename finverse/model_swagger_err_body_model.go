@@ -17,7 +17,7 @@ import (
 
 // SwaggerErrBodyModel struct for SwaggerErrBodyModel
 type SwaggerErrBodyModel struct {
-	Code    *float32      `json:"code,omitempty"`
+	Code    *int32        `json:"code,omitempty"`
 	Message *string       `json:"message,omitempty"`
 	Error   *FvErrorModel `json:"error,omitempty"`
 }
@@ -40,9 +40,9 @@ func NewSwaggerErrBodyModelWithDefaults() *SwaggerErrBodyModel {
 }
 
 // GetCode returns the Code field value if set, zero value otherwise.
-func (o *SwaggerErrBodyModel) GetCode() float32 {
+func (o *SwaggerErrBodyModel) GetCode() int32 {
 	if o == nil || o.Code == nil {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Code
@@ -50,7 +50,7 @@ func (o *SwaggerErrBodyModel) GetCode() float32 {
 
 // GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SwaggerErrBodyModel) GetCodeOk() (*float32, bool) {
+func (o *SwaggerErrBodyModel) GetCodeOk() (*int32, bool) {
 	if o == nil || o.Code == nil {
 		return nil, false
 	}
@@ -66,8 +66,8 @@ func (o *SwaggerErrBodyModel) HasCode() bool {
 	return false
 }
 
-// SetCode gets a reference to the given float32 and assigns it to the Code field.
-func (o *SwaggerErrBodyModel) SetCode(v float32) {
+// SetCode gets a reference to the given int32 and assigns it to the Code field.
+func (o *SwaggerErrBodyModel) SetCode(v int32) {
 	o.Code = &v
 }
 

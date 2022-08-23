@@ -4287,7 +4287,7 @@ components:
     SwaggerErrBodyModel:
       properties:
         code:
-          type: number
+          type: integer
         message:
           type: string
         error:
