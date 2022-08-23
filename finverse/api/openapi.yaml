@@ -2893,7 +2893,7 @@ components:
       type: object
     ActionRequest:
       example:
-        encrypted_action:
+        encrypted_credentials:
           initializationVector: initializationVector
           ciphertext: ciphertext
           envelopeEncryptionKey: envelopeEncryptionKey
@@ -2901,10 +2901,10 @@ components:
           keyId: keyId
           state: state
       properties:
-        encrypted_action:
+        encrypted_credentials:
           $ref: '#/components/schemas/EncryptedPayload'
       required:
-      - encrypted_action
+      - encrypted_credentials
       type: object
     GetLoginIdentityByIdResponse:
       example:
@@ -4065,6 +4065,7 @@ components:
             type: SUBMIT
             value: Submit One time password
           name: DEVICE_SELECTION
+          actionId: actionId
           messages:
           - name: name
             type: type
@@ -4072,7 +4073,6 @@ components:
           - name: name
             type: type
             value: value
-          id: id
           type: ACTION
           fields:
           - name: name
@@ -4124,6 +4124,7 @@ components:
           type: SUBMIT
           value: Submit One time password
         name: DEVICE_SELECTION
+        actionId: actionId
         messages:
         - name: name
           type: type
@@ -4131,7 +4132,6 @@ components:
         - name: name
           type: type
           value: value
-        id: id
         type: ACTION
         fields:
         - name: name
@@ -4153,7 +4153,7 @@ components:
           placeholder: placeholder
           type: SELECT
       properties:
-        id:
+        actionId:
           description: Unique identifier
           type: string
         type:
@@ -4177,8 +4177,8 @@ components:
             $ref: '#/components/schemas/UserButton'
           type: array
       required:
+      - actionId
       - fields
-      - id
       - messages
       - name
       - type

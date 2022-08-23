@@ -17,16 +17,16 @@ import (
 
 // ActionRequest struct for ActionRequest
 type ActionRequest struct {
-	EncryptedAction EncryptedPayload `json:"encrypted_action"`
+	EncryptedCredentials EncryptedPayload `json:"encrypted_credentials"`
 }
 
 // NewActionRequest instantiates a new ActionRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewActionRequest(encryptedAction EncryptedPayload) *ActionRequest {
+func NewActionRequest(encryptedCredentials EncryptedPayload) *ActionRequest {
 	this := ActionRequest{}
-	this.EncryptedAction = encryptedAction
+	this.EncryptedCredentials = encryptedCredentials
 	return &this
 }
 
@@ -38,34 +38,34 @@ func NewActionRequestWithDefaults() *ActionRequest {
 	return &this
 }
 
-// GetEncryptedAction returns the EncryptedAction field value
-func (o *ActionRequest) GetEncryptedAction() EncryptedPayload {
+// GetEncryptedCredentials returns the EncryptedCredentials field value
+func (o *ActionRequest) GetEncryptedCredentials() EncryptedPayload {
 	if o == nil {
 		var ret EncryptedPayload
 		return ret
 	}
 
-	return o.EncryptedAction
+	return o.EncryptedCredentials
 }
 
-// GetEncryptedActionOk returns a tuple with the EncryptedAction field value
+// GetEncryptedCredentialsOk returns a tuple with the EncryptedCredentials field value
 // and a boolean to check if the value has been set.
-func (o *ActionRequest) GetEncryptedActionOk() (*EncryptedPayload, bool) {
+func (o *ActionRequest) GetEncryptedCredentialsOk() (*EncryptedPayload, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.EncryptedAction, true
+	return &o.EncryptedCredentials, true
 }
 
-// SetEncryptedAction sets field value
-func (o *ActionRequest) SetEncryptedAction(v EncryptedPayload) {
-	o.EncryptedAction = v
+// SetEncryptedCredentials sets field value
+func (o *ActionRequest) SetEncryptedCredentials(v EncryptedPayload) {
+	o.EncryptedCredentials = v
 }
 
 func (o ActionRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["encrypted_action"] = o.EncryptedAction
+		toSerialize["encrypted_credentials"] = o.EncryptedCredentials
 	}
 	return json.Marshal(toSerialize)
 }

@@ -18,7 +18,7 @@ import (
 // LinkStatusActionModel struct for LinkStatusActionModel
 type LinkStatusActionModel struct {
 	// Unique identifier
-	Id string `json:"id"`
+	ActionId string `json:"actionId"`
 	// The type of user screen the UI is to render
 	Type string `json:"type"`
 	// The name of the user screen the UI is to render
@@ -32,9 +32,9 @@ type LinkStatusActionModel struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLinkStatusActionModel(id string, type_ string, name string, messages []UserMessage, fields []UserField) *LinkStatusActionModel {
+func NewLinkStatusActionModel(actionId string, type_ string, name string, messages []UserMessage, fields []UserField) *LinkStatusActionModel {
 	this := LinkStatusActionModel{}
-	this.Id = id
+	this.ActionId = actionId
 	this.Type = type_
 	this.Name = name
 	this.Messages = messages
@@ -50,28 +50,28 @@ func NewLinkStatusActionModelWithDefaults() *LinkStatusActionModel {
 	return &this
 }
 
-// GetId returns the Id field value
-func (o *LinkStatusActionModel) GetId() string {
+// GetActionId returns the ActionId field value
+func (o *LinkStatusActionModel) GetActionId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.Id
+	return o.ActionId
 }
 
-// GetIdOk returns a tuple with the Id field value
+// GetActionIdOk returns a tuple with the ActionId field value
 // and a boolean to check if the value has been set.
-func (o *LinkStatusActionModel) GetIdOk() (*string, bool) {
+func (o *LinkStatusActionModel) GetActionIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Id, true
+	return &o.ActionId, true
 }
 
-// SetId sets field value
-func (o *LinkStatusActionModel) SetId(v string) {
-	o.Id = v
+// SetActionId sets field value
+func (o *LinkStatusActionModel) SetActionId(v string) {
+	o.ActionId = v
 }
 
 // GetType returns the Type field value
@@ -205,7 +205,7 @@ func (o *LinkStatusActionModel) SetButtons(v []UserButton) {
 func (o LinkStatusActionModel) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["id"] = o.Id
+		toSerialize["actionId"] = o.ActionId
 	}
 	if true {
 		toSerialize["type"] = o.Type
