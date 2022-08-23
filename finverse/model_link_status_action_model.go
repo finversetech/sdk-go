@@ -18,7 +18,7 @@ import (
 // LinkStatusActionModel struct for LinkStatusActionModel
 type LinkStatusActionModel struct {
 	// Unique identifier
-	ActionId string `json:"actionId"`
+	ActionId string `json:"action_id"`
 	// The type of user screen the UI is to render
 	Type string `json:"type"`
 	// The name of the user screen the UI is to render
@@ -205,7 +205,7 @@ func (o *LinkStatusActionModel) SetButtons(v []UserButton) {
 func (o LinkStatusActionModel) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["actionId"] = o.ActionId
+		toSerialize["action_id"] = o.ActionId
 	}
 	if true {
 		toSerialize["type"] = o.Type

@@ -19,7 +19,7 @@ import (
 type ActionRequest struct {
 	EncryptedCredentials EncryptedPayload `json:"encrypted_credentials"`
 	// The action id
-	ActionId string `json:"actionId"`
+	ActionId string `json:"action_id"`
 }
 
 // NewActionRequest instantiates a new ActionRequest object
@@ -95,7 +95,7 @@ func (o ActionRequest) MarshalJSON() ([]byte, error) {
 		toSerialize["encrypted_credentials"] = o.EncryptedCredentials
 	}
 	if true {
-		toSerialize["actionId"] = o.ActionId
+		toSerialize["action_id"] = o.ActionId
 	}
 	return json.Marshal(toSerialize)
 }
