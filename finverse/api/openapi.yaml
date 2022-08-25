@@ -711,13 +711,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FvErrorModel'
+                $ref: '#/components/schemas/ErrBodyModel'
           description: Invalid Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/FvErrorModel'
+                $ref: '#/components/schemas/ErrBodyModel'
           description: Internal Server Error
       security:
       - Oauth2:

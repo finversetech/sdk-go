@@ -798,7 +798,7 @@ func (a *LinkApiService) LinkStatusExecute(r LinkApiApiLinkStatusRequest) (*Link
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
-			var v FvErrorModel
+			var v ErrBodyModel
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -808,7 +808,7 @@ func (a *LinkApiService) LinkStatusExecute(r LinkApiApiLinkStatusRequest) (*Link
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v FvErrorModel
+			var v ErrBodyModel
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
