@@ -382,7 +382,7 @@ func (a *LinkApiService) CreateLinkDummyExecute(r LinkApiApiCreateLinkDummyReque
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
-			var v BadRequestModel
+			var v ErrBodyModel
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -392,7 +392,7 @@ func (a *LinkApiService) CreateLinkDummyExecute(r LinkApiApiCreateLinkDummyReque
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
-			var v BadRequestModel
+			var v ErrBodyModel
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -402,7 +402,7 @@ func (a *LinkApiService) CreateLinkDummyExecute(r LinkApiApiCreateLinkDummyReque
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ErrorResponse
+			var v ErrBodyModel
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
