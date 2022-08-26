@@ -2832,7 +2832,6 @@ components:
           envelopeEncryptionKey: envelopeEncryptionKey
           messageAuthenticationCode: messageAuthenticationCode
           keyId: keyId
-          state: state
         store_credentials: true
         consent: true
         products_requested:
@@ -2900,7 +2899,6 @@ components:
           envelopeEncryptionKey: envelopeEncryptionKey
           messageAuthenticationCode: messageAuthenticationCode
           keyId: keyId
-          state: state
       properties:
         encrypted_credentials:
           $ref: '#/components/schemas/EncryptedPayload'
@@ -4022,7 +4020,6 @@ components:
         envelopeEncryptionKey: envelopeEncryptionKey
         messageAuthenticationCode: messageAuthenticationCode
         keyId: keyId
-        state: state
       properties:
         ciphertext:
           description: The credential payload encrypted with AES (base64)
@@ -4039,15 +4036,12 @@ components:
         keyId:
           description: The identifier of the public key used to encrypt the AES key
           type: string
-        state:
-          type: string
       required:
       - ciphertext
       - envelopeEncryptionKey
       - initializationVector
       - keyId
       - messageAuthenticationCode
-      - state
       type: object
     LinkStatusResponse:
       example:

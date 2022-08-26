@@ -27,21 +27,19 @@ type EncryptedPayload struct {
 	EnvelopeEncryptionKey string `json:"envelopeEncryptionKey"`
 	// The identifier of the public key used to encrypt the AES key
 	KeyId string `json:"keyId"`
-	State string `json:"state"`
 }
 
 // NewEncryptedPayload instantiates a new EncryptedPayload object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewEncryptedPayload(ciphertext string, initializationVector string, messageAuthenticationCode string, envelopeEncryptionKey string, keyId string, state string) *EncryptedPayload {
+func NewEncryptedPayload(ciphertext string, initializationVector string, messageAuthenticationCode string, envelopeEncryptionKey string, keyId string) *EncryptedPayload {
 	this := EncryptedPayload{}
 	this.Ciphertext = ciphertext
 	this.InitializationVector = initializationVector
 	this.MessageAuthenticationCode = messageAuthenticationCode
 	this.EnvelopeEncryptionKey = envelopeEncryptionKey
 	this.KeyId = keyId
-	this.State = state
 	return &this
 }
 
@@ -173,30 +171,6 @@ func (o *EncryptedPayload) SetKeyId(v string) {
 	o.KeyId = v
 }
 
-// GetState returns the State field value
-func (o *EncryptedPayload) GetState() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.State
-}
-
-// GetStateOk returns a tuple with the State field value
-// and a boolean to check if the value has been set.
-func (o *EncryptedPayload) GetStateOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.State, true
-}
-
-// SetState sets field value
-func (o *EncryptedPayload) SetState(v string) {
-	o.State = v
-}
-
 func (o EncryptedPayload) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -213,9 +187,6 @@ func (o EncryptedPayload) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["keyId"] = o.KeyId
-	}
-	if true {
-		toSerialize["state"] = o.State
 	}
 	return json.Marshal(toSerialize)
 }
