@@ -437,46 +437,46 @@ paths:
       - login_identity
   /link:
     post:
-      description: Creates a new link
+      description: Create a new link and submit credentials
       operationId: createLink
       requestBody:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/LinkRequest'
-        description: Request body for starting a new Link
+              $ref: '#/components/schemas/ApiLinkRequest'
+        description: Request body for creating a new link and submitting credentials
         required: true
       responses:
         "200":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/LinkResponse'
-          description: Service Okay
+                $ref: '#/components/schemas/GetLoginIdentityByIdResponse'
+          description: ok
         "400":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BadRequestModel'
+                $ref: '#/components/schemas/ErrBodyModel'
           description: Invalid Request
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BadRequestModel'
+                $ref: '#/components/schemas/ErrBodyModel'
           description: Unauthorized
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/ErrBodyModel'
           description: Internal Server Error
       security:
       - Oauth2:
-        - link
+        - link:api
       tags:
       - link
-      x-codegen-request-body-name: linkRequest
+      x-codegen-request-body-name: apiLinkRequest
   /link/woauth:
     post:
       description: Creates a new link
@@ -519,48 +519,6 @@ paths:
       tags:
       - link
       x-codegen-request-body-name: linkRequest
-  /link/dummy:
-    post:
-      description: Create a new link and submit credentials
-      operationId: createLinkDummy
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ApiLinkRequest'
-        description: Request body for creating a new link and submitting credentials
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetLoginIdentityByIdResponse'
-          description: ok
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModel'
-          description: Invalid Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModel'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModel'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - link:api
-      tags:
-      - link
-      x-codegen-request-body-name: apiLinkRequest
   /link/token:
     post:
       description: generate a link token that can be used to create link
