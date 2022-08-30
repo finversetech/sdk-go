@@ -12,6 +12,7 @@ model_account_number.go
 model_action_request.go
 model_all_product_status.go
 model_api_link_request.go
+model_api_relink_request.go
 model_bad_request_model.go
 model_bad_request_model_error.go
 model_balance_history.go
@@ -53,6 +54,7 @@ model_link_token_request.go
 model_link_token_response.go
 model_list_accounts_response.go
 model_list_transactions_response.go
+model_login_action.go
 model_login_field.go
 model_login_identity.go
 model_login_identity_billing_details.go

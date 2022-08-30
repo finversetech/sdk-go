@@ -34,6 +34,7 @@ type Institution struct {
 	LoginMethods          []LoginMethod          `json:"login_methods,omitempty"`
 	Color                 *string                `json:"color,omitempty"`
 	UpdatedAt             *time.Time             `json:"updated_at,omitempty"`
+	LoginActions          []LoginAction          `json:"login_actions,omitempty"`
 }
 
 // NewInstitution instantiates a new Institution object
@@ -516,6 +517,38 @@ func (o *Institution) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = &v
 }
 
+// GetLoginActions returns the LoginActions field value if set, zero value otherwise.
+func (o *Institution) GetLoginActions() []LoginAction {
+	if o == nil || o.LoginActions == nil {
+		var ret []LoginAction
+		return ret
+	}
+	return o.LoginActions
+}
+
+// GetLoginActionsOk returns a tuple with the LoginActions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Institution) GetLoginActionsOk() ([]LoginAction, bool) {
+	if o == nil || o.LoginActions == nil {
+		return nil, false
+	}
+	return o.LoginActions, true
+}
+
+// HasLoginActions returns a boolean if a field has been set.
+func (o *Institution) HasLoginActions() bool {
+	if o != nil && o.LoginActions != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetLoginActions gets a reference to the given []LoginAction and assigns it to the LoginActions field.
+func (o *Institution) SetLoginActions(v []LoginAction) {
+	o.LoginActions = v
+}
+
 func (o Institution) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -565,6 +598,9 @@ func (o Institution) MarshalJSON() ([]byte, error) {
 	}
 	if o.UpdatedAt != nil {
 		toSerialize["updated_at"] = o.UpdatedAt
+	}
+	if o.LoginActions != nil {
+		toSerialize["login_actions"] = o.LoginActions
 	}
 	return json.Marshal(toSerialize)
 }

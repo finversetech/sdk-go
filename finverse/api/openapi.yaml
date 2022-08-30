@@ -598,6 +598,55 @@ paths:
       tags:
       - link
       x-codegen-request-body-name: relinkRequest
+  /link/relink/{loginIdentityId}:
+    post:
+      description: Create a new link using an existing LIID
+      operationId: relinkV2
+      parameters:
+      - description: The login identity id
+        in: path
+        name: loginIdentityId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ApiRelinkRequest'
+        description: Request body for relinking and submitting credentials
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLoginIdentityByIdResponse'
+          description: Service Okay
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Internal Server Error
+      security:
+      - Ouath2:
+        - link:api
+      tags:
+      - link
+      x-codegen-request-body-name: apiRelinkRequest
   /link/action/{loginIdentityId}:
     post:
       description: Post the user action value
@@ -2371,6 +2420,77 @@ components:
         institution_id: "123"
         tags:
         - real
+        login_actions:
+        - buttons:
+          - name: name
+            type: SUBMIT
+            value: Submit One time password
+          - name: name
+            type: SUBMIT
+            value: Submit One time password
+          name: MOBILE_OTP
+          messages:
+          - name: name
+            type: type
+            value: value
+          - name: name
+            type: type
+            value: value
+          type: ACTION
+          fields:
+          - name: name
+            options:
+            - label: joe-iphone-13
+              value: Joe's iPhone 13 Pro Max
+            - label: joe-iphone-13
+              value: Joe's iPhone 13 Pro Max
+            label: label
+            placeholder: placeholder
+            type: SELECT
+          - name: name
+            options:
+            - label: joe-iphone-13
+              value: Joe's iPhone 13 Pro Max
+            - label: joe-iphone-13
+              value: Joe's iPhone 13 Pro Max
+            label: label
+            placeholder: placeholder
+            type: SELECT
+        - buttons:
+          - name: name
+            type: SUBMIT
+            value: Submit One time password
+          - name: name
+            type: SUBMIT
+            value: Submit One time password
+          name: MOBILE_OTP
+          messages:
+          - name: name
+            type: type
+            value: value
+          - name: name
+            type: type
+            value: value
+          type: ACTION
+          fields:
+          - name: name
+            options:
+            - label: joe-iphone-13
+              value: Joe's iPhone 13 Pro Max
+            - label: joe-iphone-13
+              value: Joe's iPhone 13 Pro Max
+            label: label
+            placeholder: placeholder
+            type: SELECT
+          - name: name
+            options:
+            - label: joe-iphone-13
+              value: Joe's iPhone 13 Pro Max
+            - label: joe-iphone-13
+              value: Joe's iPhone 13 Pro Max
+            label: label
+            placeholder: placeholder
+            type: SELECT
         products_supported:
         - ACCOUNTS
         - TRANSACTIONS
@@ -2467,6 +2587,10 @@ components:
         updated_at:
           format: date-time
           type: string
+        login_actions:
+          items:
+            $ref: '#/components/schemas/LoginAction'
+          type: array
       required:
       - countries
       - institution_id
@@ -2502,6 +2626,63 @@ components:
         login_fields:
           items:
             $ref: '#/components/schemas/LoginField'
+          type: array
+      type: object
+    LoginAction:
+      example:
+        buttons:
+        - name: name
+          type: SUBMIT
+          value: Submit One time password
+        - name: name
+          type: SUBMIT
+          value: Submit One time password
+        name: MOBILE_OTP
+        messages:
+        - name: name
+          type: type
+          value: value
+        - name: name
+          type: type
+          value: value
+        type: ACTION
+        fields:
+        - name: name
+          options:
+          - label: joe-iphone-13
+            value: Joe's iPhone 13 Pro Max
+          - label: joe-iphone-13
+            value: Joe's iPhone 13 Pro Max
+          label: label
+          placeholder: placeholder
+          type: SELECT
+        - name: name
+          options:
+          - label: joe-iphone-13
+            value: Joe's iPhone 13 Pro Max
+          - label: joe-iphone-13
+            value: Joe's iPhone 13 Pro Max
+          label: label
+          placeholder: placeholder
+          type: SELECT
+      properties:
+        type:
+          example: ACTION
+          type: string
+        name:
+          example: MOBILE_OTP
+          type: string
+        messages:
+          items:
+            $ref: '#/components/schemas/UserMessage'
+          type: array
+        fields:
+          items:
+            $ref: '#/components/schemas/UserField'
+          type: array
+        buttons:
+          items:
+            $ref: '#/components/schemas/UserButton'
           type: array
       type: object
     LoginField:
@@ -2831,6 +3012,27 @@ components:
       - products_requested
       - store_credentials
       - user_id
+      type: object
+    ApiRelinkRequest:
+      example:
+        encrypted_credentials:
+          initializationVector: initializationVector
+          ciphertext: ciphertext
+          envelopeEncryptionKey: envelopeEncryptionKey
+          messageAuthenticationCode: messageAuthenticationCode
+          keyId: keyId
+        store_credential: true
+        consent: true
+      properties:
+        store_credential:
+          type: boolean
+        consent:
+          type: boolean
+        encrypted_credentials:
+          $ref: '#/components/schemas/EncryptedPayload'
+      required:
+      - consent
+      - encrypted_credentials
       type: object
     RelinkRequest:
       example:
