@@ -642,7 +642,7 @@ paths:
                 $ref: '#/components/schemas/ErrBodyModel'
           description: Internal Server Error
       security:
-      - Ouath2:
+      - Oauth2:
         - relinkApi:create
       tags:
       - link
