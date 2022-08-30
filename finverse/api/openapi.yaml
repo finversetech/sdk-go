@@ -473,7 +473,7 @@ paths:
           description: Internal Server Error
       security:
       - Oauth2:
-        - link:api
+        - linkApi:create
       tags:
       - link
       x-codegen-request-body-name: apiLinkRequest
@@ -643,7 +643,7 @@ paths:
           description: Internal Server Error
       security:
       - Ouath2:
-        - link:api
+        - relinkApi:create
       tags:
       - link
       x-codegen-request-body-name: apiRelinkRequest
@@ -692,7 +692,7 @@ paths:
           description: Internal Server Error
       security:
       - Oauth2:
-        - link:api
+        - linkApi:update
       tags:
       - link
       x-codegen-request-body-name: actionRequest
@@ -728,7 +728,7 @@ paths:
           description: Internal Server Error
       security:
       - Oauth2:
-        - link:api
+        - linkApi:read
       tags:
       - link
   /auth/callback:
