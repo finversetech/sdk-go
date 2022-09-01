@@ -2498,7 +2498,9 @@ components:
         - ACCOUNT_NUMBERS
         - IDENTITY
         login_url: https://example.com/login
-        user_type: PERSONAL
+        user_type:
+        - INDIVIDUAL
+        - INDIVIDUAL
         updated_at: 2000-01-23T04:56:07.000+00:00
         status_details: {}
         status: SUPPORTED
@@ -2554,11 +2556,14 @@ components:
           example: Personal Internet Banking
           type: string
         user_type:
-          enum:
-          - PERSONAL
-          - BUSINESS
-          example: PERSONAL
-          type: string
+          items:
+            enum:
+            - PERSONAL
+            - INDIVIDUAL
+            - BUSINESS
+            example: INDIVIDUAL
+            type: string
+          type: array
         status:
           enum:
           - SUPPORTED

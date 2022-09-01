@@ -26,7 +26,7 @@ type Institution struct {
 	ParentInstitutionName *string                `json:"parent_institution_name,omitempty"`
 	InstitutionName       string                 `json:"institution_name"`
 	PortalName            *string                `json:"portal_name,omitempty"`
-	UserType              string                 `json:"user_type"`
+	UserType              []string               `json:"user_type"`
 	Status                string                 `json:"status"`
 	StatusDetails         map[string]interface{} `json:"status_details,omitempty"`
 	LoginUrl              *string                `json:"login_url,omitempty"`
@@ -41,7 +41,7 @@ type Institution struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInstitution(institutionId string, countries []string, institutionType string, productsSupported []string, institutionName string, userType string, status string) *Institution {
+func NewInstitution(institutionId string, countries []string, institutionType string, productsSupported []string, institutionName string, userType []string, status string) *Institution {
 	this := Institution{}
 	this.InstitutionId = institutionId
 	this.Countries = countries
@@ -278,9 +278,9 @@ func (o *Institution) SetPortalName(v string) {
 }
 
 // GetUserType returns the UserType field value
-func (o *Institution) GetUserType() string {
+func (o *Institution) GetUserType() []string {
 	if o == nil {
-		var ret string
+		var ret []string
 		return ret
 	}
 
@@ -289,15 +289,15 @@ func (o *Institution) GetUserType() string {
 
 // GetUserTypeOk returns a tuple with the UserType field value
 // and a boolean to check if the value has been set.
-func (o *Institution) GetUserTypeOk() (*string, bool) {
+func (o *Institution) GetUserTypeOk() ([]string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.UserType, true
+	return o.UserType, true
 }
 
 // SetUserType sets field value
-func (o *Institution) SetUserType(v string) {
+func (o *Institution) SetUserType(v []string) {
 	o.UserType = v
 }
 
