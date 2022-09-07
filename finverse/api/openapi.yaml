@@ -2502,6 +2502,12 @@ components:
         - INDIVIDUAL
         - INDIVIDUAL
         updated_at: 2000-01-23T04:56:07.000+00:00
+        payment_info:
+          currencies_supported:
+          - HKD
+          - CNY
+          other_info:
+            bank_code: bank_code
         status_details: {}
         status: SUPPORTED
       properties:
@@ -2586,6 +2592,8 @@ components:
           items:
             $ref: '#/components/schemas/LoginMethod'
           type: array
+        payment_info:
+          $ref: '#/components/schemas/PaymentInfo'
         color:
           example: '#FFFFFF'
           type: string
@@ -4483,6 +4491,24 @@ components:
       - message
       - request_id
       - type
+      type: object
+    PaymentInfo:
+      example:
+        currencies_supported:
+        - HKD
+        - CNY
+        other_info:
+          bank_code: bank_code
+      properties:
+        currencies_supported:
+          example:
+          - HKD
+          - CNY
+          items:
+            type: string
+          type: array
+        other_info:
+          $ref: '#/components/schemas/OtherInfo'
       type: object
     BadRequestModel_error:
       properties:

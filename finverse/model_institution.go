@@ -32,6 +32,7 @@ type Institution struct {
 	LoginUrl              *string                `json:"login_url,omitempty"`
 	LoginDetails          map[string]interface{} `json:"login_details,omitempty"`
 	LoginMethods          []LoginMethod          `json:"login_methods,omitempty"`
+	PaymentInfo           *PaymentInfo           `json:"payment_info,omitempty"`
 	Color                 *string                `json:"color,omitempty"`
 	UpdatedAt             *time.Time             `json:"updated_at,omitempty"`
 	LoginActions          []LoginAction          `json:"login_actions,omitempty"`
@@ -453,6 +454,38 @@ func (o *Institution) SetLoginMethods(v []LoginMethod) {
 	o.LoginMethods = v
 }
 
+// GetPaymentInfo returns the PaymentInfo field value if set, zero value otherwise.
+func (o *Institution) GetPaymentInfo() PaymentInfo {
+	if o == nil || o.PaymentInfo == nil {
+		var ret PaymentInfo
+		return ret
+	}
+	return *o.PaymentInfo
+}
+
+// GetPaymentInfoOk returns a tuple with the PaymentInfo field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Institution) GetPaymentInfoOk() (*PaymentInfo, bool) {
+	if o == nil || o.PaymentInfo == nil {
+		return nil, false
+	}
+	return o.PaymentInfo, true
+}
+
+// HasPaymentInfo returns a boolean if a field has been set.
+func (o *Institution) HasPaymentInfo() bool {
+	if o != nil && o.PaymentInfo != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentInfo gets a reference to the given PaymentInfo and assigns it to the PaymentInfo field.
+func (o *Institution) SetPaymentInfo(v PaymentInfo) {
+	o.PaymentInfo = &v
+}
+
 // GetColor returns the Color field value if set, zero value otherwise.
 func (o *Institution) GetColor() string {
 	if o == nil || o.Color == nil {
@@ -592,6 +625,9 @@ func (o Institution) MarshalJSON() ([]byte, error) {
 	}
 	if o.LoginMethods != nil {
 		toSerialize["login_methods"] = o.LoginMethods
+	}
+	if o.PaymentInfo != nil {
+		toSerialize["payment_info"] = o.PaymentInfo
 	}
 	if o.Color != nil {
 		toSerialize["color"] = o.Color

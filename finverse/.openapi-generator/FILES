@@ -67,6 +67,7 @@ model_monthly_income_estimate.go
 model_other_info.go
 model_payment_account.go
 model_payment_details.go
+model_payment_info.go
 model_principal.go
 model_product_status.go
 model_redirect_uri_response.go
