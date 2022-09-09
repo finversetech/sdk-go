@@ -459,12 +459,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrBodyModel'
           description: Invalid Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModel'
-          description: Unauthorized
         "500":
           content:
             application/json:
@@ -629,12 +623,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrBodyModel'
           description: Invalid Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModel'
-          description: Unauthorized
         "500":
           content:
             application/json:
@@ -678,12 +666,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrBodyModel'
           description: Bad Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModel'
-          description: Unauthorized
         "500":
           content:
             application/json:
