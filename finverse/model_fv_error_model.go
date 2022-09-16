@@ -18,10 +18,11 @@ import (
 // FvErrorModel struct for FvErrorModel
 type FvErrorModel struct {
 	// The error type
-	Type    string `json:"type"`
-	Code    string `json:"code"`
-	Message string `json:"message"`
-	Details string `json:"details"`
+	Type      string  `json:"type"`
+	ErrorCode *string `json:"error_code,omitempty"`
+	Code      string  `json:"code"`
+	Message   string  `json:"message"`
+	Details   string  `json:"details"`
 	// The request_id provided in the request header
 	RequestId string `json:"request_id"`
 }
@@ -70,6 +71,38 @@ func (o *FvErrorModel) GetTypeOk() (*string, bool) {
 // SetType sets field value
 func (o *FvErrorModel) SetType(v string) {
 	o.Type = v
+}
+
+// GetErrorCode returns the ErrorCode field value if set, zero value otherwise.
+func (o *FvErrorModel) GetErrorCode() string {
+	if o == nil || o.ErrorCode == nil {
+		var ret string
+		return ret
+	}
+	return *o.ErrorCode
+}
+
+// GetErrorCodeOk returns a tuple with the ErrorCode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FvErrorModel) GetErrorCodeOk() (*string, bool) {
+	if o == nil || o.ErrorCode == nil {
+		return nil, false
+	}
+	return o.ErrorCode, true
+}
+
+// HasErrorCode returns a boolean if a field has been set.
+func (o *FvErrorModel) HasErrorCode() bool {
+	if o != nil && o.ErrorCode != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetErrorCode gets a reference to the given string and assigns it to the ErrorCode field.
+func (o *FvErrorModel) SetErrorCode(v string) {
+	o.ErrorCode = &v
 }
 
 // GetCode returns the Code field value
@@ -172,6 +205,9 @@ func (o FvErrorModel) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["type"] = o.Type
+	}
+	if o.ErrorCode != nil {
+		toSerialize["error_code"] = o.ErrorCode
 	}
 	if true {
 		toSerialize["code"] = o.Code

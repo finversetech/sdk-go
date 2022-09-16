@@ -4457,6 +4457,9 @@ components:
           - API_ERROR
           example: LINKING_ERROR
           type: string
+        error_code:
+          example: CREDENTIALS_INVALID
+          type: string
         code:
           example: CREDENTIALS_INVALID
           type: string
