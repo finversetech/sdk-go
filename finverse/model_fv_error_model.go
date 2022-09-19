@@ -18,11 +18,11 @@ import (
 // FvErrorModel struct for FvErrorModel
 type FvErrorModel struct {
 	// The error type
-	Type      string  `json:"type"`
-	ErrorCode *string `json:"error_code,omitempty"`
-	Code      string  `json:"code"`
-	Message   string  `json:"message"`
-	Details   string  `json:"details"`
+	Type      string `json:"type"`
+	ErrorCode string `json:"error_code"`
+	Code      string `json:"code"`
+	Message   string `json:"message"`
+	Details   string `json:"details"`
 	// The request_id provided in the request header
 	RequestId string `json:"request_id"`
 }
@@ -31,9 +31,10 @@ type FvErrorModel struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFvErrorModel(type_ string, code string, message string, details string, requestId string) *FvErrorModel {
+func NewFvErrorModel(type_ string, errorCode string, code string, message string, details string, requestId string) *FvErrorModel {
 	this := FvErrorModel{}
 	this.Type = type_
+	this.ErrorCode = errorCode
 	this.Code = code
 	this.Message = message
 	this.Details = details
@@ -73,36 +74,28 @@ func (o *FvErrorModel) SetType(v string) {
 	o.Type = v
 }
 
-// GetErrorCode returns the ErrorCode field value if set, zero value otherwise.
+// GetErrorCode returns the ErrorCode field value
 func (o *FvErrorModel) GetErrorCode() string {
-	if o == nil || o.ErrorCode == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.ErrorCode
+
+	return o.ErrorCode
 }
 
-// GetErrorCodeOk returns a tuple with the ErrorCode field value if set, nil otherwise
+// GetErrorCodeOk returns a tuple with the ErrorCode field value
 // and a boolean to check if the value has been set.
 func (o *FvErrorModel) GetErrorCodeOk() (*string, bool) {
-	if o == nil || o.ErrorCode == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.ErrorCode, true
+	return &o.ErrorCode, true
 }
 
-// HasErrorCode returns a boolean if a field has been set.
-func (o *FvErrorModel) HasErrorCode() bool {
-	if o != nil && o.ErrorCode != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetErrorCode gets a reference to the given string and assigns it to the ErrorCode field.
+// SetErrorCode sets field value
 func (o *FvErrorModel) SetErrorCode(v string) {
-	o.ErrorCode = &v
+	o.ErrorCode = v
 }
 
 // GetCode returns the Code field value
@@ -206,7 +199,7 @@ func (o FvErrorModel) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["type"] = o.Type
 	}
-	if o.ErrorCode != nil {
+	if true {
 		toSerialize["error_code"] = o.ErrorCode
 	}
 	if true {
