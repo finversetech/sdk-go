@@ -166,6 +166,15 @@ paths:
         required: true
         schema:
           type: string
+      - description: The source will determine what type of balance history will be
+          returned
+        in: query
+        name: source
+        schema:
+          enum:
+          - INSTITUTION
+          - COMPUTED
+          type: string
       responses:
         "200":
           content:
@@ -1348,6 +1357,7 @@ components:
         - date: 2021-10-27
           amount: 69.0
           currency: HKD
+        source: INSTITUTION
         account:
           country: HKG
           account_type: SAVINGS
@@ -1383,6 +1393,11 @@ components:
           items:
             $ref: '#/components/schemas/BalanceHistory'
           type: array
+        source:
+          enum:
+          - INSTITUTION
+          - COMPUTED
+          type: string
       type: object
     GetIdentityResponse:
       example:

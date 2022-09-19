@@ -741,6 +741,13 @@ type LoginIdentityApiApiGetBalanceHistoryRequest struct {
 	ctx        context.Context
 	ApiService LoginIdentityApi
 	accountId  string
+	source     *string
+}
+
+// The source will determine what type of balance history will be returned
+func (r LoginIdentityApiApiGetBalanceHistoryRequest) Source(source string) LoginIdentityApiApiGetBalanceHistoryRequest {
+	r.source = &source
+	return r
 }
 
 func (r LoginIdentityApiApiGetBalanceHistoryRequest) Execute() (*GetBalanceHistoryResponse, *http.Response, error) {
@@ -786,6 +793,9 @@ func (a *LoginIdentityApiService) GetBalanceHistoryExecute(r LoginIdentityApiApi
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.source != nil {
+		localVarQueryParams.Add("source", parameterToString(*r.source, ""))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

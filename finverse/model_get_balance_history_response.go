@@ -21,6 +21,7 @@ type GetBalanceHistoryResponse struct {
 	LoginIdentity  *LoginIdentityShort `json:"login_identity,omitempty"`
 	Institution    *InstitutionShort   `json:"institution,omitempty"`
 	BalanceHistory []BalanceHistory    `json:"balance_history,omitempty"`
+	Source         *string             `json:"source,omitempty"`
 }
 
 // NewGetBalanceHistoryResponse instantiates a new GetBalanceHistoryResponse object
@@ -168,6 +169,38 @@ func (o *GetBalanceHistoryResponse) SetBalanceHistory(v []BalanceHistory) {
 	o.BalanceHistory = v
 }
 
+// GetSource returns the Source field value if set, zero value otherwise.
+func (o *GetBalanceHistoryResponse) GetSource() string {
+	if o == nil || o.Source == nil {
+		var ret string
+		return ret
+	}
+	return *o.Source
+}
+
+// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetBalanceHistoryResponse) GetSourceOk() (*string, bool) {
+	if o == nil || o.Source == nil {
+		return nil, false
+	}
+	return o.Source, true
+}
+
+// HasSource returns a boolean if a field has been set.
+func (o *GetBalanceHistoryResponse) HasSource() bool {
+	if o != nil && o.Source != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSource gets a reference to the given string and assigns it to the Source field.
+func (o *GetBalanceHistoryResponse) SetSource(v string) {
+	o.Source = &v
+}
+
 func (o GetBalanceHistoryResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Account != nil {
@@ -181,6 +214,9 @@ func (o GetBalanceHistoryResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.BalanceHistory != nil {
 		toSerialize["balance_history"] = o.BalanceHistory
+	}
+	if o.Source != nil {
+		toSerialize["source"] = o.Source
 	}
 	return json.Marshal(toSerialize)
 }
