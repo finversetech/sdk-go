@@ -2413,7 +2413,7 @@ components:
         countries:
         - HKG
         institution_name: Mock Bank
-        login_details: {}
+        login_details: '{}'
         institution_id: "123"
         tags:
         - real
@@ -2582,9 +2582,11 @@ components:
           example: https://example.com/login
           type: string
         login_details:
-          example: {}
-          properties: {}
           type: object
+          x-go-type:
+            type: LoginDetails
+            import:
+              package: gitlab.com/finverse/gitops/applications/api/models/custom
         login_methods:
           items:
             $ref: '#/components/schemas/LoginMethod'
@@ -2606,6 +2608,7 @@ components:
       - institution_id
       - institution_name
       - institution_type
+      - login_details
       - products_supported
       - status
       - user_type
