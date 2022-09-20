@@ -2975,6 +2975,7 @@ components:
     ApiLinkRequest:
       example:
         user_id: user_id
+        payment_instruction_id: payment_instruction_id
         encrypted_credentials:
           initializationVector: initializationVector
           ciphertext: ciphertext
@@ -3015,6 +3016,8 @@ components:
           type: boolean
         encrypted_credentials:
           $ref: '#/components/schemas/EncryptedPayload'
+        payment_instruction_id:
+          type: string
       required:
       - consent
       - encrypted_credentials

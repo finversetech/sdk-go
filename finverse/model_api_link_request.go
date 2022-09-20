@@ -26,6 +26,7 @@ type ApiLinkRequest struct {
 	ProductsRequested    []string         `json:"products_requested"`
 	StoreCredentials     bool             `json:"store_credentials"`
 	EncryptedCredentials EncryptedPayload `json:"encrypted_credentials"`
+	PaymentInstructionId *string          `json:"payment_instruction_id,omitempty"`
 }
 
 // NewApiLinkRequest instantiates a new ApiLinkRequest object
@@ -197,6 +198,38 @@ func (o *ApiLinkRequest) SetEncryptedCredentials(v EncryptedPayload) {
 	o.EncryptedCredentials = v
 }
 
+// GetPaymentInstructionId returns the PaymentInstructionId field value if set, zero value otherwise.
+func (o *ApiLinkRequest) GetPaymentInstructionId() string {
+	if o == nil || o.PaymentInstructionId == nil {
+		var ret string
+		return ret
+	}
+	return *o.PaymentInstructionId
+}
+
+// GetPaymentInstructionIdOk returns a tuple with the PaymentInstructionId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ApiLinkRequest) GetPaymentInstructionIdOk() (*string, bool) {
+	if o == nil || o.PaymentInstructionId == nil {
+		return nil, false
+	}
+	return o.PaymentInstructionId, true
+}
+
+// HasPaymentInstructionId returns a boolean if a field has been set.
+func (o *ApiLinkRequest) HasPaymentInstructionId() bool {
+	if o != nil && o.PaymentInstructionId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentInstructionId gets a reference to the given string and assigns it to the PaymentInstructionId field.
+func (o *ApiLinkRequest) SetPaymentInstructionId(v string) {
+	o.PaymentInstructionId = &v
+}
+
 func (o ApiLinkRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -216,6 +249,9 @@ func (o ApiLinkRequest) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["encrypted_credentials"] = o.EncryptedCredentials
+	}
+	if o.PaymentInstructionId != nil {
+		toSerialize["payment_instruction_id"] = o.PaymentInstructionId
 	}
 	return json.Marshal(toSerialize)
 }
