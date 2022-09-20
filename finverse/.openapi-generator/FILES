@@ -15,6 +15,8 @@ model_api_link_request.go
 model_api_relink_request.go
 model_bad_request_model.go
 model_bad_request_model_error.go
+model_bad_request_model_v2.go
+model_bad_request_model_v2_error.go
 model_balance_history.go
 model_composite_statement_link.go
 model_currency_amount.go

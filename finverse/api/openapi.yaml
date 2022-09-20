@@ -3588,6 +3588,11 @@ components:
         error:
           $ref: '#/components/schemas/BadRequestModel_error'
       type: object
+    BadRequestModelV2:
+      properties:
+        error:
+          $ref: '#/components/schemas/BadRequestModelV2_error'
+      type: object
     GetStatementsResponse:
       example:
         institution:
@@ -4529,6 +4534,36 @@ components:
           description: A link to visit for further action
           example: link.finverse.com
           type: string
+      type: object
+    BadRequestModelV2_error:
+      properties:
+        type:
+          description: The error type
+          enum:
+          - LINK_ERROR
+          - API_ERROR
+          example: LINKING_ERROR
+          type: string
+        error_code:
+          example: CREDENTIALS_INVALID
+          type: string
+        code:
+          example: 40004.0
+          type: number
+        message:
+          type: string
+        details:
+          type: string
+        request_id:
+          description: The request_id provided in the request header
+          type: string
+      required:
+      - code
+      - details
+      - error_code
+      - message
+      - request_id
+      - type
       type: object
   securitySchemes:
     Oauth2:
