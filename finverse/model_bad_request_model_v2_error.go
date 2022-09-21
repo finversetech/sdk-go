@@ -22,7 +22,7 @@ type BadRequestModelV2Error struct {
 	ErrorCode string  `json:"error_code"`
 	Code      float32 `json:"code"`
 	Message   string  `json:"message"`
-	Details   string  `json:"details"`
+	Details   *string `json:"details,omitempty"`
 	// The request_id provided in the request header
 	RequestId string `json:"request_id"`
 }
@@ -31,13 +31,12 @@ type BadRequestModelV2Error struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBadRequestModelV2Error(type_ string, errorCode string, code float32, message string, details string, requestId string) *BadRequestModelV2Error {
+func NewBadRequestModelV2Error(type_ string, errorCode string, code float32, message string, requestId string) *BadRequestModelV2Error {
 	this := BadRequestModelV2Error{}
 	this.Type = type_
 	this.ErrorCode = errorCode
 	this.Code = code
 	this.Message = message
-	this.Details = details
 	this.RequestId = requestId
 	return &this
 }
@@ -146,28 +145,36 @@ func (o *BadRequestModelV2Error) SetMessage(v string) {
 	o.Message = v
 }
 
-// GetDetails returns the Details field value
+// GetDetails returns the Details field value if set, zero value otherwise.
 func (o *BadRequestModelV2Error) GetDetails() string {
-	if o == nil {
+	if o == nil || o.Details == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Details
+	return *o.Details
 }
 
-// GetDetailsOk returns a tuple with the Details field value
+// GetDetailsOk returns a tuple with the Details field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BadRequestModelV2Error) GetDetailsOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.Details == nil {
 		return nil, false
 	}
-	return &o.Details, true
+	return o.Details, true
 }
 
-// SetDetails sets field value
+// HasDetails returns a boolean if a field has been set.
+func (o *BadRequestModelV2Error) HasDetails() bool {
+	if o != nil && o.Details != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDetails gets a reference to the given string and assigns it to the Details field.
 func (o *BadRequestModelV2Error) SetDetails(v string) {
-	o.Details = v
+	o.Details = &v
 }
 
 // GetRequestId returns the RequestId field value
@@ -208,7 +215,7 @@ func (o BadRequestModelV2Error) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["message"] = o.Message
 	}
-	if true {
+	if o.Details != nil {
 		toSerialize["details"] = o.Details
 	}
 	if true {

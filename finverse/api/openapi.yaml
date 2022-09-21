@@ -4568,7 +4568,6 @@ components:
           type: string
       required:
       - code
-      - details
       - error_code
       - message
       - request_id
