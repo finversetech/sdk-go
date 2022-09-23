@@ -863,19 +863,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BadRequestModel'
+                $ref: '#/components/schemas/BadRequestModelV2'
           description: Bad Request
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BadRequestModel'
+                $ref: '#/components/schemas/BadRequestModelV2'
           description: Unauthorized
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BadRequestModel'
+                $ref: '#/components/schemas/BadRequestModelV2'
           description: Internal Server Error
       security:
       - Oauth2:
