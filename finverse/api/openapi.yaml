@@ -24,6 +24,22 @@ tags:
 - description: Operations required a link token
   name: link
 paths:
+  /jwks:
+    get:
+      description: get jwks
+      operationId: getCredSubmitJwks
+      responses:
+        "200":
+          content: {}
+          description: ok
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Internal Server Error
+      tags:
+      - public
   /auth/customer/token:
     post:
       description: generate an access_token
