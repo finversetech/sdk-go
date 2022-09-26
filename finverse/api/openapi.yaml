@@ -734,6 +734,41 @@ paths:
         - linkApi:read
       tags:
       - link
+  /link/fvlink/status/{loginIdentityId}:
+    get:
+      description: Check the status of a given login identity via FVLink
+      operationId: linkStatusNonSensitive
+      parameters:
+      - description: The login identity id
+        in: path
+        name: loginIdentityId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/NonSensitiveLinkStatusResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - fvLinkStatus:read
+      tags:
+      - link
   /auth/callback:
     get:
       description: Callback url to get the oauth authorization token
@@ -4281,6 +4316,52 @@ components:
           $ref: '#/components/schemas/LinkStatusPendingModel'
         action:
           $ref: '#/components/schemas/LinkStatusActionModel'
+      type: object
+    NonSensitiveLinkStatusResponse:
+      example:
+        action:
+          buttons:
+          - name: name
+            type: SUBMIT
+            value: Submit One time password
+          - name: name
+            type: SUBMIT
+            value: Submit One time password
+          action_id: action_id
+          name: DEVICE_SELECTION
+          messages:
+          - name: name
+            type: type
+            value: value
+          - name: name
+            type: type
+            value: value
+          type: ACTION
+          fields:
+          - name: name
+            options:
+            - label: joe-iphone-13
+              value: Joe's iPhone 13 Pro Max
+            - label: joe-iphone-13
+              value: Joe's iPhone 13 Pro Max
+            label: label
+            placeholder: placeholder
+            type: SELECT
+          - name: name
+            options:
+            - label: joe-iphone-13
+              value: Joe's iPhone 13 Pro Max
+            - label: joe-iphone-13
+              value: Joe's iPhone 13 Pro Max
+            label: label
+            placeholder: placeholder
+            type: SELECT
+        redirect_uri: redirect_uri
+      properties:
+        action:
+          $ref: '#/components/schemas/LinkStatusActionModel'
+        redirect_uri:
+          type: string
       type: object
     LinkStatusPendingModel:
       example:
