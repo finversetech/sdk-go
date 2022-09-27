@@ -208,13 +208,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BadRequestModel'
+                $ref: '#/components/schemas/BadRequestModelV2'
           description: Invalid Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/BadRequestModelV2'
           description: Internal Server Error
       security:
       - Oauth2:
