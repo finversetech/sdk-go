@@ -1706,7 +1706,7 @@ func (a *LoginIdentityApiService) ListAccountsExecute(r LoginIdentityApiApiListA
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
-			var v BadRequestModel
+			var v BadRequestModelV2
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -1716,7 +1716,7 @@ func (a *LoginIdentityApiService) ListAccountsExecute(r LoginIdentityApiApiListA
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ErrorResponse
+			var v BadRequestModelV2
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
