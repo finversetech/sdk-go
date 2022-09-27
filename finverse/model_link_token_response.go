@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // LinkTokenResponse struct for LinkTokenResponse
@@ -20,19 +21,21 @@ type LinkTokenResponse struct {
 	AccessToken string `json:"access_token"`
 	TokenType   string `json:"token_type"`
 	// seconds
-	ExpiresIn float32 `json:"expires_in"`
-	LinkUrl   string  `json:"link_url"`
+	ExpiresIn float32   `json:"expires_in"`
+	IssuedAt  time.Time `json:"issued_at"`
+	LinkUrl   string    `json:"link_url"`
 }
 
 // NewLinkTokenResponse instantiates a new LinkTokenResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLinkTokenResponse(accessToken string, tokenType string, expiresIn float32, linkUrl string) *LinkTokenResponse {
+func NewLinkTokenResponse(accessToken string, tokenType string, expiresIn float32, issuedAt time.Time, linkUrl string) *LinkTokenResponse {
 	this := LinkTokenResponse{}
 	this.AccessToken = accessToken
 	this.TokenType = tokenType
 	this.ExpiresIn = expiresIn
+	this.IssuedAt = issuedAt
 	this.LinkUrl = linkUrl
 	return &this
 }
@@ -117,6 +120,30 @@ func (o *LinkTokenResponse) SetExpiresIn(v float32) {
 	o.ExpiresIn = v
 }
 
+// GetIssuedAt returns the IssuedAt field value
+func (o *LinkTokenResponse) GetIssuedAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.IssuedAt
+}
+
+// GetIssuedAtOk returns a tuple with the IssuedAt field value
+// and a boolean to check if the value has been set.
+func (o *LinkTokenResponse) GetIssuedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IssuedAt, true
+}
+
+// SetIssuedAt sets field value
+func (o *LinkTokenResponse) SetIssuedAt(v time.Time) {
+	o.IssuedAt = v
+}
+
 // GetLinkUrl returns the LinkUrl field value
 func (o *LinkTokenResponse) GetLinkUrl() string {
 	if o == nil {
@@ -151,6 +178,9 @@ func (o LinkTokenResponse) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["expires_in"] = o.ExpiresIn
+	}
+	if true {
+		toSerialize["issued_at"] = o.IssuedAt
 	}
 	if true {
 		toSerialize["link_url"] = o.LinkUrl

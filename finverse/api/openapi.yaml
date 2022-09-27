@@ -1159,13 +1159,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BadRequestModel'
+                $ref: '#/components/schemas/BadRequestModelV2'
           description: Invalid Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/BadRequestModelV2'
           description: Internal Server Error
       security:
       - Oauth2:
@@ -2793,6 +2793,7 @@ components:
         access_token: access_token
         token_type: token_type
         expires_in: 0.8008281904610115
+        issued_at: 2000-01-23T04:56:07.000+00:00
       properties:
         access_token:
           type: string
@@ -2802,9 +2803,13 @@ components:
           description: seconds
           format: int64
           type: number
+        issued_at:
+          format: date-time
+          type: string
       required:
       - access_token
       - expires_in
+      - issued_at
       - token_type
       type: object
     LinkTokenRequest:
@@ -2968,6 +2973,7 @@ components:
         link_url: https://link.dev.finverse.net/onboarding?token=dasdsa8erhiu7rey78r
         token_type: token_type
         expires_in: 0.8008281904610115
+        issued_at: 2000-01-23T04:56:07.000+00:00
       properties:
         access_token:
           type: string
@@ -2977,12 +2983,16 @@ components:
           description: seconds
           format: int64
           type: number
+        issued_at:
+          format: date-time
+          type: string
         link_url:
           example: https://link.dev.finverse.net/onboarding?token=dasdsa8erhiu7rey78r
           type: string
       required:
       - access_token
       - expires_in
+      - issued_at
       - link_url
       - token_type
       type: object

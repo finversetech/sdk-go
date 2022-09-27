@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // TokenResponse struct for TokenResponse
@@ -20,18 +21,20 @@ type TokenResponse struct {
 	AccessToken string `json:"access_token"`
 	TokenType   string `json:"token_type"`
 	// seconds
-	ExpiresIn float32 `json:"expires_in"`
+	ExpiresIn float32   `json:"expires_in"`
+	IssuedAt  time.Time `json:"issued_at"`
 }
 
 // NewTokenResponse instantiates a new TokenResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTokenResponse(accessToken string, tokenType string, expiresIn float32) *TokenResponse {
+func NewTokenResponse(accessToken string, tokenType string, expiresIn float32, issuedAt time.Time) *TokenResponse {
 	this := TokenResponse{}
 	this.AccessToken = accessToken
 	this.TokenType = tokenType
 	this.ExpiresIn = expiresIn
+	this.IssuedAt = issuedAt
 	return &this
 }
 
@@ -115,6 +118,30 @@ func (o *TokenResponse) SetExpiresIn(v float32) {
 	o.ExpiresIn = v
 }
 
+// GetIssuedAt returns the IssuedAt field value
+func (o *TokenResponse) GetIssuedAt() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.IssuedAt
+}
+
+// GetIssuedAtOk returns a tuple with the IssuedAt field value
+// and a boolean to check if the value has been set.
+func (o *TokenResponse) GetIssuedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.IssuedAt, true
+}
+
+// SetIssuedAt sets field value
+func (o *TokenResponse) SetIssuedAt(v time.Time) {
+	o.IssuedAt = v
+}
+
 func (o TokenResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -125,6 +152,9 @@ func (o TokenResponse) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["expires_in"] = o.ExpiresIn
+	}
+	if true {
+		toSerialize["issued_at"] = o.IssuedAt
 	}
 	return json.Marshal(toSerialize)
 }
