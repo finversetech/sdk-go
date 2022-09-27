@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // AccessTokenResponse struct for AccessTokenResponse
@@ -21,16 +22,16 @@ type AccessTokenResponse struct {
 	LoginIdentityId string `json:"login_identity_id"`
 	TokenType       string `json:"token_type"`
 	// seconds
-	ExpiresIn    float32 `json:"expires_in"`
-	RefreshToken string  `json:"refresh_token"`
-	IssuedAt     float32 `json:"issued_at"`
+	ExpiresIn    float32   `json:"expires_in"`
+	RefreshToken string    `json:"refresh_token"`
+	IssuedAt     time.Time `json:"issued_at"`
 }
 
 // NewAccessTokenResponse instantiates a new AccessTokenResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccessTokenResponse(accessToken string, loginIdentityId string, tokenType string, expiresIn float32, refreshToken string, issuedAt float32) *AccessTokenResponse {
+func NewAccessTokenResponse(accessToken string, loginIdentityId string, tokenType string, expiresIn float32, refreshToken string, issuedAt time.Time) *AccessTokenResponse {
 	this := AccessTokenResponse{}
 	this.AccessToken = accessToken
 	this.LoginIdentityId = loginIdentityId
@@ -170,9 +171,9 @@ func (o *AccessTokenResponse) SetRefreshToken(v string) {
 }
 
 // GetIssuedAt returns the IssuedAt field value
-func (o *AccessTokenResponse) GetIssuedAt() float32 {
+func (o *AccessTokenResponse) GetIssuedAt() time.Time {
 	if o == nil {
-		var ret float32
+		var ret time.Time
 		return ret
 	}
 
@@ -181,7 +182,7 @@ func (o *AccessTokenResponse) GetIssuedAt() float32 {
 
 // GetIssuedAtOk returns a tuple with the IssuedAt field value
 // and a boolean to check if the value has been set.
-func (o *AccessTokenResponse) GetIssuedAtOk() (*float32, bool) {
+func (o *AccessTokenResponse) GetIssuedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -189,7 +190,7 @@ func (o *AccessTokenResponse) GetIssuedAtOk() (*float32, bool) {
 }
 
 // SetIssuedAt sets field value
-func (o *AccessTokenResponse) SetIssuedAt(v float32) {
+func (o *AccessTokenResponse) SetIssuedAt(v time.Time) {
 	o.IssuedAt = v
 }
 
