@@ -103,12 +103,6 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadRequestModelV2'
           description: Invalid Request
-        "404":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModelV2'
-          description: Not Found
         "500":
           content:
             application/json:
