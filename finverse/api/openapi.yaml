@@ -420,17 +420,11 @@ paths:
               schema:
                 $ref: '#/components/schemas/ListInstitutionsResponse'
           description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: Invalid Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/BadRequestModelV2'
           description: Internal Server Error
       security:
       - Oauth2:
