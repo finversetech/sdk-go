@@ -20,6 +20,7 @@ type LoginMethod struct {
 	Id              *string      `json:"id,omitempty"`
 	Name            *string      `json:"name,omitempty"`
 	IsDefaultMethod NullableBool `json:"is_default_method,omitempty"`
+	Status          *string      `json:"status,omitempty"`
 	LoginFields     []LoginField `json:"login_fields,omitempty"`
 }
 
@@ -147,6 +148,38 @@ func (o *LoginMethod) UnsetIsDefaultMethod() {
 	o.IsDefaultMethod.Unset()
 }
 
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *LoginMethod) GetStatus() string {
+	if o == nil || o.Status == nil {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LoginMethod) GetStatusOk() (*string, bool) {
+	if o == nil || o.Status == nil {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *LoginMethod) HasStatus() bool {
+	if o != nil && o.Status != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *LoginMethod) SetStatus(v string) {
+	o.Status = &v
+}
+
 // GetLoginFields returns the LoginFields field value if set, zero value otherwise.
 func (o *LoginMethod) GetLoginFields() []LoginField {
 	if o == nil || o.LoginFields == nil {
@@ -189,6 +222,9 @@ func (o LoginMethod) MarshalJSON() ([]byte, error) {
 	}
 	if o.IsDefaultMethod.IsSet() {
 		toSerialize["is_default_method"] = o.IsDefaultMethod.Get()
+	}
+	if o.Status != nil {
+		toSerialize["status"] = o.Status
 	}
 	if o.LoginFields != nil {
 		toSerialize["login_fields"] = o.LoginFields

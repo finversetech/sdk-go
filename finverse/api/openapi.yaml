@@ -2417,6 +2417,7 @@ components:
         - is_default_method: true
           name: SMS OTP
           id: SMS OTP
+          status: SUPPORTED
           login_fields:
           - name: Password
             type: password
@@ -2427,6 +2428,7 @@ components:
         - is_default_method: true
           name: SMS OTP
           id: SMS OTP
+          status: SUPPORTED
           login_fields:
           - name: Password
             type: password
@@ -2645,6 +2647,7 @@ components:
         is_default_method: true
         name: SMS OTP
         id: SMS OTP
+        status: SUPPORTED
         login_fields:
         - name: Password
           type: password
@@ -2663,6 +2666,13 @@ components:
           example: true
           nullable: true
           type: boolean
+        status:
+          enum:
+          - SUPPORTED
+          - ALPHA
+          - BETA
+          example: SUPPORTED
+          type: string
         login_fields:
           items:
             $ref: '#/components/schemas/LoginField'
