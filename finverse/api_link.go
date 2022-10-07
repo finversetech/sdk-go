@@ -818,7 +818,7 @@ type LinkApiApiListInstitutionsRequest struct {
 	institutionType   *string
 }
 
-// The country the institution belongs to
+// (Deprecated) The country the institution belongs to
 func (r LinkApiApiListInstitutionsRequest) Country(country string) LinkApiApiListInstitutionsRequest {
 	r.country = &country
 	return r

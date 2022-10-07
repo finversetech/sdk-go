@@ -633,7 +633,7 @@ type CustomerApiApiListInstitutionsRequest struct {
 	institutionType   *string
 }
 
-// The country the institution belongs to
+// (Deprecated) The country the institution belongs to
 func (r CustomerApiApiListInstitutionsRequest) Country(country string) CustomerApiApiListInstitutionsRequest {
 	r.country = &country
 	return r

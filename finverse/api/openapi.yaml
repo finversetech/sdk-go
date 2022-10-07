@@ -385,7 +385,7 @@ paths:
       description: Get a list of institutions
       operationId: listInstitutions
       parameters:
-      - description: The country the institution belongs to
+      - description: (Deprecated) The country the institution belongs to
         in: query
         name: country
         schema:
