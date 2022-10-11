@@ -1264,8 +1264,10 @@ components:
           status: LINKING
         account:
           country: HKG
-          account_type: SAVINGS
           account_currency: HKD
+          account_type:
+            subtype: SAVINGS
+            type: DEPOSIT
           account_holder_name: John Doe
           account_sub_type: TIME_DEPOSIT
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -1329,8 +1331,10 @@ components:
           status: LINKING
         account:
           country: HKG
-          account_type: SAVINGS
           account_currency: HKD
+          account_type:
+            subtype: SAVINGS
+            type: DEPOSIT
           account_holder_name: John Doe
           account_sub_type: TIME_DEPOSIT
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -1387,8 +1391,10 @@ components:
         source: INSTITUTION
         account:
           country: HKG
-          account_type: SAVINGS
           account_currency: HKD
+          account_type:
+            subtype: SAVINGS
+            type: DEPOSIT
           account_holder_name: John Doe
           account_sub_type: TIME_DEPOSIT
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -1751,8 +1757,10 @@ components:
           status: LINKING
         accounts:
         - country: HKG
-          account_type: SAVINGS
           account_currency: HKD
+          account_type:
+            subtype: SAVINGS
+            type: DEPOSIT
           account_holder_name: John Doe
           account_sub_type: TIME_DEPOSIT
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -1774,8 +1782,10 @@ components:
           account_number_masked: 123XXXXXX89
           is_closed: false
         - country: HKG
-          account_type: SAVINGS
           account_currency: HKD
+          account_type:
+            subtype: SAVINGS
+            type: DEPOSIT
           account_holder_name: John Doe
           account_sub_type: TIME_DEPOSIT
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -1818,8 +1828,10 @@ components:
     Account:
       example:
         country: HKG
-        account_type: SAVINGS
         account_currency: HKD
+        account_type:
+          subtype: SAVINGS
+          type: DEPOSIT
         account_holder_name: John Doe
         account_sub_type: TIME_DEPOSIT
         created_at: 2000-01-23T04:56:07.000+00:00
@@ -1857,9 +1869,6 @@ components:
         account_nickname:
           example: Emergency Fund
           type: string
-        account_type:
-          example: SAVINGS
-          type: string
         account_sub_type:
           example: TIME_DEPOSIT
           type: string
@@ -1891,6 +1900,8 @@ components:
         is_excluded:
           example: false
           type: boolean
+        account_type:
+          $ref: '#/components/schemas/AccountType'
       required:
       - account_id
       - account_name
@@ -2052,8 +2063,10 @@ components:
         total_transactions: 0
         accounts:
         - country: HKG
-          account_type: SAVINGS
           account_currency: HKD
+          account_type:
+            subtype: SAVINGS
+            type: DEPOSIT
           account_holder_name: John Doe
           account_sub_type: TIME_DEPOSIT
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -2075,8 +2088,10 @@ components:
           account_number_masked: 123XXXXXX89
           is_closed: false
         - country: HKG
-          account_type: SAVINGS
           account_currency: HKD
+          account_type:
+            subtype: SAVINGS
+            type: DEPOSIT
           account_holder_name: John Doe
           account_sub_type: TIME_DEPOSIT
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -4614,6 +4629,39 @@ components:
           type: array
         other_info:
           $ref: '#/components/schemas/OtherInfo'
+      type: object
+    AccountType:
+      example:
+        subtype: SAVINGS
+        type: DEPOSIT
+      properties:
+        type:
+          enum:
+          - DEPOSIT
+          - CARD
+          - INVESTMENT
+          - LOAN
+          - UNKNOWN
+          example: DEPOSIT
+          type: string
+        subtype:
+          enum:
+          - CHECKING
+          - SAVINGS
+          - TIME_DEPOSIT
+          - OTHER
+          - CREDIT_CARD
+          - DEBIT_CARD
+          - SECURITIES
+          - FUNDS
+          - STOCKS
+          - BONDS
+          - MORTGAGE
+          - PERSONAL_LOAN
+          - REVOLVING_LOAN
+          - UNKNOWN
+          example: SAVINGS
+          type: string
       type: object
     BadRequestModel_error:
       properties:

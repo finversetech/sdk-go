@@ -24,7 +24,6 @@ type Account struct {
 	AccountHolderName   *string         `json:"account_holder_name,omitempty"`
 	AccountName         string          `json:"account_name"`
 	AccountNickname     *string         `json:"account_nickname,omitempty"`
-	AccountType         *string         `json:"account_type,omitempty"`
 	AccountSubType      *string         `json:"account_sub_type,omitempty"`
 	AccountNumberMasked *string         `json:"account_number_masked,omitempty"`
 	Country             *string         `json:"country,omitempty"`
@@ -36,6 +35,7 @@ type Account struct {
 	IsParent            bool            `json:"is_parent"`
 	IsClosed            bool            `json:"is_closed"`
 	IsExcluded          bool            `json:"is_excluded"`
+	AccountType         *AccountType    `json:"account_type,omitempty"`
 }
 
 // NewAccount instantiates a new Account object
@@ -195,38 +195,6 @@ func (o *Account) HasAccountNickname() bool {
 // SetAccountNickname gets a reference to the given string and assigns it to the AccountNickname field.
 func (o *Account) SetAccountNickname(v string) {
 	o.AccountNickname = &v
-}
-
-// GetAccountType returns the AccountType field value if set, zero value otherwise.
-func (o *Account) GetAccountType() string {
-	if o == nil || o.AccountType == nil {
-		var ret string
-		return ret
-	}
-	return *o.AccountType
-}
-
-// GetAccountTypeOk returns a tuple with the AccountType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Account) GetAccountTypeOk() (*string, bool) {
-	if o == nil || o.AccountType == nil {
-		return nil, false
-	}
-	return o.AccountType, true
-}
-
-// HasAccountType returns a boolean if a field has been set.
-func (o *Account) HasAccountType() bool {
-	if o != nil && o.AccountType != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAccountType gets a reference to the given string and assigns it to the AccountType field.
-func (o *Account) SetAccountType(v string) {
-	o.AccountType = &v
 }
 
 // GetAccountSubType returns the AccountSubType field value if set, zero value otherwise.
@@ -557,6 +525,38 @@ func (o *Account) SetIsExcluded(v bool) {
 	o.IsExcluded = v
 }
 
+// GetAccountType returns the AccountType field value if set, zero value otherwise.
+func (o *Account) GetAccountType() AccountType {
+	if o == nil || o.AccountType == nil {
+		var ret AccountType
+		return ret
+	}
+	return *o.AccountType
+}
+
+// GetAccountTypeOk returns a tuple with the AccountType field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Account) GetAccountTypeOk() (*AccountType, bool) {
+	if o == nil || o.AccountType == nil {
+		return nil, false
+	}
+	return o.AccountType, true
+}
+
+// HasAccountType returns a boolean if a field has been set.
+func (o *Account) HasAccountType() bool {
+	if o != nil && o.AccountType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountType gets a reference to the given AccountType and assigns it to the AccountType field.
+func (o *Account) SetAccountType(v AccountType) {
+	o.AccountType = &v
+}
+
 func (o Account) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -573,9 +573,6 @@ func (o Account) MarshalJSON() ([]byte, error) {
 	}
 	if o.AccountNickname != nil {
 		toSerialize["account_nickname"] = o.AccountNickname
-	}
-	if o.AccountType != nil {
-		toSerialize["account_type"] = o.AccountType
 	}
 	if o.AccountSubType != nil {
 		toSerialize["account_sub_type"] = o.AccountSubType
@@ -609,6 +606,9 @@ func (o Account) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["is_excluded"] = o.IsExcluded
+	}
+	if o.AccountType != nil {
+		toSerialize["account_type"] = o.AccountType
 	}
 	return json.Marshal(toSerialize)
 }
