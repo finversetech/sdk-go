@@ -1986,8 +1986,15 @@ components:
         account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
         category_id: OTHER
         updated_at: 2000-01-23T04:56:07.000+00:00
+        category_details:
+          categories:
+          - TRANSFER
+          source: TRANSACTION_RULES
+          source_id: source_id
         transaction_state: ACTIVE
         location: Pacific Place
+        categories:
+        - TRANSFER
         category: OTHER
         posted_date: 2020-10-10T00:00:00.000+0000
         is_pending: false
@@ -2006,9 +2013,11 @@ components:
           example: OTHER
           type: string
         category:
+          description: (Deprecated)
           example: OTHER
           type: string
         category_id:
+          description: (Deprecated)
           example: OTHER
           type: string
         merchant_name:
@@ -2037,6 +2046,7 @@ components:
         amount:
           $ref: '#/components/schemas/CurrencyAmount'
         transfer_details:
+          description: (Deprecated)
           properties: {}
           type: object
         created_at:
@@ -2045,8 +2055,36 @@ components:
         updated_at:
           format: date-time
           type: string
+        categories:
+          description: Array of category labels
+          example:
+          - TRANSFER
+          items:
+            type: string
+          type: array
+        category_details:
+          $ref: '#/components/schemas/categoryDetails'
       required:
       - is_pending
+      type: object
+    categoryDetails:
+      example:
+        categories:
+        - TRANSFER
+        source: TRANSACTION_RULES
+        source_id: source_id
+      properties:
+        categories:
+          example:
+          - TRANSFER
+          items:
+            type: string
+          type: array
+        source:
+          example: TRANSACTION_RULES
+          type: string
+        source_id:
+          type: string
       type: object
     ListTransactionsResponse:
       example:
@@ -2127,8 +2165,15 @@ components:
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           category_id: OTHER
           updated_at: 2000-01-23T04:56:07.000+00:00
+          category_details:
+            categories:
+            - TRANSFER
+            source: TRANSACTION_RULES
+            source_id: source_id
           transaction_state: ACTIVE
           location: Pacific Place
+          categories:
+          - TRANSFER
           category: OTHER
           posted_date: 2020-10-10T00:00:00.000+0000
           is_pending: false
@@ -2147,8 +2192,15 @@ components:
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           category_id: OTHER
           updated_at: 2000-01-23T04:56:07.000+00:00
+          category_details:
+            categories:
+            - TRANSFER
+            source: TRANSACTION_RULES
+            source_id: source_id
           transaction_state: ACTIVE
           location: Pacific Place
+          categories:
+          - TRANSFER
           category: OTHER
           posted_date: 2020-10-10T00:00:00.000+0000
           is_pending: false

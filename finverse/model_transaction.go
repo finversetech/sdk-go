@@ -22,21 +22,27 @@ type Transaction struct {
 	AccountId        *string `json:"account_id,omitempty"`
 	TransactionState *string `json:"transaction_state,omitempty"`
 	TransactionType  *string `json:"transaction_type,omitempty"`
-	Category         *string `json:"category,omitempty"`
-	CategoryId       *string `json:"category_id,omitempty"`
-	MerchantName     *string `json:"merchant_name,omitempty"`
-	Description      *string `json:"description,omitempty"`
-	Location         *string `json:"location,omitempty"`
-	IsPending        bool    `json:"is_pending"`
-	Status           *string `json:"status,omitempty"`
+	// (Deprecated)
+	Category *string `json:"category,omitempty"`
+	// (Deprecated)
+	CategoryId   *string `json:"category_id,omitempty"`
+	MerchantName *string `json:"merchant_name,omitempty"`
+	Description  *string `json:"description,omitempty"`
+	Location     *string `json:"location,omitempty"`
+	IsPending    bool    `json:"is_pending"`
+	Status       *string `json:"status,omitempty"`
 	// YYYY-MM-DD
 	PostedDate *string `json:"posted_date,omitempty"`
 	// YYYY-MM-DD
-	TransactionDate *string                `json:"transaction_date,omitempty"`
-	Amount          *CurrencyAmount        `json:"amount,omitempty"`
+	TransactionDate *string         `json:"transaction_date,omitempty"`
+	Amount          *CurrencyAmount `json:"amount,omitempty"`
+	// (Deprecated)
 	TransferDetails map[string]interface{} `json:"transfer_details,omitempty"`
 	CreatedAt       *time.Time             `json:"created_at,omitempty"`
 	UpdatedAt       *time.Time             `json:"updated_at,omitempty"`
+	// Array of category labels
+	Categories      []string         `json:"categories,omitempty"`
+	CategoryDetails *CategoryDetails `json:"category_details,omitempty"`
 }
 
 // NewTransaction instantiates a new Transaction object
@@ -593,6 +599,70 @@ func (o *Transaction) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = &v
 }
 
+// GetCategories returns the Categories field value if set, zero value otherwise.
+func (o *Transaction) GetCategories() []string {
+	if o == nil || o.Categories == nil {
+		var ret []string
+		return ret
+	}
+	return o.Categories
+}
+
+// GetCategoriesOk returns a tuple with the Categories field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Transaction) GetCategoriesOk() ([]string, bool) {
+	if o == nil || o.Categories == nil {
+		return nil, false
+	}
+	return o.Categories, true
+}
+
+// HasCategories returns a boolean if a field has been set.
+func (o *Transaction) HasCategories() bool {
+	if o != nil && o.Categories != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCategories gets a reference to the given []string and assigns it to the Categories field.
+func (o *Transaction) SetCategories(v []string) {
+	o.Categories = v
+}
+
+// GetCategoryDetails returns the CategoryDetails field value if set, zero value otherwise.
+func (o *Transaction) GetCategoryDetails() CategoryDetails {
+	if o == nil || o.CategoryDetails == nil {
+		var ret CategoryDetails
+		return ret
+	}
+	return *o.CategoryDetails
+}
+
+// GetCategoryDetailsOk returns a tuple with the CategoryDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Transaction) GetCategoryDetailsOk() (*CategoryDetails, bool) {
+	if o == nil || o.CategoryDetails == nil {
+		return nil, false
+	}
+	return o.CategoryDetails, true
+}
+
+// HasCategoryDetails returns a boolean if a field has been set.
+func (o *Transaction) HasCategoryDetails() bool {
+	if o != nil && o.CategoryDetails != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCategoryDetails gets a reference to the given CategoryDetails and assigns it to the CategoryDetails field.
+func (o *Transaction) SetCategoryDetails(v CategoryDetails) {
+	o.CategoryDetails = &v
+}
+
 func (o Transaction) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.TransactionId != nil {
@@ -645,6 +715,12 @@ func (o Transaction) MarshalJSON() ([]byte, error) {
 	}
 	if o.UpdatedAt != nil {
 		toSerialize["updated_at"] = o.UpdatedAt
+	}
+	if o.Categories != nil {
+		toSerialize["categories"] = o.Categories
+	}
+	if o.CategoryDetails != nil {
+		toSerialize["category_details"] = o.CategoryDetails
 	}
 	return json.Marshal(toSerialize)
 }
