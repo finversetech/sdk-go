@@ -17,23 +17,22 @@ import (
 
 // TransactionLimits struct for TransactionLimits
 type TransactionLimits struct {
-	// Maximum amount of money that can be paid during the reference period (across any number of transactions). Expressed in currency’s smallest unit or “minor unit”, as defined in ISO 4217.
+	// Maximum amount of money that can be paid during the reference period (across any number of transactions). Expressed in currency's smallest unit or “minor unit”, as defined in ISO 4217.
 	MaxPeriodAmount *int32 `json:"max_period_amount,omitempty"`
 	// Maximum number of transactions (of any amount) that can be executed during the reference period.
 	MaxPeriodCount *int32 `json:"max_period_count,omitempty"`
-	// The maximum amount of money that can be transferred in a single transaction under this mandate. Expressed in currency’s smallest unit or “minor unit”, as defined in ISO 4217.
+	// The maximum amount of money that can be transferred in a single transaction under this mandate. Expressed in currency's smallest unit or “minor unit”, as defined in ISO 4217.
 	MaxTransactionAmount *int32 `json:"max_transaction_amount,omitempty"`
 	// Reference calendar periods for the payment limits. Possible values (DAILY, WEEKLY, MONTHLY, QUARTERLY, YEARLY)
-	Period string `json:"period"`
+	Period NullableString `json:"period,omitempty"`
 }
 
 // NewTransactionLimits instantiates a new TransactionLimits object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTransactionLimits(period string) *TransactionLimits {
+func NewTransactionLimits() *TransactionLimits {
 	this := TransactionLimits{}
-	this.Period = period
 	return &this
 }
 
@@ -141,28 +140,47 @@ func (o *TransactionLimits) SetMaxTransactionAmount(v int32) {
 	o.MaxTransactionAmount = &v
 }
 
-// GetPeriod returns the Period field value
+// GetPeriod returns the Period field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TransactionLimits) GetPeriod() string {
-	if o == nil {
+	if o == nil || o.Period.Get() == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Period
+	return *o.Period.Get()
 }
 
-// GetPeriodOk returns a tuple with the Period field value
+// GetPeriodOk returns a tuple with the Period field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *TransactionLimits) GetPeriodOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Period, true
+	return o.Period.Get(), o.Period.IsSet()
 }
 
-// SetPeriod sets field value
+// HasPeriod returns a boolean if a field has been set.
+func (o *TransactionLimits) HasPeriod() bool {
+	if o != nil && o.Period.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetPeriod gets a reference to the given NullableString and assigns it to the Period field.
 func (o *TransactionLimits) SetPeriod(v string) {
-	o.Period = v
+	o.Period.Set(&v)
+}
+
+// SetPeriodNil sets the value for Period to be an explicit nil
+func (o *TransactionLimits) SetPeriodNil() {
+	o.Period.Set(nil)
+}
+
+// UnsetPeriod ensures that no value is present for Period, not even an explicit nil
+func (o *TransactionLimits) UnsetPeriod() {
+	o.Period.Unset()
 }
 
 func (o TransactionLimits) MarshalJSON() ([]byte, error) {
@@ -176,8 +194,8 @@ func (o TransactionLimits) MarshalJSON() ([]byte, error) {
 	if o.MaxTransactionAmount != nil {
 		toSerialize["max_transaction_amount"] = o.MaxTransactionAmount
 	}
-	if true {
-		toSerialize["period"] = o.Period
+	if o.Period.IsSet() {
+		toSerialize["period"] = o.Period.Get()
 	}
 	return json.Marshal(toSerialize)
 }

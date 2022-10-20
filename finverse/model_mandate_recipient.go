@@ -17,6 +17,8 @@ import (
 
 // MandateRecipient struct for MandateRecipient
 type MandateRecipient struct {
+	// Merchant account name
+	Name string `json:"name"`
 	// Merchant account ID assigned by Finverse
 	RecipientAccountId string `json:"recipient_account_id"`
 }
@@ -25,8 +27,9 @@ type MandateRecipient struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMandateRecipient(recipientAccountId string) *MandateRecipient {
+func NewMandateRecipient(name string, recipientAccountId string) *MandateRecipient {
 	this := MandateRecipient{}
+	this.Name = name
 	this.RecipientAccountId = recipientAccountId
 	return &this
 }
@@ -37,6 +40,30 @@ func NewMandateRecipient(recipientAccountId string) *MandateRecipient {
 func NewMandateRecipientWithDefaults() *MandateRecipient {
 	this := MandateRecipient{}
 	return &this
+}
+
+// GetName returns the Name field value
+func (o *MandateRecipient) GetName() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Name
+}
+
+// GetNameOk returns a tuple with the Name field value
+// and a boolean to check if the value has been set.
+func (o *MandateRecipient) GetNameOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Name, true
+}
+
+// SetName sets field value
+func (o *MandateRecipient) SetName(v string) {
+	o.Name = v
 }
 
 // GetRecipientAccountId returns the RecipientAccountId field value
@@ -65,6 +92,9 @@ func (o *MandateRecipient) SetRecipientAccountId(v string) {
 
 func (o MandateRecipient) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if true {
+		toSerialize["name"] = o.Name
+	}
 	if true {
 		toSerialize["recipient_account_id"] = o.RecipientAccountId
 	}

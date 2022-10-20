@@ -17,8 +17,10 @@ import (
 
 // CreatePaymentRequest struct for CreatePaymentRequest
 type CreatePaymentRequest struct {
-	// Amount to be paid, in currency’s smallest unit or “minor unit”, as defined in ISO 4217. For example, HKD 100.01 is represented as amount = 10001 (minor unit = cents). For currencies without minor units (e.g. VND, JPY), the amount is represented as is, without modification. For example, VND 15101 is represented as amount = 15101.
+	// Amount to be paid, in currency's smallest unit or “minor unit”, as defined in ISO 4217. For example, HKD 100.01 is represented as amount = 10001 (minor unit = cents). For currencies without minor units (e.g. VND, JPY), the amount is represented as is, without modification. For example, VND 15101 is represented as amount = 15101.
 	Amount int32 `json:"amount"`
+	// The currency code as defined in ISO 4217.
+	Currency string `json:"currency"`
 	// Indicates whether this is a mandate-based payment or one-off direct payment to an account. Possible values - MANDATE, SINGLE
 	Type           string          `json:"type"`
 	PaymentDetails PaymentDetails2 `json:"payment_details"`
@@ -28,9 +30,10 @@ type CreatePaymentRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentRequest(amount int32, type_ string, paymentDetails PaymentDetails2) *CreatePaymentRequest {
+func NewCreatePaymentRequest(amount int32, currency string, type_ string, paymentDetails PaymentDetails2) *CreatePaymentRequest {
 	this := CreatePaymentRequest{}
 	this.Amount = amount
+	this.Currency = currency
 	this.Type = type_
 	this.PaymentDetails = paymentDetails
 	return &this
@@ -66,6 +69,30 @@ func (o *CreatePaymentRequest) GetAmountOk() (*int32, bool) {
 // SetAmount sets field value
 func (o *CreatePaymentRequest) SetAmount(v int32) {
 	o.Amount = v
+}
+
+// GetCurrency returns the Currency field value
+func (o *CreatePaymentRequest) GetCurrency() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Currency
+}
+
+// GetCurrencyOk returns a tuple with the Currency field value
+// and a boolean to check if the value has been set.
+func (o *CreatePaymentRequest) GetCurrencyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Currency, true
+}
+
+// SetCurrency sets field value
+func (o *CreatePaymentRequest) SetCurrency(v string) {
+	o.Currency = v
 }
 
 // GetType returns the Type field value
@@ -120,6 +147,9 @@ func (o CreatePaymentRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["amount"] = o.Amount
+	}
+	if true {
+		toSerialize["currency"] = o.Currency
 	}
 	if true {
 		toSerialize["type"] = o.Type

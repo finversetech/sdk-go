@@ -20,22 +20,25 @@ type MandateDetails struct {
 	// ISO currency code
 	Currency string `json:"currency"`
 	// YYYY-MM-DD, must be later than or the same as the date of creation. If unspecified, default to the date of creation.
-	StartDate *string `json:"start_date,omitempty"`
+	StartDate NullableString `json:"start_date,omitempty"`
 	// YYYY-MM-DD, must be later than the date of creation.
-	EndDate           *string            `json:"end_date,omitempty"`
+	EndDate           NullableString     `json:"end_date,omitempty"`
 	PaymentSchedule   *PaymentSchedule   `json:"payment_schedule,omitempty"`
 	TransactionLimits *TransactionLimits `json:"transaction_limits,omitempty"`
 	// End-user facing description of the mandate (used in notifications, and in payments if no description is provided)
 	Description *string `json:"description,omitempty"`
+	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
+	SenderType string `json:"sender_type"`
 }
 
 // NewMandateDetails instantiates a new MandateDetails object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMandateDetails(currency string) *MandateDetails {
+func NewMandateDetails(currency string, senderType string) *MandateDetails {
 	this := MandateDetails{}
 	this.Currency = currency
+	this.SenderType = senderType
 	return &this
 }
 
@@ -71,68 +74,90 @@ func (o *MandateDetails) SetCurrency(v string) {
 	o.Currency = v
 }
 
-// GetStartDate returns the StartDate field value if set, zero value otherwise.
+// GetStartDate returns the StartDate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MandateDetails) GetStartDate() string {
-	if o == nil || o.StartDate == nil {
+	if o == nil || o.StartDate.Get() == nil {
 		var ret string
 		return ret
 	}
-	return *o.StartDate
+	return *o.StartDate.Get()
 }
 
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MandateDetails) GetStartDateOk() (*string, bool) {
-	if o == nil || o.StartDate == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.StartDate, true
+	return o.StartDate.Get(), o.StartDate.IsSet()
 }
 
 // HasStartDate returns a boolean if a field has been set.
 func (o *MandateDetails) HasStartDate() bool {
-	if o != nil && o.StartDate != nil {
+	if o != nil && o.StartDate.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetStartDate gets a reference to the given string and assigns it to the StartDate field.
+// SetStartDate gets a reference to the given NullableString and assigns it to the StartDate field.
 func (o *MandateDetails) SetStartDate(v string) {
-	o.StartDate = &v
+	o.StartDate.Set(&v)
 }
 
-// GetEndDate returns the EndDate field value if set, zero value otherwise.
+// SetStartDateNil sets the value for StartDate to be an explicit nil
+func (o *MandateDetails) SetStartDateNil() {
+	o.StartDate.Set(nil)
+}
+
+// UnsetStartDate ensures that no value is present for StartDate, not even an explicit nil
+func (o *MandateDetails) UnsetStartDate() {
+	o.StartDate.Unset()
+}
+
+// GetEndDate returns the EndDate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MandateDetails) GetEndDate() string {
-	if o == nil || o.EndDate == nil {
+	if o == nil || o.EndDate.Get() == nil {
 		var ret string
 		return ret
 	}
-	return *o.EndDate
+	return *o.EndDate.Get()
 }
 
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *MandateDetails) GetEndDateOk() (*string, bool) {
-	if o == nil || o.EndDate == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.EndDate, true
+	return o.EndDate.Get(), o.EndDate.IsSet()
 }
 
 // HasEndDate returns a boolean if a field has been set.
 func (o *MandateDetails) HasEndDate() bool {
-	if o != nil && o.EndDate != nil {
+	if o != nil && o.EndDate.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetEndDate gets a reference to the given string and assigns it to the EndDate field.
+// SetEndDate gets a reference to the given NullableString and assigns it to the EndDate field.
 func (o *MandateDetails) SetEndDate(v string) {
-	o.EndDate = &v
+	o.EndDate.Set(&v)
+}
+
+// SetEndDateNil sets the value for EndDate to be an explicit nil
+func (o *MandateDetails) SetEndDateNil() {
+	o.EndDate.Set(nil)
+}
+
+// UnsetEndDate ensures that no value is present for EndDate, not even an explicit nil
+func (o *MandateDetails) UnsetEndDate() {
+	o.EndDate.Unset()
 }
 
 // GetPaymentSchedule returns the PaymentSchedule field value if set, zero value otherwise.
@@ -231,16 +256,40 @@ func (o *MandateDetails) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetSenderType returns the SenderType field value
+func (o *MandateDetails) GetSenderType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SenderType
+}
+
+// GetSenderTypeOk returns a tuple with the SenderType field value
+// and a boolean to check if the value has been set.
+func (o *MandateDetails) GetSenderTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SenderType, true
+}
+
+// SetSenderType sets field value
+func (o *MandateDetails) SetSenderType(v string) {
+	o.SenderType = v
+}
+
 func (o MandateDetails) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["currency"] = o.Currency
 	}
-	if o.StartDate != nil {
-		toSerialize["start_date"] = o.StartDate
+	if o.StartDate.IsSet() {
+		toSerialize["start_date"] = o.StartDate.Get()
 	}
-	if o.EndDate != nil {
-		toSerialize["end_date"] = o.EndDate
+	if o.EndDate.IsSet() {
+		toSerialize["end_date"] = o.EndDate.Get()
 	}
 	if o.PaymentSchedule != nil {
 		toSerialize["payment_schedule"] = o.PaymentSchedule
@@ -250,6 +299,9 @@ func (o MandateDetails) MarshalJSON() ([]byte, error) {
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
+	}
+	if true {
+		toSerialize["sender_type"] = o.SenderType
 	}
 	return json.Marshal(toSerialize)
 }

@@ -17,16 +17,16 @@ import (
 
 // CreateMandateRequest struct for CreateMandateRequest
 type CreateMandateRequest struct {
-	Recipient      MandateRecipient    `json:"recipient"`
-	Sender         CreateMandateSender `json:"sender"`
-	MandateDetails MandateDetails      `json:"mandate_details"`
+	Recipient      MandateRecipientRequest `json:"recipient"`
+	Sender         CreateMandateSender     `json:"sender"`
+	MandateDetails MandateDetails          `json:"mandate_details"`
 }
 
 // NewCreateMandateRequest instantiates a new CreateMandateRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateMandateRequest(recipient MandateRecipient, sender CreateMandateSender, mandateDetails MandateDetails) *CreateMandateRequest {
+func NewCreateMandateRequest(recipient MandateRecipientRequest, sender CreateMandateSender, mandateDetails MandateDetails) *CreateMandateRequest {
 	this := CreateMandateRequest{}
 	this.Recipient = recipient
 	this.Sender = sender
@@ -43,9 +43,9 @@ func NewCreateMandateRequestWithDefaults() *CreateMandateRequest {
 }
 
 // GetRecipient returns the Recipient field value
-func (o *CreateMandateRequest) GetRecipient() MandateRecipient {
+func (o *CreateMandateRequest) GetRecipient() MandateRecipientRequest {
 	if o == nil {
-		var ret MandateRecipient
+		var ret MandateRecipientRequest
 		return ret
 	}
 
@@ -54,7 +54,7 @@ func (o *CreateMandateRequest) GetRecipient() MandateRecipient {
 
 // GetRecipientOk returns a tuple with the Recipient field value
 // and a boolean to check if the value has been set.
-func (o *CreateMandateRequest) GetRecipientOk() (*MandateRecipient, bool) {
+func (o *CreateMandateRequest) GetRecipientOk() (*MandateRecipientRequest, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -62,7 +62,7 @@ func (o *CreateMandateRequest) GetRecipientOk() (*MandateRecipient, bool) {
 }
 
 // SetRecipient sets field value
-func (o *CreateMandateRequest) SetRecipient(v MandateRecipient) {
+func (o *CreateMandateRequest) SetRecipient(v MandateRecipientRequest) {
 	o.Recipient = v
 }
 

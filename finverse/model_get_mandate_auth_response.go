@@ -27,25 +27,25 @@ type GetMandateAuthResponse struct {
 	// Finverse Institution ID. Only returned if institution_id was included in the request.
 	InstitutionId string `json:"institution_id"`
 	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
-	SenderType string `json:"sender_type"`
+	SenderType *string `json:"sender_type,omitempty"`
 	// Checklist of the authorization factors needed to complete Mandate authorization
 	AuthChecklist  []AuthChecklistFactor     `json:"auth_checklist"`
 	EncryptionInfo MandateAuthEncryptionInfo `json:"encryption_info"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	LastUpdate time.Time `json:"last_update"`
+	LastUpdate time.Time     `json:"last_update"`
+	Error      *FvErrorModel `json:"error,omitempty"`
 }
 
 // NewGetMandateAuthResponse instantiates a new GetMandateAuthResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetMandateAuthResponse(mandateId string, mandateStatus string, recipientAccountId string, institutionId string, senderType string, authChecklist []AuthChecklistFactor, encryptionInfo MandateAuthEncryptionInfo, lastUpdate time.Time) *GetMandateAuthResponse {
+func NewGetMandateAuthResponse(mandateId string, mandateStatus string, recipientAccountId string, institutionId string, authChecklist []AuthChecklistFactor, encryptionInfo MandateAuthEncryptionInfo, lastUpdate time.Time) *GetMandateAuthResponse {
 	this := GetMandateAuthResponse{}
 	this.MandateId = mandateId
 	this.MandateStatus = mandateStatus
 	this.RecipientAccountId = recipientAccountId
 	this.InstitutionId = institutionId
-	this.SenderType = senderType
 	this.AuthChecklist = authChecklist
 	this.EncryptionInfo = encryptionInfo
 	this.LastUpdate = lastUpdate
@@ -156,28 +156,36 @@ func (o *GetMandateAuthResponse) SetInstitutionId(v string) {
 	o.InstitutionId = v
 }
 
-// GetSenderType returns the SenderType field value
+// GetSenderType returns the SenderType field value if set, zero value otherwise.
 func (o *GetMandateAuthResponse) GetSenderType() string {
-	if o == nil {
+	if o == nil || o.SenderType == nil {
 		var ret string
 		return ret
 	}
-
-	return o.SenderType
+	return *o.SenderType
 }
 
-// GetSenderTypeOk returns a tuple with the SenderType field value
+// GetSenderTypeOk returns a tuple with the SenderType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetMandateAuthResponse) GetSenderTypeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.SenderType == nil {
 		return nil, false
 	}
-	return &o.SenderType, true
+	return o.SenderType, true
 }
 
-// SetSenderType sets field value
+// HasSenderType returns a boolean if a field has been set.
+func (o *GetMandateAuthResponse) HasSenderType() bool {
+	if o != nil && o.SenderType != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSenderType gets a reference to the given string and assigns it to the SenderType field.
 func (o *GetMandateAuthResponse) SetSenderType(v string) {
-	o.SenderType = v
+	o.SenderType = &v
 }
 
 // GetAuthChecklist returns the AuthChecklist field value
@@ -252,6 +260,38 @@ func (o *GetMandateAuthResponse) SetLastUpdate(v time.Time) {
 	o.LastUpdate = v
 }
 
+// GetError returns the Error field value if set, zero value otherwise.
+func (o *GetMandateAuthResponse) GetError() FvErrorModel {
+	if o == nil || o.Error == nil {
+		var ret FvErrorModel
+		return ret
+	}
+	return *o.Error
+}
+
+// GetErrorOk returns a tuple with the Error field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetMandateAuthResponse) GetErrorOk() (*FvErrorModel, bool) {
+	if o == nil || o.Error == nil {
+		return nil, false
+	}
+	return o.Error, true
+}
+
+// HasError returns a boolean if a field has been set.
+func (o *GetMandateAuthResponse) HasError() bool {
+	if o != nil && o.Error != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetError gets a reference to the given FvErrorModel and assigns it to the Error field.
+func (o *GetMandateAuthResponse) SetError(v FvErrorModel) {
+	o.Error = &v
+}
+
 func (o GetMandateAuthResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -266,7 +306,7 @@ func (o GetMandateAuthResponse) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["institution_id"] = o.InstitutionId
 	}
-	if true {
+	if o.SenderType != nil {
 		toSerialize["sender_type"] = o.SenderType
 	}
 	if true {
@@ -277,6 +317,9 @@ func (o GetMandateAuthResponse) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["last_update"] = o.LastUpdate
+	}
+	if o.Error != nil {
+		toSerialize["error"] = o.Error
 	}
 	return json.Marshal(toSerialize)
 }

@@ -19,10 +19,6 @@ import (
 type SubmitAuthChecklistRequest struct {
 	// The key_id that was used to encrypt the envelope key
 	KeyId string `json:"key_id"`
-	// Finverse Institution ID
-	InstitutionId string `json:"institution_id"`
-	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
-	SenderType *string `json:"sender_type,omitempty"`
 	// The encrypted envelope key
 	EnvelopeEncryptionKey string `json:"envelope_encryption_key"`
 	// The initialization vector used for enncrypting the payload
@@ -37,10 +33,9 @@ type SubmitAuthChecklistRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSubmitAuthChecklistRequest(keyId string, institutionId string, envelopeEncryptionKey string, initializationVector string, messageAuthenticationCode string, ciphertext string) *SubmitAuthChecklistRequest {
+func NewSubmitAuthChecklistRequest(keyId string, envelopeEncryptionKey string, initializationVector string, messageAuthenticationCode string, ciphertext string) *SubmitAuthChecklistRequest {
 	this := SubmitAuthChecklistRequest{}
 	this.KeyId = keyId
-	this.InstitutionId = institutionId
 	this.EnvelopeEncryptionKey = envelopeEncryptionKey
 	this.InitializationVector = initializationVector
 	this.MessageAuthenticationCode = messageAuthenticationCode
@@ -78,62 +73,6 @@ func (o *SubmitAuthChecklistRequest) GetKeyIdOk() (*string, bool) {
 // SetKeyId sets field value
 func (o *SubmitAuthChecklistRequest) SetKeyId(v string) {
 	o.KeyId = v
-}
-
-// GetInstitutionId returns the InstitutionId field value
-func (o *SubmitAuthChecklistRequest) GetInstitutionId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.InstitutionId
-}
-
-// GetInstitutionIdOk returns a tuple with the InstitutionId field value
-// and a boolean to check if the value has been set.
-func (o *SubmitAuthChecklistRequest) GetInstitutionIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.InstitutionId, true
-}
-
-// SetInstitutionId sets field value
-func (o *SubmitAuthChecklistRequest) SetInstitutionId(v string) {
-	o.InstitutionId = v
-}
-
-// GetSenderType returns the SenderType field value if set, zero value otherwise.
-func (o *SubmitAuthChecklistRequest) GetSenderType() string {
-	if o == nil || o.SenderType == nil {
-		var ret string
-		return ret
-	}
-	return *o.SenderType
-}
-
-// GetSenderTypeOk returns a tuple with the SenderType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SubmitAuthChecklistRequest) GetSenderTypeOk() (*string, bool) {
-	if o == nil || o.SenderType == nil {
-		return nil, false
-	}
-	return o.SenderType, true
-}
-
-// HasSenderType returns a boolean if a field has been set.
-func (o *SubmitAuthChecklistRequest) HasSenderType() bool {
-	if o != nil && o.SenderType != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSenderType gets a reference to the given string and assigns it to the SenderType field.
-func (o *SubmitAuthChecklistRequest) SetSenderType(v string) {
-	o.SenderType = &v
 }
 
 // GetEnvelopeEncryptionKey returns the EnvelopeEncryptionKey field value
@@ -236,12 +175,6 @@ func (o SubmitAuthChecklistRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["key_id"] = o.KeyId
-	}
-	if true {
-		toSerialize["institution_id"] = o.InstitutionId
-	}
-	if o.SenderType != nil {
-		toSerialize["sender_type"] = o.SenderType
 	}
 	if true {
 		toSerialize["envelope_encryption_key"] = o.EnvelopeEncryptionKey

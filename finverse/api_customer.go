@@ -28,6 +28,48 @@ var (
 type CustomerApi interface {
 
 	/*
+		CreateMandate Method for CreateMandate
+
+		CREATE Mandate
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return CustomerApiApiCreateMandateRequest
+	*/
+	CreateMandate(ctx context.Context) CustomerApiApiCreateMandateRequest
+
+	// CreateMandateExecute executes the request
+	//  @return CreateMandateResponse
+	CreateMandateExecute(r CustomerApiApiCreateMandateRequest) (*CreateMandateResponse, *http.Response, error)
+
+	/*
+		CreatePayment Method for CreatePayment
+
+		Create new Payment
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return CustomerApiApiCreatePaymentRequest
+	*/
+	CreatePayment(ctx context.Context) CustomerApiApiCreatePaymentRequest
+
+	// CreatePaymentExecute executes the request
+	//  @return PaymentResponse
+	CreatePaymentExecute(r CustomerApiApiCreatePaymentRequest) (*PaymentResponse, *http.Response, error)
+
+	/*
+		CreatePaymentInstruction Method for CreatePaymentInstruction
+
+		Create a new payment instruction to be used when linking to perform new payment
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return CustomerApiApiCreatePaymentInstructionRequest
+	*/
+	CreatePaymentInstruction(ctx context.Context) CustomerApiApiCreatePaymentInstructionRequest
+
+	// CreatePaymentInstructionExecute executes the request
+	//  @return CreatePaymentInstructionResponse
+	CreatePaymentInstructionExecute(r CustomerApiApiCreatePaymentInstructionRequest) (*CreatePaymentInstructionResponse, *http.Response, error)
+
+	/*
 		GenerateLinkToken Method for GenerateLinkToken
 
 		generate a link token that can be used to create link
@@ -87,6 +129,79 @@ type CustomerApi interface {
 	GetLoginIdentityHistoryExecute(r CustomerApiApiGetLoginIdentityHistoryRequest) (*GetLoginIdentityHistoryResponse, *http.Response, error)
 
 	/*
+		GetMandate Method for GetMandate
+
+		Get Mandate details by mandate_id
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @param mandateId mandate id
+		 @return CustomerApiApiGetMandateRequest
+	*/
+	GetMandate(ctx context.Context, mandateId string) CustomerApiApiGetMandateRequest
+
+	// GetMandateExecute executes the request
+	//  @return GetMandateResponse
+	GetMandateExecute(r CustomerApiApiGetMandateRequest) (*GetMandateResponse, *http.Response, error)
+
+	/*
+		GetMandateAuth Method for GetMandateAuth
+
+		Get Mandate Authorization by mandate id
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return CustomerApiApiGetMandateAuthRequest
+	*/
+	GetMandateAuth(ctx context.Context) CustomerApiApiGetMandateAuthRequest
+
+	// GetMandateAuthExecute executes the request
+	//  @return GetMandateAuthResponse
+	GetMandateAuthExecute(r CustomerApiApiGetMandateAuthRequest) (*GetMandateAuthResponse, *http.Response, error)
+
+	/*
+		GetMandateAuthLink Method for GetMandateAuthLink
+
+		Get link to launch FV Link UI in mandate authorization mode
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return CustomerApiApiGetMandateAuthLinkRequest
+	*/
+	GetMandateAuthLink(ctx context.Context) CustomerApiApiGetMandateAuthLinkRequest
+
+	// GetMandateAuthLinkExecute executes the request
+	//  @return GetMandateAuthLinkResponse
+	GetMandateAuthLinkExecute(r CustomerApiApiGetMandateAuthLinkRequest) (*GetMandateAuthLinkResponse, *http.Response, error)
+
+	/*
+		GetPayment Method for GetPayment
+
+		Get Payment details by payment_id
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @param paymentId payment id
+		 @return CustomerApiApiGetPaymentRequest
+	*/
+	GetPayment(ctx context.Context, paymentId string) CustomerApiApiGetPaymentRequest
+
+	// GetPaymentExecute executes the request
+	//  @return PaymentResponse
+	GetPaymentExecute(r CustomerApiApiGetPaymentRequest) (*PaymentResponse, *http.Response, error)
+
+	/*
+		GetPaymentInstruction Method for GetPaymentInstruction
+
+		Get payment instructions by payment_instruction_id
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @param paymentInstructionId The id of a payment instruction
+		 @return CustomerApiApiGetPaymentInstructionRequest
+	*/
+	GetPaymentInstruction(ctx context.Context, paymentInstructionId string) CustomerApiApiGetPaymentInstructionRequest
+
+	// GetPaymentInstructionExecute executes the request
+	//  @return GetPaymentInstructionsResponse
+	GetPaymentInstructionExecute(r CustomerApiApiGetPaymentInstructionRequest) (*GetPaymentInstructionsResponse, *http.Response, error)
+
+	/*
 		ListInstitutions Method for ListInstitutions
 
 		Get a list of institutions
@@ -113,10 +228,478 @@ type CustomerApi interface {
 	// RefreshTokenExecute executes the request
 	//  @return AccessTokenResponse
 	RefreshTokenExecute(r CustomerApiApiRefreshTokenRequest) (*AccessTokenResponse, *http.Response, error)
+
+	/*
+		SetMandateInstitution Method for SetMandateInstitution
+
+		Update InstitutionID and SenderType for Mandate
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return CustomerApiApiSetMandateInstitutionRequest
+	*/
+	SetMandateInstitution(ctx context.Context) CustomerApiApiSetMandateInstitutionRequest
+
+	// SetMandateInstitutionExecute executes the request
+	//  @return SetMandateInstitutionResponse
+	SetMandateInstitutionExecute(r CustomerApiApiSetMandateInstitutionRequest) (*SetMandateInstitutionResponse, *http.Response, error)
+
+	/*
+		SubmitAuthChecklist Method for SubmitAuthChecklist
+
+		Submit authorization checklist items
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return CustomerApiApiSubmitAuthChecklistRequest
+	*/
+	SubmitAuthChecklist(ctx context.Context) CustomerApiApiSubmitAuthChecklistRequest
+
+	// SubmitAuthChecklistExecute executes the request
+	//  @return SubmitAuthChecklistResponse
+	SubmitAuthChecklistExecute(r CustomerApiApiSubmitAuthChecklistRequest) (*SubmitAuthChecklistResponse, *http.Response, error)
 }
 
 // CustomerApiService CustomerApi service
 type CustomerApiService service
+
+type CustomerApiApiCreateMandateRequest struct {
+	ctx                  context.Context
+	ApiService           CustomerApi
+	createMandateRequest *CreateMandateRequest
+	idempotencyKey       *string
+}
+
+// request body for creating mandate
+func (r CustomerApiApiCreateMandateRequest) CreateMandateRequest(createMandateRequest CreateMandateRequest) CustomerApiApiCreateMandateRequest {
+	r.createMandateRequest = &createMandateRequest
+	return r
+}
+
+// A random key provided by the customer, per unique payment. The purpose for the Idempotency key is to allow safe retrying without the operation being performed multiple times.
+func (r CustomerApiApiCreateMandateRequest) IdempotencyKey(idempotencyKey string) CustomerApiApiCreateMandateRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r CustomerApiApiCreateMandateRequest) Execute() (*CreateMandateResponse, *http.Response, error) {
+	return r.ApiService.CreateMandateExecute(r)
+}
+
+/*
+CreateMandate Method for CreateMandate
+
+CREATE Mandate
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return CustomerApiApiCreateMandateRequest
+*/
+func (a *CustomerApiService) CreateMandate(ctx context.Context) CustomerApiApiCreateMandateRequest {
+	return CustomerApiApiCreateMandateRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return CreateMandateResponse
+func (a *CustomerApiService) CreateMandateExecute(r CustomerApiApiCreateMandateRequest) (*CreateMandateResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreateMandateResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.CreateMandate")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/mandates"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.createMandateRequest == nil {
+		return localVarReturnValue, nil, reportError("createMandateRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		localVarHeaderParams["Idempotency-Key"] = parameterToString(*r.idempotencyKey, "")
+	}
+	// body params
+	localVarPostBody = r.createMandateRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrBodyModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CustomerApiApiCreatePaymentRequest struct {
+	ctx                  context.Context
+	ApiService           CustomerApi
+	createPaymentRequest *CreatePaymentRequest
+	idempotencyKey       *string
+}
+
+// request body for creating payment
+func (r CustomerApiApiCreatePaymentRequest) CreatePaymentRequest(createPaymentRequest CreatePaymentRequest) CustomerApiApiCreatePaymentRequest {
+	r.createPaymentRequest = &createPaymentRequest
+	return r
+}
+
+// A random key provided by the customer, per unique payment. The purpose for the Idempotency key is to allow safe retrying without the operation being performed multiple times.
+func (r CustomerApiApiCreatePaymentRequest) IdempotencyKey(idempotencyKey string) CustomerApiApiCreatePaymentRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+func (r CustomerApiApiCreatePaymentRequest) Execute() (*PaymentResponse, *http.Response, error) {
+	return r.ApiService.CreatePaymentExecute(r)
+}
+
+/*
+CreatePayment Method for CreatePayment
+
+Create new Payment
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return CustomerApiApiCreatePaymentRequest
+*/
+func (a *CustomerApiService) CreatePayment(ctx context.Context) CustomerApiApiCreatePaymentRequest {
+	return CustomerApiApiCreatePaymentRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return PaymentResponse
+func (a *CustomerApiService) CreatePaymentExecute(r CustomerApiApiCreatePaymentRequest) (*PaymentResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PaymentResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.CreatePayment")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/payments"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.createPaymentRequest == nil {
+		return localVarReturnValue, nil, reportError("createPaymentRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	if r.idempotencyKey != nil {
+		localVarHeaderParams["Idempotency-Key"] = parameterToString(*r.idempotencyKey, "")
+	}
+	// body params
+	localVarPostBody = r.createPaymentRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrBodyModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CustomerApiApiCreatePaymentInstructionRequest struct {
+	ctx                context.Context
+	ApiService         CustomerApi
+	paymentInstruction *CustomerPaymentInstruction
+}
+
+// Request body for starting a new Link
+func (r CustomerApiApiCreatePaymentInstructionRequest) PaymentInstruction(paymentInstruction CustomerPaymentInstruction) CustomerApiApiCreatePaymentInstructionRequest {
+	r.paymentInstruction = &paymentInstruction
+	return r
+}
+
+func (r CustomerApiApiCreatePaymentInstructionRequest) Execute() (*CreatePaymentInstructionResponse, *http.Response, error) {
+	return r.ApiService.CreatePaymentInstructionExecute(r)
+}
+
+/*
+CreatePaymentInstruction Method for CreatePaymentInstruction
+
+Create a new payment instruction to be used when linking to perform new payment
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return CustomerApiApiCreatePaymentInstructionRequest
+*/
+func (a *CustomerApiService) CreatePaymentInstruction(ctx context.Context) CustomerApiApiCreatePaymentInstructionRequest {
+	return CustomerApiApiCreatePaymentInstructionRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return CreatePaymentInstructionResponse
+func (a *CustomerApiService) CreatePaymentInstructionExecute(r CustomerApiApiCreatePaymentInstructionRequest) (*CreatePaymentInstructionResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreatePaymentInstructionResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.CreatePaymentInstruction")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/payments/instruction"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.paymentInstruction == nil {
+		return localVarReturnValue, nil, reportError("paymentInstruction is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.paymentInstruction
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v BadRequestModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v BadRequestModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
 
 type CustomerApiApiGenerateLinkTokenRequest struct {
 	ctx              context.Context
@@ -624,6 +1207,670 @@ func (a *CustomerApiService) GetLoginIdentityHistoryExecute(r CustomerApiApiGetL
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type CustomerApiApiGetMandateRequest struct {
+	ctx        context.Context
+	ApiService CustomerApi
+	mandateId  string
+}
+
+func (r CustomerApiApiGetMandateRequest) Execute() (*GetMandateResponse, *http.Response, error) {
+	return r.ApiService.GetMandateExecute(r)
+}
+
+/*
+GetMandate Method for GetMandate
+
+Get Mandate details by mandate_id
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param mandateId mandate id
+ @return CustomerApiApiGetMandateRequest
+*/
+func (a *CustomerApiService) GetMandate(ctx context.Context, mandateId string) CustomerApiApiGetMandateRequest {
+	return CustomerApiApiGetMandateRequest{
+		ApiService: a,
+		ctx:        ctx,
+		mandateId:  mandateId,
+	}
+}
+
+// Execute executes the request
+//  @return GetMandateResponse
+func (a *CustomerApiService) GetMandateExecute(r CustomerApiApiGetMandateRequest) (*GetMandateResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetMandateResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetMandate")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/mandates/{mandateId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"mandateId"+"}", url.PathEscape(parameterToString(r.mandateId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrBodyModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CustomerApiApiGetMandateAuthRequest struct {
+	ctx        context.Context
+	ApiService CustomerApi
+}
+
+func (r CustomerApiApiGetMandateAuthRequest) Execute() (*GetMandateAuthResponse, *http.Response, error) {
+	return r.ApiService.GetMandateAuthExecute(r)
+}
+
+/*
+GetMandateAuth Method for GetMandateAuth
+
+Get Mandate Authorization by mandate id
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return CustomerApiApiGetMandateAuthRequest
+*/
+func (a *CustomerApiService) GetMandateAuth(ctx context.Context) CustomerApiApiGetMandateAuthRequest {
+	return CustomerApiApiGetMandateAuthRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return GetMandateAuthResponse
+func (a *CustomerApiService) GetMandateAuthExecute(r CustomerApiApiGetMandateAuthRequest) (*GetMandateAuthResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetMandateAuthResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetMandateAuth")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/mandates/auth"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrBodyModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CustomerApiApiGetMandateAuthLinkRequest struct {
+	ctx                       context.Context
+	ApiService                CustomerApi
+	getMandateAuthLinkRequest *GetMandateAuthLinkRequest
+}
+
+// request body for mandate authorization link
+func (r CustomerApiApiGetMandateAuthLinkRequest) GetMandateAuthLinkRequest(getMandateAuthLinkRequest GetMandateAuthLinkRequest) CustomerApiApiGetMandateAuthLinkRequest {
+	r.getMandateAuthLinkRequest = &getMandateAuthLinkRequest
+	return r
+}
+
+func (r CustomerApiApiGetMandateAuthLinkRequest) Execute() (*GetMandateAuthLinkResponse, *http.Response, error) {
+	return r.ApiService.GetMandateAuthLinkExecute(r)
+}
+
+/*
+GetMandateAuthLink Method for GetMandateAuthLink
+
+Get link to launch FV Link UI in mandate authorization mode
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return CustomerApiApiGetMandateAuthLinkRequest
+*/
+func (a *CustomerApiService) GetMandateAuthLink(ctx context.Context) CustomerApiApiGetMandateAuthLinkRequest {
+	return CustomerApiApiGetMandateAuthLinkRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return GetMandateAuthLinkResponse
+func (a *CustomerApiService) GetMandateAuthLinkExecute(r CustomerApiApiGetMandateAuthLinkRequest) (*GetMandateAuthLinkResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetMandateAuthLinkResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetMandateAuthLink")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/mandates/link"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.getMandateAuthLinkRequest == nil {
+		return localVarReturnValue, nil, reportError("getMandateAuthLinkRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.getMandateAuthLinkRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v BadRequestModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v BadRequestModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CustomerApiApiGetPaymentRequest struct {
+	ctx        context.Context
+	ApiService CustomerApi
+	paymentId  string
+}
+
+func (r CustomerApiApiGetPaymentRequest) Execute() (*PaymentResponse, *http.Response, error) {
+	return r.ApiService.GetPaymentExecute(r)
+}
+
+/*
+GetPayment Method for GetPayment
+
+Get Payment details by payment_id
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param paymentId payment id
+ @return CustomerApiApiGetPaymentRequest
+*/
+func (a *CustomerApiService) GetPayment(ctx context.Context, paymentId string) CustomerApiApiGetPaymentRequest {
+	return CustomerApiApiGetPaymentRequest{
+		ApiService: a,
+		ctx:        ctx,
+		paymentId:  paymentId,
+	}
+}
+
+// Execute executes the request
+//  @return PaymentResponse
+func (a *CustomerApiService) GetPaymentExecute(r CustomerApiApiGetPaymentRequest) (*PaymentResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PaymentResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetPayment")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/payments/{paymentId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentId"+"}", url.PathEscape(parameterToString(r.paymentId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrBodyModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CustomerApiApiGetPaymentInstructionRequest struct {
+	ctx                  context.Context
+	ApiService           CustomerApi
+	paymentInstructionId string
+}
+
+func (r CustomerApiApiGetPaymentInstructionRequest) Execute() (*GetPaymentInstructionsResponse, *http.Response, error) {
+	return r.ApiService.GetPaymentInstructionExecute(r)
+}
+
+/*
+GetPaymentInstruction Method for GetPaymentInstruction
+
+Get payment instructions by payment_instruction_id
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param paymentInstructionId The id of a payment instruction
+ @return CustomerApiApiGetPaymentInstructionRequest
+*/
+func (a *CustomerApiService) GetPaymentInstruction(ctx context.Context, paymentInstructionId string) CustomerApiApiGetPaymentInstructionRequest {
+	return CustomerApiApiGetPaymentInstructionRequest{
+		ApiService:           a,
+		ctx:                  ctx,
+		paymentInstructionId: paymentInstructionId,
+	}
+}
+
+// Execute executes the request
+//  @return GetPaymentInstructionsResponse
+func (a *CustomerApiService) GetPaymentInstructionExecute(r CustomerApiApiGetPaymentInstructionRequest) (*GetPaymentInstructionsResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetPaymentInstructionsResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetPaymentInstruction")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/payments/instruction/{paymentInstructionId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentInstructionId"+"}", url.PathEscape(parameterToString(r.paymentInstructionId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v BadRequestModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v BadRequestModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type CustomerApiApiListInstitutionsRequest struct {
 	ctx               context.Context
 	ApiService        CustomerApi
@@ -880,6 +2127,286 @@ func (a *CustomerApiService) RefreshTokenExecute(r CustomerApiApiRefreshTokenReq
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v BadRequestModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CustomerApiApiSetMandateInstitutionRequest struct {
+	ctx           context.Context
+	ApiService    CustomerApi
+	updateRequest *SetMandateInstitutionRequest
+}
+
+// request body for updating mandate institutionId and senderType
+func (r CustomerApiApiSetMandateInstitutionRequest) UpdateRequest(updateRequest SetMandateInstitutionRequest) CustomerApiApiSetMandateInstitutionRequest {
+	r.updateRequest = &updateRequest
+	return r
+}
+
+func (r CustomerApiApiSetMandateInstitutionRequest) Execute() (*SetMandateInstitutionResponse, *http.Response, error) {
+	return r.ApiService.SetMandateInstitutionExecute(r)
+}
+
+/*
+SetMandateInstitution Method for SetMandateInstitution
+
+Update InstitutionID and SenderType for Mandate
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return CustomerApiApiSetMandateInstitutionRequest
+*/
+func (a *CustomerApiService) SetMandateInstitution(ctx context.Context) CustomerApiApiSetMandateInstitutionRequest {
+	return CustomerApiApiSetMandateInstitutionRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SetMandateInstitutionResponse
+func (a *CustomerApiService) SetMandateInstitutionExecute(r CustomerApiApiSetMandateInstitutionRequest) (*SetMandateInstitutionResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SetMandateInstitutionResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.SetMandateInstitution")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/mandates/institution_selection"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.updateRequest == nil {
+		return localVarReturnValue, nil, reportError("updateRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.updateRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrBodyModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CustomerApiApiSubmitAuthChecklistRequest struct {
+	ctx                        context.Context
+	ApiService                 CustomerApi
+	submitAuthChecklistRequest *SubmitAuthChecklistRequest
+}
+
+// request body for submitting auth checklist
+func (r CustomerApiApiSubmitAuthChecklistRequest) SubmitAuthChecklistRequest(submitAuthChecklistRequest SubmitAuthChecklistRequest) CustomerApiApiSubmitAuthChecklistRequest {
+	r.submitAuthChecklistRequest = &submitAuthChecklistRequest
+	return r
+}
+
+func (r CustomerApiApiSubmitAuthChecklistRequest) Execute() (*SubmitAuthChecklistResponse, *http.Response, error) {
+	return r.ApiService.SubmitAuthChecklistExecute(r)
+}
+
+/*
+SubmitAuthChecklist Method for SubmitAuthChecklist
+
+Submit authorization checklist items
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return CustomerApiApiSubmitAuthChecklistRequest
+*/
+func (a *CustomerApiService) SubmitAuthChecklist(ctx context.Context) CustomerApiApiSubmitAuthChecklistRequest {
+	return CustomerApiApiSubmitAuthChecklistRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SubmitAuthChecklistResponse
+func (a *CustomerApiService) SubmitAuthChecklistExecute(r CustomerApiApiSubmitAuthChecklistRequest) (*SubmitAuthChecklistResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SubmitAuthChecklistResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.SubmitAuthChecklist")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/mandates/auth"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.submitAuthChecklistRequest == nil {
+		return localVarReturnValue, nil, reportError("submitAuthChecklistRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.submitAuthChecklistRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrBodyModel
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModel
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

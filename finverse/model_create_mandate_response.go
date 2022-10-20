@@ -13,20 +13,35 @@ package finverse
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // CreateMandateResponse struct for CreateMandateResponse
 type CreateMandateResponse struct {
-	// Finverse Mandate ID
-	MandateId *string `json:"mandate_id,omitempty"`
+	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+	LastUpdate time.Time `json:"last_update"`
+	// Finverse Mandate ID (ULID)
+	MandateId string `json:"mandate_id"`
+	// Mandate status
+	MandateStatus  string           `json:"mandate_status"`
+	Recipient      MandateRecipient `json:"recipient"`
+	Sender         GetMandateSender `json:"sender"`
+	MandateDetails MandateDetails   `json:"mandate_details"`
+	Error          *FvErrorModel    `json:"error,omitempty"`
 }
 
 // NewCreateMandateResponse instantiates a new CreateMandateResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateMandateResponse() *CreateMandateResponse {
+func NewCreateMandateResponse(lastUpdate time.Time, mandateId string, mandateStatus string, recipient MandateRecipient, sender GetMandateSender, mandateDetails MandateDetails) *CreateMandateResponse {
 	this := CreateMandateResponse{}
+	this.LastUpdate = lastUpdate
+	this.MandateId = mandateId
+	this.MandateStatus = mandateStatus
+	this.Recipient = recipient
+	this.Sender = sender
+	this.MandateDetails = mandateDetails
 	return &this
 }
 
@@ -38,42 +53,204 @@ func NewCreateMandateResponseWithDefaults() *CreateMandateResponse {
 	return &this
 }
 
-// GetMandateId returns the MandateId field value if set, zero value otherwise.
+// GetLastUpdate returns the LastUpdate field value
+func (o *CreateMandateResponse) GetLastUpdate() time.Time {
+	if o == nil {
+		var ret time.Time
+		return ret
+	}
+
+	return o.LastUpdate
+}
+
+// GetLastUpdateOk returns a tuple with the LastUpdate field value
+// and a boolean to check if the value has been set.
+func (o *CreateMandateResponse) GetLastUpdateOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.LastUpdate, true
+}
+
+// SetLastUpdate sets field value
+func (o *CreateMandateResponse) SetLastUpdate(v time.Time) {
+	o.LastUpdate = v
+}
+
+// GetMandateId returns the MandateId field value
 func (o *CreateMandateResponse) GetMandateId() string {
-	if o == nil || o.MandateId == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.MandateId
+
+	return o.MandateId
 }
 
-// GetMandateIdOk returns a tuple with the MandateId field value if set, nil otherwise
+// GetMandateIdOk returns a tuple with the MandateId field value
 // and a boolean to check if the value has been set.
 func (o *CreateMandateResponse) GetMandateIdOk() (*string, bool) {
-	if o == nil || o.MandateId == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.MandateId, true
+	return &o.MandateId, true
 }
 
-// HasMandateId returns a boolean if a field has been set.
-func (o *CreateMandateResponse) HasMandateId() bool {
-	if o != nil && o.MandateId != nil {
+// SetMandateId sets field value
+func (o *CreateMandateResponse) SetMandateId(v string) {
+	o.MandateId = v
+}
+
+// GetMandateStatus returns the MandateStatus field value
+func (o *CreateMandateResponse) GetMandateStatus() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.MandateStatus
+}
+
+// GetMandateStatusOk returns a tuple with the MandateStatus field value
+// and a boolean to check if the value has been set.
+func (o *CreateMandateResponse) GetMandateStatusOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.MandateStatus, true
+}
+
+// SetMandateStatus sets field value
+func (o *CreateMandateResponse) SetMandateStatus(v string) {
+	o.MandateStatus = v
+}
+
+// GetRecipient returns the Recipient field value
+func (o *CreateMandateResponse) GetRecipient() MandateRecipient {
+	if o == nil {
+		var ret MandateRecipient
+		return ret
+	}
+
+	return o.Recipient
+}
+
+// GetRecipientOk returns a tuple with the Recipient field value
+// and a boolean to check if the value has been set.
+func (o *CreateMandateResponse) GetRecipientOk() (*MandateRecipient, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Recipient, true
+}
+
+// SetRecipient sets field value
+func (o *CreateMandateResponse) SetRecipient(v MandateRecipient) {
+	o.Recipient = v
+}
+
+// GetSender returns the Sender field value
+func (o *CreateMandateResponse) GetSender() GetMandateSender {
+	if o == nil {
+		var ret GetMandateSender
+		return ret
+	}
+
+	return o.Sender
+}
+
+// GetSenderOk returns a tuple with the Sender field value
+// and a boolean to check if the value has been set.
+func (o *CreateMandateResponse) GetSenderOk() (*GetMandateSender, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Sender, true
+}
+
+// SetSender sets field value
+func (o *CreateMandateResponse) SetSender(v GetMandateSender) {
+	o.Sender = v
+}
+
+// GetMandateDetails returns the MandateDetails field value
+func (o *CreateMandateResponse) GetMandateDetails() MandateDetails {
+	if o == nil {
+		var ret MandateDetails
+		return ret
+	}
+
+	return o.MandateDetails
+}
+
+// GetMandateDetailsOk returns a tuple with the MandateDetails field value
+// and a boolean to check if the value has been set.
+func (o *CreateMandateResponse) GetMandateDetailsOk() (*MandateDetails, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.MandateDetails, true
+}
+
+// SetMandateDetails sets field value
+func (o *CreateMandateResponse) SetMandateDetails(v MandateDetails) {
+	o.MandateDetails = v
+}
+
+// GetError returns the Error field value if set, zero value otherwise.
+func (o *CreateMandateResponse) GetError() FvErrorModel {
+	if o == nil || o.Error == nil {
+		var ret FvErrorModel
+		return ret
+	}
+	return *o.Error
+}
+
+// GetErrorOk returns a tuple with the Error field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateMandateResponse) GetErrorOk() (*FvErrorModel, bool) {
+	if o == nil || o.Error == nil {
+		return nil, false
+	}
+	return o.Error, true
+}
+
+// HasError returns a boolean if a field has been set.
+func (o *CreateMandateResponse) HasError() bool {
+	if o != nil && o.Error != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetMandateId gets a reference to the given string and assigns it to the MandateId field.
-func (o *CreateMandateResponse) SetMandateId(v string) {
-	o.MandateId = &v
+// SetError gets a reference to the given FvErrorModel and assigns it to the Error field.
+func (o *CreateMandateResponse) SetError(v FvErrorModel) {
+	o.Error = &v
 }
 
 func (o CreateMandateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.MandateId != nil {
+	if true {
+		toSerialize["last_update"] = o.LastUpdate
+	}
+	if true {
 		toSerialize["mandate_id"] = o.MandateId
+	}
+	if true {
+		toSerialize["mandate_status"] = o.MandateStatus
+	}
+	if true {
+		toSerialize["recipient"] = o.Recipient
+	}
+	if true {
+		toSerialize["sender"] = o.Sender
+	}
+	if true {
+		toSerialize["mandate_details"] = o.MandateDetails
+	}
+	if o.Error != nil {
+		toSerialize["error"] = o.Error
 	}
 	return json.Marshal(toSerialize)
 }

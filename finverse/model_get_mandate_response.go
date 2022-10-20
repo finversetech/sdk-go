@@ -27,6 +27,7 @@ type GetMandateResponse struct {
 	Recipient      MandateRecipient `json:"recipient"`
 	Sender         GetMandateSender `json:"sender"`
 	MandateDetails MandateDetails   `json:"mandate_details"`
+	Error          *FvErrorModel    `json:"error,omitempty"`
 }
 
 // NewGetMandateResponse instantiates a new GetMandateResponse object
@@ -196,6 +197,38 @@ func (o *GetMandateResponse) SetMandateDetails(v MandateDetails) {
 	o.MandateDetails = v
 }
 
+// GetError returns the Error field value if set, zero value otherwise.
+func (o *GetMandateResponse) GetError() FvErrorModel {
+	if o == nil || o.Error == nil {
+		var ret FvErrorModel
+		return ret
+	}
+	return *o.Error
+}
+
+// GetErrorOk returns a tuple with the Error field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetMandateResponse) GetErrorOk() (*FvErrorModel, bool) {
+	if o == nil || o.Error == nil {
+		return nil, false
+	}
+	return o.Error, true
+}
+
+// HasError returns a boolean if a field has been set.
+func (o *GetMandateResponse) HasError() bool {
+	if o != nil && o.Error != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetError gets a reference to the given FvErrorModel and assigns it to the Error field.
+func (o *GetMandateResponse) SetError(v FvErrorModel) {
+	o.Error = &v
+}
+
 func (o GetMandateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -215,6 +248,9 @@ func (o GetMandateResponse) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["mandate_details"] = o.MandateDetails
+	}
+	if o.Error != nil {
+		toSerialize["error"] = o.Error
 	}
 	return json.Marshal(toSerialize)
 }
