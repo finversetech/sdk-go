@@ -5179,6 +5179,7 @@ components:
         subtype:
           enum:
           - CHECKING
+          - CURRENT
           - SAVINGS
           - TIME_DEPOSIT
           - OTHER
