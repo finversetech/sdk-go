@@ -248,6 +248,13 @@ paths:
           maximum: 1000
           minimum: 1
           type: integer
+      - description: when true, response will be enriched transactions; otherwise
+          it will be raw transactions
+        in: query
+        name: enrichments
+        schema:
+          default: false
+          type: boolean
       responses:
         "200":
           content:
@@ -296,7 +303,7 @@ paths:
       - description: when true, response will be enriched transactions; otherwise
           it will be raw transactions
         in: query
-        name: enrichedTransactions
+        name: enrichments
         schema:
           default: false
           type: boolean
