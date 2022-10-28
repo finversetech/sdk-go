@@ -1872,10 +1872,11 @@ func (a *LoginIdentityApiService) ListTransactionsByAccountIdExecute(r LoginIden
 }
 
 type LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest struct {
-	ctx        context.Context
-	ApiService LoginIdentityApi
-	offset     *int32
-	limit      *int32
+	ctx                  context.Context
+	ApiService           LoginIdentityApi
+	offset               *int32
+	limit                *int32
+	enrichedTransactions *bool
 }
 
 // default is 0
@@ -1887,6 +1888,12 @@ func (r LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest) Offset(offs
 // default is 500, max is 1000
 func (r LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest) Limit(limit int32) LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest {
 	r.limit = &limit
+	return r
+}
+
+// when true, response will be enriched transactions; otherwise it will be raw transactions
+func (r LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest) EnrichedTransactions(enrichedTransactions bool) LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest {
+	r.enrichedTransactions = &enrichedTransactions
 	return r
 }
 
@@ -1935,6 +1942,9 @@ func (a *LoginIdentityApiService) ListTransactionsByLoginIdentityIdExecute(r Log
 	}
 	if r.limit != nil {
 		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+	}
+	if r.enrichedTransactions != nil {
+		localVarQueryParams.Add("enrichedTransactions", parameterToString(*r.enrichedTransactions, ""))
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
