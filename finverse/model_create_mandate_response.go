@@ -27,7 +27,9 @@ type CreateMandateResponse struct {
 	Recipient      MandateRecipient `json:"recipient"`
 	Sender         GetMandateSender `json:"sender"`
 	MandateDetails MandateDetails   `json:"mandate_details"`
-	Error          *FvErrorModel    `json:"error,omitempty"`
+	// Sender details which will be used for fraud checking.
+	SenderDetails []SenderDetail `json:"sender_details,omitempty"`
+	Error         *FvErrorModel  `json:"error,omitempty"`
 }
 
 // NewCreateMandateResponse instantiates a new CreateMandateResponse object
@@ -197,6 +199,38 @@ func (o *CreateMandateResponse) SetMandateDetails(v MandateDetails) {
 	o.MandateDetails = v
 }
 
+// GetSenderDetails returns the SenderDetails field value if set, zero value otherwise.
+func (o *CreateMandateResponse) GetSenderDetails() []SenderDetail {
+	if o == nil || o.SenderDetails == nil {
+		var ret []SenderDetail
+		return ret
+	}
+	return o.SenderDetails
+}
+
+// GetSenderDetailsOk returns a tuple with the SenderDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateMandateResponse) GetSenderDetailsOk() ([]SenderDetail, bool) {
+	if o == nil || o.SenderDetails == nil {
+		return nil, false
+	}
+	return o.SenderDetails, true
+}
+
+// HasSenderDetails returns a boolean if a field has been set.
+func (o *CreateMandateResponse) HasSenderDetails() bool {
+	if o != nil && o.SenderDetails != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSenderDetails gets a reference to the given []SenderDetail and assigns it to the SenderDetails field.
+func (o *CreateMandateResponse) SetSenderDetails(v []SenderDetail) {
+	o.SenderDetails = v
+}
+
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *CreateMandateResponse) GetError() FvErrorModel {
 	if o == nil || o.Error == nil {
@@ -248,6 +282,9 @@ func (o CreateMandateResponse) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["mandate_details"] = o.MandateDetails
+	}
+	if o.SenderDetails != nil {
+		toSerialize["sender_details"] = o.SenderDetails
 	}
 	if o.Error != nil {
 		toSerialize["error"] = o.Error

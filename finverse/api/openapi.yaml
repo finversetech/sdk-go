@@ -5629,6 +5629,21 @@ components:
     CreateMandateResponse:
       example:
         mandate_status: AUTHORIZATION_REQUIRED
+        sender_details:
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
         sender:
           user_id: user_id
           sender_account:
@@ -5686,6 +5701,11 @@ components:
           $ref: '#/components/schemas/GetMandateSender'
         mandate_details:
           $ref: '#/components/schemas/MandateDetails'
+        sender_details:
+          description: Sender details which will be used for fraud checking.
+          items:
+            $ref: '#/components/schemas/SenderDetail'
+          type: array
         error:
           $ref: '#/components/schemas/FvErrorModel'
       required:
