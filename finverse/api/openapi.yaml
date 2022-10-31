@@ -5550,6 +5550,42 @@ components:
       type: object
     CreateMandateRequest:
       example:
+        sender_details:
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
         sender:
           user_id: user_id
           name: name
@@ -5577,10 +5613,18 @@ components:
           $ref: '#/components/schemas/CreateMandateSender'
         mandate_details:
           $ref: '#/components/schemas/MandateDetails'
+        sender_details:
+          description: Sender details which will be used for fraud checking.
+          items:
+            $ref: '#/components/schemas/SenderDetail'
+          maxItems: 10
+          minItems: 1
+          type: array
       required:
       - mandate_details
       - recipient
       - sender
+      - sender_details
       type: object
     CreateMandateResponse:
       example:
@@ -5675,6 +5719,21 @@ components:
     GetMandateResponse:
       example:
         mandate_status: AUTHORIZATION_REQUIRED
+        sender_details:
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
         sender:
           user_id: user_id
           sender_account:
@@ -5732,6 +5791,11 @@ components:
           $ref: '#/components/schemas/GetMandateSender'
         mandate_details:
           $ref: '#/components/schemas/MandateDetails'
+        sender_details:
+          description: Sender details which will be used for fraud checking.
+          items:
+            $ref: '#/components/schemas/SenderDetail'
+          type: array
         error:
           $ref: '#/components/schemas/FvErrorModel'
       required:
@@ -5858,6 +5922,35 @@ components:
       required:
       - currency
       - sender_type
+      type: object
+    SenderDetail:
+      example:
+        values:
+        - values
+        - values
+        - values
+        - values
+        - values
+        details_type: HK_ID
+      properties:
+        details_type:
+          description: The type of the details. For e.g. HK_ID, PASSPORT, ACCOUNTHOLDER_NAME
+            etc
+          enum:
+          - HK_ID
+          - PASSPORT
+          - HK_BUSINESS_REGISTRATION
+          - HK_CERTIFICATE_OF_INCORPORATION
+          - ACCOUNTHOLDER_NAME
+          type: string
+        values:
+          description: The possible values of the detail. For e.g. "John Wick Adams"
+            for ACCOUNTHOLDER_NAME or A123456 for HK_ID
+          items:
+            type: string
+          maxItems: 10
+          minItems: 1
+          type: array
       type: object
     PaymentSchedule:
       example:

@@ -102,6 +102,7 @@ model_redirect_uri_response.go
 model_refresh_data.go
 model_refresh_request.go
 model_relink_request.go
+model_sender_detail.go
 model_set_mandate_institution_request.go
 model_set_mandate_institution_response.go
 model_single_source_income.go

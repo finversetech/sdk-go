@@ -20,17 +20,20 @@ type CreateMandateRequest struct {
 	Recipient      MandateRecipientRequest `json:"recipient"`
 	Sender         CreateMandateSender     `json:"sender"`
 	MandateDetails MandateDetails          `json:"mandate_details"`
+	// Sender details which will be used for fraud checking.
+	SenderDetails []SenderDetail `json:"sender_details"`
 }
 
 // NewCreateMandateRequest instantiates a new CreateMandateRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateMandateRequest(recipient MandateRecipientRequest, sender CreateMandateSender, mandateDetails MandateDetails) *CreateMandateRequest {
+func NewCreateMandateRequest(recipient MandateRecipientRequest, sender CreateMandateSender, mandateDetails MandateDetails, senderDetails []SenderDetail) *CreateMandateRequest {
 	this := CreateMandateRequest{}
 	this.Recipient = recipient
 	this.Sender = sender
 	this.MandateDetails = mandateDetails
+	this.SenderDetails = senderDetails
 	return &this
 }
 
@@ -114,6 +117,30 @@ func (o *CreateMandateRequest) SetMandateDetails(v MandateDetails) {
 	o.MandateDetails = v
 }
 
+// GetSenderDetails returns the SenderDetails field value
+func (o *CreateMandateRequest) GetSenderDetails() []SenderDetail {
+	if o == nil {
+		var ret []SenderDetail
+		return ret
+	}
+
+	return o.SenderDetails
+}
+
+// GetSenderDetailsOk returns a tuple with the SenderDetails field value
+// and a boolean to check if the value has been set.
+func (o *CreateMandateRequest) GetSenderDetailsOk() ([]SenderDetail, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.SenderDetails, true
+}
+
+// SetSenderDetails sets field value
+func (o *CreateMandateRequest) SetSenderDetails(v []SenderDetail) {
+	o.SenderDetails = v
+}
+
 func (o CreateMandateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -124,6 +151,9 @@ func (o CreateMandateRequest) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["mandate_details"] = o.MandateDetails
+	}
+	if true {
+		toSerialize["sender_details"] = o.SenderDetails
 	}
 	return json.Marshal(toSerialize)
 }
