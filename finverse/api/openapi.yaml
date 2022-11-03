@@ -5273,7 +5273,23 @@ components:
           description: description
           mandate_id: mandate_id
         sender:
+          sender_details:
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
           user_id: user_id
+          sender_type: INDIVIDUAL
           sender_account:
             raw: raw
           name: name
@@ -5550,44 +5566,45 @@ components:
       type: object
     CreateMandateRequest:
       example:
-        sender_details:
-        - values:
-          - values
-          - values
-          - values
-          - values
-          - values
-          details_type: HK_ID
-        - values:
-          - values
-          - values
-          - values
-          - values
-          - values
-          details_type: HK_ID
-        - values:
-          - values
-          - values
-          - values
-          - values
-          - values
-          details_type: HK_ID
-        - values:
-          - values
-          - values
-          - values
-          - values
-          - values
-          details_type: HK_ID
-        - values:
-          - values
-          - values
-          - values
-          - values
-          - values
-          details_type: HK_ID
         sender:
+          sender_details:
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
           user_id: user_id
+          sender_type: INDIVIDUAL
           name: name
           sender_reference_id: sender_reference_id
         mandate_details:
@@ -5600,7 +5617,6 @@ components:
             max_period_amount: 0
             max_period_count: 6
             max_transaction_amount: 1
-          sender_type: INDIVIDUAL
           description: description
           currency: currency
           start_date: 2000-01-23
@@ -5613,39 +5629,32 @@ components:
           $ref: '#/components/schemas/CreateMandateSender'
         mandate_details:
           $ref: '#/components/schemas/MandateDetails'
-        sender_details:
-          description: Sender details which will be used for fraud checking.
-          items:
-            $ref: '#/components/schemas/SenderDetail'
-          maxItems: 10
-          minItems: 1
-          type: array
       required:
       - mandate_details
       - recipient
       - sender
-      - sender_details
       type: object
     CreateMandateResponse:
       example:
         mandate_status: AUTHORIZATION_REQUIRED
-        sender_details:
-        - values:
-          - values
-          - values
-          - values
-          - values
-          - values
-          details_type: HK_ID
-        - values:
-          - values
-          - values
-          - values
-          - values
-          - values
-          details_type: HK_ID
         sender:
+          sender_details:
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
           user_id: user_id
+          sender_type: INDIVIDUAL
           sender_account:
             raw: raw
           name: name
@@ -5660,7 +5669,6 @@ components:
             max_period_amount: 0
             max_period_count: 6
             max_transaction_amount: 1
-          sender_type: INDIVIDUAL
           description: description
           currency: currency
           start_date: 2000-01-23
@@ -5701,11 +5709,6 @@ components:
           $ref: '#/components/schemas/GetMandateSender'
         mandate_details:
           $ref: '#/components/schemas/MandateDetails'
-        sender_details:
-          description: Sender details which will be used for fraud checking.
-          items:
-            $ref: '#/components/schemas/SenderDetail'
-          type: array
         error:
           $ref: '#/components/schemas/FvErrorModel'
       required:
@@ -5739,23 +5742,24 @@ components:
     GetMandateResponse:
       example:
         mandate_status: AUTHORIZATION_REQUIRED
-        sender_details:
-        - values:
-          - values
-          - values
-          - values
-          - values
-          - values
-          details_type: HK_ID
-        - values:
-          - values
-          - values
-          - values
-          - values
-          - values
-          details_type: HK_ID
         sender:
+          sender_details:
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
           user_id: user_id
+          sender_type: INDIVIDUAL
           sender_account:
             raw: raw
           name: name
@@ -5770,7 +5774,6 @@ components:
             max_period_amount: 0
             max_period_count: 6
             max_transaction_amount: 1
-          sender_type: INDIVIDUAL
           description: description
           currency: currency
           start_date: 2000-01-23
@@ -5811,11 +5814,6 @@ components:
           $ref: '#/components/schemas/GetMandateSender'
         mandate_details:
           $ref: '#/components/schemas/MandateDetails'
-        sender_details:
-          description: Sender details which will be used for fraud checking.
-          items:
-            $ref: '#/components/schemas/SenderDetail'
-          type: array
         error:
           $ref: '#/components/schemas/FvErrorModel'
       required:
@@ -5853,7 +5851,44 @@ components:
       type: object
     CreateMandateSender:
       example:
+        sender_details:
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
         user_id: user_id
+        sender_type: INDIVIDUAL
         name: name
         sender_reference_id: sender_reference_id
       properties:
@@ -5867,12 +5902,44 @@ components:
           description: Customer App's reference ID, representing the sender's account
             or billing reference number.
           type: string
+        sender_type:
+          description: Type of account held by the Sender at the Institution. Possible
+            values are INDIVIDUAL, BUSINESS
+          enum:
+          - INDIVIDUAL
+          - BUSINESS
+          type: string
+        sender_details:
+          description: Sender details which will be used for fraud checking.
+          items:
+            $ref: '#/components/schemas/SenderDetail'
+          maxItems: 10
+          minItems: 1
+          type: array
       required:
+      - sender_details
+      - sender_type
       - user_id
       type: object
     GetMandateSender:
       example:
+        sender_details:
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
         user_id: user_id
+        sender_type: INDIVIDUAL
         sender_account:
           raw: raw
         name: name
@@ -5890,8 +5957,21 @@ components:
           type: string
         sender_account:
           $ref: '#/components/schemas/PaymentAccount'
+        sender_type:
+          description: Type of account held by the Sender at the Institution. Possible
+            values are INDIVIDUAL, BUSINESS
+          enum:
+          - INDIVIDUAL
+          - BUSINESS
+          type: string
+        sender_details:
+          description: Sender details which will be used for fraud checking.
+          items:
+            $ref: '#/components/schemas/SenderDetail'
+          type: array
       required:
       - sender_account
+      - sender_type
       - user_id
       type: object
     MandateDetails:
@@ -5905,7 +5985,6 @@ components:
           max_period_amount: 0
           max_period_count: 6
           max_transaction_amount: 1
-        sender_type: INDIVIDUAL
         description: description
         currency: currency
         start_date: 2000-01-23
@@ -5932,16 +6011,8 @@ components:
           description: End-user facing description of the mandate (used in notifications,
             and in payments if no description is provided)
           type: string
-        sender_type:
-          description: Type of account held by the Sender at the Institution. Possible
-            values are INDIVIDUAL, BUSINESS
-          enum:
-          - INDIVIDUAL
-          - BUSINESS
-          type: string
       required:
       - currency
-      - sender_type
       type: object
     SenderDetail:
       example:

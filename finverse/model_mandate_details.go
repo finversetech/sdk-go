@@ -27,18 +27,15 @@ type MandateDetails struct {
 	TransactionLimits *TransactionLimits `json:"transaction_limits,omitempty"`
 	// End-user facing description of the mandate (used in notifications, and in payments if no description is provided)
 	Description *string `json:"description,omitempty"`
-	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
-	SenderType string `json:"sender_type"`
 }
 
 // NewMandateDetails instantiates a new MandateDetails object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMandateDetails(currency string, senderType string) *MandateDetails {
+func NewMandateDetails(currency string) *MandateDetails {
 	this := MandateDetails{}
 	this.Currency = currency
-	this.SenderType = senderType
 	return &this
 }
 
@@ -256,30 +253,6 @@ func (o *MandateDetails) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetSenderType returns the SenderType field value
-func (o *MandateDetails) GetSenderType() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.SenderType
-}
-
-// GetSenderTypeOk returns a tuple with the SenderType field value
-// and a boolean to check if the value has been set.
-func (o *MandateDetails) GetSenderTypeOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.SenderType, true
-}
-
-// SetSenderType sets field value
-func (o *MandateDetails) SetSenderType(v string) {
-	o.SenderType = v
-}
-
 func (o MandateDetails) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -299,9 +272,6 @@ func (o MandateDetails) MarshalJSON() ([]byte, error) {
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["sender_type"] = o.SenderType
 	}
 	return json.Marshal(toSerialize)
 }

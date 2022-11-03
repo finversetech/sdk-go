@@ -22,15 +22,21 @@ type CreateMandateSender struct {
 	UserId string `json:"user_id"`
 	// Customer App's reference ID, representing the sender's account or billing reference number.
 	SenderReferenceId *string `json:"sender_reference_id,omitempty"`
+	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
+	SenderType string `json:"sender_type"`
+	// Sender details which will be used for fraud checking.
+	SenderDetails []SenderDetail `json:"sender_details"`
 }
 
 // NewCreateMandateSender instantiates a new CreateMandateSender object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateMandateSender(userId string) *CreateMandateSender {
+func NewCreateMandateSender(userId string, senderType string, senderDetails []SenderDetail) *CreateMandateSender {
 	this := CreateMandateSender{}
 	this.UserId = userId
+	this.SenderType = senderType
+	this.SenderDetails = senderDetails
 	return &this
 }
 
@@ -130,6 +136,54 @@ func (o *CreateMandateSender) SetSenderReferenceId(v string) {
 	o.SenderReferenceId = &v
 }
 
+// GetSenderType returns the SenderType field value
+func (o *CreateMandateSender) GetSenderType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SenderType
+}
+
+// GetSenderTypeOk returns a tuple with the SenderType field value
+// and a boolean to check if the value has been set.
+func (o *CreateMandateSender) GetSenderTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SenderType, true
+}
+
+// SetSenderType sets field value
+func (o *CreateMandateSender) SetSenderType(v string) {
+	o.SenderType = v
+}
+
+// GetSenderDetails returns the SenderDetails field value
+func (o *CreateMandateSender) GetSenderDetails() []SenderDetail {
+	if o == nil {
+		var ret []SenderDetail
+		return ret
+	}
+
+	return o.SenderDetails
+}
+
+// GetSenderDetailsOk returns a tuple with the SenderDetails field value
+// and a boolean to check if the value has been set.
+func (o *CreateMandateSender) GetSenderDetailsOk() ([]SenderDetail, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.SenderDetails, true
+}
+
+// SetSenderDetails sets field value
+func (o *CreateMandateSender) SetSenderDetails(v []SenderDetail) {
+	o.SenderDetails = v
+}
+
 func (o CreateMandateSender) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Name != nil {
@@ -140,6 +194,12 @@ func (o CreateMandateSender) MarshalJSON() ([]byte, error) {
 	}
 	if o.SenderReferenceId != nil {
 		toSerialize["sender_reference_id"] = o.SenderReferenceId
+	}
+	if true {
+		toSerialize["sender_type"] = o.SenderType
+	}
+	if true {
+		toSerialize["sender_details"] = o.SenderDetails
 	}
 	return json.Marshal(toSerialize)
 }
