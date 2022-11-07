@@ -31,6 +31,8 @@ type MandateAuthLinkCustomizations struct {
 	ProductsSupported []string `json:"products_supported,omitempty"`
 	// The UI mode link is intended to be used in - \"iframe\" (default), \"auto_redirect\" or \"redirect\" or \"standalone\"
 	UiMode *string `json:"ui_mode,omitempty"`
+	// The URI to redirect to. Required if ui_mode is \"redirect\" or \"auto_redirect\"
+	RedirectUri *string `json:"redirect_uri,omitempty"`
 	// institution's supported user_type filter
 	UserType []string `json:"user_type,omitempty"`
 }
@@ -276,6 +278,38 @@ func (o *MandateAuthLinkCustomizations) SetUiMode(v string) {
 	o.UiMode = &v
 }
 
+// GetRedirectUri returns the RedirectUri field value if set, zero value otherwise.
+func (o *MandateAuthLinkCustomizations) GetRedirectUri() string {
+	if o == nil || o.RedirectUri == nil {
+		var ret string
+		return ret
+	}
+	return *o.RedirectUri
+}
+
+// GetRedirectUriOk returns a tuple with the RedirectUri field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MandateAuthLinkCustomizations) GetRedirectUriOk() (*string, bool) {
+	if o == nil || o.RedirectUri == nil {
+		return nil, false
+	}
+	return o.RedirectUri, true
+}
+
+// HasRedirectUri returns a boolean if a field has been set.
+func (o *MandateAuthLinkCustomizations) HasRedirectUri() bool {
+	if o != nil && o.RedirectUri != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRedirectUri gets a reference to the given string and assigns it to the RedirectUri field.
+func (o *MandateAuthLinkCustomizations) SetRedirectUri(v string) {
+	o.RedirectUri = &v
+}
+
 // GetUserType returns the UserType field value if set, zero value otherwise.
 func (o *MandateAuthLinkCustomizations) GetUserType() []string {
 	if o == nil || o.UserType == nil {
@@ -330,6 +364,9 @@ func (o MandateAuthLinkCustomizations) MarshalJSON() ([]byte, error) {
 	}
 	if o.UiMode != nil {
 		toSerialize["ui_mode"] = o.UiMode
+	}
+	if o.RedirectUri != nil {
+		toSerialize["redirect_uri"] = o.RedirectUri
 	}
 	if o.UserType != nil {
 		toSerialize["user_type"] = o.UserType

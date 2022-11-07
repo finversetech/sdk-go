@@ -6144,6 +6144,7 @@ components:
           countries:
           - HKG
           - SGP
+          redirect_uri: redirect_uri
           ui_mode: redirect
           institution_id: hsbc-hk
         mandate_id: mandate_id
@@ -6171,6 +6172,7 @@ components:
         countries:
         - HKG
         - SGP
+        redirect_uri: redirect_uri
         ui_mode: redirect
         institution_id: hsbc-hk
       properties:
@@ -6218,6 +6220,10 @@ components:
           - auto_redirect
           - standalone
           example: redirect
+          type: string
+        redirect_uri:
+          description: The URI to redirect to. Required if ui_mode is "redirect" or
+            "auto_redirect"
           type: string
         user_type:
           description: institution's supported user_type filter
