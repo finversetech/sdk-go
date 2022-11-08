@@ -17,9 +17,9 @@ import (
 
 // SenderDetail struct for SenderDetail
 type SenderDetail struct {
-	// The type of the details. For e.g. HK_ID, PASSPORT, ACCOUNTHOLDER_NAME etc
+	// The type of the details. For e.g. HK_ID, PASSPORT etc
 	DetailsType *string `json:"details_type,omitempty"`
-	// The possible values of the detail. For e.g. \"John Wick Adams\" for ACCOUNTHOLDER_NAME or A123456 for HK_ID
+	// The possible values of the detail. For e.g. A123456 for HK_ID
 	Values []string `json:"values,omitempty"`
 }
 

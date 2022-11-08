@@ -5914,10 +5914,8 @@ components:
           items:
             $ref: '#/components/schemas/SenderDetail'
           maxItems: 10
-          minItems: 1
           type: array
       required:
-      - sender_details
       - sender_type
       - user_id
       type: object
@@ -6025,22 +6023,18 @@ components:
         details_type: HK_ID
       properties:
         details_type:
-          description: The type of the details. For e.g. HK_ID, PASSPORT, ACCOUNTHOLDER_NAME
-            etc
+          description: The type of the details. For e.g. HK_ID, PASSPORT etc
           enum:
           - HK_ID
           - PASSPORT
           - HK_BUSINESS_REGISTRATION
           - HK_CERTIFICATE_OF_INCORPORATION
-          - ACCOUNTHOLDER_NAME
           type: string
         values:
-          description: The possible values of the detail. For e.g. "John Wick Adams"
-            for ACCOUNTHOLDER_NAME or A123456 for HK_ID
+          description: The possible values of the detail. For e.g. A123456 for HK_ID
           items:
             type: string
           maxItems: 10
-          minItems: 1
           type: array
       type: object
     PaymentSchedule:

@@ -25,18 +25,17 @@ type CreateMandateSender struct {
 	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
 	SenderType string `json:"sender_type"`
 	// Sender details which will be used for fraud checking.
-	SenderDetails []SenderDetail `json:"sender_details"`
+	SenderDetails []SenderDetail `json:"sender_details,omitempty"`
 }
 
 // NewCreateMandateSender instantiates a new CreateMandateSender object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateMandateSender(userId string, senderType string, senderDetails []SenderDetail) *CreateMandateSender {
+func NewCreateMandateSender(userId string, senderType string) *CreateMandateSender {
 	this := CreateMandateSender{}
 	this.UserId = userId
 	this.SenderType = senderType
-	this.SenderDetails = senderDetails
 	return &this
 }
 
@@ -160,26 +159,34 @@ func (o *CreateMandateSender) SetSenderType(v string) {
 	o.SenderType = v
 }
 
-// GetSenderDetails returns the SenderDetails field value
+// GetSenderDetails returns the SenderDetails field value if set, zero value otherwise.
 func (o *CreateMandateSender) GetSenderDetails() []SenderDetail {
-	if o == nil {
+	if o == nil || o.SenderDetails == nil {
 		var ret []SenderDetail
 		return ret
 	}
-
 	return o.SenderDetails
 }
 
-// GetSenderDetailsOk returns a tuple with the SenderDetails field value
+// GetSenderDetailsOk returns a tuple with the SenderDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateMandateSender) GetSenderDetailsOk() ([]SenderDetail, bool) {
-	if o == nil {
+	if o == nil || o.SenderDetails == nil {
 		return nil, false
 	}
 	return o.SenderDetails, true
 }
 
-// SetSenderDetails sets field value
+// HasSenderDetails returns a boolean if a field has been set.
+func (o *CreateMandateSender) HasSenderDetails() bool {
+	if o != nil && o.SenderDetails != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSenderDetails gets a reference to the given []SenderDetail and assigns it to the SenderDetails field.
 func (o *CreateMandateSender) SetSenderDetails(v []SenderDetail) {
 	o.SenderDetails = v
 }
@@ -198,7 +205,7 @@ func (o CreateMandateSender) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["sender_type"] = o.SenderType
 	}
-	if true {
+	if o.SenderDetails != nil {
 		toSerialize["sender_details"] = o.SenderDetails
 	}
 	return json.Marshal(toSerialize)
