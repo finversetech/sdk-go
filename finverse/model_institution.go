@@ -23,7 +23,6 @@ type Institution struct {
 	Tags                  []string               `json:"tags,omitempty"`
 	InstitutionType       string                 `json:"institution_type"`
 	ProductsSupported     []string               `json:"products_supported"`
-	PaymentsSupported     []string               `json:"payments_supported"`
 	ParentInstitutionName *string                `json:"parent_institution_name,omitempty"`
 	InstitutionName       string                 `json:"institution_name"`
 	PortalName            *string                `json:"portal_name,omitempty"`
@@ -43,13 +42,12 @@ type Institution struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInstitution(institutionId string, countries []string, institutionType string, productsSupported []string, paymentsSupported []string, institutionName string, userType []string, status string, loginDetails map[string]interface{}) *Institution {
+func NewInstitution(institutionId string, countries []string, institutionType string, productsSupported []string, institutionName string, userType []string, status string, loginDetails map[string]interface{}) *Institution {
 	this := Institution{}
 	this.InstitutionId = institutionId
 	this.Countries = countries
 	this.InstitutionType = institutionType
 	this.ProductsSupported = productsSupported
-	this.PaymentsSupported = paymentsSupported
 	this.InstitutionName = institutionName
 	this.UserType = userType
 	this.Status = status
@@ -191,30 +189,6 @@ func (o *Institution) GetProductsSupportedOk() ([]string, bool) {
 // SetProductsSupported sets field value
 func (o *Institution) SetProductsSupported(v []string) {
 	o.ProductsSupported = v
-}
-
-// GetPaymentsSupported returns the PaymentsSupported field value
-func (o *Institution) GetPaymentsSupported() []string {
-	if o == nil {
-		var ret []string
-		return ret
-	}
-
-	return o.PaymentsSupported
-}
-
-// GetPaymentsSupportedOk returns a tuple with the PaymentsSupported field value
-// and a boolean to check if the value has been set.
-func (o *Institution) GetPaymentsSupportedOk() ([]string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.PaymentsSupported, true
-}
-
-// SetPaymentsSupported sets field value
-func (o *Institution) SetPaymentsSupported(v []string) {
-	o.PaymentsSupported = v
 }
 
 // GetParentInstitutionName returns the ParentInstitutionName field value if set, zero value otherwise.
@@ -617,9 +591,6 @@ func (o Institution) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["products_supported"] = o.ProductsSupported
-	}
-	if true {
-		toSerialize["payments_supported"] = o.PaymentsSupported
 	}
 	if o.ParentInstitutionName != nil {
 		toSerialize["parent_institution_name"] = o.ParentInstitutionName

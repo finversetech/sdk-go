@@ -18,6 +18,7 @@ import (
 // PaymentInfo struct for PaymentInfo
 type PaymentInfo struct {
 	CurrenciesSupported []string   `json:"currencies_supported,omitempty"`
+	PaymentsSupported   []string   `json:"payments_supported"`
 	OtherInfo           *OtherInfo `json:"other_info,omitempty"`
 }
 
@@ -25,8 +26,9 @@ type PaymentInfo struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentInfo() *PaymentInfo {
+func NewPaymentInfo(paymentsSupported []string) *PaymentInfo {
 	this := PaymentInfo{}
+	this.PaymentsSupported = paymentsSupported
 	return &this
 }
 
@@ -70,6 +72,30 @@ func (o *PaymentInfo) SetCurrenciesSupported(v []string) {
 	o.CurrenciesSupported = v
 }
 
+// GetPaymentsSupported returns the PaymentsSupported field value
+func (o *PaymentInfo) GetPaymentsSupported() []string {
+	if o == nil {
+		var ret []string
+		return ret
+	}
+
+	return o.PaymentsSupported
+}
+
+// GetPaymentsSupportedOk returns a tuple with the PaymentsSupported field value
+// and a boolean to check if the value has been set.
+func (o *PaymentInfo) GetPaymentsSupportedOk() ([]string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.PaymentsSupported, true
+}
+
+// SetPaymentsSupported sets field value
+func (o *PaymentInfo) SetPaymentsSupported(v []string) {
+	o.PaymentsSupported = v
+}
+
 // GetOtherInfo returns the OtherInfo field value if set, zero value otherwise.
 func (o *PaymentInfo) GetOtherInfo() OtherInfo {
 	if o == nil || o.OtherInfo == nil {
@@ -106,6 +132,9 @@ func (o PaymentInfo) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.CurrenciesSupported != nil {
 		toSerialize["currencies_supported"] = o.CurrenciesSupported
+	}
+	if true {
+		toSerialize["payments_supported"] = o.PaymentsSupported
 	}
 	if o.OtherInfo != nil {
 		toSerialize["other_info"] = o.OtherInfo

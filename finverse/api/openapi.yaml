@@ -3053,15 +3053,15 @@ components:
         - INDIVIDUAL
         - INDIVIDUAL
         updated_at: 2000-01-23T04:56:07.000+00:00
-        payments_supported:
-        - MANDATE
-        - DEBIT_AUTHORIZATION
         payment_info:
           currencies_supported:
           - HKD
           - CNY
           other_info:
             bank_code: bank_code
+          payments_supported:
+          - MANDATE
+          - DEBIT_AUTHORIZATION
         status_details: {}
         status: SUPPORTED
       properties:
@@ -3104,16 +3104,6 @@ components:
             - STATEMENTS
             - ACCOUNT_NUMBERS
             - IDENTITY
-            type: string
-          type: array
-        payments_supported:
-          example:
-          - MANDATE
-          - DEBIT_AUTHORIZATION
-          items:
-            enum:
-            - MANDATE
-            - DEBIT_AUTHORIZATION
             type: string
           type: array
         parent_institution_name:
@@ -3176,7 +3166,6 @@ components:
       - institution_name
       - institution_type
       - login_details
-      - payments_supported
       - products_supported
       - status
       - user_type
@@ -5179,6 +5168,9 @@ components:
         - CNY
         other_info:
           bank_code: bank_code
+        payments_supported:
+        - MANDATE
+        - DEBIT_AUTHORIZATION
       properties:
         currencies_supported:
           example:
@@ -5187,8 +5179,20 @@ components:
           items:
             type: string
           type: array
+        payments_supported:
+          example:
+          - MANDATE
+          - DEBIT_AUTHORIZATION
+          items:
+            enum:
+            - MANDATE
+            - DEBIT_AUTHORIZATION
+            type: string
+          type: array
         other_info:
           $ref: '#/components/schemas/OtherInfo'
+      required:
+      - payments_supported
       type: object
     AccountType:
       example:
