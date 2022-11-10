@@ -1375,19 +1375,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BadRequestModel'
+                $ref: '#/components/schemas/ErrBodyModel'
           description: Invalid Request
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BadRequestModel'
+                $ref: '#/components/schemas/ErrBodyModel'
           description: Unauthorized
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/ErrBodyModel'
           description: Internal Server Error
       security:
       - Oauth2:
