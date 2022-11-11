@@ -5702,6 +5702,7 @@ components:
           type: LINKING_ERROR
           message: message
           request_id: request_id
+        status: AUTHORIZATION_REQUIRED
       properties:
         last_update:
           description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
@@ -5711,6 +5712,17 @@ components:
           description: Finverse Mandate ID (ULID)
           type: string
         mandate_status:
+          description: Mandate status (deprecated)
+          enum:
+          - AUTHORIZATION_REQUIRED
+          - AUTHORIZING
+          - PROCESSING
+          - SUBMITTED
+          - SUCCEEDED
+          - FAILED
+          - REVOKED
+          type: string
+        status:
           description: Mandate status
           enum:
           - AUTHORIZATION_REQUIRED
@@ -5736,6 +5748,7 @@ components:
       - mandate_status
       - recipient
       - sender
+      - status
       type: object
     SetMandateInstitutionRequest:
       example:
@@ -5807,6 +5820,7 @@ components:
           type: LINKING_ERROR
           message: message
           request_id: request_id
+        status: AUTHORIZATION_REQUIRED
       properties:
         last_update:
           description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
@@ -5816,6 +5830,17 @@ components:
           description: Finverse Mandate ID (ULID)
           type: string
         mandate_status:
+          description: Mandate status (deprecated)
+          enum:
+          - AUTHORIZATION_REQUIRED
+          - AUTHORIZING
+          - PROCESSING
+          - SUBMITTED
+          - SUCCEEDED
+          - FAILED
+          - REVOKED
+          type: string
+        status:
           description: Mandate status
           enum:
           - AUTHORIZATION_REQUIRED
@@ -5841,6 +5866,7 @@ components:
       - mandate_status
       - recipient
       - sender
+      - status
       type: object
     MandateRecipient:
       example:
