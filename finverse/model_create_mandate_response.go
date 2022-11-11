@@ -22,8 +22,6 @@ type CreateMandateResponse struct {
 	LastUpdate time.Time `json:"last_update"`
 	// Finverse Mandate ID (ULID)
 	MandateId string `json:"mandate_id"`
-	// Mandate status (deprecated)
-	MandateStatus string `json:"mandate_status"`
 	// Mandate status
 	Status         string           `json:"status"`
 	Recipient      MandateRecipient `json:"recipient"`
@@ -36,11 +34,10 @@ type CreateMandateResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateMandateResponse(lastUpdate time.Time, mandateId string, mandateStatus string, status string, recipient MandateRecipient, sender GetMandateSender, mandateDetails MandateDetails) *CreateMandateResponse {
+func NewCreateMandateResponse(lastUpdate time.Time, mandateId string, status string, recipient MandateRecipient, sender GetMandateSender, mandateDetails MandateDetails) *CreateMandateResponse {
 	this := CreateMandateResponse{}
 	this.LastUpdate = lastUpdate
 	this.MandateId = mandateId
-	this.MandateStatus = mandateStatus
 	this.Status = status
 	this.Recipient = recipient
 	this.Sender = sender
@@ -102,30 +99,6 @@ func (o *CreateMandateResponse) GetMandateIdOk() (*string, bool) {
 // SetMandateId sets field value
 func (o *CreateMandateResponse) SetMandateId(v string) {
 	o.MandateId = v
-}
-
-// GetMandateStatus returns the MandateStatus field value
-func (o *CreateMandateResponse) GetMandateStatus() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.MandateStatus
-}
-
-// GetMandateStatusOk returns a tuple with the MandateStatus field value
-// and a boolean to check if the value has been set.
-func (o *CreateMandateResponse) GetMandateStatusOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.MandateStatus, true
-}
-
-// SetMandateStatus sets field value
-func (o *CreateMandateResponse) SetMandateStatus(v string) {
-	o.MandateStatus = v
 }
 
 // GetStatus returns the Status field value
@@ -263,9 +236,6 @@ func (o CreateMandateResponse) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["mandate_id"] = o.MandateId
-	}
-	if true {
-		toSerialize["mandate_status"] = o.MandateStatus
 	}
 	if true {
 		toSerialize["status"] = o.Status

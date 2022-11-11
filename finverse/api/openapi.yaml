@@ -5654,7 +5654,6 @@ components:
       type: object
     CreateMandateResponse:
       example:
-        mandate_status: AUTHORIZATION_REQUIRED
         sender:
           sender_details:
           - values:
@@ -5711,17 +5710,6 @@ components:
         mandate_id:
           description: Finverse Mandate ID (ULID)
           type: string
-        mandate_status:
-          description: Mandate status (deprecated)
-          enum:
-          - AUTHORIZATION_REQUIRED
-          - AUTHORIZING
-          - PROCESSING
-          - SUBMITTED
-          - SUCCEEDED
-          - FAILED
-          - REVOKED
-          type: string
         status:
           description: Mandate status
           enum:
@@ -5745,7 +5733,6 @@ components:
       - last_update
       - mandate_details
       - mandate_id
-      - mandate_status
       - recipient
       - sender
       - status
@@ -5772,7 +5759,6 @@ components:
       type: object
     GetMandateResponse:
       example:
-        mandate_status: AUTHORIZATION_REQUIRED
         sender:
           sender_details:
           - values:
@@ -5829,17 +5815,6 @@ components:
         mandate_id:
           description: Finverse Mandate ID (ULID)
           type: string
-        mandate_status:
-          description: Mandate status (deprecated)
-          enum:
-          - AUTHORIZATION_REQUIRED
-          - AUTHORIZING
-          - PROCESSING
-          - SUBMITTED
-          - SUCCEEDED
-          - FAILED
-          - REVOKED
-          type: string
         status:
           description: Mandate status
           enum:
@@ -5863,7 +5838,6 @@ components:
       - last_update
       - mandate_details
       - mandate_id
-      - mandate_status
       - recipient
       - sender
       - status
