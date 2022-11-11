@@ -1221,6 +1221,96 @@ paths:
       tags:
       - public
   /mandates:
+    get:
+      description: List mandates
+      operationId: listMandates
+      parameters:
+      - description: ISO format (YYYY-MM-DD)
+        in: query
+        name: date_from
+        schema:
+          format: date
+          type: string
+      - description: ISO format (YYYY-MM-DD)
+        in: query
+        name: date_to
+        schema:
+          format: date
+          type: string
+      - description: The mandate status to query for
+        in: query
+        name: status
+        schema:
+          enum:
+          - AUTHORIZATION_REQUIRED
+          - AUTHORIZING
+          - PROCESSING
+          - SUBMITTED
+          - SUCCEEDED
+          - FAILED
+          - REVOKED
+          type: string
+      - description: The sender type of the mandate
+        in: query
+        name: sender_type
+        schema:
+          enum:
+          - INDIVIDUAL
+          - BUSINESS
+          type: string
+      - description: The user_id the mandate was setup for
+        in: query
+        name: user_id
+        schema:
+          type: string
+      - description: The institution the mandate was executed against
+        in: query
+        name: institution_id
+        schema:
+          type: string
+      - description: default is 0
+        in: query
+        name: offset
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+      - description: default is 500, max is 1000
+        in: query
+        name: limit
+        schema:
+          default: 500
+          maximum: 1000
+          minimum: 1
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListMandatesResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - mandate:list
     post:
       description: CREATE Mandate
       operationId: createMandate
@@ -1396,6 +1486,111 @@ paths:
       - customer
       x-codegen-request-body-name: getMandateAuthLinkRequest
   /payments:
+    get:
+      description: List Payments
+      operationId: listPayments
+      parameters:
+      - description: ISO format (YYYY-MM-DD)
+        in: query
+        name: date_from
+        schema:
+          format: date
+          type: string
+      - description: ISO format (YYYY-MM-DD)
+        in: query
+        name: date_to
+        schema:
+          format: date
+          type: string
+      - description: The payment status to query for
+        in: query
+        name: status
+        schema:
+          enum:
+          - AUTHORIZATION_REQUIRED
+          - AUTHORIZING
+          - PROCESSING
+          - SUBMITTED
+          - EXECUTED
+          - FAILED
+          - REVOKED
+          type: string
+      - description: The sender type of the mandate
+        in: query
+        name: sender_type
+        schema:
+          enum:
+          - INDIVIDUAL
+          - BUSINESS
+          type: string
+      - description: The user_id the mandate was setup for
+        in: query
+        name: user_id
+        schema:
+          type: string
+      - description: The institution the mandate was executed against
+        in: query
+        name: institution_id
+        schema:
+          type: string
+      - description: The type of payment
+        in: query
+        name: payment_type
+        schema:
+          type: string
+      - description: The mandate the payment belongs to
+        in: query
+        name: mandate_id
+        schema:
+          type: string
+      - description: The currency the payment is made in
+        in: query
+        name: currency
+        schema:
+          type: string
+      - description: default is 0
+        in: query
+        name: offset
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+      - description: default is 500, max is 1000
+        in: query
+        name: limit
+        schema:
+          default: 500
+          maximum: 1000
+          minimum: 1
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPaymentsResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payments:list
     post:
       description: Create new Payment
       operationId: createPayment
@@ -5375,6 +5570,99 @@ components:
         error:
           $ref: '#/components/schemas/FvErrorModel'
       type: object
+    ListPaymentsResponse:
+      example:
+        payments:
+        - amount: 100
+          payment_details:
+            transaction_reference_id: transaction_reference_id
+            description: description
+            mandate_id: mandate_id
+          sender:
+            sender_details:
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            user_id: user_id
+            sender_type: INDIVIDUAL
+            sender_account:
+              raw: raw
+            name: name
+            sender_reference_id: sender_reference_id
+          payment_id: payment_id
+          last_update: 2000-01-23T04:56:07.000+00:00
+          recipient:
+            name: name
+            recipient_account_id: recipient_account_id
+          currency: HKD
+          type: MANDATE
+          error:
+            code: CREDENTIALS_INVALID
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+            request_id: request_id
+          status: AUTHORIZATION_REQUIRED
+        - amount: 100
+          payment_details:
+            transaction_reference_id: transaction_reference_id
+            description: description
+            mandate_id: mandate_id
+          sender:
+            sender_details:
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            user_id: user_id
+            sender_type: INDIVIDUAL
+            sender_account:
+              raw: raw
+            name: name
+            sender_reference_id: sender_reference_id
+          payment_id: payment_id
+          last_update: 2000-01-23T04:56:07.000+00:00
+          recipient:
+            name: name
+            recipient_account_id: recipient_account_id
+          currency: HKD
+          type: MANDATE
+          error:
+            code: CREDENTIALS_INVALID
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+            request_id: request_id
+          status: AUTHORIZATION_REQUIRED
+      properties:
+        payments:
+          items:
+            $ref: '#/components/schemas/PaymentResponse'
+          type: array
+      type: object
     CreatePaymentInstructionResponse:
       example:
         payment_instruction_id: payment_instruction_id
@@ -5816,7 +6104,7 @@ components:
           description: Finverse Mandate ID (ULID)
           type: string
         status:
-          description: Mandate status
+          description: Mandate Status
           enum:
           - AUTHORIZATION_REQUIRED
           - AUTHORIZING
@@ -5841,6 +6129,111 @@ components:
       - recipient
       - sender
       - status
+      type: object
+    ListMandatesResponse:
+      example:
+        mandates:
+        - sender:
+            sender_details:
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            user_id: user_id
+            sender_type: INDIVIDUAL
+            sender_account:
+              raw: raw
+            name: name
+            sender_reference_id: sender_reference_id
+          mandate_details:
+            end_date: 2000-01-23
+            payment_schedule:
+              amount: 100
+              frequency: DAILY
+            transaction_limits:
+              period: DAILY
+              max_period_amount: 0
+              max_period_count: 6
+              max_transaction_amount: 1
+            description: description
+            currency: currency
+            start_date: 2000-01-23
+          last_update: 2000-01-23T04:56:07.000+00:00
+          recipient:
+            name: name
+            recipient_account_id: recipient_account_id
+          mandate_id: mandate_id
+          error:
+            code: CREDENTIALS_INVALID
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+            request_id: request_id
+          status: AUTHORIZATION_REQUIRED
+        - sender:
+            sender_details:
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            user_id: user_id
+            sender_type: INDIVIDUAL
+            sender_account:
+              raw: raw
+            name: name
+            sender_reference_id: sender_reference_id
+          mandate_details:
+            end_date: 2000-01-23
+            payment_schedule:
+              amount: 100
+              frequency: DAILY
+            transaction_limits:
+              period: DAILY
+              max_period_amount: 0
+              max_period_count: 6
+              max_transaction_amount: 1
+            description: description
+            currency: currency
+            start_date: 2000-01-23
+          last_update: 2000-01-23T04:56:07.000+00:00
+          recipient:
+            name: name
+            recipient_account_id: recipient_account_id
+          mandate_id: mandate_id
+          error:
+            code: CREDENTIALS_INVALID
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+            request_id: request_id
+          status: AUTHORIZATION_REQUIRED
+      properties:
+        mandates:
+          items:
+            $ref: '#/components/schemas/GetMandateResponse'
+          type: array
       type: object
     MandateRecipient:
       example:

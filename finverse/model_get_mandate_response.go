@@ -22,7 +22,7 @@ type GetMandateResponse struct {
 	LastUpdate time.Time `json:"last_update"`
 	// Finverse Mandate ID (ULID)
 	MandateId string `json:"mandate_id"`
-	// Mandate status
+	// Mandate Status
 	Status         string           `json:"status"`
 	Recipient      MandateRecipient `json:"recipient"`
 	Sender         GetMandateSender `json:"sender"`
