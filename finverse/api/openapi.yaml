@@ -1237,19 +1237,23 @@ paths:
         schema:
           format: date
           type: string
-      - description: The mandate status to query for
+      - description: The mandate statuses to filter for, comma separated
+        explode: false
         in: query
-        name: status
+        name: statuses
         schema:
-          enum:
-          - AUTHORIZATION_REQUIRED
-          - AUTHORIZING
-          - PROCESSING
-          - SUBMITTED
-          - SUCCEEDED
-          - FAILED
-          - REVOKED
-          type: string
+          items:
+            enum:
+            - AUTHORIZATION_REQUIRED
+            - AUTHORIZING
+            - PROCESSING
+            - SUBMITTED
+            - SUCCEEDED
+            - FAILED
+            - REVOKED
+            type: string
+          type: array
+        style: form
       - description: The sender type of the mandate
         in: query
         name: sender_type
@@ -1502,19 +1506,23 @@ paths:
         schema:
           format: date
           type: string
-      - description: The payment status to query for
+      - description: The payment statuses to filter for, comma separated
+        explode: false
         in: query
-        name: status
+        name: statuses
         schema:
-          enum:
-          - AUTHORIZATION_REQUIRED
-          - AUTHORIZING
-          - PROCESSING
-          - SUBMITTED
-          - EXECUTED
-          - FAILED
-          - REVOKED
-          type: string
+          items:
+            enum:
+            - AUTHORIZATION_REQUIRED
+            - AUTHORIZING
+            - PROCESSING
+            - SUBMITTED
+            - EXECUTED
+            - FAILED
+            - REVOKED
+            type: string
+          type: array
+        style: form
       - description: The sender type of the mandate
         in: query
         name: sender_type
@@ -1537,6 +1545,9 @@ paths:
         in: query
         name: payment_type
         schema:
+          enum:
+          - MANDATE
+          - SINGLE
           type: string
       - description: The mandate the payment belongs to
         in: query
@@ -5657,11 +5668,16 @@ components:
             message: message
             request_id: request_id
           status: AUTHORIZATION_REQUIRED
+        total_payments: 0
       properties:
         payments:
           items:
             $ref: '#/components/schemas/PaymentResponse'
           type: array
+        total_payments:
+          type: integer
+      required:
+      - total_payments
       type: object
     CreatePaymentInstructionResponse:
       example:
@@ -6132,6 +6148,7 @@ components:
       type: object
     ListMandatesResponse:
       example:
+        total_mandates: 5
         mandates:
         - sender:
             sender_details:
@@ -6234,6 +6251,10 @@ components:
           items:
             $ref: '#/components/schemas/GetMandateResponse'
           type: array
+        total_mandates:
+          type: integer
+      required:
+      - total_mandates
       type: object
     MandateRecipient:
       example:

@@ -63,7 +63,7 @@ type DefaultApiApiListMandatesRequest struct {
 	ApiService    DefaultApi
 	dateFrom      *string
 	dateTo        *string
-	status        *string
+	statuses      *[]string
 	senderType    *string
 	userId        *string
 	institutionId *string
@@ -83,9 +83,9 @@ func (r DefaultApiApiListMandatesRequest) DateTo(dateTo string) DefaultApiApiLis
 	return r
 }
 
-// The mandate status to query for
-func (r DefaultApiApiListMandatesRequest) Status(status string) DefaultApiApiListMandatesRequest {
-	r.status = &status
+// The mandate statuses to filter for, comma separated
+func (r DefaultApiApiListMandatesRequest) Statuses(statuses []string) DefaultApiApiListMandatesRequest {
+	r.statuses = &statuses
 	return r
 }
 
@@ -165,8 +165,8 @@ func (a *DefaultApiService) ListMandatesExecute(r DefaultApiApiListMandatesReque
 	if r.dateTo != nil {
 		localVarQueryParams.Add("date_to", parameterToString(*r.dateTo, ""))
 	}
-	if r.status != nil {
-		localVarQueryParams.Add("status", parameterToString(*r.status, ""))
+	if r.statuses != nil {
+		localVarQueryParams.Add("statuses", parameterToString(*r.statuses, "csv"))
 	}
 	if r.senderType != nil {
 		localVarQueryParams.Add("sender_type", parameterToString(*r.senderType, ""))
@@ -271,7 +271,7 @@ type DefaultApiApiListPaymentsRequest struct {
 	ApiService    DefaultApi
 	dateFrom      *string
 	dateTo        *string
-	status        *string
+	statuses      *[]string
 	senderType    *string
 	userId        *string
 	institutionId *string
@@ -294,9 +294,9 @@ func (r DefaultApiApiListPaymentsRequest) DateTo(dateTo string) DefaultApiApiLis
 	return r
 }
 
-// The payment status to query for
-func (r DefaultApiApiListPaymentsRequest) Status(status string) DefaultApiApiListPaymentsRequest {
-	r.status = &status
+// The payment statuses to filter for, comma separated
+func (r DefaultApiApiListPaymentsRequest) Statuses(statuses []string) DefaultApiApiListPaymentsRequest {
+	r.statuses = &statuses
 	return r
 }
 
@@ -394,8 +394,8 @@ func (a *DefaultApiService) ListPaymentsExecute(r DefaultApiApiListPaymentsReque
 	if r.dateTo != nil {
 		localVarQueryParams.Add("date_to", parameterToString(*r.dateTo, ""))
 	}
-	if r.status != nil {
-		localVarQueryParams.Add("status", parameterToString(*r.status, ""))
+	if r.statuses != nil {
+		localVarQueryParams.Add("statuses", parameterToString(*r.statuses, "csv"))
 	}
 	if r.senderType != nil {
 		localVarQueryParams.Add("sender_type", parameterToString(*r.senderType, ""))

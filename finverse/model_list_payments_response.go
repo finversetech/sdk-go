@@ -17,15 +17,17 @@ import (
 
 // ListPaymentsResponse struct for ListPaymentsResponse
 type ListPaymentsResponse struct {
-	Payments []PaymentResponse `json:"payments,omitempty"`
+	Payments      []PaymentResponse `json:"payments,omitempty"`
+	TotalPayments int32             `json:"total_payments"`
 }
 
 // NewListPaymentsResponse instantiates a new ListPaymentsResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListPaymentsResponse() *ListPaymentsResponse {
+func NewListPaymentsResponse(totalPayments int32) *ListPaymentsResponse {
 	this := ListPaymentsResponse{}
+	this.TotalPayments = totalPayments
 	return &this
 }
 
@@ -69,10 +71,37 @@ func (o *ListPaymentsResponse) SetPayments(v []PaymentResponse) {
 	o.Payments = v
 }
 
+// GetTotalPayments returns the TotalPayments field value
+func (o *ListPaymentsResponse) GetTotalPayments() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.TotalPayments
+}
+
+// GetTotalPaymentsOk returns a tuple with the TotalPayments field value
+// and a boolean to check if the value has been set.
+func (o *ListPaymentsResponse) GetTotalPaymentsOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TotalPayments, true
+}
+
+// SetTotalPayments sets field value
+func (o *ListPaymentsResponse) SetTotalPayments(v int32) {
+	o.TotalPayments = v
+}
+
 func (o ListPaymentsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Payments != nil {
 		toSerialize["payments"] = o.Payments
+	}
+	if true {
+		toSerialize["total_payments"] = o.TotalPayments
 	}
 	return json.Marshal(toSerialize)
 }

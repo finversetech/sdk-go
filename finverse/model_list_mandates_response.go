@@ -17,15 +17,17 @@ import (
 
 // ListMandatesResponse struct for ListMandatesResponse
 type ListMandatesResponse struct {
-	Mandates []GetMandateResponse `json:"mandates,omitempty"`
+	Mandates      []GetMandateResponse `json:"mandates,omitempty"`
+	TotalMandates int32                `json:"total_mandates"`
 }
 
 // NewListMandatesResponse instantiates a new ListMandatesResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListMandatesResponse() *ListMandatesResponse {
+func NewListMandatesResponse(totalMandates int32) *ListMandatesResponse {
 	this := ListMandatesResponse{}
+	this.TotalMandates = totalMandates
 	return &this
 }
 
@@ -69,10 +71,37 @@ func (o *ListMandatesResponse) SetMandates(v []GetMandateResponse) {
 	o.Mandates = v
 }
 
+// GetTotalMandates returns the TotalMandates field value
+func (o *ListMandatesResponse) GetTotalMandates() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.TotalMandates
+}
+
+// GetTotalMandatesOk returns a tuple with the TotalMandates field value
+// and a boolean to check if the value has been set.
+func (o *ListMandatesResponse) GetTotalMandatesOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TotalMandates, true
+}
+
+// SetTotalMandates sets field value
+func (o *ListMandatesResponse) SetTotalMandates(v int32) {
+	o.TotalMandates = v
+}
+
 func (o ListMandatesResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Mandates != nil {
 		toSerialize["mandates"] = o.Mandates
+	}
+	if true {
+		toSerialize["total_mandates"] = o.TotalMandates
 	}
 	return json.Marshal(toSerialize)
 }
