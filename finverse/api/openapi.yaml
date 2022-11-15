@@ -1073,7 +1073,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BadRequestModel'
+                $ref: '#/components/schemas/BadRequestModelV2'
           description: Refresh error
         "401":
           content: {}
@@ -1082,7 +1082,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BadRequestModel'
+                $ref: '#/components/schemas/BadRequestModelV2'
           description: Internal Server Error
       security:
       - Oauth2:
