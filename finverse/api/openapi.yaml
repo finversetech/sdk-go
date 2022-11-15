@@ -1590,7 +1590,7 @@ paths:
           description: Internal Server Error
       security:
       - Oauth2:
-        - payments:list
+        - payment:list
     post:
       description: Create new Payment
       operationId: createPayment
