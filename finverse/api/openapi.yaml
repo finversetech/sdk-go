@@ -5491,6 +5491,7 @@ components:
       type: object
     PaymentResponse:
       example:
+        transaction_date: 2000-01-23T04:56:07.000+00:00
         amount: 100
         payment_details:
           transaction_reference_id: transaction_reference_id
@@ -5578,13 +5579,19 @@ components:
           $ref: '#/components/schemas/MandateRecipient'
         sender:
           $ref: '#/components/schemas/GetMandateSender'
+        transaction_date:
+          description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+          format: date-time
+          nullable: true
+          type: string
         error:
           $ref: '#/components/schemas/FvErrorModel'
       type: object
     ListPaymentsResponse:
       example:
         payments:
-        - amount: 100
+        - transaction_date: 2000-01-23T04:56:07.000+00:00
+          amount: 100
           payment_details:
             transaction_reference_id: transaction_reference_id
             description: description
@@ -5626,7 +5633,8 @@ components:
             message: message
             request_id: request_id
           status: AUTHORIZATION_REQUIRED
-        - amount: 100
+        - transaction_date: 2000-01-23T04:56:07.000+00:00
+          amount: 100
           payment_details:
             transaction_reference_id: transaction_reference_id
             description: description

@@ -33,7 +33,9 @@ type PaymentResponse struct {
 	PaymentDetails *PaymentDetails2  `json:"payment_details,omitempty"`
 	Recipient      *MandateRecipient `json:"recipient,omitempty"`
 	Sender         *GetMandateSender `json:"sender,omitempty"`
-	Error          *FvErrorModel     `json:"error,omitempty"`
+	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+	TransactionDate NullableTime  `json:"transaction_date,omitempty"`
+	Error           *FvErrorModel `json:"error,omitempty"`
 }
 
 // NewPaymentResponse instantiates a new PaymentResponse object
@@ -341,6 +343,49 @@ func (o *PaymentResponse) SetSender(v GetMandateSender) {
 	o.Sender = &v
 }
 
+// GetTransactionDate returns the TransactionDate field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PaymentResponse) GetTransactionDate() time.Time {
+	if o == nil || o.TransactionDate.Get() == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.TransactionDate.Get()
+}
+
+// GetTransactionDateOk returns a tuple with the TransactionDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PaymentResponse) GetTransactionDateOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TransactionDate.Get(), o.TransactionDate.IsSet()
+}
+
+// HasTransactionDate returns a boolean if a field has been set.
+func (o *PaymentResponse) HasTransactionDate() bool {
+	if o != nil && o.TransactionDate.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTransactionDate gets a reference to the given NullableTime and assigns it to the TransactionDate field.
+func (o *PaymentResponse) SetTransactionDate(v time.Time) {
+	o.TransactionDate.Set(&v)
+}
+
+// SetTransactionDateNil sets the value for TransactionDate to be an explicit nil
+func (o *PaymentResponse) SetTransactionDateNil() {
+	o.TransactionDate.Set(nil)
+}
+
+// UnsetTransactionDate ensures that no value is present for TransactionDate, not even an explicit nil
+func (o *PaymentResponse) UnsetTransactionDate() {
+	o.TransactionDate.Unset()
+}
+
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *PaymentResponse) GetError() FvErrorModel {
 	if o == nil || o.Error == nil {
@@ -401,6 +446,9 @@ func (o PaymentResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Sender != nil {
 		toSerialize["sender"] = o.Sender
+	}
+	if o.TransactionDate.IsSet() {
+		toSerialize["transaction_date"] = o.TransactionDate.Get()
 	}
 	if o.Error != nil {
 		toSerialize["error"] = o.Error
