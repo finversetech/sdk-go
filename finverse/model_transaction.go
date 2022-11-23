@@ -41,8 +41,8 @@ type Transaction struct {
 	CreatedAt       *time.Time             `json:"created_at,omitempty"`
 	UpdatedAt       *time.Time             `json:"updated_at,omitempty"`
 	// Array of category labels
-	Categories      []string         `json:"categories,omitempty"`
-	CategoryDetails *CategoryDetails `json:"category_details,omitempty"`
+	Categories      []string          `json:"categories,omitempty"`
+	CategoryDetails []CategoryDetails `json:"category_details,omitempty"`
 }
 
 // NewTransaction instantiates a new Transaction object
@@ -632,17 +632,17 @@ func (o *Transaction) SetCategories(v []string) {
 }
 
 // GetCategoryDetails returns the CategoryDetails field value if set, zero value otherwise.
-func (o *Transaction) GetCategoryDetails() CategoryDetails {
+func (o *Transaction) GetCategoryDetails() []CategoryDetails {
 	if o == nil || o.CategoryDetails == nil {
-		var ret CategoryDetails
+		var ret []CategoryDetails
 		return ret
 	}
-	return *o.CategoryDetails
+	return o.CategoryDetails
 }
 
 // GetCategoryDetailsOk returns a tuple with the CategoryDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Transaction) GetCategoryDetailsOk() (*CategoryDetails, bool) {
+func (o *Transaction) GetCategoryDetailsOk() ([]CategoryDetails, bool) {
 	if o == nil || o.CategoryDetails == nil {
 		return nil, false
 	}
@@ -658,9 +658,9 @@ func (o *Transaction) HasCategoryDetails() bool {
 	return false
 }
 
-// SetCategoryDetails gets a reference to the given CategoryDetails and assigns it to the CategoryDetails field.
-func (o *Transaction) SetCategoryDetails(v CategoryDetails) {
-	o.CategoryDetails = &v
+// SetCategoryDetails gets a reference to the given []CategoryDetails and assigns it to the CategoryDetails field.
+func (o *Transaction) SetCategoryDetails(v []CategoryDetails) {
+	o.CategoryDetails = v
 }
 
 func (o Transaction) MarshalJSON() ([]byte, error) {

@@ -2651,7 +2651,11 @@ components:
         category_id: OTHER
         updated_at: 2000-01-23T04:56:07.000+00:00
         category_details:
-          categories:
+        - categories:
+          - TRANSFER
+          source: TRANSACTION_RULES
+          source_id: source_id
+        - categories:
           - TRANSFER
           source: TRANSACTION_RULES
           source_id: source_id
@@ -2727,7 +2731,9 @@ components:
             type: string
           type: array
         category_details:
-          $ref: '#/components/schemas/categoryDetails'
+          items:
+            $ref: '#/components/schemas/categoryDetails'
+          type: array
       required:
       - is_pending
       type: object
@@ -2830,7 +2836,11 @@ components:
           category_id: OTHER
           updated_at: 2000-01-23T04:56:07.000+00:00
           category_details:
-            categories:
+          - categories:
+            - TRANSFER
+            source: TRANSACTION_RULES
+            source_id: source_id
+          - categories:
             - TRANSFER
             source: TRANSACTION_RULES
             source_id: source_id
@@ -2857,7 +2867,11 @@ components:
           category_id: OTHER
           updated_at: 2000-01-23T04:56:07.000+00:00
           category_details:
-            categories:
+          - categories:
+            - TRANSFER
+            source: TRANSACTION_RULES
+            source_id: source_id
+          - categories:
             - TRANSFER
             source: TRANSACTION_RULES
             source_id: source_id
