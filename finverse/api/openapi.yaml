@@ -5533,6 +5533,7 @@ components:
             raw: raw
           name: name
           sender_reference_id: sender_reference_id
+          institution_id: institution_id
         payment_id: payment_id
         last_update: 2000-01-23T04:56:07.000+00:00
         recipient:
@@ -5632,6 +5633,7 @@ components:
               raw: raw
             name: name
             sender_reference_id: sender_reference_id
+            institution_id: institution_id
           payment_id: payment_id
           last_update: 2000-01-23T04:56:07.000+00:00
           recipient:
@@ -5675,6 +5677,7 @@ components:
               raw: raw
             name: name
             sender_reference_id: sender_reference_id
+            institution_id: institution_id
           payment_id: payment_id
           last_update: 2000-01-23T04:56:07.000+00:00
           recipient:
@@ -6002,6 +6005,7 @@ components:
             raw: raw
           name: name
           sender_reference_id: sender_reference_id
+          institution_id: institution_id
         mandate_details:
           end_date: 2000-01-23
           payment_schedule:
@@ -6107,6 +6111,7 @@ components:
             raw: raw
           name: name
           sender_reference_id: sender_reference_id
+          institution_id: institution_id
         mandate_details:
           end_date: 2000-01-23
           payment_schedule:
@@ -6194,6 +6199,7 @@ components:
               raw: raw
             name: name
             sender_reference_id: sender_reference_id
+            institution_id: institution_id
           mandate_details:
             end_date: 2000-01-23
             payment_schedule:
@@ -6242,6 +6248,7 @@ components:
               raw: raw
             name: name
             sender_reference_id: sender_reference_id
+            institution_id: institution_id
           mandate_details:
             end_date: 2000-01-23
             payment_schedule:
@@ -6396,6 +6403,7 @@ components:
           raw: raw
         name: name
         sender_reference_id: sender_reference_id
+        institution_id: institution_id
       properties:
         name:
           type: string
@@ -6406,6 +6414,9 @@ components:
         sender_reference_id:
           description: Customer App's reference ID, representing the sender's account
             or billing reference number.
+          type: string
+        institution_id:
+          description: Finverse Institution ID.
           type: string
         sender_account:
           $ref: '#/components/schemas/PaymentAccount'
