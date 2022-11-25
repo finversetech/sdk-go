@@ -4935,10 +4935,15 @@ components:
     PaymentAccount:
       example:
         raw: raw
+        institution_id: institution_id
       properties:
         raw:
           description: The raw value for the account the user selected when making
             payment request
+          type: string
+        institution_id:
+          description: Finverse Institution ID. Only returned if institution_id was
+            included in the request.
           type: string
       type: object
     CompositeStatementLink:
@@ -5531,9 +5536,9 @@ components:
           sender_type: INDIVIDUAL
           sender_account:
             raw: raw
+            institution_id: institution_id
           name: name
           sender_reference_id: sender_reference_id
-          institution_id: institution_id
         payment_id: payment_id
         last_update: 2000-01-23T04:56:07.000+00:00
         recipient:
@@ -5631,9 +5636,9 @@ components:
             sender_type: INDIVIDUAL
             sender_account:
               raw: raw
+              institution_id: institution_id
             name: name
             sender_reference_id: sender_reference_id
-            institution_id: institution_id
           payment_id: payment_id
           last_update: 2000-01-23T04:56:07.000+00:00
           recipient:
@@ -5675,9 +5680,9 @@ components:
             sender_type: INDIVIDUAL
             sender_account:
               raw: raw
+              institution_id: institution_id
             name: name
             sender_reference_id: sender_reference_id
-            institution_id: institution_id
           payment_id: payment_id
           last_update: 2000-01-23T04:56:07.000+00:00
           recipient:
@@ -5725,6 +5730,7 @@ components:
           user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
           sender_account:
             raw: raw
+            institution_id: institution_id
           last_update: 2000-01-23T04:56:07.000+00:00
           sender_account_id: The sender account ID
           currency: HKD
@@ -5823,6 +5829,7 @@ components:
         user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
         sender_account:
           raw: raw
+          institution_id: institution_id
         last_update: 2000-01-23T04:56:07.000+00:00
         sender_account_id: The sender account ID
         currency: HKD
@@ -6003,9 +6010,9 @@ components:
           sender_type: INDIVIDUAL
           sender_account:
             raw: raw
+            institution_id: institution_id
           name: name
           sender_reference_id: sender_reference_id
-          institution_id: institution_id
         mandate_details:
           end_date: 2000-01-23
           payment_schedule:
@@ -6109,9 +6116,9 @@ components:
           sender_type: INDIVIDUAL
           sender_account:
             raw: raw
+            institution_id: institution_id
           name: name
           sender_reference_id: sender_reference_id
-          institution_id: institution_id
         mandate_details:
           end_date: 2000-01-23
           payment_schedule:
@@ -6197,9 +6204,9 @@ components:
             sender_type: INDIVIDUAL
             sender_account:
               raw: raw
+              institution_id: institution_id
             name: name
             sender_reference_id: sender_reference_id
-            institution_id: institution_id
           mandate_details:
             end_date: 2000-01-23
             payment_schedule:
@@ -6246,9 +6253,9 @@ components:
             sender_type: INDIVIDUAL
             sender_account:
               raw: raw
+              institution_id: institution_id
             name: name
             sender_reference_id: sender_reference_id
-            institution_id: institution_id
           mandate_details:
             end_date: 2000-01-23
             payment_schedule:
@@ -6401,9 +6408,9 @@ components:
         sender_type: INDIVIDUAL
         sender_account:
           raw: raw
+          institution_id: institution_id
         name: name
         sender_reference_id: sender_reference_id
-        institution_id: institution_id
       properties:
         name:
           type: string
@@ -6414,9 +6421,6 @@ components:
         sender_reference_id:
           description: Customer App's reference ID, representing the sender's account
             or billing reference number.
-          type: string
-        institution_id:
-          description: Finverse Institution ID.
           type: string
         sender_account:
           $ref: '#/components/schemas/PaymentAccount'

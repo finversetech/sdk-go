@@ -21,10 +21,8 @@ type GetMandateSender struct {
 	// Customer App's user ID, representing the end-user making the payment.
 	UserId string `json:"user_id"`
 	// Customer App's reference ID, representing the sender's account or billing reference number.
-	SenderReferenceId *string `json:"sender_reference_id,omitempty"`
-	// Finverse Institution ID.
-	InstitutionId *string        `json:"institution_id,omitempty"`
-	SenderAccount PaymentAccount `json:"sender_account"`
+	SenderReferenceId *string        `json:"sender_reference_id,omitempty"`
+	SenderAccount     PaymentAccount `json:"sender_account"`
 	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
 	SenderType string `json:"sender_type"`
 	// Sender details which will be used for fraud checking.
@@ -139,38 +137,6 @@ func (o *GetMandateSender) SetSenderReferenceId(v string) {
 	o.SenderReferenceId = &v
 }
 
-// GetInstitutionId returns the InstitutionId field value if set, zero value otherwise.
-func (o *GetMandateSender) GetInstitutionId() string {
-	if o == nil || o.InstitutionId == nil {
-		var ret string
-		return ret
-	}
-	return *o.InstitutionId
-}
-
-// GetInstitutionIdOk returns a tuple with the InstitutionId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GetMandateSender) GetInstitutionIdOk() (*string, bool) {
-	if o == nil || o.InstitutionId == nil {
-		return nil, false
-	}
-	return o.InstitutionId, true
-}
-
-// HasInstitutionId returns a boolean if a field has been set.
-func (o *GetMandateSender) HasInstitutionId() bool {
-	if o != nil && o.InstitutionId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetInstitutionId gets a reference to the given string and assigns it to the InstitutionId field.
-func (o *GetMandateSender) SetInstitutionId(v string) {
-	o.InstitutionId = &v
-}
-
 // GetSenderAccount returns the SenderAccount field value
 func (o *GetMandateSender) GetSenderAccount() PaymentAccount {
 	if o == nil {
@@ -261,9 +227,6 @@ func (o GetMandateSender) MarshalJSON() ([]byte, error) {
 	}
 	if o.SenderReferenceId != nil {
 		toSerialize["sender_reference_id"] = o.SenderReferenceId
-	}
-	if o.InstitutionId != nil {
-		toSerialize["institution_id"] = o.InstitutionId
 	}
 	if true {
 		toSerialize["sender_account"] = o.SenderAccount

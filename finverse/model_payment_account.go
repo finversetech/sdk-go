@@ -19,6 +19,8 @@ import (
 type PaymentAccount struct {
 	// The raw value for the account the user selected when making payment request
 	Raw *string `json:"raw,omitempty"`
+	// Finverse Institution ID. Only returned if institution_id was included in the request.
+	InstitutionId *string `json:"institution_id,omitempty"`
 }
 
 // NewPaymentAccount instantiates a new PaymentAccount object
@@ -70,10 +72,45 @@ func (o *PaymentAccount) SetRaw(v string) {
 	o.Raw = &v
 }
 
+// GetInstitutionId returns the InstitutionId field value if set, zero value otherwise.
+func (o *PaymentAccount) GetInstitutionId() string {
+	if o == nil || o.InstitutionId == nil {
+		var ret string
+		return ret
+	}
+	return *o.InstitutionId
+}
+
+// GetInstitutionIdOk returns a tuple with the InstitutionId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentAccount) GetInstitutionIdOk() (*string, bool) {
+	if o == nil || o.InstitutionId == nil {
+		return nil, false
+	}
+	return o.InstitutionId, true
+}
+
+// HasInstitutionId returns a boolean if a field has been set.
+func (o *PaymentAccount) HasInstitutionId() bool {
+	if o != nil && o.InstitutionId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInstitutionId gets a reference to the given string and assigns it to the InstitutionId field.
+func (o *PaymentAccount) SetInstitutionId(v string) {
+	o.InstitutionId = &v
+}
+
 func (o PaymentAccount) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Raw != nil {
 		toSerialize["raw"] = o.Raw
+	}
+	if o.InstitutionId != nil {
+		toSerialize["institution_id"] = o.InstitutionId
 	}
 	return json.Marshal(toSerialize)
 }
