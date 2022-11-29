@@ -1943,6 +1943,85 @@ paths:
       tags:
       - customer
       x-codegen-request-body-name: createPayoutInstructionRequest
+  /payout_instruction/{payoutInstructionId}:
+    get:
+      description: Get Payout Instruction details by payout_instruction_id
+      operationId: getPayoutInstruction
+      parameters:
+      - description: payout instruction id
+        in: path
+        name: payoutInstructionId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayoutInstructionResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payoutInstruction:get
+      tags:
+      - customer
+  /payout_instruction/{payoutInstructionId}/cancel:
+    post:
+      description: Cancel Payout Instruction by payout_instruction_id
+      operationId: cancelPayoutInstruction
+      parameters:
+      - description: payout instruction id
+        in: path
+        name: payoutInstructionId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payoutInstruction:cancel
+      tags:
+      - customer
 components:
   schemas:
     ErrorResponse:
