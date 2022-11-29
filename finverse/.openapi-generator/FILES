@@ -29,6 +29,7 @@ model_create_mandate_response.go
 model_create_mandate_sender.go
 model_create_payment_instruction_response.go
 model_create_payment_request.go
+model_create_payout_instruction_request.go
 model_create_recipient_request.go
 model_create_recipient_response.go
 model_currency_amount.go
@@ -101,6 +102,7 @@ model_payment_info.go
 model_payment_instruction.go
 model_payment_response.go
 model_payment_schedule.go
+model_payout_instruction_response.go
 model_principal.go
 model_product_status.go
 model_recipient_account.go

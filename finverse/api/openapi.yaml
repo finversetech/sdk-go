@@ -1893,6 +1893,56 @@ paths:
       tags:
       - customer
       x-codegen-request-body-name: createRecipientRequest
+  /payout_instruction:
+    post:
+      description: Create new Payout instruction
+      operationId: createPayoutInstruction
+      parameters:
+      - description: A random key provided by the customer, per unique payout. The
+          purpose for the Idempotency key is to allow safe retrying without the operation
+          being performed multiple times.
+        in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePayoutInstructionRequest'
+        description: request body for creating payout instruction
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayoutInstructionResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payoutInstruction:create
+      tags:
+      - customer
+      x-codegen-request-body-name: createPayoutInstructionRequest
 components:
   schemas:
     ErrorResponse:
@@ -5750,6 +5800,81 @@ components:
           type: integer
       required:
       - total_payments
+      type: object
+    CreatePayoutInstructionRequest:
+      example:
+        date: 2000-01-23
+        amount: 100
+        mandate_id: mandate_id
+        description: description
+        currency: HKD
+        recipient_account_id: recipient_account_id
+      properties:
+        mandate_id:
+          description: The mandate used to execute payments for this payout instruction.
+            Currency for the mandate must be supported by the recipient account
+          type: string
+        recipient_account_id:
+          description: The recipient account to receive the payment
+          type: string
+        amount:
+          description: Amount to be paid, in currency's smallest unit or “minor unit”,
+            as defined in ISO 4217. For example, HKD 100.01 is represented as amount
+            = 10001 (minor unit = cents). For currencies without minor units (e.g.
+            VND, JPY), the amount is represented as is, without modification. For
+            example, VND 15101 is represented as amount = 15101.
+          example: 100
+          type: integer
+        date:
+          description: YYYY-MM-DD, date (in UTC) to execute the payment, must be 1
+            day later than current date
+          format: date
+          type: string
+        description:
+          description: A description for the payment (that will appear as the transaction
+            description on bank statements)
+          type: string
+        currency:
+          description: The currency code as defined in ISO 4217.
+          example: HKD
+          type: string
+      required:
+      - amount
+      - currency
+      - date
+      - mandate_id
+      - recipient_account_id
+      type: object
+    PayoutInstructionResponse:
+      example:
+        payout_instruction_id: payout_instruction_id
+        error:
+          code: CREDENTIALS_INVALID
+          error_code: CREDENTIALS_INVALID
+          details: details
+          type: LINKING_ERROR
+          message: message
+          request_id: request_id
+        status: CREATED
+      properties:
+        payout_instruction_id:
+          description: Finverse Payout Instruction ID
+          type: string
+        status:
+          description: Possible values - CREATED, PROCESSING, EXECUTED, CANCELLED,
+            FAILED.
+          enum:
+          - CREATED
+          - PROCESSING
+          - EXECUTED
+          - CANCELLED
+          - FAILED
+          type: string
+        error:
+          $ref: '#/components/schemas/FvErrorModel'
+      required:
+      - payout_instruction_id
+      - status
       type: object
     CreatePaymentInstructionResponse:
       example:
