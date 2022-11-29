@@ -5926,7 +5926,13 @@ components:
       type: object
     PayoutInstructionResponse:
       example:
+        date: 2000-01-23
+        amount: 100
+        mandate_id: mandate_id
+        description: description
         payout_instruction_id: payout_instruction_id
+        currency: HKD
+        recipient_account_id: recipient_account_id
         error:
           code: CREDENTIALS_INVALID
           error_code: CREDENTIALS_INVALID
@@ -5948,6 +5954,34 @@ components:
           - EXECUTED
           - CANCELLED
           - FAILED
+          type: string
+        mandate_id:
+          description: The mandate used to execute payments for this payout instruction.
+            Currency for the mandate must be supported by the recipient account
+          type: string
+        recipient_account_id:
+          description: The recipient account to receive the payment
+          type: string
+        amount:
+          description: Amount to be paid, in currency's smallest unit or “minor unit”,
+            as defined in ISO 4217. For example, HKD 100.01 is represented as amount
+            = 10001 (minor unit = cents). For currencies without minor units (e.g.
+            VND, JPY), the amount is represented as is, without modification. For
+            example, VND 15101 is represented as amount = 15101.
+          example: 100
+          type: integer
+        date:
+          description: YYYY-MM-DD, date (in UTC) to execute the payment, must be 1
+            day later than current date
+          format: date
+          type: string
+        description:
+          description: A description for the payment (that will appear as the transaction
+            description on bank statements)
+          type: string
+        currency:
+          description: The currency code as defined in ISO 4217.
+          example: HKD
           type: string
         error:
           $ref: '#/components/schemas/FvErrorModel'
