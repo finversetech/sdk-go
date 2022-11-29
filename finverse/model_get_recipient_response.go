@@ -15,30 +15,30 @@ import (
 	"encoding/json"
 )
 
-// CreateRecipientResponse struct for CreateRecipientResponse
-type CreateRecipientResponse struct {
+// GetRecipientResponse struct for GetRecipientResponse
+type GetRecipientResponse struct {
 	Recipient *RecipientResponse `json:"recipient,omitempty"`
 }
 
-// NewCreateRecipientResponse instantiates a new CreateRecipientResponse object
+// NewGetRecipientResponse instantiates a new GetRecipientResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateRecipientResponse() *CreateRecipientResponse {
-	this := CreateRecipientResponse{}
+func NewGetRecipientResponse() *GetRecipientResponse {
+	this := GetRecipientResponse{}
 	return &this
 }
 
-// NewCreateRecipientResponseWithDefaults instantiates a new CreateRecipientResponse object
+// NewGetRecipientResponseWithDefaults instantiates a new GetRecipientResponse object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewCreateRecipientResponseWithDefaults() *CreateRecipientResponse {
-	this := CreateRecipientResponse{}
+func NewGetRecipientResponseWithDefaults() *GetRecipientResponse {
+	this := GetRecipientResponse{}
 	return &this
 }
 
 // GetRecipient returns the Recipient field value if set, zero value otherwise.
-func (o *CreateRecipientResponse) GetRecipient() RecipientResponse {
+func (o *GetRecipientResponse) GetRecipient() RecipientResponse {
 	if o == nil || o.Recipient == nil {
 		var ret RecipientResponse
 		return ret
@@ -48,7 +48,7 @@ func (o *CreateRecipientResponse) GetRecipient() RecipientResponse {
 
 // GetRecipientOk returns a tuple with the Recipient field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateRecipientResponse) GetRecipientOk() (*RecipientResponse, bool) {
+func (o *GetRecipientResponse) GetRecipientOk() (*RecipientResponse, bool) {
 	if o == nil || o.Recipient == nil {
 		return nil, false
 	}
@@ -56,7 +56,7 @@ func (o *CreateRecipientResponse) GetRecipientOk() (*RecipientResponse, bool) {
 }
 
 // HasRecipient returns a boolean if a field has been set.
-func (o *CreateRecipientResponse) HasRecipient() bool {
+func (o *GetRecipientResponse) HasRecipient() bool {
 	if o != nil && o.Recipient != nil {
 		return true
 	}
@@ -65,11 +65,11 @@ func (o *CreateRecipientResponse) HasRecipient() bool {
 }
 
 // SetRecipient gets a reference to the given RecipientResponse and assigns it to the Recipient field.
-func (o *CreateRecipientResponse) SetRecipient(v RecipientResponse) {
+func (o *GetRecipientResponse) SetRecipient(v RecipientResponse) {
 	o.Recipient = &v
 }
 
-func (o CreateRecipientResponse) MarshalJSON() ([]byte, error) {
+func (o GetRecipientResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Recipient != nil {
 		toSerialize["recipient"] = o.Recipient
@@ -77,38 +77,38 @@ func (o CreateRecipientResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-type NullableCreateRecipientResponse struct {
-	value *CreateRecipientResponse
+type NullableGetRecipientResponse struct {
+	value *GetRecipientResponse
 	isSet bool
 }
 
-func (v NullableCreateRecipientResponse) Get() *CreateRecipientResponse {
+func (v NullableGetRecipientResponse) Get() *GetRecipientResponse {
 	return v.value
 }
 
-func (v *NullableCreateRecipientResponse) Set(val *CreateRecipientResponse) {
+func (v *NullableGetRecipientResponse) Set(val *GetRecipientResponse) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableCreateRecipientResponse) IsSet() bool {
+func (v NullableGetRecipientResponse) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableCreateRecipientResponse) Unset() {
+func (v *NullableGetRecipientResponse) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableCreateRecipientResponse(val *CreateRecipientResponse) *NullableCreateRecipientResponse {
-	return &NullableCreateRecipientResponse{value: val, isSet: true}
+func NewNullableGetRecipientResponse(val *GetRecipientResponse) *NullableGetRecipientResponse {
+	return &NullableGetRecipientResponse{value: val, isSet: true}
 }
 
-func (v NullableCreateRecipientResponse) MarshalJSON() ([]byte, error) {
+func (v NullableGetRecipientResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableCreateRecipientResponse) UnmarshalJSON(src []byte) error {
+func (v *NullableGetRecipientResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

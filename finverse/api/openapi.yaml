@@ -2022,6 +2022,84 @@ paths:
         - payoutInstruction:cancel
       tags:
       - customer
+  /recipients/{recipientAccountId}:
+    delete:
+      description: Delete Recipient
+      operationId: deleteRecipient
+      parameters:
+      - description: The institution id
+        in: path
+        name: recipientAccountId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - recipient_account:delete
+      tags:
+      - customer
+    get:
+      description: Get Recipient
+      operationId: getRecipient
+      parameters:
+      - description: The institution id
+        in: path
+        name: recipientAccountId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetRecipientResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - recipient_account:get
+      tags:
+      - customer
 components:
   schemas:
     ErrorResponse:
@@ -7334,7 +7412,7 @@ components:
       - number
       - type
       type: object
-    CreateRecipientResponse:
+    RecipientResponse:
       example:
         metadata: '{}'
         user_id: user_id_1
@@ -7379,6 +7457,50 @@ components:
       required:
       - name
       - recipient_account
+      type: object
+    CreateRecipientResponse:
+      example:
+        recipient:
+          metadata: '{}'
+          user_id: user_id_1
+          recipient_account:
+            account_number:
+              number: number
+              type: LOCAL
+            account_type: EXTERNAL_ACCOUNT
+            accountholder_name: Chan Li Pak
+            currencies:
+            - HKD
+            - SGD
+            institution_id: hsbc-hk
+          last_update: 2000-01-23T04:56:07.000+00:00
+          name: James Chan
+          recipient_account_id: recipient_account_id
+      properties:
+        recipient:
+          $ref: '#/components/schemas/RecipientResponse'
+      type: object
+    GetRecipientResponse:
+      example:
+        recipient:
+          metadata: '{}'
+          user_id: user_id_1
+          recipient_account:
+            account_number:
+              number: number
+              type: LOCAL
+            account_type: EXTERNAL_ACCOUNT
+            accountholder_name: Chan Li Pak
+            currencies:
+            - HKD
+            - SGD
+            institution_id: hsbc-hk
+          last_update: 2000-01-23T04:56:07.000+00:00
+          name: James Chan
+          recipient_account_id: recipient_account_id
+      properties:
+        recipient:
+          $ref: '#/components/schemas/RecipientResponse'
       type: object
     BadRequestModel_error:
       properties:

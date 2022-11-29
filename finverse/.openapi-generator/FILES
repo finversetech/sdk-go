@@ -52,6 +52,7 @@ model_get_mandate_auth_response.go
 model_get_mandate_response.go
 model_get_mandate_sender.go
 model_get_payment_instructions_response.go
+model_get_recipient_response.go
 model_get_statement_link_response.go
 model_get_statements_response.go
 model_identity.go
@@ -107,6 +108,7 @@ model_principal.go
 model_product_status.go
 model_recipient_account.go
 model_recipient_account_number.go
+model_recipient_response.go
 model_redirect_uri_response.go
 model_refresh_data.go
 model_refresh_request.go
