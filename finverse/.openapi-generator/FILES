@@ -29,6 +29,8 @@ model_create_mandate_response.go
 model_create_mandate_sender.go
 model_create_payment_instruction_response.go
 model_create_payment_request.go
+model_create_recipient_request.go
+model_create_recipient_response.go
 model_currency_amount.go
 model_customer_payment_instruction.go
 model_delete_login_identity_response.go
@@ -101,6 +103,8 @@ model_payment_response.go
 model_payment_schedule.go
 model_principal.go
 model_product_status.go
+model_recipient_account.go
+model_recipient_account_number.go
 model_redirect_uri_response.go
 model_refresh_data.go
 model_refresh_request.go

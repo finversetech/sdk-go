@@ -1851,6 +1851,48 @@ paths:
         - payment:get
       tags:
       - customer
+  /recipients:
+    post:
+      description: Create Recipients
+      operationId: createRecipient
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRecipientRequest'
+        description: request body for creating recipient
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateRecipientResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - recipient_account:create
+      tags:
+      - customer
+      x-codegen-request-body-name: createRecipientRequest
 components:
   schemas:
     ErrorResponse:
@@ -6954,6 +6996,151 @@ components:
       - initialization_vector
       - key_id
       - message_authentication_code
+      type: object
+    CreateRecipientRequest:
+      example:
+        metadata:
+          key: metadata
+        user_id: user_id_1
+        recipient_account:
+          account_number:
+            number: number
+            type: LOCAL
+          account_type: EXTERNAL_ACCOUNT
+          accountholder_name: Chan Li Pak
+          currencies:
+          - HKD
+          - SGD
+          institution_id: hsbc-hk
+        name: James Chan
+      properties:
+        name:
+          description: 'Recipient''s name/nickname (note: this does not need to match
+            the actual accountholder name of the recipient''s account)'
+          example: James Chan
+          type: string
+        recipient_account:
+          $ref: '#/components/schemas/RecipientAccount'
+        user_id:
+          description: Customer App's internal ID for the recipient
+          example: user_id_1
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+          description: 'Additional attributes of the recipient in key:value format
+            (e.g. employer_name: Apple Inc for a payroll case where recipient is an
+            employee)'
+          type: object
+      required:
+      - name
+      - recipient_account
+      type: object
+    RecipientAccount:
+      example:
+        account_number:
+          number: number
+          type: LOCAL
+        account_type: EXTERNAL_ACCOUNT
+        accountholder_name: Chan Li Pak
+        currencies:
+        - HKD
+        - SGD
+        institution_id: hsbc-hk
+      properties:
+        accountholder_name:
+          description: Accountholder name of the recipient's account
+          example: Chan Li Pak
+          type: string
+        account_number:
+          $ref: '#/components/schemas/RecipientAccountNumber'
+        account_type:
+          description: Type of recipient account.
+          enum:
+          - EXTERNAL_ACCOUNT
+          example: EXTERNAL_ACCOUNT
+          type: string
+        currencies:
+          description: List of currencies supported by the recipient account
+          example:
+          - HKD
+          - SGD
+          items:
+            type: string
+          type: array
+        institution_id:
+          description: Finverse Institution ID for the recipient’s institution.
+          example: hsbc-hk
+          type: string
+      required:
+      - account_type
+      - accountholder_name
+      - currencies
+      - institution_id
+      type: object
+    RecipientAccountNumber:
+      example:
+        number: number
+        type: LOCAL
+      properties:
+        type:
+          description: 'Type of account number. Possible values: LOCAL, IBAN'
+          enum:
+          - LOCAL
+          - IBAN
+          type: string
+        number:
+          description: Account number value
+          type: string
+      required:
+      - number
+      - type
+      type: object
+    CreateRecipientResponse:
+      example:
+        metadata: '{}'
+        user_id: user_id_1
+        recipient_account:
+          account_number:
+            number: number
+            type: LOCAL
+          account_type: EXTERNAL_ACCOUNT
+          accountholder_name: Chan Li Pak
+          currencies:
+          - HKD
+          - SGD
+          institution_id: hsbc-hk
+        last_update: 2000-01-23T04:56:07.000+00:00
+        name: James Chan
+        recipient_account_id: recipient_account_id
+      properties:
+        recipient_account_id:
+          description: A unique identifier generated after creating recipient
+          type: string
+        name:
+          description: 'Recipient''s name/nickname (note: this does not need to match
+            the actual accountholder name of the recipient''s account)'
+          example: James Chan
+          type: string
+        recipient_account:
+          $ref: '#/components/schemas/RecipientAccount'
+        user_id:
+          description: Customer App's internal ID for the recipient
+          example: user_id_1
+          type: string
+        metadata:
+          description: 'Additional attributes of the recipient in key:value format
+            (e.g. employer_name: Apple Inc for a payroll case where recipient is an
+            employee)'
+          properties: {}
+          type: object
+        last_update:
+          description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+          format: date-time
+          type: string
+      required:
+      - name
+      - recipient_account
       type: object
     BadRequestModel_error:
       properties:
