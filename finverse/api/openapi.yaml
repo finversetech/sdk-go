@@ -7393,6 +7393,7 @@ components:
           example: hsbc-hk
           type: string
       required:
+      - account_number
       - account_type
       - accountholder_name
       - currencies

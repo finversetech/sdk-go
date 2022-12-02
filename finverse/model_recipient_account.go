@@ -18,8 +18,8 @@ import (
 // RecipientAccount struct for RecipientAccount
 type RecipientAccount struct {
 	// Accountholder name of the recipient's account
-	AccountholderName string                  `json:"accountholder_name"`
-	AccountNumber     *RecipientAccountNumber `json:"account_number,omitempty"`
+	AccountholderName string                 `json:"accountholder_name"`
+	AccountNumber     RecipientAccountNumber `json:"account_number"`
 	// Type of recipient account.
 	AccountType string `json:"account_type"`
 	// List of currencies supported by the recipient account
@@ -32,9 +32,10 @@ type RecipientAccount struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRecipientAccount(accountholderName string, accountType string, currencies []string, institutionId string) *RecipientAccount {
+func NewRecipientAccount(accountholderName string, accountNumber RecipientAccountNumber, accountType string, currencies []string, institutionId string) *RecipientAccount {
 	this := RecipientAccount{}
 	this.AccountholderName = accountholderName
+	this.AccountNumber = accountNumber
 	this.AccountType = accountType
 	this.Currencies = currencies
 	this.InstitutionId = institutionId
@@ -73,36 +74,28 @@ func (o *RecipientAccount) SetAccountholderName(v string) {
 	o.AccountholderName = v
 }
 
-// GetAccountNumber returns the AccountNumber field value if set, zero value otherwise.
+// GetAccountNumber returns the AccountNumber field value
 func (o *RecipientAccount) GetAccountNumber() RecipientAccountNumber {
-	if o == nil || o.AccountNumber == nil {
+	if o == nil {
 		var ret RecipientAccountNumber
 		return ret
 	}
-	return *o.AccountNumber
+
+	return o.AccountNumber
 }
 
-// GetAccountNumberOk returns a tuple with the AccountNumber field value if set, nil otherwise
+// GetAccountNumberOk returns a tuple with the AccountNumber field value
 // and a boolean to check if the value has been set.
 func (o *RecipientAccount) GetAccountNumberOk() (*RecipientAccountNumber, bool) {
-	if o == nil || o.AccountNumber == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.AccountNumber, true
+	return &o.AccountNumber, true
 }
 
-// HasAccountNumber returns a boolean if a field has been set.
-func (o *RecipientAccount) HasAccountNumber() bool {
-	if o != nil && o.AccountNumber != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAccountNumber gets a reference to the given RecipientAccountNumber and assigns it to the AccountNumber field.
+// SetAccountNumber sets field value
 func (o *RecipientAccount) SetAccountNumber(v RecipientAccountNumber) {
-	o.AccountNumber = &v
+	o.AccountNumber = v
 }
 
 // GetAccountType returns the AccountType field value
@@ -182,7 +175,7 @@ func (o RecipientAccount) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["accountholder_name"] = o.AccountholderName
 	}
-	if o.AccountNumber != nil {
+	if true {
 		toSerialize["account_number"] = o.AccountNumber
 	}
 	if true {
