@@ -17,6 +17,8 @@ import (
 
 // RecipientAccount struct for RecipientAccount
 type RecipientAccount struct {
+	// A unique identifier generated after creating recipient
+	RecipientAccountId *string `json:"recipient_account_id,omitempty"`
 	// Accountholder name of the recipient's account
 	AccountholderName string                 `json:"accountholder_name"`
 	AccountNumber     RecipientAccountNumber `json:"account_number"`
@@ -48,6 +50,38 @@ func NewRecipientAccount(accountholderName string, accountNumber RecipientAccoun
 func NewRecipientAccountWithDefaults() *RecipientAccount {
 	this := RecipientAccount{}
 	return &this
+}
+
+// GetRecipientAccountId returns the RecipientAccountId field value if set, zero value otherwise.
+func (o *RecipientAccount) GetRecipientAccountId() string {
+	if o == nil || o.RecipientAccountId == nil {
+		var ret string
+		return ret
+	}
+	return *o.RecipientAccountId
+}
+
+// GetRecipientAccountIdOk returns a tuple with the RecipientAccountId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RecipientAccount) GetRecipientAccountIdOk() (*string, bool) {
+	if o == nil || o.RecipientAccountId == nil {
+		return nil, false
+	}
+	return o.RecipientAccountId, true
+}
+
+// HasRecipientAccountId returns a boolean if a field has been set.
+func (o *RecipientAccount) HasRecipientAccountId() bool {
+	if o != nil && o.RecipientAccountId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRecipientAccountId gets a reference to the given string and assigns it to the RecipientAccountId field.
+func (o *RecipientAccount) SetRecipientAccountId(v string) {
+	o.RecipientAccountId = &v
 }
 
 // GetAccountholderName returns the AccountholderName field value
@@ -172,6 +206,9 @@ func (o *RecipientAccount) SetInstitutionId(v string) {
 
 func (o RecipientAccount) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.RecipientAccountId != nil {
+		toSerialize["recipient_account_id"] = o.RecipientAccountId
+	}
 	if true {
 		toSerialize["accountholder_name"] = o.AccountholderName
 	}

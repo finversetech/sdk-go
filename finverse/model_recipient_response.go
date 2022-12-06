@@ -18,8 +18,6 @@ import (
 
 // RecipientResponse struct for RecipientResponse
 type RecipientResponse struct {
-	// A unique identifier generated after creating recipient
-	RecipientAccountId *string `json:"recipient_account_id,omitempty"`
 	// Recipient's name/nickname (note: this does not need to match the actual accountholder name of the recipient's account)
 	Name             string           `json:"name"`
 	RecipientAccount RecipientAccount `json:"recipient_account"`
@@ -48,38 +46,6 @@ func NewRecipientResponse(name string, recipientAccount RecipientAccount) *Recip
 func NewRecipientResponseWithDefaults() *RecipientResponse {
 	this := RecipientResponse{}
 	return &this
-}
-
-// GetRecipientAccountId returns the RecipientAccountId field value if set, zero value otherwise.
-func (o *RecipientResponse) GetRecipientAccountId() string {
-	if o == nil || o.RecipientAccountId == nil {
-		var ret string
-		return ret
-	}
-	return *o.RecipientAccountId
-}
-
-// GetRecipientAccountIdOk returns a tuple with the RecipientAccountId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RecipientResponse) GetRecipientAccountIdOk() (*string, bool) {
-	if o == nil || o.RecipientAccountId == nil {
-		return nil, false
-	}
-	return o.RecipientAccountId, true
-}
-
-// HasRecipientAccountId returns a boolean if a field has been set.
-func (o *RecipientResponse) HasRecipientAccountId() bool {
-	if o != nil && o.RecipientAccountId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRecipientAccountId gets a reference to the given string and assigns it to the RecipientAccountId field.
-func (o *RecipientResponse) SetRecipientAccountId(v string) {
-	o.RecipientAccountId = &v
 }
 
 // GetName returns the Name field value
@@ -228,9 +194,6 @@ func (o *RecipientResponse) SetLastUpdate(v time.Time) {
 
 func (o RecipientResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.RecipientAccountId != nil {
-		toSerialize["recipient_account_id"] = o.RecipientAccountId
-	}
 	if true {
 		toSerialize["name"] = o.Name
 	}
