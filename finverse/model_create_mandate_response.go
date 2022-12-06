@@ -19,7 +19,7 @@ import (
 // CreateMandateResponse struct for CreateMandateResponse
 type CreateMandateResponse struct {
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	LastUpdate time.Time `json:"last_update"`
+	UpdatedAt time.Time `json:"updated_at"`
 	// Finverse Mandate ID (ULID)
 	MandateId string `json:"mandate_id"`
 	// Mandate status
@@ -34,9 +34,9 @@ type CreateMandateResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateMandateResponse(lastUpdate time.Time, mandateId string, status string, recipient MandateRecipient, sender GetMandateSender, mandateDetails MandateDetails) *CreateMandateResponse {
+func NewCreateMandateResponse(updatedAt time.Time, mandateId string, status string, recipient MandateRecipient, sender GetMandateSender, mandateDetails MandateDetails) *CreateMandateResponse {
 	this := CreateMandateResponse{}
-	this.LastUpdate = lastUpdate
+	this.UpdatedAt = updatedAt
 	this.MandateId = mandateId
 	this.Status = status
 	this.Recipient = recipient
@@ -53,28 +53,28 @@ func NewCreateMandateResponseWithDefaults() *CreateMandateResponse {
 	return &this
 }
 
-// GetLastUpdate returns the LastUpdate field value
-func (o *CreateMandateResponse) GetLastUpdate() time.Time {
+// GetUpdatedAt returns the UpdatedAt field value
+func (o *CreateMandateResponse) GetUpdatedAt() time.Time {
 	if o == nil {
 		var ret time.Time
 		return ret
 	}
 
-	return o.LastUpdate
+	return o.UpdatedAt
 }
 
-// GetLastUpdateOk returns a tuple with the LastUpdate field value
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
-func (o *CreateMandateResponse) GetLastUpdateOk() (*time.Time, bool) {
+func (o *CreateMandateResponse) GetUpdatedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.LastUpdate, true
+	return &o.UpdatedAt, true
 }
 
-// SetLastUpdate sets field value
-func (o *CreateMandateResponse) SetLastUpdate(v time.Time) {
-	o.LastUpdate = v
+// SetUpdatedAt sets field value
+func (o *CreateMandateResponse) SetUpdatedAt(v time.Time) {
+	o.UpdatedAt = v
 }
 
 // GetMandateId returns the MandateId field value
@@ -232,7 +232,7 @@ func (o *CreateMandateResponse) SetError(v FvErrorModel) {
 func (o CreateMandateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["last_update"] = o.LastUpdate
+		toSerialize["updated_at"] = o.UpdatedAt
 	}
 	if true {
 		toSerialize["mandate_id"] = o.MandateId

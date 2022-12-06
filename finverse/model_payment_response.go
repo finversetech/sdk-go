@@ -27,12 +27,14 @@ type PaymentResponse struct {
 	// Indicates whether this is a mandate-based payment or one-off direct payment to an account. Possible values - MANDATE, SINGLE
 	Type *string `json:"type,omitempty"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	LastUpdate *time.Time `json:"last_update,omitempty"`
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	// Possible values - CREATED, AUTHORIZED, SUBMITTED, EXECUTED, FAILED, REJECTED, CANCELLED.
 	Status         *string           `json:"status,omitempty"`
 	PaymentDetails *PaymentDetails2  `json:"payment_details,omitempty"`
 	Recipient      *MandateRecipient `json:"recipient,omitempty"`
 	Sender         *GetMandateSender `json:"sender,omitempty"`
+	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	TransactionDate NullableTime  `json:"transaction_date,omitempty"`
 	Error           *FvErrorModel `json:"error,omitempty"`
@@ -183,36 +185,36 @@ func (o *PaymentResponse) SetType(v string) {
 	o.Type = &v
 }
 
-// GetLastUpdate returns the LastUpdate field value if set, zero value otherwise.
-func (o *PaymentResponse) GetLastUpdate() time.Time {
-	if o == nil || o.LastUpdate == nil {
+// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+func (o *PaymentResponse) GetUpdatedAt() time.Time {
+	if o == nil || o.UpdatedAt == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.LastUpdate
+	return *o.UpdatedAt
 }
 
-// GetLastUpdateOk returns a tuple with the LastUpdate field value if set, nil otherwise
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentResponse) GetLastUpdateOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdate == nil {
+func (o *PaymentResponse) GetUpdatedAtOk() (*time.Time, bool) {
+	if o == nil || o.UpdatedAt == nil {
 		return nil, false
 	}
-	return o.LastUpdate, true
+	return o.UpdatedAt, true
 }
 
-// HasLastUpdate returns a boolean if a field has been set.
-func (o *PaymentResponse) HasLastUpdate() bool {
-	if o != nil && o.LastUpdate != nil {
+// HasUpdatedAt returns a boolean if a field has been set.
+func (o *PaymentResponse) HasUpdatedAt() bool {
+	if o != nil && o.UpdatedAt != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetLastUpdate gets a reference to the given time.Time and assigns it to the LastUpdate field.
-func (o *PaymentResponse) SetLastUpdate(v time.Time) {
-	o.LastUpdate = &v
+// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
+func (o *PaymentResponse) SetUpdatedAt(v time.Time) {
+	o.UpdatedAt = &v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -343,6 +345,38 @@ func (o *PaymentResponse) SetSender(v GetMandateSender) {
 	o.Sender = &v
 }
 
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *PaymentResponse) GetCreatedAt() time.Time {
+	if o == nil || o.CreatedAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentResponse) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil || o.CreatedAt == nil {
+		return nil, false
+	}
+	return o.CreatedAt, true
+}
+
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *PaymentResponse) HasCreatedAt() bool {
+	if o != nil && o.CreatedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+func (o *PaymentResponse) SetCreatedAt(v time.Time) {
+	o.CreatedAt = &v
+}
+
 // GetTransactionDate returns the TransactionDate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PaymentResponse) GetTransactionDate() time.Time {
 	if o == nil || o.TransactionDate.Get() == nil {
@@ -432,8 +466,8 @@ func (o PaymentResponse) MarshalJSON() ([]byte, error) {
 	if o.Type != nil {
 		toSerialize["type"] = o.Type
 	}
-	if o.LastUpdate != nil {
-		toSerialize["last_update"] = o.LastUpdate
+	if o.UpdatedAt != nil {
+		toSerialize["updated_at"] = o.UpdatedAt
 	}
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
@@ -446,6 +480,9 @@ func (o PaymentResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Sender != nil {
 		toSerialize["sender"] = o.Sender
+	}
+	if o.CreatedAt != nil {
+		toSerialize["created_at"] = o.CreatedAt
 	}
 	if o.TransactionDate.IsSet() {
 		toSerialize["transaction_date"] = o.TransactionDate.Get()

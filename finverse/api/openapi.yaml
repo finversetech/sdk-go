@@ -5764,6 +5764,7 @@ components:
       example:
         transaction_date: 2000-01-23T04:56:07.000+00:00
         amount: 100
+        updated_at: 2000-01-23T04:56:07.000+00:00
         payment_details:
           transaction_reference_id: transaction_reference_id
           description: description
@@ -5792,10 +5793,10 @@ components:
           name: name
           sender_reference_id: sender_reference_id
         payment_id: payment_id
-        last_update: 2000-01-23T04:56:07.000+00:00
         recipient:
           name: name
           recipient_account_id: recipient_account_id
+        created_at: 2000-01-23T04:56:07.000+00:00
         currency: HKD
         type: MANDATE
         error:
@@ -5829,7 +5830,7 @@ components:
           - MANDATE
           - SINGLE
           type: string
-        last_update:
+        updated_at:
           description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time
           type: string
@@ -5851,6 +5852,10 @@ components:
           $ref: '#/components/schemas/MandateRecipient'
         sender:
           $ref: '#/components/schemas/GetMandateSender'
+        created_at:
+          description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+          format: date-time
+          type: string
         transaction_date:
           description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time
@@ -5864,6 +5869,7 @@ components:
         payments:
         - transaction_date: 2000-01-23T04:56:07.000+00:00
           amount: 100
+          updated_at: 2000-01-23T04:56:07.000+00:00
           payment_details:
             transaction_reference_id: transaction_reference_id
             description: description
@@ -5892,10 +5898,10 @@ components:
             name: name
             sender_reference_id: sender_reference_id
           payment_id: payment_id
-          last_update: 2000-01-23T04:56:07.000+00:00
           recipient:
             name: name
             recipient_account_id: recipient_account_id
+          created_at: 2000-01-23T04:56:07.000+00:00
           currency: HKD
           type: MANDATE
           error:
@@ -5908,6 +5914,7 @@ components:
           status: AUTHORIZATION_REQUIRED
         - transaction_date: 2000-01-23T04:56:07.000+00:00
           amount: 100
+          updated_at: 2000-01-23T04:56:07.000+00:00
           payment_details:
             transaction_reference_id: transaction_reference_id
             description: description
@@ -5936,10 +5943,10 @@ components:
             name: name
             sender_reference_id: sender_reference_id
           payment_id: payment_id
-          last_update: 2000-01-23T04:56:07.000+00:00
           recipient:
             name: name
             recipient_account_id: recipient_account_id
+          created_at: 2000-01-23T04:56:07.000+00:00
           currency: HKD
           type: MANDATE
           error:
@@ -6351,6 +6358,7 @@ components:
       type: object
     CreateMandateResponse:
       example:
+        updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
           sender_details:
           - values:
@@ -6387,7 +6395,6 @@ components:
           description: description
           currency: currency
           start_date: 2000-01-23
-        last_update: 2000-01-23T04:56:07.000+00:00
         recipient:
           name: name
           recipient_account_id: recipient_account_id
@@ -6401,7 +6408,7 @@ components:
           request_id: request_id
         status: AUTHORIZATION_REQUIRED
       properties:
-        last_update:
+        updated_at:
           description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time
           type: string
@@ -6428,12 +6435,12 @@ components:
         error:
           $ref: '#/components/schemas/FvErrorModel'
       required:
-      - last_update
       - mandate_details
       - mandate_id
       - recipient
       - sender
       - status
+      - updated_at
       type: object
     SetMandateInstitutionRequest:
       example:
@@ -6457,6 +6464,7 @@ components:
       type: object
     GetMandateResponse:
       example:
+        updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
           sender_details:
           - values:
@@ -6493,7 +6501,6 @@ components:
           description: description
           currency: currency
           start_date: 2000-01-23
-        last_update: 2000-01-23T04:56:07.000+00:00
         recipient:
           name: name
           recipient_account_id: recipient_account_id
@@ -6507,7 +6514,7 @@ components:
           request_id: request_id
         status: AUTHORIZATION_REQUIRED
       properties:
-        last_update:
+        updated_at:
           description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time
           type: string
@@ -6534,18 +6541,19 @@ components:
         error:
           $ref: '#/components/schemas/FvErrorModel'
       required:
-      - last_update
       - mandate_details
       - mandate_id
       - recipient
       - sender
       - status
+      - updated_at
       type: object
     ListMandatesResponse:
       example:
         total_mandates: 5
         mandates:
-        - sender:
+        - updated_at: 2000-01-23T04:56:07.000+00:00
+          sender:
             sender_details:
             - values:
               - values
@@ -6581,7 +6589,6 @@ components:
             description: description
             currency: currency
             start_date: 2000-01-23
-          last_update: 2000-01-23T04:56:07.000+00:00
           recipient:
             name: name
             recipient_account_id: recipient_account_id
@@ -6594,7 +6601,8 @@ components:
             message: message
             request_id: request_id
           status: AUTHORIZATION_REQUIRED
-        - sender:
+        - updated_at: 2000-01-23T04:56:07.000+00:00
+          sender:
             sender_details:
             - values:
               - values
@@ -6630,7 +6638,6 @@ components:
             description: description
             currency: currency
             start_date: 2000-01-23
-          last_update: 2000-01-23T04:56:07.000+00:00
           recipient:
             name: name
             recipient_account_id: recipient_account_id
