@@ -31,7 +31,6 @@ model_create_payment_instruction_response.go
 model_create_payment_request.go
 model_create_payout_instruction_request.go
 model_create_recipient_request.go
-model_create_recipient_response.go
 model_currency_amount.go
 model_customer_payment_instruction.go
 model_delete_login_identity_response.go
@@ -52,7 +51,6 @@ model_get_mandate_auth_response.go
 model_get_mandate_response.go
 model_get_mandate_sender.go
 model_get_payment_instructions_response.go
-model_get_recipient_response.go
 model_get_statement_link_response.go
 model_get_statements_response.go
 model_identity.go

@@ -109,8 +109,8 @@ type CustomerApi interface {
 	CreateRecipient(ctx context.Context) CustomerApiApiCreateRecipientRequest
 
 	// CreateRecipientExecute executes the request
-	//  @return CreateRecipientResponse
-	CreateRecipientExecute(r CustomerApiApiCreateRecipientRequest) (*CreateRecipientResponse, *http.Response, error)
+	//  @return RecipientResponse
+	CreateRecipientExecute(r CustomerApiApiCreateRecipientRequest) (*RecipientResponse, *http.Response, error)
 
 	/*
 		DeleteRecipient Method for DeleteRecipient
@@ -285,8 +285,8 @@ type CustomerApi interface {
 	GetRecipient(ctx context.Context, recipientAccountId string) CustomerApiApiGetRecipientRequest
 
 	// GetRecipientExecute executes the request
-	//  @return GetRecipientResponse
-	GetRecipientExecute(r CustomerApiApiGetRecipientRequest) (*GetRecipientResponse, *http.Response, error)
+	//  @return RecipientResponse
+	GetRecipientExecute(r CustomerApiApiGetRecipientRequest) (*RecipientResponse, *http.Response, error)
 
 	/*
 		ListInstitutions Method for ListInstitutions
@@ -1082,7 +1082,7 @@ func (r CustomerApiApiCreateRecipientRequest) CreateRecipientRequest(createRecip
 	return r
 }
 
-func (r CustomerApiApiCreateRecipientRequest) Execute() (*CreateRecipientResponse, *http.Response, error) {
+func (r CustomerApiApiCreateRecipientRequest) Execute() (*RecipientResponse, *http.Response, error) {
 	return r.ApiService.CreateRecipientExecute(r)
 }
 
@@ -1102,13 +1102,13 @@ func (a *CustomerApiService) CreateRecipient(ctx context.Context) CustomerApiApi
 }
 
 // Execute executes the request
-//  @return CreateRecipientResponse
-func (a *CustomerApiService) CreateRecipientExecute(r CustomerApiApiCreateRecipientRequest) (*CreateRecipientResponse, *http.Response, error) {
+//  @return RecipientResponse
+func (a *CustomerApiService) CreateRecipientExecute(r CustomerApiApiCreateRecipientRequest) (*RecipientResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreateRecipientResponse
+		localVarReturnValue *RecipientResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.CreateRecipient")
@@ -2639,7 +2639,7 @@ type CustomerApiApiGetRecipientRequest struct {
 	recipientAccountId string
 }
 
-func (r CustomerApiApiGetRecipientRequest) Execute() (*GetRecipientResponse, *http.Response, error) {
+func (r CustomerApiApiGetRecipientRequest) Execute() (*RecipientResponse, *http.Response, error) {
 	return r.ApiService.GetRecipientExecute(r)
 }
 
@@ -2661,13 +2661,13 @@ func (a *CustomerApiService) GetRecipient(ctx context.Context, recipientAccountI
 }
 
 // Execute executes the request
-//  @return GetRecipientResponse
-func (a *CustomerApiService) GetRecipientExecute(r CustomerApiApiGetRecipientRequest) (*GetRecipientResponse, *http.Response, error) {
+//  @return RecipientResponse
+func (a *CustomerApiService) GetRecipientExecute(r CustomerApiApiGetRecipientRequest) (*RecipientResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *GetRecipientResponse
+		localVarReturnValue *RecipientResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetRecipient")

@@ -25,8 +25,10 @@ type RecipientResponse struct {
 	UserId *string `json:"user_id,omitempty"`
 	// Additional attributes of the recipient in key:value format (e.g. employer_name: Apple Inc for a payroll case where recipient is an employee)
 	Metadata map[string]interface{} `json:"metadata,omitempty"`
-	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	LastUpdate *time.Time `json:"last_update,omitempty"`
+	// Timestamp of when the recipient was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	// Timestamp of when the recipient was last updated in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 }
 
 // NewRecipientResponse instantiates a new RecipientResponse object
@@ -160,36 +162,68 @@ func (o *RecipientResponse) SetMetadata(v map[string]interface{}) {
 	o.Metadata = v
 }
 
-// GetLastUpdate returns the LastUpdate field value if set, zero value otherwise.
-func (o *RecipientResponse) GetLastUpdate() time.Time {
-	if o == nil || o.LastUpdate == nil {
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *RecipientResponse) GetCreatedAt() time.Time {
+	if o == nil || o.CreatedAt == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.LastUpdate
+	return *o.CreatedAt
 }
 
-// GetLastUpdateOk returns a tuple with the LastUpdate field value if set, nil otherwise
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecipientResponse) GetLastUpdateOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdate == nil {
+func (o *RecipientResponse) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil || o.CreatedAt == nil {
 		return nil, false
 	}
-	return o.LastUpdate, true
+	return o.CreatedAt, true
 }
 
-// HasLastUpdate returns a boolean if a field has been set.
-func (o *RecipientResponse) HasLastUpdate() bool {
-	if o != nil && o.LastUpdate != nil {
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *RecipientResponse) HasCreatedAt() bool {
+	if o != nil && o.CreatedAt != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetLastUpdate gets a reference to the given time.Time and assigns it to the LastUpdate field.
-func (o *RecipientResponse) SetLastUpdate(v time.Time) {
-	o.LastUpdate = &v
+// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+func (o *RecipientResponse) SetCreatedAt(v time.Time) {
+	o.CreatedAt = &v
+}
+
+// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+func (o *RecipientResponse) GetUpdatedAt() time.Time {
+	if o == nil || o.UpdatedAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.UpdatedAt
+}
+
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RecipientResponse) GetUpdatedAtOk() (*time.Time, bool) {
+	if o == nil || o.UpdatedAt == nil {
+		return nil, false
+	}
+	return o.UpdatedAt, true
+}
+
+// HasUpdatedAt returns a boolean if a field has been set.
+func (o *RecipientResponse) HasUpdatedAt() bool {
+	if o != nil && o.UpdatedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
+func (o *RecipientResponse) SetUpdatedAt(v time.Time) {
+	o.UpdatedAt = &v
 }
 
 func (o RecipientResponse) MarshalJSON() ([]byte, error) {
@@ -206,8 +240,11 @@ func (o RecipientResponse) MarshalJSON() ([]byte, error) {
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
 	}
-	if o.LastUpdate != nil {
-		toSerialize["last_update"] = o.LastUpdate
+	if o.CreatedAt != nil {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if o.UpdatedAt != nil {
+		toSerialize["updated_at"] = o.UpdatedAt
 	}
 	return json.Marshal(toSerialize)
 }
