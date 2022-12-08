@@ -390,7 +390,7 @@ func (a *CustomerApiService) CancelPayoutInstructionExecute(r CustomerApiApiCanc
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/payout_instruction/{payoutInstructionId}/cancel"
+	localVarPath := localBasePath + "/payout_instructions/{payoutInstructionId}/cancel"
 	localVarPath = strings.Replace(localVarPath, "{"+"payoutInstructionId"+"}", url.PathEscape(parameterToString(r.payoutInstructionId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
@@ -973,7 +973,7 @@ func (a *CustomerApiService) CreatePayoutInstructionExecute(r CustomerApiApiCrea
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/payout_instruction"
+	localVarPath := localBasePath + "/payout_instructions"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2543,7 +2543,7 @@ func (a *CustomerApiService) GetPayoutInstructionExecute(r CustomerApiApiGetPayo
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/payout_instruction/{payoutInstructionId}"
+	localVarPath := localBasePath + "/payout_instructions/{payoutInstructionId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"payoutInstructionId"+"}", url.PathEscape(parameterToString(r.payoutInstructionId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)

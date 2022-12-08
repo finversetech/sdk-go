@@ -1893,7 +1893,7 @@ paths:
       tags:
       - customer
       x-codegen-request-body-name: createRecipientRequest
-  /payout_instruction:
+  /payout_instructions:
     post:
       description: Create new Payout instruction
       operationId: createPayoutInstruction
@@ -1943,7 +1943,7 @@ paths:
       tags:
       - customer
       x-codegen-request-body-name: createPayoutInstructionRequest
-  /payout_instruction/{payoutInstructionId}:
+  /payout_instructions/{payoutInstructionId}:
     get:
       description: Get Payout Instruction details by payout_instruction_id
       operationId: getPayoutInstruction
@@ -1984,7 +1984,7 @@ paths:
         - payoutInstruction:get
       tags:
       - customer
-  /payout_instruction/{payoutInstructionId}/cancel:
+  /payout_instructions/{payoutInstructionId}/cancel:
     post:
       description: Cancel Payout Instruction by payout_instruction_id
       operationId: cancelPayoutInstruction
