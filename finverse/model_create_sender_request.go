@@ -20,13 +20,13 @@ type CreateSenderRequest struct {
 	// Sender’s name/nickname (note: this does not need to match the actual accountholder name of the sender’s account)
 	Name string `json:"name"`
 	// Customer App's internal ID for the sender
-	UserId *string `json:"user_id,omitempty"`
+	UserId string `json:"user_id"`
 	// Sender details which will be used for fraud checking.
 	SenderDetails []SenderDetail `json:"sender_details,omitempty"`
 	// Customer reference for the sender
 	SenderReferenceId *string `json:"sender_reference_id,omitempty"`
 	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
-	SenderType *string `json:"sender_type,omitempty"`
+	SenderType string `json:"sender_type"`
 	// Additional attributes of the sender in key:value format (e.g. employer_name: Apple Inc for a payroll case where sender is an employee)
 	Metadata *map[string]string `json:"metadata,omitempty"`
 }
@@ -35,9 +35,11 @@ type CreateSenderRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateSenderRequest(name string) *CreateSenderRequest {
+func NewCreateSenderRequest(name string, userId string, senderType string) *CreateSenderRequest {
 	this := CreateSenderRequest{}
 	this.Name = name
+	this.UserId = userId
+	this.SenderType = senderType
 	return &this
 }
 
@@ -73,36 +75,28 @@ func (o *CreateSenderRequest) SetName(v string) {
 	o.Name = v
 }
 
-// GetUserId returns the UserId field value if set, zero value otherwise.
+// GetUserId returns the UserId field value
 func (o *CreateSenderRequest) GetUserId() string {
-	if o == nil || o.UserId == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.UserId
+
+	return o.UserId
 }
 
-// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
+// GetUserIdOk returns a tuple with the UserId field value
 // and a boolean to check if the value has been set.
 func (o *CreateSenderRequest) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.UserId, true
+	return &o.UserId, true
 }
 
-// HasUserId returns a boolean if a field has been set.
-func (o *CreateSenderRequest) HasUserId() bool {
-	if o != nil && o.UserId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUserId gets a reference to the given string and assigns it to the UserId field.
+// SetUserId sets field value
 func (o *CreateSenderRequest) SetUserId(v string) {
-	o.UserId = &v
+	o.UserId = v
 }
 
 // GetSenderDetails returns the SenderDetails field value if set, zero value otherwise.
@@ -169,36 +163,28 @@ func (o *CreateSenderRequest) SetSenderReferenceId(v string) {
 	o.SenderReferenceId = &v
 }
 
-// GetSenderType returns the SenderType field value if set, zero value otherwise.
+// GetSenderType returns the SenderType field value
 func (o *CreateSenderRequest) GetSenderType() string {
-	if o == nil || o.SenderType == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.SenderType
+
+	return o.SenderType
 }
 
-// GetSenderTypeOk returns a tuple with the SenderType field value if set, nil otherwise
+// GetSenderTypeOk returns a tuple with the SenderType field value
 // and a boolean to check if the value has been set.
 func (o *CreateSenderRequest) GetSenderTypeOk() (*string, bool) {
-	if o == nil || o.SenderType == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.SenderType, true
+	return &o.SenderType, true
 }
 
-// HasSenderType returns a boolean if a field has been set.
-func (o *CreateSenderRequest) HasSenderType() bool {
-	if o != nil && o.SenderType != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSenderType gets a reference to the given string and assigns it to the SenderType field.
+// SetSenderType sets field value
 func (o *CreateSenderRequest) SetSenderType(v string) {
-	o.SenderType = &v
+	o.SenderType = v
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
@@ -238,7 +224,7 @@ func (o CreateSenderRequest) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["name"] = o.Name
 	}
-	if o.UserId != nil {
+	if true {
 		toSerialize["user_id"] = o.UserId
 	}
 	if o.SenderDetails != nil {
@@ -247,7 +233,7 @@ func (o CreateSenderRequest) MarshalJSON() ([]byte, error) {
 	if o.SenderReferenceId != nil {
 		toSerialize["sender_reference_id"] = o.SenderReferenceId
 	}
-	if o.SenderType != nil {
+	if true {
 		toSerialize["sender_type"] = o.SenderType
 	}
 	if o.Metadata != nil {

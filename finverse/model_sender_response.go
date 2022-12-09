@@ -19,11 +19,11 @@ import (
 // SenderResponse struct for SenderResponse
 type SenderResponse struct {
 	// A unique identifier generated after creating sender
-	SenderId string `json:"sender_id"`
+	SenderId *string `json:"sender_id,omitempty"`
 	// Customer App's internal ID for the sender
 	UserId *string `json:"user_id,omitempty"`
 	// Sender’s name/nickname (note: this does not need to match the actual accountholder name of the sender’s account)
-	Name string `json:"name"`
+	Name *string `json:"name,omitempty"`
 	// Sender details which will be used for fraud checking.
 	SenderDetails []SenderDetail `json:"sender_details,omitempty"`
 	// Customer reference for the sender
@@ -42,10 +42,8 @@ type SenderResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSenderResponse(senderId string, name string) *SenderResponse {
+func NewSenderResponse() *SenderResponse {
 	this := SenderResponse{}
-	this.SenderId = senderId
-	this.Name = name
 	return &this
 }
 
@@ -57,28 +55,36 @@ func NewSenderResponseWithDefaults() *SenderResponse {
 	return &this
 }
 
-// GetSenderId returns the SenderId field value
+// GetSenderId returns the SenderId field value if set, zero value otherwise.
 func (o *SenderResponse) GetSenderId() string {
-	if o == nil {
+	if o == nil || o.SenderId == nil {
 		var ret string
 		return ret
 	}
-
-	return o.SenderId
+	return *o.SenderId
 }
 
-// GetSenderIdOk returns a tuple with the SenderId field value
+// GetSenderIdOk returns a tuple with the SenderId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SenderResponse) GetSenderIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.SenderId == nil {
 		return nil, false
 	}
-	return &o.SenderId, true
+	return o.SenderId, true
 }
 
-// SetSenderId sets field value
+// HasSenderId returns a boolean if a field has been set.
+func (o *SenderResponse) HasSenderId() bool {
+	if o != nil && o.SenderId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSenderId gets a reference to the given string and assigns it to the SenderId field.
 func (o *SenderResponse) SetSenderId(v string) {
-	o.SenderId = v
+	o.SenderId = &v
 }
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
@@ -113,28 +119,36 @@ func (o *SenderResponse) SetUserId(v string) {
 	o.UserId = &v
 }
 
-// GetName returns the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
 func (o *SenderResponse) GetName() string {
-	if o == nil {
+	if o == nil || o.Name == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SenderResponse) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.Name == nil {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name, true
 }
 
-// SetName sets field value
+// HasName returns a boolean if a field has been set.
+func (o *SenderResponse) HasName() bool {
+	if o != nil && o.Name != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
 func (o *SenderResponse) SetName(v string) {
-	o.Name = v
+	o.Name = &v
 }
 
 // GetSenderDetails returns the SenderDetails field value if set, zero value otherwise.
@@ -331,13 +345,13 @@ func (o *SenderResponse) SetUpdatedAt(v time.Time) {
 
 func (o SenderResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
+	if o.SenderId != nil {
 		toSerialize["sender_id"] = o.SenderId
 	}
 	if o.UserId != nil {
 		toSerialize["user_id"] = o.UserId
 	}
-	if true {
+	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
 	if o.SenderDetails != nil {

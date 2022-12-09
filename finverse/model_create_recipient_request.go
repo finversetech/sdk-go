@@ -18,10 +18,10 @@ import (
 // CreateRecipientRequest struct for CreateRecipientRequest
 type CreateRecipientRequest struct {
 	// Recipient's name/nickname (note: this does not need to match the actual accountholder name of the recipient's account)
-	Name             string           `json:"name"`
-	RecipientAccount RecipientAccount `json:"recipient_account"`
+	Name             string                 `json:"name"`
+	RecipientAccount CreateRecipientAccount `json:"recipient_account"`
 	// Customer App's internal ID for the recipient
-	UserId *string `json:"user_id,omitempty"`
+	UserId string `json:"user_id"`
 	// Additional attributes of the recipient in key:value format (e.g. employer_name: Apple Inc for a payroll case where recipient is an employee)
 	Metadata *map[string]string `json:"metadata,omitempty"`
 }
@@ -30,10 +30,11 @@ type CreateRecipientRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateRecipientRequest(name string, recipientAccount RecipientAccount) *CreateRecipientRequest {
+func NewCreateRecipientRequest(name string, recipientAccount CreateRecipientAccount, userId string) *CreateRecipientRequest {
 	this := CreateRecipientRequest{}
 	this.Name = name
 	this.RecipientAccount = recipientAccount
+	this.UserId = userId
 	return &this
 }
 
@@ -70,9 +71,9 @@ func (o *CreateRecipientRequest) SetName(v string) {
 }
 
 // GetRecipientAccount returns the RecipientAccount field value
-func (o *CreateRecipientRequest) GetRecipientAccount() RecipientAccount {
+func (o *CreateRecipientRequest) GetRecipientAccount() CreateRecipientAccount {
 	if o == nil {
-		var ret RecipientAccount
+		var ret CreateRecipientAccount
 		return ret
 	}
 
@@ -81,7 +82,7 @@ func (o *CreateRecipientRequest) GetRecipientAccount() RecipientAccount {
 
 // GetRecipientAccountOk returns a tuple with the RecipientAccount field value
 // and a boolean to check if the value has been set.
-func (o *CreateRecipientRequest) GetRecipientAccountOk() (*RecipientAccount, bool) {
+func (o *CreateRecipientRequest) GetRecipientAccountOk() (*CreateRecipientAccount, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -89,40 +90,32 @@ func (o *CreateRecipientRequest) GetRecipientAccountOk() (*RecipientAccount, boo
 }
 
 // SetRecipientAccount sets field value
-func (o *CreateRecipientRequest) SetRecipientAccount(v RecipientAccount) {
+func (o *CreateRecipientRequest) SetRecipientAccount(v CreateRecipientAccount) {
 	o.RecipientAccount = v
 }
 
-// GetUserId returns the UserId field value if set, zero value otherwise.
+// GetUserId returns the UserId field value
 func (o *CreateRecipientRequest) GetUserId() string {
-	if o == nil || o.UserId == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.UserId
+
+	return o.UserId
 }
 
-// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
+// GetUserIdOk returns a tuple with the UserId field value
 // and a boolean to check if the value has been set.
 func (o *CreateRecipientRequest) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.UserId, true
+	return &o.UserId, true
 }
 
-// HasUserId returns a boolean if a field has been set.
-func (o *CreateRecipientRequest) HasUserId() bool {
-	if o != nil && o.UserId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUserId gets a reference to the given string and assigns it to the UserId field.
+// SetUserId sets field value
 func (o *CreateRecipientRequest) SetUserId(v string) {
-	o.UserId = &v
+	o.UserId = v
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
@@ -165,7 +158,7 @@ func (o CreateRecipientRequest) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["recipient_account"] = o.RecipientAccount
 	}
-	if o.UserId != nil {
+	if true {
 		toSerialize["user_id"] = o.UserId
 	}
 	if o.Metadata != nil {

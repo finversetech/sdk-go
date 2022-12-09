@@ -19,8 +19,8 @@ import (
 // RecipientResponse struct for RecipientResponse
 type RecipientResponse struct {
 	// Recipient's name/nickname (note: this does not need to match the actual accountholder name of the recipient's account)
-	Name             string           `json:"name"`
-	RecipientAccount RecipientAccount `json:"recipient_account"`
+	Name             string                   `json:"name"`
+	RecipientAccount RecipientAccountResponse `json:"recipient_account"`
 	// Customer App's internal ID for the recipient
 	UserId *string `json:"user_id,omitempty"`
 	// Additional attributes of the recipient in key:value format (e.g. employer_name: Apple Inc for a payroll case where recipient is an employee)
@@ -35,7 +35,7 @@ type RecipientResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRecipientResponse(name string, recipientAccount RecipientAccount) *RecipientResponse {
+func NewRecipientResponse(name string, recipientAccount RecipientAccountResponse) *RecipientResponse {
 	this := RecipientResponse{}
 	this.Name = name
 	this.RecipientAccount = recipientAccount
@@ -75,9 +75,9 @@ func (o *RecipientResponse) SetName(v string) {
 }
 
 // GetRecipientAccount returns the RecipientAccount field value
-func (o *RecipientResponse) GetRecipientAccount() RecipientAccount {
+func (o *RecipientResponse) GetRecipientAccount() RecipientAccountResponse {
 	if o == nil {
-		var ret RecipientAccount
+		var ret RecipientAccountResponse
 		return ret
 	}
 
@@ -86,7 +86,7 @@ func (o *RecipientResponse) GetRecipientAccount() RecipientAccount {
 
 // GetRecipientAccountOk returns a tuple with the RecipientAccount field value
 // and a boolean to check if the value has been set.
-func (o *RecipientResponse) GetRecipientAccountOk() (*RecipientAccount, bool) {
+func (o *RecipientResponse) GetRecipientAccountOk() (*RecipientAccountResponse, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -94,7 +94,7 @@ func (o *RecipientResponse) GetRecipientAccountOk() (*RecipientAccount, bool) {
 }
 
 // SetRecipientAccount sets field value
-func (o *RecipientResponse) SetRecipientAccount(v RecipientAccount) {
+func (o *RecipientResponse) SetRecipientAccount(v RecipientAccountResponse) {
 	o.RecipientAccount = v
 }
 

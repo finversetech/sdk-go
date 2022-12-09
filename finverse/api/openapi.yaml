@@ -7416,7 +7416,6 @@ components:
             number: number
             type: LOCAL
           account_type: EXTERNAL_ACCOUNT
-          recipient_account_id: recipient_account_id
           accountholder_name: Chan Li Pak
           currencies:
           - HKD
@@ -7431,7 +7430,7 @@ components:
           maxLength: 15
           type: string
         recipient_account:
-          $ref: '#/components/schemas/RecipientAccount'
+          $ref: '#/components/schemas/CreateRecipientAccount'
         user_id:
           description: Customer App's internal ID for the recipient
           example: user_id_1
@@ -7446,23 +7445,20 @@ components:
       required:
       - name
       - recipient_account
+      - user_id
       type: object
-    RecipientAccount:
+    CreateRecipientAccount:
       example:
         account_number:
           number: number
           type: LOCAL
         account_type: EXTERNAL_ACCOUNT
-        recipient_account_id: recipient_account_id
         accountholder_name: Chan Li Pak
         currencies:
         - HKD
         - SGD
         institution_id: hsbc-hk
       properties:
-        recipient_account_id:
-          description: A unique identifier generated after creating recipient
-          type: string
         accountholder_name:
           description: Accountholder name of the recipient's account
           example: Chan Li Pak
@@ -7493,6 +7489,48 @@ components:
       - accountholder_name
       - currencies
       - institution_id
+      type: object
+    RecipientAccountResponse:
+      example:
+        account_number:
+          number: number
+          type: LOCAL
+        account_type: EXTERNAL_ACCOUNT
+        recipient_account_id: recipient_account_id
+        accountholder_name: Chan Li Pak
+        currencies:
+        - HKD
+        - SGD
+        institution_id: hsbc-hk
+      properties:
+        recipient_account_id:
+          description: A unique identifier generated after creating recipient
+          type: string
+        accountholder_name:
+          description: Accountholder name of the recipient's account
+          example: Chan Li Pak
+          type: string
+        account_number:
+          $ref: '#/components/schemas/RecipientAccountNumber'
+        account_type:
+          description: Type of recipient account.
+          enum:
+          - EXTERNAL_ACCOUNT
+          - SETTLEMENT_ACCOUNT
+          example: EXTERNAL_ACCOUNT
+          type: string
+        currencies:
+          description: List of currencies supported by the recipient account
+          example:
+          - HKD
+          - SGD
+          items:
+            type: string
+          type: array
+        institution_id:
+          description: Finverse Institution ID for the recipient’s institution.
+          example: hsbc-hk
+          type: string
       type: object
     RecipientAccountNumber:
       example:
@@ -7537,7 +7575,7 @@ components:
           example: James Chan
           type: string
         recipient_account:
-          $ref: '#/components/schemas/RecipientAccount'
+          $ref: '#/components/schemas/RecipientAccountResponse'
         user_id:
           description: Customer App's internal ID for the recipient
           example: user_id_1
@@ -7641,6 +7679,8 @@ components:
           type: object
       required:
       - name
+      - sender_type
+      - user_id
       type: object
     SenderResponse:
       example:
@@ -7735,9 +7775,6 @@ components:
             (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time
           type: string
-      required:
-      - name
-      - sender_id
       type: object
     BadRequestModel_error:
       properties:
