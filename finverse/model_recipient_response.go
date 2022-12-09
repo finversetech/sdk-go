@@ -19,8 +19,8 @@ import (
 // RecipientResponse struct for RecipientResponse
 type RecipientResponse struct {
 	// Recipient's name/nickname (note: this does not need to match the actual accountholder name of the recipient's account)
-	Name             string                   `json:"name"`
-	RecipientAccount RecipientAccountResponse `json:"recipient_account"`
+	Name             *string                   `json:"name,omitempty"`
+	RecipientAccount *RecipientAccountResponse `json:"recipient_account,omitempty"`
 	// Customer App's internal ID for the recipient
 	UserId *string `json:"user_id,omitempty"`
 	// Additional attributes of the recipient in key:value format (e.g. employer_name: Apple Inc for a payroll case where recipient is an employee)
@@ -35,10 +35,8 @@ type RecipientResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRecipientResponse(name string, recipientAccount RecipientAccountResponse) *RecipientResponse {
+func NewRecipientResponse() *RecipientResponse {
 	this := RecipientResponse{}
-	this.Name = name
-	this.RecipientAccount = recipientAccount
 	return &this
 }
 
@@ -50,52 +48,68 @@ func NewRecipientResponseWithDefaults() *RecipientResponse {
 	return &this
 }
 
-// GetName returns the Name field value
+// GetName returns the Name field value if set, zero value otherwise.
 func (o *RecipientResponse) GetName() string {
-	if o == nil {
+	if o == nil || o.Name == nil {
 		var ret string
 		return ret
 	}
-
-	return o.Name
+	return *o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value
+// GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RecipientResponse) GetNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.Name == nil {
 		return nil, false
 	}
-	return &o.Name, true
+	return o.Name, true
 }
 
-// SetName sets field value
+// HasName returns a boolean if a field has been set.
+func (o *RecipientResponse) HasName() bool {
+	if o != nil && o.Name != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetName gets a reference to the given string and assigns it to the Name field.
 func (o *RecipientResponse) SetName(v string) {
-	o.Name = v
+	o.Name = &v
 }
 
-// GetRecipientAccount returns the RecipientAccount field value
+// GetRecipientAccount returns the RecipientAccount field value if set, zero value otherwise.
 func (o *RecipientResponse) GetRecipientAccount() RecipientAccountResponse {
-	if o == nil {
+	if o == nil || o.RecipientAccount == nil {
 		var ret RecipientAccountResponse
 		return ret
 	}
-
-	return o.RecipientAccount
+	return *o.RecipientAccount
 }
 
-// GetRecipientAccountOk returns a tuple with the RecipientAccount field value
+// GetRecipientAccountOk returns a tuple with the RecipientAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RecipientResponse) GetRecipientAccountOk() (*RecipientAccountResponse, bool) {
-	if o == nil {
+	if o == nil || o.RecipientAccount == nil {
 		return nil, false
 	}
-	return &o.RecipientAccount, true
+	return o.RecipientAccount, true
 }
 
-// SetRecipientAccount sets field value
+// HasRecipientAccount returns a boolean if a field has been set.
+func (o *RecipientResponse) HasRecipientAccount() bool {
+	if o != nil && o.RecipientAccount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRecipientAccount gets a reference to the given RecipientAccountResponse and assigns it to the RecipientAccount field.
 func (o *RecipientResponse) SetRecipientAccount(v RecipientAccountResponse) {
-	o.RecipientAccount = v
+	o.RecipientAccount = &v
 }
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
@@ -228,10 +242,10 @@ func (o *RecipientResponse) SetUpdatedAt(v time.Time) {
 
 func (o RecipientResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
+	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
-	if true {
+	if o.RecipientAccount != nil {
 		toSerialize["recipient_account"] = o.RecipientAccount
 	}
 	if o.UserId != nil {

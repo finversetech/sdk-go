@@ -7595,9 +7595,6 @@ components:
             (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time
           type: string
-      required:
-      - name
-      - recipient_account
       type: object
     CreateSenderRequest:
       example:
