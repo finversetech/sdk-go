@@ -2103,6 +2103,89 @@ paths:
         - recipientAccount:get
       tags:
       - customer
+  /senders:
+    post:
+      description: Create Sender
+      operationId: createSender
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSenderRequest'
+        description: request body for creating sender
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SenderResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - sender:create
+      tags:
+      - customer
+      x-codegen-request-body-name: createSenderRequest
+  /senders/{senderId}:
+    get:
+      description: Get Sender
+      operationId: getSender
+      parameters:
+      - description: The sender id
+        in: path
+        name: senderId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SenderResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModel'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - sender:get
+      tags:
+      - customer
 components:
   schemas:
     ErrorResponse:
@@ -7477,6 +7560,184 @@ components:
       required:
       - name
       - recipient_account
+      type: object
+    CreateSenderRequest:
+      example:
+        sender_details:
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        metadata:
+          key: metadata
+        user_id: user_id_1
+        sender_type: INDIVIDUAL
+        name: James Chan
+        sender_reference_id: Account123456
+      properties:
+        name:
+          description: 'Sender’s name/nickname (note: this does not need to match
+            the actual accountholder name of the sender’s account)'
+          example: James Chan
+          maxLength: 15
+          type: string
+        user_id:
+          description: Customer App's internal ID for the sender
+          example: user_id_1
+          type: string
+        sender_details:
+          description: Sender details which will be used for fraud checking.
+          items:
+            $ref: '#/components/schemas/SenderDetail'
+          maxItems: 10
+          type: array
+        sender_reference_id:
+          description: Customer reference for the sender
+          example: Account123456
+          type: string
+        sender_type:
+          description: Type of account held by the Sender at the Institution. Possible
+            values are INDIVIDUAL, BUSINESS
+          enum:
+          - INDIVIDUAL
+          - BUSINESS
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+          description: 'Additional attributes of the sender in key:value format (e.g.
+            employer_name: Apple Inc for a payroll case where sender is an employee)'
+          type: object
+      required:
+      - name
+      type: object
+    SenderResponse:
+      example:
+        sender_details:
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        metadata:
+          key: metadata
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        user_id: user_id_1
+        sender_type: INDIVIDUAL
+        name: James Chan
+        sender_reference_id: Account123456
+        created_at: 2000-01-23T04:56:07.000+00:00
+        sender_id: sender_id
+      properties:
+        sender_id:
+          description: A unique identifier generated after creating sender
+          type: string
+        user_id:
+          description: Customer App's internal ID for the sender
+          example: user_id_1
+          type: string
+        name:
+          description: 'Sender’s name/nickname (note: this does not need to match
+            the actual accountholder name of the sender’s account)'
+          example: James Chan
+          maxLength: 15
+          type: string
+        sender_details:
+          description: Sender details which will be used for fraud checking.
+          items:
+            $ref: '#/components/schemas/SenderDetail'
+          maxItems: 10
+          type: array
+        sender_reference_id:
+          description: Customer reference for the sender
+          example: Account123456
+          type: string
+        sender_type:
+          description: Type of account held by the Sender at the Institution. Possible
+            values are INDIVIDUAL, BUSINESS
+          enum:
+          - INDIVIDUAL
+          - BUSINESS
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+          description: 'Additional attributes of the sender in key:value format (e.g.
+            employer_name: Apple Inc for a payroll case where sender is an employee)'
+          type: object
+        created_at:
+          description: Timestamp of when the sender was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+          format: date-time
+          type: string
+        updated_at:
+          description: Timestamp of when the sender was last updated in ISO format
+            (YYYY-MM-DDTHH:MM:SS.SSSZ)
+          format: date-time
+          type: string
+      required:
+      - name
+      - sender_id
       type: object
     BadRequestModel_error:
       properties:
