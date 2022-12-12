@@ -2186,6 +2186,127 @@ paths:
         - sender:get
       tags:
       - customer
+  /sender_accounts:
+    post:
+      description: Create Sender Account
+      operationId: createSenderAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateSenderAccountRequest'
+        description: request body for creating senderAccount
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SenderAccountResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - senderAccount:create
+      tags:
+      - customer
+      x-codegen-request-body-name: createSenderAccountRequest
+  /senders/{senderId}/sender_accounts:
+    get:
+      description: Get Sender Accounts associated with a senderId
+      operationId: getSenderAccounts
+      parameters:
+      - description: The sender id
+        in: path
+        name: senderId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SenderAccountsResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - senderAccount:get
+      tags:
+      - customer
+  /sender_accounts/{senderAccountId}:
+    delete:
+      description: Delete Sender Account
+      operationId: deleteSenderAccount
+      parameters:
+      - description: The sender account id
+        in: path
+        name: senderAccountId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - senderAccount:delete
+      tags:
+      - customer
 components:
   schemas:
     ErrorResponse:
@@ -7784,6 +7905,132 @@ components:
           description: 'Additional attributes of the sender in key:value format (e.g.
             employer_name: Apple Inc for a payroll case where sender is an employee)'
           type: object
+        created_at:
+          description: Timestamp of when the sender was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+          format: date-time
+          type: string
+        updated_at:
+          description: Timestamp of when the sender was last updated in ISO format
+            (YYYY-MM-DDTHH:MM:SS.SSSZ)
+          format: date-time
+          type: string
+      type: object
+    CreateSenderAccountRequest:
+      example:
+        account_number:
+          number: number
+          type: LOCAL
+        account_type: EXTERNAL_ACCOUNT
+        user_id: user_id
+        accountholder_name: Chan Li Pak
+        sender_id: sender_id
+        institution_id: hsbc-hk
+      properties:
+        accountholder_name:
+          description: Accountholder name of the sender's account
+          example: Chan Li Pak
+          type: string
+        account_number:
+          $ref: '#/components/schemas/RecipientAccountNumber'
+        account_type:
+          description: Type of sender account.
+          enum:
+          - EXTERNAL_ACCOUNT
+          example: EXTERNAL_ACCOUNT
+          type: string
+        institution_id:
+          description: Finverse Institution ID for the sender’s institution.
+          example: hsbc-hk
+          type: string
+        sender_id:
+          description: A unique identifier generated after creating sender
+          example: sender_id
+          type: string
+        user_id:
+          description: Customer App's internal ID for the recipient
+          example: user_id
+          type: string
+      required:
+      - account_number
+      - account_type
+      - accountholder_name
+      - institution_id
+      - sender_id
+      - user_id
+      type: object
+    SenderAccountsResponse:
+      example:
+        sender_accounts:
+        - account_number:
+            number: number
+            type: LOCAL
+          account_type: EXTERNAL_ACCOUNT
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          user_id: user_id
+          sender_account_id: sender_account_id
+          created_at: 2000-01-23T04:56:07.000+00:00
+          accountholder_name: Chan Li Pak
+          sender_id: sender_id
+          institution_id: hsbc-hk
+        - account_number:
+            number: number
+            type: LOCAL
+          account_type: EXTERNAL_ACCOUNT
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          user_id: user_id
+          sender_account_id: sender_account_id
+          created_at: 2000-01-23T04:56:07.000+00:00
+          accountholder_name: Chan Li Pak
+          sender_id: sender_id
+          institution_id: hsbc-hk
+      properties:
+        sender_accounts:
+          items:
+            $ref: '#/components/schemas/SenderAccountResponse'
+          type: array
+      type: object
+    SenderAccountResponse:
+      example:
+        account_number:
+          number: number
+          type: LOCAL
+        account_type: EXTERNAL_ACCOUNT
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        user_id: user_id
+        sender_account_id: sender_account_id
+        created_at: 2000-01-23T04:56:07.000+00:00
+        accountholder_name: Chan Li Pak
+        sender_id: sender_id
+        institution_id: hsbc-hk
+      properties:
+        sender_account_id:
+          description: A unique identifier generated after creating sender account
+          example: sender_account_id
+          type: string
+        accountholder_name:
+          description: Accountholder name of the sender's account
+          example: Chan Li Pak
+          type: string
+        account_number:
+          $ref: '#/components/schemas/RecipientAccountNumber'
+        account_type:
+          description: Type of sender account.
+          enum:
+          - EXTERNAL_ACCOUNT
+          example: EXTERNAL_ACCOUNT
+          type: string
+        institution_id:
+          description: Finverse Institution ID for the sender’s institution.
+          example: hsbc-hk
+          type: string
+        sender_id:
+          description: A unique identifier generated after creating sender
+          example: sender_id
+          type: string
+        user_id:
+          description: Customer App's internal ID for the recipient
+          example: user_id
+          type: string
         created_at:
           description: Timestamp of when the sender was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time

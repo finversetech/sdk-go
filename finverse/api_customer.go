@@ -127,6 +127,20 @@ type CustomerApi interface {
 	CreateSenderExecute(r CustomerApiApiCreateSenderRequest) (*SenderResponse, *http.Response, error)
 
 	/*
+		CreateSenderAccount Method for CreateSenderAccount
+
+		Create Sender Account
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return CustomerApiApiCreateSenderAccountRequest
+	*/
+	CreateSenderAccount(ctx context.Context) CustomerApiApiCreateSenderAccountRequest
+
+	// CreateSenderAccountExecute executes the request
+	//  @return SenderAccountResponse
+	CreateSenderAccountExecute(r CustomerApiApiCreateSenderAccountRequest) (*SenderAccountResponse, *http.Response, error)
+
+	/*
 		DeleteRecipient Method for DeleteRecipient
 
 		Delete Recipient
@@ -139,6 +153,20 @@ type CustomerApi interface {
 
 	// DeleteRecipientExecute executes the request
 	DeleteRecipientExecute(r CustomerApiApiDeleteRecipientRequest) (*http.Response, error)
+
+	/*
+		DeleteSenderAccount Method for DeleteSenderAccount
+
+		Delete Sender Account
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @param senderAccountId The sender account id
+		 @return CustomerApiApiDeleteSenderAccountRequest
+	*/
+	DeleteSenderAccount(ctx context.Context, senderAccountId string) CustomerApiApiDeleteSenderAccountRequest
+
+	// DeleteSenderAccountExecute executes the request
+	DeleteSenderAccountExecute(r CustomerApiApiDeleteSenderAccountRequest) (*http.Response, error)
 
 	/*
 		GenerateLinkToken Method for GenerateLinkToken
@@ -316,6 +344,21 @@ type CustomerApi interface {
 	// GetSenderExecute executes the request
 	//  @return SenderResponse
 	GetSenderExecute(r CustomerApiApiGetSenderRequest) (*SenderResponse, *http.Response, error)
+
+	/*
+		GetSenderAccounts Method for GetSenderAccounts
+
+		Get Sender Accounts associated with a senderId
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @param senderId The sender id
+		 @return CustomerApiApiGetSenderAccountsRequest
+	*/
+	GetSenderAccounts(ctx context.Context, senderId string) CustomerApiApiGetSenderAccountsRequest
+
+	// GetSenderAccountsExecute executes the request
+	//  @return SenderAccountsResponse
+	GetSenderAccountsExecute(r CustomerApiApiGetSenderAccountsRequest) (*SenderAccountsResponse, *http.Response, error)
 
 	/*
 		ListInstitutions Method for ListInstitutions
@@ -1379,6 +1422,146 @@ func (a *CustomerApiService) CreateSenderExecute(r CustomerApiApiCreateSenderReq
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type CustomerApiApiCreateSenderAccountRequest struct {
+	ctx                        context.Context
+	ApiService                 CustomerApi
+	createSenderAccountRequest *CreateSenderAccountRequest
+}
+
+// request body for creating senderAccount
+func (r CustomerApiApiCreateSenderAccountRequest) CreateSenderAccountRequest(createSenderAccountRequest CreateSenderAccountRequest) CustomerApiApiCreateSenderAccountRequest {
+	r.createSenderAccountRequest = &createSenderAccountRequest
+	return r
+}
+
+func (r CustomerApiApiCreateSenderAccountRequest) Execute() (*SenderAccountResponse, *http.Response, error) {
+	return r.ApiService.CreateSenderAccountExecute(r)
+}
+
+/*
+CreateSenderAccount Method for CreateSenderAccount
+
+Create Sender Account
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return CustomerApiApiCreateSenderAccountRequest
+*/
+func (a *CustomerApiService) CreateSenderAccount(ctx context.Context) CustomerApiApiCreateSenderAccountRequest {
+	return CustomerApiApiCreateSenderAccountRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return SenderAccountResponse
+func (a *CustomerApiService) CreateSenderAccountExecute(r CustomerApiApiCreateSenderAccountRequest) (*SenderAccountResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SenderAccountResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.CreateSenderAccount")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/sender_accounts"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.createSenderAccountRequest == nil {
+		return localVarReturnValue, nil, reportError("createSenderAccountRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.createSenderAccountRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type CustomerApiApiDeleteRecipientRequest struct {
 	ctx                context.Context
 	ApiService         CustomerApi
@@ -1421,6 +1604,127 @@ func (a *CustomerApiService) DeleteRecipientExecute(r CustomerApiApiDeleteRecipi
 
 	localVarPath := localBasePath + "/recipients/{recipientAccountId}"
 	localVarPath = strings.Replace(localVarPath, "{"+"recipientAccountId"+"}", url.PathEscape(parameterToString(r.recipientAccountId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
+
+type CustomerApiApiDeleteSenderAccountRequest struct {
+	ctx             context.Context
+	ApiService      CustomerApi
+	senderAccountId string
+}
+
+func (r CustomerApiApiDeleteSenderAccountRequest) Execute() (*http.Response, error) {
+	return r.ApiService.DeleteSenderAccountExecute(r)
+}
+
+/*
+DeleteSenderAccount Method for DeleteSenderAccount
+
+Delete Sender Account
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param senderAccountId The sender account id
+ @return CustomerApiApiDeleteSenderAccountRequest
+*/
+func (a *CustomerApiService) DeleteSenderAccount(ctx context.Context, senderAccountId string) CustomerApiApiDeleteSenderAccountRequest {
+	return CustomerApiApiDeleteSenderAccountRequest{
+		ApiService:      a,
+		ctx:             ctx,
+		senderAccountId: senderAccountId,
+	}
+}
+
+// Execute executes the request
+func (a *CustomerApiService) DeleteSenderAccountExecute(r CustomerApiApiDeleteSenderAccountRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodDelete
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.DeleteSenderAccount")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/sender_accounts/{senderAccountId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"senderAccountId"+"}", url.PathEscape(parameterToString(r.senderAccountId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2977,6 +3281,138 @@ func (a *CustomerApiService) GetSenderExecute(r CustomerApiApiGetSenderRequest) 
 	}
 
 	localVarPath := localBasePath + "/senders/{senderId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"senderId"+"}", url.PathEscape(parameterToString(r.senderId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CustomerApiApiGetSenderAccountsRequest struct {
+	ctx        context.Context
+	ApiService CustomerApi
+	senderId   string
+}
+
+func (r CustomerApiApiGetSenderAccountsRequest) Execute() (*SenderAccountsResponse, *http.Response, error) {
+	return r.ApiService.GetSenderAccountsExecute(r)
+}
+
+/*
+GetSenderAccounts Method for GetSenderAccounts
+
+Get Sender Accounts associated with a senderId
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param senderId The sender id
+ @return CustomerApiApiGetSenderAccountsRequest
+*/
+func (a *CustomerApiService) GetSenderAccounts(ctx context.Context, senderId string) CustomerApiApiGetSenderAccountsRequest {
+	return CustomerApiApiGetSenderAccountsRequest{
+		ApiService: a,
+		ctx:        ctx,
+		senderId:   senderId,
+	}
+}
+
+// Execute executes the request
+//  @return SenderAccountsResponse
+func (a *CustomerApiService) GetSenderAccountsExecute(r CustomerApiApiGetSenderAccountsRequest) (*SenderAccountsResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *SenderAccountsResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetSenderAccounts")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/senders/{senderId}/sender_accounts"
 	localVarPath = strings.Replace(localVarPath, "{"+"senderId"+"}", url.PathEscape(parameterToString(r.senderId, "")), -1)
 
 	localVarHeaderParams := make(map[string]string)
