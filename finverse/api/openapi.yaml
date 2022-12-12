@@ -7921,7 +7921,6 @@ components:
           number: number
           type: LOCAL
         account_type: EXTERNAL_ACCOUNT
-        user_id: user_id
         accountholder_name: Chan Li Pak
         sender_id: sender_id
         institution_id: hsbc-hk
@@ -7946,17 +7945,12 @@ components:
           description: A unique identifier generated after creating sender
           example: sender_id
           type: string
-        user_id:
-          description: Customer App's internal ID for the recipient
-          example: user_id
-          type: string
       required:
       - account_number
       - account_type
       - accountholder_name
       - institution_id
       - sender_id
-      - user_id
       type: object
     SenderAccountsResponse:
       example:
@@ -7966,7 +7960,6 @@ components:
             type: LOCAL
           account_type: EXTERNAL_ACCOUNT
           updated_at: 2000-01-23T04:56:07.000+00:00
-          user_id: user_id
           sender_account_id: sender_account_id
           created_at: 2000-01-23T04:56:07.000+00:00
           accountholder_name: Chan Li Pak
@@ -7977,7 +7970,6 @@ components:
             type: LOCAL
           account_type: EXTERNAL_ACCOUNT
           updated_at: 2000-01-23T04:56:07.000+00:00
-          user_id: user_id
           sender_account_id: sender_account_id
           created_at: 2000-01-23T04:56:07.000+00:00
           accountholder_name: Chan Li Pak
@@ -7996,7 +7988,6 @@ components:
           type: LOCAL
         account_type: EXTERNAL_ACCOUNT
         updated_at: 2000-01-23T04:56:07.000+00:00
-        user_id: user_id
         sender_account_id: sender_account_id
         created_at: 2000-01-23T04:56:07.000+00:00
         accountholder_name: Chan Li Pak
@@ -8026,10 +8017,6 @@ components:
         sender_id:
           description: A unique identifier generated after creating sender
           example: sender_id
-          type: string
-        user_id:
-          description: Customer App's internal ID for the recipient
-          example: user_id
           type: string
         created_at:
           description: Timestamp of when the sender was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)

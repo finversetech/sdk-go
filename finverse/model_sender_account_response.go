@@ -29,8 +29,6 @@ type SenderAccountResponse struct {
 	InstitutionId *string `json:"institution_id,omitempty"`
 	// A unique identifier generated after creating sender
 	SenderId *string `json:"sender_id,omitempty"`
-	// Customer App's internal ID for the recipient
-	UserId *string `json:"user_id,omitempty"`
 	// Timestamp of when the sender was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp of when the sender was last updated in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
@@ -246,38 +244,6 @@ func (o *SenderAccountResponse) SetSenderId(v string) {
 	o.SenderId = &v
 }
 
-// GetUserId returns the UserId field value if set, zero value otherwise.
-func (o *SenderAccountResponse) GetUserId() string {
-	if o == nil || o.UserId == nil {
-		var ret string
-		return ret
-	}
-	return *o.UserId
-}
-
-// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SenderAccountResponse) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
-		return nil, false
-	}
-	return o.UserId, true
-}
-
-// HasUserId returns a boolean if a field has been set.
-func (o *SenderAccountResponse) HasUserId() bool {
-	if o != nil && o.UserId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUserId gets a reference to the given string and assigns it to the UserId field.
-func (o *SenderAccountResponse) SetUserId(v string) {
-	o.UserId = &v
-}
-
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *SenderAccountResponse) GetCreatedAt() time.Time {
 	if o == nil || o.CreatedAt == nil {
@@ -361,9 +327,6 @@ func (o SenderAccountResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.SenderId != nil {
 		toSerialize["sender_id"] = o.SenderId
-	}
-	if o.UserId != nil {
-		toSerialize["user_id"] = o.UserId
 	}
 	if o.CreatedAt != nil {
 		toSerialize["created_at"] = o.CreatedAt

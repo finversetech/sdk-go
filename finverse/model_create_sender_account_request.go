@@ -26,22 +26,19 @@ type CreateSenderAccountRequest struct {
 	InstitutionId string `json:"institution_id"`
 	// A unique identifier generated after creating sender
 	SenderId string `json:"sender_id"`
-	// Customer App's internal ID for the recipient
-	UserId string `json:"user_id"`
 }
 
 // NewCreateSenderAccountRequest instantiates a new CreateSenderAccountRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateSenderAccountRequest(accountholderName string, accountNumber RecipientAccountNumber, accountType string, institutionId string, senderId string, userId string) *CreateSenderAccountRequest {
+func NewCreateSenderAccountRequest(accountholderName string, accountNumber RecipientAccountNumber, accountType string, institutionId string, senderId string) *CreateSenderAccountRequest {
 	this := CreateSenderAccountRequest{}
 	this.AccountholderName = accountholderName
 	this.AccountNumber = accountNumber
 	this.AccountType = accountType
 	this.InstitutionId = institutionId
 	this.SenderId = senderId
-	this.UserId = userId
 	return &this
 }
 
@@ -173,30 +170,6 @@ func (o *CreateSenderAccountRequest) SetSenderId(v string) {
 	o.SenderId = v
 }
 
-// GetUserId returns the UserId field value
-func (o *CreateSenderAccountRequest) GetUserId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.UserId
-}
-
-// GetUserIdOk returns a tuple with the UserId field value
-// and a boolean to check if the value has been set.
-func (o *CreateSenderAccountRequest) GetUserIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.UserId, true
-}
-
-// SetUserId sets field value
-func (o *CreateSenderAccountRequest) SetUserId(v string) {
-	o.UserId = v
-}
-
 func (o CreateSenderAccountRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -213,9 +186,6 @@ func (o CreateSenderAccountRequest) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["sender_id"] = o.SenderId
-	}
-	if true {
-		toSerialize["user_id"] = o.UserId
 	}
 	return json.Marshal(toSerialize)
 }
