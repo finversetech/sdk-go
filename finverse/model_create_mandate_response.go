@@ -27,7 +27,7 @@ type CreateMandateResponse struct {
 	Recipient      MandateRecipient `json:"recipient"`
 	Sender         GetMandateSender `json:"sender"`
 	MandateDetails MandateDetails   `json:"mandate_details"`
-	Error          *FvErrorModel    `json:"error,omitempty"`
+	Error          *FvErrorModelV2  `json:"error,omitempty"`
 }
 
 // NewCreateMandateResponse instantiates a new CreateMandateResponse object
@@ -198,9 +198,9 @@ func (o *CreateMandateResponse) SetMandateDetails(v MandateDetails) {
 }
 
 // GetError returns the Error field value if set, zero value otherwise.
-func (o *CreateMandateResponse) GetError() FvErrorModel {
+func (o *CreateMandateResponse) GetError() FvErrorModelV2 {
 	if o == nil || o.Error == nil {
-		var ret FvErrorModel
+		var ret FvErrorModelV2
 		return ret
 	}
 	return *o.Error
@@ -208,7 +208,7 @@ func (o *CreateMandateResponse) GetError() FvErrorModel {
 
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateMandateResponse) GetErrorOk() (*FvErrorModel, bool) {
+func (o *CreateMandateResponse) GetErrorOk() (*FvErrorModelV2, bool) {
 	if o == nil || o.Error == nil {
 		return nil, false
 	}
@@ -224,8 +224,8 @@ func (o *CreateMandateResponse) HasError() bool {
 	return false
 }
 
-// SetError gets a reference to the given FvErrorModel and assigns it to the Error field.
-func (o *CreateMandateResponse) SetError(v FvErrorModel) {
+// SetError gets a reference to the given FvErrorModelV2 and assigns it to the Error field.
+func (o *CreateMandateResponse) SetError(v FvErrorModelV2) {
 	o.Error = &v
 }
 

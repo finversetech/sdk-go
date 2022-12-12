@@ -32,8 +32,8 @@ type GetMandateAuthResponse struct {
 	AuthChecklist  []AuthChecklistFactor     `json:"auth_checklist"`
 	EncryptionInfo MandateAuthEncryptionInfo `json:"encryption_info"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	LastUpdate time.Time     `json:"last_update"`
-	Error      *FvErrorModel `json:"error,omitempty"`
+	LastUpdate time.Time       `json:"last_update"`
+	Error      *FvErrorModelV2 `json:"error,omitempty"`
 }
 
 // NewGetMandateAuthResponse instantiates a new GetMandateAuthResponse object
@@ -261,9 +261,9 @@ func (o *GetMandateAuthResponse) SetLastUpdate(v time.Time) {
 }
 
 // GetError returns the Error field value if set, zero value otherwise.
-func (o *GetMandateAuthResponse) GetError() FvErrorModel {
+func (o *GetMandateAuthResponse) GetError() FvErrorModelV2 {
 	if o == nil || o.Error == nil {
-		var ret FvErrorModel
+		var ret FvErrorModelV2
 		return ret
 	}
 	return *o.Error
@@ -271,7 +271,7 @@ func (o *GetMandateAuthResponse) GetError() FvErrorModel {
 
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetMandateAuthResponse) GetErrorOk() (*FvErrorModel, bool) {
+func (o *GetMandateAuthResponse) GetErrorOk() (*FvErrorModelV2, bool) {
 	if o == nil || o.Error == nil {
 		return nil, false
 	}
@@ -287,8 +287,8 @@ func (o *GetMandateAuthResponse) HasError() bool {
 	return false
 }
 
-// SetError gets a reference to the given FvErrorModel and assigns it to the Error field.
-func (o *GetMandateAuthResponse) SetError(v FvErrorModel) {
+// SetError gets a reference to the given FvErrorModelV2 and assigns it to the Error field.
+func (o *GetMandateAuthResponse) SetError(v FvErrorModelV2) {
 	o.Error = &v
 }
 

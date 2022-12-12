@@ -32,8 +32,8 @@ type PayoutInstructionResponse struct {
 	// A description for the payment (that will appear as the transaction description on bank statements)
 	Description *string `json:"description,omitempty"`
 	// The currency code as defined in ISO 4217.
-	Currency *string       `json:"currency,omitempty"`
-	Error    *FvErrorModel `json:"error,omitempty"`
+	Currency *string         `json:"currency,omitempty"`
+	Error    *FvErrorModelV2 `json:"error,omitempty"`
 }
 
 // NewPayoutInstructionResponse instantiates a new PayoutInstructionResponse object
@@ -296,9 +296,9 @@ func (o *PayoutInstructionResponse) SetCurrency(v string) {
 }
 
 // GetError returns the Error field value if set, zero value otherwise.
-func (o *PayoutInstructionResponse) GetError() FvErrorModel {
+func (o *PayoutInstructionResponse) GetError() FvErrorModelV2 {
 	if o == nil || o.Error == nil {
-		var ret FvErrorModel
+		var ret FvErrorModelV2
 		return ret
 	}
 	return *o.Error
@@ -306,7 +306,7 @@ func (o *PayoutInstructionResponse) GetError() FvErrorModel {
 
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PayoutInstructionResponse) GetErrorOk() (*FvErrorModel, bool) {
+func (o *PayoutInstructionResponse) GetErrorOk() (*FvErrorModelV2, bool) {
 	if o == nil || o.Error == nil {
 		return nil, false
 	}
@@ -322,8 +322,8 @@ func (o *PayoutInstructionResponse) HasError() bool {
 	return false
 }
 
-// SetError gets a reference to the given FvErrorModel and assigns it to the Error field.
-func (o *PayoutInstructionResponse) SetError(v FvErrorModel) {
+// SetError gets a reference to the given FvErrorModelV2 and assigns it to the Error field.
+func (o *PayoutInstructionResponse) SetError(v FvErrorModelV2) {
 	o.Error = &v
 }
 

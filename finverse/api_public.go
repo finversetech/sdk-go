@@ -583,7 +583,7 @@ func (a *PublicApiService) GetPaymentsJwksExecute(r PublicApiApiGetPaymentsJwksR
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v ErrBodyModel
+			var v ErrBodyModelV2
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

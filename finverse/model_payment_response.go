@@ -36,8 +36,8 @@ type PaymentResponse struct {
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	TransactionDate NullableTime  `json:"transaction_date,omitempty"`
-	Error           *FvErrorModel `json:"error,omitempty"`
+	TransactionDate NullableTime    `json:"transaction_date,omitempty"`
+	Error           *FvErrorModelV2 `json:"error,omitempty"`
 }
 
 // NewPaymentResponse instantiates a new PaymentResponse object
@@ -421,9 +421,9 @@ func (o *PaymentResponse) UnsetTransactionDate() {
 }
 
 // GetError returns the Error field value if set, zero value otherwise.
-func (o *PaymentResponse) GetError() FvErrorModel {
+func (o *PaymentResponse) GetError() FvErrorModelV2 {
 	if o == nil || o.Error == nil {
-		var ret FvErrorModel
+		var ret FvErrorModelV2
 		return ret
 	}
 	return *o.Error
@@ -431,7 +431,7 @@ func (o *PaymentResponse) GetError() FvErrorModel {
 
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentResponse) GetErrorOk() (*FvErrorModel, bool) {
+func (o *PaymentResponse) GetErrorOk() (*FvErrorModelV2, bool) {
 	if o == nil || o.Error == nil {
 		return nil, false
 	}
@@ -447,8 +447,8 @@ func (o *PaymentResponse) HasError() bool {
 	return false
 }
 
-// SetError gets a reference to the given FvErrorModel and assigns it to the Error field.
-func (o *PaymentResponse) SetError(v FvErrorModel) {
+// SetError gets a reference to the given FvErrorModelV2 and assigns it to the Error field.
+func (o *PaymentResponse) SetError(v FvErrorModelV2) {
 	o.Error = &v
 }
 
