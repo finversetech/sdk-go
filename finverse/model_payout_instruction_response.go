@@ -13,27 +13,27 @@ package finverse
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // PayoutInstructionResponse struct for PayoutInstructionResponse
 type PayoutInstructionResponse struct {
+	// Amount to be paid, in currency's smallest unit or “minor unit”, as defined in ISO 4217. For example, HKD 100.01 is represented as amount = 10001 (minor unit = cents). For currencies without minor units (e.g. VND, JPY), the amount is represented as is, without modification. For example, VND 15101 is represented as amount = 15101.
+	Amount *int32 `json:"amount,omitempty"`
+	// The currency code as defined in ISO 4217.
+	Currency       *string           `json:"currency,omitempty"`
+	PaymentDetails *PayoutDetails    `json:"payment_details,omitempty"`
+	Recipient      *MandateRecipient `json:"recipient,omitempty"`
+	Sender         *PayoutSender     `json:"sender,omitempty"`
 	// Finverse Payout Instruction ID
 	PayoutInstructionId string `json:"payout_instruction_id"`
 	// Possible values - CREATED, PROCESSING, EXECUTED, CANCELLED, FAILED.
 	Status string `json:"status"`
-	// The mandate used to execute payments for this payout instruction. Currency for the mandate must be supported by the recipient account
-	MandateId *string `json:"mandate_id,omitempty"`
-	// The recipient account to receive the payment
-	RecipientAccountId *string `json:"recipient_account_id,omitempty"`
-	// Amount to be paid, in currency's smallest unit or “minor unit”, as defined in ISO 4217. For example, HKD 100.01 is represented as amount = 10001 (minor unit = cents). For currencies without minor units (e.g. VND, JPY), the amount is represented as is, without modification. For example, VND 15101 is represented as amount = 15101.
-	Amount *int32 `json:"amount,omitempty"`
-	// YYYY-MM-DD, date (in UTC) to execute the payment, must be 1 day later than current date
-	Date *string `json:"date,omitempty"`
-	// A description for the payment (that will appear as the transaction description on bank statements)
-	Description *string `json:"description,omitempty"`
-	// The currency code as defined in ISO 4217.
-	Currency *string         `json:"currency,omitempty"`
-	Error    *FvErrorModelV2 `json:"error,omitempty"`
+	// Timestamp of when the recipient was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	// Timestamp of when the recipient was last updated in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+	UpdatedAt *time.Time      `json:"updated_at,omitempty"`
+	Error     *FvErrorModelV2 `json:"error,omitempty"`
 }
 
 // NewPayoutInstructionResponse instantiates a new PayoutInstructionResponse object
@@ -53,6 +53,166 @@ func NewPayoutInstructionResponse(payoutInstructionId string, status string) *Pa
 func NewPayoutInstructionResponseWithDefaults() *PayoutInstructionResponse {
 	this := PayoutInstructionResponse{}
 	return &this
+}
+
+// GetAmount returns the Amount field value if set, zero value otherwise.
+func (o *PayoutInstructionResponse) GetAmount() int32 {
+	if o == nil || o.Amount == nil {
+		var ret int32
+		return ret
+	}
+	return *o.Amount
+}
+
+// GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayoutInstructionResponse) GetAmountOk() (*int32, bool) {
+	if o == nil || o.Amount == nil {
+		return nil, false
+	}
+	return o.Amount, true
+}
+
+// HasAmount returns a boolean if a field has been set.
+func (o *PayoutInstructionResponse) HasAmount() bool {
+	if o != nil && o.Amount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAmount gets a reference to the given int32 and assigns it to the Amount field.
+func (o *PayoutInstructionResponse) SetAmount(v int32) {
+	o.Amount = &v
+}
+
+// GetCurrency returns the Currency field value if set, zero value otherwise.
+func (o *PayoutInstructionResponse) GetCurrency() string {
+	if o == nil || o.Currency == nil {
+		var ret string
+		return ret
+	}
+	return *o.Currency
+}
+
+// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayoutInstructionResponse) GetCurrencyOk() (*string, bool) {
+	if o == nil || o.Currency == nil {
+		return nil, false
+	}
+	return o.Currency, true
+}
+
+// HasCurrency returns a boolean if a field has been set.
+func (o *PayoutInstructionResponse) HasCurrency() bool {
+	if o != nil && o.Currency != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrency gets a reference to the given string and assigns it to the Currency field.
+func (o *PayoutInstructionResponse) SetCurrency(v string) {
+	o.Currency = &v
+}
+
+// GetPaymentDetails returns the PaymentDetails field value if set, zero value otherwise.
+func (o *PayoutInstructionResponse) GetPaymentDetails() PayoutDetails {
+	if o == nil || o.PaymentDetails == nil {
+		var ret PayoutDetails
+		return ret
+	}
+	return *o.PaymentDetails
+}
+
+// GetPaymentDetailsOk returns a tuple with the PaymentDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayoutInstructionResponse) GetPaymentDetailsOk() (*PayoutDetails, bool) {
+	if o == nil || o.PaymentDetails == nil {
+		return nil, false
+	}
+	return o.PaymentDetails, true
+}
+
+// HasPaymentDetails returns a boolean if a field has been set.
+func (o *PayoutInstructionResponse) HasPaymentDetails() bool {
+	if o != nil && o.PaymentDetails != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentDetails gets a reference to the given PayoutDetails and assigns it to the PaymentDetails field.
+func (o *PayoutInstructionResponse) SetPaymentDetails(v PayoutDetails) {
+	o.PaymentDetails = &v
+}
+
+// GetRecipient returns the Recipient field value if set, zero value otherwise.
+func (o *PayoutInstructionResponse) GetRecipient() MandateRecipient {
+	if o == nil || o.Recipient == nil {
+		var ret MandateRecipient
+		return ret
+	}
+	return *o.Recipient
+}
+
+// GetRecipientOk returns a tuple with the Recipient field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayoutInstructionResponse) GetRecipientOk() (*MandateRecipient, bool) {
+	if o == nil || o.Recipient == nil {
+		return nil, false
+	}
+	return o.Recipient, true
+}
+
+// HasRecipient returns a boolean if a field has been set.
+func (o *PayoutInstructionResponse) HasRecipient() bool {
+	if o != nil && o.Recipient != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRecipient gets a reference to the given MandateRecipient and assigns it to the Recipient field.
+func (o *PayoutInstructionResponse) SetRecipient(v MandateRecipient) {
+	o.Recipient = &v
+}
+
+// GetSender returns the Sender field value if set, zero value otherwise.
+func (o *PayoutInstructionResponse) GetSender() PayoutSender {
+	if o == nil || o.Sender == nil {
+		var ret PayoutSender
+		return ret
+	}
+	return *o.Sender
+}
+
+// GetSenderOk returns a tuple with the Sender field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayoutInstructionResponse) GetSenderOk() (*PayoutSender, bool) {
+	if o == nil || o.Sender == nil {
+		return nil, false
+	}
+	return o.Sender, true
+}
+
+// HasSender returns a boolean if a field has been set.
+func (o *PayoutInstructionResponse) HasSender() bool {
+	if o != nil && o.Sender != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSender gets a reference to the given PayoutSender and assigns it to the Sender field.
+func (o *PayoutInstructionResponse) SetSender(v PayoutSender) {
+	o.Sender = &v
 }
 
 // GetPayoutInstructionId returns the PayoutInstructionId field value
@@ -103,196 +263,68 @@ func (o *PayoutInstructionResponse) SetStatus(v string) {
 	o.Status = v
 }
 
-// GetMandateId returns the MandateId field value if set, zero value otherwise.
-func (o *PayoutInstructionResponse) GetMandateId() string {
-	if o == nil || o.MandateId == nil {
-		var ret string
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *PayoutInstructionResponse) GetCreatedAt() time.Time {
+	if o == nil || o.CreatedAt == nil {
+		var ret time.Time
 		return ret
 	}
-	return *o.MandateId
+	return *o.CreatedAt
 }
 
-// GetMandateIdOk returns a tuple with the MandateId field value if set, nil otherwise
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PayoutInstructionResponse) GetMandateIdOk() (*string, bool) {
-	if o == nil || o.MandateId == nil {
+func (o *PayoutInstructionResponse) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil || o.CreatedAt == nil {
 		return nil, false
 	}
-	return o.MandateId, true
+	return o.CreatedAt, true
 }
 
-// HasMandateId returns a boolean if a field has been set.
-func (o *PayoutInstructionResponse) HasMandateId() bool {
-	if o != nil && o.MandateId != nil {
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *PayoutInstructionResponse) HasCreatedAt() bool {
+	if o != nil && o.CreatedAt != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetMandateId gets a reference to the given string and assigns it to the MandateId field.
-func (o *PayoutInstructionResponse) SetMandateId(v string) {
-	o.MandateId = &v
+// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+func (o *PayoutInstructionResponse) SetCreatedAt(v time.Time) {
+	o.CreatedAt = &v
 }
 
-// GetRecipientAccountId returns the RecipientAccountId field value if set, zero value otherwise.
-func (o *PayoutInstructionResponse) GetRecipientAccountId() string {
-	if o == nil || o.RecipientAccountId == nil {
-		var ret string
+// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+func (o *PayoutInstructionResponse) GetUpdatedAt() time.Time {
+	if o == nil || o.UpdatedAt == nil {
+		var ret time.Time
 		return ret
 	}
-	return *o.RecipientAccountId
+	return *o.UpdatedAt
 }
 
-// GetRecipientAccountIdOk returns a tuple with the RecipientAccountId field value if set, nil otherwise
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PayoutInstructionResponse) GetRecipientAccountIdOk() (*string, bool) {
-	if o == nil || o.RecipientAccountId == nil {
+func (o *PayoutInstructionResponse) GetUpdatedAtOk() (*time.Time, bool) {
+	if o == nil || o.UpdatedAt == nil {
 		return nil, false
 	}
-	return o.RecipientAccountId, true
+	return o.UpdatedAt, true
 }
 
-// HasRecipientAccountId returns a boolean if a field has been set.
-func (o *PayoutInstructionResponse) HasRecipientAccountId() bool {
-	if o != nil && o.RecipientAccountId != nil {
+// HasUpdatedAt returns a boolean if a field has been set.
+func (o *PayoutInstructionResponse) HasUpdatedAt() bool {
+	if o != nil && o.UpdatedAt != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetRecipientAccountId gets a reference to the given string and assigns it to the RecipientAccountId field.
-func (o *PayoutInstructionResponse) SetRecipientAccountId(v string) {
-	o.RecipientAccountId = &v
-}
-
-// GetAmount returns the Amount field value if set, zero value otherwise.
-func (o *PayoutInstructionResponse) GetAmount() int32 {
-	if o == nil || o.Amount == nil {
-		var ret int32
-		return ret
-	}
-	return *o.Amount
-}
-
-// GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PayoutInstructionResponse) GetAmountOk() (*int32, bool) {
-	if o == nil || o.Amount == nil {
-		return nil, false
-	}
-	return o.Amount, true
-}
-
-// HasAmount returns a boolean if a field has been set.
-func (o *PayoutInstructionResponse) HasAmount() bool {
-	if o != nil && o.Amount != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAmount gets a reference to the given int32 and assigns it to the Amount field.
-func (o *PayoutInstructionResponse) SetAmount(v int32) {
-	o.Amount = &v
-}
-
-// GetDate returns the Date field value if set, zero value otherwise.
-func (o *PayoutInstructionResponse) GetDate() string {
-	if o == nil || o.Date == nil {
-		var ret string
-		return ret
-	}
-	return *o.Date
-}
-
-// GetDateOk returns a tuple with the Date field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PayoutInstructionResponse) GetDateOk() (*string, bool) {
-	if o == nil || o.Date == nil {
-		return nil, false
-	}
-	return o.Date, true
-}
-
-// HasDate returns a boolean if a field has been set.
-func (o *PayoutInstructionResponse) HasDate() bool {
-	if o != nil && o.Date != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDate gets a reference to the given string and assigns it to the Date field.
-func (o *PayoutInstructionResponse) SetDate(v string) {
-	o.Date = &v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *PayoutInstructionResponse) GetDescription() string {
-	if o == nil || o.Description == nil {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PayoutInstructionResponse) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *PayoutInstructionResponse) HasDescription() bool {
-	if o != nil && o.Description != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *PayoutInstructionResponse) SetDescription(v string) {
-	o.Description = &v
-}
-
-// GetCurrency returns the Currency field value if set, zero value otherwise.
-func (o *PayoutInstructionResponse) GetCurrency() string {
-	if o == nil || o.Currency == nil {
-		var ret string
-		return ret
-	}
-	return *o.Currency
-}
-
-// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PayoutInstructionResponse) GetCurrencyOk() (*string, bool) {
-	if o == nil || o.Currency == nil {
-		return nil, false
-	}
-	return o.Currency, true
-}
-
-// HasCurrency returns a boolean if a field has been set.
-func (o *PayoutInstructionResponse) HasCurrency() bool {
-	if o != nil && o.Currency != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCurrency gets a reference to the given string and assigns it to the Currency field.
-func (o *PayoutInstructionResponse) SetCurrency(v string) {
-	o.Currency = &v
+// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
+func (o *PayoutInstructionResponse) SetUpdatedAt(v time.Time) {
+	o.UpdatedAt = &v
 }
 
 // GetError returns the Error field value if set, zero value otherwise.
@@ -329,29 +361,32 @@ func (o *PayoutInstructionResponse) SetError(v FvErrorModelV2) {
 
 func (o PayoutInstructionResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.Amount != nil {
+		toSerialize["amount"] = o.Amount
+	}
+	if o.Currency != nil {
+		toSerialize["currency"] = o.Currency
+	}
+	if o.PaymentDetails != nil {
+		toSerialize["payment_details"] = o.PaymentDetails
+	}
+	if o.Recipient != nil {
+		toSerialize["recipient"] = o.Recipient
+	}
+	if o.Sender != nil {
+		toSerialize["sender"] = o.Sender
+	}
 	if true {
 		toSerialize["payout_instruction_id"] = o.PayoutInstructionId
 	}
 	if true {
 		toSerialize["status"] = o.Status
 	}
-	if o.MandateId != nil {
-		toSerialize["mandate_id"] = o.MandateId
+	if o.CreatedAt != nil {
+		toSerialize["created_at"] = o.CreatedAt
 	}
-	if o.RecipientAccountId != nil {
-		toSerialize["recipient_account_id"] = o.RecipientAccountId
-	}
-	if o.Amount != nil {
-		toSerialize["amount"] = o.Amount
-	}
-	if o.Date != nil {
-		toSerialize["date"] = o.Date
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.Currency != nil {
-		toSerialize["currency"] = o.Currency
+	if o.UpdatedAt != nil {
+		toSerialize["updated_at"] = o.UpdatedAt
 	}
 	if o.Error != nil {
 		toSerialize["error"] = o.Error

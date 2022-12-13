@@ -17,31 +17,24 @@ import (
 
 // CreatePayoutInstructionRequest struct for CreatePayoutInstructionRequest
 type CreatePayoutInstructionRequest struct {
-	// The mandate used to execute payments for this payout instruction. Currency for the mandate must be supported by the recipient account
-	MandateId string `json:"mandate_id"`
-	// The recipient account to receive the payment
-	RecipientAccountId string `json:"recipient_account_id"`
 	// Amount to be paid, in currency's smallest unit or “minor unit”, as defined in ISO 4217. For example, HKD 100.01 is represented as amount = 10001 (minor unit = cents). For currencies without minor units (e.g. VND, JPY), the amount is represented as is, without modification. For example, VND 15101 is represented as amount = 15101.
 	Amount int32 `json:"amount"`
-	// YYYY-MM-DD, date (in UTC) to execute the payment, must be 1 day later than current date
-	Date string `json:"date"`
-	// A description for the payment (that will appear as the transaction description on bank statements)
-	Description *string `json:"description,omitempty"`
 	// The currency code as defined in ISO 4217.
-	Currency string `json:"currency"`
+	Currency       string                  `json:"currency"`
+	PaymentDetails PayoutDetails           `json:"payment_details"`
+	Recipient      MandateRecipientRequest `json:"recipient"`
 }
 
 // NewCreatePayoutInstructionRequest instantiates a new CreatePayoutInstructionRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePayoutInstructionRequest(mandateId string, recipientAccountId string, amount int32, date string, currency string) *CreatePayoutInstructionRequest {
+func NewCreatePayoutInstructionRequest(amount int32, currency string, paymentDetails PayoutDetails, recipient MandateRecipientRequest) *CreatePayoutInstructionRequest {
 	this := CreatePayoutInstructionRequest{}
-	this.MandateId = mandateId
-	this.RecipientAccountId = recipientAccountId
 	this.Amount = amount
-	this.Date = date
 	this.Currency = currency
+	this.PaymentDetails = paymentDetails
+	this.Recipient = recipient
 	return &this
 }
 
@@ -51,54 +44,6 @@ func NewCreatePayoutInstructionRequest(mandateId string, recipientAccountId stri
 func NewCreatePayoutInstructionRequestWithDefaults() *CreatePayoutInstructionRequest {
 	this := CreatePayoutInstructionRequest{}
 	return &this
-}
-
-// GetMandateId returns the MandateId field value
-func (o *CreatePayoutInstructionRequest) GetMandateId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.MandateId
-}
-
-// GetMandateIdOk returns a tuple with the MandateId field value
-// and a boolean to check if the value has been set.
-func (o *CreatePayoutInstructionRequest) GetMandateIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.MandateId, true
-}
-
-// SetMandateId sets field value
-func (o *CreatePayoutInstructionRequest) SetMandateId(v string) {
-	o.MandateId = v
-}
-
-// GetRecipientAccountId returns the RecipientAccountId field value
-func (o *CreatePayoutInstructionRequest) GetRecipientAccountId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.RecipientAccountId
-}
-
-// GetRecipientAccountIdOk returns a tuple with the RecipientAccountId field value
-// and a boolean to check if the value has been set.
-func (o *CreatePayoutInstructionRequest) GetRecipientAccountIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.RecipientAccountId, true
-}
-
-// SetRecipientAccountId sets field value
-func (o *CreatePayoutInstructionRequest) SetRecipientAccountId(v string) {
-	o.RecipientAccountId = v
 }
 
 // GetAmount returns the Amount field value
@@ -125,62 +70,6 @@ func (o *CreatePayoutInstructionRequest) SetAmount(v int32) {
 	o.Amount = v
 }
 
-// GetDate returns the Date field value
-func (o *CreatePayoutInstructionRequest) GetDate() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.Date
-}
-
-// GetDateOk returns a tuple with the Date field value
-// and a boolean to check if the value has been set.
-func (o *CreatePayoutInstructionRequest) GetDateOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.Date, true
-}
-
-// SetDate sets field value
-func (o *CreatePayoutInstructionRequest) SetDate(v string) {
-	o.Date = v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *CreatePayoutInstructionRequest) GetDescription() string {
-	if o == nil || o.Description == nil {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreatePayoutInstructionRequest) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *CreatePayoutInstructionRequest) HasDescription() bool {
-	if o != nil && o.Description != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *CreatePayoutInstructionRequest) SetDescription(v string) {
-	o.Description = &v
-}
-
 // GetCurrency returns the Currency field value
 func (o *CreatePayoutInstructionRequest) GetCurrency() string {
 	if o == nil {
@@ -205,25 +94,67 @@ func (o *CreatePayoutInstructionRequest) SetCurrency(v string) {
 	o.Currency = v
 }
 
+// GetPaymentDetails returns the PaymentDetails field value
+func (o *CreatePayoutInstructionRequest) GetPaymentDetails() PayoutDetails {
+	if o == nil {
+		var ret PayoutDetails
+		return ret
+	}
+
+	return o.PaymentDetails
+}
+
+// GetPaymentDetailsOk returns a tuple with the PaymentDetails field value
+// and a boolean to check if the value has been set.
+func (o *CreatePayoutInstructionRequest) GetPaymentDetailsOk() (*PayoutDetails, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PaymentDetails, true
+}
+
+// SetPaymentDetails sets field value
+func (o *CreatePayoutInstructionRequest) SetPaymentDetails(v PayoutDetails) {
+	o.PaymentDetails = v
+}
+
+// GetRecipient returns the Recipient field value
+func (o *CreatePayoutInstructionRequest) GetRecipient() MandateRecipientRequest {
+	if o == nil {
+		var ret MandateRecipientRequest
+		return ret
+	}
+
+	return o.Recipient
+}
+
+// GetRecipientOk returns a tuple with the Recipient field value
+// and a boolean to check if the value has been set.
+func (o *CreatePayoutInstructionRequest) GetRecipientOk() (*MandateRecipientRequest, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Recipient, true
+}
+
+// SetRecipient sets field value
+func (o *CreatePayoutInstructionRequest) SetRecipient(v MandateRecipientRequest) {
+	o.Recipient = v
+}
+
 func (o CreatePayoutInstructionRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["mandate_id"] = o.MandateId
-	}
-	if true {
-		toSerialize["recipient_account_id"] = o.RecipientAccountId
-	}
 	if true {
 		toSerialize["amount"] = o.Amount
 	}
 	if true {
-		toSerialize["date"] = o.Date
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
+		toSerialize["currency"] = o.Currency
 	}
 	if true {
-		toSerialize["currency"] = o.Currency
+		toSerialize["payment_details"] = o.PaymentDetails
+	}
+	if true {
+		toSerialize["recipient"] = o.Recipient
 	}
 	return json.Marshal(toSerialize)
 }

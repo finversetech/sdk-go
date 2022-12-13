@@ -106,7 +106,9 @@ model_payment_info.go
 model_payment_instruction.go
 model_payment_response.go
 model_payment_schedule.go
+model_payout_details.go
 model_payout_instruction_response.go
+model_payout_sender.go
 model_principal.go
 model_product_status.go
 model_recipient_account_number.go
