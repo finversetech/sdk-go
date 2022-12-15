@@ -36,8 +36,10 @@ type PaymentResponse struct {
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	TransactionDate NullableTime    `json:"transaction_date,omitempty"`
-	Error           *FvErrorModelV2 `json:"error,omitempty"`
+	TransactionDate NullableTime `json:"transaction_date,omitempty"`
+	// Additional attributes of the payment in key:value format (e.g. payment_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
+	Metadata *map[string]string `json:"metadata,omitempty"`
+	Error    *FvErrorModelV2    `json:"error,omitempty"`
 }
 
 // NewPaymentResponse instantiates a new PaymentResponse object
@@ -420,6 +422,38 @@ func (o *PaymentResponse) UnsetTransactionDate() {
 	o.TransactionDate.Unset()
 }
 
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
+func (o *PaymentResponse) GetMetadata() map[string]string {
+	if o == nil || o.Metadata == nil {
+		var ret map[string]string
+		return ret
+	}
+	return *o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentResponse) GetMetadataOk() (*map[string]string, bool) {
+	if o == nil || o.Metadata == nil {
+		return nil, false
+	}
+	return o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *PaymentResponse) HasMetadata() bool {
+	if o != nil && o.Metadata != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given map[string]string and assigns it to the Metadata field.
+func (o *PaymentResponse) SetMetadata(v map[string]string) {
+	o.Metadata = &v
+}
+
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *PaymentResponse) GetError() FvErrorModelV2 {
 	if o == nil || o.Error == nil {
@@ -486,6 +520,9 @@ func (o PaymentResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.TransactionDate.IsSet() {
 		toSerialize["transaction_date"] = o.TransactionDate.Get()
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
 	}
 	if o.Error != nil {
 		toSerialize["error"] = o.Error

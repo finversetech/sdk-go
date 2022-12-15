@@ -5941,6 +5941,8 @@ components:
     CreatePaymentRequest:
       example:
         amount: 100
+        metadata:
+          key: metadata
         payment_details:
           transaction_reference_id: transaction_reference_id
           description: description
@@ -5969,6 +5971,13 @@ components:
           type: string
         payment_details:
           $ref: '#/components/schemas/PaymentDetails2'
+        metadata:
+          additionalProperties:
+            type: string
+          description: 'Additional attributes of the payment in key:value format (e.g.
+            payment_internal_id: 1234). It supports up to 10 key:value pairs, whereas
+            the key and value supports up to 50 and 500 characters respectively.'
+          type: object
       required:
       - amount
       - currency
@@ -5998,11 +6007,21 @@ components:
       example:
         transaction_date: 2000-01-23T04:56:07.000+00:00
         amount: 100
-        updated_at: 2000-01-23T04:56:07.000+00:00
+        metadata:
+          key: metadata
         payment_details:
           transaction_reference_id: transaction_reference_id
           description: description
           mandate_id: mandate_id
+        created_at: 2000-01-23T04:56:07.000+00:00
+        type: MANDATE
+        error:
+          error_code: CREDENTIALS_INVALID
+          details: details
+          type: LINKING_ERROR
+          message: message
+          request_id: request_id
+        updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
           sender_details:
           - values:
@@ -6030,15 +6049,7 @@ components:
         recipient:
           name: name
           recipient_account_id: recipient_account_id
-        created_at: 2000-01-23T04:56:07.000+00:00
         currency: HKD
-        type: MANDATE
-        error:
-          error_code: CREDENTIALS_INVALID
-          details: details
-          type: LINKING_ERROR
-          message: message
-          request_id: request_id
         status: AUTHORIZATION_REQUIRED
       properties:
         payment_id:
@@ -6094,6 +6105,13 @@ components:
           format: date-time
           nullable: true
           type: string
+        metadata:
+          additionalProperties:
+            type: string
+          description: 'Additional attributes of the payment in key:value format (e.g.
+            payment_internal_id: 1234). It supports up to 10 key:value pairs, whereas
+            the key and value supports up to 50 and 500 characters respectively.'
+          type: object
         error:
           $ref: '#/components/schemas/FvErrorModelV2'
       type: object
@@ -6102,11 +6120,21 @@ components:
         payments:
         - transaction_date: 2000-01-23T04:56:07.000+00:00
           amount: 100
-          updated_at: 2000-01-23T04:56:07.000+00:00
+          metadata:
+            key: metadata
           payment_details:
             transaction_reference_id: transaction_reference_id
             description: description
             mandate_id: mandate_id
+          created_at: 2000-01-23T04:56:07.000+00:00
+          type: MANDATE
+          error:
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+            request_id: request_id
+          updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
             sender_details:
             - values:
@@ -6134,23 +6162,25 @@ components:
           recipient:
             name: name
             recipient_account_id: recipient_account_id
-          created_at: 2000-01-23T04:56:07.000+00:00
           currency: HKD
-          type: MANDATE
-          error:
-            error_code: CREDENTIALS_INVALID
-            details: details
-            type: LINKING_ERROR
-            message: message
-            request_id: request_id
           status: AUTHORIZATION_REQUIRED
         - transaction_date: 2000-01-23T04:56:07.000+00:00
           amount: 100
-          updated_at: 2000-01-23T04:56:07.000+00:00
+          metadata:
+            key: metadata
           payment_details:
             transaction_reference_id: transaction_reference_id
             description: description
             mandate_id: mandate_id
+          created_at: 2000-01-23T04:56:07.000+00:00
+          type: MANDATE
+          error:
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+            request_id: request_id
+          updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
             sender_details:
             - values:
@@ -6178,15 +6208,7 @@ components:
           recipient:
             name: name
             recipient_account_id: recipient_account_id
-          created_at: 2000-01-23T04:56:07.000+00:00
           currency: HKD
-          type: MANDATE
-          error:
-            error_code: CREDENTIALS_INVALID
-            details: details
-            type: LINKING_ERROR
-            message: message
-            request_id: request_id
           status: AUTHORIZATION_REQUIRED
         total_payments: 0
       properties:
@@ -6202,6 +6224,8 @@ components:
     CreatePayoutInstructionRequest:
       example:
         amount: 100
+        metadata:
+          key: metadata
         payment_details:
           mandate_id: mandate_id
           description: description
@@ -6226,6 +6250,14 @@ components:
           $ref: '#/components/schemas/PayoutDetails'
         recipient:
           $ref: '#/components/schemas/MandateRecipientRequest'
+        metadata:
+          additionalProperties:
+            type: string
+          description: 'Additional attributes of the payout instruction in key:value
+            format (e.g. payout_instruction_internal_id: 1234). It supports up to
+            10 key:value pairs, whereas the key and value supports up to 50 and 500
+            characters respectively.'
+          type: object
       required:
       - amount
       - currency
@@ -6235,6 +6267,8 @@ components:
     PayoutInstructionResponse:
       example:
         amount: 100
+        metadata:
+          key: metadata
         payment_details:
           mandate_id: mandate_id
           description: description
@@ -6287,6 +6321,14 @@ components:
           - CANCELLED
           - FAILED
           type: string
+        metadata:
+          additionalProperties:
+            type: string
+          description: 'Additional attributes of the payout instruction in key:value
+            format (e.g. payout_instruction_internal_id: 1234). It supports up to
+            10 key:value pairs, whereas the key and value supports up to 50 and 500
+            characters respectively.'
+          type: object
         created_at:
           description: Timestamp of when the recipient was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time
@@ -6572,6 +6614,8 @@ components:
       type: object
     CreateMandateRequest:
       example:
+        metadata:
+          key: metadata
         sender:
           sender_details:
           - values:
@@ -6635,6 +6679,13 @@ components:
           $ref: '#/components/schemas/CreateMandateSender'
         mandate_details:
           $ref: '#/components/schemas/MandateDetails'
+        metadata:
+          additionalProperties:
+            type: string
+          description: 'Additional attributes of the mandate in key:value format (e.g.
+            mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas
+            the key and value supports up to 50 and 500 characters respectively.'
+          type: object
       required:
       - mandate_details
       - recipient
@@ -6642,6 +6693,8 @@ components:
       type: object
     CreateMandateResponse:
       example:
+        metadata:
+          key: metadata
         updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
           sender_details:
@@ -6715,6 +6768,13 @@ components:
           $ref: '#/components/schemas/GetMandateSender'
         mandate_details:
           $ref: '#/components/schemas/MandateDetails'
+        metadata:
+          additionalProperties:
+            type: string
+          description: 'Additional attributes of the mandate in key:value format (e.g.
+            mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas
+            the key and value supports up to 50 and 500 characters respectively.'
+          type: object
         error:
           $ref: '#/components/schemas/FvErrorModelV2'
       required:
@@ -6747,6 +6807,8 @@ components:
       type: object
     GetMandateResponse:
       example:
+        metadata:
+          key: metadata
         updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
           sender_details:
@@ -6822,6 +6884,13 @@ components:
           $ref: '#/components/schemas/MandateDetails'
         error:
           $ref: '#/components/schemas/FvErrorModelV2'
+        metadata:
+          additionalProperties:
+            type: string
+          description: 'Additional attributes of the mandate in key:value format (e.g.
+            mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas
+            the key and value supports up to 50 and 500 characters respectively.'
+          type: object
       required:
       - mandate_details
       - mandate_id
@@ -6834,7 +6903,9 @@ components:
       example:
         total_mandates: 5
         mandates:
-        - updated_at: 2000-01-23T04:56:07.000+00:00
+        - metadata:
+            key: metadata
+          updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
             sender_details:
             - values:
@@ -6882,7 +6953,9 @@ components:
             message: message
             request_id: request_id
           status: AUTHORIZATION_REQUIRED
-        - updated_at: 2000-01-23T04:56:07.000+00:00
+        - metadata:
+            key: metadata
+          updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
             sender_details:
             - values:

@@ -27,7 +27,9 @@ type CreateMandateResponse struct {
 	Recipient      MandateRecipient `json:"recipient"`
 	Sender         GetMandateSender `json:"sender"`
 	MandateDetails MandateDetails   `json:"mandate_details"`
-	Error          *FvErrorModelV2  `json:"error,omitempty"`
+	// Additional attributes of the mandate in key:value format (e.g. mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
+	Metadata *map[string]string `json:"metadata,omitempty"`
+	Error    *FvErrorModelV2    `json:"error,omitempty"`
 }
 
 // NewCreateMandateResponse instantiates a new CreateMandateResponse object
@@ -197,6 +199,38 @@ func (o *CreateMandateResponse) SetMandateDetails(v MandateDetails) {
 	o.MandateDetails = v
 }
 
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
+func (o *CreateMandateResponse) GetMetadata() map[string]string {
+	if o == nil || o.Metadata == nil {
+		var ret map[string]string
+		return ret
+	}
+	return *o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateMandateResponse) GetMetadataOk() (*map[string]string, bool) {
+	if o == nil || o.Metadata == nil {
+		return nil, false
+	}
+	return o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *CreateMandateResponse) HasMetadata() bool {
+	if o != nil && o.Metadata != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given map[string]string and assigns it to the Metadata field.
+func (o *CreateMandateResponse) SetMetadata(v map[string]string) {
+	o.Metadata = &v
+}
+
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *CreateMandateResponse) GetError() FvErrorModelV2 {
 	if o == nil || o.Error == nil {
@@ -248,6 +282,9 @@ func (o CreateMandateResponse) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["mandate_details"] = o.MandateDetails
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
 	}
 	if o.Error != nil {
 		toSerialize["error"] = o.Error

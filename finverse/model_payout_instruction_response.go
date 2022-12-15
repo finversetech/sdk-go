@@ -29,6 +29,8 @@ type PayoutInstructionResponse struct {
 	PayoutInstructionId *string `json:"payout_instruction_id,omitempty"`
 	// Possible values - CREATED, PROCESSING, EXECUTED, CANCELLED, FAILED.
 	Status *string `json:"status,omitempty"`
+	// Additional attributes of the payout instruction in key:value format (e.g. payout_instruction_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
+	Metadata *map[string]string `json:"metadata,omitempty"`
 	// Timestamp of when the recipient was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp of when the recipient was last updated in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
@@ -277,6 +279,38 @@ func (o *PayoutInstructionResponse) SetStatus(v string) {
 	o.Status = &v
 }
 
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
+func (o *PayoutInstructionResponse) GetMetadata() map[string]string {
+	if o == nil || o.Metadata == nil {
+		var ret map[string]string
+		return ret
+	}
+	return *o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayoutInstructionResponse) GetMetadataOk() (*map[string]string, bool) {
+	if o == nil || o.Metadata == nil {
+		return nil, false
+	}
+	return o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *PayoutInstructionResponse) HasMetadata() bool {
+	if o != nil && o.Metadata != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given map[string]string and assigns it to the Metadata field.
+func (o *PayoutInstructionResponse) SetMetadata(v map[string]string) {
+	o.Metadata = &v
+}
+
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *PayoutInstructionResponse) GetCreatedAt() time.Time {
 	if o == nil || o.CreatedAt == nil {
@@ -395,6 +429,9 @@ func (o PayoutInstructionResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
 	}
 	if o.CreatedAt != nil {
 		toSerialize["created_at"] = o.CreatedAt

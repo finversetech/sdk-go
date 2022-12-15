@@ -28,6 +28,8 @@ type GetMandateResponse struct {
 	Sender         GetMandateSender `json:"sender"`
 	MandateDetails MandateDetails   `json:"mandate_details"`
 	Error          *FvErrorModelV2  `json:"error,omitempty"`
+	// Additional attributes of the mandate in key:value format (e.g. mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
+	Metadata *map[string]string `json:"metadata,omitempty"`
 }
 
 // NewGetMandateResponse instantiates a new GetMandateResponse object
@@ -229,6 +231,38 @@ func (o *GetMandateResponse) SetError(v FvErrorModelV2) {
 	o.Error = &v
 }
 
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
+func (o *GetMandateResponse) GetMetadata() map[string]string {
+	if o == nil || o.Metadata == nil {
+		var ret map[string]string
+		return ret
+	}
+	return *o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetMandateResponse) GetMetadataOk() (*map[string]string, bool) {
+	if o == nil || o.Metadata == nil {
+		return nil, false
+	}
+	return o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *GetMandateResponse) HasMetadata() bool {
+	if o != nil && o.Metadata != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given map[string]string and assigns it to the Metadata field.
+func (o *GetMandateResponse) SetMetadata(v map[string]string) {
+	o.Metadata = &v
+}
+
 func (o GetMandateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -251,6 +285,9 @@ func (o GetMandateResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Error != nil {
 		toSerialize["error"] = o.Error
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
 	}
 	return json.Marshal(toSerialize)
 }
