@@ -6045,6 +6045,7 @@ components:
             institution_id: institution_id
           name: name
           sender_reference_id: sender_reference_id
+          sender_id: sender_id
         payment_id: payment_id
         recipient:
           name: name
@@ -6158,6 +6159,7 @@ components:
               institution_id: institution_id
             name: name
             sender_reference_id: sender_reference_id
+            sender_id: sender_id
           payment_id: payment_id
           recipient:
             name: name
@@ -6204,6 +6206,7 @@ components:
               institution_id: institution_id
             name: name
             sender_reference_id: sender_reference_id
+            sender_id: sender_id
           payment_id: payment_id
           recipient:
             name: name
@@ -6719,6 +6722,7 @@ components:
             institution_id: institution_id
           name: name
           sender_reference_id: sender_reference_id
+          sender_id: sender_id
         mandate_details:
           end_date: 2000-01-23
           payment_schedule:
@@ -6833,6 +6837,7 @@ components:
             institution_id: institution_id
           name: name
           sender_reference_id: sender_reference_id
+          sender_id: sender_id
         mandate_details:
           end_date: 2000-01-23
           payment_schedule:
@@ -6929,6 +6934,7 @@ components:
               institution_id: institution_id
             name: name
             sender_reference_id: sender_reference_id
+            sender_id: sender_id
           mandate_details:
             end_date: 2000-01-23
             payment_schedule:
@@ -6979,6 +6985,7 @@ components:
               institution_id: institution_id
             name: name
             sender_reference_id: sender_reference_id
+            sender_id: sender_id
           mandate_details:
             end_date: 2000-01-23
             payment_schedule:
@@ -7132,7 +7139,11 @@ components:
           institution_id: institution_id
         name: name
         sender_reference_id: sender_reference_id
+        sender_id: sender_id
       properties:
+        sender_id:
+          description: A unique identifier generated after creating sender
+          type: string
         name:
           type: string
         user_id:
@@ -7159,6 +7170,7 @@ components:
           type: array
       required:
       - sender_account
+      - sender_id
       - sender_type
       - user_id
       type: object

@@ -17,7 +17,9 @@ import (
 
 // GetMandateSender struct for GetMandateSender
 type GetMandateSender struct {
-	Name *string `json:"name,omitempty"`
+	// A unique identifier generated after creating sender
+	SenderId string  `json:"sender_id"`
+	Name     *string `json:"name,omitempty"`
 	// Customer App's user ID, representing the end-user making the payment.
 	UserId string `json:"user_id"`
 	// Customer App's reference ID, representing the sender's account or billing reference number.
@@ -33,8 +35,9 @@ type GetMandateSender struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetMandateSender(userId string, senderAccount PaymentAccount, senderType string) *GetMandateSender {
+func NewGetMandateSender(senderId string, userId string, senderAccount PaymentAccount, senderType string) *GetMandateSender {
 	this := GetMandateSender{}
+	this.SenderId = senderId
 	this.UserId = userId
 	this.SenderAccount = senderAccount
 	this.SenderType = senderType
@@ -47,6 +50,30 @@ func NewGetMandateSender(userId string, senderAccount PaymentAccount, senderType
 func NewGetMandateSenderWithDefaults() *GetMandateSender {
 	this := GetMandateSender{}
 	return &this
+}
+
+// GetSenderId returns the SenderId field value
+func (o *GetMandateSender) GetSenderId() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.SenderId
+}
+
+// GetSenderIdOk returns a tuple with the SenderId field value
+// and a boolean to check if the value has been set.
+func (o *GetMandateSender) GetSenderIdOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SenderId, true
+}
+
+// SetSenderId sets field value
+func (o *GetMandateSender) SetSenderId(v string) {
+	o.SenderId = v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -219,6 +246,9 @@ func (o *GetMandateSender) SetSenderDetails(v []SenderDetail) {
 
 func (o GetMandateSender) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if true {
+		toSerialize["sender_id"] = o.SenderId
+	}
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
