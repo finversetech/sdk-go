@@ -29,6 +29,8 @@ type SenderAccountResponse struct {
 	InstitutionId *string `json:"institution_id,omitempty"`
 	// A unique identifier generated after creating sender
 	SenderId *string `json:"sender_id,omitempty"`
+	// Additional attributes of the sender account in key:value format (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
+	Metadata *map[string]string `json:"metadata,omitempty"`
 	// Timestamp of when the sender was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp of when the sender was last updated in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
@@ -244,6 +246,38 @@ func (o *SenderAccountResponse) SetSenderId(v string) {
 	o.SenderId = &v
 }
 
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
+func (o *SenderAccountResponse) GetMetadata() map[string]string {
+	if o == nil || o.Metadata == nil {
+		var ret map[string]string
+		return ret
+	}
+	return *o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SenderAccountResponse) GetMetadataOk() (*map[string]string, bool) {
+	if o == nil || o.Metadata == nil {
+		return nil, false
+	}
+	return o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *SenderAccountResponse) HasMetadata() bool {
+	if o != nil && o.Metadata != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given map[string]string and assigns it to the Metadata field.
+func (o *SenderAccountResponse) SetMetadata(v map[string]string) {
+	o.Metadata = &v
+}
+
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *SenderAccountResponse) GetCreatedAt() time.Time {
 	if o == nil || o.CreatedAt == nil {
@@ -327,6 +361,9 @@ func (o SenderAccountResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.SenderId != nil {
 		toSerialize["sender_id"] = o.SenderId
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
 	}
 	if o.CreatedAt != nil {
 		toSerialize["created_at"] = o.CreatedAt

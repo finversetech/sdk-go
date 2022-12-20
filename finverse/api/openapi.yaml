@@ -8060,6 +8060,8 @@ components:
           number: number
           type: LOCAL
         account_type: EXTERNAL_ACCOUNT
+        metadata:
+          key: metadata
         accountholder_name: Chan Li Pak
         sender_id: sender_id
         institution_id: hsbc-hk
@@ -8084,6 +8086,13 @@ components:
           description: A unique identifier generated after creating sender
           example: sender_id
           type: string
+        metadata:
+          additionalProperties:
+            type: string
+          description: 'Additional attributes of the sender account in key:value format
+            (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas
+            the key and value supports up to 50 and 500 characters respectively.'
+          type: object
       required:
       - account_number
       - account_type
@@ -8098,6 +8107,8 @@ components:
             number: number
             type: LOCAL
           account_type: EXTERNAL_ACCOUNT
+          metadata:
+            key: metadata
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender_account_id: sender_account_id
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -8108,6 +8119,8 @@ components:
             number: number
             type: LOCAL
           account_type: EXTERNAL_ACCOUNT
+          metadata:
+            key: metadata
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender_account_id: sender_account_id
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -8126,6 +8139,8 @@ components:
           number: number
           type: LOCAL
         account_type: EXTERNAL_ACCOUNT
+        metadata:
+          key: metadata
         updated_at: 2000-01-23T04:56:07.000+00:00
         sender_account_id: sender_account_id
         created_at: 2000-01-23T04:56:07.000+00:00
@@ -8157,6 +8172,13 @@ components:
           description: A unique identifier generated after creating sender
           example: sender_id
           type: string
+        metadata:
+          additionalProperties:
+            type: string
+          description: 'Additional attributes of the sender account in key:value format
+            (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas
+            the key and value supports up to 50 and 500 characters respectively.'
+          type: object
         created_at:
           description: Timestamp of when the sender was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time

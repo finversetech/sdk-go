@@ -26,6 +26,8 @@ type CreateSenderAccountRequest struct {
 	InstitutionId string `json:"institution_id"`
 	// A unique identifier generated after creating sender
 	SenderId string `json:"sender_id"`
+	// Additional attributes of the sender account in key:value format (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
+	Metadata *map[string]string `json:"metadata,omitempty"`
 }
 
 // NewCreateSenderAccountRequest instantiates a new CreateSenderAccountRequest object
@@ -170,6 +172,38 @@ func (o *CreateSenderAccountRequest) SetSenderId(v string) {
 	o.SenderId = v
 }
 
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
+func (o *CreateSenderAccountRequest) GetMetadata() map[string]string {
+	if o == nil || o.Metadata == nil {
+		var ret map[string]string
+		return ret
+	}
+	return *o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateSenderAccountRequest) GetMetadataOk() (*map[string]string, bool) {
+	if o == nil || o.Metadata == nil {
+		return nil, false
+	}
+	return o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *CreateSenderAccountRequest) HasMetadata() bool {
+	if o != nil && o.Metadata != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given map[string]string and assigns it to the Metadata field.
+func (o *CreateSenderAccountRequest) SetMetadata(v map[string]string) {
+	o.Metadata = &v
+}
+
 func (o CreateSenderAccountRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -186,6 +220,9 @@ func (o CreateSenderAccountRequest) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["sender_id"] = o.SenderId
+	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
 	}
 	return json.Marshal(toSerialize)
 }
