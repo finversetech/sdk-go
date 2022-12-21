@@ -96,6 +96,7 @@ model_mandate_auth_link_customizations.go
 model_mandate_details.go
 model_mandate_recipient.go
 model_mandate_recipient_request.go
+model_mandate_sender_account.go
 model_monthly_income_estimate.go
 model_non_sensitive_link_status_response.go
 model_other_info.go

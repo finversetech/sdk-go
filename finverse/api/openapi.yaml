@@ -6858,9 +6858,7 @@ components:
           account_type: EXTERNAL_ACCOUNT
           metadata:
             key: metadata
-          updated_at: 2000-01-23T04:56:07.000+00:00
           sender_account_id: sender_account_id
-          created_at: 2000-01-23T04:56:07.000+00:00
           accountholder_name: Chan Li Pak
           sender_id: sender_id
           institution_id: hsbc-hk
@@ -6899,7 +6897,7 @@ components:
         sender:
           $ref: '#/components/schemas/GetMandateSender'
         sender_account:
-          $ref: '#/components/schemas/SenderAccountResponse'
+          $ref: '#/components/schemas/MandateSenderAccount'
         mandate_details:
           $ref: '#/components/schemas/MandateDetails'
         error:
@@ -6970,9 +6968,7 @@ components:
             account_type: EXTERNAL_ACCOUNT
             metadata:
               key: metadata
-            updated_at: 2000-01-23T04:56:07.000+00:00
             sender_account_id: sender_account_id
-            created_at: 2000-01-23T04:56:07.000+00:00
             accountholder_name: Chan Li Pak
             sender_id: sender_id
             institution_id: hsbc-hk
@@ -7034,9 +7030,7 @@ components:
             account_type: EXTERNAL_ACCOUNT
             metadata:
               key: metadata
-            updated_at: 2000-01-23T04:56:07.000+00:00
             sender_account_id: sender_account_id
-            created_at: 2000-01-23T04:56:07.000+00:00
             accountholder_name: Chan Li Pak
             sender_id: sender_id
             institution_id: hsbc-hk
@@ -8229,6 +8223,51 @@ components:
             (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time
           type: string
+      type: object
+    MandateSenderAccount:
+      example:
+        account_number:
+          number: number
+          type: LOCAL
+        account_type: EXTERNAL_ACCOUNT
+        metadata:
+          key: metadata
+        sender_account_id: sender_account_id
+        accountholder_name: Chan Li Pak
+        sender_id: sender_id
+        institution_id: hsbc-hk
+      properties:
+        sender_account_id:
+          description: A unique identifier generated after creating sender account
+          example: sender_account_id
+          type: string
+        accountholder_name:
+          description: Accountholder name of the sender's account
+          example: Chan Li Pak
+          type: string
+        account_number:
+          $ref: '#/components/schemas/RecipientAccountNumber'
+        account_type:
+          description: Type of sender account.
+          enum:
+          - EXTERNAL_ACCOUNT
+          example: EXTERNAL_ACCOUNT
+          type: string
+        institution_id:
+          description: Finverse Institution ID for the sender’s institution.
+          example: hsbc-hk
+          type: string
+        sender_id:
+          description: A unique identifier generated after creating sender
+          example: sender_id
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+          description: 'Additional attributes of the sender account in key:value format
+            (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas
+            the key and value supports up to 50 and 500 characters respectively.'
+          type: object
       type: object
     BadRequestModel_error:
       properties:
