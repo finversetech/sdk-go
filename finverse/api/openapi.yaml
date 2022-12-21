@@ -6851,6 +6851,19 @@ components:
           description: description
           currency: currency
           start_date: 2000-01-23
+        sender_account:
+          account_number:
+            number: number
+            type: LOCAL
+          account_type: EXTERNAL_ACCOUNT
+          metadata:
+            key: metadata
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          sender_account_id: sender_account_id
+          created_at: 2000-01-23T04:56:07.000+00:00
+          accountholder_name: Chan Li Pak
+          sender_id: sender_id
+          institution_id: hsbc-hk
         recipient:
           name: name
           recipient_account_id: recipient_account_id
@@ -6885,6 +6898,8 @@ components:
           $ref: '#/components/schemas/MandateRecipient'
         sender:
           $ref: '#/components/schemas/GetMandateSender'
+        sender_account:
+          $ref: '#/components/schemas/SenderAccountResponse'
         mandate_details:
           $ref: '#/components/schemas/MandateDetails'
         error:
@@ -6948,6 +6963,19 @@ components:
             description: description
             currency: currency
             start_date: 2000-01-23
+          sender_account:
+            account_number:
+              number: number
+              type: LOCAL
+            account_type: EXTERNAL_ACCOUNT
+            metadata:
+              key: metadata
+            updated_at: 2000-01-23T04:56:07.000+00:00
+            sender_account_id: sender_account_id
+            created_at: 2000-01-23T04:56:07.000+00:00
+            accountholder_name: Chan Li Pak
+            sender_id: sender_id
+            institution_id: hsbc-hk
           recipient:
             name: name
             recipient_account_id: recipient_account_id
@@ -6999,6 +7027,19 @@ components:
             description: description
             currency: currency
             start_date: 2000-01-23
+          sender_account:
+            account_number:
+              number: number
+              type: LOCAL
+            account_type: EXTERNAL_ACCOUNT
+            metadata:
+              key: metadata
+            updated_at: 2000-01-23T04:56:07.000+00:00
+            sender_account_id: sender_account_id
+            created_at: 2000-01-23T04:56:07.000+00:00
+            accountholder_name: Chan Li Pak
+            sender_id: sender_id
+            institution_id: hsbc-hk
           recipient:
             name: name
             recipient_account_id: recipient_account_id
