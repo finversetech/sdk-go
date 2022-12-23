@@ -27,6 +27,7 @@ model_composite_statement_link.go
 model_create_mandate_request.go
 model_create_mandate_response.go
 model_create_mandate_sender.go
+model_create_mandate_sender_account.go
 model_create_payment_instruction_response.go
 model_create_payment_request.go
 model_create_payout_instruction_request.go

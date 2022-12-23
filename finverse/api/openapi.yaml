@@ -6660,6 +6660,7 @@ components:
           sender_type: INDIVIDUAL
           name: name
           sender_reference_id: sender_reference_id
+          sender_id: sender_id
         mandate_details:
           end_date: 2000-01-23
           payment_schedule:
@@ -6673,6 +6674,8 @@ components:
           description: description
           currency: currency
           start_date: 2000-01-23
+        sender_account:
+          sender_account_id: sender_account_id
         recipient:
           recipient_account_id: recipient_account_id
       properties:
@@ -6680,6 +6683,8 @@ components:
           $ref: '#/components/schemas/MandateRecipientRequest'
         sender:
           $ref: '#/components/schemas/CreateMandateSender'
+        sender_account:
+          $ref: '#/components/schemas/CreateMandateSenderAccount'
         mandate_details:
           $ref: '#/components/schemas/MandateDetails'
         metadata:
@@ -6736,6 +6741,17 @@ components:
           description: description
           currency: currency
           start_date: 2000-01-23
+        sender_account:
+          account_number:
+            number: number
+            type: LOCAL
+          account_type: EXTERNAL_ACCOUNT
+          metadata:
+            key: metadata
+          sender_account_id: sender_account_id
+          accountholder_name: Chan Li Pak
+          sender_id: sender_id
+          institution_id: hsbc-hk
         recipient:
           name: name
           recipient_account_id: recipient_account_id
@@ -6770,6 +6786,8 @@ components:
           $ref: '#/components/schemas/MandateRecipient'
         sender:
           $ref: '#/components/schemas/GetMandateSender'
+        sender_account:
+          $ref: '#/components/schemas/MandateSenderAccount'
         mandate_details:
           $ref: '#/components/schemas/MandateDetails'
         metadata:
@@ -7122,7 +7140,11 @@ components:
         sender_type: INDIVIDUAL
         name: name
         sender_reference_id: sender_reference_id
+        sender_id: sender_id
       properties:
+        sender_id:
+          description: A unique identifier generated after creating sender
+          type: string
         name:
           type: string
         user_id:
@@ -7146,9 +7168,14 @@ components:
             $ref: '#/components/schemas/SenderDetail'
           maxItems: 10
           type: array
-      required:
-      - sender_type
-      - user_id
+      type: object
+    CreateMandateSenderAccount:
+      example:
+        sender_account_id: sender_account_id
+      properties:
+        sender_account_id:
+          description: A unique identifier generated after creating sender account
+          type: string
       type: object
     GetMandateSender:
       example:
