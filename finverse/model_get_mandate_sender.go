@@ -23,8 +23,7 @@ type GetMandateSender struct {
 	// Customer App's user ID, representing the end-user making the payment.
 	UserId string `json:"user_id"`
 	// Customer App's reference ID, representing the sender's account or billing reference number.
-	SenderReferenceId *string        `json:"sender_reference_id,omitempty"`
-	SenderAccount     PaymentAccount `json:"sender_account"`
+	SenderReferenceId *string `json:"sender_reference_id,omitempty"`
 	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
 	SenderType string `json:"sender_type"`
 	// Sender details which will be used for fraud checking.
@@ -35,11 +34,10 @@ type GetMandateSender struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetMandateSender(senderId string, userId string, senderAccount PaymentAccount, senderType string) *GetMandateSender {
+func NewGetMandateSender(senderId string, userId string, senderType string) *GetMandateSender {
 	this := GetMandateSender{}
 	this.SenderId = senderId
 	this.UserId = userId
-	this.SenderAccount = senderAccount
 	this.SenderType = senderType
 	return &this
 }
@@ -164,30 +162,6 @@ func (o *GetMandateSender) SetSenderReferenceId(v string) {
 	o.SenderReferenceId = &v
 }
 
-// GetSenderAccount returns the SenderAccount field value
-func (o *GetMandateSender) GetSenderAccount() PaymentAccount {
-	if o == nil {
-		var ret PaymentAccount
-		return ret
-	}
-
-	return o.SenderAccount
-}
-
-// GetSenderAccountOk returns a tuple with the SenderAccount field value
-// and a boolean to check if the value has been set.
-func (o *GetMandateSender) GetSenderAccountOk() (*PaymentAccount, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.SenderAccount, true
-}
-
-// SetSenderAccount sets field value
-func (o *GetMandateSender) SetSenderAccount(v PaymentAccount) {
-	o.SenderAccount = v
-}
-
 // GetSenderType returns the SenderType field value
 func (o *GetMandateSender) GetSenderType() string {
 	if o == nil {
@@ -257,9 +231,6 @@ func (o GetMandateSender) MarshalJSON() ([]byte, error) {
 	}
 	if o.SenderReferenceId != nil {
 		toSerialize["sender_reference_id"] = o.SenderReferenceId
-	}
-	if true {
-		toSerialize["sender_account"] = o.SenderAccount
 	}
 	if true {
 		toSerialize["sender_type"] = o.SenderType

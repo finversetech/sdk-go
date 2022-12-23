@@ -6040,9 +6040,6 @@ components:
             details_type: HK_ID
           user_id: user_id
           sender_type: INDIVIDUAL
-          sender_account:
-            raw: raw
-            institution_id: institution_id
           name: name
           sender_reference_id: sender_reference_id
           sender_id: sender_id
@@ -6154,9 +6151,6 @@ components:
               details_type: HK_ID
             user_id: user_id
             sender_type: INDIVIDUAL
-            sender_account:
-              raw: raw
-              institution_id: institution_id
             name: name
             sender_reference_id: sender_reference_id
             sender_id: sender_id
@@ -6201,9 +6195,6 @@ components:
               details_type: HK_ID
             user_id: user_id
             sender_type: INDIVIDUAL
-            sender_account:
-              raw: raw
-              institution_id: institution_id
             name: name
             sender_reference_id: sender_reference_id
             sender_id: sender_id
@@ -6722,9 +6713,6 @@ components:
             details_type: HK_ID
           user_id: user_id
           sender_type: INDIVIDUAL
-          sender_account:
-            raw: raw
-            institution_id: institution_id
           name: name
           sender_reference_id: sender_reference_id
           sender_id: sender_id
@@ -6850,9 +6838,6 @@ components:
             details_type: HK_ID
           user_id: user_id
           sender_type: INDIVIDUAL
-          sender_account:
-            raw: raw
-            institution_id: institution_id
           name: name
           sender_reference_id: sender_reference_id
           sender_id: sender_id
@@ -6960,9 +6945,6 @@ components:
               details_type: HK_ID
             user_id: user_id
             sender_type: INDIVIDUAL
-            sender_account:
-              raw: raw
-              institution_id: institution_id
             name: name
             sender_reference_id: sender_reference_id
             sender_id: sender_id
@@ -7022,9 +7004,6 @@ components:
               details_type: HK_ID
             user_id: user_id
             sender_type: INDIVIDUAL
-            sender_account:
-              raw: raw
-              institution_id: institution_id
             name: name
             sender_reference_id: sender_reference_id
             sender_id: sender_id
@@ -7196,9 +7175,6 @@ components:
           details_type: HK_ID
         user_id: user_id
         sender_type: INDIVIDUAL
-        sender_account:
-          raw: raw
-          institution_id: institution_id
         name: name
         sender_reference_id: sender_reference_id
         sender_id: sender_id
@@ -7216,8 +7192,6 @@ components:
           description: Customer App's reference ID, representing the sender's account
             or billing reference number.
           type: string
-        sender_account:
-          $ref: '#/components/schemas/PaymentAccount'
         sender_type:
           description: Type of account held by the Sender at the Institution. Possible
             values are INDIVIDUAL, BUSINESS
@@ -7231,7 +7205,6 @@ components:
             $ref: '#/components/schemas/SenderDetail'
           type: array
       required:
-      - sender_account
       - sender_id
       - sender_type
       - user_id
