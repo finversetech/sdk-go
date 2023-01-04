@@ -3093,7 +3093,6 @@ components:
     Transaction:
       example:
         transaction_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
-        transaction_date: 2020-10-08T00:00:00.000+0000
         amount:
           raw: "69.00"
           currency: HKD
@@ -3162,10 +3161,6 @@ components:
         posted_date:
           description: YYYY-MM-DD
           example: 2020-10-10T00:00:00.000+0000
-          type: string
-        transaction_date:
-          description: YYYY-MM-DD
-          example: 2020-10-08T00:00:00.000+0000
           type: string
         amount:
           $ref: '#/components/schemas/CurrencyAmount'
@@ -3278,7 +3273,6 @@ components:
           is_closed: false
         transactions:
         - transaction_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
-          transaction_date: 2020-10-08T00:00:00.000+0000
           amount:
             raw: "69.00"
             currency: HKD
@@ -3309,7 +3303,6 @@ components:
           is_pending: false
           status: COMPLETED
         - transaction_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
-          transaction_date: 2020-10-08T00:00:00.000+0000
           amount:
             raw: "69.00"
             currency: HKD
@@ -6005,23 +5998,14 @@ components:
       type: object
     PaymentResponse:
       example:
-        transaction_date: 2000-01-23T04:56:07.000+00:00
         amount: 100
         metadata:
           key: metadata
+        updated_at: 2000-01-23T04:56:07.000+00:00
         payment_details:
           transaction_reference_id: transaction_reference_id
           description: description
           mandate_id: mandate_id
-        created_at: 2000-01-23T04:56:07.000+00:00
-        type: MANDATE
-        error:
-          error_code: CREDENTIALS_INVALID
-          details: details
-          type: LINKING_ERROR
-          message: message
-          request_id: request_id
-        updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
           sender_details:
           - values:
@@ -6047,7 +6031,15 @@ components:
         recipient:
           name: name
           recipient_account_id: recipient_account_id
+        created_at: 2000-01-23T04:56:07.000+00:00
         currency: HKD
+        type: MANDATE
+        error:
+          error_code: CREDENTIALS_INVALID
+          details: details
+          type: LINKING_ERROR
+          message: message
+          request_id: request_id
         status: AUTHORIZATION_REQUIRED
       properties:
         payment_id:
@@ -6098,11 +6090,6 @@ components:
           description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time
           type: string
-        transaction_date:
-          description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-          format: date-time
-          nullable: true
-          type: string
         metadata:
           additionalProperties:
             type: string
@@ -6116,23 +6103,14 @@ components:
     ListPaymentsResponse:
       example:
         payments:
-        - transaction_date: 2000-01-23T04:56:07.000+00:00
-          amount: 100
+        - amount: 100
           metadata:
             key: metadata
+          updated_at: 2000-01-23T04:56:07.000+00:00
           payment_details:
             transaction_reference_id: transaction_reference_id
             description: description
             mandate_id: mandate_id
-          created_at: 2000-01-23T04:56:07.000+00:00
-          type: MANDATE
-          error:
-            error_code: CREDENTIALS_INVALID
-            details: details
-            type: LINKING_ERROR
-            message: message
-            request_id: request_id
-          updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
             sender_details:
             - values:
@@ -6158,25 +6136,24 @@ components:
           recipient:
             name: name
             recipient_account_id: recipient_account_id
+          created_at: 2000-01-23T04:56:07.000+00:00
           currency: HKD
+          type: MANDATE
+          error:
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+            request_id: request_id
           status: AUTHORIZATION_REQUIRED
-        - transaction_date: 2000-01-23T04:56:07.000+00:00
-          amount: 100
+        - amount: 100
           metadata:
             key: metadata
+          updated_at: 2000-01-23T04:56:07.000+00:00
           payment_details:
             transaction_reference_id: transaction_reference_id
             description: description
             mandate_id: mandate_id
-          created_at: 2000-01-23T04:56:07.000+00:00
-          type: MANDATE
-          error:
-            error_code: CREDENTIALS_INVALID
-            details: details
-            type: LINKING_ERROR
-            message: message
-            request_id: request_id
-          updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
             sender_details:
             - values:
@@ -6202,7 +6179,15 @@ components:
           recipient:
             name: name
             recipient_account_id: recipient_account_id
+          created_at: 2000-01-23T04:56:07.000+00:00
           currency: HKD
+          type: MANDATE
+          error:
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+            request_id: request_id
           status: AUTHORIZATION_REQUIRED
         total_payments: 0
       properties:

@@ -35,8 +35,6 @@ type PaymentResponse struct {
 	Sender         *GetMandateSender `json:"sender,omitempty"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
-	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	TransactionDate NullableTime `json:"transaction_date,omitempty"`
 	// Additional attributes of the payment in key:value format (e.g. payment_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
 	Metadata *map[string]string `json:"metadata,omitempty"`
 	Error    *FvErrorModelV2    `json:"error,omitempty"`
@@ -379,49 +377,6 @@ func (o *PaymentResponse) SetCreatedAt(v time.Time) {
 	o.CreatedAt = &v
 }
 
-// GetTransactionDate returns the TransactionDate field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *PaymentResponse) GetTransactionDate() time.Time {
-	if o == nil || o.TransactionDate.Get() == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.TransactionDate.Get()
-}
-
-// GetTransactionDateOk returns a tuple with the TransactionDate field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *PaymentResponse) GetTransactionDateOk() (*time.Time, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return o.TransactionDate.Get(), o.TransactionDate.IsSet()
-}
-
-// HasTransactionDate returns a boolean if a field has been set.
-func (o *PaymentResponse) HasTransactionDate() bool {
-	if o != nil && o.TransactionDate.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetTransactionDate gets a reference to the given NullableTime and assigns it to the TransactionDate field.
-func (o *PaymentResponse) SetTransactionDate(v time.Time) {
-	o.TransactionDate.Set(&v)
-}
-
-// SetTransactionDateNil sets the value for TransactionDate to be an explicit nil
-func (o *PaymentResponse) SetTransactionDateNil() {
-	o.TransactionDate.Set(nil)
-}
-
-// UnsetTransactionDate ensures that no value is present for TransactionDate, not even an explicit nil
-func (o *PaymentResponse) UnsetTransactionDate() {
-	o.TransactionDate.Unset()
-}
-
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *PaymentResponse) GetMetadata() map[string]string {
 	if o == nil || o.Metadata == nil {
@@ -517,9 +472,6 @@ func (o PaymentResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.CreatedAt != nil {
 		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.TransactionDate.IsSet() {
-		toSerialize["transaction_date"] = o.TransactionDate.Get()
 	}
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata

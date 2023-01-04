@@ -32,10 +32,8 @@ type Transaction struct {
 	IsPending    bool    `json:"is_pending"`
 	Status       *string `json:"status,omitempty"`
 	// YYYY-MM-DD
-	PostedDate *string `json:"posted_date,omitempty"`
-	// YYYY-MM-DD
-	TransactionDate *string         `json:"transaction_date,omitempty"`
-	Amount          *CurrencyAmount `json:"amount,omitempty"`
+	PostedDate *string         `json:"posted_date,omitempty"`
+	Amount     *CurrencyAmount `json:"amount,omitempty"`
 	// (Deprecated)
 	TransferDetails map[string]interface{} `json:"transfer_details,omitempty"`
 	CreatedAt       *time.Time             `json:"created_at,omitempty"`
@@ -439,38 +437,6 @@ func (o *Transaction) SetPostedDate(v string) {
 	o.PostedDate = &v
 }
 
-// GetTransactionDate returns the TransactionDate field value if set, zero value otherwise.
-func (o *Transaction) GetTransactionDate() string {
-	if o == nil || o.TransactionDate == nil {
-		var ret string
-		return ret
-	}
-	return *o.TransactionDate
-}
-
-// GetTransactionDateOk returns a tuple with the TransactionDate field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *Transaction) GetTransactionDateOk() (*string, bool) {
-	if o == nil || o.TransactionDate == nil {
-		return nil, false
-	}
-	return o.TransactionDate, true
-}
-
-// HasTransactionDate returns a boolean if a field has been set.
-func (o *Transaction) HasTransactionDate() bool {
-	if o != nil && o.TransactionDate != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTransactionDate gets a reference to the given string and assigns it to the TransactionDate field.
-func (o *Transaction) SetTransactionDate(v string) {
-	o.TransactionDate = &v
-}
-
 // GetAmount returns the Amount field value if set, zero value otherwise.
 func (o *Transaction) GetAmount() CurrencyAmount {
 	if o == nil || o.Amount == nil {
@@ -700,9 +666,6 @@ func (o Transaction) MarshalJSON() ([]byte, error) {
 	}
 	if o.PostedDate != nil {
 		toSerialize["posted_date"] = o.PostedDate
-	}
-	if o.TransactionDate != nil {
-		toSerialize["transaction_date"] = o.TransactionDate
 	}
 	if o.Amount != nil {
 		toSerialize["amount"] = o.Amount
