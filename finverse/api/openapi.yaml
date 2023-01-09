@@ -7793,9 +7793,11 @@ components:
       type: object
     RecipientAccountResponse:
       example:
+        branch_code: "123"
         account_number:
           number: number
           type: LOCAL
+        bank_code: "004"
         account_type: EXTERNAL_ACCOUNT
         recipient_account_id: recipient_account_id
         accountholder_name: Chan Li Pak
@@ -7832,6 +7834,14 @@ components:
           description: Finverse Institution ID for the recipient’s institution.
           example: hsbc-hk
           type: string
+        bank_code:
+          description: 3-digit code associated with bank
+          example: "004"
+          type: string
+        branch_code:
+          description: 3-digit code used to identify specific bank branch
+          example: "123"
+          type: string
       type: object
     RecipientAccountNumber:
       example:
@@ -7857,9 +7867,11 @@ components:
         updated_at: 2000-01-23T04:56:07.000+00:00
         user_id: user_id_1
         recipient_account:
+          branch_code: "123"
           account_number:
             number: number
             type: LOCAL
+          bank_code: "004"
           account_type: EXTERNAL_ACCOUNT
           recipient_account_id: recipient_account_id
           accountholder_name: Chan Li Pak
