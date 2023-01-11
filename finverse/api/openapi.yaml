@@ -7728,7 +7728,7 @@ components:
           description: 'Recipient''s name/nickname (note: this does not need to match
             the actual accountholder name of the recipient''s account)'
           example: James Chan
-          maxLength: 15
+          maxLength: 50
           type: string
         recipient_account:
           $ref: '#/components/schemas/CreateRecipientAccount'
