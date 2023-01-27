@@ -474,6 +474,32 @@ paths:
         - identity
       tags:
       - login_identity
+  /payments/confirm:
+    post:
+      description: Confirm a payment against a payment Link
+      operationId: confirmPayment
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ConfirmPaymentResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payment:confirm
   /link:
     post:
       description: Create a new link and submit credentials
@@ -2309,25 +2335,6 @@ paths:
       - customer
 components:
   schemas:
-    ErrorResponse:
-      properties:
-        err:
-          type: string
-        http_status_code:
-          format: int
-          type: number
-        status_text:
-          type: string
-        app_code:
-          format: int64
-          type: number
-        error_category:
-          type: string
-        error_text:
-          type: string
-        request_id:
-          type: string
-      type: object
     Principal:
       properties:
         subject:
@@ -4219,6 +4226,16 @@ components:
       - institution_id
       - store_credential
       type: object
+    ConfirmPaymentResponse:
+      example:
+        success: true
+      properties:
+        success:
+          example: true
+          type: boolean
+      required:
+      - success
+      type: object
     ApiLinkRequest:
       example:
         user_id: user_id
@@ -4829,16 +4846,6 @@ components:
       - login_identity_id
       - refresh_token
       - token_type
-      type: object
-    BadRequestModel:
-      properties:
-        error:
-          $ref: '#/components/schemas/BadRequestModel_error'
-      type: object
-    BadRequestModelV2:
-      properties:
-        error:
-          $ref: '#/components/schemas/BadRequestModelV2_error'
       type: object
     GetStatementsResponse:
       example:
@@ -5784,15 +5791,47 @@ components:
       - label
       - value
       type: object
-    ErrBodyModel:
-      properties:
-        error:
-          $ref: '#/components/schemas/FvErrorModel'
-      type: object
     ErrBodyModelV2:
       properties:
         error:
           $ref: '#/components/schemas/FvErrorModelV2'
+      type: object
+    FvErrorModelV2:
+      example:
+        error_code: CREDENTIALS_INVALID
+        details: details
+        type: LINKING_ERROR
+        message: message
+        request_id: request_id
+      properties:
+        type:
+          description: The error type
+          enum:
+          - LINK_ERROR
+          - API_ERROR
+          example: LINKING_ERROR
+          type: string
+        error_code:
+          example: CREDENTIALS_INVALID
+          type: string
+        message:
+          type: string
+        details:
+          type: string
+        request_id:
+          description: The request_id provided in the request header
+          type: string
+      required:
+      - details
+      - error_code
+      - message
+      - request_id
+      - type
+      type: object
+    ErrBodyModel:
+      properties:
+        error:
+          $ref: '#/components/schemas/FvErrorModel'
       type: object
     SwaggerErrBodyModel:
       properties:
@@ -5833,37 +5872,34 @@ components:
       - request_id
       - type
       type: object
-    FvErrorModelV2:
-      example:
-        error_code: CREDENTIALS_INVALID
-        details: details
-        type: LINKING_ERROR
-        message: message
-        request_id: request_id
+    ErrorResponse:
       properties:
-        type:
-          description: The error type
-          enum:
-          - LINK_ERROR
-          - API_ERROR
-          example: LINKING_ERROR
+        err:
           type: string
-        error_code:
-          example: CREDENTIALS_INVALID
+        http_status_code:
+          format: int
+          type: number
+        status_text:
           type: string
-        message:
+        app_code:
+          format: int64
+          type: number
+        error_category:
           type: string
-        details:
+        error_text:
           type: string
         request_id:
-          description: The request_id provided in the request header
           type: string
-      required:
-      - details
-      - error_code
-      - message
-      - request_id
-      - type
+      type: object
+    BadRequestModel:
+      properties:
+        error:
+          $ref: '#/components/schemas/BadRequestModel_error'
+      type: object
+    BadRequestModelV2:
+      properties:
+        error:
+          $ref: '#/components/schemas/BadRequestModelV2_error'
       type: object
     PaymentInfo:
       example:
