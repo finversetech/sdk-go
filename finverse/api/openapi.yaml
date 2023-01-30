@@ -2362,6 +2362,9 @@ components:
         expires_in:
           example: 3600.0
           type: number
+        invoice_id:
+          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          type: string
         scopes:
           example:
           - link
