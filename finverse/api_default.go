@@ -41,6 +41,20 @@ type DefaultApi interface {
 	ConfirmPaymentExecute(r DefaultApiApiConfirmPaymentRequest) (*ConfirmPaymentResponse, *http.Response, error)
 
 	/*
+		CreatePaymentLinkMandate Method for CreatePaymentLinkMandate
+
+		CREATE Mandate for payment link
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return DefaultApiApiCreatePaymentLinkMandateRequest
+	*/
+	CreatePaymentLinkMandate(ctx context.Context) DefaultApiApiCreatePaymentLinkMandateRequest
+
+	// CreatePaymentLinkMandateExecute executes the request
+	//  @return CreatePaymentLinkMandateResponse
+	CreatePaymentLinkMandateExecute(r DefaultApiApiCreatePaymentLinkMandateRequest) (*CreatePaymentLinkMandateResponse, *http.Response, error)
+
+	/*
 		ListMandates Method for ListMandates
 
 		List mandates
@@ -111,7 +125,7 @@ func (a *DefaultApiService) ConfirmPaymentExecute(r DefaultApiApiConfirmPaymentR
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/payments/confirm"
+	localVarPath := localBasePath + "/payment-link/confirm"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -157,6 +171,146 @@ func (a *DefaultApiService) ConfirmPaymentExecute(r DefaultApiApiConfirmPaymentR
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type DefaultApiApiCreatePaymentLinkMandateRequest struct {
+	ctx                             context.Context
+	ApiService                      DefaultApi
+	createPaymentLinkMandateRequest *CreatePaymentLinkMandateRequest
+}
+
+// request body for creating mandate for payment-link
+func (r DefaultApiApiCreatePaymentLinkMandateRequest) CreatePaymentLinkMandateRequest(createPaymentLinkMandateRequest CreatePaymentLinkMandateRequest) DefaultApiApiCreatePaymentLinkMandateRequest {
+	r.createPaymentLinkMandateRequest = &createPaymentLinkMandateRequest
+	return r
+}
+
+func (r DefaultApiApiCreatePaymentLinkMandateRequest) Execute() (*CreatePaymentLinkMandateResponse, *http.Response, error) {
+	return r.ApiService.CreatePaymentLinkMandateExecute(r)
+}
+
+/*
+CreatePaymentLinkMandate Method for CreatePaymentLinkMandate
+
+CREATE Mandate for payment link
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return DefaultApiApiCreatePaymentLinkMandateRequest
+*/
+func (a *DefaultApiService) CreatePaymentLinkMandate(ctx context.Context) DefaultApiApiCreatePaymentLinkMandateRequest {
+	return DefaultApiApiCreatePaymentLinkMandateRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return CreatePaymentLinkMandateResponse
+func (a *DefaultApiService) CreatePaymentLinkMandateExecute(r DefaultApiApiCreatePaymentLinkMandateRequest) (*CreatePaymentLinkMandateResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *CreatePaymentLinkMandateResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CreatePaymentLinkMandate")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/payment-link/mandates"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.createPaymentLinkMandateRequest == nil {
+		return localVarReturnValue, nil, reportError("createPaymentLinkMandateRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.createPaymentLinkMandateRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
 			var v ErrBodyModelV2
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {

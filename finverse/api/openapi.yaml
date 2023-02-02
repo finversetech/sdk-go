@@ -474,7 +474,7 @@ paths:
         - identity
       tags:
       - login_identity
-  /payments/confirm:
+  /payment-link/confirm:
     post:
       description: Confirm a payment against a payment Link
       operationId: confirmPayment
@@ -500,6 +500,46 @@ paths:
       security:
       - Oauth2:
         - payment:confirm
+  /payment-link/mandates:
+    post:
+      description: CREATE Mandate for payment link
+      operationId: createPaymentLinkMandate
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentLinkMandateRequest'
+        description: request body for creating mandate for payment-link
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentLinkMandateResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - paymentlink:mandate:create
+      x-codegen-request-body-name: createPaymentLinkMandateRequest
   /link:
     post:
       description: Create a new link and submit credentials
@@ -4238,6 +4278,64 @@ components:
           type: boolean
       required:
       - success
+      type: object
+    CreatePaymentLinkMandateRequest:
+      example:
+        sender_type: INDIVIDUAL
+        invoice_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+      properties:
+        invoice_id:
+          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          type: string
+        sender_type:
+          description: The sender type of the mandate
+          enum:
+          - INDIVIDUAL
+          - BUSINESS
+          type: string
+      required:
+      - invoice_id
+      - sender_type
+      type: object
+    CreatePaymentLinkMandateResponse:
+      example:
+        mandate_link_token:
+          access_token: access_token
+          link_url: link_url
+          token_type: Bearer
+          expires_in: 0
+      properties:
+        mandate_link_token:
+          $ref: '#/components/schemas/PaymentLinkTokenResponse'
+      required:
+      - mandate_link_token
+      type: object
+    PaymentLinkTokenResponse:
+      example:
+        access_token: access_token
+        link_url: link_url
+        token_type: Bearer
+        expires_in: 0
+      properties:
+        access_token:
+          description: Short-lived access-token to interact with Finverse Link
+          type: string
+        expires_in:
+          description: Access token validity duration (in seconds)
+          format: int64
+          type: integer
+        link_url:
+          description: URL to launch Finverse Link to authorize the mandate
+          type: string
+        token_type:
+          enum:
+          - Bearer
+          type: string
+      required:
+      - access_token
+      - expires_in
+      - link_url
+      - token_type
       type: object
     ApiLinkRequest:
       example:
