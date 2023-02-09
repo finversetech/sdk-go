@@ -39,8 +39,8 @@ type Transaction struct {
 	CreatedAt       *time.Time             `json:"created_at,omitempty"`
 	UpdatedAt       *time.Time             `json:"updated_at,omitempty"`
 	// Array of category labels
-	Categories      []string          `json:"categories,omitempty"`
-	CategoryDetails []CategoryDetails `json:"category_details,omitempty"`
+	Categories          []string              `json:"categories,omitempty"`
+	CategoryPredictions []CategoryPredictions `json:"category_predictions,omitempty"`
 }
 
 // NewTransaction instantiates a new Transaction object
@@ -597,36 +597,36 @@ func (o *Transaction) SetCategories(v []string) {
 	o.Categories = v
 }
 
-// GetCategoryDetails returns the CategoryDetails field value if set, zero value otherwise.
-func (o *Transaction) GetCategoryDetails() []CategoryDetails {
-	if o == nil || o.CategoryDetails == nil {
-		var ret []CategoryDetails
+// GetCategoryPredictions returns the CategoryPredictions field value if set, zero value otherwise.
+func (o *Transaction) GetCategoryPredictions() []CategoryPredictions {
+	if o == nil || o.CategoryPredictions == nil {
+		var ret []CategoryPredictions
 		return ret
 	}
-	return o.CategoryDetails
+	return o.CategoryPredictions
 }
 
-// GetCategoryDetailsOk returns a tuple with the CategoryDetails field value if set, nil otherwise
+// GetCategoryPredictionsOk returns a tuple with the CategoryPredictions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Transaction) GetCategoryDetailsOk() ([]CategoryDetails, bool) {
-	if o == nil || o.CategoryDetails == nil {
+func (o *Transaction) GetCategoryPredictionsOk() ([]CategoryPredictions, bool) {
+	if o == nil || o.CategoryPredictions == nil {
 		return nil, false
 	}
-	return o.CategoryDetails, true
+	return o.CategoryPredictions, true
 }
 
-// HasCategoryDetails returns a boolean if a field has been set.
-func (o *Transaction) HasCategoryDetails() bool {
-	if o != nil && o.CategoryDetails != nil {
+// HasCategoryPredictions returns a boolean if a field has been set.
+func (o *Transaction) HasCategoryPredictions() bool {
+	if o != nil && o.CategoryPredictions != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetCategoryDetails gets a reference to the given []CategoryDetails and assigns it to the CategoryDetails field.
-func (o *Transaction) SetCategoryDetails(v []CategoryDetails) {
-	o.CategoryDetails = v
+// SetCategoryPredictions gets a reference to the given []CategoryPredictions and assigns it to the CategoryPredictions field.
+func (o *Transaction) SetCategoryPredictions(v []CategoryPredictions) {
+	o.CategoryPredictions = v
 }
 
 func (o Transaction) MarshalJSON() ([]byte, error) {
@@ -682,8 +682,8 @@ func (o Transaction) MarshalJSON() ([]byte, error) {
 	if o.Categories != nil {
 		toSerialize["categories"] = o.Categories
 	}
-	if o.CategoryDetails != nil {
-		toSerialize["category_details"] = o.CategoryDetails
+	if o.CategoryPredictions != nil {
+		toSerialize["category_predictions"] = o.CategoryPredictions
 	}
 	return json.Marshal(toSerialize)
 }

@@ -22,7 +22,7 @@ model_bad_request_model_error.go
 model_bad_request_model_v2.go
 model_bad_request_model_v2_error.go
 model_balance_history.go
-model_category_details.go
+model_category_predictions.go
 model_composite_statement_link.go
 model_confirm_payment_response.go
 model_create_mandate_request.go

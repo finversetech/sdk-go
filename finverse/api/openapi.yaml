@@ -3155,20 +3155,20 @@ components:
         account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
         category_id: OTHER
         updated_at: 2000-01-23T04:56:07.000+00:00
-        category_details:
-        - categories:
-          - TRANSFER
-          source: TRANSACTION_RULES
-          source_id: source_id
-        - categories:
-          - TRANSFER
-          source: TRANSACTION_RULES
-          source_id: source_id
         transaction_state: ACTIVE
         location: Pacific Place
         categories:
         - TRANSFER
         category: OTHER
+        category_predictions:
+        - categories:
+          - TRANSFER
+          source: TRANSACTION_RULES
+          source_id: source_id
+        - categories:
+          - TRANSFER
+          source: TRANSACTION_RULES
+          source_id: source_id
         posted_date: 2020-10-10T00:00:00.000+0000
         is_pending: false
         status: COMPLETED
@@ -3231,14 +3231,14 @@ components:
           items:
             type: string
           type: array
-        category_details:
+        category_predictions:
           items:
-            $ref: '#/components/schemas/categoryDetails'
+            $ref: '#/components/schemas/categoryPredictions'
           type: array
       required:
       - is_pending
       type: object
-    categoryDetails:
+    categoryPredictions:
       example:
         categories:
         - TRANSFER
@@ -3335,20 +3335,20 @@ components:
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           category_id: OTHER
           updated_at: 2000-01-23T04:56:07.000+00:00
-          category_details:
-          - categories:
-            - TRANSFER
-            source: TRANSACTION_RULES
-            source_id: source_id
-          - categories:
-            - TRANSFER
-            source: TRANSACTION_RULES
-            source_id: source_id
           transaction_state: ACTIVE
           location: Pacific Place
           categories:
           - TRANSFER
           category: OTHER
+          category_predictions:
+          - categories:
+            - TRANSFER
+            source: TRANSACTION_RULES
+            source_id: source_id
+          - categories:
+            - TRANSFER
+            source: TRANSACTION_RULES
+            source_id: source_id
           posted_date: 2020-10-10T00:00:00.000+0000
           is_pending: false
           status: COMPLETED
@@ -3365,20 +3365,20 @@ components:
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           category_id: OTHER
           updated_at: 2000-01-23T04:56:07.000+00:00
-          category_details:
-          - categories:
-            - TRANSFER
-            source: TRANSACTION_RULES
-            source_id: source_id
-          - categories:
-            - TRANSFER
-            source: TRANSACTION_RULES
-            source_id: source_id
           transaction_state: ACTIVE
           location: Pacific Place
           categories:
           - TRANSFER
           category: OTHER
+          category_predictions:
+          - categories:
+            - TRANSFER
+            source: TRANSACTION_RULES
+            source_id: source_id
+          - categories:
+            - TRANSFER
+            source: TRANSACTION_RULES
+            source_id: source_id
           posted_date: 2020-10-10T00:00:00.000+0000
           is_pending: false
           status: COMPLETED
