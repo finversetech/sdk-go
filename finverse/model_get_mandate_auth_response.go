@@ -32,8 +32,10 @@ type GetMandateAuthResponse struct {
 	AuthChecklist  []AuthChecklistFactor     `json:"auth_checklist"`
 	EncryptionInfo MandateAuthEncryptionInfo `json:"encryption_info"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	LastUpdate time.Time       `json:"last_update"`
-	Error      *FvErrorModelV2 `json:"error,omitempty"`
+	LastUpdate     time.Time         `json:"last_update"`
+	Error          *FvErrorModelV2   `json:"error,omitempty"`
+	MandateDetails *MandateDetails   `json:"mandate_details,omitempty"`
+	Recipient      *MandateRecipient `json:"recipient,omitempty"`
 }
 
 // NewGetMandateAuthResponse instantiates a new GetMandateAuthResponse object
@@ -292,6 +294,70 @@ func (o *GetMandateAuthResponse) SetError(v FvErrorModelV2) {
 	o.Error = &v
 }
 
+// GetMandateDetails returns the MandateDetails field value if set, zero value otherwise.
+func (o *GetMandateAuthResponse) GetMandateDetails() MandateDetails {
+	if o == nil || o.MandateDetails == nil {
+		var ret MandateDetails
+		return ret
+	}
+	return *o.MandateDetails
+}
+
+// GetMandateDetailsOk returns a tuple with the MandateDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetMandateAuthResponse) GetMandateDetailsOk() (*MandateDetails, bool) {
+	if o == nil || o.MandateDetails == nil {
+		return nil, false
+	}
+	return o.MandateDetails, true
+}
+
+// HasMandateDetails returns a boolean if a field has been set.
+func (o *GetMandateAuthResponse) HasMandateDetails() bool {
+	if o != nil && o.MandateDetails != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMandateDetails gets a reference to the given MandateDetails and assigns it to the MandateDetails field.
+func (o *GetMandateAuthResponse) SetMandateDetails(v MandateDetails) {
+	o.MandateDetails = &v
+}
+
+// GetRecipient returns the Recipient field value if set, zero value otherwise.
+func (o *GetMandateAuthResponse) GetRecipient() MandateRecipient {
+	if o == nil || o.Recipient == nil {
+		var ret MandateRecipient
+		return ret
+	}
+	return *o.Recipient
+}
+
+// GetRecipientOk returns a tuple with the Recipient field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetMandateAuthResponse) GetRecipientOk() (*MandateRecipient, bool) {
+	if o == nil || o.Recipient == nil {
+		return nil, false
+	}
+	return o.Recipient, true
+}
+
+// HasRecipient returns a boolean if a field has been set.
+func (o *GetMandateAuthResponse) HasRecipient() bool {
+	if o != nil && o.Recipient != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRecipient gets a reference to the given MandateRecipient and assigns it to the Recipient field.
+func (o *GetMandateAuthResponse) SetRecipient(v MandateRecipient) {
+	o.Recipient = &v
+}
+
 func (o GetMandateAuthResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -320,6 +386,12 @@ func (o GetMandateAuthResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Error != nil {
 		toSerialize["error"] = o.Error
+	}
+	if o.MandateDetails != nil {
+		toSerialize["mandate_details"] = o.MandateDetails
+	}
+	if o.Recipient != nil {
+		toSerialize["recipient"] = o.Recipient
 	}
 	return json.Marshal(toSerialize)
 }

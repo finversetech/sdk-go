@@ -7589,8 +7589,24 @@ components:
     GetMandateAuthResponse:
       example:
         mandate_status: CREATED
+        mandate_details:
+          end_date: 2000-01-23
+          payment_schedule:
+            amount: 100
+            frequency: DAILY
+          transaction_limits:
+            period: DAILY
+            max_period_amount: 0
+            max_period_count: 6
+            max_transaction_amount: 1
+          description: description
+          currency: currency
+          start_date: 2000-01-23
         sender_type: INDIVIDUAL
         last_update: 2000-01-23T04:56:07.000+00:00
+        recipient:
+          name: name
+          recipient_account_id: recipient_account_id
         mandate_id: mandate_id
         recipient_account_id: recipient_account_id
         encryption_info:
@@ -7664,6 +7680,10 @@ components:
           type: string
         error:
           $ref: '#/components/schemas/FvErrorModelV2'
+        mandate_details:
+          $ref: '#/components/schemas/MandateDetails'
+        recipient:
+          $ref: '#/components/schemas/MandateRecipient'
       required:
       - auth_checklist
       - encryption_info
