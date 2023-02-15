@@ -474,7 +474,7 @@ paths:
         - identity
       tags:
       - login_identity
-  /payment_link/confirm:
+  /payment_links/confirm:
     post:
       description: Confirm a payment against a payment Link
       operationId: confirmPayment
@@ -500,7 +500,7 @@ paths:
       security:
       - Oauth2:
         - payment:confirm
-  /payment_link/mandates:
+  /payment_links/mandates:
     post:
       description: CREATE Mandate for payment link
       operationId: createPaymentLinkMandate

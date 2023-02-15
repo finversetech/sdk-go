@@ -125,7 +125,7 @@ func (a *DefaultApiService) ConfirmPaymentExecute(r DefaultApiApiConfirmPaymentR
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/payment_link/confirm"
+	localVarPath := localBasePath + "/payment_links/confirm"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -250,7 +250,7 @@ func (a *DefaultApiService) CreatePaymentLinkMandateExecute(r DefaultApiApiCreat
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/payment_link/mandates"
+	localVarPath := localBasePath + "/payment_links/mandates"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
