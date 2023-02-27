@@ -17,13 +17,9 @@ import (
 
 // CreateMandateSender struct for CreateMandateSender
 type CreateMandateSender struct {
-	// A unique identifier generated after creating sender
-	SenderId *string `json:"sender_id,omitempty"`
-	Name     *string `json:"name,omitempty"`
+	Name *string `json:"name,omitempty"`
 	// Customer App's user ID, representing the end-user making the payment.
 	UserId *string `json:"user_id,omitempty"`
-	// Customer App's reference ID, representing the sender's account or billing reference number.
-	SenderReferenceId *string `json:"sender_reference_id,omitempty"`
 	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
 	SenderType *string `json:"sender_type,omitempty"`
 	// Sender details which will be used for fraud checking.
@@ -45,38 +41,6 @@ func NewCreateMandateSender() *CreateMandateSender {
 func NewCreateMandateSenderWithDefaults() *CreateMandateSender {
 	this := CreateMandateSender{}
 	return &this
-}
-
-// GetSenderId returns the SenderId field value if set, zero value otherwise.
-func (o *CreateMandateSender) GetSenderId() string {
-	if o == nil || o.SenderId == nil {
-		var ret string
-		return ret
-	}
-	return *o.SenderId
-}
-
-// GetSenderIdOk returns a tuple with the SenderId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateMandateSender) GetSenderIdOk() (*string, bool) {
-	if o == nil || o.SenderId == nil {
-		return nil, false
-	}
-	return o.SenderId, true
-}
-
-// HasSenderId returns a boolean if a field has been set.
-func (o *CreateMandateSender) HasSenderId() bool {
-	if o != nil && o.SenderId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSenderId gets a reference to the given string and assigns it to the SenderId field.
-func (o *CreateMandateSender) SetSenderId(v string) {
-	o.SenderId = &v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -141,38 +105,6 @@ func (o *CreateMandateSender) HasUserId() bool {
 // SetUserId gets a reference to the given string and assigns it to the UserId field.
 func (o *CreateMandateSender) SetUserId(v string) {
 	o.UserId = &v
-}
-
-// GetSenderReferenceId returns the SenderReferenceId field value if set, zero value otherwise.
-func (o *CreateMandateSender) GetSenderReferenceId() string {
-	if o == nil || o.SenderReferenceId == nil {
-		var ret string
-		return ret
-	}
-	return *o.SenderReferenceId
-}
-
-// GetSenderReferenceIdOk returns a tuple with the SenderReferenceId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateMandateSender) GetSenderReferenceIdOk() (*string, bool) {
-	if o == nil || o.SenderReferenceId == nil {
-		return nil, false
-	}
-	return o.SenderReferenceId, true
-}
-
-// HasSenderReferenceId returns a boolean if a field has been set.
-func (o *CreateMandateSender) HasSenderReferenceId() bool {
-	if o != nil && o.SenderReferenceId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSenderReferenceId gets a reference to the given string and assigns it to the SenderReferenceId field.
-func (o *CreateMandateSender) SetSenderReferenceId(v string) {
-	o.SenderReferenceId = &v
 }
 
 // GetSenderType returns the SenderType field value if set, zero value otherwise.
@@ -241,17 +173,11 @@ func (o *CreateMandateSender) SetSenderDetails(v []SenderDetail) {
 
 func (o CreateMandateSender) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.SenderId != nil {
-		toSerialize["sender_id"] = o.SenderId
-	}
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
 	if o.UserId != nil {
 		toSerialize["user_id"] = o.UserId
-	}
-	if o.SenderReferenceId != nil {
-		toSerialize["sender_reference_id"] = o.SenderReferenceId
 	}
 	if o.SenderType != nil {
 		toSerialize["sender_type"] = o.SenderType

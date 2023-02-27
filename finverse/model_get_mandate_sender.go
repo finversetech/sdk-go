@@ -22,8 +22,6 @@ type GetMandateSender struct {
 	Name     *string `json:"name,omitempty"`
 	// Customer App's user ID, representing the end-user making the payment.
 	UserId string `json:"user_id"`
-	// Customer App's reference ID, representing the sender's account or billing reference number.
-	SenderReferenceId *string `json:"sender_reference_id,omitempty"`
 	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
 	SenderType string `json:"sender_type"`
 	// Sender details which will be used for fraud checking.
@@ -130,38 +128,6 @@ func (o *GetMandateSender) SetUserId(v string) {
 	o.UserId = v
 }
 
-// GetSenderReferenceId returns the SenderReferenceId field value if set, zero value otherwise.
-func (o *GetMandateSender) GetSenderReferenceId() string {
-	if o == nil || o.SenderReferenceId == nil {
-		var ret string
-		return ret
-	}
-	return *o.SenderReferenceId
-}
-
-// GetSenderReferenceIdOk returns a tuple with the SenderReferenceId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GetMandateSender) GetSenderReferenceIdOk() (*string, bool) {
-	if o == nil || o.SenderReferenceId == nil {
-		return nil, false
-	}
-	return o.SenderReferenceId, true
-}
-
-// HasSenderReferenceId returns a boolean if a field has been set.
-func (o *GetMandateSender) HasSenderReferenceId() bool {
-	if o != nil && o.SenderReferenceId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSenderReferenceId gets a reference to the given string and assigns it to the SenderReferenceId field.
-func (o *GetMandateSender) SetSenderReferenceId(v string) {
-	o.SenderReferenceId = &v
-}
-
 // GetSenderType returns the SenderType field value
 func (o *GetMandateSender) GetSenderType() string {
 	if o == nil {
@@ -228,9 +194,6 @@ func (o GetMandateSender) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["user_id"] = o.UserId
-	}
-	if o.SenderReferenceId != nil {
-		toSerialize["sender_reference_id"] = o.SenderReferenceId
 	}
 	if true {
 		toSerialize["sender_type"] = o.SenderType

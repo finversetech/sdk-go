@@ -17,10 +17,9 @@ import (
 
 // CreateMandateRequest struct for CreateMandateRequest
 type CreateMandateRequest struct {
-	Recipient      MandateRecipientRequest     `json:"recipient"`
-	Sender         CreateMandateSender         `json:"sender"`
-	SenderAccount  *CreateMandateSenderAccount `json:"sender_account,omitempty"`
-	MandateDetails MandateDetails              `json:"mandate_details"`
+	Recipient      MandateRecipientRequest `json:"recipient"`
+	Sender         CreateMandateSender     `json:"sender"`
+	MandateDetails MandateDetails          `json:"mandate_details"`
 	// Additional attributes of the mandate in key:value format (e.g. mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
 	Metadata *map[string]string `json:"metadata,omitempty"`
 }
@@ -93,38 +92,6 @@ func (o *CreateMandateRequest) SetSender(v CreateMandateSender) {
 	o.Sender = v
 }
 
-// GetSenderAccount returns the SenderAccount field value if set, zero value otherwise.
-func (o *CreateMandateRequest) GetSenderAccount() CreateMandateSenderAccount {
-	if o == nil || o.SenderAccount == nil {
-		var ret CreateMandateSenderAccount
-		return ret
-	}
-	return *o.SenderAccount
-}
-
-// GetSenderAccountOk returns a tuple with the SenderAccount field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateMandateRequest) GetSenderAccountOk() (*CreateMandateSenderAccount, bool) {
-	if o == nil || o.SenderAccount == nil {
-		return nil, false
-	}
-	return o.SenderAccount, true
-}
-
-// HasSenderAccount returns a boolean if a field has been set.
-func (o *CreateMandateRequest) HasSenderAccount() bool {
-	if o != nil && o.SenderAccount != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSenderAccount gets a reference to the given CreateMandateSenderAccount and assigns it to the SenderAccount field.
-func (o *CreateMandateRequest) SetSenderAccount(v CreateMandateSenderAccount) {
-	o.SenderAccount = &v
-}
-
 // GetMandateDetails returns the MandateDetails field value
 func (o *CreateMandateRequest) GetMandateDetails() MandateDetails {
 	if o == nil {
@@ -188,9 +155,6 @@ func (o CreateMandateRequest) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["sender"] = o.Sender
-	}
-	if o.SenderAccount != nil {
-		toSerialize["sender_account"] = o.SenderAccount
 	}
 	if true {
 		toSerialize["mandate_details"] = o.MandateDetails

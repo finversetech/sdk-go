@@ -23,8 +23,6 @@ type CreateSenderRequest struct {
 	UserId string `json:"user_id"`
 	// Sender details which will be used for fraud checking.
 	SenderDetails []SenderDetail `json:"sender_details,omitempty"`
-	// Customer reference for the sender
-	SenderReferenceId *string `json:"sender_reference_id,omitempty"`
 	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
 	SenderType string `json:"sender_type"`
 	// Additional attributes of the sender in key:value format (e.g. employer_name: Apple Inc for a payroll case where sender is an employee)
@@ -131,38 +129,6 @@ func (o *CreateSenderRequest) SetSenderDetails(v []SenderDetail) {
 	o.SenderDetails = v
 }
 
-// GetSenderReferenceId returns the SenderReferenceId field value if set, zero value otherwise.
-func (o *CreateSenderRequest) GetSenderReferenceId() string {
-	if o == nil || o.SenderReferenceId == nil {
-		var ret string
-		return ret
-	}
-	return *o.SenderReferenceId
-}
-
-// GetSenderReferenceIdOk returns a tuple with the SenderReferenceId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreateSenderRequest) GetSenderReferenceIdOk() (*string, bool) {
-	if o == nil || o.SenderReferenceId == nil {
-		return nil, false
-	}
-	return o.SenderReferenceId, true
-}
-
-// HasSenderReferenceId returns a boolean if a field has been set.
-func (o *CreateSenderRequest) HasSenderReferenceId() bool {
-	if o != nil && o.SenderReferenceId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetSenderReferenceId gets a reference to the given string and assigns it to the SenderReferenceId field.
-func (o *CreateSenderRequest) SetSenderReferenceId(v string) {
-	o.SenderReferenceId = &v
-}
-
 // GetSenderType returns the SenderType field value
 func (o *CreateSenderRequest) GetSenderType() string {
 	if o == nil {
@@ -229,9 +195,6 @@ func (o CreateSenderRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.SenderDetails != nil {
 		toSerialize["sender_details"] = o.SenderDetails
-	}
-	if o.SenderReferenceId != nil {
-		toSerialize["sender_reference_id"] = o.SenderReferenceId
 	}
 	if true {
 		toSerialize["sender_type"] = o.SenderType
