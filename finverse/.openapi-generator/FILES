@@ -34,9 +34,6 @@ model_create_payment_link_mandate_response.go
 model_create_payment_request.go
 model_create_payout_instruction_request.go
 model_create_recipient_account.go
-model_create_recipient_request.go
-model_create_sender_account_request.go
-model_create_sender_request.go
 model_currency_amount.go
 model_customer_payment_instruction.go
 model_delete_login_identity_response.go
@@ -120,15 +117,11 @@ model_principal.go
 model_product_status.go
 model_recipient_account_number.go
 model_recipient_account_response.go
-model_recipient_response.go
 model_redirect_uri_response.go
 model_refresh_data.go
 model_refresh_request.go
 model_relink_request.go
-model_sender_account_response.go
-model_sender_accounts_response.go
 model_sender_detail.go
-model_sender_response.go
 model_set_mandate_institution_request.go
 model_set_mandate_institution_response.go
 model_single_source_income.go
