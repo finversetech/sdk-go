@@ -29,10 +29,11 @@ type PaymentResponse struct {
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	// Possible values - CREATED, AUTHORIZED, SUBMITTED, EXECUTED, FAILED, REJECTED, CANCELLED.
-	Status         *string           `json:"status,omitempty"`
-	PaymentDetails *PaymentDetails2  `json:"payment_details,omitempty"`
-	Recipient      *MandateRecipient `json:"recipient,omitempty"`
-	Sender         *GetMandateSender `json:"sender,omitempty"`
+	Status           *string                  `json:"status,omitempty"`
+	PaymentDetails   *PaymentDetails2         `json:"payment_details,omitempty"`
+	Recipient        *MandateRecipient        `json:"recipient,omitempty"`
+	RecipientAccount *MandateRecipientAccount `json:"recipient_account,omitempty"`
+	Sender           *GetMandateSender        `json:"sender,omitempty"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Additional attributes of the payment in key:value format (e.g. payment_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
@@ -313,6 +314,38 @@ func (o *PaymentResponse) SetRecipient(v MandateRecipient) {
 	o.Recipient = &v
 }
 
+// GetRecipientAccount returns the RecipientAccount field value if set, zero value otherwise.
+func (o *PaymentResponse) GetRecipientAccount() MandateRecipientAccount {
+	if o == nil || o.RecipientAccount == nil {
+		var ret MandateRecipientAccount
+		return ret
+	}
+	return *o.RecipientAccount
+}
+
+// GetRecipientAccountOk returns a tuple with the RecipientAccount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentResponse) GetRecipientAccountOk() (*MandateRecipientAccount, bool) {
+	if o == nil || o.RecipientAccount == nil {
+		return nil, false
+	}
+	return o.RecipientAccount, true
+}
+
+// HasRecipientAccount returns a boolean if a field has been set.
+func (o *PaymentResponse) HasRecipientAccount() bool {
+	if o != nil && o.RecipientAccount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRecipientAccount gets a reference to the given MandateRecipientAccount and assigns it to the RecipientAccount field.
+func (o *PaymentResponse) SetRecipientAccount(v MandateRecipientAccount) {
+	o.RecipientAccount = &v
+}
+
 // GetSender returns the Sender field value if set, zero value otherwise.
 func (o *PaymentResponse) GetSender() GetMandateSender {
 	if o == nil || o.Sender == nil {
@@ -466,6 +499,9 @@ func (o PaymentResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Recipient != nil {
 		toSerialize["recipient"] = o.Recipient
+	}
+	if o.RecipientAccount != nil {
+		toSerialize["recipient_account"] = o.RecipientAccount
 	}
 	if o.Sender != nil {
 		toSerialize["sender"] = o.Sender

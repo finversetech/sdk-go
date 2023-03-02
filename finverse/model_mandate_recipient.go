@@ -19,18 +19,15 @@ import (
 type MandateRecipient struct {
 	// Merchant account name
 	Name string `json:"name"`
-	// Merchant account ID assigned by Finverse
-	RecipientAccountId string `json:"recipient_account_id"`
 }
 
 // NewMandateRecipient instantiates a new MandateRecipient object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMandateRecipient(name string, recipientAccountId string) *MandateRecipient {
+func NewMandateRecipient(name string) *MandateRecipient {
 	this := MandateRecipient{}
 	this.Name = name
-	this.RecipientAccountId = recipientAccountId
 	return &this
 }
 
@@ -66,37 +63,10 @@ func (o *MandateRecipient) SetName(v string) {
 	o.Name = v
 }
 
-// GetRecipientAccountId returns the RecipientAccountId field value
-func (o *MandateRecipient) GetRecipientAccountId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.RecipientAccountId
-}
-
-// GetRecipientAccountIdOk returns a tuple with the RecipientAccountId field value
-// and a boolean to check if the value has been set.
-func (o *MandateRecipient) GetRecipientAccountIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.RecipientAccountId, true
-}
-
-// SetRecipientAccountId sets field value
-func (o *MandateRecipient) SetRecipientAccountId(v string) {
-	o.RecipientAccountId = v
-}
-
 func (o MandateRecipient) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["recipient_account_id"] = o.RecipientAccountId
 	}
 	return json.Marshal(toSerialize)
 }

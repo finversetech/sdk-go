@@ -5814,11 +5814,22 @@ components:
         amount: 100
         metadata:
           key: metadata
-        updated_at: 2000-01-23T04:56:07.000+00:00
         payment_details:
           transaction_reference_id: transaction_reference_id
           description: description
           mandate_id: mandate_id
+        recipient_account:
+          account_type: SETTLEMENT_ACCOUNT
+          account_id: account_id
+        created_at: 2000-01-23T04:56:07.000+00:00
+        type: MANDATE
+        error:
+          error_code: CREDENTIALS_INVALID
+          details: details
+          type: LINKING_ERROR
+          message: message
+          request_id: request_id
+        updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
           sender_details:
           - values:
@@ -5842,16 +5853,7 @@ components:
         payment_id: payment_id
         recipient:
           name: name
-          recipient_account_id: recipient_account_id
-        created_at: 2000-01-23T04:56:07.000+00:00
         currency: HKD
-        type: MANDATE
-        error:
-          error_code: CREDENTIALS_INVALID
-          details: details
-          type: LINKING_ERROR
-          message: message
-          request_id: request_id
         status: AUTHORIZATION_REQUIRED
       properties:
         payment_id:
@@ -5896,6 +5898,8 @@ components:
           $ref: '#/components/schemas/PaymentDetails2'
         recipient:
           $ref: '#/components/schemas/MandateRecipient'
+        recipient_account:
+          $ref: '#/components/schemas/MandateRecipientAccount'
         sender:
           $ref: '#/components/schemas/GetMandateSender'
         created_at:
@@ -5918,11 +5922,22 @@ components:
         - amount: 100
           metadata:
             key: metadata
-          updated_at: 2000-01-23T04:56:07.000+00:00
           payment_details:
             transaction_reference_id: transaction_reference_id
             description: description
             mandate_id: mandate_id
+          recipient_account:
+            account_type: SETTLEMENT_ACCOUNT
+            account_id: account_id
+          created_at: 2000-01-23T04:56:07.000+00:00
+          type: MANDATE
+          error:
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+            request_id: request_id
+          updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
             sender_details:
             - values:
@@ -5946,25 +5961,27 @@ components:
           payment_id: payment_id
           recipient:
             name: name
-            recipient_account_id: recipient_account_id
-          created_at: 2000-01-23T04:56:07.000+00:00
           currency: HKD
-          type: MANDATE
-          error:
-            error_code: CREDENTIALS_INVALID
-            details: details
-            type: LINKING_ERROR
-            message: message
-            request_id: request_id
           status: AUTHORIZATION_REQUIRED
         - amount: 100
           metadata:
             key: metadata
-          updated_at: 2000-01-23T04:56:07.000+00:00
           payment_details:
             transaction_reference_id: transaction_reference_id
             description: description
             mandate_id: mandate_id
+          recipient_account:
+            account_type: SETTLEMENT_ACCOUNT
+            account_id: account_id
+          created_at: 2000-01-23T04:56:07.000+00:00
+          type: MANDATE
+          error:
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+            request_id: request_id
+          updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
             sender_details:
             - values:
@@ -5988,16 +6005,7 @@ components:
           payment_id: payment_id
           recipient:
             name: name
-            recipient_account_id: recipient_account_id
-          created_at: 2000-01-23T04:56:07.000+00:00
           currency: HKD
-          type: MANDATE
-          error:
-            error_code: CREDENTIALS_INVALID
-            details: details
-            type: LINKING_ERROR
-            message: message
-            request_id: request_id
           status: AUTHORIZATION_REQUIRED
         total_payments: 0
       properties:
@@ -6517,6 +6525,9 @@ components:
           description: description
           currency: currency
           start_date: 2000-01-23
+        recipient_account:
+          account_type: SETTLEMENT_ACCOUNT
+          account_id: account_id
         sender_account:
           account_number:
             number: number
@@ -6524,13 +6535,12 @@ components:
           account_type: EXTERNAL_ACCOUNT
           metadata:
             key: metadata
-          sender_account_id: sender_account_id
+          account_id: sender_account_id
           accountholder_name: Chan Li Pak
           sender_id: sender_id
           institution_id: hsbc-hk
         recipient:
           name: name
-          recipient_account_id: recipient_account_id
         mandate_id: mandate_id
         error:
           error_code: CREDENTIALS_INVALID
@@ -6560,6 +6570,8 @@ components:
           type: string
         recipient:
           $ref: '#/components/schemas/MandateRecipient'
+        recipient_account:
+          $ref: '#/components/schemas/MandateRecipientAccount'
         sender:
           $ref: '#/components/schemas/GetMandateSender'
         sender_account:
@@ -6641,6 +6653,9 @@ components:
           description: description
           currency: currency
           start_date: 2000-01-23
+        recipient_account:
+          account_type: SETTLEMENT_ACCOUNT
+          account_id: account_id
         sender_account:
           account_number:
             number: number
@@ -6648,13 +6663,12 @@ components:
           account_type: EXTERNAL_ACCOUNT
           metadata:
             key: metadata
-          sender_account_id: sender_account_id
+          account_id: sender_account_id
           accountholder_name: Chan Li Pak
           sender_id: sender_id
           institution_id: hsbc-hk
         recipient:
           name: name
-          recipient_account_id: recipient_account_id
         mandate_id: mandate_id
         error:
           error_code: CREDENTIALS_INVALID
@@ -6684,6 +6698,8 @@ components:
           type: string
         recipient:
           $ref: '#/components/schemas/MandateRecipient'
+        recipient_account:
+          $ref: '#/components/schemas/MandateRecipientAccount'
         sender:
           $ref: '#/components/schemas/GetMandateSender'
         sender_account:
@@ -6747,6 +6763,9 @@ components:
             description: description
             currency: currency
             start_date: 2000-01-23
+          recipient_account:
+            account_type: SETTLEMENT_ACCOUNT
+            account_id: account_id
           sender_account:
             account_number:
               number: number
@@ -6754,13 +6773,12 @@ components:
             account_type: EXTERNAL_ACCOUNT
             metadata:
               key: metadata
-            sender_account_id: sender_account_id
+            account_id: sender_account_id
             accountholder_name: Chan Li Pak
             sender_id: sender_id
             institution_id: hsbc-hk
           recipient:
             name: name
-            recipient_account_id: recipient_account_id
           mandate_id: mandate_id
           error:
             error_code: CREDENTIALS_INVALID
@@ -6805,6 +6823,9 @@ components:
             description: description
             currency: currency
             start_date: 2000-01-23
+          recipient_account:
+            account_type: SETTLEMENT_ACCOUNT
+            account_id: account_id
           sender_account:
             account_number:
               number: number
@@ -6812,13 +6833,12 @@ components:
             account_type: EXTERNAL_ACCOUNT
             metadata:
               key: metadata
-            sender_account_id: sender_account_id
+            account_id: sender_account_id
             accountholder_name: Chan Li Pak
             sender_id: sender_id
             institution_id: hsbc-hk
           recipient:
             name: name
-            recipient_account_id: recipient_account_id
           mandate_id: mandate_id
           error:
             error_code: CREDENTIALS_INVALID
@@ -6840,17 +6860,31 @@ components:
     MandateRecipient:
       example:
         name: name
-        recipient_account_id: recipient_account_id
       properties:
         name:
           description: Merchant account name
           type: string
-        recipient_account_id:
-          description: Merchant account ID assigned by Finverse
-          type: string
       required:
       - name
-      - recipient_account_id
+      type: object
+    MandateRecipientAccount:
+      example:
+        account_type: SETTLEMENT_ACCOUNT
+        account_id: account_id
+      properties:
+        account_id:
+          description: Merchant account ID assigned by Finverse
+          type: string
+        account_type:
+          description: Type of recipient account.
+          enum:
+          - EXTERNAL_ACCOUNT
+          - SETTLEMENT_ACCOUNT
+          example: SETTLEMENT_ACCOUNT
+          type: string
+      required:
+      - account_id
+      - account_type
       type: object
     MandateRecipientRequest:
       example:
@@ -7247,7 +7281,6 @@ components:
         last_update: 2000-01-23T04:56:07.000+00:00
         recipient:
           name: name
-          recipient_account_id: recipient_account_id
         mandate_id: mandate_id
         recipient_account_id: recipient_account_id
         encryption_info:
@@ -7603,12 +7636,12 @@ components:
         account_type: EXTERNAL_ACCOUNT
         metadata:
           key: metadata
-        sender_account_id: sender_account_id
+        account_id: sender_account_id
         accountholder_name: Chan Li Pak
         sender_id: sender_id
         institution_id: hsbc-hk
       properties:
-        sender_account_id:
+        account_id:
           description: A unique identifier generated after creating sender account
           example: sender_account_id
           type: string

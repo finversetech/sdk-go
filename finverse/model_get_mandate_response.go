@@ -23,12 +23,13 @@ type GetMandateResponse struct {
 	// Finverse Mandate ID (ULID)
 	MandateId string `json:"mandate_id"`
 	// Mandate Status
-	Status         string                `json:"status"`
-	Recipient      MandateRecipient      `json:"recipient"`
-	Sender         GetMandateSender      `json:"sender"`
-	SenderAccount  *MandateSenderAccount `json:"sender_account,omitempty"`
-	MandateDetails MandateDetails        `json:"mandate_details"`
-	Error          *FvErrorModelV2       `json:"error,omitempty"`
+	Status           string                   `json:"status"`
+	Recipient        MandateRecipient         `json:"recipient"`
+	RecipientAccount *MandateRecipientAccount `json:"recipient_account,omitempty"`
+	Sender           GetMandateSender         `json:"sender"`
+	SenderAccount    *MandateSenderAccount    `json:"sender_account,omitempty"`
+	MandateDetails   MandateDetails           `json:"mandate_details"`
+	Error            *FvErrorModelV2          `json:"error,omitempty"`
 	// Additional attributes of the mandate in key:value format (e.g. mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
 	Metadata *map[string]string `json:"metadata,omitempty"`
 }
@@ -150,6 +151,38 @@ func (o *GetMandateResponse) GetRecipientOk() (*MandateRecipient, bool) {
 // SetRecipient sets field value
 func (o *GetMandateResponse) SetRecipient(v MandateRecipient) {
 	o.Recipient = v
+}
+
+// GetRecipientAccount returns the RecipientAccount field value if set, zero value otherwise.
+func (o *GetMandateResponse) GetRecipientAccount() MandateRecipientAccount {
+	if o == nil || o.RecipientAccount == nil {
+		var ret MandateRecipientAccount
+		return ret
+	}
+	return *o.RecipientAccount
+}
+
+// GetRecipientAccountOk returns a tuple with the RecipientAccount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *GetMandateResponse) GetRecipientAccountOk() (*MandateRecipientAccount, bool) {
+	if o == nil || o.RecipientAccount == nil {
+		return nil, false
+	}
+	return o.RecipientAccount, true
+}
+
+// HasRecipientAccount returns a boolean if a field has been set.
+func (o *GetMandateResponse) HasRecipientAccount() bool {
+	if o != nil && o.RecipientAccount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRecipientAccount gets a reference to the given MandateRecipientAccount and assigns it to the RecipientAccount field.
+func (o *GetMandateResponse) SetRecipientAccount(v MandateRecipientAccount) {
+	o.RecipientAccount = &v
 }
 
 // GetSender returns the Sender field value
@@ -309,6 +342,9 @@ func (o GetMandateResponse) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["recipient"] = o.Recipient
+	}
+	if o.RecipientAccount != nil {
+		toSerialize["recipient_account"] = o.RecipientAccount
 	}
 	if true {
 		toSerialize["sender"] = o.Sender

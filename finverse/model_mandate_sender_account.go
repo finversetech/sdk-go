@@ -18,7 +18,7 @@ import (
 // MandateSenderAccount struct for MandateSenderAccount
 type MandateSenderAccount struct {
 	// A unique identifier generated after creating sender account
-	SenderAccountId *string `json:"sender_account_id,omitempty"`
+	AccountId *string `json:"account_id,omitempty"`
 	// Accountholder name of the sender's account
 	AccountholderName *string                 `json:"accountholder_name,omitempty"`
 	AccountNumber     *RecipientAccountNumber `json:"account_number,omitempty"`
@@ -49,36 +49,36 @@ func NewMandateSenderAccountWithDefaults() *MandateSenderAccount {
 	return &this
 }
 
-// GetSenderAccountId returns the SenderAccountId field value if set, zero value otherwise.
-func (o *MandateSenderAccount) GetSenderAccountId() string {
-	if o == nil || o.SenderAccountId == nil {
+// GetAccountId returns the AccountId field value if set, zero value otherwise.
+func (o *MandateSenderAccount) GetAccountId() string {
+	if o == nil || o.AccountId == nil {
 		var ret string
 		return ret
 	}
-	return *o.SenderAccountId
+	return *o.AccountId
 }
 
-// GetSenderAccountIdOk returns a tuple with the SenderAccountId field value if set, nil otherwise
+// GetAccountIdOk returns a tuple with the AccountId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MandateSenderAccount) GetSenderAccountIdOk() (*string, bool) {
-	if o == nil || o.SenderAccountId == nil {
+func (o *MandateSenderAccount) GetAccountIdOk() (*string, bool) {
+	if o == nil || o.AccountId == nil {
 		return nil, false
 	}
-	return o.SenderAccountId, true
+	return o.AccountId, true
 }
 
-// HasSenderAccountId returns a boolean if a field has been set.
-func (o *MandateSenderAccount) HasSenderAccountId() bool {
-	if o != nil && o.SenderAccountId != nil {
+// HasAccountId returns a boolean if a field has been set.
+func (o *MandateSenderAccount) HasAccountId() bool {
+	if o != nil && o.AccountId != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetSenderAccountId gets a reference to the given string and assigns it to the SenderAccountId field.
-func (o *MandateSenderAccount) SetSenderAccountId(v string) {
-	o.SenderAccountId = &v
+// SetAccountId gets a reference to the given string and assigns it to the AccountId field.
+func (o *MandateSenderAccount) SetAccountId(v string) {
+	o.AccountId = &v
 }
 
 // GetAccountholderName returns the AccountholderName field value if set, zero value otherwise.
@@ -275,8 +275,8 @@ func (o *MandateSenderAccount) SetMetadata(v map[string]string) {
 
 func (o MandateSenderAccount) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.SenderAccountId != nil {
-		toSerialize["sender_account_id"] = o.SenderAccountId
+	if o.AccountId != nil {
+		toSerialize["account_id"] = o.AccountId
 	}
 	if o.AccountholderName != nil {
 		toSerialize["accountholder_name"] = o.AccountholderName
