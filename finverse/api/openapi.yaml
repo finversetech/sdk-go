@@ -5831,23 +5831,23 @@ components:
           request_id: request_id
         updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
-          sender_details:
-          - values:
-            - values
-            - values
-            - values
-            - values
-            - values
-            details_type: HK_ID
-          - values:
-            - values
-            - values
-            - values
-            - values
-            - values
-            details_type: HK_ID
+          user_type: INDIVIDUAL
           user_id: user_id
-          sender_type: INDIVIDUAL
+          user_details:
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
           name: name
           sender_id: sender_id
         payment_id: payment_id
@@ -5939,23 +5939,23 @@ components:
             request_id: request_id
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
-            sender_details:
-            - values:
-              - values
-              - values
-              - values
-              - values
-              - values
-              details_type: HK_ID
-            - values:
-              - values
-              - values
-              - values
-              - values
-              - values
-              details_type: HK_ID
+            user_type: INDIVIDUAL
             user_id: user_id
-            sender_type: INDIVIDUAL
+            user_details:
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
             name: name
             sender_id: sender_id
           payment_id: payment_id
@@ -5983,23 +5983,23 @@ components:
             request_id: request_id
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
-            sender_details:
-            - values:
-              - values
-              - values
-              - values
-              - values
-              - values
-              details_type: HK_ID
-            - values:
-              - values
-              - values
-              - values
-              - values
-              - values
-              details_type: HK_ID
+            user_type: INDIVIDUAL
             user_id: user_id
-            sender_type: INDIVIDUAL
+            user_details:
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
             name: name
             sender_id: sender_id
           payment_id: payment_id
@@ -6028,7 +6028,7 @@ components:
           description: description
           scheduled_date: 2000-01-23
         recipient:
-          recipient_account_id: recipient_account_id
+          account_id: account_id
         currency: HKD
       properties:
         amount:
@@ -6074,8 +6074,8 @@ components:
         sender:
           name: name
         recipient:
+          account_id: account_id
           name: name
-          recipient_account_id: recipient_account_id
         created_at: 2000-01-23T04:56:07.000+00:00
         currency: HKD
         payout_instruction_id: payout_instruction_id
@@ -6140,13 +6140,13 @@ components:
       type: object
     PayoutRecipient:
       example:
+        account_id: account_id
         name: name
-        recipient_account_id: recipient_account_id
       properties:
         name:
           description: Merchant account name
           type: string
-        recipient_account_id:
+        account_id:
           description: Merchant account ID assigned by Finverse
           type: string
       type: object
@@ -6414,44 +6414,44 @@ components:
         metadata:
           key: metadata
         sender:
-          sender_details:
-          - values:
-            - values
-            - values
-            - values
-            - values
-            - values
-            details_type: HK_ID
-          - values:
-            - values
-            - values
-            - values
-            - values
-            - values
-            details_type: HK_ID
-          - values:
-            - values
-            - values
-            - values
-            - values
-            - values
-            details_type: HK_ID
-          - values:
-            - values
-            - values
-            - values
-            - values
-            - values
-            details_type: HK_ID
-          - values:
-            - values
-            - values
-            - values
-            - values
-            - values
-            details_type: HK_ID
+          user_type: INDIVIDUAL
           user_id: user_id
-          sender_type: INDIVIDUAL
+          user_details:
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
           name: name
         mandate_details:
           end_date: 2000-01-23
@@ -6467,7 +6467,7 @@ components:
           currency: currency
           start_date: 2000-01-23
         recipient:
-          recipient_account_id: recipient_account_id
+          account_id: account_id
       properties:
         recipient:
           $ref: '#/components/schemas/MandateRecipientRequest'
@@ -6493,23 +6493,23 @@ components:
           key: metadata
         updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
-          sender_details:
-          - values:
-            - values
-            - values
-            - values
-            - values
-            - values
-            details_type: HK_ID
-          - values:
-            - values
-            - values
-            - values
-            - values
-            - values
-            details_type: HK_ID
+          user_type: INDIVIDUAL
           user_id: user_id
-          sender_type: INDIVIDUAL
+          user_details:
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
           name: name
           sender_id: sender_id
         mandate_details:
@@ -6621,23 +6621,23 @@ components:
           key: metadata
         updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
-          sender_details:
-          - values:
-            - values
-            - values
-            - values
-            - values
-            - values
-            details_type: HK_ID
-          - values:
-            - values
-            - values
-            - values
-            - values
-            - values
-            details_type: HK_ID
+          user_type: INDIVIDUAL
           user_id: user_id
-          sender_type: INDIVIDUAL
+          user_details:
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
           name: name
           sender_id: sender_id
         mandate_details:
@@ -6731,23 +6731,23 @@ components:
             key: metadata
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
-            sender_details:
-            - values:
-              - values
-              - values
-              - values
-              - values
-              - values
-              details_type: HK_ID
-            - values:
-              - values
-              - values
-              - values
-              - values
-              - values
-              details_type: HK_ID
+            user_type: INDIVIDUAL
             user_id: user_id
-            sender_type: INDIVIDUAL
+            user_details:
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
             name: name
             sender_id: sender_id
           mandate_details:
@@ -6791,23 +6791,23 @@ components:
             key: metadata
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
-            sender_details:
-            - values:
-              - values
-              - values
-              - values
-              - values
-              - values
-              details_type: HK_ID
-            - values:
-              - values
-              - values
-              - values
-              - values
-              - values
-              details_type: HK_ID
+            user_type: INDIVIDUAL
             user_id: user_id
-            sender_type: INDIVIDUAL
+            user_details:
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
             name: name
             sender_id: sender_id
           mandate_details:
@@ -6888,54 +6888,54 @@ components:
       type: object
     MandateRecipientRequest:
       example:
-        recipient_account_id: recipient_account_id
+        account_id: account_id
       properties:
-        recipient_account_id:
+        account_id:
           description: Merchant account ID assigned by Finverse
           type: string
       required:
-      - recipient_account_id
+      - account_id
       type: object
     CreateMandateSender:
       example:
-        sender_details:
-        - values:
-          - values
-          - values
-          - values
-          - values
-          - values
-          details_type: HK_ID
-        - values:
-          - values
-          - values
-          - values
-          - values
-          - values
-          details_type: HK_ID
-        - values:
-          - values
-          - values
-          - values
-          - values
-          - values
-          details_type: HK_ID
-        - values:
-          - values
-          - values
-          - values
-          - values
-          - values
-          details_type: HK_ID
-        - values:
-          - values
-          - values
-          - values
-          - values
-          - values
-          details_type: HK_ID
+        user_type: INDIVIDUAL
         user_id: user_id
-        sender_type: INDIVIDUAL
+        user_details:
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
         name: name
       properties:
         name:
@@ -6944,14 +6944,14 @@ components:
           description: Customer App's user ID, representing the end-user making the
             payment.
           type: string
-        sender_type:
+        user_type:
           description: Type of account held by the Sender at the Institution. Possible
             values are INDIVIDUAL, BUSINESS
           enum:
           - INDIVIDUAL
           - BUSINESS
           type: string
-        sender_details:
+        user_details:
           description: Sender details which will be used for fraud checking.
           items:
             $ref: '#/components/schemas/SenderDetail'
@@ -6960,23 +6960,23 @@ components:
       type: object
     GetMandateSender:
       example:
-        sender_details:
-        - values:
-          - values
-          - values
-          - values
-          - values
-          - values
-          details_type: HK_ID
-        - values:
-          - values
-          - values
-          - values
-          - values
-          - values
-          details_type: HK_ID
+        user_type: INDIVIDUAL
         user_id: user_id
-        sender_type: INDIVIDUAL
+        user_details:
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
         name: name
         sender_id: sender_id
       properties:
@@ -6989,22 +6989,22 @@ components:
           description: Customer App's user ID, representing the end-user making the
             payment.
           type: string
-        sender_type:
+        user_type:
           description: Type of account held by the Sender at the Institution. Possible
             values are INDIVIDUAL, BUSINESS
           enum:
           - INDIVIDUAL
           - BUSINESS
           type: string
-        sender_details:
+        user_details:
           description: Sender details which will be used for fraud checking.
           items:
             $ref: '#/components/schemas/SenderDetail'
           type: array
       required:
       - sender_id
-      - sender_type
       - user_id
+      - user_type
       type: object
     MandateDetails:
       example:

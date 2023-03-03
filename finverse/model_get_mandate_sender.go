@@ -23,20 +23,20 @@ type GetMandateSender struct {
 	// Customer App's user ID, representing the end-user making the payment.
 	UserId string `json:"user_id"`
 	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
-	SenderType string `json:"sender_type"`
+	UserType string `json:"user_type"`
 	// Sender details which will be used for fraud checking.
-	SenderDetails []SenderDetail `json:"sender_details,omitempty"`
+	UserDetails []SenderDetail `json:"user_details,omitempty"`
 }
 
 // NewGetMandateSender instantiates a new GetMandateSender object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetMandateSender(senderId string, userId string, senderType string) *GetMandateSender {
+func NewGetMandateSender(senderId string, userId string, userType string) *GetMandateSender {
 	this := GetMandateSender{}
 	this.SenderId = senderId
 	this.UserId = userId
-	this.SenderType = senderType
+	this.UserType = userType
 	return &this
 }
 
@@ -128,60 +128,60 @@ func (o *GetMandateSender) SetUserId(v string) {
 	o.UserId = v
 }
 
-// GetSenderType returns the SenderType field value
-func (o *GetMandateSender) GetSenderType() string {
+// GetUserType returns the UserType field value
+func (o *GetMandateSender) GetUserType() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.SenderType
+	return o.UserType
 }
 
-// GetSenderTypeOk returns a tuple with the SenderType field value
+// GetUserTypeOk returns a tuple with the UserType field value
 // and a boolean to check if the value has been set.
-func (o *GetMandateSender) GetSenderTypeOk() (*string, bool) {
+func (o *GetMandateSender) GetUserTypeOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SenderType, true
+	return &o.UserType, true
 }
 
-// SetSenderType sets field value
-func (o *GetMandateSender) SetSenderType(v string) {
-	o.SenderType = v
+// SetUserType sets field value
+func (o *GetMandateSender) SetUserType(v string) {
+	o.UserType = v
 }
 
-// GetSenderDetails returns the SenderDetails field value if set, zero value otherwise.
-func (o *GetMandateSender) GetSenderDetails() []SenderDetail {
-	if o == nil || o.SenderDetails == nil {
+// GetUserDetails returns the UserDetails field value if set, zero value otherwise.
+func (o *GetMandateSender) GetUserDetails() []SenderDetail {
+	if o == nil || o.UserDetails == nil {
 		var ret []SenderDetail
 		return ret
 	}
-	return o.SenderDetails
+	return o.UserDetails
 }
 
-// GetSenderDetailsOk returns a tuple with the SenderDetails field value if set, nil otherwise
+// GetUserDetailsOk returns a tuple with the UserDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetMandateSender) GetSenderDetailsOk() ([]SenderDetail, bool) {
-	if o == nil || o.SenderDetails == nil {
+func (o *GetMandateSender) GetUserDetailsOk() ([]SenderDetail, bool) {
+	if o == nil || o.UserDetails == nil {
 		return nil, false
 	}
-	return o.SenderDetails, true
+	return o.UserDetails, true
 }
 
-// HasSenderDetails returns a boolean if a field has been set.
-func (o *GetMandateSender) HasSenderDetails() bool {
-	if o != nil && o.SenderDetails != nil {
+// HasUserDetails returns a boolean if a field has been set.
+func (o *GetMandateSender) HasUserDetails() bool {
+	if o != nil && o.UserDetails != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetSenderDetails gets a reference to the given []SenderDetail and assigns it to the SenderDetails field.
-func (o *GetMandateSender) SetSenderDetails(v []SenderDetail) {
-	o.SenderDetails = v
+// SetUserDetails gets a reference to the given []SenderDetail and assigns it to the UserDetails field.
+func (o *GetMandateSender) SetUserDetails(v []SenderDetail) {
+	o.UserDetails = v
 }
 
 func (o GetMandateSender) MarshalJSON() ([]byte, error) {
@@ -196,10 +196,10 @@ func (o GetMandateSender) MarshalJSON() ([]byte, error) {
 		toSerialize["user_id"] = o.UserId
 	}
 	if true {
-		toSerialize["sender_type"] = o.SenderType
+		toSerialize["user_type"] = o.UserType
 	}
-	if o.SenderDetails != nil {
-		toSerialize["sender_details"] = o.SenderDetails
+	if o.UserDetails != nil {
+		toSerialize["user_details"] = o.UserDetails
 	}
 	return json.Marshal(toSerialize)
 }

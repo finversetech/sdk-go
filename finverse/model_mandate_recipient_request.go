@@ -18,16 +18,16 @@ import (
 // MandateRecipientRequest struct for MandateRecipientRequest
 type MandateRecipientRequest struct {
 	// Merchant account ID assigned by Finverse
-	RecipientAccountId string `json:"recipient_account_id"`
+	AccountId string `json:"account_id"`
 }
 
 // NewMandateRecipientRequest instantiates a new MandateRecipientRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMandateRecipientRequest(recipientAccountId string) *MandateRecipientRequest {
+func NewMandateRecipientRequest(accountId string) *MandateRecipientRequest {
 	this := MandateRecipientRequest{}
-	this.RecipientAccountId = recipientAccountId
+	this.AccountId = accountId
 	return &this
 }
 
@@ -39,34 +39,34 @@ func NewMandateRecipientRequestWithDefaults() *MandateRecipientRequest {
 	return &this
 }
 
-// GetRecipientAccountId returns the RecipientAccountId field value
-func (o *MandateRecipientRequest) GetRecipientAccountId() string {
+// GetAccountId returns the AccountId field value
+func (o *MandateRecipientRequest) GetAccountId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.RecipientAccountId
+	return o.AccountId
 }
 
-// GetRecipientAccountIdOk returns a tuple with the RecipientAccountId field value
+// GetAccountIdOk returns a tuple with the AccountId field value
 // and a boolean to check if the value has been set.
-func (o *MandateRecipientRequest) GetRecipientAccountIdOk() (*string, bool) {
+func (o *MandateRecipientRequest) GetAccountIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RecipientAccountId, true
+	return &o.AccountId, true
 }
 
-// SetRecipientAccountId sets field value
-func (o *MandateRecipientRequest) SetRecipientAccountId(v string) {
-	o.RecipientAccountId = v
+// SetAccountId sets field value
+func (o *MandateRecipientRequest) SetAccountId(v string) {
+	o.AccountId = v
 }
 
 func (o MandateRecipientRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["recipient_account_id"] = o.RecipientAccountId
+		toSerialize["account_id"] = o.AccountId
 	}
 	return json.Marshal(toSerialize)
 }

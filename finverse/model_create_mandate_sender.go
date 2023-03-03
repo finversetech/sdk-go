@@ -21,9 +21,9 @@ type CreateMandateSender struct {
 	// Customer App's user ID, representing the end-user making the payment.
 	UserId *string `json:"user_id,omitempty"`
 	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
-	SenderType *string `json:"sender_type,omitempty"`
+	UserType *string `json:"user_type,omitempty"`
 	// Sender details which will be used for fraud checking.
-	SenderDetails []SenderDetail `json:"sender_details,omitempty"`
+	UserDetails []SenderDetail `json:"user_details,omitempty"`
 }
 
 // NewCreateMandateSender instantiates a new CreateMandateSender object
@@ -107,68 +107,68 @@ func (o *CreateMandateSender) SetUserId(v string) {
 	o.UserId = &v
 }
 
-// GetSenderType returns the SenderType field value if set, zero value otherwise.
-func (o *CreateMandateSender) GetSenderType() string {
-	if o == nil || o.SenderType == nil {
+// GetUserType returns the UserType field value if set, zero value otherwise.
+func (o *CreateMandateSender) GetUserType() string {
+	if o == nil || o.UserType == nil {
 		var ret string
 		return ret
 	}
-	return *o.SenderType
+	return *o.UserType
 }
 
-// GetSenderTypeOk returns a tuple with the SenderType field value if set, nil otherwise
+// GetUserTypeOk returns a tuple with the UserType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateMandateSender) GetSenderTypeOk() (*string, bool) {
-	if o == nil || o.SenderType == nil {
+func (o *CreateMandateSender) GetUserTypeOk() (*string, bool) {
+	if o == nil || o.UserType == nil {
 		return nil, false
 	}
-	return o.SenderType, true
+	return o.UserType, true
 }
 
-// HasSenderType returns a boolean if a field has been set.
-func (o *CreateMandateSender) HasSenderType() bool {
-	if o != nil && o.SenderType != nil {
+// HasUserType returns a boolean if a field has been set.
+func (o *CreateMandateSender) HasUserType() bool {
+	if o != nil && o.UserType != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetSenderType gets a reference to the given string and assigns it to the SenderType field.
-func (o *CreateMandateSender) SetSenderType(v string) {
-	o.SenderType = &v
+// SetUserType gets a reference to the given string and assigns it to the UserType field.
+func (o *CreateMandateSender) SetUserType(v string) {
+	o.UserType = &v
 }
 
-// GetSenderDetails returns the SenderDetails field value if set, zero value otherwise.
-func (o *CreateMandateSender) GetSenderDetails() []SenderDetail {
-	if o == nil || o.SenderDetails == nil {
+// GetUserDetails returns the UserDetails field value if set, zero value otherwise.
+func (o *CreateMandateSender) GetUserDetails() []SenderDetail {
+	if o == nil || o.UserDetails == nil {
 		var ret []SenderDetail
 		return ret
 	}
-	return o.SenderDetails
+	return o.UserDetails
 }
 
-// GetSenderDetailsOk returns a tuple with the SenderDetails field value if set, nil otherwise
+// GetUserDetailsOk returns a tuple with the UserDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateMandateSender) GetSenderDetailsOk() ([]SenderDetail, bool) {
-	if o == nil || o.SenderDetails == nil {
+func (o *CreateMandateSender) GetUserDetailsOk() ([]SenderDetail, bool) {
+	if o == nil || o.UserDetails == nil {
 		return nil, false
 	}
-	return o.SenderDetails, true
+	return o.UserDetails, true
 }
 
-// HasSenderDetails returns a boolean if a field has been set.
-func (o *CreateMandateSender) HasSenderDetails() bool {
-	if o != nil && o.SenderDetails != nil {
+// HasUserDetails returns a boolean if a field has been set.
+func (o *CreateMandateSender) HasUserDetails() bool {
+	if o != nil && o.UserDetails != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetSenderDetails gets a reference to the given []SenderDetail and assigns it to the SenderDetails field.
-func (o *CreateMandateSender) SetSenderDetails(v []SenderDetail) {
-	o.SenderDetails = v
+// SetUserDetails gets a reference to the given []SenderDetail and assigns it to the UserDetails field.
+func (o *CreateMandateSender) SetUserDetails(v []SenderDetail) {
+	o.UserDetails = v
 }
 
 func (o CreateMandateSender) MarshalJSON() ([]byte, error) {
@@ -179,11 +179,11 @@ func (o CreateMandateSender) MarshalJSON() ([]byte, error) {
 	if o.UserId != nil {
 		toSerialize["user_id"] = o.UserId
 	}
-	if o.SenderType != nil {
-		toSerialize["sender_type"] = o.SenderType
+	if o.UserType != nil {
+		toSerialize["user_type"] = o.UserType
 	}
-	if o.SenderDetails != nil {
-		toSerialize["sender_details"] = o.SenderDetails
+	if o.UserDetails != nil {
+		toSerialize["user_details"] = o.UserDetails
 	}
 	return json.Marshal(toSerialize)
 }

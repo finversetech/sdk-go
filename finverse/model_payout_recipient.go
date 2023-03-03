@@ -20,7 +20,7 @@ type PayoutRecipient struct {
 	// Merchant account name
 	Name *string `json:"name,omitempty"`
 	// Merchant account ID assigned by Finverse
-	RecipientAccountId *string `json:"recipient_account_id,omitempty"`
+	AccountId *string `json:"account_id,omitempty"`
 }
 
 // NewPayoutRecipient instantiates a new PayoutRecipient object
@@ -72,36 +72,36 @@ func (o *PayoutRecipient) SetName(v string) {
 	o.Name = &v
 }
 
-// GetRecipientAccountId returns the RecipientAccountId field value if set, zero value otherwise.
-func (o *PayoutRecipient) GetRecipientAccountId() string {
-	if o == nil || o.RecipientAccountId == nil {
+// GetAccountId returns the AccountId field value if set, zero value otherwise.
+func (o *PayoutRecipient) GetAccountId() string {
+	if o == nil || o.AccountId == nil {
 		var ret string
 		return ret
 	}
-	return *o.RecipientAccountId
+	return *o.AccountId
 }
 
-// GetRecipientAccountIdOk returns a tuple with the RecipientAccountId field value if set, nil otherwise
+// GetAccountIdOk returns a tuple with the AccountId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PayoutRecipient) GetRecipientAccountIdOk() (*string, bool) {
-	if o == nil || o.RecipientAccountId == nil {
+func (o *PayoutRecipient) GetAccountIdOk() (*string, bool) {
+	if o == nil || o.AccountId == nil {
 		return nil, false
 	}
-	return o.RecipientAccountId, true
+	return o.AccountId, true
 }
 
-// HasRecipientAccountId returns a boolean if a field has been set.
-func (o *PayoutRecipient) HasRecipientAccountId() bool {
-	if o != nil && o.RecipientAccountId != nil {
+// HasAccountId returns a boolean if a field has been set.
+func (o *PayoutRecipient) HasAccountId() bool {
+	if o != nil && o.AccountId != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetRecipientAccountId gets a reference to the given string and assigns it to the RecipientAccountId field.
-func (o *PayoutRecipient) SetRecipientAccountId(v string) {
-	o.RecipientAccountId = &v
+// SetAccountId gets a reference to the given string and assigns it to the AccountId field.
+func (o *PayoutRecipient) SetAccountId(v string) {
+	o.AccountId = &v
 }
 
 func (o PayoutRecipient) MarshalJSON() ([]byte, error) {
@@ -109,8 +109,8 @@ func (o PayoutRecipient) MarshalJSON() ([]byte, error) {
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
-	if o.RecipientAccountId != nil {
-		toSerialize["recipient_account_id"] = o.RecipientAccountId
+	if o.AccountId != nil {
+		toSerialize["account_id"] = o.AccountId
 	}
 	return json.Marshal(toSerialize)
 }
