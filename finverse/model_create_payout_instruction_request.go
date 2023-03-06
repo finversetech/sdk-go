@@ -20,9 +20,9 @@ type CreatePayoutInstructionRequest struct {
 	// Amount to be paid, in currency's smallest unit or “minor unit”, as defined in ISO 4217. For example, HKD 100.01 is represented as amount = 10001 (minor unit = cents). For currencies without minor units (e.g. VND, JPY), the amount is represented as is, without modification. For example, VND 15101 is represented as amount = 15101.
 	Amount int32 `json:"amount"`
 	// The currency code as defined in ISO 4217.
-	Currency       string                  `json:"currency"`
-	PaymentDetails PayoutDetails           `json:"payment_details"`
-	Recipient      MandateRecipientRequest `json:"recipient"`
+	Currency         string                  `json:"currency"`
+	PaymentDetails   PayoutDetails           `json:"payment_details"`
+	RecipientAccount MandateRecipientRequest `json:"recipient_account"`
 	// Additional attributes of the payout instruction in key:value format (e.g. payout_instruction_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
 	Metadata *map[string]string `json:"metadata,omitempty"`
 }
@@ -31,12 +31,12 @@ type CreatePayoutInstructionRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePayoutInstructionRequest(amount int32, currency string, paymentDetails PayoutDetails, recipient MandateRecipientRequest) *CreatePayoutInstructionRequest {
+func NewCreatePayoutInstructionRequest(amount int32, currency string, paymentDetails PayoutDetails, recipientAccount MandateRecipientRequest) *CreatePayoutInstructionRequest {
 	this := CreatePayoutInstructionRequest{}
 	this.Amount = amount
 	this.Currency = currency
 	this.PaymentDetails = paymentDetails
-	this.Recipient = recipient
+	this.RecipientAccount = recipientAccount
 	return &this
 }
 
@@ -120,28 +120,28 @@ func (o *CreatePayoutInstructionRequest) SetPaymentDetails(v PayoutDetails) {
 	o.PaymentDetails = v
 }
 
-// GetRecipient returns the Recipient field value
-func (o *CreatePayoutInstructionRequest) GetRecipient() MandateRecipientRequest {
+// GetRecipientAccount returns the RecipientAccount field value
+func (o *CreatePayoutInstructionRequest) GetRecipientAccount() MandateRecipientRequest {
 	if o == nil {
 		var ret MandateRecipientRequest
 		return ret
 	}
 
-	return o.Recipient
+	return o.RecipientAccount
 }
 
-// GetRecipientOk returns a tuple with the Recipient field value
+// GetRecipientAccountOk returns a tuple with the RecipientAccount field value
 // and a boolean to check if the value has been set.
-func (o *CreatePayoutInstructionRequest) GetRecipientOk() (*MandateRecipientRequest, bool) {
+func (o *CreatePayoutInstructionRequest) GetRecipientAccountOk() (*MandateRecipientRequest, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Recipient, true
+	return &o.RecipientAccount, true
 }
 
-// SetRecipient sets field value
-func (o *CreatePayoutInstructionRequest) SetRecipient(v MandateRecipientRequest) {
-	o.Recipient = v
+// SetRecipientAccount sets field value
+func (o *CreatePayoutInstructionRequest) SetRecipientAccount(v MandateRecipientRequest) {
+	o.RecipientAccount = v
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
@@ -188,7 +188,7 @@ func (o CreatePayoutInstructionRequest) MarshalJSON() ([]byte, error) {
 		toSerialize["payment_details"] = o.PaymentDetails
 	}
 	if true {
-		toSerialize["recipient"] = o.Recipient
+		toSerialize["recipient_account"] = o.RecipientAccount
 	}
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata

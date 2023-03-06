@@ -6027,7 +6027,7 @@ components:
           mandate_id: mandate_id
           description: description
           scheduled_date: 2000-01-23
-        recipient:
+        recipient_account:
           account_id: account_id
         currency: HKD
       properties:
@@ -6045,7 +6045,7 @@ components:
           type: string
         payment_details:
           $ref: '#/components/schemas/PayoutDetails'
-        recipient:
+        recipient_account:
           $ref: '#/components/schemas/MandateRecipientRequest'
         metadata:
           additionalProperties:
@@ -6059,7 +6059,7 @@ components:
       - amount
       - currency
       - payment_details
-      - recipient
+      - recipient_account
       type: object
     PayoutInstructionResponse:
       example:
@@ -6466,10 +6466,10 @@ components:
           description: description
           currency: currency
           start_date: 2000-01-23
-        recipient:
+        recipient_account:
           account_id: account_id
       properties:
-        recipient:
+        recipient_account:
           $ref: '#/components/schemas/MandateRecipientRequest'
         sender:
           $ref: '#/components/schemas/CreateMandateSender'
@@ -6484,7 +6484,7 @@ components:
           type: object
       required:
       - mandate_details
-      - recipient
+      - recipient_account
       - sender
       type: object
     CreateMandateResponse:

@@ -17,9 +17,9 @@ import (
 
 // CreateMandateRequest struct for CreateMandateRequest
 type CreateMandateRequest struct {
-	Recipient      MandateRecipientRequest `json:"recipient"`
-	Sender         CreateMandateSender     `json:"sender"`
-	MandateDetails MandateDetails          `json:"mandate_details"`
+	RecipientAccount MandateRecipientRequest `json:"recipient_account"`
+	Sender           CreateMandateSender     `json:"sender"`
+	MandateDetails   MandateDetails          `json:"mandate_details"`
 	// Additional attributes of the mandate in key:value format (e.g. mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
 	Metadata *map[string]string `json:"metadata,omitempty"`
 }
@@ -28,9 +28,9 @@ type CreateMandateRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateMandateRequest(recipient MandateRecipientRequest, sender CreateMandateSender, mandateDetails MandateDetails) *CreateMandateRequest {
+func NewCreateMandateRequest(recipientAccount MandateRecipientRequest, sender CreateMandateSender, mandateDetails MandateDetails) *CreateMandateRequest {
 	this := CreateMandateRequest{}
-	this.Recipient = recipient
+	this.RecipientAccount = recipientAccount
 	this.Sender = sender
 	this.MandateDetails = mandateDetails
 	return &this
@@ -44,28 +44,28 @@ func NewCreateMandateRequestWithDefaults() *CreateMandateRequest {
 	return &this
 }
 
-// GetRecipient returns the Recipient field value
-func (o *CreateMandateRequest) GetRecipient() MandateRecipientRequest {
+// GetRecipientAccount returns the RecipientAccount field value
+func (o *CreateMandateRequest) GetRecipientAccount() MandateRecipientRequest {
 	if o == nil {
 		var ret MandateRecipientRequest
 		return ret
 	}
 
-	return o.Recipient
+	return o.RecipientAccount
 }
 
-// GetRecipientOk returns a tuple with the Recipient field value
+// GetRecipientAccountOk returns a tuple with the RecipientAccount field value
 // and a boolean to check if the value has been set.
-func (o *CreateMandateRequest) GetRecipientOk() (*MandateRecipientRequest, bool) {
+func (o *CreateMandateRequest) GetRecipientAccountOk() (*MandateRecipientRequest, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.Recipient, true
+	return &o.RecipientAccount, true
 }
 
-// SetRecipient sets field value
-func (o *CreateMandateRequest) SetRecipient(v MandateRecipientRequest) {
-	o.Recipient = v
+// SetRecipientAccount sets field value
+func (o *CreateMandateRequest) SetRecipientAccount(v MandateRecipientRequest) {
+	o.RecipientAccount = v
 }
 
 // GetSender returns the Sender field value
@@ -151,7 +151,7 @@ func (o *CreateMandateRequest) SetMetadata(v map[string]string) {
 func (o CreateMandateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["recipient"] = o.Recipient
+		toSerialize["recipient_account"] = o.RecipientAccount
 	}
 	if true {
 		toSerialize["sender"] = o.Sender
