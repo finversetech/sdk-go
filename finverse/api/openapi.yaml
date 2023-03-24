@@ -1555,6 +1555,56 @@ paths:
       tags:
       - customer
       x-codegen-request-body-name: getMandateAuthLinkRequest
+  /mandates/payment_user/sender:
+    get:
+      description: Get sender payment user for mandate
+      operationId: getSenderPaymentUser
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPaymentUserResponse'
+          description: Successful
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - mandates:payment_user:get
+  /mandates/payment_user/autopay:
+    post:
+      description: Set autopay consent for payment user
+      operationId: setAutopayConsent
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetAutopayConsentRequest'
+        required: true
+      responses:
+        "200":
+          content: {}
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - mandates:payment_user:set
+      x-codegen-request-body-name: setAutopayConsentRequest
   /payments:
     get:
       description: List Payments
@@ -7672,6 +7722,32 @@ components:
             (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas
             the key and value supports up to 50 and 500 characters respectively.'
           type: object
+      type: object
+    GetPaymentUserResponse:
+      example:
+        customer_app_id: customer_app_id
+        autopay_consent: true
+        payment_user_id: payment_user_id
+      properties:
+        payment_user_id:
+          type: string
+        customer_app_id:
+          type: string
+        autopay_consent:
+          type: boolean
+      required:
+      - autopay_consent
+      - customer_app_id
+      - payment_user_id
+      type: object
+    SetAutopayConsentRequest:
+      example:
+        autopay_consent: true
+      properties:
+        autopay_consent:
+          type: boolean
+      required:
+      - autopay_consent
       type: object
     BadRequestModel_error:
       properties:

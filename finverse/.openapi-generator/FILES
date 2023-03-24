@@ -56,6 +56,7 @@ model_get_mandate_auth_response.go
 model_get_mandate_response.go
 model_get_mandate_sender.go
 model_get_payment_instructions_response.go
+model_get_payment_user_response.go
 model_get_statement_link_response.go
 model_get_statements_response.go
 model_identity.go
@@ -123,6 +124,7 @@ model_refresh_data.go
 model_refresh_request.go
 model_relink_request.go
 model_sender_detail.go
+model_set_autopay_consent_request.go
 model_set_mandate_institution_request.go
 model_set_mandate_institution_response.go
 model_single_source_income.go

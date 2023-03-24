@@ -55,6 +55,20 @@ type DefaultApi interface {
 	CreatePaymentLinkMandateExecute(r DefaultApiApiCreatePaymentLinkMandateRequest) (*CreatePaymentLinkMandateResponse, *http.Response, error)
 
 	/*
+		GetSenderPaymentUser Method for GetSenderPaymentUser
+
+		Get sender payment user for mandate
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return DefaultApiApiGetSenderPaymentUserRequest
+	*/
+	GetSenderPaymentUser(ctx context.Context) DefaultApiApiGetSenderPaymentUserRequest
+
+	// GetSenderPaymentUserExecute executes the request
+	//  @return GetPaymentUserResponse
+	GetSenderPaymentUserExecute(r DefaultApiApiGetSenderPaymentUserRequest) (*GetPaymentUserResponse, *http.Response, error)
+
+	/*
 		ListMandates Method for ListMandates
 
 		List mandates
@@ -81,6 +95,19 @@ type DefaultApi interface {
 	// ListPaymentsExecute executes the request
 	//  @return ListPaymentsResponse
 	ListPaymentsExecute(r DefaultApiApiListPaymentsRequest) (*ListPaymentsResponse, *http.Response, error)
+
+	/*
+		SetAutopayConsent Method for SetAutopayConsent
+
+		Set autopay consent for payment user
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return DefaultApiApiSetAutopayConsentRequest
+	*/
+	SetAutopayConsent(ctx context.Context) DefaultApiApiSetAutopayConsentRequest
+
+	// SetAutopayConsentExecute executes the request
+	SetAutopayConsentExecute(r DefaultApiApiSetAutopayConsentRequest) (*http.Response, error)
 }
 
 // DefaultApiService DefaultApi service
@@ -319,6 +346,114 @@ func (a *DefaultApiService) CreatePaymentLinkMandateExecute(r DefaultApiApiCreat
 			}
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type DefaultApiApiGetSenderPaymentUserRequest struct {
+	ctx        context.Context
+	ApiService DefaultApi
+}
+
+func (r DefaultApiApiGetSenderPaymentUserRequest) Execute() (*GetPaymentUserResponse, *http.Response, error) {
+	return r.ApiService.GetSenderPaymentUserExecute(r)
+}
+
+/*
+GetSenderPaymentUser Method for GetSenderPaymentUser
+
+Get sender payment user for mandate
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return DefaultApiApiGetSenderPaymentUserRequest
+*/
+func (a *DefaultApiService) GetSenderPaymentUser(ctx context.Context) DefaultApiApiGetSenderPaymentUserRequest {
+	return DefaultApiApiGetSenderPaymentUserRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return GetPaymentUserResponse
+func (a *DefaultApiService) GetSenderPaymentUserExecute(r DefaultApiApiGetSenderPaymentUserRequest) (*GetPaymentUserResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetPaymentUserResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetSenderPaymentUser")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/mandates/payment_user/sender"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ErrBodyModelV2
@@ -788,4 +923,122 @@ func (a *DefaultApiService) ListPaymentsExecute(r DefaultApiApiListPaymentsReque
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type DefaultApiApiSetAutopayConsentRequest struct {
+	ctx                      context.Context
+	ApiService               DefaultApi
+	setAutopayConsentRequest *SetAutopayConsentRequest
+}
+
+func (r DefaultApiApiSetAutopayConsentRequest) SetAutopayConsentRequest(setAutopayConsentRequest SetAutopayConsentRequest) DefaultApiApiSetAutopayConsentRequest {
+	r.setAutopayConsentRequest = &setAutopayConsentRequest
+	return r
+}
+
+func (r DefaultApiApiSetAutopayConsentRequest) Execute() (*http.Response, error) {
+	return r.ApiService.SetAutopayConsentExecute(r)
+}
+
+/*
+SetAutopayConsent Method for SetAutopayConsent
+
+Set autopay consent for payment user
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return DefaultApiApiSetAutopayConsentRequest
+*/
+func (a *DefaultApiService) SetAutopayConsent(ctx context.Context) DefaultApiApiSetAutopayConsentRequest {
+	return DefaultApiApiSetAutopayConsentRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *DefaultApiService) SetAutopayConsentExecute(r DefaultApiApiSetAutopayConsentRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.SetAutopayConsent")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/mandates/payment_user/autopay"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.setAutopayConsentRequest == nil {
+		return nil, reportError("setAutopayConsentRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.setAutopayConsentRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
