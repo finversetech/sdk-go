@@ -5862,6 +5862,15 @@ components:
     PaymentResponse:
       example:
         amount: 100
+        fees:
+        - paid_by_account_id: The payment account ID
+          amount: 69.0
+          currency: HKD
+          paid_by: RECIPIENT
+        - paid_by_account_id: The payment account ID
+          amount: 69.0
+          currency: HKD
+          paid_by: RECIPIENT
         metadata:
           key: metadata
         payment_details:
@@ -5952,6 +5961,10 @@ components:
           $ref: '#/components/schemas/MandateRecipientAccount'
         sender:
           $ref: '#/components/schemas/GetMandateSender'
+        fees:
+          items:
+            $ref: '#/components/schemas/Fee'
+          type: array
         created_at:
           description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time
@@ -5970,6 +5983,15 @@ components:
       example:
         payments:
         - amount: 100
+          fees:
+          - paid_by_account_id: The payment account ID
+            amount: 69.0
+            currency: HKD
+            paid_by: RECIPIENT
+          - paid_by_account_id: The payment account ID
+            amount: 69.0
+            currency: HKD
+            paid_by: RECIPIENT
           metadata:
             key: metadata
           payment_details:
@@ -6014,6 +6036,15 @@ components:
           currency: HKD
           status: AUTHORIZATION_REQUIRED
         - amount: 100
+          fees:
+          - paid_by_account_id: The payment account ID
+            amount: 69.0
+            currency: HKD
+            paid_by: RECIPIENT
+          - paid_by_account_id: The payment account ID
+            amount: 69.0
+            currency: HKD
+            paid_by: RECIPIENT
           metadata:
             key: metadata
           payment_details:
@@ -6539,6 +6570,15 @@ components:
       type: object
     CreateMandateResponse:
       example:
+        fees:
+        - paid_by_account_id: The payment account ID
+          amount: 69.0
+          currency: HKD
+          paid_by: RECIPIENT
+        - paid_by_account_id: The payment account ID
+          amount: 69.0
+          currency: HKD
+          paid_by: RECIPIENT
         metadata:
           key: metadata
         updated_at: 2000-01-23T04:56:07.000+00:00
@@ -6628,6 +6668,10 @@ components:
           $ref: '#/components/schemas/MandateSenderAccount'
         mandate_details:
           $ref: '#/components/schemas/MandateDetails'
+        fees:
+          items:
+            $ref: '#/components/schemas/Fee'
+          type: array
         metadata:
           additionalProperties:
             type: string
@@ -6644,6 +6688,30 @@ components:
       - sender
       - status
       - updated_at
+      type: object
+    Fee:
+      example:
+        paid_by_account_id: The payment account ID
+        amount: 69.0
+        currency: HKD
+        paid_by: RECIPIENT
+      properties:
+        amount:
+          example: 69.0
+          type: number
+        currency:
+          example: HKD
+          type: string
+        paid_by:
+          enum:
+          - RECIPIENT
+          - SENDER
+          example: RECIPIENT
+          type: string
+        paid_by_account_id:
+          description: The payment account Id
+          example: The payment account ID
+          type: string
       type: object
     SetMandateInstitutionRequest:
       example:
@@ -6667,6 +6735,15 @@ components:
       type: object
     GetMandateResponse:
       example:
+        fees:
+        - paid_by_account_id: The payment account ID
+          amount: 69.0
+          currency: HKD
+          paid_by: RECIPIENT
+        - paid_by_account_id: The payment account ID
+          amount: 69.0
+          currency: HKD
+          paid_by: RECIPIENT
         metadata:
           key: metadata
         updated_at: 2000-01-23T04:56:07.000+00:00
@@ -6756,6 +6833,10 @@ components:
           $ref: '#/components/schemas/MandateSenderAccount'
         mandate_details:
           $ref: '#/components/schemas/MandateDetails'
+        fees:
+          items:
+            $ref: '#/components/schemas/Fee'
+          type: array
         error:
           $ref: '#/components/schemas/FvErrorModelV2'
         metadata:
@@ -6777,7 +6858,16 @@ components:
       example:
         total_mandates: 5
         mandates:
-        - metadata:
+        - fees:
+          - paid_by_account_id: The payment account ID
+            amount: 69.0
+            currency: HKD
+            paid_by: RECIPIENT
+          - paid_by_account_id: The payment account ID
+            amount: 69.0
+            currency: HKD
+            paid_by: RECIPIENT
+          metadata:
             key: metadata
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
@@ -6837,7 +6927,16 @@ components:
             message: message
             request_id: request_id
           status: AUTHORIZATION_REQUIRED
-        - metadata:
+        - fees:
+          - paid_by_account_id: The payment account ID
+            amount: 69.0
+            currency: HKD
+            paid_by: RECIPIENT
+          - paid_by_account_id: The payment account ID
+            amount: 69.0
+            currency: HKD
+            paid_by: RECIPIENT
+          metadata:
             key: metadata
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:

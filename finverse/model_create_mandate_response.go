@@ -29,6 +29,7 @@ type CreateMandateResponse struct {
 	Sender           GetMandateSender         `json:"sender"`
 	SenderAccount    *MandateSenderAccount    `json:"sender_account,omitempty"`
 	MandateDetails   MandateDetails           `json:"mandate_details"`
+	Fees             []Fee                    `json:"fees,omitempty"`
 	// Additional attributes of the mandate in key:value format (e.g. mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
 	Metadata *map[string]string `json:"metadata,omitempty"`
 	Error    *FvErrorModelV2    `json:"error,omitempty"`
@@ -265,6 +266,38 @@ func (o *CreateMandateResponse) SetMandateDetails(v MandateDetails) {
 	o.MandateDetails = v
 }
 
+// GetFees returns the Fees field value if set, zero value otherwise.
+func (o *CreateMandateResponse) GetFees() []Fee {
+	if o == nil || o.Fees == nil {
+		var ret []Fee
+		return ret
+	}
+	return o.Fees
+}
+
+// GetFeesOk returns a tuple with the Fees field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateMandateResponse) GetFeesOk() ([]Fee, bool) {
+	if o == nil || o.Fees == nil {
+		return nil, false
+	}
+	return o.Fees, true
+}
+
+// HasFees returns a boolean if a field has been set.
+func (o *CreateMandateResponse) HasFees() bool {
+	if o != nil && o.Fees != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFees gets a reference to the given []Fee and assigns it to the Fees field.
+func (o *CreateMandateResponse) SetFees(v []Fee) {
+	o.Fees = v
+}
+
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *CreateMandateResponse) GetMetadata() map[string]string {
 	if o == nil || o.Metadata == nil {
@@ -354,6 +387,9 @@ func (o CreateMandateResponse) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["mandate_details"] = o.MandateDetails
+	}
+	if o.Fees != nil {
+		toSerialize["fees"] = o.Fees
 	}
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata

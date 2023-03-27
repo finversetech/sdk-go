@@ -34,6 +34,7 @@ type PaymentResponse struct {
 	Recipient        *MandateRecipient        `json:"recipient,omitempty"`
 	RecipientAccount *MandateRecipientAccount `json:"recipient_account,omitempty"`
 	Sender           *GetMandateSender        `json:"sender,omitempty"`
+	Fees             []Fee                    `json:"fees,omitempty"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Additional attributes of the payment in key:value format (e.g. payment_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
@@ -378,6 +379,38 @@ func (o *PaymentResponse) SetSender(v GetMandateSender) {
 	o.Sender = &v
 }
 
+// GetFees returns the Fees field value if set, zero value otherwise.
+func (o *PaymentResponse) GetFees() []Fee {
+	if o == nil || o.Fees == nil {
+		var ret []Fee
+		return ret
+	}
+	return o.Fees
+}
+
+// GetFeesOk returns a tuple with the Fees field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentResponse) GetFeesOk() ([]Fee, bool) {
+	if o == nil || o.Fees == nil {
+		return nil, false
+	}
+	return o.Fees, true
+}
+
+// HasFees returns a boolean if a field has been set.
+func (o *PaymentResponse) HasFees() bool {
+	if o != nil && o.Fees != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFees gets a reference to the given []Fee and assigns it to the Fees field.
+func (o *PaymentResponse) SetFees(v []Fee) {
+	o.Fees = v
+}
+
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *PaymentResponse) GetCreatedAt() time.Time {
 	if o == nil || o.CreatedAt == nil {
@@ -505,6 +538,9 @@ func (o PaymentResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Sender != nil {
 		toSerialize["sender"] = o.Sender
+	}
+	if o.Fees != nil {
+		toSerialize["fees"] = o.Fees
 	}
 	if o.CreatedAt != nil {
 		toSerialize["created_at"] = o.CreatedAt
