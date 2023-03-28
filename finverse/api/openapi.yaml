@@ -5864,11 +5864,11 @@ components:
         amount: 100
         fees:
         - paid_by_account_id: The payment account ID
-          amount: 69.0
+          amount: 100
           currency: HKD
           paid_by: RECIPIENT
         - paid_by_account_id: The payment account ID
-          amount: 69.0
+          amount: 100
           currency: HKD
           paid_by: RECIPIENT
         metadata:
@@ -5985,11 +5985,11 @@ components:
         - amount: 100
           fees:
           - paid_by_account_id: The payment account ID
-            amount: 69.0
+            amount: 100
             currency: HKD
             paid_by: RECIPIENT
           - paid_by_account_id: The payment account ID
-            amount: 69.0
+            amount: 100
             currency: HKD
             paid_by: RECIPIENT
           metadata:
@@ -6038,11 +6038,11 @@ components:
         - amount: 100
           fees:
           - paid_by_account_id: The payment account ID
-            amount: 69.0
+            amount: 100
             currency: HKD
             paid_by: RECIPIENT
           - paid_by_account_id: The payment account ID
-            amount: 69.0
+            amount: 100
             currency: HKD
             paid_by: RECIPIENT
           metadata:
@@ -6572,11 +6572,11 @@ components:
       example:
         fees:
         - paid_by_account_id: The payment account ID
-          amount: 69.0
+          amount: 100
           currency: HKD
           paid_by: RECIPIENT
         - paid_by_account_id: The payment account ID
-          amount: 69.0
+          amount: 100
           currency: HKD
           paid_by: RECIPIENT
         metadata:
@@ -6692,13 +6692,15 @@ components:
     Fee:
       example:
         paid_by_account_id: The payment account ID
-        amount: 69.0
+        amount: 100
         currency: HKD
         paid_by: RECIPIENT
       properties:
         amount:
-          example: 69.0
-          type: number
+          description: The amount of fee for a single transaction. Expressed in currency's
+            smallest unit or “minor unit”, as defined in ISO 4217.
+          example: 100
+          type: integer
         currency:
           example: HKD
           type: string
@@ -6737,11 +6739,11 @@ components:
       example:
         fees:
         - paid_by_account_id: The payment account ID
-          amount: 69.0
+          amount: 100
           currency: HKD
           paid_by: RECIPIENT
         - paid_by_account_id: The payment account ID
-          amount: 69.0
+          amount: 100
           currency: HKD
           paid_by: RECIPIENT
         metadata:
@@ -6860,11 +6862,11 @@ components:
         mandates:
         - fees:
           - paid_by_account_id: The payment account ID
-            amount: 69.0
+            amount: 100
             currency: HKD
             paid_by: RECIPIENT
           - paid_by_account_id: The payment account ID
-            amount: 69.0
+            amount: 100
             currency: HKD
             paid_by: RECIPIENT
           metadata:
@@ -6929,11 +6931,11 @@ components:
           status: AUTHORIZATION_REQUIRED
         - fees:
           - paid_by_account_id: The payment account ID
-            amount: 69.0
+            amount: 100
             currency: HKD
             paid_by: RECIPIENT
           - paid_by_account_id: The payment account ID
-            amount: 69.0
+            amount: 100
             currency: HKD
             paid_by: RECIPIENT
           metadata:

@@ -17,9 +17,10 @@ import (
 
 // Fee struct for Fee
 type Fee struct {
-	Amount   *float32 `json:"amount,omitempty"`
-	Currency *string  `json:"currency,omitempty"`
-	PaidBy   *string  `json:"paid_by,omitempty"`
+	// The amount of fee for a single transaction. Expressed in currency's smallest unit or “minor unit”, as defined in ISO 4217.
+	Amount   *int32  `json:"amount,omitempty"`
+	Currency *string `json:"currency,omitempty"`
+	PaidBy   *string `json:"paid_by,omitempty"`
 	// The payment account Id
 	PaidByAccountId *string `json:"paid_by_account_id,omitempty"`
 }
@@ -42,9 +43,9 @@ func NewFeeWithDefaults() *Fee {
 }
 
 // GetAmount returns the Amount field value if set, zero value otherwise.
-func (o *Fee) GetAmount() float32 {
+func (o *Fee) GetAmount() int32 {
 	if o == nil || o.Amount == nil {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Amount
@@ -52,7 +53,7 @@ func (o *Fee) GetAmount() float32 {
 
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Fee) GetAmountOk() (*float32, bool) {
+func (o *Fee) GetAmountOk() (*int32, bool) {
 	if o == nil || o.Amount == nil {
 		return nil, false
 	}
@@ -68,8 +69,8 @@ func (o *Fee) HasAmount() bool {
 	return false
 }
 
-// SetAmount gets a reference to the given float32 and assigns it to the Amount field.
-func (o *Fee) SetAmount(v float32) {
+// SetAmount gets a reference to the given int32 and assigns it to the Amount field.
+func (o *Fee) SetAmount(v int32) {
 	o.Amount = &v
 }
 
