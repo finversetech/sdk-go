@@ -6714,6 +6714,8 @@ components:
           description: The payment account Id
           example: The payment account ID
           type: string
+      required:
+      - amount
       type: object
     SetMandateInstitutionRequest:
       example:
