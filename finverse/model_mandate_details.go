@@ -27,6 +27,8 @@ type MandateDetails struct {
 	TransactionLimits *TransactionLimits `json:"transaction_limits,omitempty"`
 	// End-user facing description of the mandate (used in notifications, and in payments if no description is provided)
 	Description *string `json:"description,omitempty"`
+	// A bank specific reference, what the end user may see
+	MandateBankReference *string `json:"mandate_bank_reference,omitempty"`
 }
 
 // NewMandateDetails instantiates a new MandateDetails object
@@ -253,6 +255,38 @@ func (o *MandateDetails) SetDescription(v string) {
 	o.Description = &v
 }
 
+// GetMandateBankReference returns the MandateBankReference field value if set, zero value otherwise.
+func (o *MandateDetails) GetMandateBankReference() string {
+	if o == nil || o.MandateBankReference == nil {
+		var ret string
+		return ret
+	}
+	return *o.MandateBankReference
+}
+
+// GetMandateBankReferenceOk returns a tuple with the MandateBankReference field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MandateDetails) GetMandateBankReferenceOk() (*string, bool) {
+	if o == nil || o.MandateBankReference == nil {
+		return nil, false
+	}
+	return o.MandateBankReference, true
+}
+
+// HasMandateBankReference returns a boolean if a field has been set.
+func (o *MandateDetails) HasMandateBankReference() bool {
+	if o != nil && o.MandateBankReference != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMandateBankReference gets a reference to the given string and assigns it to the MandateBankReference field.
+func (o *MandateDetails) SetMandateBankReference(v string) {
+	o.MandateBankReference = &v
+}
+
 func (o MandateDetails) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -272,6 +306,9 @@ func (o MandateDetails) MarshalJSON() ([]byte, error) {
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
+	}
+	if o.MandateBankReference != nil {
+		toSerialize["mandate_bank_reference"] = o.MandateBankReference
 	}
 	return json.Marshal(toSerialize)
 }

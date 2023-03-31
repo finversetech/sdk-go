@@ -6544,6 +6544,7 @@ components:
             max_period_amount: 0
             max_period_count: 6
             max_transaction_amount: 1
+          mandate_bank_reference: mandate_bank_reference
           description: description
           currency: currency
           start_date: 2000-01-23
@@ -6612,6 +6613,7 @@ components:
             max_period_amount: 0
             max_period_count: 6
             max_transaction_amount: 1
+          mandate_bank_reference: mandate_bank_reference
           description: description
           currency: currency
           start_date: 2000-01-23
@@ -6781,6 +6783,7 @@ components:
             max_period_amount: 0
             max_period_count: 6
             max_transaction_amount: 1
+          mandate_bank_reference: mandate_bank_reference
           description: description
           currency: currency
           start_date: 2000-01-23
@@ -6904,6 +6907,7 @@ components:
               max_period_amount: 0
               max_period_count: 6
               max_transaction_amount: 1
+            mandate_bank_reference: mandate_bank_reference
             description: description
             currency: currency
             start_date: 2000-01-23
@@ -6973,6 +6977,7 @@ components:
               max_period_amount: 0
               max_period_count: 6
               max_transaction_amount: 1
+            mandate_bank_reference: mandate_bank_reference
             description: description
             currency: currency
             start_date: 2000-01-23
@@ -7170,6 +7175,7 @@ components:
           max_period_amount: 0
           max_period_count: 6
           max_transaction_amount: 1
+        mandate_bank_reference: mandate_bank_reference
         description: description
         currency: currency
         start_date: 2000-01-23
@@ -7195,6 +7201,9 @@ components:
         description:
           description: End-user facing description of the mandate (used in notifications,
             and in payments if no description is provided)
+          type: string
+        mandate_bank_reference:
+          description: A bank specific reference, what the end user may see
           type: string
       required:
       - currency
@@ -7427,6 +7436,7 @@ components:
             max_period_amount: 0
             max_period_count: 6
             max_transaction_amount: 1
+          mandate_bank_reference: mandate_bank_reference
           description: description
           currency: currency
           start_date: 2000-01-23
