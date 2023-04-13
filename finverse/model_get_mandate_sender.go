@@ -18,10 +18,10 @@ import (
 // GetMandateSender struct for GetMandateSender
 type GetMandateSender struct {
 	// A unique identifier generated after creating sender
-	SenderId string  `json:"sender_id"`
-	Name     *string `json:"name,omitempty"`
+	UserId string  `json:"user_id"`
+	Name   *string `json:"name,omitempty"`
 	// Customer App's user ID, representing the end-user making the payment.
-	UserId string `json:"user_id"`
+	ExternalUserId string `json:"external_user_id"`
 	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
 	UserType string `json:"user_type"`
 	// Sender details which will be used for fraud checking.
@@ -32,10 +32,10 @@ type GetMandateSender struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetMandateSender(senderId string, userId string, userType string) *GetMandateSender {
+func NewGetMandateSender(userId string, externalUserId string, userType string) *GetMandateSender {
 	this := GetMandateSender{}
-	this.SenderId = senderId
 	this.UserId = userId
+	this.ExternalUserId = externalUserId
 	this.UserType = userType
 	return &this
 }
@@ -48,28 +48,28 @@ func NewGetMandateSenderWithDefaults() *GetMandateSender {
 	return &this
 }
 
-// GetSenderId returns the SenderId field value
-func (o *GetMandateSender) GetSenderId() string {
+// GetUserId returns the UserId field value
+func (o *GetMandateSender) GetUserId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.SenderId
+	return o.UserId
 }
 
-// GetSenderIdOk returns a tuple with the SenderId field value
+// GetUserIdOk returns a tuple with the UserId field value
 // and a boolean to check if the value has been set.
-func (o *GetMandateSender) GetSenderIdOk() (*string, bool) {
+func (o *GetMandateSender) GetUserIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.SenderId, true
+	return &o.UserId, true
 }
 
-// SetSenderId sets field value
-func (o *GetMandateSender) SetSenderId(v string) {
-	o.SenderId = v
+// SetUserId sets field value
+func (o *GetMandateSender) SetUserId(v string) {
+	o.UserId = v
 }
 
 // GetName returns the Name field value if set, zero value otherwise.
@@ -104,28 +104,28 @@ func (o *GetMandateSender) SetName(v string) {
 	o.Name = &v
 }
 
-// GetUserId returns the UserId field value
-func (o *GetMandateSender) GetUserId() string {
+// GetExternalUserId returns the ExternalUserId field value
+func (o *GetMandateSender) GetExternalUserId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.UserId
+	return o.ExternalUserId
 }
 
-// GetUserIdOk returns a tuple with the UserId field value
+// GetExternalUserIdOk returns a tuple with the ExternalUserId field value
 // and a boolean to check if the value has been set.
-func (o *GetMandateSender) GetUserIdOk() (*string, bool) {
+func (o *GetMandateSender) GetExternalUserIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.UserId, true
+	return &o.ExternalUserId, true
 }
 
-// SetUserId sets field value
-func (o *GetMandateSender) SetUserId(v string) {
-	o.UserId = v
+// SetExternalUserId sets field value
+func (o *GetMandateSender) SetExternalUserId(v string) {
+	o.ExternalUserId = v
 }
 
 // GetUserType returns the UserType field value
@@ -187,13 +187,13 @@ func (o *GetMandateSender) SetUserDetails(v []SenderDetail) {
 func (o GetMandateSender) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["sender_id"] = o.SenderId
+		toSerialize["user_id"] = o.UserId
 	}
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
 	if true {
-		toSerialize["user_id"] = o.UserId
+		toSerialize["external_user_id"] = o.ExternalUserId
 	}
 	if true {
 		toSerialize["user_type"] = o.UserType

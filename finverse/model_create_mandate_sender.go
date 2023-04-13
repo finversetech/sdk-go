@@ -19,7 +19,7 @@ import (
 type CreateMandateSender struct {
 	Name *string `json:"name,omitempty"`
 	// Customer App's user ID, representing the end-user making the payment.
-	UserId *string `json:"user_id,omitempty"`
+	ExternalUserId *string `json:"external_user_id,omitempty"`
 	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
 	UserType *string `json:"user_type,omitempty"`
 	// Sender details which will be used for fraud checking.
@@ -75,36 +75,36 @@ func (o *CreateMandateSender) SetName(v string) {
 	o.Name = &v
 }
 
-// GetUserId returns the UserId field value if set, zero value otherwise.
-func (o *CreateMandateSender) GetUserId() string {
-	if o == nil || o.UserId == nil {
+// GetExternalUserId returns the ExternalUserId field value if set, zero value otherwise.
+func (o *CreateMandateSender) GetExternalUserId() string {
+	if o == nil || o.ExternalUserId == nil {
 		var ret string
 		return ret
 	}
-	return *o.UserId
+	return *o.ExternalUserId
 }
 
-// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
+// GetExternalUserIdOk returns a tuple with the ExternalUserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateMandateSender) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+func (o *CreateMandateSender) GetExternalUserIdOk() (*string, bool) {
+	if o == nil || o.ExternalUserId == nil {
 		return nil, false
 	}
-	return o.UserId, true
+	return o.ExternalUserId, true
 }
 
-// HasUserId returns a boolean if a field has been set.
-func (o *CreateMandateSender) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+// HasExternalUserId returns a boolean if a field has been set.
+func (o *CreateMandateSender) HasExternalUserId() bool {
+	if o != nil && o.ExternalUserId != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetUserId gets a reference to the given string and assigns it to the UserId field.
-func (o *CreateMandateSender) SetUserId(v string) {
-	o.UserId = &v
+// SetExternalUserId gets a reference to the given string and assigns it to the ExternalUserId field.
+func (o *CreateMandateSender) SetExternalUserId(v string) {
+	o.ExternalUserId = &v
 }
 
 // GetUserType returns the UserType field value if set, zero value otherwise.
@@ -176,8 +176,8 @@ func (o CreateMandateSender) MarshalJSON() ([]byte, error) {
 	if o.Name != nil {
 		toSerialize["name"] = o.Name
 	}
-	if o.UserId != nil {
-		toSerialize["user_id"] = o.UserId
+	if o.ExternalUserId != nil {
+		toSerialize["external_user_id"] = o.ExternalUserId
 	}
 	if o.UserType != nil {
 		toSerialize["user_type"] = o.UserType

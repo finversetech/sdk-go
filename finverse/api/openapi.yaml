@@ -5908,7 +5908,7 @@ components:
             - values
             details_type: HK_ID
           name: name
-          sender_id: sender_id
+          external_user_id: external_user_id
         payment_id: payment_id
         recipient:
           name: name
@@ -6029,7 +6029,7 @@ components:
               - values
               details_type: HK_ID
             name: name
-            sender_id: sender_id
+            external_user_id: external_user_id
           payment_id: payment_id
           recipient:
             name: name
@@ -6082,7 +6082,7 @@ components:
               - values
               details_type: HK_ID
             name: name
-            sender_id: sender_id
+            external_user_id: external_user_id
           payment_id: payment_id
           recipient:
             name: name
@@ -6496,7 +6496,6 @@ components:
           key: metadata
         sender:
           user_type: INDIVIDUAL
-          user_id: user_id
           user_details:
           - values:
             - values
@@ -6534,6 +6533,7 @@ components:
             - values
             details_type: HK_ID
           name: name
+          external_user_id: external_user_id
         mandate_details:
           end_date: 2000-01-23
           payment_schedule:
@@ -6602,7 +6602,7 @@ components:
             - values
             details_type: HK_ID
           name: name
-          sender_id: sender_id
+          external_user_id: external_user_id
         mandate_details:
           end_date: 2000-01-23
           payment_schedule:
@@ -6772,7 +6772,7 @@ components:
             - values
             details_type: HK_ID
           name: name
-          sender_id: sender_id
+          external_user_id: external_user_id
         mandate_details:
           end_date: 2000-01-23
           payment_schedule:
@@ -6896,7 +6896,7 @@ components:
               - values
               details_type: HK_ID
             name: name
-            sender_id: sender_id
+            external_user_id: external_user_id
           mandate_details:
             end_date: 2000-01-23
             payment_schedule:
@@ -6966,7 +6966,7 @@ components:
               - values
               details_type: HK_ID
             name: name
-            sender_id: sender_id
+            external_user_id: external_user_id
           mandate_details:
             end_date: 2000-01-23
             payment_schedule:
@@ -7057,7 +7057,6 @@ components:
     CreateMandateSender:
       example:
         user_type: INDIVIDUAL
-        user_id: user_id
         user_details:
         - values:
           - values
@@ -7095,10 +7094,11 @@ components:
           - values
           details_type: HK_ID
         name: name
+        external_user_id: external_user_id
       properties:
         name:
           type: string
-        user_id:
+        external_user_id:
           description: Customer App's user ID, representing the end-user making the
             payment.
           type: string
@@ -7136,14 +7136,14 @@ components:
           - values
           details_type: HK_ID
         name: name
-        sender_id: sender_id
+        external_user_id: external_user_id
       properties:
-        sender_id:
+        user_id:
           description: A unique identifier generated after creating sender
           type: string
         name:
           type: string
-        user_id:
+        external_user_id:
           description: Customer App's user ID, representing the end-user making the
             payment.
           type: string
@@ -7160,7 +7160,7 @@ components:
             $ref: '#/components/schemas/SenderDetail'
           type: array
       required:
-      - sender_id
+      - external_user_id
       - user_id
       - user_type
       type: object
