@@ -6628,8 +6628,8 @@ components:
           metadata:
             key: metadata
           account_id: sender_account_id
+          user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
           accountholder_name: Chan Li Pak
-          sender_id: sender_id
           institution_id: hsbc-hk
         recipient:
           name: name
@@ -6798,8 +6798,8 @@ components:
           metadata:
             key: metadata
           account_id: sender_account_id
+          user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
           accountholder_name: Chan Li Pak
-          sender_id: sender_id
           institution_id: hsbc-hk
         recipient:
           name: name
@@ -6922,8 +6922,8 @@ components:
             metadata:
               key: metadata
             account_id: sender_account_id
+            user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             accountholder_name: Chan Li Pak
-            sender_id: sender_id
             institution_id: hsbc-hk
           recipient:
             name: name
@@ -6992,8 +6992,8 @@ components:
             metadata:
               key: metadata
             account_id: sender_account_id
+            user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             accountholder_name: Chan Li Pak
-            sender_id: sender_id
             institution_id: hsbc-hk
           recipient:
             name: name
@@ -7800,8 +7800,8 @@ components:
         metadata:
           key: metadata
         account_id: sender_account_id
+        user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
         accountholder_name: Chan Li Pak
-        sender_id: sender_id
         institution_id: hsbc-hk
       properties:
         account_id:
@@ -7824,9 +7824,10 @@ components:
           description: Finverse Institution ID for the sender’s institution.
           example: hsbc-hk
           type: string
-        sender_id:
-          description: A unique identifier generated after creating sender
-          example: sender_id
+        user_id:
+          description: A unique identifier generated after creating sender (Finverse
+            Payment User ID)
+          example: 01GY6H0JA7BS8EVGY56NSHFX2E
           type: string
         metadata:
           additionalProperties:

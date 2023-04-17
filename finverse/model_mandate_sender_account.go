@@ -26,8 +26,8 @@ type MandateSenderAccount struct {
 	AccountType *string `json:"account_type,omitempty"`
 	// Finverse Institution ID for the sender’s institution.
 	InstitutionId *string `json:"institution_id,omitempty"`
-	// A unique identifier generated after creating sender
-	SenderId *string `json:"sender_id,omitempty"`
+	// A unique identifier generated after creating sender (Finverse Payment User ID)
+	UserId *string `json:"user_id,omitempty"`
 	// Additional attributes of the sender account in key:value format (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
 	Metadata *map[string]string `json:"metadata,omitempty"`
 }
@@ -209,36 +209,36 @@ func (o *MandateSenderAccount) SetInstitutionId(v string) {
 	o.InstitutionId = &v
 }
 
-// GetSenderId returns the SenderId field value if set, zero value otherwise.
-func (o *MandateSenderAccount) GetSenderId() string {
-	if o == nil || o.SenderId == nil {
+// GetUserId returns the UserId field value if set, zero value otherwise.
+func (o *MandateSenderAccount) GetUserId() string {
+	if o == nil || o.UserId == nil {
 		var ret string
 		return ret
 	}
-	return *o.SenderId
+	return *o.UserId
 }
 
-// GetSenderIdOk returns a tuple with the SenderId field value if set, nil otherwise
+// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MandateSenderAccount) GetSenderIdOk() (*string, bool) {
-	if o == nil || o.SenderId == nil {
+func (o *MandateSenderAccount) GetUserIdOk() (*string, bool) {
+	if o == nil || o.UserId == nil {
 		return nil, false
 	}
-	return o.SenderId, true
+	return o.UserId, true
 }
 
-// HasSenderId returns a boolean if a field has been set.
-func (o *MandateSenderAccount) HasSenderId() bool {
-	if o != nil && o.SenderId != nil {
+// HasUserId returns a boolean if a field has been set.
+func (o *MandateSenderAccount) HasUserId() bool {
+	if o != nil && o.UserId != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetSenderId gets a reference to the given string and assigns it to the SenderId field.
-func (o *MandateSenderAccount) SetSenderId(v string) {
-	o.SenderId = &v
+// SetUserId gets a reference to the given string and assigns it to the UserId field.
+func (o *MandateSenderAccount) SetUserId(v string) {
+	o.UserId = &v
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
@@ -290,8 +290,8 @@ func (o MandateSenderAccount) MarshalJSON() ([]byte, error) {
 	if o.InstitutionId != nil {
 		toSerialize["institution_id"] = o.InstitutionId
 	}
-	if o.SenderId != nil {
-		toSerialize["sender_id"] = o.SenderId
+	if o.UserId != nil {
+		toSerialize["user_id"] = o.UserId
 	}
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
