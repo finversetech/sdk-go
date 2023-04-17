@@ -27,6 +27,19 @@ var (
 type DefaultApi interface {
 
 	/*
+		ConfirmManualPayment Method for ConfirmManualPayment
+
+		Submit manual payment confirmation
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return DefaultApiApiConfirmManualPaymentRequest
+	*/
+	ConfirmManualPayment(ctx context.Context) DefaultApiApiConfirmManualPaymentRequest
+
+	// ConfirmManualPaymentExecute executes the request
+	ConfirmManualPaymentExecute(r DefaultApiApiConfirmManualPaymentRequest) (*http.Response, error)
+
+	/*
 		ConfirmPayment Method for ConfirmPayment
 
 		Confirm a payment against a payment Link
@@ -112,6 +125,125 @@ type DefaultApi interface {
 
 // DefaultApiService DefaultApi service
 type DefaultApiService service
+
+type DefaultApiApiConfirmManualPaymentRequest struct {
+	ctx                      context.Context
+	ApiService               DefaultApi
+	manualPaymentIdentifiers *ManualPaymentConfirmationRequest
+}
+
+// Request body containing information to identify manual payment
+func (r DefaultApiApiConfirmManualPaymentRequest) ManualPaymentIdentifiers(manualPaymentIdentifiers ManualPaymentConfirmationRequest) DefaultApiApiConfirmManualPaymentRequest {
+	r.manualPaymentIdentifiers = &manualPaymentIdentifiers
+	return r
+}
+
+func (r DefaultApiApiConfirmManualPaymentRequest) Execute() (*http.Response, error) {
+	return r.ApiService.ConfirmManualPaymentExecute(r)
+}
+
+/*
+ConfirmManualPayment Method for ConfirmManualPayment
+
+Submit manual payment confirmation
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return DefaultApiApiConfirmManualPaymentRequest
+*/
+func (a *DefaultApiService) ConfirmManualPayment(ctx context.Context) DefaultApiApiConfirmManualPaymentRequest {
+	return DefaultApiApiConfirmManualPaymentRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *DefaultApiService) ConfirmManualPaymentExecute(r DefaultApiApiConfirmManualPaymentRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ConfirmManualPayment")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/payments/manual_payment"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.manualPaymentIdentifiers == nil {
+		return nil, reportError("manualPaymentIdentifiers is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.manualPaymentIdentifiers
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
+}
 
 type DefaultApiApiConfirmPaymentRequest struct {
 	ctx        context.Context

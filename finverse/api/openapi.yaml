@@ -1967,6 +1967,37 @@ paths:
         - payment:get
       tags:
       - customer
+  /payments/manual_payment:
+    post:
+      description: Submit manual payment confirmation
+      operationId: confirmManualPayment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ManualPaymentConfirmationRequest'
+        description: Request body containing information to identify manual payment
+        required: true
+      responses:
+        "200":
+          content: {}
+          description: ok
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - manual_payment:confirm
+      x-codegen-request-body-name: manualPaymentIdentifiers
   /payout_instructions:
     post:
       description: Create new Payout instruction
@@ -7862,6 +7893,21 @@ components:
           type: boolean
       required:
       - autopay_consent
+      type: object
+    ManualPaymentConfirmationRequest:
+      example:
+        accountholder_name: accountholder_name
+        account_number_last4: account_number_last4
+      properties:
+        accountholder_name:
+          type: string
+        account_number_last4:
+          maxLength: 4
+          minLength: 4
+          type: string
+      required:
+      - account_number_last4
+      - accountholder_name
       type: object
     BadRequestModel_error:
       properties:

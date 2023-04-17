@@ -100,6 +100,7 @@ model_mandate_recipient.go
 model_mandate_recipient_account.go
 model_mandate_recipient_request.go
 model_mandate_sender_account.go
+model_manual_payment_confirmation_request.go
 model_monthly_income_estimate.go
 model_non_sensitive_link_status_response.go
 model_other_info.go
