@@ -25,7 +25,6 @@ model_balance_history.go
 model_category_predictions.go
 model_composite_statement_link.go
 model_confirm_payment_response.go
-model_create_fps_token_request.go
 model_create_fps_token_response.go
 model_create_mandate_request.go
 model_create_mandate_response.go

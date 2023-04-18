@@ -390,15 +390,8 @@ func (a *DefaultApiService) ConfirmPaymentExecute(r DefaultApiApiConfirmPaymentR
 }
 
 type DefaultApiApiCreateFpsTokenRequest struct {
-	ctx                   context.Context
-	ApiService            DefaultApi
-	createFpsTokenRequest *CreateFpsTokenRequest
-}
-
-// request body for creating fps token for payment-link
-func (r DefaultApiApiCreateFpsTokenRequest) CreateFpsTokenRequest(createFpsTokenRequest CreateFpsTokenRequest) DefaultApiApiCreateFpsTokenRequest {
-	r.createFpsTokenRequest = &createFpsTokenRequest
-	return r
+	ctx        context.Context
+	ApiService DefaultApi
 }
 
 func (r DefaultApiApiCreateFpsTokenRequest) Execute() (*CreateFpsTokenResponse, *http.Response, error) {
@@ -440,12 +433,9 @@ func (a *DefaultApiService) CreateFpsTokenExecute(r DefaultApiApiCreateFpsTokenR
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createFpsTokenRequest == nil {
-		return localVarReturnValue, nil, reportError("createFpsTokenRequest is required and must be specified")
-	}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
+	localVarHTTPContentTypes := []string{}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -461,8 +451,6 @@ func (a *DefaultApiService) CreateFpsTokenExecute(r DefaultApiApiCreateFpsTokenR
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	// body params
-	localVarPostBody = r.createFpsTokenRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

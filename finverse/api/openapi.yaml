@@ -544,13 +544,6 @@ paths:
     post:
       description: Create token for fps flow
       operationId: createFpsToken
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreateFpsTokenRequest'
-        description: request body for creating fps token for payment-link
-        required: true
       responses:
         "200":
           content:
@@ -579,7 +572,6 @@ paths:
       security:
       - Oauth2:
         - paymentlink:fps:token
-      x-codegen-request-body-name: createFpsTokenRequest
   /link:
     post:
       description: Create a new link and submit credentials
@@ -4109,16 +4101,6 @@ components:
           $ref: '#/components/schemas/PaymentLinkTokenResponse'
       required:
       - mandate_link_token
-      type: object
-    CreateFpsTokenRequest:
-      example:
-        invoice_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
-      properties:
-        invoice_id:
-          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
-          type: string
-      required:
-      - invoice_id
       type: object
     CreateFpsTokenResponse:
       example:
