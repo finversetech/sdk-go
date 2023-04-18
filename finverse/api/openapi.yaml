@@ -540,6 +540,46 @@ paths:
       - Oauth2:
         - paymentlink:mandate:create
       x-codegen-request-body-name: createPaymentLinkMandateRequest
+  /payment_links/fps/token:
+    post:
+      description: Create token for fps flow
+      operationId: createFpsToken
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateFpsTokenRequest'
+        description: request body for creating fps token for payment-link
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateFpsTokenResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - paymentlink:fps:token
+      x-codegen-request-body-name: createFpsTokenRequest
   /link:
     post:
       description: Create a new link and submit credentials
@@ -4069,6 +4109,29 @@ components:
           $ref: '#/components/schemas/PaymentLinkTokenResponse'
       required:
       - mandate_link_token
+      type: object
+    CreateFpsTokenRequest:
+      example:
+        invoice_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+      properties:
+        invoice_id:
+          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          type: string
+      required:
+      - invoice_id
+      type: object
+    CreateFpsTokenResponse:
+      example:
+        fps_token:
+          access_token: access_token
+          link_url: link_url
+          token_type: Bearer
+          expires_in: 0
+      properties:
+        fps_token:
+          $ref: '#/components/schemas/PaymentLinkTokenResponse'
+      required:
+      - fps_token
       type: object
     PaymentLinkTokenResponse:
       example:
