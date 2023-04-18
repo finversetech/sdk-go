@@ -1980,7 +1980,10 @@ paths:
         required: true
       responses:
         "200":
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ManualPaymentConfirmationResponse'
           description: ok
         "400":
           content:
@@ -7908,6 +7911,13 @@ components:
       required:
       - account_number_last4
       - accountholder_name
+      type: object
+    ManualPaymentConfirmationResponse:
+      example:
+        payment_id: payment_id
+      properties:
+        payment_id:
+          type: string
       type: object
     BadRequestModel_error:
       properties:
