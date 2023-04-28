@@ -540,6 +540,38 @@ paths:
       - Oauth2:
         - paymentlink:mandate:create
       x-codegen-request-body-name: createPaymentLinkMandateRequest
+  /payment_links/credit_card:
+    post:
+      description: Initiate CC Payment for a Payment Link
+      operationId: createPaymentLinkCreditCardPayment
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentLinkCreditCardPaymentResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - paymentlink:cc:create
   /payment_links/fps/token:
     post:
       description: Create token for fps flow
@@ -4101,6 +4133,16 @@ components:
           $ref: '#/components/schemas/PaymentLinkTokenResponse'
       required:
       - mandate_link_token
+      type: object
+    CreatePaymentLinkCreditCardPaymentResponse:
+      example:
+        cc_processor_redirect_uri: cc_processor_redirect_uri
+      properties:
+        cc_processor_redirect_uri:
+          description: URL to redirect to for making the CC payment (e.g. Stripe)
+          type: string
+      required:
+      - cc_processor_redirect_uri
       type: object
     CreateFpsTokenResponse:
       example:
