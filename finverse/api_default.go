@@ -69,18 +69,18 @@ type DefaultApi interface {
 	CreateFpsTokenExecute(r DefaultApiApiCreateFpsTokenRequest) (*CreateFpsTokenResponse, *http.Response, error)
 
 	/*
-		CreatePaymentLinkCreditCardPayment Method for CreatePaymentLinkCreditCardPayment
+		CreatePaymentLinkCardPayment Method for CreatePaymentLinkCardPayment
 
-		Initiate CC Payment for a Payment Link
+		Initiate Card Payment for a Payment Link
 
 		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiCreatePaymentLinkCreditCardPaymentRequest
+		 @return DefaultApiApiCreatePaymentLinkCardPaymentRequest
 	*/
-	CreatePaymentLinkCreditCardPayment(ctx context.Context) DefaultApiApiCreatePaymentLinkCreditCardPaymentRequest
+	CreatePaymentLinkCardPayment(ctx context.Context) DefaultApiApiCreatePaymentLinkCardPaymentRequest
 
-	// CreatePaymentLinkCreditCardPaymentExecute executes the request
-	//  @return CreatePaymentLinkCreditCardPaymentResponse
-	CreatePaymentLinkCreditCardPaymentExecute(r DefaultApiApiCreatePaymentLinkCreditCardPaymentRequest) (*CreatePaymentLinkCreditCardPaymentResponse, *http.Response, error)
+	// CreatePaymentLinkCardPaymentExecute executes the request
+	//  @return CreatePaymentLinkCardPaymentResponse
+	CreatePaymentLinkCardPaymentExecute(r DefaultApiApiCreatePaymentLinkCardPaymentRequest) (*CreatePaymentLinkCardPaymentResponse, *http.Response, error)
 
 	/*
 		CreatePaymentLinkMandate Method for CreatePaymentLinkMandate
@@ -531,46 +531,46 @@ func (a *DefaultApiService) CreateFpsTokenExecute(r DefaultApiApiCreateFpsTokenR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiCreatePaymentLinkCreditCardPaymentRequest struct {
+type DefaultApiApiCreatePaymentLinkCardPaymentRequest struct {
 	ctx        context.Context
 	ApiService DefaultApi
 }
 
-func (r DefaultApiApiCreatePaymentLinkCreditCardPaymentRequest) Execute() (*CreatePaymentLinkCreditCardPaymentResponse, *http.Response, error) {
-	return r.ApiService.CreatePaymentLinkCreditCardPaymentExecute(r)
+func (r DefaultApiApiCreatePaymentLinkCardPaymentRequest) Execute() (*CreatePaymentLinkCardPaymentResponse, *http.Response, error) {
+	return r.ApiService.CreatePaymentLinkCardPaymentExecute(r)
 }
 
 /*
-CreatePaymentLinkCreditCardPayment Method for CreatePaymentLinkCreditCardPayment
+CreatePaymentLinkCardPayment Method for CreatePaymentLinkCardPayment
 
-Initiate CC Payment for a Payment Link
+Initiate Card Payment for a Payment Link
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiCreatePaymentLinkCreditCardPaymentRequest
+ @return DefaultApiApiCreatePaymentLinkCardPaymentRequest
 */
-func (a *DefaultApiService) CreatePaymentLinkCreditCardPayment(ctx context.Context) DefaultApiApiCreatePaymentLinkCreditCardPaymentRequest {
-	return DefaultApiApiCreatePaymentLinkCreditCardPaymentRequest{
+func (a *DefaultApiService) CreatePaymentLinkCardPayment(ctx context.Context) DefaultApiApiCreatePaymentLinkCardPaymentRequest {
+	return DefaultApiApiCreatePaymentLinkCardPaymentRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-//  @return CreatePaymentLinkCreditCardPaymentResponse
-func (a *DefaultApiService) CreatePaymentLinkCreditCardPaymentExecute(r DefaultApiApiCreatePaymentLinkCreditCardPaymentRequest) (*CreatePaymentLinkCreditCardPaymentResponse, *http.Response, error) {
+//  @return CreatePaymentLinkCardPaymentResponse
+func (a *DefaultApiService) CreatePaymentLinkCardPaymentExecute(r DefaultApiApiCreatePaymentLinkCardPaymentRequest) (*CreatePaymentLinkCardPaymentResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreatePaymentLinkCreditCardPaymentResponse
+		localVarReturnValue *CreatePaymentLinkCardPaymentResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CreatePaymentLinkCreditCardPayment")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CreatePaymentLinkCardPayment")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/payment_links/credit_card"
+	localVarPath := localBasePath + "/payment_links/card"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
