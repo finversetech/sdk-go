@@ -4137,9 +4137,13 @@ components:
     CreatePaymentLinkCardPaymentResponse:
       example:
         card_processor_redirect_uri: card_processor_redirect_uri
+        payment_id: payment_id
       properties:
         card_processor_redirect_uri:
           description: URL to redirect to for making the card payment (e.g. Stripe)
+          type: string
+        payment_id:
+          description: Finverse Payment ID
           type: string
       required:
       - card_processor_redirect_uri

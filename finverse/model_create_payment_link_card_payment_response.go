@@ -19,6 +19,8 @@ import (
 type CreatePaymentLinkCardPaymentResponse struct {
 	// URL to redirect to for making the card payment (e.g. Stripe)
 	CardProcessorRedirectUri string `json:"card_processor_redirect_uri"`
+	// Finverse Payment ID
+	PaymentId *string `json:"payment_id,omitempty"`
 }
 
 // NewCreatePaymentLinkCardPaymentResponse instantiates a new CreatePaymentLinkCardPaymentResponse object
@@ -63,10 +65,45 @@ func (o *CreatePaymentLinkCardPaymentResponse) SetCardProcessorRedirectUri(v str
 	o.CardProcessorRedirectUri = v
 }
 
+// GetPaymentId returns the PaymentId field value if set, zero value otherwise.
+func (o *CreatePaymentLinkCardPaymentResponse) GetPaymentId() string {
+	if o == nil || o.PaymentId == nil {
+		var ret string
+		return ret
+	}
+	return *o.PaymentId
+}
+
+// GetPaymentIdOk returns a tuple with the PaymentId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreatePaymentLinkCardPaymentResponse) GetPaymentIdOk() (*string, bool) {
+	if o == nil || o.PaymentId == nil {
+		return nil, false
+	}
+	return o.PaymentId, true
+}
+
+// HasPaymentId returns a boolean if a field has been set.
+func (o *CreatePaymentLinkCardPaymentResponse) HasPaymentId() bool {
+	if o != nil && o.PaymentId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentId gets a reference to the given string and assigns it to the PaymentId field.
+func (o *CreatePaymentLinkCardPaymentResponse) SetPaymentId(v string) {
+	o.PaymentId = &v
+}
+
 func (o CreatePaymentLinkCardPaymentResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["card_processor_redirect_uri"] = o.CardProcessorRedirectUri
+	}
+	if o.PaymentId != nil {
+		toSerialize["payment_id"] = o.PaymentId
 	}
 	return json.Marshal(toSerialize)
 }
