@@ -7587,9 +7587,11 @@ components:
           - submitted_at: 2000-01-23T04:56:07.000+00:00
             name: INSTITUTION_CREDENTIALS_LOGIN
             submitted_by: CUSTOMER_APP
+            redirect_url: redirect_url
           - submitted_at: 2000-01-23T04:56:07.000+00:00
             name: INSTITUTION_CREDENTIALS_LOGIN
             submitted_by: CUSTOMER_APP
+            redirect_url: redirect_url
           type: ACCOUNT_IDENTIFICATION
           required: "YES"
         - group_id: group_id
@@ -7597,9 +7599,11 @@ components:
           - submitted_at: 2000-01-23T04:56:07.000+00:00
             name: INSTITUTION_CREDENTIALS_LOGIN
             submitted_by: CUSTOMER_APP
+            redirect_url: redirect_url
           - submitted_at: 2000-01-23T04:56:07.000+00:00
             name: INSTITUTION_CREDENTIALS_LOGIN
             submitted_by: CUSTOMER_APP
+            redirect_url: redirect_url
           type: ACCOUNT_IDENTIFICATION
           required: "YES"
       properties:
@@ -7675,9 +7679,11 @@ components:
         - submitted_at: 2000-01-23T04:56:07.000+00:00
           name: INSTITUTION_CREDENTIALS_LOGIN
           submitted_by: CUSTOMER_APP
+          redirect_url: redirect_url
         - submitted_at: 2000-01-23T04:56:07.000+00:00
           name: INSTITUTION_CREDENTIALS_LOGIN
           submitted_by: CUSTOMER_APP
+          redirect_url: redirect_url
         type: ACCOUNT_IDENTIFICATION
         required: "YES"
       properties:
@@ -7717,6 +7723,7 @@ components:
         submitted_at: 2000-01-23T04:56:07.000+00:00
         name: INSTITUTION_CREDENTIALS_LOGIN
         submitted_by: CUSTOMER_APP
+        redirect_url: redirect_url
       properties:
         name:
           description: Name of authorization factor. Possible values are INSTITUTION_CREDENTIALS_LOGIN,
@@ -7738,6 +7745,9 @@ components:
           - CUSTOMER_APP
           - FINVERSE_LINK
           type: string
+        redirect_url:
+          description: Redirect to bank for authentication
+          type: string
       required:
       - name
       type: object
@@ -7752,9 +7762,11 @@ components:
           - submitted_at: 2000-01-23T04:56:07.000+00:00
             name: INSTITUTION_CREDENTIALS_LOGIN
             submitted_by: CUSTOMER_APP
+            redirect_url: redirect_url
           - submitted_at: 2000-01-23T04:56:07.000+00:00
             name: INSTITUTION_CREDENTIALS_LOGIN
             submitted_by: CUSTOMER_APP
+            redirect_url: redirect_url
           type: ACCOUNT_IDENTIFICATION
           required: "YES"
         - group_id: group_id
@@ -7762,9 +7774,11 @@ components:
           - submitted_at: 2000-01-23T04:56:07.000+00:00
             name: INSTITUTION_CREDENTIALS_LOGIN
             submitted_by: CUSTOMER_APP
+            redirect_url: redirect_url
           - submitted_at: 2000-01-23T04:56:07.000+00:00
             name: INSTITUTION_CREDENTIALS_LOGIN
             submitted_by: CUSTOMER_APP
+            redirect_url: redirect_url
           type: ACCOUNT_IDENTIFICATION
           required: "YES"
       properties:

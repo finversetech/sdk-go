@@ -24,6 +24,8 @@ type AuthChecklistOptions struct {
 	SubmittedAt NullableTime `json:"submitted_at,omitempty"`
 	// Indicates who submitted the authorization factor to Finverse. Possible values are CUSTOMER_APP, FINVERSE_LINK
 	SubmittedBy *string `json:"submitted_by,omitempty"`
+	// Redirect to bank for authentication
+	RedirectUrl *string `json:"redirect_url,omitempty"`
 }
 
 // NewAuthChecklistOptions instantiates a new AuthChecklistOptions object
@@ -143,6 +145,38 @@ func (o *AuthChecklistOptions) SetSubmittedBy(v string) {
 	o.SubmittedBy = &v
 }
 
+// GetRedirectUrl returns the RedirectUrl field value if set, zero value otherwise.
+func (o *AuthChecklistOptions) GetRedirectUrl() string {
+	if o == nil || o.RedirectUrl == nil {
+		var ret string
+		return ret
+	}
+	return *o.RedirectUrl
+}
+
+// GetRedirectUrlOk returns a tuple with the RedirectUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuthChecklistOptions) GetRedirectUrlOk() (*string, bool) {
+	if o == nil || o.RedirectUrl == nil {
+		return nil, false
+	}
+	return o.RedirectUrl, true
+}
+
+// HasRedirectUrl returns a boolean if a field has been set.
+func (o *AuthChecklistOptions) HasRedirectUrl() bool {
+	if o != nil && o.RedirectUrl != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRedirectUrl gets a reference to the given string and assigns it to the RedirectUrl field.
+func (o *AuthChecklistOptions) SetRedirectUrl(v string) {
+	o.RedirectUrl = &v
+}
+
 func (o AuthChecklistOptions) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -153,6 +187,9 @@ func (o AuthChecklistOptions) MarshalJSON() ([]byte, error) {
 	}
 	if o.SubmittedBy != nil {
 		toSerialize["submitted_by"] = o.SubmittedBy
+	}
+	if o.RedirectUrl != nil {
+		toSerialize["redirect_url"] = o.RedirectUrl
 	}
 	return json.Marshal(toSerialize)
 }
