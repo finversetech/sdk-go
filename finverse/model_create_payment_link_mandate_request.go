@@ -17,7 +17,7 @@ import (
 
 // CreatePaymentLinkMandateRequest struct for CreatePaymentLinkMandateRequest
 type CreatePaymentLinkMandateRequest struct {
-	InvoiceId string `json:"invoice_id"`
+	PaymentAttemptId string `json:"payment_attempt_id"`
 	// The sender type of the mandate
 	SenderType string `json:"sender_type"`
 }
@@ -26,9 +26,9 @@ type CreatePaymentLinkMandateRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentLinkMandateRequest(invoiceId string, senderType string) *CreatePaymentLinkMandateRequest {
+func NewCreatePaymentLinkMandateRequest(paymentAttemptId string, senderType string) *CreatePaymentLinkMandateRequest {
 	this := CreatePaymentLinkMandateRequest{}
-	this.InvoiceId = invoiceId
+	this.PaymentAttemptId = paymentAttemptId
 	this.SenderType = senderType
 	return &this
 }
@@ -41,28 +41,28 @@ func NewCreatePaymentLinkMandateRequestWithDefaults() *CreatePaymentLinkMandateR
 	return &this
 }
 
-// GetInvoiceId returns the InvoiceId field value
-func (o *CreatePaymentLinkMandateRequest) GetInvoiceId() string {
+// GetPaymentAttemptId returns the PaymentAttemptId field value
+func (o *CreatePaymentLinkMandateRequest) GetPaymentAttemptId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.InvoiceId
+	return o.PaymentAttemptId
 }
 
-// GetInvoiceIdOk returns a tuple with the InvoiceId field value
+// GetPaymentAttemptIdOk returns a tuple with the PaymentAttemptId field value
 // and a boolean to check if the value has been set.
-func (o *CreatePaymentLinkMandateRequest) GetInvoiceIdOk() (*string, bool) {
+func (o *CreatePaymentLinkMandateRequest) GetPaymentAttemptIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.InvoiceId, true
+	return &o.PaymentAttemptId, true
 }
 
-// SetInvoiceId sets field value
-func (o *CreatePaymentLinkMandateRequest) SetInvoiceId(v string) {
-	o.InvoiceId = v
+// SetPaymentAttemptId sets field value
+func (o *CreatePaymentLinkMandateRequest) SetPaymentAttemptId(v string) {
+	o.PaymentAttemptId = v
 }
 
 // GetSenderType returns the SenderType field value
@@ -92,7 +92,7 @@ func (o *CreatePaymentLinkMandateRequest) SetSenderType(v string) {
 func (o CreatePaymentLinkMandateRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["invoice_id"] = o.InvoiceId
+		toSerialize["payment_attempt_id"] = o.PaymentAttemptId
 	}
 	if true {
 		toSerialize["sender_type"] = o.SenderType
