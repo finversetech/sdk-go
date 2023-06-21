@@ -2226,7 +2226,7 @@ components:
         expires_in:
           example: 3600.0
           type: number
-        invoice_id:
+        payment_attempt_id:
           example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           type: string
         scopes:

@@ -25,7 +25,7 @@ type Principal struct {
 	CustomizationId  *string           `json:"customization_id,omitempty"`
 	MandateId        *string           `json:"mandate_id,omitempty"`
 	ExpiresIn        *float32          `json:"expires_in,omitempty"`
-	InvoiceId        *string           `json:"invoice_id,omitempty"`
+	PaymentAttemptId *string           `json:"payment_attempt_id,omitempty"`
 	Scopes           []string          `json:"scopes,omitempty"`
 	LinkTokenRequest *LinkTokenRequest `json:"link_token_request,omitempty"`
 }
@@ -275,36 +275,36 @@ func (o *Principal) SetExpiresIn(v float32) {
 	o.ExpiresIn = &v
 }
 
-// GetInvoiceId returns the InvoiceId field value if set, zero value otherwise.
-func (o *Principal) GetInvoiceId() string {
-	if o == nil || o.InvoiceId == nil {
+// GetPaymentAttemptId returns the PaymentAttemptId field value if set, zero value otherwise.
+func (o *Principal) GetPaymentAttemptId() string {
+	if o == nil || o.PaymentAttemptId == nil {
 		var ret string
 		return ret
 	}
-	return *o.InvoiceId
+	return *o.PaymentAttemptId
 }
 
-// GetInvoiceIdOk returns a tuple with the InvoiceId field value if set, nil otherwise
+// GetPaymentAttemptIdOk returns a tuple with the PaymentAttemptId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Principal) GetInvoiceIdOk() (*string, bool) {
-	if o == nil || o.InvoiceId == nil {
+func (o *Principal) GetPaymentAttemptIdOk() (*string, bool) {
+	if o == nil || o.PaymentAttemptId == nil {
 		return nil, false
 	}
-	return o.InvoiceId, true
+	return o.PaymentAttemptId, true
 }
 
-// HasInvoiceId returns a boolean if a field has been set.
-func (o *Principal) HasInvoiceId() bool {
-	if o != nil && o.InvoiceId != nil {
+// HasPaymentAttemptId returns a boolean if a field has been set.
+func (o *Principal) HasPaymentAttemptId() bool {
+	if o != nil && o.PaymentAttemptId != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetInvoiceId gets a reference to the given string and assigns it to the InvoiceId field.
-func (o *Principal) SetInvoiceId(v string) {
-	o.InvoiceId = &v
+// SetPaymentAttemptId gets a reference to the given string and assigns it to the PaymentAttemptId field.
+func (o *Principal) SetPaymentAttemptId(v string) {
+	o.PaymentAttemptId = &v
 }
 
 // GetScopes returns the Scopes field value if set, zero value otherwise.
@@ -397,8 +397,8 @@ func (o Principal) MarshalJSON() ([]byte, error) {
 	if o.ExpiresIn != nil {
 		toSerialize["expires_in"] = o.ExpiresIn
 	}
-	if o.InvoiceId != nil {
-		toSerialize["invoice_id"] = o.InvoiceId
+	if o.PaymentAttemptId != nil {
+		toSerialize["payment_attempt_id"] = o.PaymentAttemptId
 	}
 	if o.Scopes != nil {
 		toSerialize["scopes"] = o.Scopes
