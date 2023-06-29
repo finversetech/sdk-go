@@ -23,6 +23,8 @@ type AuthChecklistFactor struct {
 	GroupId string `json:"group_id"`
 	// Indicates whether authorization factor is known to be required at this time.  Possible values are YES, NO, OPTIONAL
 	Required string `json:"required"`
+	// Helper text that applies to a specific checklist item
+	HelperText *string `json:"helper_text,omitempty"`
 	// Array of the options accepted for a specific authorization factor
 	Options []AuthChecklistOptions `json:"options"`
 }
@@ -120,6 +122,38 @@ func (o *AuthChecklistFactor) SetRequired(v string) {
 	o.Required = v
 }
 
+// GetHelperText returns the HelperText field value if set, zero value otherwise.
+func (o *AuthChecklistFactor) GetHelperText() string {
+	if o == nil || o.HelperText == nil {
+		var ret string
+		return ret
+	}
+	return *o.HelperText
+}
+
+// GetHelperTextOk returns a tuple with the HelperText field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AuthChecklistFactor) GetHelperTextOk() (*string, bool) {
+	if o == nil || o.HelperText == nil {
+		return nil, false
+	}
+	return o.HelperText, true
+}
+
+// HasHelperText returns a boolean if a field has been set.
+func (o *AuthChecklistFactor) HasHelperText() bool {
+	if o != nil && o.HelperText != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetHelperText gets a reference to the given string and assigns it to the HelperText field.
+func (o *AuthChecklistFactor) SetHelperText(v string) {
+	o.HelperText = &v
+}
+
 // GetOptions returns the Options field value
 func (o *AuthChecklistFactor) GetOptions() []AuthChecklistOptions {
 	if o == nil {
@@ -154,6 +188,9 @@ func (o AuthChecklistFactor) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["required"] = o.Required
+	}
+	if o.HelperText != nil {
+		toSerialize["helper_text"] = o.HelperText
 	}
 	if true {
 		toSerialize["options"] = o.Options

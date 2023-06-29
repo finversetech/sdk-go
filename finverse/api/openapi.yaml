@@ -7593,6 +7593,7 @@ components:
             submitted_by: CUSTOMER_APP
             redirect_url: redirect_url
           type: ACCOUNT_IDENTIFICATION
+          helper_text: helper_text
           required: "YES"
         - group_id: group_id
           options:
@@ -7605,6 +7606,7 @@ components:
             submitted_by: CUSTOMER_APP
             redirect_url: redirect_url
           type: ACCOUNT_IDENTIFICATION
+          helper_text: helper_text
           required: "YES"
       properties:
         mandate_id:
@@ -7685,6 +7687,7 @@ components:
           submitted_by: CUSTOMER_APP
           redirect_url: redirect_url
         type: ACCOUNT_IDENTIFICATION
+        helper_text: helper_text
         required: "YES"
       properties:
         type:
@@ -7705,6 +7708,9 @@ components:
           - "YES"
           - "NO"
           - OPTIONAL
+          type: string
+        helper_text:
+          description: Helper text that applies to a specific checklist item
           type: string
         options:
           description: Array of the options accepted for a specific authorization
@@ -7768,6 +7774,7 @@ components:
             submitted_by: CUSTOMER_APP
             redirect_url: redirect_url
           type: ACCOUNT_IDENTIFICATION
+          helper_text: helper_text
           required: "YES"
         - group_id: group_id
           options:
@@ -7780,6 +7787,7 @@ components:
             submitted_by: CUSTOMER_APP
             redirect_url: redirect_url
           type: ACCOUNT_IDENTIFICATION
+          helper_text: helper_text
           required: "YES"
       properties:
         mandate_id:
