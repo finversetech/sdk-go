@@ -888,40 +888,6 @@ paths:
         - linkApi:read
       tags:
       - link
-    post:
-      description: Check the status of a given loginIdentity
-      operationId: postLinkStatus
-      parameters:
-      - description: The login identity id
-        in: path
-        name: loginIdentityId
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/LinkStatusResponse'
-          description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModel'
-          description: Invalid Request
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModel'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - linkApi:read
-      tags:
-      - link
   /link/fvlink/status/{loginIdentityId}:
     get:
       description: Check the status of a given login identity via FVLink
