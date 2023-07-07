@@ -6944,6 +6944,7 @@ components:
         external_user_id: external_user_id
       properties:
         email:
+          format: email
           type: string
         external_user_id:
           description: Customer App's user ID, representing the end-user making the
