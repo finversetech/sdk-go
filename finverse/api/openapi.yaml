@@ -604,6 +604,40 @@ paths:
       security:
       - Oauth2:
         - paymentlink:fps:token
+  /payment_links:
+    post:
+      description: Create payment link
+      operationId: CreatePaymentLink
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentLinkRequest'
+        description: Parameters required to create a payment link
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreatePaymentLinkResponse'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - paymentlink:create
+      x-codegen-request-body-name: createPaymentLinkRequest
   /link:
     post:
       description: Create a new link and submit credentials
@@ -6815,6 +6849,119 @@ components:
       - sender
       - status
       - updated_at
+      type: object
+    CreatePaymentLinkRequest:
+      example:
+        mode: PAYMENT
+        amount: 100
+        metadata:
+          key: metadata
+        payment_details:
+          description: description
+          external_invoice_id: external_invoice_id
+        sender:
+          name: Chan Li Pak
+          email: email
+          external_user_id: external_user_id
+        recipient_account:
+          recipient_account_id: recipient_account_id
+        currency: HKD
+        language: zh
+        unique_reference_id: unique_reference_id
+      properties:
+        amount:
+          description: The amount of the payment. Expressed in currency's smallest
+            unit or “minor unit”, as defined in ISO 4217.
+          example: 100
+          type: integer
+        currency:
+          example: HKD
+          type: string
+        language:
+          description: Specifies language to be used in Finverse UI
+          example: zh
+          type: string
+        mode:
+          description: The payment link mode
+          enum:
+          - PAYMENT
+          example: PAYMENT
+          type: string
+        payment_details:
+          $ref: '#/components/schemas/PaymentLinkDetails'
+        recipient_account:
+          $ref: '#/components/schemas/PaymentLinkRecipientAccount'
+        sender:
+          $ref: '#/components/schemas/PaymentLinkSender'
+        unique_reference_id:
+          description: Unique reference id to identifying the payment to be collected.
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+          description: 'Additional attributes of the payment link in key:value format
+            (e.g. payment_id: 1234). It supports up to 10 key:value pairs, whereas
+            the key and value supports up to 50 and 500 characters respectively.'
+          type: object
+      required:
+      - amount
+      - currency
+      - mode
+      - payment_details
+      - recipient_account
+      - sender
+      - unique_reference_id
+      type: object
+    PaymentLinkDetails:
+      example:
+        description: description
+        external_invoice_id: external_invoice_id
+      properties:
+        description:
+          type: string
+        external_invoice_id:
+          description: For external invoice reference
+          type: string
+      type: object
+    PaymentLinkRecipientAccount:
+      example:
+        recipient_account_id: recipient_account_id
+      properties:
+        recipient_account_id:
+          description: Merchant account ID assigned by Finverse
+          type: string
+      required:
+      - recipient_account_id
+      type: object
+    PaymentLinkSender:
+      example:
+        name: Chan Li Pak
+        email: email
+        external_user_id: external_user_id
+      properties:
+        email:
+          type: string
+        external_user_id:
+          description: Customer App's user ID, representing the end-user making the
+            payment.
+          type: string
+        name:
+          description: Accountholder name of the sender's account
+          example: Chan Li Pak
+          type: string
+      required:
+      - external_user_id
+      - name
+      type: object
+    CreatePaymentLinkResponse:
+      example:
+        payment_link_url: payment_link_url
+      properties:
+        payment_link_url:
+          description: The URL for payment link
+          type: string
+      required:
+      - payment_link_url
       type: object
     Fee:
       example:
