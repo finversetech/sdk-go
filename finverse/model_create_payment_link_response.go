@@ -18,16 +18,15 @@ import (
 // CreatePaymentLinkResponse struct for CreatePaymentLinkResponse
 type CreatePaymentLinkResponse struct {
 	// The URL for payment link
-	PaymentLinkUrl string `json:"payment_link_url"`
+	PaymentLinkUrl *string `json:"payment_link_url,omitempty"`
 }
 
 // NewCreatePaymentLinkResponse instantiates a new CreatePaymentLinkResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentLinkResponse(paymentLinkUrl string) *CreatePaymentLinkResponse {
+func NewCreatePaymentLinkResponse() *CreatePaymentLinkResponse {
 	this := CreatePaymentLinkResponse{}
-	this.PaymentLinkUrl = paymentLinkUrl
 	return &this
 }
 
@@ -39,33 +38,41 @@ func NewCreatePaymentLinkResponseWithDefaults() *CreatePaymentLinkResponse {
 	return &this
 }
 
-// GetPaymentLinkUrl returns the PaymentLinkUrl field value
+// GetPaymentLinkUrl returns the PaymentLinkUrl field value if set, zero value otherwise.
 func (o *CreatePaymentLinkResponse) GetPaymentLinkUrl() string {
-	if o == nil {
+	if o == nil || o.PaymentLinkUrl == nil {
 		var ret string
 		return ret
 	}
-
-	return o.PaymentLinkUrl
+	return *o.PaymentLinkUrl
 }
 
-// GetPaymentLinkUrlOk returns a tuple with the PaymentLinkUrl field value
+// GetPaymentLinkUrlOk returns a tuple with the PaymentLinkUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentLinkResponse) GetPaymentLinkUrlOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.PaymentLinkUrl == nil {
 		return nil, false
 	}
-	return &o.PaymentLinkUrl, true
+	return o.PaymentLinkUrl, true
 }
 
-// SetPaymentLinkUrl sets field value
+// HasPaymentLinkUrl returns a boolean if a field has been set.
+func (o *CreatePaymentLinkResponse) HasPaymentLinkUrl() bool {
+	if o != nil && o.PaymentLinkUrl != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentLinkUrl gets a reference to the given string and assigns it to the PaymentLinkUrl field.
 func (o *CreatePaymentLinkResponse) SetPaymentLinkUrl(v string) {
-	o.PaymentLinkUrl = v
+	o.PaymentLinkUrl = &v
 }
 
 func (o CreatePaymentLinkResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
+	if o.PaymentLinkUrl != nil {
 		toSerialize["payment_link_url"] = o.PaymentLinkUrl
 	}
 	return json.Marshal(toSerialize)

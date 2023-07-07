@@ -6873,9 +6873,12 @@ components:
           description: The amount of the payment. Expressed in currency's smallest
             unit or “minor unit”, as defined in ISO 4217.
           example: 100
+          minimum: 1
           type: integer
         currency:
           example: HKD
+          maxLength: 3
+          minLength: 3
           type: string
         language:
           description: Specifies language to be used in Finverse UI
@@ -6895,6 +6898,7 @@ components:
           $ref: '#/components/schemas/PaymentLinkSender'
         unique_reference_id:
           description: Unique reference id to identifying the payment to be collected.
+          minLength: 1
           type: string
         metadata:
           additionalProperties:
@@ -6907,7 +6911,6 @@ components:
       - amount
       - currency
       - mode
-      - payment_details
       - recipient_account
       - sender
       - unique_reference_id
@@ -6929,6 +6932,7 @@ components:
       properties:
         recipient_account_id:
           description: Merchant account ID assigned by Finverse
+          minLength: 1
           type: string
       required:
       - recipient_account_id
@@ -6944,10 +6948,12 @@ components:
         external_user_id:
           description: Customer App's user ID, representing the end-user making the
             payment.
+          minLength: 1
           type: string
         name:
           description: Accountholder name of the sender's account
           example: Chan Li Pak
+          minLength: 1
           type: string
       required:
       - external_user_id
@@ -6960,8 +6966,6 @@ components:
         payment_link_url:
           description: The URL for payment link
           type: string
-      required:
-      - payment_link_url
       type: object
     Fee:
       example:

@@ -24,7 +24,7 @@ type CreatePaymentLinkRequest struct {
 	Language *string `json:"language,omitempty"`
 	// The payment link mode
 	Mode             string                      `json:"mode"`
-	PaymentDetails   PaymentLinkDetails          `json:"payment_details"`
+	PaymentDetails   *PaymentLinkDetails         `json:"payment_details,omitempty"`
 	RecipientAccount PaymentLinkRecipientAccount `json:"recipient_account"`
 	Sender           PaymentLinkSender           `json:"sender"`
 	// Unique reference id to identifying the payment to be collected.
@@ -37,12 +37,11 @@ type CreatePaymentLinkRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentLinkRequest(amount int32, currency string, mode string, paymentDetails PaymentLinkDetails, recipientAccount PaymentLinkRecipientAccount, sender PaymentLinkSender, uniqueReferenceId string) *CreatePaymentLinkRequest {
+func NewCreatePaymentLinkRequest(amount int32, currency string, mode string, recipientAccount PaymentLinkRecipientAccount, sender PaymentLinkSender, uniqueReferenceId string) *CreatePaymentLinkRequest {
 	this := CreatePaymentLinkRequest{}
 	this.Amount = amount
 	this.Currency = currency
 	this.Mode = mode
-	this.PaymentDetails = paymentDetails
 	this.RecipientAccount = recipientAccount
 	this.Sender = sender
 	this.UniqueReferenceId = uniqueReferenceId
@@ -161,28 +160,36 @@ func (o *CreatePaymentLinkRequest) SetMode(v string) {
 	o.Mode = v
 }
 
-// GetPaymentDetails returns the PaymentDetails field value
+// GetPaymentDetails returns the PaymentDetails field value if set, zero value otherwise.
 func (o *CreatePaymentLinkRequest) GetPaymentDetails() PaymentLinkDetails {
-	if o == nil {
+	if o == nil || o.PaymentDetails == nil {
 		var ret PaymentLinkDetails
 		return ret
 	}
-
-	return o.PaymentDetails
+	return *o.PaymentDetails
 }
 
-// GetPaymentDetailsOk returns a tuple with the PaymentDetails field value
+// GetPaymentDetailsOk returns a tuple with the PaymentDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentLinkRequest) GetPaymentDetailsOk() (*PaymentLinkDetails, bool) {
-	if o == nil {
+	if o == nil || o.PaymentDetails == nil {
 		return nil, false
 	}
-	return &o.PaymentDetails, true
+	return o.PaymentDetails, true
 }
 
-// SetPaymentDetails sets field value
+// HasPaymentDetails returns a boolean if a field has been set.
+func (o *CreatePaymentLinkRequest) HasPaymentDetails() bool {
+	if o != nil && o.PaymentDetails != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentDetails gets a reference to the given PaymentLinkDetails and assigns it to the PaymentDetails field.
 func (o *CreatePaymentLinkRequest) SetPaymentDetails(v PaymentLinkDetails) {
-	o.PaymentDetails = v
+	o.PaymentDetails = &v
 }
 
 // GetRecipientAccount returns the RecipientAccount field value
@@ -303,7 +310,7 @@ func (o CreatePaymentLinkRequest) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["mode"] = o.Mode
 	}
-	if true {
+	if o.PaymentDetails != nil {
 		toSerialize["payment_details"] = o.PaymentDetails
 	}
 	if true {
