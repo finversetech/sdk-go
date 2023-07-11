@@ -79,8 +79,8 @@ type DefaultApi interface {
 	CreatePaymentLink(ctx context.Context) DefaultApiApiCreatePaymentLinkRequest
 
 	// CreatePaymentLinkExecute executes the request
-	//  @return CreatePaymentLinkResponse
-	CreatePaymentLinkExecute(r DefaultApiApiCreatePaymentLinkRequest) (*CreatePaymentLinkResponse, *http.Response, error)
+	//  @return PaymentLinkResponse
+	CreatePaymentLinkExecute(r DefaultApiApiCreatePaymentLinkRequest) (*PaymentLinkResponse, *http.Response, error)
 
 	/*
 		CreatePaymentLinkCardPayment Method for CreatePaymentLinkCardPayment
@@ -557,7 +557,7 @@ func (r DefaultApiApiCreatePaymentLinkRequest) CreatePaymentLinkRequest(createPa
 	return r
 }
 
-func (r DefaultApiApiCreatePaymentLinkRequest) Execute() (*CreatePaymentLinkResponse, *http.Response, error) {
+func (r DefaultApiApiCreatePaymentLinkRequest) Execute() (*PaymentLinkResponse, *http.Response, error) {
 	return r.ApiService.CreatePaymentLinkExecute(r)
 }
 
@@ -577,13 +577,13 @@ func (a *DefaultApiService) CreatePaymentLink(ctx context.Context) DefaultApiApi
 }
 
 // Execute executes the request
-//  @return CreatePaymentLinkResponse
-func (a *DefaultApiService) CreatePaymentLinkExecute(r DefaultApiApiCreatePaymentLinkRequest) (*CreatePaymentLinkResponse, *http.Response, error) {
+//  @return PaymentLinkResponse
+func (a *DefaultApiService) CreatePaymentLinkExecute(r DefaultApiApiCreatePaymentLinkRequest) (*PaymentLinkResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *CreatePaymentLinkResponse
+		localVarReturnValue *PaymentLinkResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CreatePaymentLink")
