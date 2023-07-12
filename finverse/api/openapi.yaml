@@ -638,6 +638,40 @@ paths:
       - Oauth2:
         - paymentlink:create
       x-codegen-request-body-name: createPaymentLinkRequest
+  /payment_links/{paymentLinkId}:
+    get:
+      description: Get payment link
+      operationId: GetPaymentLink
+      parameters:
+      - description: The payment link id
+        in: path
+        name: paymentLinkId
+        required: true
+        schema:
+          minLength: 1
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentLinkResponse'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - paymentlink:get
   /link:
     post:
       description: Create a new link and submit credentials
