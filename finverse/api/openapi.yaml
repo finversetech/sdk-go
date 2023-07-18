@@ -6898,7 +6898,7 @@ components:
           email: email
           external_user_id: external_user_id
         recipient_account:
-          recipient_account_id: recipient_account_id
+          account_id: account_id
         currency: HKD
         language: zh
         unique_reference_id: unique_reference_id
@@ -6962,14 +6962,14 @@ components:
       type: object
     PaymentLinkRecipientAccount:
       example:
-        recipient_account_id: recipient_account_id
+        account_id: account_id
       properties:
-        recipient_account_id:
+        account_id:
           description: Merchant account ID assigned by Finverse
           minLength: 1
           type: string
       required:
-      - recipient_account_id
+      - account_id
       type: object
     PaymentLinkSender:
       example:

@@ -18,16 +18,16 @@ import (
 // PaymentLinkRecipientAccount struct for PaymentLinkRecipientAccount
 type PaymentLinkRecipientAccount struct {
 	// Merchant account ID assigned by Finverse
-	RecipientAccountId string `json:"recipient_account_id"`
+	AccountId string `json:"account_id"`
 }
 
 // NewPaymentLinkRecipientAccount instantiates a new PaymentLinkRecipientAccount object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentLinkRecipientAccount(recipientAccountId string) *PaymentLinkRecipientAccount {
+func NewPaymentLinkRecipientAccount(accountId string) *PaymentLinkRecipientAccount {
 	this := PaymentLinkRecipientAccount{}
-	this.RecipientAccountId = recipientAccountId
+	this.AccountId = accountId
 	return &this
 }
 
@@ -39,34 +39,34 @@ func NewPaymentLinkRecipientAccountWithDefaults() *PaymentLinkRecipientAccount {
 	return &this
 }
 
-// GetRecipientAccountId returns the RecipientAccountId field value
-func (o *PaymentLinkRecipientAccount) GetRecipientAccountId() string {
+// GetAccountId returns the AccountId field value
+func (o *PaymentLinkRecipientAccount) GetAccountId() string {
 	if o == nil {
 		var ret string
 		return ret
 	}
 
-	return o.RecipientAccountId
+	return o.AccountId
 }
 
-// GetRecipientAccountIdOk returns a tuple with the RecipientAccountId field value
+// GetAccountIdOk returns a tuple with the AccountId field value
 // and a boolean to check if the value has been set.
-func (o *PaymentLinkRecipientAccount) GetRecipientAccountIdOk() (*string, bool) {
+func (o *PaymentLinkRecipientAccount) GetAccountIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.RecipientAccountId, true
+	return &o.AccountId, true
 }
 
-// SetRecipientAccountId sets field value
-func (o *PaymentLinkRecipientAccount) SetRecipientAccountId(v string) {
-	o.RecipientAccountId = v
+// SetAccountId sets field value
+func (o *PaymentLinkRecipientAccount) SetAccountId(v string) {
+	o.AccountId = v
 }
 
 func (o PaymentLinkRecipientAccount) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
-		toSerialize["recipient_account_id"] = o.RecipientAccountId
+		toSerialize["account_id"] = o.AccountId
 	}
 	return json.Marshal(toSerialize)
 }
