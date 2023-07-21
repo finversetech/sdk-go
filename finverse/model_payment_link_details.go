@@ -19,7 +19,7 @@ import (
 type PaymentLinkDetails struct {
 	Description *string `json:"description,omitempty"`
 	// For external invoice reference
-	ExternalInvoiceId *string `json:"external_invoice_id,omitempty"`
+	ExternalInvoiceNumber *string `json:"external_invoice_number,omitempty"`
 }
 
 // NewPaymentLinkDetails instantiates a new PaymentLinkDetails object
@@ -71,36 +71,36 @@ func (o *PaymentLinkDetails) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetExternalInvoiceId returns the ExternalInvoiceId field value if set, zero value otherwise.
-func (o *PaymentLinkDetails) GetExternalInvoiceId() string {
-	if o == nil || o.ExternalInvoiceId == nil {
+// GetExternalInvoiceNumber returns the ExternalInvoiceNumber field value if set, zero value otherwise.
+func (o *PaymentLinkDetails) GetExternalInvoiceNumber() string {
+	if o == nil || o.ExternalInvoiceNumber == nil {
 		var ret string
 		return ret
 	}
-	return *o.ExternalInvoiceId
+	return *o.ExternalInvoiceNumber
 }
 
-// GetExternalInvoiceIdOk returns a tuple with the ExternalInvoiceId field value if set, nil otherwise
+// GetExternalInvoiceNumberOk returns a tuple with the ExternalInvoiceNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentLinkDetails) GetExternalInvoiceIdOk() (*string, bool) {
-	if o == nil || o.ExternalInvoiceId == nil {
+func (o *PaymentLinkDetails) GetExternalInvoiceNumberOk() (*string, bool) {
+	if o == nil || o.ExternalInvoiceNumber == nil {
 		return nil, false
 	}
-	return o.ExternalInvoiceId, true
+	return o.ExternalInvoiceNumber, true
 }
 
-// HasExternalInvoiceId returns a boolean if a field has been set.
-func (o *PaymentLinkDetails) HasExternalInvoiceId() bool {
-	if o != nil && o.ExternalInvoiceId != nil {
+// HasExternalInvoiceNumber returns a boolean if a field has been set.
+func (o *PaymentLinkDetails) HasExternalInvoiceNumber() bool {
+	if o != nil && o.ExternalInvoiceNumber != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetExternalInvoiceId gets a reference to the given string and assigns it to the ExternalInvoiceId field.
-func (o *PaymentLinkDetails) SetExternalInvoiceId(v string) {
-	o.ExternalInvoiceId = &v
+// SetExternalInvoiceNumber gets a reference to the given string and assigns it to the ExternalInvoiceNumber field.
+func (o *PaymentLinkDetails) SetExternalInvoiceNumber(v string) {
+	o.ExternalInvoiceNumber = &v
 }
 
 func (o PaymentLinkDetails) MarshalJSON() ([]byte, error) {
@@ -108,8 +108,8 @@ func (o PaymentLinkDetails) MarshalJSON() ([]byte, error) {
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
-	if o.ExternalInvoiceId != nil {
-		toSerialize["external_invoice_id"] = o.ExternalInvoiceId
+	if o.ExternalInvoiceNumber != nil {
+		toSerialize["external_invoice_number"] = o.ExternalInvoiceNumber
 	}
 	return json.Marshal(toSerialize)
 }

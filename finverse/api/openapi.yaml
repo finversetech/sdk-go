@@ -6892,7 +6892,7 @@ components:
           key: metadata
         payment_details:
           description: description
-          external_invoice_id: external_invoice_id
+          external_invoice_number: external_invoice_number
         sender:
           name: Chan Li Pak
           email: email
@@ -6947,11 +6947,11 @@ components:
     PaymentLinkDetails:
       example:
         description: description
-        external_invoice_id: external_invoice_id
+        external_invoice_number: external_invoice_number
       properties:
         description:
           type: string
-        external_invoice_id:
+        external_invoice_number:
           description: For external invoice reference
           type: string
       type: object
@@ -7056,7 +7056,7 @@ components:
           status: AUTHORIZATION_REQUIRED
         payment_details:
           description: description
-          external_invoice_id: external_invoice_id
+          external_invoice_number: external_invoice_number
         payment_link_id: payment_link_id
         created_at: 2000-01-23T04:56:07.000+00:00
         language: zh
