@@ -6897,8 +6897,6 @@ components:
           name: Chan Li Pak
           email: email
           external_user_id: external_user_id
-        recipient_account:
-          account_id: account_id
         currency: HKD
         language: zh
         unique_reference_id: unique_reference_id
@@ -6926,8 +6924,6 @@ components:
           type: string
         payment_details:
           $ref: '#/components/schemas/PaymentLinkDetails'
-        recipient_account:
-          $ref: '#/components/schemas/PaymentLinkRecipientAccount'
         sender:
           $ref: '#/components/schemas/PaymentLinkSender'
         unique_reference_id:
@@ -6945,7 +6941,6 @@ components:
       - amount
       - currency
       - mode
-      - recipient_account
       - sender
       - unique_reference_id
       type: object
@@ -6959,17 +6954,6 @@ components:
         external_invoice_id:
           description: For external invoice reference
           type: string
-      type: object
-    PaymentLinkRecipientAccount:
-      example:
-        account_id: account_id
-      properties:
-        account_id:
-          description: Merchant account ID assigned by Finverse
-          minLength: 1
-          type: string
-      required:
-      - account_id
       type: object
     PaymentLinkSender:
       example:
@@ -7074,9 +7058,6 @@ components:
           description: description
           external_invoice_id: external_invoice_id
         payment_link_id: payment_link_id
-        recipient_account:
-          account_type: SETTLEMENT_ACCOUNT
-          account_id: account_id
         created_at: 2000-01-23T04:56:07.000+00:00
         language: zh
         unique_reference_id: unique_reference_id
@@ -7089,8 +7070,6 @@ components:
           name: Chan Li Pak
           email: email
           external_user_id: external_user_id
-        recipient:
-          name: name
         currency: HKD
         payment:
           amount: 100
@@ -7211,10 +7190,6 @@ components:
           $ref: '#/components/schemas/GetMandateResponse'
         payment:
           $ref: '#/components/schemas/PaymentResponse'
-        recipient:
-          $ref: '#/components/schemas/MandateRecipient'
-        recipient_account:
-          $ref: '#/components/schemas/MandateRecipientAccount'
         sender:
           $ref: '#/components/schemas/PaymentLinkSenderResponse'
       type: object

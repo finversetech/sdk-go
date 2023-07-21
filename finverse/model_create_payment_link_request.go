@@ -23,10 +23,9 @@ type CreatePaymentLinkRequest struct {
 	// Specifies language to be used in Finverse UI
 	Language *string `json:"language,omitempty"`
 	// The payment link mode
-	Mode             string                      `json:"mode"`
-	PaymentDetails   *PaymentLinkDetails         `json:"payment_details,omitempty"`
-	RecipientAccount PaymentLinkRecipientAccount `json:"recipient_account"`
-	Sender           PaymentLinkSender           `json:"sender"`
+	Mode           string              `json:"mode"`
+	PaymentDetails *PaymentLinkDetails `json:"payment_details,omitempty"`
+	Sender         PaymentLinkSender   `json:"sender"`
 	// Unique reference id to identifying the payment to be collected.
 	UniqueReferenceId string `json:"unique_reference_id"`
 	// Additional attributes of the payment link in key:value format (e.g. payment_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
@@ -37,12 +36,11 @@ type CreatePaymentLinkRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentLinkRequest(amount int32, currency string, mode string, recipientAccount PaymentLinkRecipientAccount, sender PaymentLinkSender, uniqueReferenceId string) *CreatePaymentLinkRequest {
+func NewCreatePaymentLinkRequest(amount int32, currency string, mode string, sender PaymentLinkSender, uniqueReferenceId string) *CreatePaymentLinkRequest {
 	this := CreatePaymentLinkRequest{}
 	this.Amount = amount
 	this.Currency = currency
 	this.Mode = mode
-	this.RecipientAccount = recipientAccount
 	this.Sender = sender
 	this.UniqueReferenceId = uniqueReferenceId
 	return &this
@@ -192,30 +190,6 @@ func (o *CreatePaymentLinkRequest) SetPaymentDetails(v PaymentLinkDetails) {
 	o.PaymentDetails = &v
 }
 
-// GetRecipientAccount returns the RecipientAccount field value
-func (o *CreatePaymentLinkRequest) GetRecipientAccount() PaymentLinkRecipientAccount {
-	if o == nil {
-		var ret PaymentLinkRecipientAccount
-		return ret
-	}
-
-	return o.RecipientAccount
-}
-
-// GetRecipientAccountOk returns a tuple with the RecipientAccount field value
-// and a boolean to check if the value has been set.
-func (o *CreatePaymentLinkRequest) GetRecipientAccountOk() (*PaymentLinkRecipientAccount, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.RecipientAccount, true
-}
-
-// SetRecipientAccount sets field value
-func (o *CreatePaymentLinkRequest) SetRecipientAccount(v PaymentLinkRecipientAccount) {
-	o.RecipientAccount = v
-}
-
 // GetSender returns the Sender field value
 func (o *CreatePaymentLinkRequest) GetSender() PaymentLinkSender {
 	if o == nil {
@@ -312,9 +286,6 @@ func (o CreatePaymentLinkRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.PaymentDetails != nil {
 		toSerialize["payment_details"] = o.PaymentDetails
-	}
-	if true {
-		toSerialize["recipient_account"] = o.RecipientAccount
 	}
 	if true {
 		toSerialize["sender"] = o.Sender

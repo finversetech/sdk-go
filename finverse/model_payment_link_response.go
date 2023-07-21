@@ -41,12 +41,10 @@ type PaymentLinkResponse struct {
 	// Timestamp of when the payment link was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp of when the payment link was last updated in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	UpdatedAt        *time.Time                 `json:"updated_at,omitempty"`
-	Mandate          *GetMandateResponse        `json:"mandate,omitempty"`
-	Payment          *PaymentResponse           `json:"payment,omitempty"`
-	Recipient        *MandateRecipient          `json:"recipient,omitempty"`
-	RecipientAccount *MandateRecipientAccount   `json:"recipient_account,omitempty"`
-	Sender           *PaymentLinkSenderResponse `json:"sender,omitempty"`
+	UpdatedAt *time.Time                 `json:"updated_at,omitempty"`
+	Mandate   *GetMandateResponse        `json:"mandate,omitempty"`
+	Payment   *PaymentResponse           `json:"payment,omitempty"`
+	Sender    *PaymentLinkSenderResponse `json:"sender,omitempty"`
 }
 
 // NewPaymentLinkResponse instantiates a new PaymentLinkResponse object
@@ -546,70 +544,6 @@ func (o *PaymentLinkResponse) SetPayment(v PaymentResponse) {
 	o.Payment = &v
 }
 
-// GetRecipient returns the Recipient field value if set, zero value otherwise.
-func (o *PaymentLinkResponse) GetRecipient() MandateRecipient {
-	if o == nil || o.Recipient == nil {
-		var ret MandateRecipient
-		return ret
-	}
-	return *o.Recipient
-}
-
-// GetRecipientOk returns a tuple with the Recipient field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PaymentLinkResponse) GetRecipientOk() (*MandateRecipient, bool) {
-	if o == nil || o.Recipient == nil {
-		return nil, false
-	}
-	return o.Recipient, true
-}
-
-// HasRecipient returns a boolean if a field has been set.
-func (o *PaymentLinkResponse) HasRecipient() bool {
-	if o != nil && o.Recipient != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRecipient gets a reference to the given MandateRecipient and assigns it to the Recipient field.
-func (o *PaymentLinkResponse) SetRecipient(v MandateRecipient) {
-	o.Recipient = &v
-}
-
-// GetRecipientAccount returns the RecipientAccount field value if set, zero value otherwise.
-func (o *PaymentLinkResponse) GetRecipientAccount() MandateRecipientAccount {
-	if o == nil || o.RecipientAccount == nil {
-		var ret MandateRecipientAccount
-		return ret
-	}
-	return *o.RecipientAccount
-}
-
-// GetRecipientAccountOk returns a tuple with the RecipientAccount field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PaymentLinkResponse) GetRecipientAccountOk() (*MandateRecipientAccount, bool) {
-	if o == nil || o.RecipientAccount == nil {
-		return nil, false
-	}
-	return o.RecipientAccount, true
-}
-
-// HasRecipientAccount returns a boolean if a field has been set.
-func (o *PaymentLinkResponse) HasRecipientAccount() bool {
-	if o != nil && o.RecipientAccount != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRecipientAccount gets a reference to the given MandateRecipientAccount and assigns it to the RecipientAccount field.
-func (o *PaymentLinkResponse) SetRecipientAccount(v MandateRecipientAccount) {
-	o.RecipientAccount = &v
-}
-
 // GetSender returns the Sender field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetSender() PaymentLinkSenderResponse {
 	if o == nil || o.Sender == nil {
@@ -688,12 +622,6 @@ func (o PaymentLinkResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Payment != nil {
 		toSerialize["payment"] = o.Payment
-	}
-	if o.Recipient != nil {
-		toSerialize["recipient"] = o.Recipient
-	}
-	if o.RecipientAccount != nil {
-		toSerialize["recipient_account"] = o.RecipientAccount
 	}
 	if o.Sender != nil {
 		toSerialize["sender"] = o.Sender
