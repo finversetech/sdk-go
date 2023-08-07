@@ -4039,8 +4039,8 @@ components:
           example: real
           type: string
         ui_mode:
-          description: The UI mode link is intended to be used in - "iframe" (default),
-            "auto_redirect" or "redirect" or "standalone"
+          description: The UI mode link is intended to be used in - "iframe", "auto_redirect",
+            "redirect" or "standalone"
           enum:
           - iframe
           - redirect
@@ -6924,6 +6924,9 @@ components:
         amount: 100
         metadata:
           key: metadata
+        link_customizations:
+          language: en
+          ui_mode: redirect
         payment_details:
           description: description
           external_invoice_number: external_invoice_number
@@ -6932,7 +6935,6 @@ components:
           email: email
           external_user_id: external_user_id
         currency: HKD
-        language: zh
         unique_reference_id: unique_reference_id
       properties:
         amount:
@@ -6946,10 +6948,8 @@ components:
           maxLength: 3
           minLength: 3
           type: string
-        language:
-          description: Specifies language to be used in Finverse UI
-          example: zh
-          type: string
+        link_customizations:
+          $ref: '#/components/schemas/PaymentLinkCustomizations'
         mode:
           description: The payment link mode
           enum:
@@ -7093,10 +7093,12 @@ components:
           external_invoice_number: external_invoice_number
         payment_link_id: payment_link_id
         created_at: 2000-01-23T04:56:07.000+00:00
-        language: zh
         unique_reference_id: unique_reference_id
         url: url
         mode: PAYMENT
+        link_customizations:
+          language: en
+          ui_mode: redirect
         expires_at: 2000-01-23T04:56:07.000+00:00
         updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
@@ -7172,10 +7174,8 @@ components:
         currency:
           example: HKD
           type: string
-        language:
-          description: Specifies language to be used in Finverse UI
-          example: zh
-          type: string
+        link_customizations:
+          $ref: '#/components/schemas/PaymentLinkCustomizations'
         mode:
           description: The payment link mode
           enum:
@@ -7908,6 +7908,27 @@ components:
       - link_customizations
       - mandate_id
       type: object
+    PaymentLinkCustomizations:
+      example:
+        language: en
+        ui_mode: redirect
+      properties:
+        language:
+          description: ISO639-1 language code. Language to display when user open
+            the link, default to English (en) if not specified
+          example: en
+          type: string
+        ui_mode:
+          description: The UI mode link is intended to be used in - "iframe", "auto_redirect",
+            "redirect" or "standalone"
+          enum:
+          - iframe
+          - redirect
+          - auto_redirect
+          - standalone
+          example: redirect
+          type: string
+      type: object
     MandateAuthLinkCustomizations:
       example:
         products_supported:
@@ -7962,8 +7983,8 @@ components:
             type: string
           type: array
         ui_mode:
-          description: The UI mode link is intended to be used in - "iframe" (default),
-            "auto_redirect" or "redirect" or "standalone"
+          description: The UI mode link is intended to be used in - "iframe", "auto_redirect",
+            "redirect" or "standalone"
           enum:
           - iframe
           - redirect

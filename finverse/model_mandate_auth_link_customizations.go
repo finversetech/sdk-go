@@ -29,7 +29,7 @@ type MandateAuthLinkCustomizations struct {
 	LinkMode *string `json:"link_mode,omitempty"`
 	// institution's supported product filter. For mandate authorization, this field should contain [\"MANDATE\"]
 	ProductsSupported []string `json:"products_supported,omitempty"`
-	// The UI mode link is intended to be used in - \"iframe\" (default), \"auto_redirect\" or \"redirect\" or \"standalone\"
+	// The UI mode link is intended to be used in - \"iframe\", \"auto_redirect\", \"redirect\" or \"standalone\"
 	UiMode *string `json:"ui_mode,omitempty"`
 	// The URI to redirect to. Required if ui_mode is \"redirect\" or \"auto_redirect\"
 	RedirectUri *string `json:"redirect_uri,omitempty"`

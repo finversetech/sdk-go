@@ -18,10 +18,9 @@ import (
 // CreatePaymentLinkRequest struct for CreatePaymentLinkRequest
 type CreatePaymentLinkRequest struct {
 	// The amount of the payment. Expressed in currency's smallest unit or “minor unit”, as defined in ISO 4217.
-	Amount   int32  `json:"amount"`
-	Currency string `json:"currency"`
-	// Specifies language to be used in Finverse UI
-	Language *string `json:"language,omitempty"`
+	Amount             int32                      `json:"amount"`
+	Currency           string                     `json:"currency"`
+	LinkCustomizations *PaymentLinkCustomizations `json:"link_customizations,omitempty"`
 	// The payment link mode
 	Mode           string              `json:"mode"`
 	PaymentDetails *PaymentLinkDetails `json:"payment_details,omitempty"`
@@ -102,36 +101,36 @@ func (o *CreatePaymentLinkRequest) SetCurrency(v string) {
 	o.Currency = v
 }
 
-// GetLanguage returns the Language field value if set, zero value otherwise.
-func (o *CreatePaymentLinkRequest) GetLanguage() string {
-	if o == nil || o.Language == nil {
-		var ret string
+// GetLinkCustomizations returns the LinkCustomizations field value if set, zero value otherwise.
+func (o *CreatePaymentLinkRequest) GetLinkCustomizations() PaymentLinkCustomizations {
+	if o == nil || o.LinkCustomizations == nil {
+		var ret PaymentLinkCustomizations
 		return ret
 	}
-	return *o.Language
+	return *o.LinkCustomizations
 }
 
-// GetLanguageOk returns a tuple with the Language field value if set, nil otherwise
+// GetLinkCustomizationsOk returns a tuple with the LinkCustomizations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreatePaymentLinkRequest) GetLanguageOk() (*string, bool) {
-	if o == nil || o.Language == nil {
+func (o *CreatePaymentLinkRequest) GetLinkCustomizationsOk() (*PaymentLinkCustomizations, bool) {
+	if o == nil || o.LinkCustomizations == nil {
 		return nil, false
 	}
-	return o.Language, true
+	return o.LinkCustomizations, true
 }
 
-// HasLanguage returns a boolean if a field has been set.
-func (o *CreatePaymentLinkRequest) HasLanguage() bool {
-	if o != nil && o.Language != nil {
+// HasLinkCustomizations returns a boolean if a field has been set.
+func (o *CreatePaymentLinkRequest) HasLinkCustomizations() bool {
+	if o != nil && o.LinkCustomizations != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetLanguage gets a reference to the given string and assigns it to the Language field.
-func (o *CreatePaymentLinkRequest) SetLanguage(v string) {
-	o.Language = &v
+// SetLinkCustomizations gets a reference to the given PaymentLinkCustomizations and assigns it to the LinkCustomizations field.
+func (o *CreatePaymentLinkRequest) SetLinkCustomizations(v PaymentLinkCustomizations) {
+	o.LinkCustomizations = &v
 }
 
 // GetMode returns the Mode field value
@@ -278,8 +277,8 @@ func (o CreatePaymentLinkRequest) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["currency"] = o.Currency
 	}
-	if o.Language != nil {
-		toSerialize["language"] = o.Language
+	if o.LinkCustomizations != nil {
+		toSerialize["link_customizations"] = o.LinkCustomizations
 	}
 	if true {
 		toSerialize["mode"] = o.Mode
