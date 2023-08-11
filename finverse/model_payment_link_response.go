@@ -40,10 +40,11 @@ type PaymentLinkResponse struct {
 	// Timestamp of when the payment link was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp of when the payment link was last updated in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	UpdatedAt *time.Time                 `json:"updated_at,omitempty"`
-	Mandate   *GetMandateResponse        `json:"mandate,omitempty"`
-	Payment   *PaymentResponse           `json:"payment,omitempty"`
-	Sender    *PaymentLinkSenderResponse `json:"sender,omitempty"`
+	UpdatedAt   *time.Time                 `json:"updated_at,omitempty"`
+	Mandate     *GetMandateResponse        `json:"mandate,omitempty"`
+	Payment     *PaymentResponse           `json:"payment,omitempty"`
+	Sender      *PaymentLinkSenderResponse `json:"sender,omitempty"`
+	RedirectUri *string                    `json:"redirect_uri,omitempty"`
 }
 
 // NewPaymentLinkResponse instantiates a new PaymentLinkResponse object
@@ -575,6 +576,38 @@ func (o *PaymentLinkResponse) SetSender(v PaymentLinkSenderResponse) {
 	o.Sender = &v
 }
 
+// GetRedirectUri returns the RedirectUri field value if set, zero value otherwise.
+func (o *PaymentLinkResponse) GetRedirectUri() string {
+	if o == nil || o.RedirectUri == nil {
+		var ret string
+		return ret
+	}
+	return *o.RedirectUri
+}
+
+// GetRedirectUriOk returns a tuple with the RedirectUri field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentLinkResponse) GetRedirectUriOk() (*string, bool) {
+	if o == nil || o.RedirectUri == nil {
+		return nil, false
+	}
+	return o.RedirectUri, true
+}
+
+// HasRedirectUri returns a boolean if a field has been set.
+func (o *PaymentLinkResponse) HasRedirectUri() bool {
+	if o != nil && o.RedirectUri != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRedirectUri gets a reference to the given string and assigns it to the RedirectUri field.
+func (o *PaymentLinkResponse) SetRedirectUri(v string) {
+	o.RedirectUri = &v
+}
+
 func (o PaymentLinkResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.PaymentLinkId != nil {
@@ -624,6 +657,9 @@ func (o PaymentLinkResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Sender != nil {
 		toSerialize["sender"] = o.Sender
+	}
+	if o.RedirectUri != nil {
+		toSerialize["redirect_uri"] = o.RedirectUri
 	}
 	return json.Marshal(toSerialize)
 }
