@@ -21,6 +21,8 @@ type PaymentLinkCustomizations struct {
 	Language *string `json:"language,omitempty"`
 	// The UI mode link is intended to be used in - \"iframe\", \"auto_redirect\", \"redirect\" or \"standalone\"
 	UiMode *string `json:"ui_mode,omitempty"`
+	// URI to redirect to. Only needed if ui_mode = redirect
+	RedirectUri *string `json:"redirect_uri,omitempty"`
 }
 
 // NewPaymentLinkCustomizations instantiates a new PaymentLinkCustomizations object
@@ -104,6 +106,38 @@ func (o *PaymentLinkCustomizations) SetUiMode(v string) {
 	o.UiMode = &v
 }
 
+// GetRedirectUri returns the RedirectUri field value if set, zero value otherwise.
+func (o *PaymentLinkCustomizations) GetRedirectUri() string {
+	if o == nil || o.RedirectUri == nil {
+		var ret string
+		return ret
+	}
+	return *o.RedirectUri
+}
+
+// GetRedirectUriOk returns a tuple with the RedirectUri field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentLinkCustomizations) GetRedirectUriOk() (*string, bool) {
+	if o == nil || o.RedirectUri == nil {
+		return nil, false
+	}
+	return o.RedirectUri, true
+}
+
+// HasRedirectUri returns a boolean if a field has been set.
+func (o *PaymentLinkCustomizations) HasRedirectUri() bool {
+	if o != nil && o.RedirectUri != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRedirectUri gets a reference to the given string and assigns it to the RedirectUri field.
+func (o *PaymentLinkCustomizations) SetRedirectUri(v string) {
+	o.RedirectUri = &v
+}
+
 func (o PaymentLinkCustomizations) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Language != nil {
@@ -111,6 +145,9 @@ func (o PaymentLinkCustomizations) MarshalJSON() ([]byte, error) {
 	}
 	if o.UiMode != nil {
 		toSerialize["ui_mode"] = o.UiMode
+	}
+	if o.RedirectUri != nil {
+		toSerialize["redirect_uri"] = o.RedirectUri
 	}
 	return json.Marshal(toSerialize)
 }

@@ -6926,6 +6926,7 @@ components:
           key: metadata
         link_customizations:
           language: en
+          redirect_uri: redirect_uri
           ui_mode: redirect
         payment_details:
           description: description
@@ -6935,7 +6936,6 @@ components:
           email: email
           external_user_id: external_user_id
         currency: HKD
-        redirect_uri: redirect_uri
         unique_reference_id: unique_reference_id
       properties:
         amount:
@@ -6972,9 +6972,6 @@ components:
             (e.g. payment_id: 1234). It supports up to 10 key:value pairs, whereas
             the key and value supports up to 50 and 500 characters respectively.'
           type: object
-        redirect_uri:
-          description: URI to redirect to. Only needed if ui_mode = redirect
-          type: string
       required:
       - amount
       - currency
@@ -7102,6 +7099,7 @@ components:
         mode: PAYMENT
         link_customizations:
           language: en
+          redirect_uri: redirect_uri
           ui_mode: redirect
         expires_at: 2000-01-23T04:56:07.000+00:00
         updated_at: 2000-01-23T04:56:07.000+00:00
@@ -7165,7 +7163,6 @@ components:
             name: name
           currency: HKD
           status: AUTHORIZATION_REQUIRED
-        redirect_uri: redirect_uri
         status: CREATED
       properties:
         payment_link_id:
@@ -7231,8 +7228,6 @@ components:
           $ref: '#/components/schemas/PaymentResponse'
         sender:
           $ref: '#/components/schemas/PaymentLinkSenderResponse'
-        redirect_uri:
-          type: string
       type: object
     PaymentLinkSenderResponse:
       example:
@@ -7918,6 +7913,7 @@ components:
     PaymentLinkCustomizations:
       example:
         language: en
+        redirect_uri: redirect_uri
         ui_mode: redirect
       properties:
         language:
@@ -7934,6 +7930,9 @@ components:
           - auto_redirect
           - standalone
           example: redirect
+          type: string
+        redirect_uri:
+          description: URI to redirect to. Only needed if ui_mode = redirect
           type: string
       type: object
     MandateAuthLinkCustomizations:

@@ -29,8 +29,6 @@ type CreatePaymentLinkRequest struct {
 	UniqueReferenceId string `json:"unique_reference_id"`
 	// Additional attributes of the payment link in key:value format (e.g. payment_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
 	Metadata *map[string]string `json:"metadata,omitempty"`
-	// URI to redirect to. Only needed if ui_mode = redirect
-	RedirectUri *string `json:"redirect_uri,omitempty"`
 }
 
 // NewCreatePaymentLinkRequest instantiates a new CreatePaymentLinkRequest object
@@ -271,38 +269,6 @@ func (o *CreatePaymentLinkRequest) SetMetadata(v map[string]string) {
 	o.Metadata = &v
 }
 
-// GetRedirectUri returns the RedirectUri field value if set, zero value otherwise.
-func (o *CreatePaymentLinkRequest) GetRedirectUri() string {
-	if o == nil || o.RedirectUri == nil {
-		var ret string
-		return ret
-	}
-	return *o.RedirectUri
-}
-
-// GetRedirectUriOk returns a tuple with the RedirectUri field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CreatePaymentLinkRequest) GetRedirectUriOk() (*string, bool) {
-	if o == nil || o.RedirectUri == nil {
-		return nil, false
-	}
-	return o.RedirectUri, true
-}
-
-// HasRedirectUri returns a boolean if a field has been set.
-func (o *CreatePaymentLinkRequest) HasRedirectUri() bool {
-	if o != nil && o.RedirectUri != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRedirectUri gets a reference to the given string and assigns it to the RedirectUri field.
-func (o *CreatePaymentLinkRequest) SetRedirectUri(v string) {
-	o.RedirectUri = &v
-}
-
 func (o CreatePaymentLinkRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -328,9 +294,6 @@ func (o CreatePaymentLinkRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
-	}
-	if o.RedirectUri != nil {
-		toSerialize["redirect_uri"] = o.RedirectUri
 	}
 	return json.Marshal(toSerialize)
 }
