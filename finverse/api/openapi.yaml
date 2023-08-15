@@ -2331,6 +2331,9 @@ components:
         payment_attempt_id:
           example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           type: string
+        product_flow:
+          example: PAYMENT_LINK
+          type: string
         scopes:
           example:
           - link

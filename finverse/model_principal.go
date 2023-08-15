@@ -26,6 +26,7 @@ type Principal struct {
 	MandateId        *string           `json:"mandate_id,omitempty"`
 	ExpiresIn        *float32          `json:"expires_in,omitempty"`
 	PaymentAttemptId *string           `json:"payment_attempt_id,omitempty"`
+	ProductFlow      *string           `json:"product_flow,omitempty"`
 	Scopes           []string          `json:"scopes,omitempty"`
 	LinkTokenRequest *LinkTokenRequest `json:"link_token_request,omitempty"`
 }
@@ -307,6 +308,38 @@ func (o *Principal) SetPaymentAttemptId(v string) {
 	o.PaymentAttemptId = &v
 }
 
+// GetProductFlow returns the ProductFlow field value if set, zero value otherwise.
+func (o *Principal) GetProductFlow() string {
+	if o == nil || o.ProductFlow == nil {
+		var ret string
+		return ret
+	}
+	return *o.ProductFlow
+}
+
+// GetProductFlowOk returns a tuple with the ProductFlow field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Principal) GetProductFlowOk() (*string, bool) {
+	if o == nil || o.ProductFlow == nil {
+		return nil, false
+	}
+	return o.ProductFlow, true
+}
+
+// HasProductFlow returns a boolean if a field has been set.
+func (o *Principal) HasProductFlow() bool {
+	if o != nil && o.ProductFlow != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProductFlow gets a reference to the given string and assigns it to the ProductFlow field.
+func (o *Principal) SetProductFlow(v string) {
+	o.ProductFlow = &v
+}
+
 // GetScopes returns the Scopes field value if set, zero value otherwise.
 func (o *Principal) GetScopes() []string {
 	if o == nil || o.Scopes == nil {
@@ -399,6 +432,9 @@ func (o Principal) MarshalJSON() ([]byte, error) {
 	}
 	if o.PaymentAttemptId != nil {
 		toSerialize["payment_attempt_id"] = o.PaymentAttemptId
+	}
+	if o.ProductFlow != nil {
+		toSerialize["product_flow"] = o.ProductFlow
 	}
 	if o.Scopes != nil {
 		toSerialize["scopes"] = o.Scopes
