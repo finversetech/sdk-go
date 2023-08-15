@@ -2369,6 +2369,12 @@ components:
           type: array
         link_token_request:
           $ref: '#/components/schemas/LinkTokenRequest'
+        redirect_uri:
+          type: string
+        payment_link_id:
+          type: string
+        unique_reference_id:
+          type: string
       required:
       - client_id
       - customer_app_id

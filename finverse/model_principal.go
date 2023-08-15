@@ -17,18 +17,21 @@ import (
 
 // Principal struct for Principal
 type Principal struct {
-	Subject          string            `json:"subject"`
-	Token            *string           `json:"token,omitempty"`
-	ClientId         string            `json:"client_id"`
-	CustomerAppId    string            `json:"customer_app_id"`
-	LoginIdentityId  string            `json:"login_identity_id"`
-	CustomizationId  *string           `json:"customization_id,omitempty"`
-	MandateId        *string           `json:"mandate_id,omitempty"`
-	ExpiresIn        *float32          `json:"expires_in,omitempty"`
-	PaymentAttemptId *string           `json:"payment_attempt_id,omitempty"`
-	ProductFlow      *string           `json:"product_flow,omitempty"`
-	Scopes           []string          `json:"scopes,omitempty"`
-	LinkTokenRequest *LinkTokenRequest `json:"link_token_request,omitempty"`
+	Subject           string            `json:"subject"`
+	Token             *string           `json:"token,omitempty"`
+	ClientId          string            `json:"client_id"`
+	CustomerAppId     string            `json:"customer_app_id"`
+	LoginIdentityId   string            `json:"login_identity_id"`
+	CustomizationId   *string           `json:"customization_id,omitempty"`
+	MandateId         *string           `json:"mandate_id,omitempty"`
+	ExpiresIn         *float32          `json:"expires_in,omitempty"`
+	PaymentAttemptId  *string           `json:"payment_attempt_id,omitempty"`
+	ProductFlow       *string           `json:"product_flow,omitempty"`
+	Scopes            []string          `json:"scopes,omitempty"`
+	LinkTokenRequest  *LinkTokenRequest `json:"link_token_request,omitempty"`
+	RedirectUri       *string           `json:"redirect_uri,omitempty"`
+	PaymentLinkId     *string           `json:"payment_link_id,omitempty"`
+	UniqueReferenceId *string           `json:"unique_reference_id,omitempty"`
 }
 
 // NewPrincipal instantiates a new Principal object
@@ -404,6 +407,102 @@ func (o *Principal) SetLinkTokenRequest(v LinkTokenRequest) {
 	o.LinkTokenRequest = &v
 }
 
+// GetRedirectUri returns the RedirectUri field value if set, zero value otherwise.
+func (o *Principal) GetRedirectUri() string {
+	if o == nil || o.RedirectUri == nil {
+		var ret string
+		return ret
+	}
+	return *o.RedirectUri
+}
+
+// GetRedirectUriOk returns a tuple with the RedirectUri field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Principal) GetRedirectUriOk() (*string, bool) {
+	if o == nil || o.RedirectUri == nil {
+		return nil, false
+	}
+	return o.RedirectUri, true
+}
+
+// HasRedirectUri returns a boolean if a field has been set.
+func (o *Principal) HasRedirectUri() bool {
+	if o != nil && o.RedirectUri != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRedirectUri gets a reference to the given string and assigns it to the RedirectUri field.
+func (o *Principal) SetRedirectUri(v string) {
+	o.RedirectUri = &v
+}
+
+// GetPaymentLinkId returns the PaymentLinkId field value if set, zero value otherwise.
+func (o *Principal) GetPaymentLinkId() string {
+	if o == nil || o.PaymentLinkId == nil {
+		var ret string
+		return ret
+	}
+	return *o.PaymentLinkId
+}
+
+// GetPaymentLinkIdOk returns a tuple with the PaymentLinkId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Principal) GetPaymentLinkIdOk() (*string, bool) {
+	if o == nil || o.PaymentLinkId == nil {
+		return nil, false
+	}
+	return o.PaymentLinkId, true
+}
+
+// HasPaymentLinkId returns a boolean if a field has been set.
+func (o *Principal) HasPaymentLinkId() bool {
+	if o != nil && o.PaymentLinkId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentLinkId gets a reference to the given string and assigns it to the PaymentLinkId field.
+func (o *Principal) SetPaymentLinkId(v string) {
+	o.PaymentLinkId = &v
+}
+
+// GetUniqueReferenceId returns the UniqueReferenceId field value if set, zero value otherwise.
+func (o *Principal) GetUniqueReferenceId() string {
+	if o == nil || o.UniqueReferenceId == nil {
+		var ret string
+		return ret
+	}
+	return *o.UniqueReferenceId
+}
+
+// GetUniqueReferenceIdOk returns a tuple with the UniqueReferenceId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Principal) GetUniqueReferenceIdOk() (*string, bool) {
+	if o == nil || o.UniqueReferenceId == nil {
+		return nil, false
+	}
+	return o.UniqueReferenceId, true
+}
+
+// HasUniqueReferenceId returns a boolean if a field has been set.
+func (o *Principal) HasUniqueReferenceId() bool {
+	if o != nil && o.UniqueReferenceId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUniqueReferenceId gets a reference to the given string and assigns it to the UniqueReferenceId field.
+func (o *Principal) SetUniqueReferenceId(v string) {
+	o.UniqueReferenceId = &v
+}
+
 func (o Principal) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -441,6 +540,15 @@ func (o Principal) MarshalJSON() ([]byte, error) {
 	}
 	if o.LinkTokenRequest != nil {
 		toSerialize["link_token_request"] = o.LinkTokenRequest
+	}
+	if o.RedirectUri != nil {
+		toSerialize["redirect_uri"] = o.RedirectUri
+	}
+	if o.PaymentLinkId != nil {
+		toSerialize["payment_link_id"] = o.PaymentLinkId
+	}
+	if o.UniqueReferenceId != nil {
+		toSerialize["unique_reference_id"] = o.UniqueReferenceId
 	}
 	return json.Marshal(toSerialize)
 }
