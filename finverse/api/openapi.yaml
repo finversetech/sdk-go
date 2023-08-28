@@ -2350,19 +2350,19 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BadRequestModel'
+                $ref: '#/components/schemas/ErrBodyModelV2'
           description: Invalid Request
         "401":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BadRequestModel'
+                $ref: '#/components/schemas/ErrBodyModelV2'
           description: Unauthorized
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/ErrorResponse'
+                $ref: '#/components/schemas/ErrBodyModelV2'
           description: Internal Server Error
       security:
       - Oauth2:
@@ -2415,6 +2415,8 @@ components:
           $ref: '#/components/schemas/LinkTokenRequest'
         get_mandate_auth_link_request:
           $ref: '#/components/schemas/GetMandateAuthLinkRequest'
+        currency:
+          type: string
         redirect_uri:
           type: string
         payment_link_id:

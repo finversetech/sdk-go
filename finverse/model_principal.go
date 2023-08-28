@@ -30,6 +30,7 @@ type Principal struct {
 	Scopes                    []string                   `json:"scopes,omitempty"`
 	LinkTokenRequest          *LinkTokenRequest          `json:"link_token_request,omitempty"`
 	GetMandateAuthLinkRequest *GetMandateAuthLinkRequest `json:"get_mandate_auth_link_request,omitempty"`
+	Currency                  *string                    `json:"currency,omitempty"`
 	RedirectUri               *string                    `json:"redirect_uri,omitempty"`
 	PaymentLinkId             *string                    `json:"payment_link_id,omitempty"`
 	UniqueReferenceId         *string                    `json:"unique_reference_id,omitempty"`
@@ -440,6 +441,38 @@ func (o *Principal) SetGetMandateAuthLinkRequest(v GetMandateAuthLinkRequest) {
 	o.GetMandateAuthLinkRequest = &v
 }
 
+// GetCurrency returns the Currency field value if set, zero value otherwise.
+func (o *Principal) GetCurrency() string {
+	if o == nil || o.Currency == nil {
+		var ret string
+		return ret
+	}
+	return *o.Currency
+}
+
+// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Principal) GetCurrencyOk() (*string, bool) {
+	if o == nil || o.Currency == nil {
+		return nil, false
+	}
+	return o.Currency, true
+}
+
+// HasCurrency returns a boolean if a field has been set.
+func (o *Principal) HasCurrency() bool {
+	if o != nil && o.Currency != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrency gets a reference to the given string and assigns it to the Currency field.
+func (o *Principal) SetCurrency(v string) {
+	o.Currency = &v
+}
+
 // GetRedirectUri returns the RedirectUri field value if set, zero value otherwise.
 func (o *Principal) GetRedirectUri() string {
 	if o == nil || o.RedirectUri == nil {
@@ -576,6 +609,9 @@ func (o Principal) MarshalJSON() ([]byte, error) {
 	}
 	if o.GetMandateAuthLinkRequest != nil {
 		toSerialize["get_mandate_auth_link_request"] = o.GetMandateAuthLinkRequest
+	}
+	if o.Currency != nil {
+		toSerialize["currency"] = o.Currency
 	}
 	if o.RedirectUri != nil {
 		toSerialize["redirect_uri"] = o.RedirectUri
