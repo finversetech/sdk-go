@@ -34,6 +34,7 @@ type PaymentResponse struct {
 	Recipient        *MandateRecipient        `json:"recipient,omitempty"`
 	RecipientAccount *MandateRecipientAccount `json:"recipient_account,omitempty"`
 	Sender           *GetMandateSender        `json:"sender,omitempty"`
+	SenderAccount    *MandateSenderAccount    `json:"sender_account,omitempty"`
 	Fees             []Fee                    `json:"fees,omitempty"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
@@ -379,6 +380,38 @@ func (o *PaymentResponse) SetSender(v GetMandateSender) {
 	o.Sender = &v
 }
 
+// GetSenderAccount returns the SenderAccount field value if set, zero value otherwise.
+func (o *PaymentResponse) GetSenderAccount() MandateSenderAccount {
+	if o == nil || o.SenderAccount == nil {
+		var ret MandateSenderAccount
+		return ret
+	}
+	return *o.SenderAccount
+}
+
+// GetSenderAccountOk returns a tuple with the SenderAccount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentResponse) GetSenderAccountOk() (*MandateSenderAccount, bool) {
+	if o == nil || o.SenderAccount == nil {
+		return nil, false
+	}
+	return o.SenderAccount, true
+}
+
+// HasSenderAccount returns a boolean if a field has been set.
+func (o *PaymentResponse) HasSenderAccount() bool {
+	if o != nil && o.SenderAccount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSenderAccount gets a reference to the given MandateSenderAccount and assigns it to the SenderAccount field.
+func (o *PaymentResponse) SetSenderAccount(v MandateSenderAccount) {
+	o.SenderAccount = &v
+}
+
 // GetFees returns the Fees field value if set, zero value otherwise.
 func (o *PaymentResponse) GetFees() []Fee {
 	if o == nil || o.Fees == nil {
@@ -538,6 +571,9 @@ func (o PaymentResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Sender != nil {
 		toSerialize["sender"] = o.Sender
+	}
+	if o.SenderAccount != nil {
+		toSerialize["sender_account"] = o.SenderAccount
 	}
 	if o.Fees != nil {
 		toSerialize["fees"] = o.Fees

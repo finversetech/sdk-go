@@ -6220,6 +6220,18 @@ components:
           name: name
           external_user_id: external_user_id
         payment_id: payment_id
+        sender_account:
+          account_number:
+            number: number
+            type: LOCAL
+          account_type: EXTERNAL_ACCOUNT
+          metadata:
+            key: metadata
+          account_id: sender_account_id
+          user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+          account_number_masked: account_number_masked
+          accountholder_name: Chan Li Pak
+          institution_id: hsbc-hk
         recipient:
           name: name
         currency: HKD
@@ -6271,6 +6283,8 @@ components:
           $ref: '#/components/schemas/MandateRecipientAccount'
         sender:
           $ref: '#/components/schemas/GetMandateSender'
+        sender_account:
+          $ref: '#/components/schemas/MandateSenderAccount'
         fees:
           items:
             $ref: '#/components/schemas/Fee'
@@ -6341,6 +6355,18 @@ components:
             name: name
             external_user_id: external_user_id
           payment_id: payment_id
+          sender_account:
+            account_number:
+              number: number
+              type: LOCAL
+            account_type: EXTERNAL_ACCOUNT
+            metadata:
+              key: metadata
+            account_id: sender_account_id
+            user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+            account_number_masked: account_number_masked
+            accountholder_name: Chan Li Pak
+            institution_id: hsbc-hk
           recipient:
             name: name
           currency: HKD
@@ -6394,6 +6420,18 @@ components:
             name: name
             external_user_id: external_user_id
           payment_id: payment_id
+          sender_account:
+            account_number:
+              number: number
+              type: LOCAL
+            account_type: EXTERNAL_ACCOUNT
+            metadata:
+              key: metadata
+            account_id: sender_account_id
+            user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+            account_number_masked: account_number_masked
+            accountholder_name: Chan Li Pak
+            institution_id: hsbc-hk
           recipient:
             name: name
           currency: HKD
@@ -6939,6 +6977,7 @@ components:
             key: metadata
           account_id: sender_account_id
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+          account_number_masked: account_number_masked
           accountholder_name: Chan Li Pak
           institution_id: hsbc-hk
         recipient:
@@ -7160,6 +7199,7 @@ components:
               key: metadata
             account_id: sender_account_id
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+            account_number_masked: account_number_masked
             accountholder_name: Chan Li Pak
             institution_id: hsbc-hk
           recipient:
@@ -7242,6 +7282,18 @@ components:
             name: name
             external_user_id: external_user_id
           payment_id: payment_id
+          sender_account:
+            account_number:
+              number: number
+              type: LOCAL
+            account_type: EXTERNAL_ACCOUNT
+            metadata:
+              key: metadata
+            account_id: sender_account_id
+            user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+            account_number_masked: account_number_masked
+            accountholder_name: Chan Li Pak
+            institution_id: hsbc-hk
           recipient:
             name: name
           currency: HKD
@@ -7477,6 +7529,7 @@ components:
             key: metadata
           account_id: sender_account_id
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+          account_number_masked: account_number_masked
           accountholder_name: Chan Li Pak
           institution_id: hsbc-hk
         recipient:
@@ -7601,6 +7654,7 @@ components:
               key: metadata
             account_id: sender_account_id
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+            account_number_masked: account_number_masked
             accountholder_name: Chan Li Pak
             institution_id: hsbc-hk
           recipient:
@@ -7671,6 +7725,7 @@ components:
               key: metadata
             account_id: sender_account_id
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+            account_number_masked: account_number_masked
             accountholder_name: Chan Li Pak
             institution_id: hsbc-hk
           recipient:
@@ -8526,6 +8581,7 @@ components:
           key: metadata
         account_id: sender_account_id
         user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+        account_number_masked: account_number_masked
         accountholder_name: Chan Li Pak
         institution_id: hsbc-hk
       properties:
@@ -8539,6 +8595,9 @@ components:
           type: string
         account_number:
           $ref: '#/components/schemas/RecipientAccountNumber'
+        account_number_masked:
+          description: Masked Account number of the sender’s account
+          type: string
         account_type:
           description: Type of sender account.
           enum:

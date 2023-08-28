@@ -22,6 +22,8 @@ type MandateSenderAccount struct {
 	// Accountholder name of the sender's account
 	AccountholderName *string                 `json:"accountholder_name,omitempty"`
 	AccountNumber     *RecipientAccountNumber `json:"account_number,omitempty"`
+	// Masked Account number of the sender’s account
+	AccountNumberMasked *string `json:"account_number_masked,omitempty"`
 	// Type of sender account.
 	AccountType *string `json:"account_type,omitempty"`
 	// Finverse Institution ID for the sender’s institution.
@@ -143,6 +145,38 @@ func (o *MandateSenderAccount) HasAccountNumber() bool {
 // SetAccountNumber gets a reference to the given RecipientAccountNumber and assigns it to the AccountNumber field.
 func (o *MandateSenderAccount) SetAccountNumber(v RecipientAccountNumber) {
 	o.AccountNumber = &v
+}
+
+// GetAccountNumberMasked returns the AccountNumberMasked field value if set, zero value otherwise.
+func (o *MandateSenderAccount) GetAccountNumberMasked() string {
+	if o == nil || o.AccountNumberMasked == nil {
+		var ret string
+		return ret
+	}
+	return *o.AccountNumberMasked
+}
+
+// GetAccountNumberMaskedOk returns a tuple with the AccountNumberMasked field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MandateSenderAccount) GetAccountNumberMaskedOk() (*string, bool) {
+	if o == nil || o.AccountNumberMasked == nil {
+		return nil, false
+	}
+	return o.AccountNumberMasked, true
+}
+
+// HasAccountNumberMasked returns a boolean if a field has been set.
+func (o *MandateSenderAccount) HasAccountNumberMasked() bool {
+	if o != nil && o.AccountNumberMasked != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountNumberMasked gets a reference to the given string and assigns it to the AccountNumberMasked field.
+func (o *MandateSenderAccount) SetAccountNumberMasked(v string) {
+	o.AccountNumberMasked = &v
 }
 
 // GetAccountType returns the AccountType field value if set, zero value otherwise.
@@ -283,6 +317,9 @@ func (o MandateSenderAccount) MarshalJSON() ([]byte, error) {
 	}
 	if o.AccountNumber != nil {
 		toSerialize["account_number"] = o.AccountNumber
+	}
+	if o.AccountNumberMasked != nil {
+		toSerialize["account_number_masked"] = o.AccountNumberMasked
 	}
 	if o.AccountType != nil {
 		toSerialize["account_type"] = o.AccountType
