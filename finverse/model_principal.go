@@ -17,21 +17,22 @@ import (
 
 // Principal struct for Principal
 type Principal struct {
-	Subject           string            `json:"subject"`
-	Token             *string           `json:"token,omitempty"`
-	ClientId          string            `json:"client_id"`
-	CustomerAppId     string            `json:"customer_app_id"`
-	LoginIdentityId   string            `json:"login_identity_id"`
-	CustomizationId   *string           `json:"customization_id,omitempty"`
-	MandateId         *string           `json:"mandate_id,omitempty"`
-	ExpiresIn         *float32          `json:"expires_in,omitempty"`
-	PaymentAttemptId  *string           `json:"payment_attempt_id,omitempty"`
-	ProductFlow       *string           `json:"product_flow,omitempty"`
-	Scopes            []string          `json:"scopes,omitempty"`
-	LinkTokenRequest  *LinkTokenRequest `json:"link_token_request,omitempty"`
-	RedirectUri       *string           `json:"redirect_uri,omitempty"`
-	PaymentLinkId     *string           `json:"payment_link_id,omitempty"`
-	UniqueReferenceId *string           `json:"unique_reference_id,omitempty"`
+	Subject                   string                     `json:"subject"`
+	Token                     *string                    `json:"token,omitempty"`
+	ClientId                  string                     `json:"client_id"`
+	CustomerAppId             string                     `json:"customer_app_id"`
+	LoginIdentityId           string                     `json:"login_identity_id"`
+	CustomizationId           *string                    `json:"customization_id,omitempty"`
+	MandateId                 *string                    `json:"mandate_id,omitempty"`
+	ExpiresIn                 *float32                   `json:"expires_in,omitempty"`
+	PaymentAttemptId          *string                    `json:"payment_attempt_id,omitempty"`
+	ProductFlow               *string                    `json:"product_flow,omitempty"`
+	Scopes                    []string                   `json:"scopes,omitempty"`
+	LinkTokenRequest          *LinkTokenRequest          `json:"link_token_request,omitempty"`
+	GetMandateAuthLinkRequest *GetMandateAuthLinkRequest `json:"get_mandate_auth_link_request,omitempty"`
+	RedirectUri               *string                    `json:"redirect_uri,omitempty"`
+	PaymentLinkId             *string                    `json:"payment_link_id,omitempty"`
+	UniqueReferenceId         *string                    `json:"unique_reference_id,omitempty"`
 }
 
 // NewPrincipal instantiates a new Principal object
@@ -407,6 +408,38 @@ func (o *Principal) SetLinkTokenRequest(v LinkTokenRequest) {
 	o.LinkTokenRequest = &v
 }
 
+// GetGetMandateAuthLinkRequest returns the GetMandateAuthLinkRequest field value if set, zero value otherwise.
+func (o *Principal) GetGetMandateAuthLinkRequest() GetMandateAuthLinkRequest {
+	if o == nil || o.GetMandateAuthLinkRequest == nil {
+		var ret GetMandateAuthLinkRequest
+		return ret
+	}
+	return *o.GetMandateAuthLinkRequest
+}
+
+// GetGetMandateAuthLinkRequestOk returns a tuple with the GetMandateAuthLinkRequest field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Principal) GetGetMandateAuthLinkRequestOk() (*GetMandateAuthLinkRequest, bool) {
+	if o == nil || o.GetMandateAuthLinkRequest == nil {
+		return nil, false
+	}
+	return o.GetMandateAuthLinkRequest, true
+}
+
+// HasGetMandateAuthLinkRequest returns a boolean if a field has been set.
+func (o *Principal) HasGetMandateAuthLinkRequest() bool {
+	if o != nil && o.GetMandateAuthLinkRequest != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetGetMandateAuthLinkRequest gets a reference to the given GetMandateAuthLinkRequest and assigns it to the GetMandateAuthLinkRequest field.
+func (o *Principal) SetGetMandateAuthLinkRequest(v GetMandateAuthLinkRequest) {
+	o.GetMandateAuthLinkRequest = &v
+}
+
 // GetRedirectUri returns the RedirectUri field value if set, zero value otherwise.
 func (o *Principal) GetRedirectUri() string {
 	if o == nil || o.RedirectUri == nil {
@@ -540,6 +573,9 @@ func (o Principal) MarshalJSON() ([]byte, error) {
 	}
 	if o.LinkTokenRequest != nil {
 		toSerialize["link_token_request"] = o.LinkTokenRequest
+	}
+	if o.GetMandateAuthLinkRequest != nil {
+		toSerialize["get_mandate_auth_link_request"] = o.GetMandateAuthLinkRequest
 	}
 	if o.RedirectUri != nil {
 		toSerialize["redirect_uri"] = o.RedirectUri

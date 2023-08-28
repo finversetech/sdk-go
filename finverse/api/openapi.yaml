@@ -2369,6 +2369,8 @@ components:
           type: array
         link_token_request:
           $ref: '#/components/schemas/LinkTokenRequest'
+        get_mandate_auth_link_request:
+          $ref: '#/components/schemas/GetMandateAuthLinkRequest'
         redirect_uri:
           type: string
         payment_link_id:
