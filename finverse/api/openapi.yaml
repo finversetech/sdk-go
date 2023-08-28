@@ -2325,6 +2325,50 @@ paths:
         - payoutInstruction:cancel
       tags:
       - customer
+  /calculate/line_items/{paymentType}:
+    get:
+      description: Get line items for display
+      operationId: getLineItemsForDisplay
+      parameters:
+      - description: The payment type
+        in: path
+        name: paymentType
+        required: true
+        schema:
+          enum:
+          - MANDATE
+          - MANUAL
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLineItemsForDisplayResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModel'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - line_items:get
+      tags:
+      - customer
 components:
   schemas:
     Principal:
@@ -7317,6 +7361,39 @@ components:
           type: string
       required:
       - amount
+      type: object
+    GetLineItemsForDisplayResponse:
+      example:
+        line_items:
+        - amount: amount
+          item_type: AMOUNT_DUE
+          currency: currency
+        - amount: amount
+          item_type: AMOUNT_DUE
+          currency: currency
+      properties:
+        line_items:
+          items:
+            $ref: '#/components/schemas/LineItem'
+          type: array
+      type: object
+    LineItem:
+      example:
+        amount: amount
+        item_type: AMOUNT_DUE
+        currency: currency
+      properties:
+        currency:
+          type: string
+        amount:
+          description: The amount in decimal
+          type: string
+        item_type:
+          enum:
+          - AMOUNT_DUE
+          - SURCHARGE
+          - TOTAL
+          type: string
       type: object
     SetMandateInstitutionRequest:
       example:
