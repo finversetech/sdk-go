@@ -275,19 +275,19 @@ type CustomerApi interface {
 	ListInstitutionsExecute(r CustomerApiApiListInstitutionsRequest) ([]Institution, *http.Response, error)
 
 	/*
-		ListPaymentAccount Method for ListPaymentAccount
+		ListPaymentAccounts Method for ListPaymentAccounts
 
 		Get payment account by user id
 
 		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
 		 @param paymentUserId The payment user id
-		 @return CustomerApiApiListPaymentAccountRequest
+		 @return CustomerApiApiListPaymentAccountsRequest
 	*/
-	ListPaymentAccount(ctx context.Context, paymentUserId string) CustomerApiApiListPaymentAccountRequest
+	ListPaymentAccounts(ctx context.Context, paymentUserId string) CustomerApiApiListPaymentAccountsRequest
 
-	// ListPaymentAccountExecute executes the request
+	// ListPaymentAccountsExecute executes the request
 	//  @return ListPaymentAccountsResponse
-	ListPaymentAccountExecute(r CustomerApiApiListPaymentAccountRequest) (*ListPaymentAccountsResponse, *http.Response, error)
+	ListPaymentAccountsExecute(r CustomerApiApiListPaymentAccountsRequest) (*ListPaymentAccountsResponse, *http.Response, error)
 
 	/*
 		RefreshToken Method for RefreshToken
@@ -2639,27 +2639,27 @@ func (a *CustomerApiService) ListInstitutionsExecute(r CustomerApiApiListInstitu
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiListPaymentAccountRequest struct {
+type CustomerApiApiListPaymentAccountsRequest struct {
 	ctx           context.Context
 	ApiService    CustomerApi
 	paymentUserId string
 }
 
-func (r CustomerApiApiListPaymentAccountRequest) Execute() (*ListPaymentAccountsResponse, *http.Response, error) {
-	return r.ApiService.ListPaymentAccountExecute(r)
+func (r CustomerApiApiListPaymentAccountsRequest) Execute() (*ListPaymentAccountsResponse, *http.Response, error) {
+	return r.ApiService.ListPaymentAccountsExecute(r)
 }
 
 /*
-ListPaymentAccount Method for ListPaymentAccount
+ListPaymentAccounts Method for ListPaymentAccounts
 
 Get payment account by user id
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param paymentUserId The payment user id
- @return CustomerApiApiListPaymentAccountRequest
+ @return CustomerApiApiListPaymentAccountsRequest
 */
-func (a *CustomerApiService) ListPaymentAccount(ctx context.Context, paymentUserId string) CustomerApiApiListPaymentAccountRequest {
-	return CustomerApiApiListPaymentAccountRequest{
+func (a *CustomerApiService) ListPaymentAccounts(ctx context.Context, paymentUserId string) CustomerApiApiListPaymentAccountsRequest {
+	return CustomerApiApiListPaymentAccountsRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		paymentUserId: paymentUserId,
@@ -2668,7 +2668,7 @@ func (a *CustomerApiService) ListPaymentAccount(ctx context.Context, paymentUser
 
 // Execute executes the request
 //  @return ListPaymentAccountsResponse
-func (a *CustomerApiService) ListPaymentAccountExecute(r CustomerApiApiListPaymentAccountRequest) (*ListPaymentAccountsResponse, *http.Response, error) {
+func (a *CustomerApiService) ListPaymentAccountsExecute(r CustomerApiApiListPaymentAccountsRequest) (*ListPaymentAccountsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2676,7 +2676,7 @@ func (a *CustomerApiService) ListPaymentAccountExecute(r CustomerApiApiListPayme
 		localVarReturnValue *ListPaymentAccountsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.ListPaymentAccount")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.ListPaymentAccounts")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
