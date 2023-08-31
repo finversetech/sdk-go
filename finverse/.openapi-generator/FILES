@@ -87,6 +87,7 @@ model_link_token_request.go
 model_link_token_response.go
 model_list_accounts_response.go
 model_list_mandates_response.go
+model_list_payment_accounts_response.go
 model_list_payments_response.go
 model_list_transactions_response.go
 model_login_action.go
@@ -111,6 +112,7 @@ model_monthly_income_estimate.go
 model_non_sensitive_link_status_response.go
 model_other_info.go
 model_payment_account.go
+model_payment_account_details.go
 model_payment_details.go
 model_payment_details2.go
 model_payment_info.go

@@ -2369,6 +2369,47 @@ paths:
         - line_items:get
       tags:
       - customer
+  /payment_users/{paymentUserId}/payment_accounts:
+    get:
+      description: Get payment account by user id
+      operationId: listPaymentAccount
+      parameters:
+      - description: The payment user id
+        in: path
+        name: paymentUserId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPaymentAccountsResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payment_account:get
+      tags:
+      - customer
 components:
   schemas:
     Principal:
@@ -8667,6 +8708,134 @@ components:
         payment_id: payment_id
       properties:
         payment_id:
+          type: string
+      type: object
+    ListPaymentAccountsResponse:
+      example:
+        payment_accounts:
+        - account_number:
+            number: number
+            type: LOCAL
+          bank_code: "004"
+          account_type: EXTERNAL_ACCOUNT
+          metadata:
+            key: metadata
+          created_at: 2000-01-23T04:56:07.000+00:00
+          institution_id: hsbc-hk
+          branch_code: "123"
+          account_id: account_id
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+          account_number_masked: account_number_masked
+          accountholder_name: Chan Li Pak
+          currencies:
+          - HKD
+          - SGD
+        - account_number:
+            number: number
+            type: LOCAL
+          bank_code: "004"
+          account_type: EXTERNAL_ACCOUNT
+          metadata:
+            key: metadata
+          created_at: 2000-01-23T04:56:07.000+00:00
+          institution_id: hsbc-hk
+          branch_code: "123"
+          account_id: account_id
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+          account_number_masked: account_number_masked
+          accountholder_name: Chan Li Pak
+          currencies:
+          - HKD
+          - SGD
+      properties:
+        payment_accounts:
+          items:
+            $ref: '#/components/schemas/PaymentAccountDetails'
+          type: array
+      type: object
+    PaymentAccountDetails:
+      example:
+        account_number:
+          number: number
+          type: LOCAL
+        bank_code: "004"
+        account_type: EXTERNAL_ACCOUNT
+        metadata:
+          key: metadata
+        created_at: 2000-01-23T04:56:07.000+00:00
+        institution_id: hsbc-hk
+        branch_code: "123"
+        account_id: account_id
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+        account_number_masked: account_number_masked
+        accountholder_name: Chan Li Pak
+        currencies:
+        - HKD
+        - SGD
+      properties:
+        account_id:
+          description: Payment account id
+          type: string
+        account_number:
+          $ref: '#/components/schemas/RecipientAccountNumber'
+        account_number_masked:
+          description: Masked Account number of the payment account
+          type: string
+        account_type:
+          description: Type of payment account.
+          enum:
+          - EXTERNAL_ACCOUNT
+          - SETTLEMENT_ACCOUNT
+          example: EXTERNAL_ACCOUNT
+          type: string
+        accountholder_name:
+          description: Accountholder name of the payment account
+          example: Chan Li Pak
+          type: string
+        institution_id:
+          description: Finverse Institution ID for the payment institution.
+          example: hsbc-hk
+          type: string
+        user_id:
+          description: A unique identifier generated after creating user (Finverse
+            Payment User ID)
+          example: 01GY6H0JA7BS8EVGY56NSHFX2E
+          type: string
+        bank_code:
+          description: 3-digit code associated with bank
+          example: "004"
+          type: string
+        branch_code:
+          description: 3-digit code used to identify specific bank branch
+          example: "123"
+          type: string
+        currencies:
+          description: List of currencies supported by the payment account
+          example:
+          - HKD
+          - SGD
+          items:
+            type: string
+          type: array
+        metadata:
+          additionalProperties:
+            type: string
+          description: 'Additional attributes of the sender account in key:value format
+            (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas
+            the key and value supports up to 50 and 500 characters respectively.'
+          type: object
+        created_at:
+          description: Timestamp of when the payment link was created in ISO format
+            (YYYY-MM-DDTHH:MM:SS.SSSZ)
+          format: date-time
+          type: string
+        updated_at:
+          description: Timestamp of when the payment link was last updated in ISO
+            format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+          format: date-time
           type: string
       type: object
     BadRequestModel_error:
