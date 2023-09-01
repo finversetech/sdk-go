@@ -2410,6 +2410,86 @@ paths:
         - payment_account:get
       tags:
       - customer
+  /payment_accounts:
+    post:
+      description: create payment account
+      operationId: createPaymentAccount
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentAccountRequest'
+        description: request body for creating payment account
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentAccountDetails'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payment_account:create
+      tags:
+      - customer
+      x-codegen-request-body-name: createPaymentAccountRequest
+  /payment_accounts/{paymentAccountId}:
+    delete:
+      description: delete payment account
+      operationId: deletePaymentAccount
+      parameters:
+      - description: The payment account id
+        in: path
+        name: paymentAccountId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content: {}
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payment_account:delete
+      tags:
+      - customer
 components:
   schemas:
     Principal:
@@ -8837,6 +8917,65 @@ components:
             format (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time
           type: string
+      type: object
+    CreatePaymentAccountRequest:
+      example:
+        account_number:
+          number: number
+          type: LOCAL
+        account_type: EXTERNAL_ACCOUNT
+        metadata:
+          key: metadata
+        user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+        accountholder_name: Chan Li Pak
+        currencies:
+        - HKD
+        - SGD
+        institution_id: hsbc-hk
+      properties:
+        account_number:
+          $ref: '#/components/schemas/RecipientAccountNumber'
+        account_type:
+          description: Type of payment account. Currently only allow creating external
+            account.
+          enum:
+          - EXTERNAL_ACCOUNT
+          example: EXTERNAL_ACCOUNT
+          type: string
+        accountholder_name:
+          description: Accountholder name of the payment account
+          example: Chan Li Pak
+          type: string
+        currencies:
+          description: List of currencies supported by the payment account
+          example:
+          - HKD
+          - SGD
+          items:
+            type: string
+          type: array
+        institution_id:
+          description: Finverse Institution ID for the payment institution.
+          example: hsbc-hk
+          type: string
+        user_id:
+          description: A unique identifier generated after creating user (Finverse
+            Payment User ID)
+          example: 01GY6H0JA7BS8EVGY56NSHFX2E
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+          description: 'Additional attributes of the payment in key:value format (e.g.
+            payment_internal_id: 1234). It supports up to 10 key:value pairs, whereas
+            the key and value supports up to 50 and 500 characters respectively.'
+          type: object
+      required:
+      - account_number
+      - account_type
+      - accountholder_name
+      - institution_id
+      - user_id
       type: object
     BadRequestModel_error:
       properties:

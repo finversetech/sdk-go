@@ -29,6 +29,7 @@ model_create_fps_token_response.go
 model_create_mandate_request.go
 model_create_mandate_response.go
 model_create_mandate_sender.go
+model_create_payment_account_request.go
 model_create_payment_instruction_response.go
 model_create_payment_link_card_payment_response.go
 model_create_payment_link_mandate_request.go
