@@ -2490,6 +2490,88 @@ paths:
         - payment_account:delete
       tags:
       - customer
+  /payment_users:
+    post:
+      description: Create a payment user
+      operationId: createPaymentUser
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentUserRequest'
+        description: request body for creating payment account
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentUser'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payment_user:create
+      tags:
+      - customer
+      x-codegen-request-body-name: createPaymentAccountRequest
+  /payment_users/{paymentUserId}:
+    get:
+      description: Get a payment user
+      operationId: getPaymentUser
+      parameters:
+      - in: path
+        name: paymentUserId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentUser'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payment_user:get
+      tags:
+      - customer
 components:
   schemas:
     Principal:
@@ -8976,6 +9058,108 @@ components:
       - accountholder_name
       - institution_id
       - user_id
+      type: object
+    CreatePaymentUserRequest:
+      example:
+        metadata:
+          key: metadata
+        user_type: INDIVIDUAL
+        user_details:
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        name: name
+        email: email
+        external_user_id: external_user_id
+      properties:
+        name:
+          type: string
+        external_user_id:
+          type: string
+        user_type:
+          enum:
+          - INDIVIDUAL
+          - BUSINESS
+          type: string
+        email:
+          type: string
+        user_details:
+          items:
+            $ref: '#/components/schemas/SenderDetail'
+          type: array
+        metadata:
+          additionalProperties:
+            type: string
+          type: object
+      required:
+      - external_user_id
+      - name
+      type: object
+    PaymentUser:
+      example:
+        metadata:
+          key: metadata
+        user_type: INDIVIDUAL
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        user_id: user_id
+        user_details:
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        name: name
+        created_at: 2000-01-23T04:56:07.000+00:00
+        email: email
+        external_user_id: external_user_id
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        email:
+          type: string
+        external_user_id:
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+          type: object
+        name:
+          type: string
+        user_details:
+          items:
+            $ref: '#/components/schemas/SenderDetail'
+          type: array
+        updated_at:
+          format: date-time
+          type: string
+        user_id:
+          type: string
+        user_type:
+          enum:
+          - INDIVIDUAL
+          - BUSINESS
+          type: string
       type: object
     BadRequestModel_error:
       properties:

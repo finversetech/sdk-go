@@ -36,6 +36,7 @@ model_create_payment_link_mandate_request.go
 model_create_payment_link_mandate_response.go
 model_create_payment_link_request.go
 model_create_payment_request.go
+model_create_payment_user_request.go
 model_create_payout_instruction_request.go
 model_create_recipient_account.go
 model_currency_amount.go
@@ -126,6 +127,7 @@ model_payment_link_sender_response.go
 model_payment_link_token_response.go
 model_payment_response.go
 model_payment_schedule.go
+model_payment_user.go
 model_payout_details.go
 model_payout_details_response.go
 model_payout_instruction_response.go

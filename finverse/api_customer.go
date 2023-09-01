@@ -99,6 +99,20 @@ type CustomerApi interface {
 	CreatePaymentInstructionExecute(r CustomerApiApiCreatePaymentInstructionRequest) (*CreatePaymentInstructionResponse, *http.Response, error)
 
 	/*
+		CreatePaymentUser Method for CreatePaymentUser
+
+		Create a payment user
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return CustomerApiApiCreatePaymentUserRequest
+	*/
+	CreatePaymentUser(ctx context.Context) CustomerApiApiCreatePaymentUserRequest
+
+	// CreatePaymentUserExecute executes the request
+	//  @return PaymentUser
+	CreatePaymentUserExecute(r CustomerApiApiCreatePaymentUserRequest) (*PaymentUser, *http.Response, error)
+
+	/*
 		CreatePayoutInstruction Method for CreatePayoutInstruction
 
 		Create new Payout instruction
@@ -272,6 +286,21 @@ type CustomerApi interface {
 	// GetPaymentInstructionExecute executes the request
 	//  @return GetPaymentInstructionsResponse
 	GetPaymentInstructionExecute(r CustomerApiApiGetPaymentInstructionRequest) (*GetPaymentInstructionsResponse, *http.Response, error)
+
+	/*
+		GetPaymentUser Method for GetPaymentUser
+
+		Get a payment user
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @param paymentUserId
+		 @return CustomerApiApiGetPaymentUserRequest
+	*/
+	GetPaymentUser(ctx context.Context, paymentUserId string) CustomerApiApiGetPaymentUserRequest
+
+	// GetPaymentUserExecute executes the request
+	//  @return PaymentUser
+	GetPaymentUserExecute(r CustomerApiApiGetPaymentUserRequest) (*PaymentUser, *http.Response, error)
 
 	/*
 		GetPayoutInstruction Method for GetPayoutInstruction
@@ -1053,6 +1082,146 @@ func (a *CustomerApiService) CreatePaymentInstructionExecute(r CustomerApiApiCre
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CustomerApiApiCreatePaymentUserRequest struct {
+	ctx                         context.Context
+	ApiService                  CustomerApi
+	createPaymentAccountRequest *CreatePaymentUserRequest
+}
+
+// request body for creating payment account
+func (r CustomerApiApiCreatePaymentUserRequest) CreatePaymentAccountRequest(createPaymentAccountRequest CreatePaymentUserRequest) CustomerApiApiCreatePaymentUserRequest {
+	r.createPaymentAccountRequest = &createPaymentAccountRequest
+	return r
+}
+
+func (r CustomerApiApiCreatePaymentUserRequest) Execute() (*PaymentUser, *http.Response, error) {
+	return r.ApiService.CreatePaymentUserExecute(r)
+}
+
+/*
+CreatePaymentUser Method for CreatePaymentUser
+
+Create a payment user
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return CustomerApiApiCreatePaymentUserRequest
+*/
+func (a *CustomerApiService) CreatePaymentUser(ctx context.Context) CustomerApiApiCreatePaymentUserRequest {
+	return CustomerApiApiCreatePaymentUserRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return PaymentUser
+func (a *CustomerApiService) CreatePaymentUserExecute(r CustomerApiApiCreatePaymentUserRequest) (*PaymentUser, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PaymentUser
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.CreatePaymentUser")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/payment_users"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.createPaymentAccountRequest == nil {
+		return localVarReturnValue, nil, reportError("createPaymentAccountRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.createPaymentAccountRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModelV2
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -2626,6 +2795,138 @@ func (a *CustomerApiService) GetPaymentInstructionExecute(r CustomerApiApiGetPay
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v ErrorResponse
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CustomerApiApiGetPaymentUserRequest struct {
+	ctx           context.Context
+	ApiService    CustomerApi
+	paymentUserId string
+}
+
+func (r CustomerApiApiGetPaymentUserRequest) Execute() (*PaymentUser, *http.Response, error) {
+	return r.ApiService.GetPaymentUserExecute(r)
+}
+
+/*
+GetPaymentUser Method for GetPaymentUser
+
+Get a payment user
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param paymentUserId
+ @return CustomerApiApiGetPaymentUserRequest
+*/
+func (a *CustomerApiService) GetPaymentUser(ctx context.Context, paymentUserId string) CustomerApiApiGetPaymentUserRequest {
+	return CustomerApiApiGetPaymentUserRequest{
+		ApiService:    a,
+		ctx:           ctx,
+		paymentUserId: paymentUserId,
+	}
+}
+
+// Execute executes the request
+//  @return PaymentUser
+func (a *CustomerApiService) GetPaymentUserExecute(r CustomerApiApiGetPaymentUserRequest) (*PaymentUser, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PaymentUser
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetPaymentUser")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/payment_users/{paymentUserId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentUserId"+"}", url.PathEscape(parameterToString(r.paymentUserId, "")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModelV2
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
