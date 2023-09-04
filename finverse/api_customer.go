@@ -1105,14 +1105,14 @@ func (a *CustomerApiService) CreatePaymentInstructionExecute(r CustomerApiApiCre
 }
 
 type CustomerApiApiCreatePaymentUserRequest struct {
-	ctx                         context.Context
-	ApiService                  CustomerApi
-	createPaymentAccountRequest *CreatePaymentUserRequest
+	ctx                      context.Context
+	ApiService               CustomerApi
+	createPaymentUserRequest *CreatePaymentUserRequest
 }
 
-// request body for creating payment account
-func (r CustomerApiApiCreatePaymentUserRequest) CreatePaymentAccountRequest(createPaymentAccountRequest CreatePaymentUserRequest) CustomerApiApiCreatePaymentUserRequest {
-	r.createPaymentAccountRequest = &createPaymentAccountRequest
+// request body for creating payment user
+func (r CustomerApiApiCreatePaymentUserRequest) CreatePaymentUserRequest(createPaymentUserRequest CreatePaymentUserRequest) CustomerApiApiCreatePaymentUserRequest {
+	r.createPaymentUserRequest = &createPaymentUserRequest
 	return r
 }
 
@@ -1155,8 +1155,8 @@ func (a *CustomerApiService) CreatePaymentUserExecute(r CustomerApiApiCreatePaym
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
-	if r.createPaymentAccountRequest == nil {
-		return localVarReturnValue, nil, reportError("createPaymentAccountRequest is required and must be specified")
+	if r.createPaymentUserRequest == nil {
+		return localVarReturnValue, nil, reportError("createPaymentUserRequest is required and must be specified")
 	}
 
 	// to determine the Content-Type header
@@ -1177,7 +1177,7 @@ func (a *CustomerApiService) CreatePaymentUserExecute(r CustomerApiApiCreatePaym
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	// body params
-	localVarPostBody = r.createPaymentAccountRequest
+	localVarPostBody = r.createPaymentUserRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

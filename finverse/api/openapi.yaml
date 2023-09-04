@@ -2499,7 +2499,7 @@ paths:
           application/json:
             schema:
               $ref: '#/components/schemas/CreatePaymentUserRequest'
-        description: request body for creating payment account
+        description: request body for creating payment user
         required: true
       responses:
         "200":
@@ -2531,7 +2531,7 @@ paths:
         - payment_user:create
       tags:
       - customer
-      x-codegen-request-body-name: createPaymentAccountRequest
+      x-codegen-request-body-name: createPaymentUserRequest
   /payment_users/{paymentUserId}:
     get:
       description: Get a payment user
