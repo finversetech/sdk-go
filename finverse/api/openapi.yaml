@@ -142,6 +142,34 @@ paths:
         - account
       tags:
       - login_identity
+  /card_details:
+    get:
+      description: Get a list of card details for a login identity
+      operationId: listCardDetails
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListCardsDetailsResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModelV2'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BadRequestModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - card:get
+      tags:
+      - login_identity
   /account_numbers/{accountId}:
     get:
       description: Get the account number for a specific account
@@ -2678,6 +2706,60 @@ components:
         institution:
           $ref: '#/components/schemas/InstitutionShort'
       type: object
+    ListCardsDetailsResponse:
+      example:
+        card_details:
+          card_accounts:
+          - null
+          - null
+          card_total:
+            rewards_points_balance:
+              balance: 69.0
+              raw: "69.00"
+              currency: UNI$
+            statement_due_amount:
+              raw: "69.00"
+              currency: HKD
+              value: 69.0
+            available_credit_limit:
+              raw: "69.00"
+              currency: HKD
+              value: 69.0
+            last_update: 2021-02-01T10:01:02.333Z
+            current_balance:
+              raw: "69.00"
+              currency: HKD
+              value: 69.0
+            total_credit_limit:
+              raw: "69.00"
+              currency: HKD
+              value: 69.0
+            payment_due_amount:
+              raw: "69.00"
+              currency: HKD
+              value: 69.0
+            minimum_payment_due:
+              raw: "69.00"
+              currency: HKD
+              value: 69.0
+        institution:
+          portal_name: Personal Internet Banking
+          countries:
+          - HKG
+          institution_name: Mock Bank
+          institution_id: "123"
+        login_identity:
+          login_identity_id: login_identity_id
+          last_session_id: last_session_id
+          status: LINKING
+      properties:
+        login_identity:
+          $ref: '#/components/schemas/LoginIdentityShort'
+        institution:
+          $ref: '#/components/schemas/InstitutionShort'
+        card_details:
+          $ref: '#/components/schemas/CardDetails'
+      type: object
     GetAccountNumberResponse:
       example:
         account_number:
@@ -3333,6 +3415,24 @@ components:
       required:
       - account_id
       - raw
+      type: object
+    RewardsPointsBalance:
+      example:
+        balance: 69.0
+        raw: "69.00"
+        currency: UNI$
+      properties:
+        currency:
+          example: UNI$
+          type: string
+        balance:
+          example: 69.0
+          type: number
+        raw:
+          example: "69.00"
+          type: string
+      required:
+      - balance
       type: object
     CurrencyAmount:
       example:
@@ -5364,6 +5464,104 @@ components:
           example: 2021-02-01T10:01:02.333Z
           format: date-time
           nullable: true
+          type: string
+      type: object
+    CardDetails:
+      example:
+        card_accounts:
+        - null
+        - null
+        card_total:
+          rewards_points_balance:
+            balance: 69.0
+            raw: "69.00"
+            currency: UNI$
+          statement_due_amount:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          available_credit_limit:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          last_update: 2021-02-01T10:01:02.333Z
+          current_balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          total_credit_limit:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          payment_due_amount:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          minimum_payment_due:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+      properties:
+        card_accounts:
+          items:
+            $ref: '#/components/schemas/CardAccount'
+          type: array
+        card_total:
+          $ref: '#/components/schemas/CommonCardDetails'
+      type: object
+    CardAccount:
+      allOf:
+      - $ref: '#/components/schemas/CommonCardDetails'
+      - $ref: '#/components/schemas/CardAccount_allOf'
+    CommonCardDetails:
+      example:
+        rewards_points_balance:
+          balance: 69.0
+          raw: "69.00"
+          currency: UNI$
+        statement_due_amount:
+          raw: "69.00"
+          currency: HKD
+          value: 69.0
+        available_credit_limit:
+          raw: "69.00"
+          currency: HKD
+          value: 69.0
+        last_update: 2021-02-01T10:01:02.333Z
+        current_balance:
+          raw: "69.00"
+          currency: HKD
+          value: 69.0
+        total_credit_limit:
+          raw: "69.00"
+          currency: HKD
+          value: 69.0
+        payment_due_amount:
+          raw: "69.00"
+          currency: HKD
+          value: 69.0
+        minimum_payment_due:
+          raw: "69.00"
+          currency: HKD
+          value: 69.0
+      properties:
+        current_balance:
+          $ref: '#/components/schemas/CurrencyAmount'
+        payment_due_amount:
+          $ref: '#/components/schemas/CurrencyAmount'
+        statement_due_amount:
+          $ref: '#/components/schemas/CurrencyAmount'
+        total_credit_limit:
+          $ref: '#/components/schemas/CurrencyAmount'
+        available_credit_limit:
+          $ref: '#/components/schemas/CurrencyAmount'
+        minimum_payment_due:
+          $ref: '#/components/schemas/CurrencyAmount'
+        rewards_points_balance:
+          $ref: '#/components/schemas/RewardsPointsBalance'
+        last_update:
+          example: 2021-02-01T10:01:02.333Z
+          format: date-time
           type: string
       type: object
     PaymentDetails:
@@ -9160,6 +9358,39 @@ components:
           - INDIVIDUAL
           - BUSINESS
           type: string
+      type: object
+    CardAccount_allOf:
+      properties:
+        account_id:
+          description: Account this card is associated with
+          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          type: string
+        account_name:
+          example: HKD Visa
+          type: string
+        account_number_masked:
+          description: Masked Account number of the card account
+          type: string
+        account_type:
+          $ref: '#/components/schemas/AccountType'
+        statement_payment_due_date:
+          description: The statement payment due date
+          example: 2021-02-01
+          type: string
+        next_payment_due_date:
+          description: The next payment due date
+          example: 2021-02-01
+          type: string
+        statement_date:
+          description: The statement date
+          example: 2021-10-27
+          type: string
+        last_payment_date:
+          description: The date of the last payment
+          example: 2021-10-27
+          type: string
+        last_payment_amount:
+          $ref: '#/components/schemas/CurrencyAmount'
       type: object
     BadRequestModel_error:
       properties:

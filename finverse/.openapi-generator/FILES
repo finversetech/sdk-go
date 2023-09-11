@@ -22,7 +22,11 @@ model_bad_request_model_error.go
 model_bad_request_model_v2.go
 model_bad_request_model_v2_error.go
 model_balance_history.go
+model_card_account.go
+model_card_account_all_of.go
+model_card_details.go
 model_category_predictions.go
+model_common_card_details.go
 model_composite_statement_link.go
 model_confirm_payment_response.go
 model_create_fps_token_response.go
@@ -88,6 +92,7 @@ model_link_status_response.go
 model_link_token_request.go
 model_link_token_response.go
 model_list_accounts_response.go
+model_list_cards_details_response.go
 model_list_mandates_response.go
 model_list_payment_accounts_response.go
 model_list_payments_response.go
@@ -141,6 +146,7 @@ model_redirect_uri_response.go
 model_refresh_data.go
 model_refresh_request.go
 model_relink_request.go
+model_rewards_points_balance.go
 model_sender_detail.go
 model_set_autopay_consent_request.go
 model_set_mandate_institution_request.go
