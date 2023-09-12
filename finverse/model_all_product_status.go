@@ -26,6 +26,7 @@ type AllProductStatus struct {
 	BalanceHistory         *ProductStatus `json:"balance_history,omitempty"`
 	Payments               *ProductStatus `json:"payments,omitempty"`
 	IncomeEstimation       *ProductStatus `json:"income_estimation,omitempty"`
+	CardDetails            *ProductStatus `json:"card_details,omitempty"`
 }
 
 // NewAllProductStatus instantiates a new AllProductStatus object
@@ -333,6 +334,38 @@ func (o *AllProductStatus) SetIncomeEstimation(v ProductStatus) {
 	o.IncomeEstimation = &v
 }
 
+// GetCardDetails returns the CardDetails field value if set, zero value otherwise.
+func (o *AllProductStatus) GetCardDetails() ProductStatus {
+	if o == nil || o.CardDetails == nil {
+		var ret ProductStatus
+		return ret
+	}
+	return *o.CardDetails
+}
+
+// GetCardDetailsOk returns a tuple with the CardDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AllProductStatus) GetCardDetailsOk() (*ProductStatus, bool) {
+	if o == nil || o.CardDetails == nil {
+		return nil, false
+	}
+	return o.CardDetails, true
+}
+
+// HasCardDetails returns a boolean if a field has been set.
+func (o *AllProductStatus) HasCardDetails() bool {
+	if o != nil && o.CardDetails != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCardDetails gets a reference to the given ProductStatus and assigns it to the CardDetails field.
+func (o *AllProductStatus) SetCardDetails(v ProductStatus) {
+	o.CardDetails = &v
+}
+
 func (o AllProductStatus) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Accounts != nil {
@@ -361,6 +394,9 @@ func (o AllProductStatus) MarshalJSON() ([]byte, error) {
 	}
 	if o.IncomeEstimation != nil {
 		toSerialize["income_estimation"] = o.IncomeEstimation
+	}
+	if o.CardDetails != nil {
+		toSerialize["card_details"] = o.CardDetails
 	}
 	return json.Marshal(toSerialize)
 }

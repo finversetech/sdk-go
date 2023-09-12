@@ -4808,6 +4808,11 @@ components:
           last_success: 2000-01-23T04:56:07.000+00:00
           permissions_grant_date: 2000-01-23T04:56:07.000+00:00
           product_status:
+            card_details:
+              last_successful_update: 2021-02-01T10:01:02.333Z
+              last_update: 2021-02-01T10:01:02.333Z
+              status_details: AUTHENTICATION_INITIALIZED
+              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
             identity:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
@@ -4905,6 +4910,11 @@ components:
           last_success: 2000-01-23T04:56:07.000+00:00
           permissions_grant_date: 2000-01-23T04:56:07.000+00:00
           product_status:
+            card_details:
+              last_successful_update: 2021-02-01T10:01:02.333Z
+              last_update: 2021-02-01T10:01:02.333Z
+              status_details: AUTHENTICATION_INITIALIZED
+              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
             identity:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
@@ -5056,6 +5066,11 @@ components:
         last_success: 2000-01-23T04:56:07.000+00:00
         permissions_grant_date: 2000-01-23T04:56:07.000+00:00
         product_status:
+          card_details:
+            last_successful_update: 2021-02-01T10:01:02.333Z
+            last_update: 2021-02-01T10:01:02.333Z
+            status_details: AUTHENTICATION_INITIALIZED
+            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
           identity:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
@@ -5374,6 +5389,11 @@ components:
       type: object
     AllProductStatus:
       example:
+        card_details:
+          last_successful_update: 2021-02-01T10:01:02.333Z
+          last_update: 2021-02-01T10:01:02.333Z
+          status_details: AUTHENTICATION_INITIALIZED
+          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
         identity:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
@@ -5437,6 +5457,8 @@ components:
         payments:
           $ref: '#/components/schemas/ProductStatus'
         income_estimation:
+          $ref: '#/components/schemas/ProductStatus'
+        card_details:
           $ref: '#/components/schemas/ProductStatus'
       type: object
     ProductStatus:
