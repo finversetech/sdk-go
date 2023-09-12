@@ -1828,7 +1828,7 @@ func (a *LoginIdentityApiService) ListCardDetailsExecute(r LoginIdentityApiApiLi
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
-			var v BadRequestModelV2
+			var v ErrBodyModelV2
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
@@ -1838,7 +1838,7 @@ func (a *LoginIdentityApiService) ListCardDetailsExecute(r LoginIdentityApiApiLi
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
-			var v BadRequestModelV2
+			var v ErrBodyModelV2
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()

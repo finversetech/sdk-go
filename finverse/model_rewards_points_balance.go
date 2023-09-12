@@ -18,7 +18,7 @@ import (
 // RewardsPointsBalance struct for RewardsPointsBalance
 type RewardsPointsBalance struct {
 	Currency *string `json:"currency,omitempty"`
-	Balance  float32 `json:"balance"`
+	Balance  int32   `json:"balance"`
 	Raw      *string `json:"raw,omitempty"`
 }
 
@@ -26,7 +26,7 @@ type RewardsPointsBalance struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRewardsPointsBalance(balance float32) *RewardsPointsBalance {
+func NewRewardsPointsBalance(balance int32) *RewardsPointsBalance {
 	this := RewardsPointsBalance{}
 	this.Balance = balance
 	return &this
@@ -73,9 +73,9 @@ func (o *RewardsPointsBalance) SetCurrency(v string) {
 }
 
 // GetBalance returns the Balance field value
-func (o *RewardsPointsBalance) GetBalance() float32 {
+func (o *RewardsPointsBalance) GetBalance() int32 {
 	if o == nil {
-		var ret float32
+		var ret int32
 		return ret
 	}
 
@@ -84,7 +84,7 @@ func (o *RewardsPointsBalance) GetBalance() float32 {
 
 // GetBalanceOk returns a tuple with the Balance field value
 // and a boolean to check if the value has been set.
-func (o *RewardsPointsBalance) GetBalanceOk() (*float32, bool) {
+func (o *RewardsPointsBalance) GetBalanceOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -92,7 +92,7 @@ func (o *RewardsPointsBalance) GetBalanceOk() (*float32, bool) {
 }
 
 // SetBalance sets field value
-func (o *RewardsPointsBalance) SetBalance(v float32) {
+func (o *RewardsPointsBalance) SetBalance(v int32) {
 	o.Balance = v
 }
 

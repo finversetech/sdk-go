@@ -157,13 +157,13 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BadRequestModelV2'
+                $ref: '#/components/schemas/ErrBodyModelV2'
           description: Invalid Request
         "500":
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/BadRequestModelV2'
+                $ref: '#/components/schemas/ErrBodyModelV2'
           description: Internal Server Error
       security:
       - Oauth2:
@@ -2714,7 +2714,7 @@ components:
           - null
           card_total:
             rewards_points_balance:
-              balance: 69.0
+              balance: 0
               raw: "69.00"
               currency: UNI$
             statement_due_amount:
@@ -3418,7 +3418,7 @@ components:
       type: object
     RewardsPointsBalance:
       example:
-        balance: 69.0
+        balance: 0
         raw: "69.00"
         currency: UNI$
       properties:
@@ -3426,8 +3426,7 @@ components:
           example: UNI$
           type: string
         balance:
-          example: 69.0
-          type: number
+          type: integer
         raw:
           example: "69.00"
           type: string
@@ -5473,7 +5472,7 @@ components:
         - null
         card_total:
           rewards_points_balance:
-            balance: 69.0
+            balance: 0
             raw: "69.00"
             currency: UNI$
           statement_due_amount:
@@ -5516,7 +5515,7 @@ components:
     CommonCardDetails:
       example:
         rewards_points_balance:
-          balance: 69.0
+          balance: 0
           raw: "69.00"
           currency: UNI$
         statement_due_amount:
