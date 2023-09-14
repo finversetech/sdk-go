@@ -2714,7 +2714,7 @@ components:
           - null
           card_total:
             rewards_points_balance:
-              balance: 0
+              balance: 69.0
               raw: "69.00"
               currency: UNI$
             statement_due_amount:
@@ -3418,7 +3418,7 @@ components:
       type: object
     RewardsPointsBalance:
       example:
-        balance: 0
+        balance: 69.0
         raw: "69.00"
         currency: UNI$
       properties:
@@ -3426,7 +3426,8 @@ components:
           example: UNI$
           type: string
         balance:
-          type: integer
+          example: 69.0
+          type: number
         raw:
           example: "69.00"
           type: string
@@ -5494,7 +5495,7 @@ components:
         - null
         card_total:
           rewards_points_balance:
-            balance: 0
+            balance: 69.0
             raw: "69.00"
             currency: UNI$
           statement_due_amount:
@@ -5537,7 +5538,7 @@ components:
     CommonCardDetails:
       example:
         rewards_points_balance:
-          balance: 0
+          balance: 69.0
           raw: "69.00"
           currency: UNI$
         statement_due_amount:
