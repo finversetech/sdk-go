@@ -25,7 +25,7 @@ type CommonCardDetails struct {
 	AvailableCreditLimit *CurrencyAmount       `json:"available_credit_limit,omitempty"`
 	MinimumPaymentDue    *CurrencyAmount       `json:"minimum_payment_due,omitempty"`
 	RewardsPointsBalance *RewardsPointsBalance `json:"rewards_points_balance,omitempty"`
-	LastUpdate           *time.Time            `json:"last_update,omitempty"`
+	UpdatedAt            *time.Time            `json:"updated_at,omitempty"`
 }
 
 // NewCommonCardDetails instantiates a new CommonCardDetails object
@@ -269,36 +269,36 @@ func (o *CommonCardDetails) SetRewardsPointsBalance(v RewardsPointsBalance) {
 	o.RewardsPointsBalance = &v
 }
 
-// GetLastUpdate returns the LastUpdate field value if set, zero value otherwise.
-func (o *CommonCardDetails) GetLastUpdate() time.Time {
-	if o == nil || o.LastUpdate == nil {
+// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+func (o *CommonCardDetails) GetUpdatedAt() time.Time {
+	if o == nil || o.UpdatedAt == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.LastUpdate
+	return *o.UpdatedAt
 }
 
-// GetLastUpdateOk returns a tuple with the LastUpdate field value if set, nil otherwise
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CommonCardDetails) GetLastUpdateOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdate == nil {
+func (o *CommonCardDetails) GetUpdatedAtOk() (*time.Time, bool) {
+	if o == nil || o.UpdatedAt == nil {
 		return nil, false
 	}
-	return o.LastUpdate, true
+	return o.UpdatedAt, true
 }
 
-// HasLastUpdate returns a boolean if a field has been set.
-func (o *CommonCardDetails) HasLastUpdate() bool {
-	if o != nil && o.LastUpdate != nil {
+// HasUpdatedAt returns a boolean if a field has been set.
+func (o *CommonCardDetails) HasUpdatedAt() bool {
+	if o != nil && o.UpdatedAt != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetLastUpdate gets a reference to the given time.Time and assigns it to the LastUpdate field.
-func (o *CommonCardDetails) SetLastUpdate(v time.Time) {
-	o.LastUpdate = &v
+// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
+func (o *CommonCardDetails) SetUpdatedAt(v time.Time) {
+	o.UpdatedAt = &v
 }
 
 func (o CommonCardDetails) MarshalJSON() ([]byte, error) {
@@ -324,8 +324,8 @@ func (o CommonCardDetails) MarshalJSON() ([]byte, error) {
 	if o.RewardsPointsBalance != nil {
 		toSerialize["rewards_points_balance"] = o.RewardsPointsBalance
 	}
-	if o.LastUpdate != nil {
-		toSerialize["last_update"] = o.LastUpdate
+	if o.UpdatedAt != nil {
+		toSerialize["updated_at"] = o.UpdatedAt
 	}
 	return json.Marshal(toSerialize)
 }

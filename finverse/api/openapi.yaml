@@ -2721,11 +2721,11 @@ components:
               raw: "69.00"
               currency: HKD
               value: 69.0
+            updated_at: 2021-02-01T10:01:02.333Z
             available_credit_limit:
               raw: "69.00"
               currency: HKD
               value: 69.0
-            last_update: 2021-02-01T10:01:02.333Z
             current_balance:
               raw: "69.00"
               currency: HKD
@@ -5502,11 +5502,11 @@ components:
             raw: "69.00"
             currency: HKD
             value: 69.0
+          updated_at: 2021-02-01T10:01:02.333Z
           available_credit_limit:
             raw: "69.00"
             currency: HKD
             value: 69.0
-          last_update: 2021-02-01T10:01:02.333Z
           current_balance:
             raw: "69.00"
             currency: HKD
@@ -5545,11 +5545,11 @@ components:
           raw: "69.00"
           currency: HKD
           value: 69.0
+        updated_at: 2021-02-01T10:01:02.333Z
         available_credit_limit:
           raw: "69.00"
           currency: HKD
           value: 69.0
-        last_update: 2021-02-01T10:01:02.333Z
         current_balance:
           raw: "69.00"
           currency: HKD
@@ -5581,7 +5581,7 @@ components:
           $ref: '#/components/schemas/CurrencyAmount'
         rewards_points_balance:
           $ref: '#/components/schemas/RewardsPointsBalance'
-        last_update:
+        updated_at:
           example: 2021-02-01T10:01:02.333Z
           format: date-time
           type: string
