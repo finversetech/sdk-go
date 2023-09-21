@@ -2714,9 +2714,9 @@ components:
           - null
           card_total:
             rewards_points_balance:
+              unit: UNI$
               balance: 69.0
               raw: "69.00"
-              currency: UNI$
             statement_due_amount:
               raw: "69.00"
               currency: HKD
@@ -3418,11 +3418,11 @@ components:
       type: object
     RewardsPointsBalance:
       example:
+        unit: UNI$
         balance: 69.0
         raw: "69.00"
-        currency: UNI$
       properties:
-        currency:
+        unit:
           example: UNI$
           type: string
         balance:
@@ -5495,9 +5495,9 @@ components:
         - null
         card_total:
           rewards_points_balance:
+            unit: UNI$
             balance: 69.0
             raw: "69.00"
-            currency: UNI$
           statement_due_amount:
             raw: "69.00"
             currency: HKD
@@ -5538,9 +5538,9 @@ components:
     CommonCardDetails:
       example:
         rewards_points_balance:
+          unit: UNI$
           balance: 69.0
           raw: "69.00"
-          currency: UNI$
         statement_due_amount:
           raw: "69.00"
           currency: HKD

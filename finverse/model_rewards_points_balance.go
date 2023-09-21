@@ -17,9 +17,9 @@ import (
 
 // RewardsPointsBalance struct for RewardsPointsBalance
 type RewardsPointsBalance struct {
-	Currency *string `json:"currency,omitempty"`
-	Balance  float32 `json:"balance"`
-	Raw      *string `json:"raw,omitempty"`
+	Unit    *string `json:"unit,omitempty"`
+	Balance float32 `json:"balance"`
+	Raw     *string `json:"raw,omitempty"`
 }
 
 // NewRewardsPointsBalance instantiates a new RewardsPointsBalance object
@@ -40,36 +40,36 @@ func NewRewardsPointsBalanceWithDefaults() *RewardsPointsBalance {
 	return &this
 }
 
-// GetCurrency returns the Currency field value if set, zero value otherwise.
-func (o *RewardsPointsBalance) GetCurrency() string {
-	if o == nil || o.Currency == nil {
+// GetUnit returns the Unit field value if set, zero value otherwise.
+func (o *RewardsPointsBalance) GetUnit() string {
+	if o == nil || o.Unit == nil {
 		var ret string
 		return ret
 	}
-	return *o.Currency
+	return *o.Unit
 }
 
-// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
+// GetUnitOk returns a tuple with the Unit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RewardsPointsBalance) GetCurrencyOk() (*string, bool) {
-	if o == nil || o.Currency == nil {
+func (o *RewardsPointsBalance) GetUnitOk() (*string, bool) {
+	if o == nil || o.Unit == nil {
 		return nil, false
 	}
-	return o.Currency, true
+	return o.Unit, true
 }
 
-// HasCurrency returns a boolean if a field has been set.
-func (o *RewardsPointsBalance) HasCurrency() bool {
-	if o != nil && o.Currency != nil {
+// HasUnit returns a boolean if a field has been set.
+func (o *RewardsPointsBalance) HasUnit() bool {
+	if o != nil && o.Unit != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetCurrency gets a reference to the given string and assigns it to the Currency field.
-func (o *RewardsPointsBalance) SetCurrency(v string) {
-	o.Currency = &v
+// SetUnit gets a reference to the given string and assigns it to the Unit field.
+func (o *RewardsPointsBalance) SetUnit(v string) {
+	o.Unit = &v
 }
 
 // GetBalance returns the Balance field value
@@ -130,8 +130,8 @@ func (o *RewardsPointsBalance) SetRaw(v string) {
 
 func (o RewardsPointsBalance) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Currency != nil {
-		toSerialize["currency"] = o.Currency
+	if o.Unit != nil {
+		toSerialize["unit"] = o.Unit
 	}
 	if true {
 		toSerialize["balance"] = o.Balance
