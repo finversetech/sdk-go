@@ -17,8 +17,8 @@ import (
 
 // CardDetails struct for CardDetails
 type CardDetails struct {
-	CardAccounts []CardAccount      `json:"card_accounts,omitempty"`
-	CardTotal    *CommonCardDetails `json:"card_total,omitempty"`
+	CardAccounts []CardAccount `json:"card_accounts,omitempty"`
+	CardTotal    *CardTotal    `json:"card_total,omitempty"`
 }
 
 // NewCardDetails instantiates a new CardDetails object
@@ -71,9 +71,9 @@ func (o *CardDetails) SetCardAccounts(v []CardAccount) {
 }
 
 // GetCardTotal returns the CardTotal field value if set, zero value otherwise.
-func (o *CardDetails) GetCardTotal() CommonCardDetails {
+func (o *CardDetails) GetCardTotal() CardTotal {
 	if o == nil || o.CardTotal == nil {
-		var ret CommonCardDetails
+		var ret CardTotal
 		return ret
 	}
 	return *o.CardTotal
@@ -81,7 +81,7 @@ func (o *CardDetails) GetCardTotal() CommonCardDetails {
 
 // GetCardTotalOk returns a tuple with the CardTotal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CardDetails) GetCardTotalOk() (*CommonCardDetails, bool) {
+func (o *CardDetails) GetCardTotalOk() (*CardTotal, bool) {
 	if o == nil || o.CardTotal == nil {
 		return nil, false
 	}
@@ -97,8 +97,8 @@ func (o *CardDetails) HasCardTotal() bool {
 	return false
 }
 
-// SetCardTotal gets a reference to the given CommonCardDetails and assigns it to the CardTotal field.
-func (o *CardDetails) SetCardTotal(v CommonCardDetails) {
+// SetCardTotal gets a reference to the given CardTotal and assigns it to the CardTotal field.
+func (o *CardDetails) SetCardTotal(v CardTotal) {
 	o.CardTotal = &v
 }
 

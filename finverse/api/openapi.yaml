@@ -2710,13 +2710,97 @@ components:
       example:
         card_details:
           card_accounts:
-          - null
-          - null
+          - account_type:
+              subtype: SAVINGS
+              type: DEPOSIT
+            last_payment_date: 2021-10-27
+            total_credit_limit:
+              raw: "69.00"
+              currency: HKD
+              value: 69.0
+            payment_due_amount:
+              raw: "69.00"
+              currency: HKD
+              value: 69.0
+            minimum_payment_due:
+              raw: "69.00"
+              currency: HKD
+              value: 69.0
+            last_payment_amount:
+              raw: "69.00"
+              currency: HKD
+              value: 69.0
+            statement_date: 2021-10-27
+            rewards_points_balance:
+              unit: UNI$
+              raw: "69.00"
+              value: 69.0
+            statement_due_amount:
+              raw: "69.00"
+              currency: HKD
+              value: 69.0
+            account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+            statement_payment_due_date: 2021-02-01
+            updated_at: 2021-02-01T10:01:02.333Z
+            available_credit_limit:
+              raw: "69.00"
+              currency: HKD
+              value: 69.0
+            account_name: HKD Visa
+            account_number_masked: account_number_masked
+            current_balance:
+              raw: "69.00"
+              currency: HKD
+              value: 69.0
+            next_payment_due_date: 2021-02-01
+          - account_type:
+              subtype: SAVINGS
+              type: DEPOSIT
+            last_payment_date: 2021-10-27
+            total_credit_limit:
+              raw: "69.00"
+              currency: HKD
+              value: 69.0
+            payment_due_amount:
+              raw: "69.00"
+              currency: HKD
+              value: 69.0
+            minimum_payment_due:
+              raw: "69.00"
+              currency: HKD
+              value: 69.0
+            last_payment_amount:
+              raw: "69.00"
+              currency: HKD
+              value: 69.0
+            statement_date: 2021-10-27
+            rewards_points_balance:
+              unit: UNI$
+              raw: "69.00"
+              value: 69.0
+            statement_due_amount:
+              raw: "69.00"
+              currency: HKD
+              value: 69.0
+            account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+            statement_payment_due_date: 2021-02-01
+            updated_at: 2021-02-01T10:01:02.333Z
+            available_credit_limit:
+              raw: "69.00"
+              currency: HKD
+              value: 69.0
+            account_name: HKD Visa
+            account_number_masked: account_number_masked
+            current_balance:
+              raw: "69.00"
+              currency: HKD
+              value: 69.0
+            next_payment_due_date: 2021-02-01
           card_total:
             rewards_points_balance:
               unit: UNI$
-              balance: 69.0
               raw: "69.00"
+              value: 69.0
             statement_due_amount:
               raw: "69.00"
               currency: HKD
@@ -3416,23 +3500,23 @@ components:
       - account_id
       - raw
       type: object
-    RewardsPointsBalance:
+    GenericAmount:
       example:
         unit: UNI$
-        balance: 69.0
         raw: "69.00"
+        value: 69.0
       properties:
         unit:
           example: UNI$
           type: string
-        balance:
+        value:
           example: 69.0
           type: number
         raw:
           example: "69.00"
           type: string
       required:
-      - balance
+      - value
       type: object
     CurrencyAmount:
       example:
@@ -5491,13 +5575,97 @@ components:
     CardDetails:
       example:
         card_accounts:
-        - null
-        - null
+        - account_type:
+            subtype: SAVINGS
+            type: DEPOSIT
+          last_payment_date: 2021-10-27
+          total_credit_limit:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          payment_due_amount:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          minimum_payment_due:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          last_payment_amount:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          statement_date: 2021-10-27
+          rewards_points_balance:
+            unit: UNI$
+            raw: "69.00"
+            value: 69.0
+          statement_due_amount:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          statement_payment_due_date: 2021-02-01
+          updated_at: 2021-02-01T10:01:02.333Z
+          available_credit_limit:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          account_name: HKD Visa
+          account_number_masked: account_number_masked
+          current_balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          next_payment_due_date: 2021-02-01
+        - account_type:
+            subtype: SAVINGS
+            type: DEPOSIT
+          last_payment_date: 2021-10-27
+          total_credit_limit:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          payment_due_amount:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          minimum_payment_due:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          last_payment_amount:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          statement_date: 2021-10-27
+          rewards_points_balance:
+            unit: UNI$
+            raw: "69.00"
+            value: 69.0
+          statement_due_amount:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          statement_payment_due_date: 2021-02-01
+          updated_at: 2021-02-01T10:01:02.333Z
+          available_credit_limit:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          account_name: HKD Visa
+          account_number_masked: account_number_masked
+          current_balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          next_payment_due_date: 2021-02-01
         card_total:
           rewards_points_balance:
             unit: UNI$
-            balance: 69.0
             raw: "69.00"
+            value: 69.0
           statement_due_amount:
             raw: "69.00"
             currency: HKD
@@ -5529,18 +5697,109 @@ components:
             $ref: '#/components/schemas/CardAccount'
           type: array
         card_total:
-          $ref: '#/components/schemas/CommonCardDetails'
+          $ref: '#/components/schemas/CardTotal'
       type: object
     CardAccount:
-      allOf:
-      - $ref: '#/components/schemas/CommonCardDetails'
-      - $ref: '#/components/schemas/CardAccount_allOf'
-    CommonCardDetails:
+      example:
+        account_type:
+          subtype: SAVINGS
+          type: DEPOSIT
+        last_payment_date: 2021-10-27
+        total_credit_limit:
+          raw: "69.00"
+          currency: HKD
+          value: 69.0
+        payment_due_amount:
+          raw: "69.00"
+          currency: HKD
+          value: 69.0
+        minimum_payment_due:
+          raw: "69.00"
+          currency: HKD
+          value: 69.0
+        last_payment_amount:
+          raw: "69.00"
+          currency: HKD
+          value: 69.0
+        statement_date: 2021-10-27
+        rewards_points_balance:
+          unit: UNI$
+          raw: "69.00"
+          value: 69.0
+        statement_due_amount:
+          raw: "69.00"
+          currency: HKD
+          value: 69.0
+        account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+        statement_payment_due_date: 2021-02-01
+        updated_at: 2021-02-01T10:01:02.333Z
+        available_credit_limit:
+          raw: "69.00"
+          currency: HKD
+          value: 69.0
+        account_name: HKD Visa
+        account_number_masked: account_number_masked
+        current_balance:
+          raw: "69.00"
+          currency: HKD
+          value: 69.0
+        next_payment_due_date: 2021-02-01
+      properties:
+        account_id:
+          description: Account this card is associated with
+          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          type: string
+        account_name:
+          example: HKD Visa
+          type: string
+        account_number_masked:
+          description: Masked Account number of the card account
+          type: string
+        account_type:
+          $ref: '#/components/schemas/AccountType'
+        statement_payment_due_date:
+          description: The statement payment due date
+          example: 2021-02-01
+          type: string
+        next_payment_due_date:
+          description: The next payment due date
+          example: 2021-02-01
+          type: string
+        statement_date:
+          description: The statement date
+          example: 2021-10-27
+          type: string
+        last_payment_date:
+          description: The date of the last payment
+          example: 2021-10-27
+          type: string
+        last_payment_amount:
+          $ref: '#/components/schemas/CurrencyAmount'
+        current_balance:
+          $ref: '#/components/schemas/CurrencyAmount'
+        payment_due_amount:
+          $ref: '#/components/schemas/CurrencyAmount'
+        statement_due_amount:
+          $ref: '#/components/schemas/CurrencyAmount'
+        total_credit_limit:
+          $ref: '#/components/schemas/CurrencyAmount'
+        available_credit_limit:
+          $ref: '#/components/schemas/CurrencyAmount'
+        minimum_payment_due:
+          $ref: '#/components/schemas/CurrencyAmount'
+        rewards_points_balance:
+          $ref: '#/components/schemas/GenericAmount'
+        updated_at:
+          example: 2021-02-01T10:01:02.333Z
+          format: date-time
+          type: string
+      type: object
+    CardTotal:
       example:
         rewards_points_balance:
           unit: UNI$
-          balance: 69.0
           raw: "69.00"
+          value: 69.0
         statement_due_amount:
           raw: "69.00"
           currency: HKD
@@ -5580,7 +5839,7 @@ components:
         minimum_payment_due:
           $ref: '#/components/schemas/CurrencyAmount'
         rewards_points_balance:
-          $ref: '#/components/schemas/RewardsPointsBalance'
+          $ref: '#/components/schemas/GenericAmount'
         updated_at:
           example: 2021-02-01T10:01:02.333Z
           format: date-time
@@ -9380,39 +9639,6 @@ components:
           - INDIVIDUAL
           - BUSINESS
           type: string
-      type: object
-    CardAccount_allOf:
-      properties:
-        account_id:
-          description: Account this card is associated with
-          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
-          type: string
-        account_name:
-          example: HKD Visa
-          type: string
-        account_number_masked:
-          description: Masked Account number of the card account
-          type: string
-        account_type:
-          $ref: '#/components/schemas/AccountType'
-        statement_payment_due_date:
-          description: The statement payment due date
-          example: 2021-02-01
-          type: string
-        next_payment_due_date:
-          description: The next payment due date
-          example: 2021-02-01
-          type: string
-        statement_date:
-          description: The statement date
-          example: 2021-10-27
-          type: string
-        last_payment_date:
-          description: The date of the last payment
-          example: 2021-10-27
-          type: string
-        last_payment_amount:
-          $ref: '#/components/schemas/CurrencyAmount'
       type: object
     BadRequestModel_error:
       properties:

@@ -18,14 +18,6 @@ import (
 
 // CardAccount struct for CardAccount
 type CardAccount struct {
-	CurrentBalance       *CurrencyAmount       `json:"current_balance,omitempty"`
-	PaymentDueAmount     *CurrencyAmount       `json:"payment_due_amount,omitempty"`
-	StatementDueAmount   *CurrencyAmount       `json:"statement_due_amount,omitempty"`
-	TotalCreditLimit     *CurrencyAmount       `json:"total_credit_limit,omitempty"`
-	AvailableCreditLimit *CurrencyAmount       `json:"available_credit_limit,omitempty"`
-	MinimumPaymentDue    *CurrencyAmount       `json:"minimum_payment_due,omitempty"`
-	RewardsPointsBalance *RewardsPointsBalance `json:"rewards_points_balance,omitempty"`
-	UpdatedAt            *time.Time            `json:"updated_at,omitempty"`
 	// Account this card is associated with
 	AccountId   *string `json:"account_id,omitempty"`
 	AccountName *string `json:"account_name,omitempty"`
@@ -39,8 +31,16 @@ type CardAccount struct {
 	// The statement date
 	StatementDate *string `json:"statement_date,omitempty"`
 	// The date of the last payment
-	LastPaymentDate   *string         `json:"last_payment_date,omitempty"`
-	LastPaymentAmount *CurrencyAmount `json:"last_payment_amount,omitempty"`
+	LastPaymentDate      *string         `json:"last_payment_date,omitempty"`
+	LastPaymentAmount    *CurrencyAmount `json:"last_payment_amount,omitempty"`
+	CurrentBalance       *CurrencyAmount `json:"current_balance,omitempty"`
+	PaymentDueAmount     *CurrencyAmount `json:"payment_due_amount,omitempty"`
+	StatementDueAmount   *CurrencyAmount `json:"statement_due_amount,omitempty"`
+	TotalCreditLimit     *CurrencyAmount `json:"total_credit_limit,omitempty"`
+	AvailableCreditLimit *CurrencyAmount `json:"available_credit_limit,omitempty"`
+	MinimumPaymentDue    *CurrencyAmount `json:"minimum_payment_due,omitempty"`
+	RewardsPointsBalance *GenericAmount  `json:"rewards_points_balance,omitempty"`
+	UpdatedAt            *time.Time      `json:"updated_at,omitempty"`
 }
 
 // NewCardAccount instantiates a new CardAccount object
@@ -58,262 +58,6 @@ func NewCardAccount() *CardAccount {
 func NewCardAccountWithDefaults() *CardAccount {
 	this := CardAccount{}
 	return &this
-}
-
-// GetCurrentBalance returns the CurrentBalance field value if set, zero value otherwise.
-func (o *CardAccount) GetCurrentBalance() CurrencyAmount {
-	if o == nil || o.CurrentBalance == nil {
-		var ret CurrencyAmount
-		return ret
-	}
-	return *o.CurrentBalance
-}
-
-// GetCurrentBalanceOk returns a tuple with the CurrentBalance field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CardAccount) GetCurrentBalanceOk() (*CurrencyAmount, bool) {
-	if o == nil || o.CurrentBalance == nil {
-		return nil, false
-	}
-	return o.CurrentBalance, true
-}
-
-// HasCurrentBalance returns a boolean if a field has been set.
-func (o *CardAccount) HasCurrentBalance() bool {
-	if o != nil && o.CurrentBalance != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCurrentBalance gets a reference to the given CurrencyAmount and assigns it to the CurrentBalance field.
-func (o *CardAccount) SetCurrentBalance(v CurrencyAmount) {
-	o.CurrentBalance = &v
-}
-
-// GetPaymentDueAmount returns the PaymentDueAmount field value if set, zero value otherwise.
-func (o *CardAccount) GetPaymentDueAmount() CurrencyAmount {
-	if o == nil || o.PaymentDueAmount == nil {
-		var ret CurrencyAmount
-		return ret
-	}
-	return *o.PaymentDueAmount
-}
-
-// GetPaymentDueAmountOk returns a tuple with the PaymentDueAmount field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CardAccount) GetPaymentDueAmountOk() (*CurrencyAmount, bool) {
-	if o == nil || o.PaymentDueAmount == nil {
-		return nil, false
-	}
-	return o.PaymentDueAmount, true
-}
-
-// HasPaymentDueAmount returns a boolean if a field has been set.
-func (o *CardAccount) HasPaymentDueAmount() bool {
-	if o != nil && o.PaymentDueAmount != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPaymentDueAmount gets a reference to the given CurrencyAmount and assigns it to the PaymentDueAmount field.
-func (o *CardAccount) SetPaymentDueAmount(v CurrencyAmount) {
-	o.PaymentDueAmount = &v
-}
-
-// GetStatementDueAmount returns the StatementDueAmount field value if set, zero value otherwise.
-func (o *CardAccount) GetStatementDueAmount() CurrencyAmount {
-	if o == nil || o.StatementDueAmount == nil {
-		var ret CurrencyAmount
-		return ret
-	}
-	return *o.StatementDueAmount
-}
-
-// GetStatementDueAmountOk returns a tuple with the StatementDueAmount field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CardAccount) GetStatementDueAmountOk() (*CurrencyAmount, bool) {
-	if o == nil || o.StatementDueAmount == nil {
-		return nil, false
-	}
-	return o.StatementDueAmount, true
-}
-
-// HasStatementDueAmount returns a boolean if a field has been set.
-func (o *CardAccount) HasStatementDueAmount() bool {
-	if o != nil && o.StatementDueAmount != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetStatementDueAmount gets a reference to the given CurrencyAmount and assigns it to the StatementDueAmount field.
-func (o *CardAccount) SetStatementDueAmount(v CurrencyAmount) {
-	o.StatementDueAmount = &v
-}
-
-// GetTotalCreditLimit returns the TotalCreditLimit field value if set, zero value otherwise.
-func (o *CardAccount) GetTotalCreditLimit() CurrencyAmount {
-	if o == nil || o.TotalCreditLimit == nil {
-		var ret CurrencyAmount
-		return ret
-	}
-	return *o.TotalCreditLimit
-}
-
-// GetTotalCreditLimitOk returns a tuple with the TotalCreditLimit field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CardAccount) GetTotalCreditLimitOk() (*CurrencyAmount, bool) {
-	if o == nil || o.TotalCreditLimit == nil {
-		return nil, false
-	}
-	return o.TotalCreditLimit, true
-}
-
-// HasTotalCreditLimit returns a boolean if a field has been set.
-func (o *CardAccount) HasTotalCreditLimit() bool {
-	if o != nil && o.TotalCreditLimit != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTotalCreditLimit gets a reference to the given CurrencyAmount and assigns it to the TotalCreditLimit field.
-func (o *CardAccount) SetTotalCreditLimit(v CurrencyAmount) {
-	o.TotalCreditLimit = &v
-}
-
-// GetAvailableCreditLimit returns the AvailableCreditLimit field value if set, zero value otherwise.
-func (o *CardAccount) GetAvailableCreditLimit() CurrencyAmount {
-	if o == nil || o.AvailableCreditLimit == nil {
-		var ret CurrencyAmount
-		return ret
-	}
-	return *o.AvailableCreditLimit
-}
-
-// GetAvailableCreditLimitOk returns a tuple with the AvailableCreditLimit field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CardAccount) GetAvailableCreditLimitOk() (*CurrencyAmount, bool) {
-	if o == nil || o.AvailableCreditLimit == nil {
-		return nil, false
-	}
-	return o.AvailableCreditLimit, true
-}
-
-// HasAvailableCreditLimit returns a boolean if a field has been set.
-func (o *CardAccount) HasAvailableCreditLimit() bool {
-	if o != nil && o.AvailableCreditLimit != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAvailableCreditLimit gets a reference to the given CurrencyAmount and assigns it to the AvailableCreditLimit field.
-func (o *CardAccount) SetAvailableCreditLimit(v CurrencyAmount) {
-	o.AvailableCreditLimit = &v
-}
-
-// GetMinimumPaymentDue returns the MinimumPaymentDue field value if set, zero value otherwise.
-func (o *CardAccount) GetMinimumPaymentDue() CurrencyAmount {
-	if o == nil || o.MinimumPaymentDue == nil {
-		var ret CurrencyAmount
-		return ret
-	}
-	return *o.MinimumPaymentDue
-}
-
-// GetMinimumPaymentDueOk returns a tuple with the MinimumPaymentDue field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CardAccount) GetMinimumPaymentDueOk() (*CurrencyAmount, bool) {
-	if o == nil || o.MinimumPaymentDue == nil {
-		return nil, false
-	}
-	return o.MinimumPaymentDue, true
-}
-
-// HasMinimumPaymentDue returns a boolean if a field has been set.
-func (o *CardAccount) HasMinimumPaymentDue() bool {
-	if o != nil && o.MinimumPaymentDue != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMinimumPaymentDue gets a reference to the given CurrencyAmount and assigns it to the MinimumPaymentDue field.
-func (o *CardAccount) SetMinimumPaymentDue(v CurrencyAmount) {
-	o.MinimumPaymentDue = &v
-}
-
-// GetRewardsPointsBalance returns the RewardsPointsBalance field value if set, zero value otherwise.
-func (o *CardAccount) GetRewardsPointsBalance() RewardsPointsBalance {
-	if o == nil || o.RewardsPointsBalance == nil {
-		var ret RewardsPointsBalance
-		return ret
-	}
-	return *o.RewardsPointsBalance
-}
-
-// GetRewardsPointsBalanceOk returns a tuple with the RewardsPointsBalance field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CardAccount) GetRewardsPointsBalanceOk() (*RewardsPointsBalance, bool) {
-	if o == nil || o.RewardsPointsBalance == nil {
-		return nil, false
-	}
-	return o.RewardsPointsBalance, true
-}
-
-// HasRewardsPointsBalance returns a boolean if a field has been set.
-func (o *CardAccount) HasRewardsPointsBalance() bool {
-	if o != nil && o.RewardsPointsBalance != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRewardsPointsBalance gets a reference to the given RewardsPointsBalance and assigns it to the RewardsPointsBalance field.
-func (o *CardAccount) SetRewardsPointsBalance(v RewardsPointsBalance) {
-	o.RewardsPointsBalance = &v
-}
-
-// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *CardAccount) GetUpdatedAt() time.Time {
-	if o == nil || o.UpdatedAt == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.UpdatedAt
-}
-
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *CardAccount) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || o.UpdatedAt == nil {
-		return nil, false
-	}
-	return o.UpdatedAt, true
-}
-
-// HasUpdatedAt returns a boolean if a field has been set.
-func (o *CardAccount) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
-func (o *CardAccount) SetUpdatedAt(v time.Time) {
-	o.UpdatedAt = &v
 }
 
 // GetAccountId returns the AccountId field value if set, zero value otherwise.
@@ -604,32 +348,264 @@ func (o *CardAccount) SetLastPaymentAmount(v CurrencyAmount) {
 	o.LastPaymentAmount = &v
 }
 
+// GetCurrentBalance returns the CurrentBalance field value if set, zero value otherwise.
+func (o *CardAccount) GetCurrentBalance() CurrencyAmount {
+	if o == nil || o.CurrentBalance == nil {
+		var ret CurrencyAmount
+		return ret
+	}
+	return *o.CurrentBalance
+}
+
+// GetCurrentBalanceOk returns a tuple with the CurrentBalance field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CardAccount) GetCurrentBalanceOk() (*CurrencyAmount, bool) {
+	if o == nil || o.CurrentBalance == nil {
+		return nil, false
+	}
+	return o.CurrentBalance, true
+}
+
+// HasCurrentBalance returns a boolean if a field has been set.
+func (o *CardAccount) HasCurrentBalance() bool {
+	if o != nil && o.CurrentBalance != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCurrentBalance gets a reference to the given CurrencyAmount and assigns it to the CurrentBalance field.
+func (o *CardAccount) SetCurrentBalance(v CurrencyAmount) {
+	o.CurrentBalance = &v
+}
+
+// GetPaymentDueAmount returns the PaymentDueAmount field value if set, zero value otherwise.
+func (o *CardAccount) GetPaymentDueAmount() CurrencyAmount {
+	if o == nil || o.PaymentDueAmount == nil {
+		var ret CurrencyAmount
+		return ret
+	}
+	return *o.PaymentDueAmount
+}
+
+// GetPaymentDueAmountOk returns a tuple with the PaymentDueAmount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CardAccount) GetPaymentDueAmountOk() (*CurrencyAmount, bool) {
+	if o == nil || o.PaymentDueAmount == nil {
+		return nil, false
+	}
+	return o.PaymentDueAmount, true
+}
+
+// HasPaymentDueAmount returns a boolean if a field has been set.
+func (o *CardAccount) HasPaymentDueAmount() bool {
+	if o != nil && o.PaymentDueAmount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentDueAmount gets a reference to the given CurrencyAmount and assigns it to the PaymentDueAmount field.
+func (o *CardAccount) SetPaymentDueAmount(v CurrencyAmount) {
+	o.PaymentDueAmount = &v
+}
+
+// GetStatementDueAmount returns the StatementDueAmount field value if set, zero value otherwise.
+func (o *CardAccount) GetStatementDueAmount() CurrencyAmount {
+	if o == nil || o.StatementDueAmount == nil {
+		var ret CurrencyAmount
+		return ret
+	}
+	return *o.StatementDueAmount
+}
+
+// GetStatementDueAmountOk returns a tuple with the StatementDueAmount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CardAccount) GetStatementDueAmountOk() (*CurrencyAmount, bool) {
+	if o == nil || o.StatementDueAmount == nil {
+		return nil, false
+	}
+	return o.StatementDueAmount, true
+}
+
+// HasStatementDueAmount returns a boolean if a field has been set.
+func (o *CardAccount) HasStatementDueAmount() bool {
+	if o != nil && o.StatementDueAmount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetStatementDueAmount gets a reference to the given CurrencyAmount and assigns it to the StatementDueAmount field.
+func (o *CardAccount) SetStatementDueAmount(v CurrencyAmount) {
+	o.StatementDueAmount = &v
+}
+
+// GetTotalCreditLimit returns the TotalCreditLimit field value if set, zero value otherwise.
+func (o *CardAccount) GetTotalCreditLimit() CurrencyAmount {
+	if o == nil || o.TotalCreditLimit == nil {
+		var ret CurrencyAmount
+		return ret
+	}
+	return *o.TotalCreditLimit
+}
+
+// GetTotalCreditLimitOk returns a tuple with the TotalCreditLimit field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CardAccount) GetTotalCreditLimitOk() (*CurrencyAmount, bool) {
+	if o == nil || o.TotalCreditLimit == nil {
+		return nil, false
+	}
+	return o.TotalCreditLimit, true
+}
+
+// HasTotalCreditLimit returns a boolean if a field has been set.
+func (o *CardAccount) HasTotalCreditLimit() bool {
+	if o != nil && o.TotalCreditLimit != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTotalCreditLimit gets a reference to the given CurrencyAmount and assigns it to the TotalCreditLimit field.
+func (o *CardAccount) SetTotalCreditLimit(v CurrencyAmount) {
+	o.TotalCreditLimit = &v
+}
+
+// GetAvailableCreditLimit returns the AvailableCreditLimit field value if set, zero value otherwise.
+func (o *CardAccount) GetAvailableCreditLimit() CurrencyAmount {
+	if o == nil || o.AvailableCreditLimit == nil {
+		var ret CurrencyAmount
+		return ret
+	}
+	return *o.AvailableCreditLimit
+}
+
+// GetAvailableCreditLimitOk returns a tuple with the AvailableCreditLimit field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CardAccount) GetAvailableCreditLimitOk() (*CurrencyAmount, bool) {
+	if o == nil || o.AvailableCreditLimit == nil {
+		return nil, false
+	}
+	return o.AvailableCreditLimit, true
+}
+
+// HasAvailableCreditLimit returns a boolean if a field has been set.
+func (o *CardAccount) HasAvailableCreditLimit() bool {
+	if o != nil && o.AvailableCreditLimit != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAvailableCreditLimit gets a reference to the given CurrencyAmount and assigns it to the AvailableCreditLimit field.
+func (o *CardAccount) SetAvailableCreditLimit(v CurrencyAmount) {
+	o.AvailableCreditLimit = &v
+}
+
+// GetMinimumPaymentDue returns the MinimumPaymentDue field value if set, zero value otherwise.
+func (o *CardAccount) GetMinimumPaymentDue() CurrencyAmount {
+	if o == nil || o.MinimumPaymentDue == nil {
+		var ret CurrencyAmount
+		return ret
+	}
+	return *o.MinimumPaymentDue
+}
+
+// GetMinimumPaymentDueOk returns a tuple with the MinimumPaymentDue field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CardAccount) GetMinimumPaymentDueOk() (*CurrencyAmount, bool) {
+	if o == nil || o.MinimumPaymentDue == nil {
+		return nil, false
+	}
+	return o.MinimumPaymentDue, true
+}
+
+// HasMinimumPaymentDue returns a boolean if a field has been set.
+func (o *CardAccount) HasMinimumPaymentDue() bool {
+	if o != nil && o.MinimumPaymentDue != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMinimumPaymentDue gets a reference to the given CurrencyAmount and assigns it to the MinimumPaymentDue field.
+func (o *CardAccount) SetMinimumPaymentDue(v CurrencyAmount) {
+	o.MinimumPaymentDue = &v
+}
+
+// GetRewardsPointsBalance returns the RewardsPointsBalance field value if set, zero value otherwise.
+func (o *CardAccount) GetRewardsPointsBalance() GenericAmount {
+	if o == nil || o.RewardsPointsBalance == nil {
+		var ret GenericAmount
+		return ret
+	}
+	return *o.RewardsPointsBalance
+}
+
+// GetRewardsPointsBalanceOk returns a tuple with the RewardsPointsBalance field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CardAccount) GetRewardsPointsBalanceOk() (*GenericAmount, bool) {
+	if o == nil || o.RewardsPointsBalance == nil {
+		return nil, false
+	}
+	return o.RewardsPointsBalance, true
+}
+
+// HasRewardsPointsBalance returns a boolean if a field has been set.
+func (o *CardAccount) HasRewardsPointsBalance() bool {
+	if o != nil && o.RewardsPointsBalance != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRewardsPointsBalance gets a reference to the given GenericAmount and assigns it to the RewardsPointsBalance field.
+func (o *CardAccount) SetRewardsPointsBalance(v GenericAmount) {
+	o.RewardsPointsBalance = &v
+}
+
+// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
+func (o *CardAccount) GetUpdatedAt() time.Time {
+	if o == nil || o.UpdatedAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.UpdatedAt
+}
+
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CardAccount) GetUpdatedAtOk() (*time.Time, bool) {
+	if o == nil || o.UpdatedAt == nil {
+		return nil, false
+	}
+	return o.UpdatedAt, true
+}
+
+// HasUpdatedAt returns a boolean if a field has been set.
+func (o *CardAccount) HasUpdatedAt() bool {
+	if o != nil && o.UpdatedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
+func (o *CardAccount) SetUpdatedAt(v time.Time) {
+	o.UpdatedAt = &v
+}
+
 func (o CardAccount) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CurrentBalance != nil {
-		toSerialize["current_balance"] = o.CurrentBalance
-	}
-	if o.PaymentDueAmount != nil {
-		toSerialize["payment_due_amount"] = o.PaymentDueAmount
-	}
-	if o.StatementDueAmount != nil {
-		toSerialize["statement_due_amount"] = o.StatementDueAmount
-	}
-	if o.TotalCreditLimit != nil {
-		toSerialize["total_credit_limit"] = o.TotalCreditLimit
-	}
-	if o.AvailableCreditLimit != nil {
-		toSerialize["available_credit_limit"] = o.AvailableCreditLimit
-	}
-	if o.MinimumPaymentDue != nil {
-		toSerialize["minimum_payment_due"] = o.MinimumPaymentDue
-	}
-	if o.RewardsPointsBalance != nil {
-		toSerialize["rewards_points_balance"] = o.RewardsPointsBalance
-	}
-	if o.UpdatedAt != nil {
-		toSerialize["updated_at"] = o.UpdatedAt
-	}
 	if o.AccountId != nil {
 		toSerialize["account_id"] = o.AccountId
 	}
@@ -656,6 +632,30 @@ func (o CardAccount) MarshalJSON() ([]byte, error) {
 	}
 	if o.LastPaymentAmount != nil {
 		toSerialize["last_payment_amount"] = o.LastPaymentAmount
+	}
+	if o.CurrentBalance != nil {
+		toSerialize["current_balance"] = o.CurrentBalance
+	}
+	if o.PaymentDueAmount != nil {
+		toSerialize["payment_due_amount"] = o.PaymentDueAmount
+	}
+	if o.StatementDueAmount != nil {
+		toSerialize["statement_due_amount"] = o.StatementDueAmount
+	}
+	if o.TotalCreditLimit != nil {
+		toSerialize["total_credit_limit"] = o.TotalCreditLimit
+	}
+	if o.AvailableCreditLimit != nil {
+		toSerialize["available_credit_limit"] = o.AvailableCreditLimit
+	}
+	if o.MinimumPaymentDue != nil {
+		toSerialize["minimum_payment_due"] = o.MinimumPaymentDue
+	}
+	if o.RewardsPointsBalance != nil {
+		toSerialize["rewards_points_balance"] = o.RewardsPointsBalance
+	}
+	if o.UpdatedAt != nil {
+		toSerialize["updated_at"] = o.UpdatedAt
 	}
 	return json.Marshal(toSerialize)
 }
