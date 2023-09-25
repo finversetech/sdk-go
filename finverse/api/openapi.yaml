@@ -1825,6 +1825,60 @@ paths:
       - Oauth2:
         - mandates:payment_user:set
       x-codegen-request-body-name: setAutopayConsentRequest
+  /mandates/sender_account/{senderAccountId}:
+    post:
+      description: Create mandate for an existing sender account
+      operationId: createMandateForExistingSender
+      parameters:
+      - description: A random key provided by the customer, per unique payment. The
+          purpose for the Idempotency key is to allow safe retrying without the operation
+          being performed multiple times.
+        in: header
+        name: Idempotency-Key
+        schema:
+          type: string
+      - description: The Finverse ID of the sender account
+        in: path
+        name: senderAccountId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMandateRequest'
+        description: request body for creating mandate
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateMandateResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - mandate:create
+      x-codegen-request-body-name: createMandateRequest
   /payments:
     get:
       description: List Payments
