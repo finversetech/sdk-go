@@ -32,6 +32,7 @@ model_create_fps_token_response.go
 model_create_mandate_request.go
 model_create_mandate_response.go
 model_create_mandate_sender.go
+model_create_mandate_with_sender_account_request.go
 model_create_payment_account_request.go
 model_create_payment_instruction_response.go
 model_create_payment_link_card_payment_response.go
@@ -113,6 +114,7 @@ model_mandate_recipient.go
 model_mandate_recipient_account.go
 model_mandate_recipient_request.go
 model_mandate_sender_account.go
+model_mandate_sender_account_request.go
 model_manual_payment_confirmation_request.go
 model_manual_payment_confirmation_response.go
 model_monthly_income_estimate.go

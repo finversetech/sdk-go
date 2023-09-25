@@ -90,10 +90,9 @@ type DefaultApi interface {
 		Create mandate for an existing sender account
 
 		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param senderAccountId The Finverse ID of the sender account
 		 @return DefaultApiApiCreateMandateForExistingSenderRequest
 	*/
-	CreateMandateForExistingSender(ctx context.Context, senderAccountId string) DefaultApiApiCreateMandateForExistingSenderRequest
+	CreateMandateForExistingSender(ctx context.Context) DefaultApiApiCreateMandateForExistingSenderRequest
 
 	// CreateMandateForExistingSenderExecute executes the request
 	//  @return CreateMandateResponse
@@ -733,13 +732,12 @@ func (a *DefaultApiService) CreateFpsTokenExecute(r DefaultApiApiCreateFpsTokenR
 type DefaultApiApiCreateMandateForExistingSenderRequest struct {
 	ctx                  context.Context
 	ApiService           DefaultApi
-	senderAccountId      string
-	createMandateRequest *CreateMandateRequest
+	createMandateRequest *CreateMandateWithSenderAccountRequest
 	idempotencyKey       *string
 }
 
 // request body for creating mandate
-func (r DefaultApiApiCreateMandateForExistingSenderRequest) CreateMandateRequest(createMandateRequest CreateMandateRequest) DefaultApiApiCreateMandateForExistingSenderRequest {
+func (r DefaultApiApiCreateMandateForExistingSenderRequest) CreateMandateRequest(createMandateRequest CreateMandateWithSenderAccountRequest) DefaultApiApiCreateMandateForExistingSenderRequest {
 	r.createMandateRequest = &createMandateRequest
 	return r
 }
@@ -760,14 +758,12 @@ CreateMandateForExistingSender Method for CreateMandateForExistingSender
 Create mandate for an existing sender account
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @param senderAccountId The Finverse ID of the sender account
  @return DefaultApiApiCreateMandateForExistingSenderRequest
 */
-func (a *DefaultApiService) CreateMandateForExistingSender(ctx context.Context, senderAccountId string) DefaultApiApiCreateMandateForExistingSenderRequest {
+func (a *DefaultApiService) CreateMandateForExistingSender(ctx context.Context) DefaultApiApiCreateMandateForExistingSenderRequest {
 	return DefaultApiApiCreateMandateForExistingSenderRequest{
-		ApiService:      a,
-		ctx:             ctx,
-		senderAccountId: senderAccountId,
+		ApiService: a,
+		ctx:        ctx,
 	}
 }
 
@@ -786,8 +782,7 @@ func (a *DefaultApiService) CreateMandateForExistingSenderExecute(r DefaultApiAp
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
-	localVarPath := localBasePath + "/mandates/sender_account/{senderAccountId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"senderAccountId"+"}", url.PathEscape(parameterToString(r.senderAccountId, "")), -1)
+	localVarPath := localBasePath + "/mandates/sender_account"
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
