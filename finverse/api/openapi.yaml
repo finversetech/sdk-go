@@ -2152,6 +2152,55 @@ paths:
       tags:
       - customer
       x-codegen-request-body-name: submitAuthChecklistRequest
+  /mandates/{mandateId}/authorize:
+    post:
+      description: Allows a customer to authorize a specific mandate
+      operationId: authorizeMandate
+      parameters:
+      - description: The mandate_id that is being authorized
+        in: path
+        name: mandateId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AuthorizeMandateRequest'
+        description: request body for authorizing a mandate
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SubmitAuthChecklistResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - mandates:authorize
+      tags:
+      - customer
+      x-codegen-request-body-name: authorizeMandateRequest
   /payments/instruction:
     post:
       description: Create a new payment instruction to be used when linking to perform
@@ -9231,6 +9280,17 @@ components:
       - last_update
       - mandate_id
       - mandate_status
+      type: object
+    AuthorizeMandateRequest:
+      example:
+        enduser_consent: true
+      properties:
+        enduser_consent:
+          description: Whether a consent was provided by the enduser to authorize
+            a mandate
+          type: boolean
+      required:
+      - enduser_consent
       type: object
     SubmitAuthChecklistRequest:
       example:

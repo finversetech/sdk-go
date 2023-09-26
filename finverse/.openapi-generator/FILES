@@ -17,6 +17,7 @@ model_api_link_request.go
 model_api_relink_request.go
 model_auth_checklist_factor.go
 model_auth_checklist_options.go
+model_authorize_mandate_request.go
 model_bad_request_model.go
 model_bad_request_model_error.go
 model_bad_request_model_v2.go
