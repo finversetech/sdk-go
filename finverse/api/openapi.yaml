@@ -1835,6 +1835,7 @@ paths:
           being performed multiple times.
         in: header
         name: Idempotency-Key
+        required: true
         schema:
           type: string
       requestBody:

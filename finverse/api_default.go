@@ -732,19 +732,19 @@ func (a *DefaultApiService) CreateFpsTokenExecute(r DefaultApiApiCreateFpsTokenR
 type DefaultApiApiCreateMandateForExistingSenderRequest struct {
 	ctx                  context.Context
 	ApiService           DefaultApi
-	createMandateRequest *CreateMandateWithSenderAccountRequest
 	idempotencyKey       *string
-}
-
-// request body for creating mandate
-func (r DefaultApiApiCreateMandateForExistingSenderRequest) CreateMandateRequest(createMandateRequest CreateMandateWithSenderAccountRequest) DefaultApiApiCreateMandateForExistingSenderRequest {
-	r.createMandateRequest = &createMandateRequest
-	return r
+	createMandateRequest *CreateMandateWithSenderAccountRequest
 }
 
 // A random key provided by the customer, per unique payment. The purpose for the Idempotency key is to allow safe retrying without the operation being performed multiple times.
 func (r DefaultApiApiCreateMandateForExistingSenderRequest) IdempotencyKey(idempotencyKey string) DefaultApiApiCreateMandateForExistingSenderRequest {
 	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+// request body for creating mandate
+func (r DefaultApiApiCreateMandateForExistingSenderRequest) CreateMandateRequest(createMandateRequest CreateMandateWithSenderAccountRequest) DefaultApiApiCreateMandateForExistingSenderRequest {
+	r.createMandateRequest = &createMandateRequest
 	return r
 }
 
@@ -787,6 +787,9 @@ func (a *DefaultApiService) CreateMandateForExistingSenderExecute(r DefaultApiAp
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.idempotencyKey == nil {
+		return localVarReturnValue, nil, reportError("idempotencyKey is required and must be specified")
+	}
 	if r.createMandateRequest == nil {
 		return localVarReturnValue, nil, reportError("createMandateRequest is required and must be specified")
 	}
@@ -808,9 +811,7 @@ func (a *DefaultApiService) CreateMandateForExistingSenderExecute(r DefaultApiAp
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	if r.idempotencyKey != nil {
-		localVarHeaderParams["Idempotency-Key"] = parameterToString(*r.idempotencyKey, "")
-	}
+	localVarHeaderParams["Idempotency-Key"] = parameterToString(*r.idempotencyKey, "")
 	// body params
 	localVarPostBody = r.createMandateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
