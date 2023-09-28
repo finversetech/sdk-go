@@ -22,8 +22,10 @@ type PaymentLinkTokenResponse struct {
 	// Access token validity duration (in seconds)
 	ExpiresIn int64 `json:"expires_in"`
 	// URL to launch Finverse Link to authorize the mandate
-	LinkUrl   string `json:"link_url"`
-	TokenType string `json:"token_type"`
+	LinkUrl string `json:"link_url"`
+	// The FPS QR code in base64
+	QrCode    *string `json:"qr_code,omitempty"`
+	TokenType string  `json:"token_type"`
 }
 
 // NewPaymentLinkTokenResponse instantiates a new PaymentLinkTokenResponse object
@@ -119,6 +121,38 @@ func (o *PaymentLinkTokenResponse) SetLinkUrl(v string) {
 	o.LinkUrl = v
 }
 
+// GetQrCode returns the QrCode field value if set, zero value otherwise.
+func (o *PaymentLinkTokenResponse) GetQrCode() string {
+	if o == nil || o.QrCode == nil {
+		var ret string
+		return ret
+	}
+	return *o.QrCode
+}
+
+// GetQrCodeOk returns a tuple with the QrCode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentLinkTokenResponse) GetQrCodeOk() (*string, bool) {
+	if o == nil || o.QrCode == nil {
+		return nil, false
+	}
+	return o.QrCode, true
+}
+
+// HasQrCode returns a boolean if a field has been set.
+func (o *PaymentLinkTokenResponse) HasQrCode() bool {
+	if o != nil && o.QrCode != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetQrCode gets a reference to the given string and assigns it to the QrCode field.
+func (o *PaymentLinkTokenResponse) SetQrCode(v string) {
+	o.QrCode = &v
+}
+
 // GetTokenType returns the TokenType field value
 func (o *PaymentLinkTokenResponse) GetTokenType() string {
 	if o == nil {
@@ -153,6 +187,9 @@ func (o PaymentLinkTokenResponse) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["link_url"] = o.LinkUrl
+	}
+	if o.QrCode != nil {
+		toSerialize["qr_code"] = o.QrCode
 	}
 	if true {
 		toSerialize["token_type"] = o.TokenType
