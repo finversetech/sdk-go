@@ -17,7 +17,6 @@ import (
 
 // ManualPaymentConfirmationRequest struct for ManualPaymentConfirmationRequest
 type ManualPaymentConfirmationRequest struct {
-	AccountholderName  string `json:"accountholder_name"`
 	AccountNumberLast4 string `json:"account_number_last4"`
 }
 
@@ -25,9 +24,8 @@ type ManualPaymentConfirmationRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewManualPaymentConfirmationRequest(accountholderName string, accountNumberLast4 string) *ManualPaymentConfirmationRequest {
+func NewManualPaymentConfirmationRequest(accountNumberLast4 string) *ManualPaymentConfirmationRequest {
 	this := ManualPaymentConfirmationRequest{}
-	this.AccountholderName = accountholderName
 	this.AccountNumberLast4 = accountNumberLast4
 	return &this
 }
@@ -38,30 +36,6 @@ func NewManualPaymentConfirmationRequest(accountholderName string, accountNumber
 func NewManualPaymentConfirmationRequestWithDefaults() *ManualPaymentConfirmationRequest {
 	this := ManualPaymentConfirmationRequest{}
 	return &this
-}
-
-// GetAccountholderName returns the AccountholderName field value
-func (o *ManualPaymentConfirmationRequest) GetAccountholderName() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.AccountholderName
-}
-
-// GetAccountholderNameOk returns a tuple with the AccountholderName field value
-// and a boolean to check if the value has been set.
-func (o *ManualPaymentConfirmationRequest) GetAccountholderNameOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.AccountholderName, true
-}
-
-// SetAccountholderName sets field value
-func (o *ManualPaymentConfirmationRequest) SetAccountholderName(v string) {
-	o.AccountholderName = v
 }
 
 // GetAccountNumberLast4 returns the AccountNumberLast4 field value
@@ -90,9 +64,6 @@ func (o *ManualPaymentConfirmationRequest) SetAccountNumberLast4(v string) {
 
 func (o ManualPaymentConfirmationRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["accountholder_name"] = o.AccountholderName
-	}
 	if true {
 		toSerialize["account_number_last4"] = o.AccountNumberLast4
 	}

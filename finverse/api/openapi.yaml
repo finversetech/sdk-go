@@ -9497,18 +9497,14 @@ components:
       type: object
     ManualPaymentConfirmationRequest:
       example:
-        accountholder_name: accountholder_name
         account_number_last4: account_number_last4
       properties:
-        accountholder_name:
-          type: string
         account_number_last4:
           maxLength: 4
           minLength: 4
           type: string
       required:
       - account_number_last4
-      - accountholder_name
       type: object
     ManualPaymentConfirmationResponse:
       example:
