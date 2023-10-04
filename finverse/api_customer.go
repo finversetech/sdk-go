@@ -39,8 +39,8 @@ type CustomerApi interface {
 	AuthorizeMandate(ctx context.Context, mandateId string) CustomerApiApiAuthorizeMandateRequest
 
 	// AuthorizeMandateExecute executes the request
-	//  @return SubmitAuthChecklistResponse
-	AuthorizeMandateExecute(r CustomerApiApiAuthorizeMandateRequest) (*SubmitAuthChecklistResponse, *http.Response, error)
+	//  @return GetMandateResponse
+	AuthorizeMandateExecute(r CustomerApiApiAuthorizeMandateRequest) (*GetMandateResponse, *http.Response, error)
 
 	/*
 		CancelPayoutInstruction Method for CancelPayoutInstruction
@@ -420,7 +420,7 @@ func (r CustomerApiApiAuthorizeMandateRequest) AuthorizeMandateRequest(authorize
 	return r
 }
 
-func (r CustomerApiApiAuthorizeMandateRequest) Execute() (*SubmitAuthChecklistResponse, *http.Response, error) {
+func (r CustomerApiApiAuthorizeMandateRequest) Execute() (*GetMandateResponse, *http.Response, error) {
 	return r.ApiService.AuthorizeMandateExecute(r)
 }
 
@@ -442,13 +442,13 @@ func (a *CustomerApiService) AuthorizeMandate(ctx context.Context, mandateId str
 }
 
 // Execute executes the request
-//  @return SubmitAuthChecklistResponse
-func (a *CustomerApiService) AuthorizeMandateExecute(r CustomerApiApiAuthorizeMandateRequest) (*SubmitAuthChecklistResponse, *http.Response, error) {
+//  @return GetMandateResponse
+func (a *CustomerApiService) AuthorizeMandateExecute(r CustomerApiApiAuthorizeMandateRequest) (*GetMandateResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *SubmitAuthChecklistResponse
+		localVarReturnValue *GetMandateResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.AuthorizeMandate")

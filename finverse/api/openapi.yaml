@@ -2175,7 +2175,7 @@ paths:
           content:
             application/json:
               schema:
-                $ref: '#/components/schemas/SubmitAuthChecklistResponse'
+                $ref: '#/components/schemas/GetMandateResponse'
           description: Successful
         "400":
           content:
