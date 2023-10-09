@@ -17,7 +17,8 @@ import (
 
 // ManualPaymentConfirmationRequest struct for ManualPaymentConfirmationRequest
 type ManualPaymentConfirmationRequest struct {
-	AccountNumberLast4 string `json:"account_number_last4"`
+	AccountNumberLast4 string  `json:"account_number_last4"`
+	AccountholderName  *string `json:"accountholder_name,omitempty"`
 }
 
 // NewManualPaymentConfirmationRequest instantiates a new ManualPaymentConfirmationRequest object
@@ -62,10 +63,45 @@ func (o *ManualPaymentConfirmationRequest) SetAccountNumberLast4(v string) {
 	o.AccountNumberLast4 = v
 }
 
+// GetAccountholderName returns the AccountholderName field value if set, zero value otherwise.
+func (o *ManualPaymentConfirmationRequest) GetAccountholderName() string {
+	if o == nil || o.AccountholderName == nil {
+		var ret string
+		return ret
+	}
+	return *o.AccountholderName
+}
+
+// GetAccountholderNameOk returns a tuple with the AccountholderName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ManualPaymentConfirmationRequest) GetAccountholderNameOk() (*string, bool) {
+	if o == nil || o.AccountholderName == nil {
+		return nil, false
+	}
+	return o.AccountholderName, true
+}
+
+// HasAccountholderName returns a boolean if a field has been set.
+func (o *ManualPaymentConfirmationRequest) HasAccountholderName() bool {
+	if o != nil && o.AccountholderName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountholderName gets a reference to the given string and assigns it to the AccountholderName field.
+func (o *ManualPaymentConfirmationRequest) SetAccountholderName(v string) {
+	o.AccountholderName = &v
+}
+
 func (o ManualPaymentConfirmationRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["account_number_last4"] = o.AccountNumberLast4
+	}
+	if o.AccountholderName != nil {
+		toSerialize["accountholder_name"] = o.AccountholderName
 	}
 	return json.Marshal(toSerialize)
 }
