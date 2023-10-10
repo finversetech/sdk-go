@@ -17,7 +17,7 @@ import (
 
 // ManualPaymentConfirmationRequest struct for ManualPaymentConfirmationRequest
 type ManualPaymentConfirmationRequest struct {
-	AccountNumberLast4 string  `json:"account_number_last4"`
+	AccountNumberLast4 *string `json:"account_number_last4,omitempty"`
 	AccountholderName  *string `json:"accountholder_name,omitempty"`
 }
 
@@ -25,9 +25,8 @@ type ManualPaymentConfirmationRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewManualPaymentConfirmationRequest(accountNumberLast4 string) *ManualPaymentConfirmationRequest {
+func NewManualPaymentConfirmationRequest() *ManualPaymentConfirmationRequest {
 	this := ManualPaymentConfirmationRequest{}
-	this.AccountNumberLast4 = accountNumberLast4
 	return &this
 }
 
@@ -39,28 +38,36 @@ func NewManualPaymentConfirmationRequestWithDefaults() *ManualPaymentConfirmatio
 	return &this
 }
 
-// GetAccountNumberLast4 returns the AccountNumberLast4 field value
+// GetAccountNumberLast4 returns the AccountNumberLast4 field value if set, zero value otherwise.
 func (o *ManualPaymentConfirmationRequest) GetAccountNumberLast4() string {
-	if o == nil {
+	if o == nil || o.AccountNumberLast4 == nil {
 		var ret string
 		return ret
 	}
-
-	return o.AccountNumberLast4
+	return *o.AccountNumberLast4
 }
 
-// GetAccountNumberLast4Ok returns a tuple with the AccountNumberLast4 field value
+// GetAccountNumberLast4Ok returns a tuple with the AccountNumberLast4 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ManualPaymentConfirmationRequest) GetAccountNumberLast4Ok() (*string, bool) {
-	if o == nil {
+	if o == nil || o.AccountNumberLast4 == nil {
 		return nil, false
 	}
-	return &o.AccountNumberLast4, true
+	return o.AccountNumberLast4, true
 }
 
-// SetAccountNumberLast4 sets field value
+// HasAccountNumberLast4 returns a boolean if a field has been set.
+func (o *ManualPaymentConfirmationRequest) HasAccountNumberLast4() bool {
+	if o != nil && o.AccountNumberLast4 != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountNumberLast4 gets a reference to the given string and assigns it to the AccountNumberLast4 field.
 func (o *ManualPaymentConfirmationRequest) SetAccountNumberLast4(v string) {
-	o.AccountNumberLast4 = v
+	o.AccountNumberLast4 = &v
 }
 
 // GetAccountholderName returns the AccountholderName field value if set, zero value otherwise.
@@ -97,7 +104,7 @@ func (o *ManualPaymentConfirmationRequest) SetAccountholderName(v string) {
 
 func (o ManualPaymentConfirmationRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
+	if o.AccountNumberLast4 != nil {
 		toSerialize["account_number_last4"] = o.AccountNumberLast4
 	}
 	if o.AccountholderName != nil {

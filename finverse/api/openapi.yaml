@@ -9507,8 +9507,6 @@ components:
         accountholder_name:
           maxLength: 1024
           type: string
-      required:
-      - account_number_last4
       type: object
     ManualPaymentConfirmationResponse:
       example:
