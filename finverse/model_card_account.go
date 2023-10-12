@@ -39,7 +39,7 @@ type CardAccount struct {
 	TotalCreditLimit     *CurrencyAmount `json:"total_credit_limit,omitempty"`
 	AvailableCreditLimit *CurrencyAmount `json:"available_credit_limit,omitempty"`
 	MinimumPaymentDue    *CurrencyAmount `json:"minimum_payment_due,omitempty"`
-	RewardsPointsBalance *GenericAmount  `json:"rewards_points_balance,omitempty"`
+	RewardsBalances      []GenericAmount `json:"rewards_balances,omitempty"`
 	UpdatedAt            *time.Time      `json:"updated_at,omitempty"`
 }
 
@@ -540,36 +540,36 @@ func (o *CardAccount) SetMinimumPaymentDue(v CurrencyAmount) {
 	o.MinimumPaymentDue = &v
 }
 
-// GetRewardsPointsBalance returns the RewardsPointsBalance field value if set, zero value otherwise.
-func (o *CardAccount) GetRewardsPointsBalance() GenericAmount {
-	if o == nil || o.RewardsPointsBalance == nil {
-		var ret GenericAmount
+// GetRewardsBalances returns the RewardsBalances field value if set, zero value otherwise.
+func (o *CardAccount) GetRewardsBalances() []GenericAmount {
+	if o == nil || o.RewardsBalances == nil {
+		var ret []GenericAmount
 		return ret
 	}
-	return *o.RewardsPointsBalance
+	return o.RewardsBalances
 }
 
-// GetRewardsPointsBalanceOk returns a tuple with the RewardsPointsBalance field value if set, nil otherwise
+// GetRewardsBalancesOk returns a tuple with the RewardsBalances field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CardAccount) GetRewardsPointsBalanceOk() (*GenericAmount, bool) {
-	if o == nil || o.RewardsPointsBalance == nil {
+func (o *CardAccount) GetRewardsBalancesOk() ([]GenericAmount, bool) {
+	if o == nil || o.RewardsBalances == nil {
 		return nil, false
 	}
-	return o.RewardsPointsBalance, true
+	return o.RewardsBalances, true
 }
 
-// HasRewardsPointsBalance returns a boolean if a field has been set.
-func (o *CardAccount) HasRewardsPointsBalance() bool {
-	if o != nil && o.RewardsPointsBalance != nil {
+// HasRewardsBalances returns a boolean if a field has been set.
+func (o *CardAccount) HasRewardsBalances() bool {
+	if o != nil && o.RewardsBalances != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetRewardsPointsBalance gets a reference to the given GenericAmount and assigns it to the RewardsPointsBalance field.
-func (o *CardAccount) SetRewardsPointsBalance(v GenericAmount) {
-	o.RewardsPointsBalance = &v
+// SetRewardsBalances gets a reference to the given []GenericAmount and assigns it to the RewardsBalances field.
+func (o *CardAccount) SetRewardsBalances(v []GenericAmount) {
+	o.RewardsBalances = v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -651,8 +651,8 @@ func (o CardAccount) MarshalJSON() ([]byte, error) {
 	if o.MinimumPaymentDue != nil {
 		toSerialize["minimum_payment_due"] = o.MinimumPaymentDue
 	}
-	if o.RewardsPointsBalance != nil {
-		toSerialize["rewards_points_balance"] = o.RewardsPointsBalance
+	if o.RewardsBalances != nil {
+		toSerialize["rewards_balances"] = o.RewardsBalances
 	}
 	if o.UpdatedAt != nil {
 		toSerialize["updated_at"] = o.UpdatedAt
