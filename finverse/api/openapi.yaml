@@ -2319,56 +2319,6 @@ paths:
       - Oauth2:
         - manual_payment:confirm
       x-codegen-request-body-name: manualPaymentIdentifiers
-  /payout_instructions:
-    post:
-      description: Create new Payout instruction
-      operationId: createPayoutInstruction
-      parameters:
-      - description: A random key provided by the customer, per unique payout. The
-          purpose for the Idempotency key is to allow safe retrying without the operation
-          being performed multiple times.
-        in: header
-        name: Idempotency-Key
-        schema:
-          type: string
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CreatePayoutInstructionRequest'
-        description: request body for creating payout instruction
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PayoutInstructionResponse'
-          description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Invalid Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - payoutInstruction:create
-      tags:
-      - customer
-      x-codegen-request-body-name: createPayoutInstructionRequest
   /payout_instructions/{payoutInstructionId}:
     get:
       description: Get Payout Instruction details by payout_instruction_id
@@ -2451,6 +2401,40 @@ paths:
         - payoutInstruction:cancel
       tags:
       - customer
+  /payouts/scheduled:
+    post:
+      description: Create a scheduled payout
+      operationId: createScheduledPayout
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateScheduledPayoutRequest'
+        description: Request body containing information to create scheduled payout
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayoutSnapshotResponse'
+          description: ok
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payout:create
+      x-codegen-request-body-name: createScheduledPayoutRequest
   /calculate/line_items/{paymentType}:
     get:
       description: Get line items for display
@@ -7261,7 +7245,7 @@ components:
       required:
       - total_payments
       type: object
-    CreatePayoutInstructionRequest:
+    CreateScheduledPayoutRequest:
       example:
         amount: 100
         metadata:
@@ -7380,6 +7364,95 @@ components:
           type: string
         error:
           $ref: '#/components/schemas/FvErrorModelV2'
+      type: object
+    PayoutSnapshotResponse:
+      example:
+        transaction_date: transaction_date
+        payout_details:
+          transaction_reference_id: transaction_reference_id
+          description: description
+          mandate_id: mandate_id
+        amount: 0
+        created_at: 2000-01-23T04:56:07.000+00:00
+        description: description
+        payout_type: payout_type
+        scheduled_date: 2000-01-23T04:56:07.000+00:00
+        payout_id: payout_id
+        transaction_reference_id: transaction_reference_id
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        sender:
+          payment_account_id: payment_account_id
+          name: name
+          payment_user_id: payment_user_id
+          institution_id: institution_id
+        recipient:
+          payment_account_id: payment_account_id
+          name: name
+          payment_user_id: payment_user_id
+          institution_id: institution_id
+        currency: currency
+        status: status
+      properties:
+        payout_id:
+          type: string
+        transaction_reference_id:
+          type: string
+        status:
+          type: string
+        payout_type:
+          type: string
+        created_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
+        scheduled_date:
+          format: date-time
+          type: string
+        transaction_date:
+          type: string
+        payout_details:
+          $ref: '#/components/schemas/PayoutSnapshotDetails'
+        amount:
+          type: integer
+        currency:
+          type: string
+        description:
+          type: string
+        recipient:
+          $ref: '#/components/schemas/PayoutSnapshotPaymentAccount'
+        sender:
+          $ref: '#/components/schemas/PayoutSnapshotPaymentAccount'
+      type: object
+    PayoutSnapshotDetails:
+      example:
+        transaction_reference_id: transaction_reference_id
+        description: description
+        mandate_id: mandate_id
+      properties:
+        description:
+          type: string
+        transaction_reference_id:
+          type: string
+        mandate_id:
+          type: string
+      type: object
+    PayoutSnapshotPaymentAccount:
+      example:
+        payment_account_id: payment_account_id
+        name: name
+        payment_user_id: payment_user_id
+        institution_id: institution_id
+      properties:
+        payment_user_id:
+          type: string
+        payment_account_id:
+          type: string
+        name:
+          type: string
+        institution_id:
+          type: string
       type: object
     PayoutRecipient:
       example:

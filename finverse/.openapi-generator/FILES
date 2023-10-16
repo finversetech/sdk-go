@@ -42,8 +42,8 @@ model_create_payment_link_mandate_response.go
 model_create_payment_link_request.go
 model_create_payment_request.go
 model_create_payment_user_request.go
-model_create_payout_instruction_request.go
 model_create_recipient_account.go
+model_create_scheduled_payout_request.go
 model_currency_amount.go
 model_customer_payment_instruction.go
 model_delete_login_identity_response.go
@@ -141,6 +141,9 @@ model_payout_details_response.go
 model_payout_instruction_response.go
 model_payout_recipient.go
 model_payout_sender.go
+model_payout_snapshot_details.go
+model_payout_snapshot_payment_account.go
+model_payout_snapshot_response.go
 model_principal.go
 model_product_status.go
 model_recipient_account_number.go
