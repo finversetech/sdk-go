@@ -2362,6 +2362,45 @@ paths:
       - Oauth2:
         - payout:create
       x-codegen-request-body-name: createScheduledPayoutRequest
+  /payouts/{payoutId}:
+    get:
+      description: Get payout by payout_id
+      operationId: getPayoutById
+      parameters:
+      - description: payout id
+        in: path
+        name: payoutId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayoutSnapshotResponse'
+          description: ok
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payout:get
   /payouts/{payoutId}/cancel:
     post:
       description: Cancel Payout by payout_id
