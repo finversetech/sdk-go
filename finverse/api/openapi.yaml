@@ -2405,6 +2405,15 @@ paths:
     post:
       description: Create a scheduled payout
       operationId: createScheduledPayout
+      parameters:
+      - description: A random key provided by the customer, per unique payment. The
+          purpose for the Idempotency key is to allow safe retrying without the operation
+          being performed multiple times.
+        in: header
+        name: Idempotency-Key
+        required: true
+        schema:
+          type: string
       requestBody:
         content:
           application/json:
@@ -7372,13 +7381,8 @@ components:
           transaction_reference_id: transaction_reference_id
           description: description
           mandate_id: mandate_id
-        amount: 0
-        created_at: 2000-01-23T04:56:07.000+00:00
-        description: description
-        payout_type: payout_type
-        scheduled_date: 2000-01-23T04:56:07.000+00:00
         payout_id: payout_id
-        transaction_reference_id: transaction_reference_id
+        amount: 0
         updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
           payment_account_id: payment_account_id
@@ -7390,12 +7394,13 @@ components:
           name: name
           payment_user_id: payment_user_id
           institution_id: institution_id
+        created_at: 2000-01-23T04:56:07.000+00:00
+        payout_type: payout_type
         currency: currency
+        scheduled_date: 2000-01-23T04:56:07.000+00:00
         status: status
       properties:
         payout_id:
-          type: string
-        transaction_reference_id:
           type: string
         status:
           type: string
@@ -7417,8 +7422,6 @@ components:
         amount:
           type: integer
         currency:
-          type: string
-        description:
           type: string
         recipient:
           $ref: '#/components/schemas/PayoutSnapshotPaymentAccount'

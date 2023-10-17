@@ -1295,7 +1295,14 @@ func (a *DefaultApiService) CreatePaymentLinkMandateExecute(r DefaultApiApiCreat
 type DefaultApiApiCreateScheduledPayoutRequest struct {
 	ctx                          context.Context
 	ApiService                   DefaultApi
+	idempotencyKey               *string
 	createScheduledPayoutRequest *CreateScheduledPayoutRequest
+}
+
+// A random key provided by the customer, per unique payment. The purpose for the Idempotency key is to allow safe retrying without the operation being performed multiple times.
+func (r DefaultApiApiCreateScheduledPayoutRequest) IdempotencyKey(idempotencyKey string) DefaultApiApiCreateScheduledPayoutRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
 }
 
 // Request body containing information to create scheduled payout
@@ -1343,6 +1350,9 @@ func (a *DefaultApiService) CreateScheduledPayoutExecute(r DefaultApiApiCreateSc
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.idempotencyKey == nil {
+		return localVarReturnValue, nil, reportError("idempotencyKey is required and must be specified")
+	}
 	if r.createScheduledPayoutRequest == nil {
 		return localVarReturnValue, nil, reportError("createScheduledPayoutRequest is required and must be specified")
 	}
@@ -1364,6 +1374,7 @@ func (a *DefaultApiService) CreateScheduledPayoutExecute(r DefaultApiApiCreateSc
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	localVarHeaderParams["Idempotency-Key"] = parameterToString(*r.idempotencyKey, "")
 	// body params
 	localVarPostBody = r.createScheduledPayoutRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)

@@ -18,20 +18,18 @@ import (
 
 // PayoutSnapshotResponse struct for PayoutSnapshotResponse
 type PayoutSnapshotResponse struct {
-	PayoutId               *string                       `json:"payout_id,omitempty"`
-	TransactionReferenceId *string                       `json:"transaction_reference_id,omitempty"`
-	Status                 *string                       `json:"status,omitempty"`
-	PayoutType             *string                       `json:"payout_type,omitempty"`
-	CreatedAt              *time.Time                    `json:"created_at,omitempty"`
-	UpdatedAt              *time.Time                    `json:"updated_at,omitempty"`
-	ScheduledDate          *time.Time                    `json:"scheduled_date,omitempty"`
-	TransactionDate        *string                       `json:"transaction_date,omitempty"`
-	PayoutDetails          *PayoutSnapshotDetails        `json:"payout_details,omitempty"`
-	Amount                 *int32                        `json:"amount,omitempty"`
-	Currency               *string                       `json:"currency,omitempty"`
-	Description            *string                       `json:"description,omitempty"`
-	Recipient              *PayoutSnapshotPaymentAccount `json:"recipient,omitempty"`
-	Sender                 *PayoutSnapshotPaymentAccount `json:"sender,omitempty"`
+	PayoutId        *string                       `json:"payout_id,omitempty"`
+	Status          *string                       `json:"status,omitempty"`
+	PayoutType      *string                       `json:"payout_type,omitempty"`
+	CreatedAt       *time.Time                    `json:"created_at,omitempty"`
+	UpdatedAt       *time.Time                    `json:"updated_at,omitempty"`
+	ScheduledDate   *time.Time                    `json:"scheduled_date,omitempty"`
+	TransactionDate *string                       `json:"transaction_date,omitempty"`
+	PayoutDetails   *PayoutSnapshotDetails        `json:"payout_details,omitempty"`
+	Amount          *int32                        `json:"amount,omitempty"`
+	Currency        *string                       `json:"currency,omitempty"`
+	Recipient       *PayoutSnapshotPaymentAccount `json:"recipient,omitempty"`
+	Sender          *PayoutSnapshotPaymentAccount `json:"sender,omitempty"`
 }
 
 // NewPayoutSnapshotResponse instantiates a new PayoutSnapshotResponse object
@@ -81,38 +79,6 @@ func (o *PayoutSnapshotResponse) HasPayoutId() bool {
 // SetPayoutId gets a reference to the given string and assigns it to the PayoutId field.
 func (o *PayoutSnapshotResponse) SetPayoutId(v string) {
 	o.PayoutId = &v
-}
-
-// GetTransactionReferenceId returns the TransactionReferenceId field value if set, zero value otherwise.
-func (o *PayoutSnapshotResponse) GetTransactionReferenceId() string {
-	if o == nil || o.TransactionReferenceId == nil {
-		var ret string
-		return ret
-	}
-	return *o.TransactionReferenceId
-}
-
-// GetTransactionReferenceIdOk returns a tuple with the TransactionReferenceId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PayoutSnapshotResponse) GetTransactionReferenceIdOk() (*string, bool) {
-	if o == nil || o.TransactionReferenceId == nil {
-		return nil, false
-	}
-	return o.TransactionReferenceId, true
-}
-
-// HasTransactionReferenceId returns a boolean if a field has been set.
-func (o *PayoutSnapshotResponse) HasTransactionReferenceId() bool {
-	if o != nil && o.TransactionReferenceId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetTransactionReferenceId gets a reference to the given string and assigns it to the TransactionReferenceId field.
-func (o *PayoutSnapshotResponse) SetTransactionReferenceId(v string) {
-	o.TransactionReferenceId = &v
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
@@ -403,38 +369,6 @@ func (o *PayoutSnapshotResponse) SetCurrency(v string) {
 	o.Currency = &v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *PayoutSnapshotResponse) GetDescription() string {
-	if o == nil || o.Description == nil {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PayoutSnapshotResponse) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *PayoutSnapshotResponse) HasDescription() bool {
-	if o != nil && o.Description != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *PayoutSnapshotResponse) SetDescription(v string) {
-	o.Description = &v
-}
-
 // GetRecipient returns the Recipient field value if set, zero value otherwise.
 func (o *PayoutSnapshotResponse) GetRecipient() PayoutSnapshotPaymentAccount {
 	if o == nil || o.Recipient == nil {
@@ -504,9 +438,6 @@ func (o PayoutSnapshotResponse) MarshalJSON() ([]byte, error) {
 	if o.PayoutId != nil {
 		toSerialize["payout_id"] = o.PayoutId
 	}
-	if o.TransactionReferenceId != nil {
-		toSerialize["transaction_reference_id"] = o.TransactionReferenceId
-	}
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
 	}
@@ -533,9 +464,6 @@ func (o PayoutSnapshotResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Currency != nil {
 		toSerialize["currency"] = o.Currency
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
 	}
 	if o.Recipient != nil {
 		toSerialize["recipient"] = o.Recipient
