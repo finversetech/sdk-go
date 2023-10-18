@@ -9398,6 +9398,8 @@ components:
           type: string
         number:
           description: Account number value
+          maxLength: 100
+          minLength: 1
           type: string
       required:
       - number
