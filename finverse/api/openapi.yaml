@@ -7296,34 +7296,67 @@ components:
     PayoutSnapshotResponse:
       example:
         transaction_date: transaction_date
-        payout_details:
+        amount: 0
+        payment_details:
           transaction_reference_id: transaction_reference_id
           description: description
           mandate_id: mandate_id
+          scheduled_date: 2000-01-23T04:56:07.000+00:00
+        recipient_account:
+          account_number:
+            number: number
+            type: LOCAL
+          account_type: EXTERNAL_ACCOUNT
+          metadata:
+            key: metadata
+          account_id: sender_account_id
+          user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+          account_number_masked: account_number_masked
+          accountholder_name: Chan Li Pak
+          institution_id: hsbc-hk
+        created_at: 2000-01-23T04:56:07.000+00:00
+        type: type
+        error:
+          error_code: CREDENTIALS_INVALID
+          details: details
+          type: LINKING_ERROR
+          message: message
+          request_id: request_id
         payout_id: payout_id
-        amount: 0
         updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
-          payment_account_id: payment_account_id
           name: name
-          payment_user_id: payment_user_id
-          institution_id: institution_id
+        sender_account:
+          account_type: SETTLEMENT_ACCOUNT
+          account_id: account_id
         recipient:
-          payment_account_id: payment_account_id
+          user_type: INDIVIDUAL
+          user_id: user_id
+          user_details:
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
           name: name
-          payment_user_id: payment_user_id
-          institution_id: institution_id
-        created_at: 2000-01-23T04:56:07.000+00:00
-        payout_type: payout_type
+          external_user_id: external_user_id
         currency: currency
-        scheduled_date: 2000-01-23T04:56:07.000+00:00
         status: status
       properties:
         payout_id:
           type: string
         status:
           type: string
-        payout_type:
+        type:
           type: string
         created_at:
           format: date-time
@@ -7331,27 +7364,31 @@ components:
         updated_at:
           format: date-time
           type: string
-        scheduled_date:
-          format: date-time
-          type: string
         transaction_date:
           type: string
-        payout_details:
+        payment_details:
           $ref: '#/components/schemas/PayoutSnapshotDetails'
         amount:
           type: integer
         currency:
           type: string
-        recipient:
-          $ref: '#/components/schemas/PayoutSnapshotPaymentAccount'
         sender:
-          $ref: '#/components/schemas/PayoutSnapshotPaymentAccount'
+          $ref: '#/components/schemas/MandateRecipient'
+        sender_account:
+          $ref: '#/components/schemas/MandateRecipientAccount'
+        recipient:
+          $ref: '#/components/schemas/GetMandateSender'
+        recipient_account:
+          $ref: '#/components/schemas/MandateSenderAccount'
+        error:
+          $ref: '#/components/schemas/FvErrorModelV2'
       type: object
     PayoutSnapshotDetails:
       example:
         transaction_reference_id: transaction_reference_id
         description: description
         mandate_id: mandate_id
+        scheduled_date: 2000-01-23T04:56:07.000+00:00
       properties:
         description:
           type: string
@@ -7359,21 +7396,8 @@ components:
           type: string
         mandate_id:
           type: string
-      type: object
-    PayoutSnapshotPaymentAccount:
-      example:
-        payment_account_id: payment_account_id
-        name: name
-        payment_user_id: payment_user_id
-        institution_id: institution_id
-      properties:
-        payment_user_id:
-          type: string
-        payment_account_id:
-          type: string
-        name:
-          type: string
-        institution_id:
+        scheduled_date:
+          format: date-time
           type: string
       type: object
     PayoutDetails:

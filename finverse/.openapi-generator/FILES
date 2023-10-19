@@ -138,7 +138,6 @@ model_payment_schedule.go
 model_payment_user.go
 model_payout_details.go
 model_payout_snapshot_details.go
-model_payout_snapshot_payment_account.go
 model_payout_snapshot_response.go
 model_principal.go
 model_product_status.go

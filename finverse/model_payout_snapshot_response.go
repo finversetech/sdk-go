@@ -18,18 +18,20 @@ import (
 
 // PayoutSnapshotResponse struct for PayoutSnapshotResponse
 type PayoutSnapshotResponse struct {
-	PayoutId        *string                       `json:"payout_id,omitempty"`
-	Status          *string                       `json:"status,omitempty"`
-	PayoutType      *string                       `json:"payout_type,omitempty"`
-	CreatedAt       *time.Time                    `json:"created_at,omitempty"`
-	UpdatedAt       *time.Time                    `json:"updated_at,omitempty"`
-	ScheduledDate   *time.Time                    `json:"scheduled_date,omitempty"`
-	TransactionDate *string                       `json:"transaction_date,omitempty"`
-	PayoutDetails   *PayoutSnapshotDetails        `json:"payout_details,omitempty"`
-	Amount          *int32                        `json:"amount,omitempty"`
-	Currency        *string                       `json:"currency,omitempty"`
-	Recipient       *PayoutSnapshotPaymentAccount `json:"recipient,omitempty"`
-	Sender          *PayoutSnapshotPaymentAccount `json:"sender,omitempty"`
+	PayoutId         *string                  `json:"payout_id,omitempty"`
+	Status           *string                  `json:"status,omitempty"`
+	Type             *string                  `json:"type,omitempty"`
+	CreatedAt        *time.Time               `json:"created_at,omitempty"`
+	UpdatedAt        *time.Time               `json:"updated_at,omitempty"`
+	TransactionDate  *string                  `json:"transaction_date,omitempty"`
+	PaymentDetails   *PayoutSnapshotDetails   `json:"payment_details,omitempty"`
+	Amount           *int32                   `json:"amount,omitempty"`
+	Currency         *string                  `json:"currency,omitempty"`
+	Sender           *MandateRecipient        `json:"sender,omitempty"`
+	SenderAccount    *MandateRecipientAccount `json:"sender_account,omitempty"`
+	Recipient        *GetMandateSender        `json:"recipient,omitempty"`
+	RecipientAccount *MandateSenderAccount    `json:"recipient_account,omitempty"`
+	Error            *FvErrorModelV2          `json:"error,omitempty"`
 }
 
 // NewPayoutSnapshotResponse instantiates a new PayoutSnapshotResponse object
@@ -113,36 +115,36 @@ func (o *PayoutSnapshotResponse) SetStatus(v string) {
 	o.Status = &v
 }
 
-// GetPayoutType returns the PayoutType field value if set, zero value otherwise.
-func (o *PayoutSnapshotResponse) GetPayoutType() string {
-	if o == nil || o.PayoutType == nil {
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *PayoutSnapshotResponse) GetType() string {
+	if o == nil || o.Type == nil {
 		var ret string
 		return ret
 	}
-	return *o.PayoutType
+	return *o.Type
 }
 
-// GetPayoutTypeOk returns a tuple with the PayoutType field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PayoutSnapshotResponse) GetPayoutTypeOk() (*string, bool) {
-	if o == nil || o.PayoutType == nil {
+func (o *PayoutSnapshotResponse) GetTypeOk() (*string, bool) {
+	if o == nil || o.Type == nil {
 		return nil, false
 	}
-	return o.PayoutType, true
+	return o.Type, true
 }
 
-// HasPayoutType returns a boolean if a field has been set.
-func (o *PayoutSnapshotResponse) HasPayoutType() bool {
-	if o != nil && o.PayoutType != nil {
+// HasType returns a boolean if a field has been set.
+func (o *PayoutSnapshotResponse) HasType() bool {
+	if o != nil && o.Type != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetPayoutType gets a reference to the given string and assigns it to the PayoutType field.
-func (o *PayoutSnapshotResponse) SetPayoutType(v string) {
-	o.PayoutType = &v
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *PayoutSnapshotResponse) SetType(v string) {
+	o.Type = &v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -209,38 +211,6 @@ func (o *PayoutSnapshotResponse) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = &v
 }
 
-// GetScheduledDate returns the ScheduledDate field value if set, zero value otherwise.
-func (o *PayoutSnapshotResponse) GetScheduledDate() time.Time {
-	if o == nil || o.ScheduledDate == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.ScheduledDate
-}
-
-// GetScheduledDateOk returns a tuple with the ScheduledDate field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PayoutSnapshotResponse) GetScheduledDateOk() (*time.Time, bool) {
-	if o == nil || o.ScheduledDate == nil {
-		return nil, false
-	}
-	return o.ScheduledDate, true
-}
-
-// HasScheduledDate returns a boolean if a field has been set.
-func (o *PayoutSnapshotResponse) HasScheduledDate() bool {
-	if o != nil && o.ScheduledDate != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetScheduledDate gets a reference to the given time.Time and assigns it to the ScheduledDate field.
-func (o *PayoutSnapshotResponse) SetScheduledDate(v time.Time) {
-	o.ScheduledDate = &v
-}
-
 // GetTransactionDate returns the TransactionDate field value if set, zero value otherwise.
 func (o *PayoutSnapshotResponse) GetTransactionDate() string {
 	if o == nil || o.TransactionDate == nil {
@@ -273,36 +243,36 @@ func (o *PayoutSnapshotResponse) SetTransactionDate(v string) {
 	o.TransactionDate = &v
 }
 
-// GetPayoutDetails returns the PayoutDetails field value if set, zero value otherwise.
-func (o *PayoutSnapshotResponse) GetPayoutDetails() PayoutSnapshotDetails {
-	if o == nil || o.PayoutDetails == nil {
+// GetPaymentDetails returns the PaymentDetails field value if set, zero value otherwise.
+func (o *PayoutSnapshotResponse) GetPaymentDetails() PayoutSnapshotDetails {
+	if o == nil || o.PaymentDetails == nil {
 		var ret PayoutSnapshotDetails
 		return ret
 	}
-	return *o.PayoutDetails
+	return *o.PaymentDetails
 }
 
-// GetPayoutDetailsOk returns a tuple with the PayoutDetails field value if set, nil otherwise
+// GetPaymentDetailsOk returns a tuple with the PaymentDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PayoutSnapshotResponse) GetPayoutDetailsOk() (*PayoutSnapshotDetails, bool) {
-	if o == nil || o.PayoutDetails == nil {
+func (o *PayoutSnapshotResponse) GetPaymentDetailsOk() (*PayoutSnapshotDetails, bool) {
+	if o == nil || o.PaymentDetails == nil {
 		return nil, false
 	}
-	return o.PayoutDetails, true
+	return o.PaymentDetails, true
 }
 
-// HasPayoutDetails returns a boolean if a field has been set.
-func (o *PayoutSnapshotResponse) HasPayoutDetails() bool {
-	if o != nil && o.PayoutDetails != nil {
+// HasPaymentDetails returns a boolean if a field has been set.
+func (o *PayoutSnapshotResponse) HasPaymentDetails() bool {
+	if o != nil && o.PaymentDetails != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetPayoutDetails gets a reference to the given PayoutSnapshotDetails and assigns it to the PayoutDetails field.
-func (o *PayoutSnapshotResponse) SetPayoutDetails(v PayoutSnapshotDetails) {
-	o.PayoutDetails = &v
+// SetPaymentDetails gets a reference to the given PayoutSnapshotDetails and assigns it to the PaymentDetails field.
+func (o *PayoutSnapshotResponse) SetPaymentDetails(v PayoutSnapshotDetails) {
+	o.PaymentDetails = &v
 }
 
 // GetAmount returns the Amount field value if set, zero value otherwise.
@@ -369,42 +339,10 @@ func (o *PayoutSnapshotResponse) SetCurrency(v string) {
 	o.Currency = &v
 }
 
-// GetRecipient returns the Recipient field value if set, zero value otherwise.
-func (o *PayoutSnapshotResponse) GetRecipient() PayoutSnapshotPaymentAccount {
-	if o == nil || o.Recipient == nil {
-		var ret PayoutSnapshotPaymentAccount
-		return ret
-	}
-	return *o.Recipient
-}
-
-// GetRecipientOk returns a tuple with the Recipient field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PayoutSnapshotResponse) GetRecipientOk() (*PayoutSnapshotPaymentAccount, bool) {
-	if o == nil || o.Recipient == nil {
-		return nil, false
-	}
-	return o.Recipient, true
-}
-
-// HasRecipient returns a boolean if a field has been set.
-func (o *PayoutSnapshotResponse) HasRecipient() bool {
-	if o != nil && o.Recipient != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetRecipient gets a reference to the given PayoutSnapshotPaymentAccount and assigns it to the Recipient field.
-func (o *PayoutSnapshotResponse) SetRecipient(v PayoutSnapshotPaymentAccount) {
-	o.Recipient = &v
-}
-
 // GetSender returns the Sender field value if set, zero value otherwise.
-func (o *PayoutSnapshotResponse) GetSender() PayoutSnapshotPaymentAccount {
+func (o *PayoutSnapshotResponse) GetSender() MandateRecipient {
 	if o == nil || o.Sender == nil {
-		var ret PayoutSnapshotPaymentAccount
+		var ret MandateRecipient
 		return ret
 	}
 	return *o.Sender
@@ -412,7 +350,7 @@ func (o *PayoutSnapshotResponse) GetSender() PayoutSnapshotPaymentAccount {
 
 // GetSenderOk returns a tuple with the Sender field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PayoutSnapshotResponse) GetSenderOk() (*PayoutSnapshotPaymentAccount, bool) {
+func (o *PayoutSnapshotResponse) GetSenderOk() (*MandateRecipient, bool) {
 	if o == nil || o.Sender == nil {
 		return nil, false
 	}
@@ -428,9 +366,137 @@ func (o *PayoutSnapshotResponse) HasSender() bool {
 	return false
 }
 
-// SetSender gets a reference to the given PayoutSnapshotPaymentAccount and assigns it to the Sender field.
-func (o *PayoutSnapshotResponse) SetSender(v PayoutSnapshotPaymentAccount) {
+// SetSender gets a reference to the given MandateRecipient and assigns it to the Sender field.
+func (o *PayoutSnapshotResponse) SetSender(v MandateRecipient) {
 	o.Sender = &v
+}
+
+// GetSenderAccount returns the SenderAccount field value if set, zero value otherwise.
+func (o *PayoutSnapshotResponse) GetSenderAccount() MandateRecipientAccount {
+	if o == nil || o.SenderAccount == nil {
+		var ret MandateRecipientAccount
+		return ret
+	}
+	return *o.SenderAccount
+}
+
+// GetSenderAccountOk returns a tuple with the SenderAccount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayoutSnapshotResponse) GetSenderAccountOk() (*MandateRecipientAccount, bool) {
+	if o == nil || o.SenderAccount == nil {
+		return nil, false
+	}
+	return o.SenderAccount, true
+}
+
+// HasSenderAccount returns a boolean if a field has been set.
+func (o *PayoutSnapshotResponse) HasSenderAccount() bool {
+	if o != nil && o.SenderAccount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSenderAccount gets a reference to the given MandateRecipientAccount and assigns it to the SenderAccount field.
+func (o *PayoutSnapshotResponse) SetSenderAccount(v MandateRecipientAccount) {
+	o.SenderAccount = &v
+}
+
+// GetRecipient returns the Recipient field value if set, zero value otherwise.
+func (o *PayoutSnapshotResponse) GetRecipient() GetMandateSender {
+	if o == nil || o.Recipient == nil {
+		var ret GetMandateSender
+		return ret
+	}
+	return *o.Recipient
+}
+
+// GetRecipientOk returns a tuple with the Recipient field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayoutSnapshotResponse) GetRecipientOk() (*GetMandateSender, bool) {
+	if o == nil || o.Recipient == nil {
+		return nil, false
+	}
+	return o.Recipient, true
+}
+
+// HasRecipient returns a boolean if a field has been set.
+func (o *PayoutSnapshotResponse) HasRecipient() bool {
+	if o != nil && o.Recipient != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRecipient gets a reference to the given GetMandateSender and assigns it to the Recipient field.
+func (o *PayoutSnapshotResponse) SetRecipient(v GetMandateSender) {
+	o.Recipient = &v
+}
+
+// GetRecipientAccount returns the RecipientAccount field value if set, zero value otherwise.
+func (o *PayoutSnapshotResponse) GetRecipientAccount() MandateSenderAccount {
+	if o == nil || o.RecipientAccount == nil {
+		var ret MandateSenderAccount
+		return ret
+	}
+	return *o.RecipientAccount
+}
+
+// GetRecipientAccountOk returns a tuple with the RecipientAccount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayoutSnapshotResponse) GetRecipientAccountOk() (*MandateSenderAccount, bool) {
+	if o == nil || o.RecipientAccount == nil {
+		return nil, false
+	}
+	return o.RecipientAccount, true
+}
+
+// HasRecipientAccount returns a boolean if a field has been set.
+func (o *PayoutSnapshotResponse) HasRecipientAccount() bool {
+	if o != nil && o.RecipientAccount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRecipientAccount gets a reference to the given MandateSenderAccount and assigns it to the RecipientAccount field.
+func (o *PayoutSnapshotResponse) SetRecipientAccount(v MandateSenderAccount) {
+	o.RecipientAccount = &v
+}
+
+// GetError returns the Error field value if set, zero value otherwise.
+func (o *PayoutSnapshotResponse) GetError() FvErrorModelV2 {
+	if o == nil || o.Error == nil {
+		var ret FvErrorModelV2
+		return ret
+	}
+	return *o.Error
+}
+
+// GetErrorOk returns a tuple with the Error field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayoutSnapshotResponse) GetErrorOk() (*FvErrorModelV2, bool) {
+	if o == nil || o.Error == nil {
+		return nil, false
+	}
+	return o.Error, true
+}
+
+// HasError returns a boolean if a field has been set.
+func (o *PayoutSnapshotResponse) HasError() bool {
+	if o != nil && o.Error != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetError gets a reference to the given FvErrorModelV2 and assigns it to the Error field.
+func (o *PayoutSnapshotResponse) SetError(v FvErrorModelV2) {
+	o.Error = &v
 }
 
 func (o PayoutSnapshotResponse) MarshalJSON() ([]byte, error) {
@@ -441,8 +507,8 @@ func (o PayoutSnapshotResponse) MarshalJSON() ([]byte, error) {
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
 	}
-	if o.PayoutType != nil {
-		toSerialize["payout_type"] = o.PayoutType
+	if o.Type != nil {
+		toSerialize["type"] = o.Type
 	}
 	if o.CreatedAt != nil {
 		toSerialize["created_at"] = o.CreatedAt
@@ -450,14 +516,11 @@ func (o PayoutSnapshotResponse) MarshalJSON() ([]byte, error) {
 	if o.UpdatedAt != nil {
 		toSerialize["updated_at"] = o.UpdatedAt
 	}
-	if o.ScheduledDate != nil {
-		toSerialize["scheduled_date"] = o.ScheduledDate
-	}
 	if o.TransactionDate != nil {
 		toSerialize["transaction_date"] = o.TransactionDate
 	}
-	if o.PayoutDetails != nil {
-		toSerialize["payout_details"] = o.PayoutDetails
+	if o.PaymentDetails != nil {
+		toSerialize["payment_details"] = o.PaymentDetails
 	}
 	if o.Amount != nil {
 		toSerialize["amount"] = o.Amount
@@ -465,11 +528,20 @@ func (o PayoutSnapshotResponse) MarshalJSON() ([]byte, error) {
 	if o.Currency != nil {
 		toSerialize["currency"] = o.Currency
 	}
+	if o.Sender != nil {
+		toSerialize["sender"] = o.Sender
+	}
+	if o.SenderAccount != nil {
+		toSerialize["sender_account"] = o.SenderAccount
+	}
 	if o.Recipient != nil {
 		toSerialize["recipient"] = o.Recipient
 	}
-	if o.Sender != nil {
-		toSerialize["sender"] = o.Sender
+	if o.RecipientAccount != nil {
+		toSerialize["recipient_account"] = o.RecipientAccount
+	}
+	if o.Error != nil {
+		toSerialize["error"] = o.Error
 	}
 	return json.Marshal(toSerialize)
 }

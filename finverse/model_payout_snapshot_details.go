@@ -13,13 +13,15 @@ package finverse
 
 import (
 	"encoding/json"
+	"time"
 )
 
 // PayoutSnapshotDetails struct for PayoutSnapshotDetails
 type PayoutSnapshotDetails struct {
-	Description            *string `json:"description,omitempty"`
-	TransactionReferenceId *string `json:"transaction_reference_id,omitempty"`
-	MandateId              *string `json:"mandate_id,omitempty"`
+	Description            *string    `json:"description,omitempty"`
+	TransactionReferenceId *string    `json:"transaction_reference_id,omitempty"`
+	MandateId              *string    `json:"mandate_id,omitempty"`
+	ScheduledDate          *time.Time `json:"scheduled_date,omitempty"`
 }
 
 // NewPayoutSnapshotDetails instantiates a new PayoutSnapshotDetails object
@@ -135,6 +137,38 @@ func (o *PayoutSnapshotDetails) SetMandateId(v string) {
 	o.MandateId = &v
 }
 
+// GetScheduledDate returns the ScheduledDate field value if set, zero value otherwise.
+func (o *PayoutSnapshotDetails) GetScheduledDate() time.Time {
+	if o == nil || o.ScheduledDate == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.ScheduledDate
+}
+
+// GetScheduledDateOk returns a tuple with the ScheduledDate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayoutSnapshotDetails) GetScheduledDateOk() (*time.Time, bool) {
+	if o == nil || o.ScheduledDate == nil {
+		return nil, false
+	}
+	return o.ScheduledDate, true
+}
+
+// HasScheduledDate returns a boolean if a field has been set.
+func (o *PayoutSnapshotDetails) HasScheduledDate() bool {
+	if o != nil && o.ScheduledDate != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetScheduledDate gets a reference to the given time.Time and assigns it to the ScheduledDate field.
+func (o *PayoutSnapshotDetails) SetScheduledDate(v time.Time) {
+	o.ScheduledDate = &v
+}
+
 func (o PayoutSnapshotDetails) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Description != nil {
@@ -145,6 +179,9 @@ func (o PayoutSnapshotDetails) MarshalJSON() ([]byte, error) {
 	}
 	if o.MandateId != nil {
 		toSerialize["mandate_id"] = o.MandateId
+	}
+	if o.ScheduledDate != nil {
+		toSerialize["scheduled_date"] = o.ScheduledDate
 	}
 	return json.Marshal(toSerialize)
 }
