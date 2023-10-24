@@ -29,7 +29,8 @@ type MandateSenderAccount struct {
 	// Finverse Institution ID for the sender’s institution.
 	InstitutionId *string `json:"institution_id,omitempty"`
 	// A unique identifier generated after creating sender (Finverse Payment User ID)
-	UserId *string `json:"user_id,omitempty"`
+	UserId   *string `json:"user_id,omitempty"`
+	BankCode *string `json:"bank_code,omitempty"`
 	// Additional attributes of the sender account in key:value format (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
 	Metadata *map[string]string `json:"metadata,omitempty"`
 }
@@ -275,6 +276,38 @@ func (o *MandateSenderAccount) SetUserId(v string) {
 	o.UserId = &v
 }
 
+// GetBankCode returns the BankCode field value if set, zero value otherwise.
+func (o *MandateSenderAccount) GetBankCode() string {
+	if o == nil || o.BankCode == nil {
+		var ret string
+		return ret
+	}
+	return *o.BankCode
+}
+
+// GetBankCodeOk returns a tuple with the BankCode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MandateSenderAccount) GetBankCodeOk() (*string, bool) {
+	if o == nil || o.BankCode == nil {
+		return nil, false
+	}
+	return o.BankCode, true
+}
+
+// HasBankCode returns a boolean if a field has been set.
+func (o *MandateSenderAccount) HasBankCode() bool {
+	if o != nil && o.BankCode != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetBankCode gets a reference to the given string and assigns it to the BankCode field.
+func (o *MandateSenderAccount) SetBankCode(v string) {
+	o.BankCode = &v
+}
+
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *MandateSenderAccount) GetMetadata() map[string]string {
 	if o == nil || o.Metadata == nil {
@@ -329,6 +362,9 @@ func (o MandateSenderAccount) MarshalJSON() ([]byte, error) {
 	}
 	if o.UserId != nil {
 		toSerialize["user_id"] = o.UserId
+	}
+	if o.BankCode != nil {
+		toSerialize["bank_code"] = o.BankCode
 	}
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata

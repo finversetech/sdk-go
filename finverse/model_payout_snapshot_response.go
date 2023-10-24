@@ -25,12 +25,14 @@ type PayoutSnapshotResponse struct {
 	UpdatedAt        *time.Time               `json:"updated_at,omitempty"`
 	TransactionDate  *string                  `json:"transaction_date,omitempty"`
 	PaymentDetails   *PayoutSnapshotDetails   `json:"payment_details,omitempty"`
+	Metadata         *map[string]string       `json:"metadata,omitempty"`
 	Amount           *int32                   `json:"amount,omitempty"`
 	Currency         *string                  `json:"currency,omitempty"`
 	Sender           *MandateRecipient        `json:"sender,omitempty"`
 	SenderAccount    *MandateRecipientAccount `json:"sender_account,omitempty"`
 	Recipient        *GetMandateSender        `json:"recipient,omitempty"`
 	RecipientAccount *MandateSenderAccount    `json:"recipient_account,omitempty"`
+	Fees             []Fee                    `json:"fees,omitempty"`
 	Error            *FvErrorModelV2          `json:"error,omitempty"`
 }
 
@@ -275,6 +277,38 @@ func (o *PayoutSnapshotResponse) SetPaymentDetails(v PayoutSnapshotDetails) {
 	o.PaymentDetails = &v
 }
 
+// GetMetadata returns the Metadata field value if set, zero value otherwise.
+func (o *PayoutSnapshotResponse) GetMetadata() map[string]string {
+	if o == nil || o.Metadata == nil {
+		var ret map[string]string
+		return ret
+	}
+	return *o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayoutSnapshotResponse) GetMetadataOk() (*map[string]string, bool) {
+	if o == nil || o.Metadata == nil {
+		return nil, false
+	}
+	return o.Metadata, true
+}
+
+// HasMetadata returns a boolean if a field has been set.
+func (o *PayoutSnapshotResponse) HasMetadata() bool {
+	if o != nil && o.Metadata != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMetadata gets a reference to the given map[string]string and assigns it to the Metadata field.
+func (o *PayoutSnapshotResponse) SetMetadata(v map[string]string) {
+	o.Metadata = &v
+}
+
 // GetAmount returns the Amount field value if set, zero value otherwise.
 func (o *PayoutSnapshotResponse) GetAmount() int32 {
 	if o == nil || o.Amount == nil {
@@ -467,6 +501,38 @@ func (o *PayoutSnapshotResponse) SetRecipientAccount(v MandateSenderAccount) {
 	o.RecipientAccount = &v
 }
 
+// GetFees returns the Fees field value if set, zero value otherwise.
+func (o *PayoutSnapshotResponse) GetFees() []Fee {
+	if o == nil || o.Fees == nil {
+		var ret []Fee
+		return ret
+	}
+	return o.Fees
+}
+
+// GetFeesOk returns a tuple with the Fees field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayoutSnapshotResponse) GetFeesOk() ([]Fee, bool) {
+	if o == nil || o.Fees == nil {
+		return nil, false
+	}
+	return o.Fees, true
+}
+
+// HasFees returns a boolean if a field has been set.
+func (o *PayoutSnapshotResponse) HasFees() bool {
+	if o != nil && o.Fees != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFees gets a reference to the given []Fee and assigns it to the Fees field.
+func (o *PayoutSnapshotResponse) SetFees(v []Fee) {
+	o.Fees = v
+}
+
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *PayoutSnapshotResponse) GetError() FvErrorModelV2 {
 	if o == nil || o.Error == nil {
@@ -522,6 +588,9 @@ func (o PayoutSnapshotResponse) MarshalJSON() ([]byte, error) {
 	if o.PaymentDetails != nil {
 		toSerialize["payment_details"] = o.PaymentDetails
 	}
+	if o.Metadata != nil {
+		toSerialize["metadata"] = o.Metadata
+	}
 	if o.Amount != nil {
 		toSerialize["amount"] = o.Amount
 	}
@@ -539,6 +608,9 @@ func (o PayoutSnapshotResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.RecipientAccount != nil {
 		toSerialize["recipient_account"] = o.RecipientAccount
+	}
+	if o.Fees != nil {
+		toSerialize["fees"] = o.Fees
 	}
 	if o.Error != nil {
 		toSerialize["error"] = o.Error

@@ -7027,6 +7027,7 @@ components:
           account_number:
             number: number
             type: LOCAL
+          bank_code: bank_code
           account_type: EXTERNAL_ACCOUNT
           metadata:
             key: metadata
@@ -7162,6 +7163,7 @@ components:
             account_number:
               number: number
               type: LOCAL
+            bank_code: bank_code
             account_type: EXTERNAL_ACCOUNT
             metadata:
               key: metadata
@@ -7227,6 +7229,7 @@ components:
             account_number:
               number: number
               type: LOCAL
+            bank_code: bank_code
             account_type: EXTERNAL_ACCOUNT
             metadata:
               key: metadata
@@ -7296,7 +7299,18 @@ components:
     PayoutSnapshotResponse:
       example:
         transaction_date: transaction_date
+        metadata:
+          key: metadata
         amount: 0
+        fees:
+        - paid_by_account_id: The payment account ID
+          amount: 100
+          currency: HKD
+          paid_by: RECIPIENT
+        - paid_by_account_id: The payment account ID
+          amount: 100
+          currency: HKD
+          paid_by: RECIPIENT
         payment_details:
           transaction_reference_id: transaction_reference_id
           description: description
@@ -7306,6 +7320,7 @@ components:
           account_number:
             number: number
             type: LOCAL
+          bank_code: bank_code
           account_type: EXTERNAL_ACCOUNT
           metadata:
             key: metadata
@@ -7368,6 +7383,10 @@ components:
           type: string
         payment_details:
           $ref: '#/components/schemas/PayoutSnapshotDetails'
+        metadata:
+          additionalProperties:
+            type: string
+          type: object
         amount:
           type: integer
         currency:
@@ -7380,6 +7399,10 @@ components:
           $ref: '#/components/schemas/GetMandateSender'
         recipient_account:
           $ref: '#/components/schemas/MandateSenderAccount'
+        fees:
+          items:
+            $ref: '#/components/schemas/Fee'
+          type: array
         error:
           $ref: '#/components/schemas/FvErrorModelV2'
       type: object
@@ -7807,6 +7830,7 @@ components:
           account_number:
             number: number
             type: LOCAL
+          bank_code: bank_code
           account_type: EXTERNAL_ACCOUNT
           metadata:
             key: metadata
@@ -8029,6 +8053,7 @@ components:
             account_number:
               number: number
               type: LOCAL
+            bank_code: bank_code
             account_type: EXTERNAL_ACCOUNT
             metadata:
               key: metadata
@@ -8121,6 +8146,7 @@ components:
             account_number:
               number: number
               type: LOCAL
+            bank_code: bank_code
             account_type: EXTERNAL_ACCOUNT
             metadata:
               key: metadata
@@ -8359,6 +8385,7 @@ components:
           account_number:
             number: number
             type: LOCAL
+          bank_code: bank_code
           account_type: EXTERNAL_ACCOUNT
           metadata:
             key: metadata
@@ -8484,6 +8511,7 @@ components:
             account_number:
               number: number
               type: LOCAL
+            bank_code: bank_code
             account_type: EXTERNAL_ACCOUNT
             metadata:
               key: metadata
@@ -8555,6 +8583,7 @@ components:
             account_number:
               number: number
               type: LOCAL
+            bank_code: bank_code
             account_type: EXTERNAL_ACCOUNT
             metadata:
               key: metadata
@@ -9434,6 +9463,7 @@ components:
         account_number:
           number: number
           type: LOCAL
+        bank_code: bank_code
         account_type: EXTERNAL_ACCOUNT
         metadata:
           key: metadata
@@ -9470,6 +9500,8 @@ components:
           description: A unique identifier generated after creating sender (Finverse
             Payment User ID)
           example: 01GY6H0JA7BS8EVGY56NSHFX2E
+          type: string
+        bank_code:
           type: string
         metadata:
           additionalProperties:
