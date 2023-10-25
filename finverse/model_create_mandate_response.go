@@ -19,6 +19,8 @@ import (
 // CreateMandateResponse struct for CreateMandateResponse
 type CreateMandateResponse struct {
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+	CreatedAt *time.Time `json:"created_at,omitempty"`
+	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	UpdatedAt time.Time `json:"updated_at"`
 	// Finverse Mandate ID (ULID)
 	MandateId string `json:"mandate_id"`
@@ -56,6 +58,38 @@ func NewCreateMandateResponse(updatedAt time.Time, mandateId string, status stri
 func NewCreateMandateResponseWithDefaults() *CreateMandateResponse {
 	this := CreateMandateResponse{}
 	return &this
+}
+
+// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
+func (o *CreateMandateResponse) GetCreatedAt() time.Time {
+	if o == nil || o.CreatedAt == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.CreatedAt
+}
+
+// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateMandateResponse) GetCreatedAtOk() (*time.Time, bool) {
+	if o == nil || o.CreatedAt == nil {
+		return nil, false
+	}
+	return o.CreatedAt, true
+}
+
+// HasCreatedAt returns a boolean if a field has been set.
+func (o *CreateMandateResponse) HasCreatedAt() bool {
+	if o != nil && o.CreatedAt != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
+func (o *CreateMandateResponse) SetCreatedAt(v time.Time) {
+	o.CreatedAt = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value
@@ -364,6 +398,9 @@ func (o *CreateMandateResponse) SetError(v FvErrorModelV2) {
 
 func (o CreateMandateResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.CreatedAt != nil {
+		toSerialize["created_at"] = o.CreatedAt
+	}
 	if true {
 		toSerialize["updated_at"] = o.UpdatedAt
 	}
