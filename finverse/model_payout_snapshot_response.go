@@ -33,15 +33,18 @@ type PayoutSnapshotResponse struct {
 	Recipient        *GetMandateSender        `json:"recipient,omitempty"`
 	RecipientAccount *MandateSenderAccount    `json:"recipient_account,omitempty"`
 	Fees             []Fee                    `json:"fees,omitempty"`
-	Error            *FvErrorModelV2          `json:"error,omitempty"`
+	// Whether this payout is live or not
+	Live  bool            `json:"live"`
+	Error *FvErrorModelV2 `json:"error,omitempty"`
 }
 
 // NewPayoutSnapshotResponse instantiates a new PayoutSnapshotResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPayoutSnapshotResponse() *PayoutSnapshotResponse {
+func NewPayoutSnapshotResponse(live bool) *PayoutSnapshotResponse {
 	this := PayoutSnapshotResponse{}
+	this.Live = live
 	return &this
 }
 
@@ -533,6 +536,30 @@ func (o *PayoutSnapshotResponse) SetFees(v []Fee) {
 	o.Fees = v
 }
 
+// GetLive returns the Live field value
+func (o *PayoutSnapshotResponse) GetLive() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.Live
+}
+
+// GetLiveOk returns a tuple with the Live field value
+// and a boolean to check if the value has been set.
+func (o *PayoutSnapshotResponse) GetLiveOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Live, true
+}
+
+// SetLive sets field value
+func (o *PayoutSnapshotResponse) SetLive(v bool) {
+	o.Live = v
+}
+
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *PayoutSnapshotResponse) GetError() FvErrorModelV2 {
 	if o == nil || o.Error == nil {
@@ -611,6 +638,9 @@ func (o PayoutSnapshotResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Fees != nil {
 		toSerialize["fees"] = o.Fees
+	}
+	if true {
+		toSerialize["live"] = o.Live
 	}
 	if o.Error != nil {
 		toSerialize["error"] = o.Error

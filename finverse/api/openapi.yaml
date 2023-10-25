@@ -7365,6 +7365,7 @@ components:
           name: name
           external_user_id: external_user_id
         currency: currency
+        live: true
         status: status
       properties:
         payout_id:
@@ -7403,8 +7404,13 @@ components:
           items:
             $ref: '#/components/schemas/Fee'
           type: array
+        live:
+          description: Whether this payout is live or not
+          type: boolean
         error:
           $ref: '#/components/schemas/FvErrorModelV2'
+      required:
+      - live
       type: object
     PayoutSnapshotDetails:
       example:
