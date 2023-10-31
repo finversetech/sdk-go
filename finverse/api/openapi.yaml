@@ -4507,6 +4507,7 @@ components:
           type: string
         grant_type:
           description: support only client_credentials
+          maxLength: 100
           type: string
       required:
       - client_id
@@ -4573,36 +4574,45 @@ components:
       properties:
         grant_type:
           description: support only client_credentials
+          maxLength: 100
           type: string
         response_type:
           example: code
+          maxLength: 100
           type: string
         response_mode:
           example: form_post
+          maxLength: 100
           type: string
         user_id:
           description: required when creating new Link, ignored when updating existing
             Link
           example: 01BX5ZZKBKACTAV9WEVGEMMVRY
+          maxLength: 100
           minLength: 4
           type: string
         client_id:
           example: 3fa85f64-5717-4562-b3fc-2c963f66afa6
+          maxLength: 100
           minLength: 4
           type: string
         redirect_uri:
           example: https://example.com/callback
+          maxLength: 500
           minLength: 4
           type: string
         state:
           example: user-state-passed
+          maxLength: 100
           type: string
         scope:
           example: comma,separated,scopes
+          maxLength: 500
           type: string
         link_mode:
           description: Space separated list of the tags of the institutions to view.
           example: real
+          maxLength: 100
           type: string
         ui_mode:
           description: The UI mode link is intended to be used in - "iframe", "auto_redirect",
@@ -4618,25 +4628,31 @@ components:
           description: ISO639-1 language code. Language to display when user open
             the link, default to English (en) if not specified
           example: en
+          maxLength: 3
           type: string
         code_challenge:
           example: code-challenge
+          maxLength: 100
           type: string
         code_challenge_method:
           example: code-challenge-method
+          maxLength: 100
           type: string
         login_identity_id:
           description: use this to update a specific login identity
           example: uhdasidasodaso
+          maxLength: 100
           type: string
         customization_id:
           description: The customization id if the customer wishes to embed it into
             link token for spawning link with their choice of stuffs
           example: AULIDGOESHERE
+          maxLength: 100
           type: string
         institution_id:
           description: Institution to preselect
           example: hsbc-hk
+          maxLength: 100
           type: string
         countries:
           description: institution's country filter
@@ -4644,6 +4660,7 @@ components:
           - HKG
           - SGP
           items:
+            maxLength: 3
             type: string
           type: array
         user_type:
@@ -4651,6 +4668,7 @@ components:
           example:
           - PERSONAL
           items:
+            maxLength: 100
             type: string
           type: array
         products_supported:
@@ -4659,6 +4677,7 @@ components:
           - ACCOUNTS
           - TRANSACTIONS
           items:
+            maxLength: 100
             type: string
           type: array
         products_requested:
@@ -4668,11 +4687,13 @@ components:
           - TRANSACTIONS
           - PAYMENTS
           items:
+            maxLength: 100
             type: string
           type: array
         payment_instruction_id:
           description: The identifier returned after creating payment instruction
           example: payment_instruction_id
+          maxLength: 100
           type: string
         automatic_data_refresh:
           description: Controls the behavior of the automatic data refresh checkbox
@@ -4680,10 +4701,12 @@ components:
           - "ON"
           - "OFF"
           - FORCED_ON
+          maxLength: 100
           type: string
         institution_status:
           description: institution's status filter
           example: alpha beta supported
+          maxLength: 100
           type: string
       required:
       - client_id
@@ -4734,6 +4757,7 @@ components:
       properties:
         institution_id:
           example: ez-bank
+          maxLength: 100
           minLength: 2
           type: string
         store_credential:
@@ -4751,11 +4775,13 @@ components:
           - TRANSACTIONS
           - PAYMENTS
           items:
+            maxLength: 100
             type: string
           type: array
         payment_instruction_id:
           description: The identifier returned after creating payment instruction
           example: payment_instruction_id
+          maxLength: 100
           type: string
       required:
       - institution_id
@@ -4778,6 +4804,7 @@ components:
       properties:
         payment_attempt_id:
           example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          maxLength: 100
           type: string
         sender_type:
           description: The sender type of the mandate
@@ -4882,10 +4909,12 @@ components:
       properties:
         institution_id:
           example: ez-bank
+          maxLength: 100
           minLength: 2
           type: string
         user_id:
           description: Identifier for end user
+          maxLength: 100
           type: string
         consent:
           description: this is a mandatory field
@@ -4899,6 +4928,7 @@ components:
           - TRANSACTIONS
           - PAYMENTS
           items:
+            maxLength: 100
             type: string
           type: array
         store_credentials:
@@ -4907,6 +4937,7 @@ components:
         encrypted_credentials:
           $ref: '#/components/schemas/EncryptedPayload'
         payment_instruction_id:
+          maxLength: 100
           type: string
       required:
       - consent
@@ -4968,6 +4999,7 @@ components:
         action_id:
           description: The action id
           example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          maxLength: 100
           type: string
       required:
       - action_id
@@ -6930,6 +6962,7 @@ components:
         currency:
           description: The currency code as defined in ISO 4217.
           example: HKD
+          maxLength: 3
           type: string
         type:
           description: Indicates whether this is a mandate-based payment or one-off
@@ -7277,6 +7310,7 @@ components:
         currency:
           description: The currency code as defined in ISO 4217.
           example: HKD
+          maxLength: 3
           type: string
         payment_details:
           $ref: '#/components/schemas/PayoutDetails'
@@ -7284,6 +7318,7 @@ components:
           $ref: '#/components/schemas/MandateRecipientRequest'
         metadata:
           additionalProperties:
+            maxLength: 100
             type: string
           description: 'Additional attributes of the payout instruction in key:value
             format (e.g. payout_instruction_internal_id: 1234). It supports up to
@@ -7730,6 +7765,7 @@ components:
           $ref: '#/components/schemas/MandateDetails'
         metadata:
           additionalProperties:
+            maxLength: 100
             type: string
           description: 'Additional attributes of the mandate in key:value format (e.g.
             mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas
@@ -7771,6 +7807,7 @@ components:
           $ref: '#/components/schemas/MandateDetails'
         metadata:
           additionalProperties:
+            maxLength: 100
             type: string
           description: 'Additional attributes of the mandate in key:value format (e.g.
             mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas
@@ -7959,6 +7996,7 @@ components:
           type: string
         metadata:
           additionalProperties:
+            maxLength: 100
             type: string
           description: 'Additional attributes of the payment link in key:value format
             (e.g. payment_id: 1234). It supports up to 10 key:value pairs, whereas
@@ -8328,6 +8366,7 @@ components:
       properties:
         institution_id:
           description: Finverse Institution ID
+          maxLength: 100
           type: string
       required:
       - institution_id
@@ -8666,6 +8705,7 @@ components:
       properties:
         account_id:
           description: Merchant account ID assigned by Finverse
+          maxLength: 100
           type: string
       required:
       - account_id
@@ -8676,6 +8716,7 @@ components:
       properties:
         account_id:
           description: account ID assigned by Finverse
+          maxLength: 100
           type: string
       required:
       - account_id
@@ -8967,6 +9008,7 @@ components:
       properties:
         mandate_id:
           description: Mandate ID
+          maxLength: 100
           type: string
         link_customizations:
           $ref: '#/components/schemas/MandateAuthLinkCustomizations'
@@ -9364,16 +9406,20 @@ components:
       properties:
         key_id:
           description: The key_id that was used to encrypt the envelope key
+          maxLength: 100
           type: string
         envelope_encryption_key:
           description: The encrypted envelope key
+          maxLength: 1000
           type: string
         initialization_vector:
           description: The initialization vector used for enncrypting the payload
+          maxLength: 100
           type: string
         message_authentication_code:
           description: The authentication code is used to authenticate the origin
             of the message
+          maxLength: 100
           type: string
         ciphertext:
           description: The encrypted payload that contains auth checklist items
@@ -9735,19 +9781,23 @@ components:
           - HKD
           - SGD
           items:
+            maxLength: 3
             type: string
           type: array
         institution_id:
           description: Finverse Institution ID for the payment institution.
           example: hsbc-hk
+          maxLength: 100
           type: string
         user_id:
           description: A unique identifier generated after creating user (Finverse
             Payment User ID)
           example: 01GY6H0JA7BS8EVGY56NSHFX2E
+          maxLength: 100
           type: string
         metadata:
           additionalProperties:
+            maxLength: 100
             type: string
           description: 'Additional attributes of the payment in key:value format (e.g.
             payment_internal_id: 1234). It supports up to 10 key:value pairs, whereas
@@ -9785,8 +9835,10 @@ components:
         external_user_id: external_user_id
       properties:
         name:
+          maxLength: 100
           type: string
         external_user_id:
+          maxLength: 100
           type: string
         user_type:
           enum:
@@ -9794,6 +9846,7 @@ components:
           - BUSINESS
           type: string
         email:
+          maxLength: 256
           type: string
         user_details:
           items:
@@ -9801,6 +9854,7 @@ components:
           type: array
         metadata:
           additionalProperties:
+            maxLength: 100
             type: string
           type: object
       required:
