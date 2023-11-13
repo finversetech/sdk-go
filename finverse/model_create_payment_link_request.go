@@ -26,7 +26,8 @@ type CreatePaymentLinkRequest struct {
 	PaymentDetails *PaymentLinkDetails `json:"payment_details,omitempty"`
 	Sender         PaymentLinkSender   `json:"sender"`
 	// Unique reference id to identifying the payment to be collected.
-	UniqueReferenceId string `json:"unique_reference_id"`
+	UniqueReferenceId   string               `json:"unique_reference_id"`
+	PaymentSetupOptions *PaymentSetupOptions `json:"payment_setup_options,omitempty"`
 	// Additional attributes of the payment link in key:value format (e.g. payment_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
 	Metadata *map[string]string `json:"metadata,omitempty"`
 }
@@ -237,6 +238,38 @@ func (o *CreatePaymentLinkRequest) SetUniqueReferenceId(v string) {
 	o.UniqueReferenceId = v
 }
 
+// GetPaymentSetupOptions returns the PaymentSetupOptions field value if set, zero value otherwise.
+func (o *CreatePaymentLinkRequest) GetPaymentSetupOptions() PaymentSetupOptions {
+	if o == nil || o.PaymentSetupOptions == nil {
+		var ret PaymentSetupOptions
+		return ret
+	}
+	return *o.PaymentSetupOptions
+}
+
+// GetPaymentSetupOptionsOk returns a tuple with the PaymentSetupOptions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreatePaymentLinkRequest) GetPaymentSetupOptionsOk() (*PaymentSetupOptions, bool) {
+	if o == nil || o.PaymentSetupOptions == nil {
+		return nil, false
+	}
+	return o.PaymentSetupOptions, true
+}
+
+// HasPaymentSetupOptions returns a boolean if a field has been set.
+func (o *CreatePaymentLinkRequest) HasPaymentSetupOptions() bool {
+	if o != nil && o.PaymentSetupOptions != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentSetupOptions gets a reference to the given PaymentSetupOptions and assigns it to the PaymentSetupOptions field.
+func (o *CreatePaymentLinkRequest) SetPaymentSetupOptions(v PaymentSetupOptions) {
+	o.PaymentSetupOptions = &v
+}
+
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *CreatePaymentLinkRequest) GetMetadata() map[string]string {
 	if o == nil || o.Metadata == nil {
@@ -291,6 +324,9 @@ func (o CreatePaymentLinkRequest) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["unique_reference_id"] = o.UniqueReferenceId
+	}
+	if o.PaymentSetupOptions != nil {
+		toSerialize["payment_setup_options"] = o.PaymentSetupOptions
 	}
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata

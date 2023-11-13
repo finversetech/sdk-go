@@ -135,6 +135,7 @@ model_payment_link_sender_response.go
 model_payment_link_token_response.go
 model_payment_response.go
 model_payment_schedule.go
+model_payment_setup_options.go
 model_payment_user.go
 model_payout_details.go
 model_payout_snapshot_details.go

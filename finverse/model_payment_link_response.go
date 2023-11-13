@@ -28,7 +28,8 @@ type PaymentLinkResponse struct {
 	Mode           *string             `json:"mode,omitempty"`
 	PaymentDetails *PaymentLinkDetails `json:"payment_details,omitempty"`
 	// Unique reference id to identifying the payment to be collected.
-	UniqueReferenceId *string `json:"unique_reference_id,omitempty"`
+	UniqueReferenceId   *string              `json:"unique_reference_id,omitempty"`
+	PaymentSetupOptions *PaymentSetupOptions `json:"payment_setup_options,omitempty"`
 	// Additional attributes of the payment link in key:value format (e.g. payment_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
 	Metadata *map[string]string `json:"metadata,omitempty"`
 	// The URL for payment link
@@ -285,6 +286,38 @@ func (o *PaymentLinkResponse) HasUniqueReferenceId() bool {
 // SetUniqueReferenceId gets a reference to the given string and assigns it to the UniqueReferenceId field.
 func (o *PaymentLinkResponse) SetUniqueReferenceId(v string) {
 	o.UniqueReferenceId = &v
+}
+
+// GetPaymentSetupOptions returns the PaymentSetupOptions field value if set, zero value otherwise.
+func (o *PaymentLinkResponse) GetPaymentSetupOptions() PaymentSetupOptions {
+	if o == nil || o.PaymentSetupOptions == nil {
+		var ret PaymentSetupOptions
+		return ret
+	}
+	return *o.PaymentSetupOptions
+}
+
+// GetPaymentSetupOptionsOk returns a tuple with the PaymentSetupOptions field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentLinkResponse) GetPaymentSetupOptionsOk() (*PaymentSetupOptions, bool) {
+	if o == nil || o.PaymentSetupOptions == nil {
+		return nil, false
+	}
+	return o.PaymentSetupOptions, true
+}
+
+// HasPaymentSetupOptions returns a boolean if a field has been set.
+func (o *PaymentLinkResponse) HasPaymentSetupOptions() bool {
+	if o != nil && o.PaymentSetupOptions != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentSetupOptions gets a reference to the given PaymentSetupOptions and assigns it to the PaymentSetupOptions field.
+func (o *PaymentLinkResponse) SetPaymentSetupOptions(v PaymentSetupOptions) {
+	o.PaymentSetupOptions = &v
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
@@ -597,6 +630,9 @@ func (o PaymentLinkResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.UniqueReferenceId != nil {
 		toSerialize["unique_reference_id"] = o.UniqueReferenceId
+	}
+	if o.PaymentSetupOptions != nil {
+		toSerialize["payment_setup_options"] = o.PaymentSetupOptions
 	}
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata

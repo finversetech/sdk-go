@@ -7965,6 +7965,8 @@ components:
           email: email
           external_user_id: external_user_id
         currency: HKD
+        payment_setup_options:
+          future_payments: AUTOPAY
         unique_reference_id: unique_reference_id
       properties:
         amount:
@@ -7994,6 +7996,8 @@ components:
           description: Unique reference id to identifying the payment to be collected.
           minLength: 1
           type: string
+        payment_setup_options:
+          $ref: '#/components/schemas/PaymentSetupOptions'
         metadata:
           additionalProperties:
             maxLength: 100
@@ -8042,6 +8046,20 @@ components:
       required:
       - external_user_id
       - name
+      type: object
+    PaymentSetupOptions:
+      example:
+        future_payments: AUTOPAY
+      properties:
+        future_payments:
+          description: 'The type of future_payments that customer want to use. Possible
+            values: AUTOPAY or CLICK_TO_PAY'
+          enum:
+          - AUTOPAY
+          - CLICK_TO_PAY
+          type: string
+      required:
+      - future_payments
       type: object
     PaymentLinkResponse:
       example:
@@ -8142,6 +8160,8 @@ components:
           email: email
           external_user_id: external_user_id
         currency: HKD
+        payment_setup_options:
+          future_payments: AUTOPAY
         payment:
           amount: 100
           fees:
@@ -8236,6 +8256,8 @@ components:
           description: Unique reference id to identifying the payment to be collected.
           minLength: 1
           type: string
+        payment_setup_options:
+          $ref: '#/components/schemas/PaymentSetupOptions'
         metadata:
           additionalProperties:
             type: string
