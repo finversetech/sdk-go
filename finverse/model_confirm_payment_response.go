@@ -17,16 +17,18 @@ import (
 
 // ConfirmPaymentResponse struct for ConfirmPaymentResponse
 type ConfirmPaymentResponse struct {
-	Success bool `json:"success"`
+	Success            bool `json:"success"`
+	SkipAutopayConsent bool `json:"skip_autopay_consent"`
 }
 
 // NewConfirmPaymentResponse instantiates a new ConfirmPaymentResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewConfirmPaymentResponse(success bool) *ConfirmPaymentResponse {
+func NewConfirmPaymentResponse(success bool, skipAutopayConsent bool) *ConfirmPaymentResponse {
 	this := ConfirmPaymentResponse{}
 	this.Success = success
+	this.SkipAutopayConsent = skipAutopayConsent
 	return &this
 }
 
@@ -62,10 +64,37 @@ func (o *ConfirmPaymentResponse) SetSuccess(v bool) {
 	o.Success = v
 }
 
+// GetSkipAutopayConsent returns the SkipAutopayConsent field value
+func (o *ConfirmPaymentResponse) GetSkipAutopayConsent() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.SkipAutopayConsent
+}
+
+// GetSkipAutopayConsentOk returns a tuple with the SkipAutopayConsent field value
+// and a boolean to check if the value has been set.
+func (o *ConfirmPaymentResponse) GetSkipAutopayConsentOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SkipAutopayConsent, true
+}
+
+// SetSkipAutopayConsent sets field value
+func (o *ConfirmPaymentResponse) SetSkipAutopayConsent(v bool) {
+	o.SkipAutopayConsent = v
+}
+
 func (o ConfirmPaymentResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["success"] = o.Success
+	}
+	if true {
+		toSerialize["skip_autopay_consent"] = o.SkipAutopayConsent
 	}
 	return json.Marshal(toSerialize)
 }
