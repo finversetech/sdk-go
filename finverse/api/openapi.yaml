@@ -2440,6 +2440,38 @@ paths:
       security:
       - Oauth2:
         - payout:cancel
+  /payment_links/fps/qr_code:
+    get:
+      description: Get the FPS QR code
+      operationId: getFpsQrCode
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/FpsQrCodeResponse'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - qr_code:get
   /calculate/line_items/{paymentType}:
     get:
       description: Get line items for display
@@ -2740,6 +2772,9 @@ components:
         payment_link_id:
           type: string
         unique_reference_id:
+          type: string
+        qr_code_text:
+          description: The qrCode text to be used to generate the image
           type: string
       required:
       - client_id
@@ -9623,6 +9658,16 @@ components:
           type: boolean
       required:
       - autopay_consent
+      type: object
+    FpsQrCodeResponse:
+      example:
+        qr_code: qr_code
+      properties:
+        qr_code:
+          description: The FPS QR code in base64
+          type: string
+      required:
+      - qr_code
       type: object
     ManualPaymentConfirmationRequest:
       example:

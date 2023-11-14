@@ -34,6 +34,8 @@ type Principal struct {
 	RedirectUri               *string                    `json:"redirect_uri,omitempty"`
 	PaymentLinkId             *string                    `json:"payment_link_id,omitempty"`
 	UniqueReferenceId         *string                    `json:"unique_reference_id,omitempty"`
+	// The qrCode text to be used to generate the image
+	QrCodeText *string `json:"qr_code_text,omitempty"`
 }
 
 // NewPrincipal instantiates a new Principal object
@@ -569,6 +571,38 @@ func (o *Principal) SetUniqueReferenceId(v string) {
 	o.UniqueReferenceId = &v
 }
 
+// GetQrCodeText returns the QrCodeText field value if set, zero value otherwise.
+func (o *Principal) GetQrCodeText() string {
+	if o == nil || o.QrCodeText == nil {
+		var ret string
+		return ret
+	}
+	return *o.QrCodeText
+}
+
+// GetQrCodeTextOk returns a tuple with the QrCodeText field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Principal) GetQrCodeTextOk() (*string, bool) {
+	if o == nil || o.QrCodeText == nil {
+		return nil, false
+	}
+	return o.QrCodeText, true
+}
+
+// HasQrCodeText returns a boolean if a field has been set.
+func (o *Principal) HasQrCodeText() bool {
+	if o != nil && o.QrCodeText != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetQrCodeText gets a reference to the given string and assigns it to the QrCodeText field.
+func (o *Principal) SetQrCodeText(v string) {
+	o.QrCodeText = &v
+}
+
 func (o Principal) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -621,6 +655,9 @@ func (o Principal) MarshalJSON() ([]byte, error) {
 	}
 	if o.UniqueReferenceId != nil {
 		toSerialize["unique_reference_id"] = o.UniqueReferenceId
+	}
+	if o.QrCodeText != nil {
+		toSerialize["qr_code_text"] = o.QrCodeText
 	}
 	return json.Marshal(toSerialize)
 }
