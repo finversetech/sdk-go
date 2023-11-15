@@ -27,14 +27,17 @@ type PaymentUser struct {
 	UpdatedAt      *time.Time         `json:"updated_at,omitempty"`
 	UserId         *string            `json:"user_id,omitempty"`
 	UserType       *string            `json:"user_type,omitempty"`
+	// Whether the user has given consent for autopay
+	AutopayConsent bool `json:"autopay_consent"`
 }
 
 // NewPaymentUser instantiates a new PaymentUser object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentUser() *PaymentUser {
+func NewPaymentUser(autopayConsent bool) *PaymentUser {
 	this := PaymentUser{}
+	this.AutopayConsent = autopayConsent
 	return &this
 }
 
@@ -334,6 +337,30 @@ func (o *PaymentUser) SetUserType(v string) {
 	o.UserType = &v
 }
 
+// GetAutopayConsent returns the AutopayConsent field value
+func (o *PaymentUser) GetAutopayConsent() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.AutopayConsent
+}
+
+// GetAutopayConsentOk returns a tuple with the AutopayConsent field value
+// and a boolean to check if the value has been set.
+func (o *PaymentUser) GetAutopayConsentOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AutopayConsent, true
+}
+
+// SetAutopayConsent sets field value
+func (o *PaymentUser) SetAutopayConsent(v bool) {
+	o.AutopayConsent = v
+}
+
 func (o PaymentUser) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.CreatedAt != nil {
@@ -362,6 +389,9 @@ func (o PaymentUser) MarshalJSON() ([]byte, error) {
 	}
 	if o.UserType != nil {
 		toSerialize["user_type"] = o.UserType
+	}
+	if true {
+		toSerialize["autopay_consent"] = o.AutopayConsent
 	}
 	return json.Marshal(toSerialize)
 }

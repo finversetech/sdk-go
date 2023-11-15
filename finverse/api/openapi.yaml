@@ -9937,6 +9937,7 @@ components:
       example:
         metadata:
           key: metadata
+        autopay_consent: false
         user_type: INDIVIDUAL
         updated_at: 2000-01-23T04:56:07.000+00:00
         user_id: user_id
@@ -9987,6 +9988,12 @@ components:
           - INDIVIDUAL
           - BUSINESS
           type: string
+        autopay_consent:
+          description: Whether the user has given consent for autopay
+          example: false
+          type: boolean
+      required:
+      - autopay_consent
       type: object
     BadRequestModel_error:
       properties:
