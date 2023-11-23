@@ -41,10 +41,11 @@ type PaymentLinkResponse struct {
 	// Timestamp of when the payment link was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp of when the payment link was last updated in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	UpdatedAt *time.Time                 `json:"updated_at,omitempty"`
-	Mandate   *GetMandateResponse        `json:"mandate,omitempty"`
-	Payment   *PaymentResponse           `json:"payment,omitempty"`
-	Sender    *PaymentLinkSenderResponse `json:"sender,omitempty"`
+	UpdatedAt     *time.Time                 `json:"updated_at,omitempty"`
+	Mandate       *GetMandateResponse        `json:"mandate,omitempty"`
+	Payment       *PaymentResponse           `json:"payment,omitempty"`
+	Sender        *PaymentLinkSenderResponse `json:"sender,omitempty"`
+	PaymentMethod *PaymentMethodResponse     `json:"payment_method,omitempty"`
 }
 
 // NewPaymentLinkResponse instantiates a new PaymentLinkResponse object
@@ -608,6 +609,38 @@ func (o *PaymentLinkResponse) SetSender(v PaymentLinkSenderResponse) {
 	o.Sender = &v
 }
 
+// GetPaymentMethod returns the PaymentMethod field value if set, zero value otherwise.
+func (o *PaymentLinkResponse) GetPaymentMethod() PaymentMethodResponse {
+	if o == nil || o.PaymentMethod == nil {
+		var ret PaymentMethodResponse
+		return ret
+	}
+	return *o.PaymentMethod
+}
+
+// GetPaymentMethodOk returns a tuple with the PaymentMethod field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentLinkResponse) GetPaymentMethodOk() (*PaymentMethodResponse, bool) {
+	if o == nil || o.PaymentMethod == nil {
+		return nil, false
+	}
+	return o.PaymentMethod, true
+}
+
+// HasPaymentMethod returns a boolean if a field has been set.
+func (o *PaymentLinkResponse) HasPaymentMethod() bool {
+	if o != nil && o.PaymentMethod != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentMethod gets a reference to the given PaymentMethodResponse and assigns it to the PaymentMethod field.
+func (o *PaymentLinkResponse) SetPaymentMethod(v PaymentMethodResponse) {
+	o.PaymentMethod = &v
+}
+
 func (o PaymentLinkResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.PaymentLinkId != nil {
@@ -660,6 +693,9 @@ func (o PaymentLinkResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Sender != nil {
 		toSerialize["sender"] = o.Sender
+	}
+	if o.PaymentMethod != nil {
+		toSerialize["payment_method"] = o.PaymentMethod
 	}
 	return json.Marshal(toSerialize)
 }

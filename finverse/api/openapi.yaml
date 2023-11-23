@@ -8269,6 +8269,88 @@ components:
             name: name
           currency: HKD
           status: AUTHORIZATION_REQUIRED
+        payment_method:
+          payment_method_type: payment_method_type
+          customer_app_id: customer_app_id
+          payment_method_id: payment_method_id
+          mandate:
+            fees:
+            - paid_by_account_id: The payment account ID
+              amount: 100
+              currency: HKD
+              paid_by: RECIPIENT
+            - paid_by_account_id: The payment account ID
+              amount: 100
+              currency: HKD
+              paid_by: RECIPIENT
+            metadata:
+              key: metadata
+            updated_at: 2000-01-23T04:56:07.000+00:00
+            sender:
+              user_type: INDIVIDUAL
+              user_id: user_id
+              user_details:
+              - values:
+                - values
+                - values
+                - values
+                - values
+                - values
+                details_type: HK_ID
+              - values:
+                - values
+                - values
+                - values
+                - values
+                - values
+                details_type: HK_ID
+              name: name
+              external_user_id: external_user_id
+            mandate_details:
+              end_date: 2000-01-23
+              payment_schedule:
+                amount: 100
+                frequency: DAILY
+              transaction_limits:
+                period: DAILY
+                max_period_amount: 0
+                max_period_count: 6
+                max_transaction_amount: 1
+              mandate_bank_reference: mandate_bank_reference
+              description: description
+              currency: currency
+              start_date: 2000-01-23
+            recipient_account:
+              account_type: SETTLEMENT_ACCOUNT
+              account_id: account_id
+            sender_account:
+              account_number:
+                number: number
+                type: LOCAL
+              bank_code: bank_code
+              account_type: EXTERNAL_ACCOUNT
+              metadata:
+                key: metadata
+              account_id: sender_account_id
+              user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+              account_number_masked: account_number_masked
+              accountholder_name: Chan Li Pak
+              institution_id: hsbc-hk
+            recipient:
+              name: name
+            created_at: 2000-01-23T04:56:07.000+00:00
+            mandate_id: mandate_id
+            error:
+              error_code: CREDENTIALS_INVALID
+              details: details
+              type: LINKING_ERROR
+              message: message
+              request_id: request_id
+            status: AUTHORIZATION_REQUIRED
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          payment_user_id: payment_user_id
+          created_at: 2000-01-23T04:56:07.000+00:00
+          currency: currency
         status: CREATED
       properties:
         payment_link_id:
@@ -8336,6 +8418,8 @@ components:
           $ref: '#/components/schemas/PaymentResponse'
         sender:
           $ref: '#/components/schemas/PaymentLinkSenderResponse'
+        payment_method:
+          $ref: '#/components/schemas/PaymentMethodResponse'
       type: object
     PaymentLinkSenderResponse:
       example:
@@ -9994,6 +10078,109 @@ components:
           type: boolean
       required:
       - autopay_consent
+      type: object
+    PaymentMethodResponse:
+      example:
+        payment_method_type: payment_method_type
+        customer_app_id: customer_app_id
+        payment_method_id: payment_method_id
+        mandate:
+          fees:
+          - paid_by_account_id: The payment account ID
+            amount: 100
+            currency: HKD
+            paid_by: RECIPIENT
+          - paid_by_account_id: The payment account ID
+            amount: 100
+            currency: HKD
+            paid_by: RECIPIENT
+          metadata:
+            key: metadata
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          sender:
+            user_type: INDIVIDUAL
+            user_id: user_id
+            user_details:
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            name: name
+            external_user_id: external_user_id
+          mandate_details:
+            end_date: 2000-01-23
+            payment_schedule:
+              amount: 100
+              frequency: DAILY
+            transaction_limits:
+              period: DAILY
+              max_period_amount: 0
+              max_period_count: 6
+              max_transaction_amount: 1
+            mandate_bank_reference: mandate_bank_reference
+            description: description
+            currency: currency
+            start_date: 2000-01-23
+          recipient_account:
+            account_type: SETTLEMENT_ACCOUNT
+            account_id: account_id
+          sender_account:
+            account_number:
+              number: number
+              type: LOCAL
+            bank_code: bank_code
+            account_type: EXTERNAL_ACCOUNT
+            metadata:
+              key: metadata
+            account_id: sender_account_id
+            user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+            account_number_masked: account_number_masked
+            accountholder_name: Chan Li Pak
+            institution_id: hsbc-hk
+          recipient:
+            name: name
+          created_at: 2000-01-23T04:56:07.000+00:00
+          mandate_id: mandate_id
+          error:
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+            request_id: request_id
+          status: AUTHORIZATION_REQUIRED
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        payment_user_id: payment_user_id
+        created_at: 2000-01-23T04:56:07.000+00:00
+        currency: currency
+      properties:
+        payment_method_id:
+          type: string
+        customer_app_id:
+          type: string
+        payment_user_id:
+          type: string
+        currency:
+          type: string
+        payment_method_type:
+          type: string
+        mandate:
+          $ref: '#/components/schemas/GetMandateResponse'
+        created_at:
+          format: date-time
+          type: string
+        updated_at:
+          format: date-time
+          type: string
       type: object
     BadRequestModel_error:
       properties:
