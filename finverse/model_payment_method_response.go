@@ -13,19 +13,13 @@ package finverse
 
 import (
 	"encoding/json"
-	"time"
 )
 
 // PaymentMethodResponse struct for PaymentMethodResponse
 type PaymentMethodResponse struct {
 	PaymentMethodId   *string             `json:"payment_method_id,omitempty"`
-	CustomerAppId     *string             `json:"customer_app_id,omitempty"`
-	PaymentUserId     *string             `json:"payment_user_id,omitempty"`
-	Currency          *string             `json:"currency,omitempty"`
 	PaymentMethodType *string             `json:"payment_method_type,omitempty"`
 	Mandate           *GetMandateResponse `json:"mandate,omitempty"`
-	CreatedAt         *time.Time          `json:"created_at,omitempty"`
-	UpdatedAt         *time.Time          `json:"updated_at,omitempty"`
 }
 
 // NewPaymentMethodResponse instantiates a new PaymentMethodResponse object
@@ -75,102 +69,6 @@ func (o *PaymentMethodResponse) HasPaymentMethodId() bool {
 // SetPaymentMethodId gets a reference to the given string and assigns it to the PaymentMethodId field.
 func (o *PaymentMethodResponse) SetPaymentMethodId(v string) {
 	o.PaymentMethodId = &v
-}
-
-// GetCustomerAppId returns the CustomerAppId field value if set, zero value otherwise.
-func (o *PaymentMethodResponse) GetCustomerAppId() string {
-	if o == nil || o.CustomerAppId == nil {
-		var ret string
-		return ret
-	}
-	return *o.CustomerAppId
-}
-
-// GetCustomerAppIdOk returns a tuple with the CustomerAppId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PaymentMethodResponse) GetCustomerAppIdOk() (*string, bool) {
-	if o == nil || o.CustomerAppId == nil {
-		return nil, false
-	}
-	return o.CustomerAppId, true
-}
-
-// HasCustomerAppId returns a boolean if a field has been set.
-func (o *PaymentMethodResponse) HasCustomerAppId() bool {
-	if o != nil && o.CustomerAppId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCustomerAppId gets a reference to the given string and assigns it to the CustomerAppId field.
-func (o *PaymentMethodResponse) SetCustomerAppId(v string) {
-	o.CustomerAppId = &v
-}
-
-// GetPaymentUserId returns the PaymentUserId field value if set, zero value otherwise.
-func (o *PaymentMethodResponse) GetPaymentUserId() string {
-	if o == nil || o.PaymentUserId == nil {
-		var ret string
-		return ret
-	}
-	return *o.PaymentUserId
-}
-
-// GetPaymentUserIdOk returns a tuple with the PaymentUserId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PaymentMethodResponse) GetPaymentUserIdOk() (*string, bool) {
-	if o == nil || o.PaymentUserId == nil {
-		return nil, false
-	}
-	return o.PaymentUserId, true
-}
-
-// HasPaymentUserId returns a boolean if a field has been set.
-func (o *PaymentMethodResponse) HasPaymentUserId() bool {
-	if o != nil && o.PaymentUserId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPaymentUserId gets a reference to the given string and assigns it to the PaymentUserId field.
-func (o *PaymentMethodResponse) SetPaymentUserId(v string) {
-	o.PaymentUserId = &v
-}
-
-// GetCurrency returns the Currency field value if set, zero value otherwise.
-func (o *PaymentMethodResponse) GetCurrency() string {
-	if o == nil || o.Currency == nil {
-		var ret string
-		return ret
-	}
-	return *o.Currency
-}
-
-// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PaymentMethodResponse) GetCurrencyOk() (*string, bool) {
-	if o == nil || o.Currency == nil {
-		return nil, false
-	}
-	return o.Currency, true
-}
-
-// HasCurrency returns a boolean if a field has been set.
-func (o *PaymentMethodResponse) HasCurrency() bool {
-	if o != nil && o.Currency != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCurrency gets a reference to the given string and assigns it to the Currency field.
-func (o *PaymentMethodResponse) SetCurrency(v string) {
-	o.Currency = &v
 }
 
 // GetPaymentMethodType returns the PaymentMethodType field value if set, zero value otherwise.
@@ -237,95 +135,16 @@ func (o *PaymentMethodResponse) SetMandate(v GetMandateResponse) {
 	o.Mandate = &v
 }
 
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *PaymentMethodResponse) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.CreatedAt
-}
-
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PaymentMethodResponse) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
-		return nil, false
-	}
-	return o.CreatedAt, true
-}
-
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *PaymentMethodResponse) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
-func (o *PaymentMethodResponse) SetCreatedAt(v time.Time) {
-	o.CreatedAt = &v
-}
-
-// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *PaymentMethodResponse) GetUpdatedAt() time.Time {
-	if o == nil || o.UpdatedAt == nil {
-		var ret time.Time
-		return ret
-	}
-	return *o.UpdatedAt
-}
-
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PaymentMethodResponse) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || o.UpdatedAt == nil {
-		return nil, false
-	}
-	return o.UpdatedAt, true
-}
-
-// HasUpdatedAt returns a boolean if a field has been set.
-func (o *PaymentMethodResponse) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
-func (o *PaymentMethodResponse) SetUpdatedAt(v time.Time) {
-	o.UpdatedAt = &v
-}
-
 func (o PaymentMethodResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.PaymentMethodId != nil {
 		toSerialize["payment_method_id"] = o.PaymentMethodId
-	}
-	if o.CustomerAppId != nil {
-		toSerialize["customer_app_id"] = o.CustomerAppId
-	}
-	if o.PaymentUserId != nil {
-		toSerialize["payment_user_id"] = o.PaymentUserId
-	}
-	if o.Currency != nil {
-		toSerialize["currency"] = o.Currency
 	}
 	if o.PaymentMethodType != nil {
 		toSerialize["payment_method_type"] = o.PaymentMethodType
 	}
 	if o.Mandate != nil {
 		toSerialize["mandate"] = o.Mandate
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.UpdatedAt != nil {
-		toSerialize["updated_at"] = o.UpdatedAt
 	}
 	return json.Marshal(toSerialize)
 }

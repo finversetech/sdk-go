@@ -8271,7 +8271,6 @@ components:
           status: AUTHORIZATION_REQUIRED
         payment_method:
           payment_method_type: payment_method_type
-          customer_app_id: customer_app_id
           payment_method_id: payment_method_id
           mandate:
             fees:
@@ -8347,10 +8346,6 @@ components:
               message: message
               request_id: request_id
             status: AUTHORIZATION_REQUIRED
-          updated_at: 2000-01-23T04:56:07.000+00:00
-          payment_user_id: payment_user_id
-          created_at: 2000-01-23T04:56:07.000+00:00
-          currency: currency
         status: CREATED
       properties:
         payment_link_id:
@@ -10082,7 +10077,6 @@ components:
     PaymentMethodResponse:
       example:
         payment_method_type: payment_method_type
-        customer_app_id: customer_app_id
         payment_method_id: payment_method_id
         mandate:
           fees:
@@ -10158,29 +10152,13 @@ components:
             message: message
             request_id: request_id
           status: AUTHORIZATION_REQUIRED
-        updated_at: 2000-01-23T04:56:07.000+00:00
-        payment_user_id: payment_user_id
-        created_at: 2000-01-23T04:56:07.000+00:00
-        currency: currency
       properties:
         payment_method_id:
-          type: string
-        customer_app_id:
-          type: string
-        payment_user_id:
-          type: string
-        currency:
           type: string
         payment_method_type:
           type: string
         mandate:
           $ref: '#/components/schemas/GetMandateResponse'
-        created_at:
-          format: date-time
-          type: string
-        updated_at:
-          format: date-time
-          type: string
       type: object
     BadRequestModel_error:
       properties:
