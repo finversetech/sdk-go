@@ -9652,6 +9652,9 @@ components:
         customer_app_id:
           type: string
         autopay_consent:
+          description: This indicates the value that the user's pre-set selection
+            should be. If this is a new user, the value will be set to true by default,
+            else it will be the user's current autopay value.
           type: boolean
       required:
       - autopay_consent

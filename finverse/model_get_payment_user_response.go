@@ -17,9 +17,10 @@ import (
 
 // GetPaymentUserResponse struct for GetPaymentUserResponse
 type GetPaymentUserResponse struct {
-	PaymentUserId  string `json:"payment_user_id"`
-	CustomerAppId  string `json:"customer_app_id"`
-	AutopayConsent bool   `json:"autopay_consent"`
+	PaymentUserId string `json:"payment_user_id"`
+	CustomerAppId string `json:"customer_app_id"`
+	// This indicates the value that the user's pre-set selection should be. If this is a new user, the value will be set to true by default, else it will be the user's current autopay value.
+	AutopayConsent bool `json:"autopay_consent"`
 }
 
 // NewGetPaymentUserResponse instantiates a new GetPaymentUserResponse object
