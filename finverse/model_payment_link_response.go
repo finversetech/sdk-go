@@ -42,7 +42,6 @@ type PaymentLinkResponse struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp of when the payment link was last updated in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	UpdatedAt     *time.Time                 `json:"updated_at,omitempty"`
-	Mandate       *GetMandateResponse        `json:"mandate,omitempty"`
 	Payment       *PaymentResponse           `json:"payment,omitempty"`
 	Sender        *PaymentLinkSenderResponse `json:"sender,omitempty"`
 	PaymentMethod *PaymentMethodResponse     `json:"payment_method,omitempty"`
@@ -513,38 +512,6 @@ func (o *PaymentLinkResponse) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = &v
 }
 
-// GetMandate returns the Mandate field value if set, zero value otherwise.
-func (o *PaymentLinkResponse) GetMandate() GetMandateResponse {
-	if o == nil || o.Mandate == nil {
-		var ret GetMandateResponse
-		return ret
-	}
-	return *o.Mandate
-}
-
-// GetMandateOk returns a tuple with the Mandate field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PaymentLinkResponse) GetMandateOk() (*GetMandateResponse, bool) {
-	if o == nil || o.Mandate == nil {
-		return nil, false
-	}
-	return o.Mandate, true
-}
-
-// HasMandate returns a boolean if a field has been set.
-func (o *PaymentLinkResponse) HasMandate() bool {
-	if o != nil && o.Mandate != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMandate gets a reference to the given GetMandateResponse and assigns it to the Mandate field.
-func (o *PaymentLinkResponse) SetMandate(v GetMandateResponse) {
-	o.Mandate = &v
-}
-
 // GetPayment returns the Payment field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetPayment() PaymentResponse {
 	if o == nil || o.Payment == nil {
@@ -684,9 +651,6 @@ func (o PaymentLinkResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.UpdatedAt != nil {
 		toSerialize["updated_at"] = o.UpdatedAt
-	}
-	if o.Mandate != nil {
-		toSerialize["mandate"] = o.Mandate
 	}
 	if o.Payment != nil {
 		toSerialize["payment"] = o.Payment
