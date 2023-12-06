@@ -19,19 +19,22 @@ import (
 type GetPaymentUserResponse struct {
 	PaymentUserId string `json:"payment_user_id"`
 	CustomerAppId string `json:"customer_app_id"`
-	// This indicates the value that the user's pre-set selection should be. If this is a new user, the value will be set to true by default, else it will be the user's current autopay value.
+	// The user's current autopay value
 	AutopayConsent bool `json:"autopay_consent"`
+	// This indicates the value that the user's pre-set selection should be. If this is a new user, the value will be set to true by default, else it will be the user's current autopay value.
+	AutopayPrefill bool `json:"autopay_prefill"`
 }
 
 // NewGetPaymentUserResponse instantiates a new GetPaymentUserResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetPaymentUserResponse(paymentUserId string, customerAppId string, autopayConsent bool) *GetPaymentUserResponse {
+func NewGetPaymentUserResponse(paymentUserId string, customerAppId string, autopayConsent bool, autopayPrefill bool) *GetPaymentUserResponse {
 	this := GetPaymentUserResponse{}
 	this.PaymentUserId = paymentUserId
 	this.CustomerAppId = customerAppId
 	this.AutopayConsent = autopayConsent
+	this.AutopayPrefill = autopayPrefill
 	return &this
 }
 
@@ -115,6 +118,30 @@ func (o *GetPaymentUserResponse) SetAutopayConsent(v bool) {
 	o.AutopayConsent = v
 }
 
+// GetAutopayPrefill returns the AutopayPrefill field value
+func (o *GetPaymentUserResponse) GetAutopayPrefill() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.AutopayPrefill
+}
+
+// GetAutopayPrefillOk returns a tuple with the AutopayPrefill field value
+// and a boolean to check if the value has been set.
+func (o *GetPaymentUserResponse) GetAutopayPrefillOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AutopayPrefill, true
+}
+
+// SetAutopayPrefill sets field value
+func (o *GetPaymentUserResponse) SetAutopayPrefill(v bool) {
+	o.AutopayPrefill = v
+}
+
 func (o GetPaymentUserResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -125,6 +152,9 @@ func (o GetPaymentUserResponse) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["autopay_consent"] = o.AutopayConsent
+	}
+	if true {
+		toSerialize["autopay_prefill"] = o.AutopayPrefill
 	}
 	return json.Marshal(toSerialize)
 }

@@ -9644,6 +9644,7 @@ components:
     GetPaymentUserResponse:
       example:
         customer_app_id: customer_app_id
+        autopay_prefill: true
         autopay_consent: true
         payment_user_id: payment_user_id
       properties:
@@ -9652,12 +9653,16 @@ components:
         customer_app_id:
           type: string
         autopay_consent:
+          description: The user's current autopay value
+          type: boolean
+        autopay_prefill:
           description: This indicates the value that the user's pre-set selection
             should be. If this is a new user, the value will be set to true by default,
             else it will be the user's current autopay value.
           type: boolean
       required:
       - autopay_consent
+      - autopay_prefill
       - customer_app_id
       - payment_user_id
       type: object
