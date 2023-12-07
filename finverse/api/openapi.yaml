@@ -2719,6 +2719,68 @@ paths:
         - payment_user:get
       tags:
       - customer
+  /payment_link/fvlink/payment_user/sender:
+    get:
+      description: Get sender payment user in payment link flow
+      operationId: getSenderPaymentUserPaymentLink
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetPaymentUserResponse'
+          description: Successful
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payment_links:payment_user:get
+  /payment_link/fvlink/payment_user/autopay:
+    post:
+      description: Set autopay consent for payment user
+      operationId: setAutopayConsentPaymentLink
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SetAutopayConsentRequest'
+        required: true
+      responses:
+        "200":
+          content: {}
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payment_links:payment_user:set
+      x-codegen-request-body-name: setAutopayConsentRequest
 components:
   schemas:
     Principal:
