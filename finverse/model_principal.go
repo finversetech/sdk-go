@@ -34,6 +34,7 @@ type Principal struct {
 	RedirectUri               *string                    `json:"redirect_uri,omitempty"`
 	PaymentLinkId             *string                    `json:"payment_link_id,omitempty"`
 	UniqueReferenceId         *string                    `json:"unique_reference_id,omitempty"`
+	PaymentMethodId           *string                    `json:"payment_method_id,omitempty"`
 	// The qrCode text to be used to generate the image
 	QrCodeText *string `json:"qr_code_text,omitempty"`
 }
@@ -571,6 +572,38 @@ func (o *Principal) SetUniqueReferenceId(v string) {
 	o.UniqueReferenceId = &v
 }
 
+// GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise.
+func (o *Principal) GetPaymentMethodId() string {
+	if o == nil || o.PaymentMethodId == nil {
+		var ret string
+		return ret
+	}
+	return *o.PaymentMethodId
+}
+
+// GetPaymentMethodIdOk returns a tuple with the PaymentMethodId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Principal) GetPaymentMethodIdOk() (*string, bool) {
+	if o == nil || o.PaymentMethodId == nil {
+		return nil, false
+	}
+	return o.PaymentMethodId, true
+}
+
+// HasPaymentMethodId returns a boolean if a field has been set.
+func (o *Principal) HasPaymentMethodId() bool {
+	if o != nil && o.PaymentMethodId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentMethodId gets a reference to the given string and assigns it to the PaymentMethodId field.
+func (o *Principal) SetPaymentMethodId(v string) {
+	o.PaymentMethodId = &v
+}
+
 // GetQrCodeText returns the QrCodeText field value if set, zero value otherwise.
 func (o *Principal) GetQrCodeText() string {
 	if o == nil || o.QrCodeText == nil {
@@ -655,6 +688,9 @@ func (o Principal) MarshalJSON() ([]byte, error) {
 	}
 	if o.UniqueReferenceId != nil {
 		toSerialize["unique_reference_id"] = o.UniqueReferenceId
+	}
+	if o.PaymentMethodId != nil {
+		toSerialize["payment_method_id"] = o.PaymentMethodId
 	}
 	if o.QrCodeText != nil {
 		toSerialize["qr_code_text"] = o.QrCodeText

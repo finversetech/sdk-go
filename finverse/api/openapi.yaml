@@ -2773,6 +2773,8 @@ components:
           type: string
         unique_reference_id:
           type: string
+        payment_method_id:
+          type: string
         qr_code_text:
           description: The qrCode text to be used to generate the image
           type: string
