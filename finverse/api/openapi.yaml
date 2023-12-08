@@ -2731,6 +2731,32 @@ paths:
       - Oauth2:
         - payment_links:payment_user:set
       x-codegen-request-body-name: setAutopayConsentRequest
+  /payment_link/fvlink/payment_method:
+    get:
+      description: Get payment method in payment link flow
+      operationId: getPaymentMethodPaymentLink
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethodFvLinkResponse'
+          description: Successful
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payment_links:payment_method:get
 components:
   schemas:
     Principal:
@@ -10105,6 +10131,59 @@ components:
           type: string
         mandate:
           $ref: '#/components/schemas/GetMandateResponse'
+      type: object
+    PaymentMethodFvLinkResponse:
+      example:
+        payment_method_type: payment_method_type
+        payment_method_id: payment_method_id
+        mandate:
+          mandate_status: mandate_status
+          sender_account:
+            account_number_masked: account_number_masked
+            institution_id: institution_id
+          recipient:
+            name: name
+          mandate_id: mandate_id
+          institution_id: institution_id
+      properties:
+        payment_method_id:
+          type: string
+        payment_method_type:
+          type: string
+        mandate:
+          $ref: '#/components/schemas/MandateFvLinkResponse'
+      type: object
+    MandateFvLinkResponse:
+      example:
+        mandate_status: mandate_status
+        sender_account:
+          account_number_masked: account_number_masked
+          institution_id: institution_id
+        recipient:
+          name: name
+        mandate_id: mandate_id
+        institution_id: institution_id
+      properties:
+        mandate_id:
+          type: string
+        institution_id:
+          type: string
+        mandate_status:
+          type: string
+        recipient:
+          $ref: '#/components/schemas/MandateRecipient'
+        sender_account:
+          $ref: '#/components/schemas/SenderAccountFvLinkResponse'
+      type: object
+    SenderAccountFvLinkResponse:
+      example:
+        account_number_masked: account_number_masked
+        institution_id: institution_id
+      properties:
+        account_number_masked:
+          type: string
+        institution_id:
+          type: string
       type: object
     BadRequestModel_error:
       properties:

@@ -112,6 +112,7 @@ model_login_method.go
 model_mandate_auth_encryption_info.go
 model_mandate_auth_link_customizations.go
 model_mandate_details.go
+model_mandate_fv_link_response.go
 model_mandate_recipient.go
 model_mandate_recipient_account.go
 model_mandate_recipient_request.go
@@ -134,6 +135,7 @@ model_payment_link_response.go
 model_payment_link_sender.go
 model_payment_link_sender_response.go
 model_payment_link_token_response.go
+model_payment_method_fv_link_response.go
 model_payment_method_response.go
 model_payment_response.go
 model_payment_schedule.go
@@ -150,6 +152,7 @@ model_redirect_uri_response.go
 model_refresh_data.go
 model_refresh_request.go
 model_relink_request.go
+model_sender_account_fv_link_response.go
 model_sender_detail.go
 model_set_autopay_consent_request.go
 model_set_mandate_institution_request.go
