@@ -18,7 +18,7 @@ import (
 // CreatePaymentLinkRequest struct for CreatePaymentLinkRequest
 type CreatePaymentLinkRequest struct {
 	// The amount of the payment. Expressed in currency's smallest unit or “minor unit”, as defined in ISO 4217.
-	Amount             int32                      `json:"amount"`
+	Amount             *int32                     `json:"amount,omitempty"`
 	Currency           string                     `json:"currency"`
 	LinkCustomizations *PaymentLinkCustomizations `json:"link_customizations,omitempty"`
 	// The payment link mode
@@ -36,9 +36,8 @@ type CreatePaymentLinkRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentLinkRequest(amount int32, currency string, mode string, sender PaymentLinkSender, uniqueReferenceId string) *CreatePaymentLinkRequest {
+func NewCreatePaymentLinkRequest(currency string, mode string, sender PaymentLinkSender, uniqueReferenceId string) *CreatePaymentLinkRequest {
 	this := CreatePaymentLinkRequest{}
-	this.Amount = amount
 	this.Currency = currency
 	this.Mode = mode
 	this.Sender = sender
@@ -54,28 +53,36 @@ func NewCreatePaymentLinkRequestWithDefaults() *CreatePaymentLinkRequest {
 	return &this
 }
 
-// GetAmount returns the Amount field value
+// GetAmount returns the Amount field value if set, zero value otherwise.
 func (o *CreatePaymentLinkRequest) GetAmount() int32 {
-	if o == nil {
+	if o == nil || o.Amount == nil {
 		var ret int32
 		return ret
 	}
-
-	return o.Amount
+	return *o.Amount
 }
 
-// GetAmountOk returns a tuple with the Amount field value
+// GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentLinkRequest) GetAmountOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || o.Amount == nil {
 		return nil, false
 	}
-	return &o.Amount, true
+	return o.Amount, true
 }
 
-// SetAmount sets field value
+// HasAmount returns a boolean if a field has been set.
+func (o *CreatePaymentLinkRequest) HasAmount() bool {
+	if o != nil && o.Amount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAmount gets a reference to the given int32 and assigns it to the Amount field.
 func (o *CreatePaymentLinkRequest) SetAmount(v int32) {
-	o.Amount = v
+	o.Amount = &v
 }
 
 // GetCurrency returns the Currency field value
@@ -304,7 +311,7 @@ func (o *CreatePaymentLinkRequest) SetMetadata(v map[string]string) {
 
 func (o CreatePaymentLinkRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
+	if o.Amount != nil {
 		toSerialize["amount"] = o.Amount
 	}
 	if true {
