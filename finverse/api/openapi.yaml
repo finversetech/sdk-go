@@ -10144,6 +10144,12 @@ components:
           recipient:
             name: name
           mandate_id: mandate_id
+          error:
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+            request_id: request_id
           institution_id: institution_id
       properties:
         payment_method_id:
@@ -10162,6 +10168,12 @@ components:
         recipient:
           name: name
         mandate_id: mandate_id
+        error:
+          error_code: CREDENTIALS_INVALID
+          details: details
+          type: LINKING_ERROR
+          message: message
+          request_id: request_id
         institution_id: institution_id
       properties:
         mandate_id:
@@ -10174,6 +10186,8 @@ components:
           $ref: '#/components/schemas/MandateRecipient'
         sender_account:
           $ref: '#/components/schemas/SenderAccountFvLinkResponse'
+        error:
+          $ref: '#/components/schemas/FvErrorModelV2'
       type: object
     SenderAccountFvLinkResponse:
       example:
