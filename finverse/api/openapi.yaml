@@ -8047,6 +8047,16 @@ components:
         currency: HKD
         payment_setup_options:
           future_payments: AUTOPAY
+          mandate_details:
+            end_date: 2000-01-23
+            transaction_limits:
+              period: DAILY
+              max_period_amount: 0
+              max_period_count: 6
+              max_transaction_amount: 1
+            mandate_bank_reference: mandate_bank_reference
+            description: description
+            start_date: 2000-01-23
         unique_reference_id: unique_reference_id
       properties:
         amount:
@@ -8130,6 +8140,16 @@ components:
     PaymentSetupOptions:
       example:
         future_payments: AUTOPAY
+        mandate_details:
+          end_date: 2000-01-23
+          transaction_limits:
+            period: DAILY
+            max_period_amount: 0
+            max_period_count: 6
+            max_transaction_amount: 1
+          mandate_bank_reference: mandate_bank_reference
+          description: description
+          start_date: 2000-01-23
       properties:
         future_payments:
           description: 'The type of future_payments that customer want to use. Possible
@@ -8138,8 +8158,8 @@ components:
           - AUTOPAY
           - CLICK_TO_PAY
           type: string
-      required:
-      - future_payments
+        mandate_details:
+          $ref: '#/components/schemas/MandateDetailsForPaymentLink'
       type: object
     PaymentLinkResponse:
       example:
@@ -8168,6 +8188,16 @@ components:
         currency: HKD
         payment_setup_options:
           future_payments: AUTOPAY
+          mandate_details:
+            end_date: 2000-01-23
+            transaction_limits:
+              period: DAILY
+              max_period_amount: 0
+              max_period_count: 6
+              max_transaction_amount: 1
+            mandate_bank_reference: mandate_bank_reference
+            description: description
+            start_date: 2000-01-23
         payment:
           amount: 100
           fees:
@@ -8979,6 +9009,39 @@ components:
           type: string
       required:
       - currency
+      type: object
+    MandateDetailsForPaymentLink:
+      example:
+        end_date: 2000-01-23
+        transaction_limits:
+          period: DAILY
+          max_period_amount: 0
+          max_period_count: 6
+          max_transaction_amount: 1
+        mandate_bank_reference: mandate_bank_reference
+        description: description
+        start_date: 2000-01-23
+      properties:
+        start_date:
+          description: YYYY-MM-DD, must be later than or the same as the date of creation.
+            If unspecified, default to the date of creation.
+          format: date
+          nullable: true
+          type: string
+        end_date:
+          description: YYYY-MM-DD, must be later than the date of creation.
+          format: date
+          nullable: true
+          type: string
+        transaction_limits:
+          $ref: '#/components/schemas/TransactionLimits'
+        description:
+          description: End-user facing description of the mandate (used in notifications,
+            and in payments if no description is provided)
+          type: string
+        mandate_bank_reference:
+          description: A bank specific reference, what the end user may see
+          type: string
       type: object
     SenderDetail:
       example:

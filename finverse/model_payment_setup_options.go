@@ -18,16 +18,16 @@ import (
 // PaymentSetupOptions struct for PaymentSetupOptions
 type PaymentSetupOptions struct {
 	// The type of future_payments that customer want to use. Possible values: AUTOPAY or CLICK_TO_PAY
-	FuturePayments string `json:"future_payments"`
+	FuturePayments *string                       `json:"future_payments,omitempty"`
+	MandateDetails *MandateDetailsForPaymentLink `json:"mandate_details,omitempty"`
 }
 
 // NewPaymentSetupOptions instantiates a new PaymentSetupOptions object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentSetupOptions(futurePayments string) *PaymentSetupOptions {
+func NewPaymentSetupOptions() *PaymentSetupOptions {
 	this := PaymentSetupOptions{}
-	this.FuturePayments = futurePayments
 	return &this
 }
 
@@ -39,34 +39,77 @@ func NewPaymentSetupOptionsWithDefaults() *PaymentSetupOptions {
 	return &this
 }
 
-// GetFuturePayments returns the FuturePayments field value
+// GetFuturePayments returns the FuturePayments field value if set, zero value otherwise.
 func (o *PaymentSetupOptions) GetFuturePayments() string {
-	if o == nil {
+	if o == nil || o.FuturePayments == nil {
 		var ret string
 		return ret
 	}
-
-	return o.FuturePayments
+	return *o.FuturePayments
 }
 
-// GetFuturePaymentsOk returns a tuple with the FuturePayments field value
+// GetFuturePaymentsOk returns a tuple with the FuturePayments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentSetupOptions) GetFuturePaymentsOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.FuturePayments == nil {
 		return nil, false
 	}
-	return &o.FuturePayments, true
+	return o.FuturePayments, true
 }
 
-// SetFuturePayments sets field value
+// HasFuturePayments returns a boolean if a field has been set.
+func (o *PaymentSetupOptions) HasFuturePayments() bool {
+	if o != nil && o.FuturePayments != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetFuturePayments gets a reference to the given string and assigns it to the FuturePayments field.
 func (o *PaymentSetupOptions) SetFuturePayments(v string) {
-	o.FuturePayments = v
+	o.FuturePayments = &v
+}
+
+// GetMandateDetails returns the MandateDetails field value if set, zero value otherwise.
+func (o *PaymentSetupOptions) GetMandateDetails() MandateDetailsForPaymentLink {
+	if o == nil || o.MandateDetails == nil {
+		var ret MandateDetailsForPaymentLink
+		return ret
+	}
+	return *o.MandateDetails
+}
+
+// GetMandateDetailsOk returns a tuple with the MandateDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentSetupOptions) GetMandateDetailsOk() (*MandateDetailsForPaymentLink, bool) {
+	if o == nil || o.MandateDetails == nil {
+		return nil, false
+	}
+	return o.MandateDetails, true
+}
+
+// HasMandateDetails returns a boolean if a field has been set.
+func (o *PaymentSetupOptions) HasMandateDetails() bool {
+	if o != nil && o.MandateDetails != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMandateDetails gets a reference to the given MandateDetailsForPaymentLink and assigns it to the MandateDetails field.
+func (o *PaymentSetupOptions) SetMandateDetails(v MandateDetailsForPaymentLink) {
+	o.MandateDetails = &v
 }
 
 func (o PaymentSetupOptions) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
+	if o.FuturePayments != nil {
 		toSerialize["future_payments"] = o.FuturePayments
+	}
+	if o.MandateDetails != nil {
+		toSerialize["mandate_details"] = o.MandateDetails
 	}
 	return json.Marshal(toSerialize)
 }
