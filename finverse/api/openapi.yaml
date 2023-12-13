@@ -8054,7 +8054,6 @@ components:
               max_period_amount: 0
               max_period_count: 6
               max_transaction_amount: 1
-            mandate_bank_reference: mandate_bank_reference
             description: description
             start_date: 2000-01-23
         unique_reference_id: unique_reference_id
@@ -8147,7 +8146,6 @@ components:
             max_period_amount: 0
             max_period_count: 6
             max_transaction_amount: 1
-          mandate_bank_reference: mandate_bank_reference
           description: description
           start_date: 2000-01-23
       properties:
@@ -8195,7 +8193,6 @@ components:
               max_period_amount: 0
               max_period_count: 6
               max_transaction_amount: 1
-            mandate_bank_reference: mandate_bank_reference
             description: description
             start_date: 2000-01-23
         payment:
@@ -9018,7 +9015,6 @@ components:
           max_period_amount: 0
           max_period_count: 6
           max_transaction_amount: 1
-        mandate_bank_reference: mandate_bank_reference
         description: description
         start_date: 2000-01-23
       properties:
@@ -9038,9 +9034,6 @@ components:
         description:
           description: End-user facing description of the mandate (used in notifications,
             and in payments if no description is provided)
-          type: string
-        mandate_bank_reference:
-          description: A bank specific reference, what the end user may see
           type: string
       type: object
     SenderDetail:

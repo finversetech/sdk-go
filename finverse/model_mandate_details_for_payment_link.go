@@ -24,8 +24,6 @@ type MandateDetailsForPaymentLink struct {
 	TransactionLimits *TransactionLimits `json:"transaction_limits,omitempty"`
 	// End-user facing description of the mandate (used in notifications, and in payments if no description is provided)
 	Description *string `json:"description,omitempty"`
-	// A bank specific reference, what the end user may see
-	MandateBankReference *string `json:"mandate_bank_reference,omitempty"`
 }
 
 // NewMandateDetailsForPaymentLink instantiates a new MandateDetailsForPaymentLink object
@@ -195,38 +193,6 @@ func (o *MandateDetailsForPaymentLink) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetMandateBankReference returns the MandateBankReference field value if set, zero value otherwise.
-func (o *MandateDetailsForPaymentLink) GetMandateBankReference() string {
-	if o == nil || o.MandateBankReference == nil {
-		var ret string
-		return ret
-	}
-	return *o.MandateBankReference
-}
-
-// GetMandateBankReferenceOk returns a tuple with the MandateBankReference field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MandateDetailsForPaymentLink) GetMandateBankReferenceOk() (*string, bool) {
-	if o == nil || o.MandateBankReference == nil {
-		return nil, false
-	}
-	return o.MandateBankReference, true
-}
-
-// HasMandateBankReference returns a boolean if a field has been set.
-func (o *MandateDetailsForPaymentLink) HasMandateBankReference() bool {
-	if o != nil && o.MandateBankReference != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetMandateBankReference gets a reference to the given string and assigns it to the MandateBankReference field.
-func (o *MandateDetailsForPaymentLink) SetMandateBankReference(v string) {
-	o.MandateBankReference = &v
-}
-
 func (o MandateDetailsForPaymentLink) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.StartDate.IsSet() {
@@ -240,9 +206,6 @@ func (o MandateDetailsForPaymentLink) MarshalJSON() ([]byte, error) {
 	}
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
-	}
-	if o.MandateBankReference != nil {
-		toSerialize["mandate_bank_reference"] = o.MandateBankReference
 	}
 	return json.Marshal(toSerialize)
 }
