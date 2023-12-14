@@ -7827,8 +7827,8 @@ components:
             frequency: DAILY
           transaction_limits:
             period: DAILY
-            max_period_amount: 0
-            max_period_count: 6
+            max_period_amount: 1
+            max_period_count: 1
             max_transaction_amount: 1
           mandate_bank_reference: mandate_bank_reference
           description: description
@@ -7867,8 +7867,8 @@ components:
             frequency: DAILY
           transaction_limits:
             period: DAILY
-            max_period_amount: 0
-            max_period_count: 6
+            max_period_amount: 1
+            max_period_count: 1
             max_transaction_amount: 1
           mandate_bank_reference: mandate_bank_reference
           description: description
@@ -7939,8 +7939,8 @@ components:
             frequency: DAILY
           transaction_limits:
             period: DAILY
-            max_period_amount: 0
-            max_period_count: 6
+            max_period_amount: 1
+            max_period_count: 1
             max_transaction_amount: 1
           mandate_bank_reference: mandate_bank_reference
           description: description
@@ -8051,8 +8051,8 @@ components:
             end_date: 2000-01-23
             transaction_limits:
               period: DAILY
-              max_period_amount: 0
-              max_period_count: 6
+              max_period_amount: 1
+              max_period_count: 1
               max_transaction_amount: 1
             description: description
             start_date: 2000-01-23
@@ -8143,8 +8143,8 @@ components:
           end_date: 2000-01-23
           transaction_limits:
             period: DAILY
-            max_period_amount: 0
-            max_period_count: 6
+            max_period_amount: 1
+            max_period_count: 1
             max_transaction_amount: 1
           description: description
           start_date: 2000-01-23
@@ -8190,8 +8190,8 @@ components:
             end_date: 2000-01-23
             transaction_limits:
               period: DAILY
-              max_period_amount: 0
-              max_period_count: 6
+              max_period_amount: 1
+              max_period_count: 1
               max_transaction_amount: 1
             description: description
             start_date: 2000-01-23
@@ -8305,8 +8305,8 @@ components:
                 frequency: DAILY
               transaction_limits:
                 period: DAILY
-                max_period_amount: 0
-                max_period_count: 6
+                max_period_amount: 1
+                max_period_count: 1
                 max_transaction_amount: 1
               mandate_bank_reference: mandate_bank_reference
               description: description
@@ -8554,8 +8554,8 @@ components:
             frequency: DAILY
           transaction_limits:
             period: DAILY
-            max_period_amount: 0
-            max_period_count: 6
+            max_period_amount: 1
+            max_period_count: 1
             max_transaction_amount: 1
           mandate_bank_reference: mandate_bank_reference
           description: description
@@ -8685,8 +8685,8 @@ components:
               frequency: DAILY
             transaction_limits:
               period: DAILY
-              max_period_amount: 0
-              max_period_count: 6
+              max_period_amount: 1
+              max_period_count: 1
               max_transaction_amount: 1
             mandate_bank_reference: mandate_bank_reference
             description: description
@@ -8758,8 +8758,8 @@ components:
               frequency: DAILY
             transaction_limits:
               period: DAILY
-              max_period_amount: 0
-              max_period_count: 6
+              max_period_amount: 1
+              max_period_count: 1
               max_transaction_amount: 1
             mandate_bank_reference: mandate_bank_reference
             description: description
@@ -8971,8 +8971,8 @@ components:
           frequency: DAILY
         transaction_limits:
           period: DAILY
-          max_period_amount: 0
-          max_period_count: 6
+          max_period_amount: 1
+          max_period_count: 1
           max_transaction_amount: 1
         mandate_bank_reference: mandate_bank_reference
         description: description
@@ -9012,8 +9012,8 @@ components:
         end_date: 2000-01-23
         transaction_limits:
           period: DAILY
-          max_period_amount: 0
-          max_period_count: 6
+          max_period_amount: 1
+          max_period_count: 1
           max_transaction_amount: 1
         description: description
         start_date: 2000-01-23
@@ -9091,23 +9091,26 @@ components:
     TransactionLimits:
       example:
         period: DAILY
-        max_period_amount: 0
-        max_period_count: 6
+        max_period_amount: 1
+        max_period_count: 1
         max_transaction_amount: 1
       properties:
         max_period_amount:
           description: Maximum amount of money that can be paid during the reference
             period (across any number of transactions). Expressed in currency's smallest
             unit or “minor unit”, as defined in ISO 4217.
+          minimum: 1
           type: integer
         max_period_count:
           description: Maximum number of transactions (of any amount) that can be
             executed during the reference period.
+          minimum: 1
           type: integer
         max_transaction_amount:
           description: The maximum amount of money that can be transferred in a single
             transaction under this mandate. Expressed in currency's smallest unit
             or “minor unit”, as defined in ISO 4217.
+          minimum: 1
           type: integer
         period:
           description: Reference calendar periods for the payment limits. Possible
@@ -9120,6 +9123,8 @@ components:
           - YEARLY
           nullable: true
           type: string
+      required:
+      - max_transaction_amount
       type: object
     GetMandateAuthLinkResponse:
       example:
@@ -9287,8 +9292,8 @@ components:
             frequency: DAILY
           transaction_limits:
             period: DAILY
-            max_period_amount: 0
-            max_period_count: 6
+            max_period_amount: 1
+            max_period_count: 1
             max_transaction_amount: 1
           mandate_bank_reference: mandate_bank_reference
           description: description
@@ -10146,8 +10151,8 @@ components:
               frequency: DAILY
             transaction_limits:
               period: DAILY
-              max_period_amount: 0
-              max_period_count: 6
+              max_period_amount: 1
+              max_period_count: 1
               max_transaction_amount: 1
             mandate_bank_reference: mandate_bank_reference
             description: description
