@@ -7025,6 +7025,7 @@ components:
         metadata:
           key: metadata
         payment_details:
+          payment_method_id: payment_method_id
           transaction_reference_id: transaction_reference_id
           description: description
           mandate_id: mandate_id
@@ -7068,6 +7069,7 @@ components:
       type: object
     PaymentDetails2:
       example:
+        payment_method_id: payment_method_id
         transaction_reference_id: transaction_reference_id
         description: description
         mandate_id: mandate_id
@@ -7079,11 +7081,12 @@ components:
         mandate_id:
           description: ID of the mandate this pament is referring to.
           type: string
+        payment_method_id:
+          description: ID of the payment method this pament is referring to.
+          type: string
         transaction_reference_id:
           description: Customer's ID for this transaction
           type: string
-      required:
-      - mandate_id
       type: object
     PaymentResponse:
       example:
@@ -7100,6 +7103,7 @@ components:
         metadata:
           key: metadata
         payment_details:
+          payment_method_id: payment_method_id
           transaction_reference_id: transaction_reference_id
           description: description
           mandate_id: mandate_id
@@ -7236,6 +7240,7 @@ components:
           metadata:
             key: metadata
           payment_details:
+            payment_method_id: payment_method_id
             transaction_reference_id: transaction_reference_id
             description: description
             mandate_id: mandate_id
@@ -7302,6 +7307,7 @@ components:
           metadata:
             key: metadata
           payment_details:
+            payment_method_id: payment_method_id
             transaction_reference_id: transaction_reference_id
             description: description
             mandate_id: mandate_id
@@ -8209,6 +8215,7 @@ components:
           metadata:
             key: metadata
           payment_details:
+            payment_method_id: payment_method_id
             transaction_reference_id: transaction_reference_id
             description: description
             mandate_id: mandate_id

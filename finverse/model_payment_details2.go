@@ -20,7 +20,9 @@ type PaymentDetails2 struct {
 	// The transaction description provided to banks, which banks will show to their customers.
 	Description *string `json:"description,omitempty"`
 	// ID of the mandate this pament is referring to.
-	MandateId string `json:"mandate_id"`
+	MandateId *string `json:"mandate_id,omitempty"`
+	// ID of the payment method this pament is referring to.
+	PaymentMethodId *string `json:"payment_method_id,omitempty"`
 	// Customer's ID for this transaction
 	TransactionReferenceId *string `json:"transaction_reference_id,omitempty"`
 }
@@ -29,9 +31,8 @@ type PaymentDetails2 struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentDetails2(mandateId string) *PaymentDetails2 {
+func NewPaymentDetails2() *PaymentDetails2 {
 	this := PaymentDetails2{}
-	this.MandateId = mandateId
 	return &this
 }
 
@@ -75,28 +76,68 @@ func (o *PaymentDetails2) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetMandateId returns the MandateId field value
+// GetMandateId returns the MandateId field value if set, zero value otherwise.
 func (o *PaymentDetails2) GetMandateId() string {
-	if o == nil {
+	if o == nil || o.MandateId == nil {
 		var ret string
 		return ret
 	}
-
-	return o.MandateId
+	return *o.MandateId
 }
 
-// GetMandateIdOk returns a tuple with the MandateId field value
+// GetMandateIdOk returns a tuple with the MandateId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentDetails2) GetMandateIdOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.MandateId == nil {
 		return nil, false
 	}
-	return &o.MandateId, true
+	return o.MandateId, true
 }
 
-// SetMandateId sets field value
+// HasMandateId returns a boolean if a field has been set.
+func (o *PaymentDetails2) HasMandateId() bool {
+	if o != nil && o.MandateId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMandateId gets a reference to the given string and assigns it to the MandateId field.
 func (o *PaymentDetails2) SetMandateId(v string) {
-	o.MandateId = v
+	o.MandateId = &v
+}
+
+// GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise.
+func (o *PaymentDetails2) GetPaymentMethodId() string {
+	if o == nil || o.PaymentMethodId == nil {
+		var ret string
+		return ret
+	}
+	return *o.PaymentMethodId
+}
+
+// GetPaymentMethodIdOk returns a tuple with the PaymentMethodId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentDetails2) GetPaymentMethodIdOk() (*string, bool) {
+	if o == nil || o.PaymentMethodId == nil {
+		return nil, false
+	}
+	return o.PaymentMethodId, true
+}
+
+// HasPaymentMethodId returns a boolean if a field has been set.
+func (o *PaymentDetails2) HasPaymentMethodId() bool {
+	if o != nil && o.PaymentMethodId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentMethodId gets a reference to the given string and assigns it to the PaymentMethodId field.
+func (o *PaymentDetails2) SetPaymentMethodId(v string) {
+	o.PaymentMethodId = &v
 }
 
 // GetTransactionReferenceId returns the TransactionReferenceId field value if set, zero value otherwise.
@@ -136,8 +177,11 @@ func (o PaymentDetails2) MarshalJSON() ([]byte, error) {
 	if o.Description != nil {
 		toSerialize["description"] = o.Description
 	}
-	if true {
+	if o.MandateId != nil {
 		toSerialize["mandate_id"] = o.MandateId
+	}
+	if o.PaymentMethodId != nil {
+		toSerialize["payment_method_id"] = o.PaymentMethodId
 	}
 	if o.TransactionReferenceId != nil {
 		toSerialize["transaction_reference_id"] = o.TransactionReferenceId
