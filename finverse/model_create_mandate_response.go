@@ -24,6 +24,8 @@ type CreateMandateResponse struct {
 	UpdatedAt time.Time `json:"updated_at"`
 	// Finverse Mandate ID (ULID)
 	MandateId string `json:"mandate_id"`
+	// Finverse Payment Method ID (ULID)
+	PaymentMethodId *string `json:"payment_method_id,omitempty"`
 	// Mandate status
 	Status           string                   `json:"status"`
 	Recipient        MandateRecipient         `json:"recipient"`
@@ -138,6 +140,38 @@ func (o *CreateMandateResponse) GetMandateIdOk() (*string, bool) {
 // SetMandateId sets field value
 func (o *CreateMandateResponse) SetMandateId(v string) {
 	o.MandateId = v
+}
+
+// GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise.
+func (o *CreateMandateResponse) GetPaymentMethodId() string {
+	if o == nil || o.PaymentMethodId == nil {
+		var ret string
+		return ret
+	}
+	return *o.PaymentMethodId
+}
+
+// GetPaymentMethodIdOk returns a tuple with the PaymentMethodId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateMandateResponse) GetPaymentMethodIdOk() (*string, bool) {
+	if o == nil || o.PaymentMethodId == nil {
+		return nil, false
+	}
+	return o.PaymentMethodId, true
+}
+
+// HasPaymentMethodId returns a boolean if a field has been set.
+func (o *CreateMandateResponse) HasPaymentMethodId() bool {
+	if o != nil && o.PaymentMethodId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentMethodId gets a reference to the given string and assigns it to the PaymentMethodId field.
+func (o *CreateMandateResponse) SetPaymentMethodId(v string) {
+	o.PaymentMethodId = &v
 }
 
 // GetStatus returns the Status field value
@@ -406,6 +440,9 @@ func (o CreateMandateResponse) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["mandate_id"] = o.MandateId
+	}
+	if o.PaymentMethodId != nil {
+		toSerialize["payment_method_id"] = o.PaymentMethodId
 	}
 	if true {
 		toSerialize["status"] = o.Status

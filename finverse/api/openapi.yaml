@@ -7917,6 +7917,18 @@ components:
           paid_by: RECIPIENT
         metadata:
           key: metadata
+        recipient_account:
+          account_type: SETTLEMENT_ACCOUNT
+          account_id: account_id
+        created_at: 2000-01-23T04:56:07.000+00:00
+        mandate_id: mandate_id
+        error:
+          error_code: CREDENTIALS_INVALID
+          details: details
+          type: LINKING_ERROR
+          message: message
+          request_id: request_id
+        payment_method_id: payment_method_id
         updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
           user_type: INDIVIDUAL
@@ -7952,9 +7964,6 @@ components:
           description: description
           currency: currency
           start_date: 2000-01-23
-        recipient_account:
-          account_type: SETTLEMENT_ACCOUNT
-          account_id: account_id
         sender_account:
           account_number:
             number: number
@@ -7970,14 +7979,6 @@ components:
           institution_id: hsbc-hk
         recipient:
           name: name
-        created_at: 2000-01-23T04:56:07.000+00:00
-        mandate_id: mandate_id
-        error:
-          error_code: CREDENTIALS_INVALID
-          details: details
-          type: LINKING_ERROR
-          message: message
-          request_id: request_id
         status: AUTHORIZATION_REQUIRED
       properties:
         created_at:
@@ -7990,6 +7991,9 @@ components:
           type: string
         mandate_id:
           description: Finverse Mandate ID (ULID)
+          type: string
+        payment_method_id:
+          description: Finverse Payment Method ID (ULID)
           type: string
         status:
           description: Mandate status
@@ -8284,6 +8288,18 @@ components:
               paid_by: RECIPIENT
             metadata:
               key: metadata
+            recipient_account:
+              account_type: SETTLEMENT_ACCOUNT
+              account_id: account_id
+            created_at: 2000-01-23T04:56:07.000+00:00
+            mandate_id: mandate_id
+            error:
+              error_code: CREDENTIALS_INVALID
+              details: details
+              type: LINKING_ERROR
+              message: message
+              request_id: request_id
+            payment_method_id: payment_method_id
             updated_at: 2000-01-23T04:56:07.000+00:00
             sender:
               user_type: INDIVIDUAL
@@ -8319,9 +8335,6 @@ components:
               description: description
               currency: currency
               start_date: 2000-01-23
-            recipient_account:
-              account_type: SETTLEMENT_ACCOUNT
-              account_id: account_id
             sender_account:
               account_number:
                 number: number
@@ -8337,14 +8350,6 @@ components:
               institution_id: hsbc-hk
             recipient:
               name: name
-            created_at: 2000-01-23T04:56:07.000+00:00
-            mandate_id: mandate_id
-            error:
-              error_code: CREDENTIALS_INVALID
-              details: details
-              type: LINKING_ERROR
-              message: message
-              request_id: request_id
             status: AUTHORIZATION_REQUIRED
         status: CREATED
       properties:
@@ -8533,6 +8538,18 @@ components:
           paid_by: RECIPIENT
         metadata:
           key: metadata
+        recipient_account:
+          account_type: SETTLEMENT_ACCOUNT
+          account_id: account_id
+        created_at: 2000-01-23T04:56:07.000+00:00
+        mandate_id: mandate_id
+        error:
+          error_code: CREDENTIALS_INVALID
+          details: details
+          type: LINKING_ERROR
+          message: message
+          request_id: request_id
+        payment_method_id: payment_method_id
         updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
           user_type: INDIVIDUAL
@@ -8568,9 +8585,6 @@ components:
           description: description
           currency: currency
           start_date: 2000-01-23
-        recipient_account:
-          account_type: SETTLEMENT_ACCOUNT
-          account_id: account_id
         sender_account:
           account_number:
             number: number
@@ -8586,14 +8600,6 @@ components:
           institution_id: hsbc-hk
         recipient:
           name: name
-        created_at: 2000-01-23T04:56:07.000+00:00
-        mandate_id: mandate_id
-        error:
-          error_code: CREDENTIALS_INVALID
-          details: details
-          type: LINKING_ERROR
-          message: message
-          request_id: request_id
         status: AUTHORIZATION_REQUIRED
       properties:
         created_at:
@@ -8606,6 +8612,9 @@ components:
           type: string
         mandate_id:
           description: Finverse Mandate ID (ULID)
+          type: string
+        payment_method_id:
+          description: Finverse Payment Method ID (ULID)
           type: string
         status:
           description: Mandate Status
@@ -8664,6 +8673,18 @@ components:
             paid_by: RECIPIENT
           metadata:
             key: metadata
+          recipient_account:
+            account_type: SETTLEMENT_ACCOUNT
+            account_id: account_id
+          created_at: 2000-01-23T04:56:07.000+00:00
+          mandate_id: mandate_id
+          error:
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+            request_id: request_id
+          payment_method_id: payment_method_id
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
             user_type: INDIVIDUAL
@@ -8699,9 +8720,6 @@ components:
             description: description
             currency: currency
             start_date: 2000-01-23
-          recipient_account:
-            account_type: SETTLEMENT_ACCOUNT
-            account_id: account_id
           sender_account:
             account_number:
               number: number
@@ -8717,14 +8735,6 @@ components:
             institution_id: hsbc-hk
           recipient:
             name: name
-          created_at: 2000-01-23T04:56:07.000+00:00
-          mandate_id: mandate_id
-          error:
-            error_code: CREDENTIALS_INVALID
-            details: details
-            type: LINKING_ERROR
-            message: message
-            request_id: request_id
           status: AUTHORIZATION_REQUIRED
         - fees:
           - paid_by_account_id: The payment account ID
@@ -8737,6 +8747,18 @@ components:
             paid_by: RECIPIENT
           metadata:
             key: metadata
+          recipient_account:
+            account_type: SETTLEMENT_ACCOUNT
+            account_id: account_id
+          created_at: 2000-01-23T04:56:07.000+00:00
+          mandate_id: mandate_id
+          error:
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+            request_id: request_id
+          payment_method_id: payment_method_id
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
             user_type: INDIVIDUAL
@@ -8772,9 +8794,6 @@ components:
             description: description
             currency: currency
             start_date: 2000-01-23
-          recipient_account:
-            account_type: SETTLEMENT_ACCOUNT
-            account_id: account_id
           sender_account:
             account_number:
               number: number
@@ -8790,14 +8809,6 @@ components:
             institution_id: hsbc-hk
           recipient:
             name: name
-          created_at: 2000-01-23T04:56:07.000+00:00
-          mandate_id: mandate_id
-          error:
-            error_code: CREDENTIALS_INVALID
-            details: details
-            type: LINKING_ERROR
-            message: message
-            request_id: request_id
           status: AUTHORIZATION_REQUIRED
       properties:
         mandates:
@@ -10130,6 +10141,18 @@ components:
             paid_by: RECIPIENT
           metadata:
             key: metadata
+          recipient_account:
+            account_type: SETTLEMENT_ACCOUNT
+            account_id: account_id
+          created_at: 2000-01-23T04:56:07.000+00:00
+          mandate_id: mandate_id
+          error:
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+            request_id: request_id
+          payment_method_id: payment_method_id
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
             user_type: INDIVIDUAL
@@ -10165,9 +10188,6 @@ components:
             description: description
             currency: currency
             start_date: 2000-01-23
-          recipient_account:
-            account_type: SETTLEMENT_ACCOUNT
-            account_id: account_id
           sender_account:
             account_number:
               number: number
@@ -10183,14 +10203,6 @@ components:
             institution_id: hsbc-hk
           recipient:
             name: name
-          created_at: 2000-01-23T04:56:07.000+00:00
-          mandate_id: mandate_id
-          error:
-            error_code: CREDENTIALS_INVALID
-            details: details
-            type: LINKING_ERROR
-            message: message
-            request_id: request_id
           status: AUTHORIZATION_REQUIRED
       properties:
         payment_method_id:
