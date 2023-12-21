@@ -8048,8 +8048,8 @@ components:
           redirect_uri: redirect_uri
           ui_mode: redirect
         payment_details:
+          external_transaction_reference: external_transaction_reference
           description: description
-          external_invoice_number: external_invoice_number
         sender:
           name: Chan Li Pak
           email: email
@@ -8114,14 +8114,17 @@ components:
       type: object
     PaymentLinkDetails:
       example:
+        external_transaction_reference: external_transaction_reference
         description: description
-        external_invoice_number: external_invoice_number
       properties:
         description:
           type: string
-        external_invoice_number:
-          description: For external invoice reference
+        external_transaction_reference:
+          description: For external invoice/transaction reference
           type: string
+      required:
+      - description
+      - external_transaction_reference
       type: object
     PaymentLinkSender:
       example:
@@ -8175,8 +8178,8 @@ components:
         metadata:
           key: metadata
         payment_details:
+          external_transaction_reference: external_transaction_reference
           description: description
-          external_invoice_number: external_invoice_number
         payment_link_id: payment_link_id
         created_at: 2000-01-23T04:56:07.000+00:00
         unique_reference_id: unique_reference_id

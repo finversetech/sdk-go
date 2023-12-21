@@ -17,17 +17,19 @@ import (
 
 // PaymentLinkDetails struct for PaymentLinkDetails
 type PaymentLinkDetails struct {
-	Description *string `json:"description,omitempty"`
-	// For external invoice reference
-	ExternalInvoiceNumber *string `json:"external_invoice_number,omitempty"`
+	Description string `json:"description"`
+	// For external invoice/transaction reference
+	ExternalTransactionReference string `json:"external_transaction_reference"`
 }
 
 // NewPaymentLinkDetails instantiates a new PaymentLinkDetails object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentLinkDetails() *PaymentLinkDetails {
+func NewPaymentLinkDetails(description string, externalTransactionReference string) *PaymentLinkDetails {
 	this := PaymentLinkDetails{}
+	this.Description = description
+	this.ExternalTransactionReference = externalTransactionReference
 	return &this
 }
 
@@ -39,77 +41,61 @@ func NewPaymentLinkDetailsWithDefaults() *PaymentLinkDetails {
 	return &this
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value
 func (o *PaymentLinkDetails) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkDetails) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.Description, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *PaymentLinkDetails) HasDescription() bool {
-	if o != nil && o.Description != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription sets field value
 func (o *PaymentLinkDetails) SetDescription(v string) {
-	o.Description = &v
+	o.Description = v
 }
 
-// GetExternalInvoiceNumber returns the ExternalInvoiceNumber field value if set, zero value otherwise.
-func (o *PaymentLinkDetails) GetExternalInvoiceNumber() string {
-	if o == nil || o.ExternalInvoiceNumber == nil {
+// GetExternalTransactionReference returns the ExternalTransactionReference field value
+func (o *PaymentLinkDetails) GetExternalTransactionReference() string {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.ExternalInvoiceNumber
+
+	return o.ExternalTransactionReference
 }
 
-// GetExternalInvoiceNumberOk returns a tuple with the ExternalInvoiceNumber field value if set, nil otherwise
+// GetExternalTransactionReferenceOk returns a tuple with the ExternalTransactionReference field value
 // and a boolean to check if the value has been set.
-func (o *PaymentLinkDetails) GetExternalInvoiceNumberOk() (*string, bool) {
-	if o == nil || o.ExternalInvoiceNumber == nil {
+func (o *PaymentLinkDetails) GetExternalTransactionReferenceOk() (*string, bool) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ExternalInvoiceNumber, true
+	return &o.ExternalTransactionReference, true
 }
 
-// HasExternalInvoiceNumber returns a boolean if a field has been set.
-func (o *PaymentLinkDetails) HasExternalInvoiceNumber() bool {
-	if o != nil && o.ExternalInvoiceNumber != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetExternalInvoiceNumber gets a reference to the given string and assigns it to the ExternalInvoiceNumber field.
-func (o *PaymentLinkDetails) SetExternalInvoiceNumber(v string) {
-	o.ExternalInvoiceNumber = &v
+// SetExternalTransactionReference sets field value
+func (o *PaymentLinkDetails) SetExternalTransactionReference(v string) {
+	o.ExternalTransactionReference = v
 }
 
 func (o PaymentLinkDetails) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
+	if true {
 		toSerialize["description"] = o.Description
 	}
-	if o.ExternalInvoiceNumber != nil {
-		toSerialize["external_invoice_number"] = o.ExternalInvoiceNumber
+	if true {
+		toSerialize["external_transaction_reference"] = o.ExternalTransactionReference
 	}
 	return json.Marshal(toSerialize)
 }
