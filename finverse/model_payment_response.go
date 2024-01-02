@@ -21,7 +21,7 @@ type PaymentResponse struct {
 	// Finverse Payment ID
 	PaymentId *string `json:"payment_id,omitempty"`
 	// Amount to be paid, in currency's smallest unit or “minor unit”, as defined in ISO 4217. For example, HKD 100.01 is represented as amount = 10001 (minor unit = cents). For currencies without minor units (e.g. VND, JPY), the amount is represented as is, without modification. For example, VND 15101 is represented as amount = 15101.
-	Amount *int32 `json:"amount,omitempty"`
+	Amount int32 `json:"amount"`
 	// The currency code as defined in ISO 4217.
 	Currency *string `json:"currency,omitempty"`
 	// Indicates whether this is a mandate-based payment or one-off direct payment to an account. Possible values - MANDATE, SINGLE
@@ -47,8 +47,9 @@ type PaymentResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentResponse() *PaymentResponse {
+func NewPaymentResponse(amount int32) *PaymentResponse {
 	this := PaymentResponse{}
+	this.Amount = amount
 	return &this
 }
 
@@ -92,36 +93,28 @@ func (o *PaymentResponse) SetPaymentId(v string) {
 	o.PaymentId = &v
 }
 
-// GetAmount returns the Amount field value if set, zero value otherwise.
+// GetAmount returns the Amount field value
 func (o *PaymentResponse) GetAmount() int32 {
-	if o == nil || o.Amount == nil {
+	if o == nil {
 		var ret int32
 		return ret
 	}
-	return *o.Amount
+
+	return o.Amount
 }
 
-// GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
+// GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetAmountOk() (*int32, bool) {
-	if o == nil || o.Amount == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.Amount, true
+	return &o.Amount, true
 }
 
-// HasAmount returns a boolean if a field has been set.
-func (o *PaymentResponse) HasAmount() bool {
-	if o != nil && o.Amount != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAmount gets a reference to the given int32 and assigns it to the Amount field.
+// SetAmount sets field value
 func (o *PaymentResponse) SetAmount(v int32) {
-	o.Amount = &v
+	o.Amount = v
 }
 
 // GetCurrency returns the Currency field value if set, zero value otherwise.
@@ -545,7 +538,7 @@ func (o PaymentResponse) MarshalJSON() ([]byte, error) {
 	if o.PaymentId != nil {
 		toSerialize["payment_id"] = o.PaymentId
 	}
-	if o.Amount != nil {
+	if true {
 		toSerialize["amount"] = o.Amount
 	}
 	if o.Currency != nil {

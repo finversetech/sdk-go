@@ -7223,6 +7223,8 @@ components:
           type: object
         error:
           $ref: '#/components/schemas/FvErrorModelV2'
+      required:
+      - amount
       type: object
     ListPaymentsResponse:
       example:
