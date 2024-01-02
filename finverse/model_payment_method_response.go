@@ -20,6 +20,7 @@ type PaymentMethodResponse struct {
 	PaymentMethodId   *string             `json:"payment_method_id,omitempty"`
 	PaymentMethodType *string             `json:"payment_method_type,omitempty"`
 	Mandate           *GetMandateResponse `json:"mandate,omitempty"`
+	Card              *FVCard             `json:"card,omitempty"`
 }
 
 // NewPaymentMethodResponse instantiates a new PaymentMethodResponse object
@@ -135,6 +136,38 @@ func (o *PaymentMethodResponse) SetMandate(v GetMandateResponse) {
 	o.Mandate = &v
 }
 
+// GetCard returns the Card field value if set, zero value otherwise.
+func (o *PaymentMethodResponse) GetCard() FVCard {
+	if o == nil || o.Card == nil {
+		var ret FVCard
+		return ret
+	}
+	return *o.Card
+}
+
+// GetCardOk returns a tuple with the Card field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentMethodResponse) GetCardOk() (*FVCard, bool) {
+	if o == nil || o.Card == nil {
+		return nil, false
+	}
+	return o.Card, true
+}
+
+// HasCard returns a boolean if a field has been set.
+func (o *PaymentMethodResponse) HasCard() bool {
+	if o != nil && o.Card != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCard gets a reference to the given FVCard and assigns it to the Card field.
+func (o *PaymentMethodResponse) SetCard(v FVCard) {
+	o.Card = &v
+}
+
 func (o PaymentMethodResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.PaymentMethodId != nil {
@@ -145,6 +178,9 @@ func (o PaymentMethodResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Mandate != nil {
 		toSerialize["mandate"] = o.Mandate
+	}
+	if o.Card != nil {
+		toSerialize["card"] = o.Card
 	}
 	return json.Marshal(toSerialize)
 }

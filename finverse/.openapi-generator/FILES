@@ -53,6 +53,7 @@ model_err_body_model_v2.go
 model_error_response.go
 model_fee.go
 model_fps_qr_code_response.go
+model_fv_card.go
 model_fv_error_model.go
 model_fv_error_model_v2.go
 model_generic_amount.go
