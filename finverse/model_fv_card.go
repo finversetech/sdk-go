@@ -22,8 +22,6 @@ type FVCard struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-	// Finverse Card ID (ULID)
-	CardId *string `json:"card_id,omitempty"`
 	// Card Status
 	Status *string `json:"status,omitempty"`
 }
@@ -109,38 +107,6 @@ func (o *FVCard) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = &v
 }
 
-// GetCardId returns the CardId field value if set, zero value otherwise.
-func (o *FVCard) GetCardId() string {
-	if o == nil || o.CardId == nil {
-		var ret string
-		return ret
-	}
-	return *o.CardId
-}
-
-// GetCardIdOk returns a tuple with the CardId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FVCard) GetCardIdOk() (*string, bool) {
-	if o == nil || o.CardId == nil {
-		return nil, false
-	}
-	return o.CardId, true
-}
-
-// HasCardId returns a boolean if a field has been set.
-func (o *FVCard) HasCardId() bool {
-	if o != nil && o.CardId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetCardId gets a reference to the given string and assigns it to the CardId field.
-func (o *FVCard) SetCardId(v string) {
-	o.CardId = &v
-}
-
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *FVCard) GetStatus() string {
 	if o == nil || o.Status == nil {
@@ -180,9 +146,6 @@ func (o FVCard) MarshalJSON() ([]byte, error) {
 	}
 	if o.UpdatedAt != nil {
 		toSerialize["updated_at"] = o.UpdatedAt
-	}
-	if o.CardId != nil {
-		toSerialize["card_id"] = o.CardId
 	}
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
