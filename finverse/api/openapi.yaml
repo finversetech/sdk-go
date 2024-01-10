@@ -1883,6 +1883,7 @@ paths:
           enum:
           - MANDATE
           - SINGLE
+          - CARD
           type: string
       - description: The mandate the payment belongs to
         in: query
@@ -7030,7 +7031,6 @@ components:
           description: description
           mandate_id: mandate_id
         currency: HKD
-        type: MANDATE
       properties:
         amount:
           description: Amount to be paid, in currency's smallest unit or “minor unit”,
@@ -7045,13 +7045,6 @@ components:
           example: HKD
           maxLength: 3
           type: string
-        type:
-          description: Indicates whether this is a mandate-based payment or one-off
-            direct payment to an account. Possible values - MANDATE, SINGLE
-          enum:
-          - MANDATE
-          - SINGLE
-          type: string
         payment_details:
           $ref: '#/components/schemas/PaymentDetails2'
         metadata:
@@ -7065,7 +7058,6 @@ components:
       - amount
       - currency
       - payment_details
-      - type
       type: object
     PaymentDetails2:
       example:
@@ -7179,6 +7171,7 @@ components:
           enum:
           - MANDATE
           - SINGLE
+          - CARD
           type: string
         updated_at:
           description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
