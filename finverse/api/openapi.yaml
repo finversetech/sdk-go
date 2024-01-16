@@ -10275,6 +10275,10 @@ components:
             message: message
             request_id: request_id
           institution_id: institution_id
+        card:
+          last4: last4
+          brand: brand
+          status: UNKNOWN
       properties:
         payment_method_id:
           type: string
@@ -10282,6 +10286,8 @@ components:
           type: string
         mandate:
           $ref: '#/components/schemas/MandateFvLinkResponse'
+        card:
+          $ref: '#/components/schemas/CardFvLinkResponse'
       type: object
     MandateFvLinkResponse:
       example:
@@ -10312,6 +10318,23 @@ components:
           $ref: '#/components/schemas/SenderAccountFvLinkResponse'
         error:
           $ref: '#/components/schemas/FvErrorModelV2'
+      type: object
+    CardFvLinkResponse:
+      example:
+        last4: last4
+        brand: brand
+        status: UNKNOWN
+      properties:
+        status:
+          enum:
+          - UNKNOWN
+          - PROCESSING
+          - SUCCEEDED
+          type: string
+        brand:
+          type: string
+        last4:
+          type: string
       type: object
     SenderAccountFvLinkResponse:
       example:

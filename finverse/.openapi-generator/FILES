@@ -25,6 +25,7 @@ model_bad_request_model_v2_error.go
 model_balance_history.go
 model_card_account.go
 model_card_details.go
+model_card_fv_link_response.go
 model_card_total.go
 model_category_predictions.go
 model_composite_statement_link.go
