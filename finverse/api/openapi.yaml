@@ -8350,10 +8350,11 @@ components:
               name: name
             status: AUTHORIZATION_REQUIRED
           card:
-            last4: "1234"
+            card_details:
+              last4: "1234"
+              brand: VISA
             updated_at: 2000-01-23T04:56:07.000+00:00
             created_at: 2000-01-23T04:56:07.000+00:00
-            brand: VISA
             status: UNKNOWN
         status: CREATED
       properties:
@@ -8531,10 +8532,11 @@ components:
       type: object
     FVCard:
       example:
-        last4: "1234"
+        card_details:
+          last4: "1234"
+          brand: VISA
         updated_at: 2000-01-23T04:56:07.000+00:00
         created_at: 2000-01-23T04:56:07.000+00:00
-        brand: VISA
         status: UNKNOWN
       properties:
         created_at:
@@ -8552,6 +8554,14 @@ components:
           - PROCESSING
           - SUCCEEDED
           type: string
+        card_details:
+          $ref: '#/components/schemas/FVCardDetails'
+      type: object
+    FVCardDetails:
+      example:
+        last4: "1234"
+        brand: VISA
+      properties:
         brand:
           description: The credit card brand
           example: VISA
@@ -10241,10 +10251,11 @@ components:
             name: name
           status: AUTHORIZATION_REQUIRED
         card:
-          last4: "1234"
+          card_details:
+            last4: "1234"
+            brand: VISA
           updated_at: 2000-01-23T04:56:07.000+00:00
           created_at: 2000-01-23T04:56:07.000+00:00
-          brand: VISA
           status: UNKNOWN
       properties:
         payment_method_id:
@@ -10276,8 +10287,9 @@ components:
             request_id: request_id
           institution_id: institution_id
         card:
-          last4: last4
-          brand: brand
+          card_details:
+            last4: last4
+            brand: brand
           status: UNKNOWN
       properties:
         payment_method_id:
@@ -10321,8 +10333,9 @@ components:
       type: object
     CardFvLinkResponse:
       example:
-        last4: last4
-        brand: brand
+        card_details:
+          last4: last4
+          brand: brand
         status: UNKNOWN
       properties:
         status:
@@ -10331,6 +10344,14 @@ components:
           - PROCESSING
           - SUCCEEDED
           type: string
+        card_details:
+          $ref: '#/components/schemas/CardFvLinkDetails'
+      type: object
+    CardFvLinkDetails:
+      example:
+        last4: last4
+        brand: brand
+      properties:
         brand:
           type: string
         last4:

@@ -23,11 +23,8 @@ type FVCard struct {
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	// Card Status
-	Status *string `json:"status,omitempty"`
-	// The credit card brand
-	Brand *string `json:"brand,omitempty"`
-	// Last 4 digits of the credit card number
-	Last4 *string `json:"last4,omitempty"`
+	Status      *string        `json:"status,omitempty"`
+	CardDetails *FVCardDetails `json:"card_details,omitempty"`
 }
 
 // NewFVCard instantiates a new FVCard object
@@ -143,68 +140,36 @@ func (o *FVCard) SetStatus(v string) {
 	o.Status = &v
 }
 
-// GetBrand returns the Brand field value if set, zero value otherwise.
-func (o *FVCard) GetBrand() string {
-	if o == nil || o.Brand == nil {
-		var ret string
+// GetCardDetails returns the CardDetails field value if set, zero value otherwise.
+func (o *FVCard) GetCardDetails() FVCardDetails {
+	if o == nil || o.CardDetails == nil {
+		var ret FVCardDetails
 		return ret
 	}
-	return *o.Brand
+	return *o.CardDetails
 }
 
-// GetBrandOk returns a tuple with the Brand field value if set, nil otherwise
+// GetCardDetailsOk returns a tuple with the CardDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FVCard) GetBrandOk() (*string, bool) {
-	if o == nil || o.Brand == nil {
+func (o *FVCard) GetCardDetailsOk() (*FVCardDetails, bool) {
+	if o == nil || o.CardDetails == nil {
 		return nil, false
 	}
-	return o.Brand, true
+	return o.CardDetails, true
 }
 
-// HasBrand returns a boolean if a field has been set.
-func (o *FVCard) HasBrand() bool {
-	if o != nil && o.Brand != nil {
+// HasCardDetails returns a boolean if a field has been set.
+func (o *FVCard) HasCardDetails() bool {
+	if o != nil && o.CardDetails != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetBrand gets a reference to the given string and assigns it to the Brand field.
-func (o *FVCard) SetBrand(v string) {
-	o.Brand = &v
-}
-
-// GetLast4 returns the Last4 field value if set, zero value otherwise.
-func (o *FVCard) GetLast4() string {
-	if o == nil || o.Last4 == nil {
-		var ret string
-		return ret
-	}
-	return *o.Last4
-}
-
-// GetLast4Ok returns a tuple with the Last4 field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *FVCard) GetLast4Ok() (*string, bool) {
-	if o == nil || o.Last4 == nil {
-		return nil, false
-	}
-	return o.Last4, true
-}
-
-// HasLast4 returns a boolean if a field has been set.
-func (o *FVCard) HasLast4() bool {
-	if o != nil && o.Last4 != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetLast4 gets a reference to the given string and assigns it to the Last4 field.
-func (o *FVCard) SetLast4(v string) {
-	o.Last4 = &v
+// SetCardDetails gets a reference to the given FVCardDetails and assigns it to the CardDetails field.
+func (o *FVCard) SetCardDetails(v FVCardDetails) {
+	o.CardDetails = &v
 }
 
 func (o FVCard) MarshalJSON() ([]byte, error) {
@@ -218,11 +183,8 @@ func (o FVCard) MarshalJSON() ([]byte, error) {
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
 	}
-	if o.Brand != nil {
-		toSerialize["brand"] = o.Brand
-	}
-	if o.Last4 != nil {
-		toSerialize["last4"] = o.Last4
+	if o.CardDetails != nil {
+		toSerialize["card_details"] = o.CardDetails
 	}
 	return json.Marshal(toSerialize)
 }
