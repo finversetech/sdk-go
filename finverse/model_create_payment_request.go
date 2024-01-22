@@ -20,8 +20,10 @@ type CreatePaymentRequest struct {
 	// Amount to be paid, in currency's smallest unit or “minor unit”, as defined in ISO 4217. For example, HKD 100.01 is represented as amount = 10001 (minor unit = cents). For currencies without minor units (e.g. VND, JPY), the amount is represented as is, without modification. For example, VND 15101 is represented as amount = 15101.
 	Amount int32 `json:"amount"`
 	// The currency code as defined in ISO 4217.
-	Currency       string          `json:"currency"`
-	PaymentDetails PaymentDetails2 `json:"payment_details"`
+	Currency string `json:"currency"`
+	// ID of the payment method this pament is referring to.
+	PaymentMethodId *string         `json:"payment_method_id,omitempty"`
+	PaymentDetails  PaymentDetails2 `json:"payment_details"`
 	// Additional attributes of the payment in key:value format (e.g. payment_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
 	Metadata *map[string]string `json:"metadata,omitempty"`
 }
@@ -94,6 +96,38 @@ func (o *CreatePaymentRequest) SetCurrency(v string) {
 	o.Currency = v
 }
 
+// GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise.
+func (o *CreatePaymentRequest) GetPaymentMethodId() string {
+	if o == nil || o.PaymentMethodId == nil {
+		var ret string
+		return ret
+	}
+	return *o.PaymentMethodId
+}
+
+// GetPaymentMethodIdOk returns a tuple with the PaymentMethodId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreatePaymentRequest) GetPaymentMethodIdOk() (*string, bool) {
+	if o == nil || o.PaymentMethodId == nil {
+		return nil, false
+	}
+	return o.PaymentMethodId, true
+}
+
+// HasPaymentMethodId returns a boolean if a field has been set.
+func (o *CreatePaymentRequest) HasPaymentMethodId() bool {
+	if o != nil && o.PaymentMethodId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentMethodId gets a reference to the given string and assigns it to the PaymentMethodId field.
+func (o *CreatePaymentRequest) SetPaymentMethodId(v string) {
+	o.PaymentMethodId = &v
+}
+
 // GetPaymentDetails returns the PaymentDetails field value
 func (o *CreatePaymentRequest) GetPaymentDetails() PaymentDetails2 {
 	if o == nil {
@@ -157,6 +191,9 @@ func (o CreatePaymentRequest) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["currency"] = o.Currency
+	}
+	if o.PaymentMethodId != nil {
+		toSerialize["payment_method_id"] = o.PaymentMethodId
 	}
 	if true {
 		toSerialize["payment_details"] = o.PaymentDetails

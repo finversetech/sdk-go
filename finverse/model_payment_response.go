@@ -29,7 +29,9 @@ type PaymentResponse struct {
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	// Possible values - CREATED, AUTHORIZED, SUBMITTED, EXECUTED, FAILED, REJECTED, CANCELLED.
-	Status           *string                  `json:"status,omitempty"`
+	Status *string `json:"status,omitempty"`
+	// ID of the payment method this pament is referring to.
+	PaymentMethodId  *string                  `json:"payment_method_id,omitempty"`
 	PaymentDetails   *PaymentDetails2         `json:"payment_details,omitempty"`
 	Recipient        *MandateRecipient        `json:"recipient,omitempty"`
 	RecipientAccount *MandateRecipientAccount `json:"recipient_account,omitempty"`
@@ -243,6 +245,38 @@ func (o *PaymentResponse) HasStatus() bool {
 // SetStatus gets a reference to the given string and assigns it to the Status field.
 func (o *PaymentResponse) SetStatus(v string) {
 	o.Status = &v
+}
+
+// GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise.
+func (o *PaymentResponse) GetPaymentMethodId() string {
+	if o == nil || o.PaymentMethodId == nil {
+		var ret string
+		return ret
+	}
+	return *o.PaymentMethodId
+}
+
+// GetPaymentMethodIdOk returns a tuple with the PaymentMethodId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentResponse) GetPaymentMethodIdOk() (*string, bool) {
+	if o == nil || o.PaymentMethodId == nil {
+		return nil, false
+	}
+	return o.PaymentMethodId, true
+}
+
+// HasPaymentMethodId returns a boolean if a field has been set.
+func (o *PaymentResponse) HasPaymentMethodId() bool {
+	if o != nil && o.PaymentMethodId != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentMethodId gets a reference to the given string and assigns it to the PaymentMethodId field.
+func (o *PaymentResponse) SetPaymentMethodId(v string) {
+	o.PaymentMethodId = &v
 }
 
 // GetPaymentDetails returns the PaymentDetails field value if set, zero value otherwise.
@@ -552,6 +586,9 @@ func (o PaymentResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
+	}
+	if o.PaymentMethodId != nil {
+		toSerialize["payment_method_id"] = o.PaymentMethodId
 	}
 	if o.PaymentDetails != nil {
 		toSerialize["payment_details"] = o.PaymentDetails

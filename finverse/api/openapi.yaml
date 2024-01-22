@@ -7023,10 +7023,10 @@ components:
     CreatePaymentRequest:
       example:
         amount: 100
+        payment_method_id: payment_method_id
         metadata:
           key: metadata
         payment_details:
-          payment_method_id: payment_method_id
           transaction_reference_id: transaction_reference_id
           description: description
           mandate_id: mandate_id
@@ -7045,6 +7045,9 @@ components:
           example: HKD
           maxLength: 3
           type: string
+        payment_method_id:
+          description: ID of the payment method this pament is referring to.
+          type: string
         payment_details:
           $ref: '#/components/schemas/PaymentDetails2'
         metadata:
@@ -7061,7 +7064,6 @@ components:
       type: object
     PaymentDetails2:
       example:
-        payment_method_id: payment_method_id
         transaction_reference_id: transaction_reference_id
         description: description
         mandate_id: mandate_id
@@ -7072,9 +7074,6 @@ components:
           type: string
         mandate_id:
           description: ID of the mandate this pament is referring to.
-          type: string
-        payment_method_id:
-          description: ID of the payment method this pament is referring to.
           type: string
         transaction_reference_id:
           description: Customer's ID for this transaction
@@ -7095,7 +7094,6 @@ components:
         metadata:
           key: metadata
         payment_details:
-          payment_method_id: payment_method_id
           transaction_reference_id: transaction_reference_id
           description: description
           mandate_id: mandate_id
@@ -7110,6 +7108,7 @@ components:
           type: LINKING_ERROR
           message: message
           request_id: request_id
+        payment_method_id: payment_method_id
         updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
           user_type: INDIVIDUAL
@@ -7189,6 +7188,9 @@ components:
           - FAILED
           - REVOKED
           type: string
+        payment_method_id:
+          description: ID of the payment method this pament is referring to.
+          type: string
         payment_details:
           $ref: '#/components/schemas/PaymentDetails2'
         recipient:
@@ -7235,7 +7237,6 @@ components:
           metadata:
             key: metadata
           payment_details:
-            payment_method_id: payment_method_id
             transaction_reference_id: transaction_reference_id
             description: description
             mandate_id: mandate_id
@@ -7250,6 +7251,7 @@ components:
             type: LINKING_ERROR
             message: message
             request_id: request_id
+          payment_method_id: payment_method_id
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
             user_type: INDIVIDUAL
@@ -7302,7 +7304,6 @@ components:
           metadata:
             key: metadata
           payment_details:
-            payment_method_id: payment_method_id
             transaction_reference_id: transaction_reference_id
             description: description
             mandate_id: mandate_id
@@ -7317,6 +7318,7 @@ components:
             type: LINKING_ERROR
             message: message
             request_id: request_id
+          payment_method_id: payment_method_id
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
             user_type: INDIVIDUAL
@@ -8217,7 +8219,6 @@ components:
           metadata:
             key: metadata
           payment_details:
-            payment_method_id: payment_method_id
             transaction_reference_id: transaction_reference_id
             description: description
             mandate_id: mandate_id
@@ -8232,6 +8233,7 @@ components:
             type: LINKING_ERROR
             message: message
             request_id: request_id
+          payment_method_id: payment_method_id
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
             user_type: INDIVIDUAL

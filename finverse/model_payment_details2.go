@@ -21,8 +21,6 @@ type PaymentDetails2 struct {
 	Description *string `json:"description,omitempty"`
 	// ID of the mandate this pament is referring to.
 	MandateId *string `json:"mandate_id,omitempty"`
-	// ID of the payment method this pament is referring to.
-	PaymentMethodId *string `json:"payment_method_id,omitempty"`
 	// Customer's ID for this transaction
 	TransactionReferenceId *string `json:"transaction_reference_id,omitempty"`
 }
@@ -108,38 +106,6 @@ func (o *PaymentDetails2) SetMandateId(v string) {
 	o.MandateId = &v
 }
 
-// GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise.
-func (o *PaymentDetails2) GetPaymentMethodId() string {
-	if o == nil || o.PaymentMethodId == nil {
-		var ret string
-		return ret
-	}
-	return *o.PaymentMethodId
-}
-
-// GetPaymentMethodIdOk returns a tuple with the PaymentMethodId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PaymentDetails2) GetPaymentMethodIdOk() (*string, bool) {
-	if o == nil || o.PaymentMethodId == nil {
-		return nil, false
-	}
-	return o.PaymentMethodId, true
-}
-
-// HasPaymentMethodId returns a boolean if a field has been set.
-func (o *PaymentDetails2) HasPaymentMethodId() bool {
-	if o != nil && o.PaymentMethodId != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetPaymentMethodId gets a reference to the given string and assigns it to the PaymentMethodId field.
-func (o *PaymentDetails2) SetPaymentMethodId(v string) {
-	o.PaymentMethodId = &v
-}
-
 // GetTransactionReferenceId returns the TransactionReferenceId field value if set, zero value otherwise.
 func (o *PaymentDetails2) GetTransactionReferenceId() string {
 	if o == nil || o.TransactionReferenceId == nil {
@@ -179,9 +145,6 @@ func (o PaymentDetails2) MarshalJSON() ([]byte, error) {
 	}
 	if o.MandateId != nil {
 		toSerialize["mandate_id"] = o.MandateId
-	}
-	if o.PaymentMethodId != nil {
-		toSerialize["payment_method_id"] = o.PaymentMethodId
 	}
 	if o.TransactionReferenceId != nil {
 		toSerialize["transaction_reference_id"] = o.TransactionReferenceId
