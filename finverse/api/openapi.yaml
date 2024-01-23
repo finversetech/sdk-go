@@ -8878,6 +8878,14 @@ components:
       required:
       - name
       type: object
+    CardRecipient:
+      example:
+        name: name
+      properties:
+        name:
+          description: Merchant account name
+          type: string
+      type: object
     MandateRecipientAccount:
       example:
         account_type: SETTLEMENT_ACCOUNT
@@ -10292,6 +10300,8 @@ components:
           card_details:
             last4: last4
             brand: brand
+          recipient:
+            name: name
           status: UNKNOWN
       properties:
         payment_method_id:
@@ -10338,6 +10348,8 @@ components:
         card_details:
           last4: last4
           brand: brand
+        recipient:
+          name: name
         status: UNKNOWN
       properties:
         status:
@@ -10348,6 +10360,8 @@ components:
           type: string
         card_details:
           $ref: '#/components/schemas/CardFvLinkDetails'
+        recipient:
+          $ref: '#/components/schemas/CardRecipient'
       type: object
     CardFvLinkDetails:
       example:

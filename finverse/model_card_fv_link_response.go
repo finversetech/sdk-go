@@ -19,6 +19,7 @@ import (
 type CardFvLinkResponse struct {
 	Status      *string            `json:"status,omitempty"`
 	CardDetails *CardFvLinkDetails `json:"card_details,omitempty"`
+	Recipient   *CardRecipient     `json:"recipient,omitempty"`
 }
 
 // NewCardFvLinkResponse instantiates a new CardFvLinkResponse object
@@ -102,6 +103,38 @@ func (o *CardFvLinkResponse) SetCardDetails(v CardFvLinkDetails) {
 	o.CardDetails = &v
 }
 
+// GetRecipient returns the Recipient field value if set, zero value otherwise.
+func (o *CardFvLinkResponse) GetRecipient() CardRecipient {
+	if o == nil || o.Recipient == nil {
+		var ret CardRecipient
+		return ret
+	}
+	return *o.Recipient
+}
+
+// GetRecipientOk returns a tuple with the Recipient field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CardFvLinkResponse) GetRecipientOk() (*CardRecipient, bool) {
+	if o == nil || o.Recipient == nil {
+		return nil, false
+	}
+	return o.Recipient, true
+}
+
+// HasRecipient returns a boolean if a field has been set.
+func (o *CardFvLinkResponse) HasRecipient() bool {
+	if o != nil && o.Recipient != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRecipient gets a reference to the given CardRecipient and assigns it to the Recipient field.
+func (o *CardFvLinkResponse) SetRecipient(v CardRecipient) {
+	o.Recipient = &v
+}
+
 func (o CardFvLinkResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Status != nil {
@@ -109,6 +142,9 @@ func (o CardFvLinkResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.CardDetails != nil {
 		toSerialize["card_details"] = o.CardDetails
+	}
+	if o.Recipient != nil {
+		toSerialize["recipient"] = o.Recipient
 	}
 	return json.Marshal(toSerialize)
 }
