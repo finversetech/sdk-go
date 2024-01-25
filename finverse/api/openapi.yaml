@@ -7028,6 +7028,7 @@ components:
           key: metadata
         payment_details:
           transaction_reference_id: transaction_reference_id
+          external_transaction_reference: external_transaction_reference
           description: description
           mandate_id: mandate_id
         currency: HKD
@@ -7065,6 +7066,7 @@ components:
     PaymentDetails2:
       example:
         transaction_reference_id: transaction_reference_id
+        external_transaction_reference: external_transaction_reference
         description: description
         mandate_id: mandate_id
       properties:
@@ -7076,7 +7078,10 @@ components:
           description: ID of the mandate this pament is referring to.
           type: string
         transaction_reference_id:
-          description: Customer's ID for this transaction
+          description: 'Deprecated: Customer''s ID for this transaction'
+          type: string
+        external_transaction_reference:
+          description: Customer reference for this transaction
           type: string
       type: object
     PaymentResponse:
@@ -7095,6 +7100,7 @@ components:
           key: metadata
         payment_details:
           transaction_reference_id: transaction_reference_id
+          external_transaction_reference: external_transaction_reference
           description: description
           mandate_id: mandate_id
         recipient_account:
@@ -7238,6 +7244,7 @@ components:
             key: metadata
           payment_details:
             transaction_reference_id: transaction_reference_id
+            external_transaction_reference: external_transaction_reference
             description: description
             mandate_id: mandate_id
           recipient_account:
@@ -7305,6 +7312,7 @@ components:
             key: metadata
           payment_details:
             transaction_reference_id: transaction_reference_id
+            external_transaction_reference: external_transaction_reference
             description: description
             mandate_id: mandate_id
           recipient_account:
@@ -8220,6 +8228,7 @@ components:
             key: metadata
           payment_details:
             transaction_reference_id: transaction_reference_id
+            external_transaction_reference: external_transaction_reference
             description: description
             mandate_id: mandate_id
           recipient_account:

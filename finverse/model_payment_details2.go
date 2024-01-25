@@ -21,8 +21,10 @@ type PaymentDetails2 struct {
 	Description *string `json:"description,omitempty"`
 	// ID of the mandate this pament is referring to.
 	MandateId *string `json:"mandate_id,omitempty"`
-	// Customer's ID for this transaction
+	// Deprecated: Customer's ID for this transaction
 	TransactionReferenceId *string `json:"transaction_reference_id,omitempty"`
+	// Customer reference for this transaction
+	ExternalTransactionReference *string `json:"external_transaction_reference,omitempty"`
 }
 
 // NewPaymentDetails2 instantiates a new PaymentDetails2 object
@@ -138,6 +140,38 @@ func (o *PaymentDetails2) SetTransactionReferenceId(v string) {
 	o.TransactionReferenceId = &v
 }
 
+// GetExternalTransactionReference returns the ExternalTransactionReference field value if set, zero value otherwise.
+func (o *PaymentDetails2) GetExternalTransactionReference() string {
+	if o == nil || o.ExternalTransactionReference == nil {
+		var ret string
+		return ret
+	}
+	return *o.ExternalTransactionReference
+}
+
+// GetExternalTransactionReferenceOk returns a tuple with the ExternalTransactionReference field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentDetails2) GetExternalTransactionReferenceOk() (*string, bool) {
+	if o == nil || o.ExternalTransactionReference == nil {
+		return nil, false
+	}
+	return o.ExternalTransactionReference, true
+}
+
+// HasExternalTransactionReference returns a boolean if a field has been set.
+func (o *PaymentDetails2) HasExternalTransactionReference() bool {
+	if o != nil && o.ExternalTransactionReference != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalTransactionReference gets a reference to the given string and assigns it to the ExternalTransactionReference field.
+func (o *PaymentDetails2) SetExternalTransactionReference(v string) {
+	o.ExternalTransactionReference = &v
+}
+
 func (o PaymentDetails2) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Description != nil {
@@ -148,6 +182,9 @@ func (o PaymentDetails2) MarshalJSON() ([]byte, error) {
 	}
 	if o.TransactionReferenceId != nil {
 		toSerialize["transaction_reference_id"] = o.TransactionReferenceId
+	}
+	if o.ExternalTransactionReference != nil {
+		toSerialize["external_transaction_reference"] = o.ExternalTransactionReference
 	}
 	return json.Marshal(toSerialize)
 }
