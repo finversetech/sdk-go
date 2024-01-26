@@ -7073,6 +7073,7 @@ components:
         description:
           description: The transaction description provided to banks, which banks
             will show to their customers.
+          maxLength: 20
           type: string
         mandate_id:
           description: ID of the mandate this pament is referring to.
@@ -7082,6 +7083,7 @@ components:
           type: string
         external_transaction_reference:
           description: Customer reference for this transaction
+          maxLength: 10
           type: string
       type: object
     PaymentResponse:
@@ -8123,9 +8125,11 @@ components:
         description: description
       properties:
         description:
+          maxLength: 20
           type: string
         external_transaction_reference:
           description: For external invoice/transaction reference
+          maxLength: 10
           type: string
       required:
       - description
