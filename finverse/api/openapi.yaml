@@ -8047,6 +8047,12 @@ components:
     CreatePaymentLinkRequest:
       example:
         mode: PAYMENT
+        integration_metadata:
+          integration_id: RAPIDSTOR
+          rapidstor_metadata:
+            tenant_id: tenant_id
+            corp_code: corp_code
+            s_location_code: s_location_code
         amount: 100
         metadata:
           key: metadata
@@ -8113,6 +8119,8 @@ components:
             (e.g. payment_id: 1234). It supports up to 10 key:value pairs, whereas
             the key and value supports up to 50 and 500 characters respectively.'
           type: object
+        integration_metadata:
+          $ref: '#/components/schemas/IntegrationMetadataRequest'
       required:
       - currency
       - mode
@@ -8194,6 +8202,13 @@ components:
         unique_reference_id: unique_reference_id
         url: url
         mode: PAYMENT
+        integration_metadata:
+          integration_id: RAPIDSTOR
+          rapidstor_metadata:
+            tenant_id: tenant_id
+            corp_code: corp_code
+            iAnnivDays: 5.962133916683182
+            s_location_code: s_location_code
         link_customizations:
           language: en
           redirect_uri: redirect_uri
@@ -8438,6 +8453,8 @@ components:
           $ref: '#/components/schemas/PaymentLinkSenderResponse'
         payment_method:
           $ref: '#/components/schemas/PaymentMethodResponse'
+        integration_metadata:
+          $ref: '#/components/schemas/IntegrationMetadataResponse'
       type: object
     PaymentLinkSenderResponse:
       example:
@@ -8462,6 +8479,73 @@ components:
         user_id:
           description: A unique identifier generated after creating sender
           type: string
+      type: object
+    RapidstorMetadataRequest:
+      example:
+        tenant_id: tenant_id
+        corp_code: corp_code
+        s_location_code: s_location_code
+      properties:
+        corp_code:
+          type: string
+        s_location_code:
+          type: string
+        tenant_id:
+          type: string
+      required:
+      - corp_code
+      - s_location_code
+      - tenant_id
+      type: object
+    RapidstorMetadataResponse:
+      example:
+        tenant_id: tenant_id
+        corp_code: corp_code
+        iAnnivDays: 5.962133916683182
+        s_location_code: s_location_code
+      properties:
+        corp_code:
+          type: string
+        s_location_code:
+          type: string
+        tenant_id:
+          type: string
+        iAnnivDays:
+          format: int32
+          type: number
+      type: object
+    IntegrationMetadataRequest:
+      example:
+        integration_id: RAPIDSTOR
+        rapidstor_metadata:
+          tenant_id: tenant_id
+          corp_code: corp_code
+          s_location_code: s_location_code
+      properties:
+        integration_id:
+          enum:
+          - RAPIDSTOR
+          type: string
+        rapidstor_metadata:
+          $ref: '#/components/schemas/RapidstorMetadataRequest'
+      required:
+      - integration_id
+      type: object
+    IntegrationMetadataResponse:
+      example:
+        integration_id: RAPIDSTOR
+        rapidstor_metadata:
+          tenant_id: tenant_id
+          corp_code: corp_code
+          iAnnivDays: 5.962133916683182
+          s_location_code: s_location_code
+      properties:
+        integration_id:
+          enum:
+          - RAPIDSTOR
+          type: string
+        rapidstor_metadata:
+          $ref: '#/components/schemas/RapidstorMetadataResponse'
       type: object
     Fee:
       example:
@@ -10134,6 +10218,13 @@ components:
       type: object
     PaymentUser:
       example:
+        integration_metadata:
+          integration_id: RAPIDSTOR
+          rapidstor_metadata:
+            tenant_id: tenant_id
+            corp_code: corp_code
+            iAnnivDays: 5.962133916683182
+            s_location_code: s_location_code
         metadata:
           key: metadata
         autopay_consent: false
@@ -10191,6 +10282,8 @@ components:
           description: Whether the user has given consent for autopay
           example: false
           type: boolean
+        integration_metadata:
+          $ref: '#/components/schemas/IntegrationMetadataResponse'
       required:
       - autopay_consent
       type: object

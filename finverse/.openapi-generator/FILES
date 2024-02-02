@@ -90,6 +90,8 @@ model_income_stream.go
 model_income_total.go
 model_institution.go
 model_institution_short.go
+model_integration_metadata_request.go
+model_integration_metadata_response.go
 model_jwks_key.go
 model_line_item.go
 model_link_request.go
@@ -152,6 +154,8 @@ model_payout_snapshot_details.go
 model_payout_snapshot_response.go
 model_principal.go
 model_product_status.go
+model_rapidstor_metadata_request.go
+model_rapidstor_metadata_response.go
 model_recipient_account_number.go
 model_recipient_account_response.go
 model_redirect_uri_response.go

@@ -29,7 +29,8 @@ type CreatePaymentLinkRequest struct {
 	UniqueReferenceId   string               `json:"unique_reference_id"`
 	PaymentSetupOptions *PaymentSetupOptions `json:"payment_setup_options,omitempty"`
 	// Additional attributes of the payment link in key:value format (e.g. payment_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
-	Metadata *map[string]string `json:"metadata,omitempty"`
+	Metadata            *map[string]string          `json:"metadata,omitempty"`
+	IntegrationMetadata *IntegrationMetadataRequest `json:"integration_metadata,omitempty"`
 }
 
 // NewCreatePaymentLinkRequest instantiates a new CreatePaymentLinkRequest object
@@ -309,6 +310,38 @@ func (o *CreatePaymentLinkRequest) SetMetadata(v map[string]string) {
 	o.Metadata = &v
 }
 
+// GetIntegrationMetadata returns the IntegrationMetadata field value if set, zero value otherwise.
+func (o *CreatePaymentLinkRequest) GetIntegrationMetadata() IntegrationMetadataRequest {
+	if o == nil || o.IntegrationMetadata == nil {
+		var ret IntegrationMetadataRequest
+		return ret
+	}
+	return *o.IntegrationMetadata
+}
+
+// GetIntegrationMetadataOk returns a tuple with the IntegrationMetadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreatePaymentLinkRequest) GetIntegrationMetadataOk() (*IntegrationMetadataRequest, bool) {
+	if o == nil || o.IntegrationMetadata == nil {
+		return nil, false
+	}
+	return o.IntegrationMetadata, true
+}
+
+// HasIntegrationMetadata returns a boolean if a field has been set.
+func (o *CreatePaymentLinkRequest) HasIntegrationMetadata() bool {
+	if o != nil && o.IntegrationMetadata != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegrationMetadata gets a reference to the given IntegrationMetadataRequest and assigns it to the IntegrationMetadata field.
+func (o *CreatePaymentLinkRequest) SetIntegrationMetadata(v IntegrationMetadataRequest) {
+	o.IntegrationMetadata = &v
+}
+
 func (o CreatePaymentLinkRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Amount != nil {
@@ -337,6 +370,9 @@ func (o CreatePaymentLinkRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
+	}
+	if o.IntegrationMetadata != nil {
+		toSerialize["integration_metadata"] = o.IntegrationMetadata
 	}
 	return json.Marshal(toSerialize)
 }

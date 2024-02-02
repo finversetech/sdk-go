@@ -28,7 +28,8 @@ type PaymentUser struct {
 	UserId         *string            `json:"user_id,omitempty"`
 	UserType       *string            `json:"user_type,omitempty"`
 	// Whether the user has given consent for autopay
-	AutopayConsent bool `json:"autopay_consent"`
+	AutopayConsent      bool                         `json:"autopay_consent"`
+	IntegrationMetadata *IntegrationMetadataResponse `json:"integration_metadata,omitempty"`
 }
 
 // NewPaymentUser instantiates a new PaymentUser object
@@ -361,6 +362,38 @@ func (o *PaymentUser) SetAutopayConsent(v bool) {
 	o.AutopayConsent = v
 }
 
+// GetIntegrationMetadata returns the IntegrationMetadata field value if set, zero value otherwise.
+func (o *PaymentUser) GetIntegrationMetadata() IntegrationMetadataResponse {
+	if o == nil || o.IntegrationMetadata == nil {
+		var ret IntegrationMetadataResponse
+		return ret
+	}
+	return *o.IntegrationMetadata
+}
+
+// GetIntegrationMetadataOk returns a tuple with the IntegrationMetadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentUser) GetIntegrationMetadataOk() (*IntegrationMetadataResponse, bool) {
+	if o == nil || o.IntegrationMetadata == nil {
+		return nil, false
+	}
+	return o.IntegrationMetadata, true
+}
+
+// HasIntegrationMetadata returns a boolean if a field has been set.
+func (o *PaymentUser) HasIntegrationMetadata() bool {
+	if o != nil && o.IntegrationMetadata != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegrationMetadata gets a reference to the given IntegrationMetadataResponse and assigns it to the IntegrationMetadata field.
+func (o *PaymentUser) SetIntegrationMetadata(v IntegrationMetadataResponse) {
+	o.IntegrationMetadata = &v
+}
+
 func (o PaymentUser) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.CreatedAt != nil {
@@ -392,6 +425,9 @@ func (o PaymentUser) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["autopay_consent"] = o.AutopayConsent
+	}
+	if o.IntegrationMetadata != nil {
+		toSerialize["integration_metadata"] = o.IntegrationMetadata
 	}
 	return json.Marshal(toSerialize)
 }
