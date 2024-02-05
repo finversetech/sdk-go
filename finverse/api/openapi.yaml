@@ -8207,7 +8207,7 @@ components:
           rapidstor_metadata:
             tenant_id: tenant_id
             corp_code: corp_code
-            iAnnivDays: 5.962133916683182
+            i_anniv_days: 5.962133916683182
             s_location_code: s_location_code
         link_customizations:
           language: en
@@ -8501,7 +8501,7 @@ components:
       example:
         tenant_id: tenant_id
         corp_code: corp_code
-        iAnnivDays: 5.962133916683182
+        i_anniv_days: 5.962133916683182
         s_location_code: s_location_code
       properties:
         corp_code:
@@ -8510,7 +8510,7 @@ components:
           type: string
         tenant_id:
           type: string
-        iAnnivDays:
+        i_anniv_days:
           format: int32
           type: number
       type: object
@@ -8537,7 +8537,7 @@ components:
         rapidstor_metadata:
           tenant_id: tenant_id
           corp_code: corp_code
-          iAnnivDays: 5.962133916683182
+          i_anniv_days: 5.962133916683182
           s_location_code: s_location_code
       properties:
         integration_id:
@@ -10223,7 +10223,7 @@ components:
           rapidstor_metadata:
             tenant_id: tenant_id
             corp_code: corp_code
-            iAnnivDays: 5.962133916683182
+            i_anniv_days: 5.962133916683182
             s_location_code: s_location_code
         metadata:
           key: metadata

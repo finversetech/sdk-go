@@ -20,7 +20,7 @@ type RapidstorMetadataResponse struct {
 	CorpCode      *string  `json:"corp_code,omitempty"`
 	SLocationCode *string  `json:"s_location_code,omitempty"`
 	TenantId      *string  `json:"tenant_id,omitempty"`
-	IAnnivDays    *float32 `json:"iAnnivDays,omitempty"`
+	IAnnivDays    *float32 `json:"i_anniv_days,omitempty"`
 }
 
 // NewRapidstorMetadataResponse instantiates a new RapidstorMetadataResponse object
@@ -180,7 +180,7 @@ func (o RapidstorMetadataResponse) MarshalJSON() ([]byte, error) {
 		toSerialize["tenant_id"] = o.TenantId
 	}
 	if o.IAnnivDays != nil {
-		toSerialize["iAnnivDays"] = o.IAnnivDays
+		toSerialize["i_anniv_days"] = o.IAnnivDays
 	}
 	return json.Marshal(toSerialize)
 }
