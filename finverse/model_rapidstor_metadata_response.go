@@ -17,10 +17,11 @@ import (
 
 // RapidstorMetadataResponse struct for RapidstorMetadataResponse
 type RapidstorMetadataResponse struct {
-	CorpCode      *string  `json:"corp_code,omitempty"`
-	SLocationCode *string  `json:"s_location_code,omitempty"`
-	TenantId      *string  `json:"tenant_id,omitempty"`
-	IAnnivDays    *float32 `json:"i_anniv_days,omitempty"`
+	CorpCode              *string  `json:"corp_code,omitempty"`
+	SLocationCode         *string  `json:"s_location_code,omitempty"`
+	TenantId              *string  `json:"tenant_id,omitempty"`
+	IAnnivDays            *float32 `json:"i_anniv_days,omitempty"`
+	TenantDefaultCurrency *string  `json:"tenant_default_currency,omitempty"`
 }
 
 // NewRapidstorMetadataResponse instantiates a new RapidstorMetadataResponse object
@@ -168,6 +169,38 @@ func (o *RapidstorMetadataResponse) SetIAnnivDays(v float32) {
 	o.IAnnivDays = &v
 }
 
+// GetTenantDefaultCurrency returns the TenantDefaultCurrency field value if set, zero value otherwise.
+func (o *RapidstorMetadataResponse) GetTenantDefaultCurrency() string {
+	if o == nil || o.TenantDefaultCurrency == nil {
+		var ret string
+		return ret
+	}
+	return *o.TenantDefaultCurrency
+}
+
+// GetTenantDefaultCurrencyOk returns a tuple with the TenantDefaultCurrency field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RapidstorMetadataResponse) GetTenantDefaultCurrencyOk() (*string, bool) {
+	if o == nil || o.TenantDefaultCurrency == nil {
+		return nil, false
+	}
+	return o.TenantDefaultCurrency, true
+}
+
+// HasTenantDefaultCurrency returns a boolean if a field has been set.
+func (o *RapidstorMetadataResponse) HasTenantDefaultCurrency() bool {
+	if o != nil && o.TenantDefaultCurrency != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTenantDefaultCurrency gets a reference to the given string and assigns it to the TenantDefaultCurrency field.
+func (o *RapidstorMetadataResponse) SetTenantDefaultCurrency(v string) {
+	o.TenantDefaultCurrency = &v
+}
+
 func (o RapidstorMetadataResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.CorpCode != nil {
@@ -181,6 +214,9 @@ func (o RapidstorMetadataResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.IAnnivDays != nil {
 		toSerialize["i_anniv_days"] = o.IAnnivDays
+	}
+	if o.TenantDefaultCurrency != nil {
+		toSerialize["tenant_default_currency"] = o.TenantDefaultCurrency
 	}
 	return json.Marshal(toSerialize)
 }

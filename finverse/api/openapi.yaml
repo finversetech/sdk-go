@@ -8206,6 +8206,7 @@ components:
           integration_id: RAPIDSTOR
           rapidstor_metadata:
             tenant_id: tenant_id
+            tenant_default_currency: tenant_default_currency
             corp_code: corp_code
             i_anniv_days: 5.962133916683182
             s_location_code: s_location_code
@@ -8500,6 +8501,7 @@ components:
     RapidstorMetadataResponse:
       example:
         tenant_id: tenant_id
+        tenant_default_currency: tenant_default_currency
         corp_code: corp_code
         i_anniv_days: 5.962133916683182
         s_location_code: s_location_code
@@ -8513,6 +8515,8 @@ components:
         i_anniv_days:
           format: int32
           type: number
+        tenant_default_currency:
+          type: string
       type: object
     IntegrationMetadataRequest:
       example:
@@ -8536,6 +8540,7 @@ components:
         integration_id: RAPIDSTOR
         rapidstor_metadata:
           tenant_id: tenant_id
+          tenant_default_currency: tenant_default_currency
           corp_code: corp_code
           i_anniv_days: 5.962133916683182
           s_location_code: s_location_code
@@ -10222,6 +10227,7 @@ components:
           integration_id: RAPIDSTOR
           rapidstor_metadata:
             tenant_id: tenant_id
+            tenant_default_currency: tenant_default_currency
             corp_code: corp_code
             i_anniv_days: 5.962133916683182
             s_location_code: s_location_code
