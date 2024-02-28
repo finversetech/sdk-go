@@ -10392,6 +10392,7 @@ components:
     PaymentMethodFvLinkResponse:
       example:
         payment_method_type: payment_method_type
+        recipient_entity_name: recipient_entity_name
         payment_method_id: payment_method_id
         mandate:
           mandate_status: mandate_status
@@ -10419,6 +10420,8 @@ components:
         payment_method_id:
           type: string
         payment_method_type:
+          type: string
+        recipient_entity_name:
           type: string
         mandate:
           $ref: '#/components/schemas/MandateFvLinkResponse'

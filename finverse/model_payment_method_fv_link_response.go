@@ -17,10 +17,11 @@ import (
 
 // PaymentMethodFvLinkResponse struct for PaymentMethodFvLinkResponse
 type PaymentMethodFvLinkResponse struct {
-	PaymentMethodId   *string                `json:"payment_method_id,omitempty"`
-	PaymentMethodType *string                `json:"payment_method_type,omitempty"`
-	Mandate           *MandateFvLinkResponse `json:"mandate,omitempty"`
-	Card              *CardFvLinkResponse    `json:"card,omitempty"`
+	PaymentMethodId     *string                `json:"payment_method_id,omitempty"`
+	PaymentMethodType   *string                `json:"payment_method_type,omitempty"`
+	RecipientEntityName *string                `json:"recipient_entity_name,omitempty"`
+	Mandate             *MandateFvLinkResponse `json:"mandate,omitempty"`
+	Card                *CardFvLinkResponse    `json:"card,omitempty"`
 }
 
 // NewPaymentMethodFvLinkResponse instantiates a new PaymentMethodFvLinkResponse object
@@ -104,6 +105,38 @@ func (o *PaymentMethodFvLinkResponse) SetPaymentMethodType(v string) {
 	o.PaymentMethodType = &v
 }
 
+// GetRecipientEntityName returns the RecipientEntityName field value if set, zero value otherwise.
+func (o *PaymentMethodFvLinkResponse) GetRecipientEntityName() string {
+	if o == nil || o.RecipientEntityName == nil {
+		var ret string
+		return ret
+	}
+	return *o.RecipientEntityName
+}
+
+// GetRecipientEntityNameOk returns a tuple with the RecipientEntityName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentMethodFvLinkResponse) GetRecipientEntityNameOk() (*string, bool) {
+	if o == nil || o.RecipientEntityName == nil {
+		return nil, false
+	}
+	return o.RecipientEntityName, true
+}
+
+// HasRecipientEntityName returns a boolean if a field has been set.
+func (o *PaymentMethodFvLinkResponse) HasRecipientEntityName() bool {
+	if o != nil && o.RecipientEntityName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRecipientEntityName gets a reference to the given string and assigns it to the RecipientEntityName field.
+func (o *PaymentMethodFvLinkResponse) SetRecipientEntityName(v string) {
+	o.RecipientEntityName = &v
+}
+
 // GetMandate returns the Mandate field value if set, zero value otherwise.
 func (o *PaymentMethodFvLinkResponse) GetMandate() MandateFvLinkResponse {
 	if o == nil || o.Mandate == nil {
@@ -175,6 +208,9 @@ func (o PaymentMethodFvLinkResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.PaymentMethodType != nil {
 		toSerialize["payment_method_type"] = o.PaymentMethodType
+	}
+	if o.RecipientEntityName != nil {
+		toSerialize["recipient_entity_name"] = o.RecipientEntityName
 	}
 	if o.Mandate != nil {
 		toSerialize["mandate"] = o.Mandate
