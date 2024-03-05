@@ -2758,6 +2758,32 @@ paths:
       security:
       - Oauth2:
         - payment_links:payment_method:get
+  /payment_link/fvlink/payment_method/change:
+    post:
+      description: Initiate change payment method from payment link front-end
+      operationId: changePaymentMethodPaymentLink
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChangePaymentMethodFvLinkResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payment_links:payment_method:update
 components:
   schemas:
     Principal:
@@ -10496,6 +10522,13 @@ components:
         account_number_masked:
           type: string
         institution_id:
+          type: string
+      type: object
+    ChangePaymentMethodFvLinkResponse:
+      example:
+        redirect_url: redirect_url
+      properties:
+        redirect_url:
           type: string
       type: object
     BadRequestModel_error:
