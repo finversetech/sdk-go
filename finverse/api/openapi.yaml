@@ -8084,6 +8084,7 @@ components:
           rapidstor_metadata:
             tenant_id: tenant_id
             corp_code: corp_code
+            i_anniv_days: 3.4024845713830345
             s_location_code: s_location_code
         amount: 100
         metadata:
@@ -8517,6 +8518,7 @@ components:
       example:
         tenant_id: tenant_id
         corp_code: corp_code
+        i_anniv_days: 3.4024845713830345
         s_location_code: s_location_code
       properties:
         corp_code:
@@ -8525,6 +8527,11 @@ components:
           type: string
         tenant_id:
           type: string
+        i_anniv_days:
+          format: int32
+          maximum: 31
+          minimum: 1
+          type: number
       required:
       - corp_code
       - s_location_code
@@ -8556,6 +8563,7 @@ components:
         rapidstor_metadata:
           tenant_id: tenant_id
           corp_code: corp_code
+          i_anniv_days: 3.4024845713830345
           s_location_code: s_location_code
       properties:
         integration_id:
@@ -10286,6 +10294,7 @@ components:
           details_type: HK_ID
         name: name
         created_at: 2000-01-23T04:56:07.000+00:00
+        next_bill_update: 2000-01-23T04:56:07.000+00:00
         email: email
         external_user_id: external_user_id
       properties:
@@ -10307,6 +10316,9 @@ components:
             $ref: '#/components/schemas/SenderDetail'
           type: array
         updated_at:
+          format: date-time
+          type: string
+        next_bill_update:
           format: date-time
           type: string
         user_id:

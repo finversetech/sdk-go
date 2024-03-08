@@ -25,6 +25,7 @@ type PaymentUser struct {
 	Name           *string            `json:"name,omitempty"`
 	UserDetails    []SenderDetail     `json:"user_details,omitempty"`
 	UpdatedAt      *time.Time         `json:"updated_at,omitempty"`
+	NextBillUpdate *time.Time         `json:"next_bill_update,omitempty"`
 	UserId         *string            `json:"user_id,omitempty"`
 	UserType       *string            `json:"user_type,omitempty"`
 	// Whether the user has given consent for autopay
@@ -274,6 +275,38 @@ func (o *PaymentUser) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = &v
 }
 
+// GetNextBillUpdate returns the NextBillUpdate field value if set, zero value otherwise.
+func (o *PaymentUser) GetNextBillUpdate() time.Time {
+	if o == nil || o.NextBillUpdate == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.NextBillUpdate
+}
+
+// GetNextBillUpdateOk returns a tuple with the NextBillUpdate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentUser) GetNextBillUpdateOk() (*time.Time, bool) {
+	if o == nil || o.NextBillUpdate == nil {
+		return nil, false
+	}
+	return o.NextBillUpdate, true
+}
+
+// HasNextBillUpdate returns a boolean if a field has been set.
+func (o *PaymentUser) HasNextBillUpdate() bool {
+	if o != nil && o.NextBillUpdate != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetNextBillUpdate gets a reference to the given time.Time and assigns it to the NextBillUpdate field.
+func (o *PaymentUser) SetNextBillUpdate(v time.Time) {
+	o.NextBillUpdate = &v
+}
+
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *PaymentUser) GetUserId() string {
 	if o == nil || o.UserId == nil {
@@ -416,6 +449,9 @@ func (o PaymentUser) MarshalJSON() ([]byte, error) {
 	}
 	if o.UpdatedAt != nil {
 		toSerialize["updated_at"] = o.UpdatedAt
+	}
+	if o.NextBillUpdate != nil {
+		toSerialize["next_bill_update"] = o.NextBillUpdate
 	}
 	if o.UserId != nil {
 		toSerialize["user_id"] = o.UserId

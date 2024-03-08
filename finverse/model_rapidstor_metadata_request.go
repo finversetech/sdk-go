@@ -17,9 +17,10 @@ import (
 
 // RapidstorMetadataRequest struct for RapidstorMetadataRequest
 type RapidstorMetadataRequest struct {
-	CorpCode      string `json:"corp_code"`
-	SLocationCode string `json:"s_location_code"`
-	TenantId      string `json:"tenant_id"`
+	CorpCode      string   `json:"corp_code"`
+	SLocationCode string   `json:"s_location_code"`
+	TenantId      string   `json:"tenant_id"`
+	IAnnivDays    *float32 `json:"i_anniv_days,omitempty"`
 }
 
 // NewRapidstorMetadataRequest instantiates a new RapidstorMetadataRequest object
@@ -114,6 +115,38 @@ func (o *RapidstorMetadataRequest) SetTenantId(v string) {
 	o.TenantId = v
 }
 
+// GetIAnnivDays returns the IAnnivDays field value if set, zero value otherwise.
+func (o *RapidstorMetadataRequest) GetIAnnivDays() float32 {
+	if o == nil || o.IAnnivDays == nil {
+		var ret float32
+		return ret
+	}
+	return *o.IAnnivDays
+}
+
+// GetIAnnivDaysOk returns a tuple with the IAnnivDays field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RapidstorMetadataRequest) GetIAnnivDaysOk() (*float32, bool) {
+	if o == nil || o.IAnnivDays == nil {
+		return nil, false
+	}
+	return o.IAnnivDays, true
+}
+
+// HasIAnnivDays returns a boolean if a field has been set.
+func (o *RapidstorMetadataRequest) HasIAnnivDays() bool {
+	if o != nil && o.IAnnivDays != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIAnnivDays gets a reference to the given float32 and assigns it to the IAnnivDays field.
+func (o *RapidstorMetadataRequest) SetIAnnivDays(v float32) {
+	o.IAnnivDays = &v
+}
+
 func (o RapidstorMetadataRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -124,6 +157,9 @@ func (o RapidstorMetadataRequest) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["tenant_id"] = o.TenantId
+	}
+	if o.IAnnivDays != nil {
+		toSerialize["i_anniv_days"] = o.IAnnivDays
 	}
 	return json.Marshal(toSerialize)
 }
