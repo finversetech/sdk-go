@@ -25,7 +25,7 @@ type PaymentUser struct {
 	Name           *string            `json:"name,omitempty"`
 	UserDetails    []SenderDetail     `json:"user_details,omitempty"`
 	UpdatedAt      *time.Time         `json:"updated_at,omitempty"`
-	NextBillUpdate *time.Time         `json:"next_bill_update,omitempty"`
+	NextBillUpdate NullableTime       `json:"next_bill_update,omitempty"`
 	UserId         *string            `json:"user_id,omitempty"`
 	UserType       *string            `json:"user_type,omitempty"`
 	// Whether the user has given consent for autopay
@@ -275,36 +275,47 @@ func (o *PaymentUser) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = &v
 }
 
-// GetNextBillUpdate returns the NextBillUpdate field value if set, zero value otherwise.
+// GetNextBillUpdate returns the NextBillUpdate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PaymentUser) GetNextBillUpdate() time.Time {
-	if o == nil || o.NextBillUpdate == nil {
+	if o == nil || o.NextBillUpdate.Get() == nil {
 		var ret time.Time
 		return ret
 	}
-	return *o.NextBillUpdate
+	return *o.NextBillUpdate.Get()
 }
 
 // GetNextBillUpdateOk returns a tuple with the NextBillUpdate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PaymentUser) GetNextBillUpdateOk() (*time.Time, bool) {
-	if o == nil || o.NextBillUpdate == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.NextBillUpdate, true
+	return o.NextBillUpdate.Get(), o.NextBillUpdate.IsSet()
 }
 
 // HasNextBillUpdate returns a boolean if a field has been set.
 func (o *PaymentUser) HasNextBillUpdate() bool {
-	if o != nil && o.NextBillUpdate != nil {
+	if o != nil && o.NextBillUpdate.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetNextBillUpdate gets a reference to the given time.Time and assigns it to the NextBillUpdate field.
+// SetNextBillUpdate gets a reference to the given NullableTime and assigns it to the NextBillUpdate field.
 func (o *PaymentUser) SetNextBillUpdate(v time.Time) {
-	o.NextBillUpdate = &v
+	o.NextBillUpdate.Set(&v)
+}
+
+// SetNextBillUpdateNil sets the value for NextBillUpdate to be an explicit nil
+func (o *PaymentUser) SetNextBillUpdateNil() {
+	o.NextBillUpdate.Set(nil)
+}
+
+// UnsetNextBillUpdate ensures that no value is present for NextBillUpdate, not even an explicit nil
+func (o *PaymentUser) UnsetNextBillUpdate() {
+	o.NextBillUpdate.Unset()
 }
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
@@ -450,8 +461,8 @@ func (o PaymentUser) MarshalJSON() ([]byte, error) {
 	if o.UpdatedAt != nil {
 		toSerialize["updated_at"] = o.UpdatedAt
 	}
-	if o.NextBillUpdate != nil {
-		toSerialize["next_bill_update"] = o.NextBillUpdate
+	if o.NextBillUpdate.IsSet() {
+		toSerialize["next_bill_update"] = o.NextBillUpdate.Get()
 	}
 	if o.UserId != nil {
 		toSerialize["user_id"] = o.UserId

@@ -10320,6 +10320,7 @@ components:
           type: string
         next_bill_update:
           format: date-time
+          nullable: true
           type: string
         user_id:
           type: string
