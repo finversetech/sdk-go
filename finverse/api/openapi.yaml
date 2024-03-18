@@ -1506,6 +1506,45 @@ paths:
           description: Internal Server Error
       tags:
       - public
+  /payment_users/{paymentUserId}/payment_methods:
+    get:
+      description: List Payment Methods for a User
+      operationId: listPaymentMethods
+      parameters:
+      - description: Payment User Id
+        in: path
+        name: paymentUserId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPaymentMethodsResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payment_method:list
   /mandates:
     get:
       description: List mandates
@@ -8221,6 +8260,220 @@ components:
           type: string
         mandate_details:
           $ref: '#/components/schemas/MandateDetailsForPaymentLink'
+      type: object
+    ListPaymentMethodsResponse:
+      example:
+        payment_methods:
+        - payment_method_type: payment_method_type
+          payment_method_id: payment_method_id
+          mandate:
+            fees:
+            - paid_by_account_id: The payment account ID
+              amount: 100
+              currency: HKD
+              paid_by: RECIPIENT
+            - paid_by_account_id: The payment account ID
+              amount: 100
+              currency: HKD
+              paid_by: RECIPIENT
+            metadata:
+              key: metadata
+            recipient_account:
+              account_type: SETTLEMENT_ACCOUNT
+              account_id: account_id
+            created_at: 2000-01-23T04:56:07.000+00:00
+            mandate_id: mandate_id
+            error:
+              error_code: CREDENTIALS_INVALID
+              details: details
+              type: LINKING_ERROR
+              message: message
+              request_id: request_id
+            payment_method_id: payment_method_id
+            updated_at: 2000-01-23T04:56:07.000+00:00
+            sender:
+              user_type: INDIVIDUAL
+              user_id: user_id
+              user_details:
+              - values:
+                - values
+                - values
+                - values
+                - values
+                - values
+                details_type: HK_ID
+              - values:
+                - values
+                - values
+                - values
+                - values
+                - values
+                details_type: HK_ID
+              name: name
+              external_user_id: external_user_id
+            mandate_details:
+              end_date: 2000-01-23
+              payment_schedule:
+                amount: 100
+                frequency: DAILY
+              transaction_limits:
+                period: DAILY
+                max_period_amount: 1
+                max_period_count: 1
+                max_transaction_amount: 1
+              mandate_bank_reference: mandate_bank_reference
+              description: description
+              currency: currency
+              start_date: 2000-01-23
+            sender_account:
+              account_number:
+                number: number
+                type: LOCAL
+              bank_code: bank_code
+              account_type: EXTERNAL_ACCOUNT
+              metadata:
+                key: metadata
+              account_id: sender_account_id
+              user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+              account_number_masked: account_number_masked
+              accountholder_name: Chan Li Pak
+              institution_id: hsbc-hk
+            recipient:
+              name: name
+            status: AUTHORIZATION_REQUIRED
+          card:
+            card_details:
+              last4: "1234"
+              brand: VISA
+            updated_at: 2000-01-23T04:56:07.000+00:00
+            created_at: 2000-01-23T04:56:07.000+00:00
+            status: UNKNOWN
+        - payment_method_type: payment_method_type
+          payment_method_id: payment_method_id
+          mandate:
+            fees:
+            - paid_by_account_id: The payment account ID
+              amount: 100
+              currency: HKD
+              paid_by: RECIPIENT
+            - paid_by_account_id: The payment account ID
+              amount: 100
+              currency: HKD
+              paid_by: RECIPIENT
+            metadata:
+              key: metadata
+            recipient_account:
+              account_type: SETTLEMENT_ACCOUNT
+              account_id: account_id
+            created_at: 2000-01-23T04:56:07.000+00:00
+            mandate_id: mandate_id
+            error:
+              error_code: CREDENTIALS_INVALID
+              details: details
+              type: LINKING_ERROR
+              message: message
+              request_id: request_id
+            payment_method_id: payment_method_id
+            updated_at: 2000-01-23T04:56:07.000+00:00
+            sender:
+              user_type: INDIVIDUAL
+              user_id: user_id
+              user_details:
+              - values:
+                - values
+                - values
+                - values
+                - values
+                - values
+                details_type: HK_ID
+              - values:
+                - values
+                - values
+                - values
+                - values
+                - values
+                details_type: HK_ID
+              name: name
+              external_user_id: external_user_id
+            mandate_details:
+              end_date: 2000-01-23
+              payment_schedule:
+                amount: 100
+                frequency: DAILY
+              transaction_limits:
+                period: DAILY
+                max_period_amount: 1
+                max_period_count: 1
+                max_transaction_amount: 1
+              mandate_bank_reference: mandate_bank_reference
+              description: description
+              currency: currency
+              start_date: 2000-01-23
+            sender_account:
+              account_number:
+                number: number
+                type: LOCAL
+              bank_code: bank_code
+              account_type: EXTERNAL_ACCOUNT
+              metadata:
+                key: metadata
+              account_id: sender_account_id
+              user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+              account_number_masked: account_number_masked
+              accountholder_name: Chan Li Pak
+              institution_id: hsbc-hk
+            recipient:
+              name: name
+            status: AUTHORIZATION_REQUIRED
+          card:
+            card_details:
+              last4: "1234"
+              brand: VISA
+            updated_at: 2000-01-23T04:56:07.000+00:00
+            created_at: 2000-01-23T04:56:07.000+00:00
+            status: UNKNOWN
+        sender:
+          integration_metadata:
+            integration_id: RAPIDSTOR
+            rapidstor_metadata:
+              tenant_id: tenant_id
+              tenant_default_currency: tenant_default_currency
+              corp_code: corp_code
+              i_anniv_days: 5.962133916683182
+              s_location_code: s_location_code
+          metadata:
+            key: metadata
+          autopay_consent: false
+          user_type: INDIVIDUAL
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          user_id: user_id
+          user_details:
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
+          - values:
+            - values
+            - values
+            - values
+            - values
+            - values
+            details_type: HK_ID
+          name: name
+          created_at: 2000-01-23T04:56:07.000+00:00
+          next_bill_update: 2000-01-23T04:56:07.000+00:00
+          email: email
+          external_user_id: external_user_id
+      properties:
+        payment_methods:
+          items:
+            $ref: '#/components/schemas/PaymentMethodResponse'
+          type: array
+        sender:
+          $ref: '#/components/schemas/PaymentUser'
       type: object
     PaymentLinkResponse:
       example:

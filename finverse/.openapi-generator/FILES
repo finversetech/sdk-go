@@ -106,6 +106,7 @@ model_list_accounts_response.go
 model_list_cards_details_response.go
 model_list_mandates_response.go
 model_list_payment_accounts_response.go
+model_list_payment_methods_response.go
 model_list_payments_response.go
 model_list_transactions_response.go
 model_login_action.go
