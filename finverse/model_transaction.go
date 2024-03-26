@@ -34,10 +34,10 @@ type Transaction struct {
 	// YYYY-MM-DD
 	PostedDate *string         `json:"posted_date,omitempty"`
 	Amount     *CurrencyAmount `json:"amount,omitempty"`
-	// (Deprecated)
-	TransferDetails map[string]interface{} `json:"transfer_details,omitempty"`
-	CreatedAt       *time.Time             `json:"created_at,omitempty"`
-	UpdatedAt       *time.Time             `json:"updated_at,omitempty"`
+	// Transaction Details
+	TransactionDetails map[string]interface{} `json:"transaction_details,omitempty"`
+	CreatedAt          *time.Time             `json:"created_at,omitempty"`
+	UpdatedAt          *time.Time             `json:"updated_at,omitempty"`
 	// Array of category labels
 	Categories          []string              `json:"categories,omitempty"`
 	CategoryPredictions []CategoryPredictions `json:"category_predictions,omitempty"`
@@ -469,36 +469,36 @@ func (o *Transaction) SetAmount(v CurrencyAmount) {
 	o.Amount = &v
 }
 
-// GetTransferDetails returns the TransferDetails field value if set, zero value otherwise.
-func (o *Transaction) GetTransferDetails() map[string]interface{} {
-	if o == nil || o.TransferDetails == nil {
+// GetTransactionDetails returns the TransactionDetails field value if set, zero value otherwise.
+func (o *Transaction) GetTransactionDetails() map[string]interface{} {
+	if o == nil || o.TransactionDetails == nil {
 		var ret map[string]interface{}
 		return ret
 	}
-	return o.TransferDetails
+	return o.TransactionDetails
 }
 
-// GetTransferDetailsOk returns a tuple with the TransferDetails field value if set, nil otherwise
+// GetTransactionDetailsOk returns a tuple with the TransactionDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Transaction) GetTransferDetailsOk() (map[string]interface{}, bool) {
-	if o == nil || o.TransferDetails == nil {
+func (o *Transaction) GetTransactionDetailsOk() (map[string]interface{}, bool) {
+	if o == nil || o.TransactionDetails == nil {
 		return nil, false
 	}
-	return o.TransferDetails, true
+	return o.TransactionDetails, true
 }
 
-// HasTransferDetails returns a boolean if a field has been set.
-func (o *Transaction) HasTransferDetails() bool {
-	if o != nil && o.TransferDetails != nil {
+// HasTransactionDetails returns a boolean if a field has been set.
+func (o *Transaction) HasTransactionDetails() bool {
+	if o != nil && o.TransactionDetails != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetTransferDetails gets a reference to the given map[string]interface{} and assigns it to the TransferDetails field.
-func (o *Transaction) SetTransferDetails(v map[string]interface{}) {
-	o.TransferDetails = v
+// SetTransactionDetails gets a reference to the given map[string]interface{} and assigns it to the TransactionDetails field.
+func (o *Transaction) SetTransactionDetails(v map[string]interface{}) {
+	o.TransactionDetails = v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -670,8 +670,8 @@ func (o Transaction) MarshalJSON() ([]byte, error) {
 	if o.Amount != nil {
 		toSerialize["amount"] = o.Amount
 	}
-	if o.TransferDetails != nil {
-		toSerialize["transfer_details"] = o.TransferDetails
+	if o.TransactionDetails != nil {
+		toSerialize["transaction_details"] = o.TransactionDetails
 	}
 	if o.CreatedAt != nil {
 		toSerialize["created_at"] = o.CreatedAt

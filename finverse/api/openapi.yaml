@@ -3786,11 +3786,11 @@ components:
           raw: "69.00"
           currency: HKD
           value: 69.0
-        transfer_details: '{}'
         merchant_name: FUEL COFFEE
         description: Latte
         created_at: 2000-01-23T04:56:07.000+00:00
         transaction_type: OTHER
+        transaction_details: '{}'
         account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
         category_id: OTHER
         updated_at: 2000-01-23T04:56:07.000+00:00
@@ -3853,8 +3853,8 @@ components:
           type: string
         amount:
           $ref: '#/components/schemas/CurrencyAmount'
-        transfer_details:
-          description: (Deprecated)
+        transaction_details:
+          description: Transaction Details
           properties: {}
           type: object
         created_at:
@@ -3966,11 +3966,11 @@ components:
             raw: "69.00"
             currency: HKD
             value: 69.0
-          transfer_details: '{}'
           merchant_name: FUEL COFFEE
           description: Latte
           created_at: 2000-01-23T04:56:07.000+00:00
           transaction_type: OTHER
+          transaction_details: '{}'
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           category_id: OTHER
           updated_at: 2000-01-23T04:56:07.000+00:00
@@ -3996,11 +3996,11 @@ components:
             raw: "69.00"
             currency: HKD
             value: 69.0
-          transfer_details: '{}'
           merchant_name: FUEL COFFEE
           description: Latte
           created_at: 2000-01-23T04:56:07.000+00:00
           transaction_type: OTHER
+          transaction_details: '{}'
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           category_id: OTHER
           updated_at: 2000-01-23T04:56:07.000+00:00
