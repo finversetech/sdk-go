@@ -21,6 +21,8 @@ type RecipientAccountNumber struct {
 	Type string `json:"type"`
 	// Account number value
 	Number string `json:"number"`
+	// Account number value
+	NumberPlainText NullableString `json:"number_plain_text,omitempty"`
 }
 
 // NewRecipientAccountNumber instantiates a new RecipientAccountNumber object
@@ -90,6 +92,49 @@ func (o *RecipientAccountNumber) SetNumber(v string) {
 	o.Number = v
 }
 
+// GetNumberPlainText returns the NumberPlainText field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *RecipientAccountNumber) GetNumberPlainText() string {
+	if o == nil || o.NumberPlainText.Get() == nil {
+		var ret string
+		return ret
+	}
+	return *o.NumberPlainText.Get()
+}
+
+// GetNumberPlainTextOk returns a tuple with the NumberPlainText field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *RecipientAccountNumber) GetNumberPlainTextOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.NumberPlainText.Get(), o.NumberPlainText.IsSet()
+}
+
+// HasNumberPlainText returns a boolean if a field has been set.
+func (o *RecipientAccountNumber) HasNumberPlainText() bool {
+	if o != nil && o.NumberPlainText.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetNumberPlainText gets a reference to the given NullableString and assigns it to the NumberPlainText field.
+func (o *RecipientAccountNumber) SetNumberPlainText(v string) {
+	o.NumberPlainText.Set(&v)
+}
+
+// SetNumberPlainTextNil sets the value for NumberPlainText to be an explicit nil
+func (o *RecipientAccountNumber) SetNumberPlainTextNil() {
+	o.NumberPlainText.Set(nil)
+}
+
+// UnsetNumberPlainText ensures that no value is present for NumberPlainText, not even an explicit nil
+func (o *RecipientAccountNumber) UnsetNumberPlainText() {
+	o.NumberPlainText.Unset()
+}
+
 func (o RecipientAccountNumber) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -97,6 +142,9 @@ func (o RecipientAccountNumber) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["number"] = o.Number
+	}
+	if o.NumberPlainText.IsSet() {
+		toSerialize["number_plain_text"] = o.NumberPlainText.Get()
 	}
 	return json.Marshal(toSerialize)
 }
