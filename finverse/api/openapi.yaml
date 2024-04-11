@@ -7306,9 +7306,10 @@ components:
           external_user_id: external_user_id
         payment_id: payment_id
         sender_account:
+          accountholder_name_plaintext: Chan Li Pak
           account_number:
             number: number
-            number_plain_text: number_plain_text
+            number_plaintext: number_plaintext
             type: LOCAL
           bank_code: bank_code
           account_type: EXTERNAL_ACCOUNT
@@ -7318,7 +7319,6 @@ components:
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
           account_number_masked: account_number_masked
           accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
-          accountholder_name_plain_text: Chan Li Pak
           institution_id: hsbc-hk
         recipient:
           name: name
@@ -7452,9 +7452,10 @@ components:
             external_user_id: external_user_id
           payment_id: payment_id
           sender_account:
+            accountholder_name_plaintext: Chan Li Pak
             account_number:
               number: number
-              number_plain_text: number_plain_text
+              number_plaintext: number_plaintext
               type: LOCAL
             bank_code: bank_code
             account_type: EXTERNAL_ACCOUNT
@@ -7464,7 +7465,6 @@ components:
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             account_number_masked: account_number_masked
             accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
-            accountholder_name_plain_text: Chan Li Pak
             institution_id: hsbc-hk
           recipient:
             name: name
@@ -7522,9 +7522,10 @@ components:
             external_user_id: external_user_id
           payment_id: payment_id
           sender_account:
+            accountholder_name_plaintext: Chan Li Pak
             account_number:
               number: number
-              number_plain_text: number_plain_text
+              number_plaintext: number_plaintext
               type: LOCAL
             bank_code: bank_code
             account_type: EXTERNAL_ACCOUNT
@@ -7534,7 +7535,6 @@ components:
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             account_number_masked: account_number_masked
             accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
-            accountholder_name_plain_text: Chan Li Pak
             institution_id: hsbc-hk
           recipient:
             name: name
@@ -7617,9 +7617,10 @@ components:
           mandate_id: mandate_id
           scheduled_date: 2000-01-23T04:56:07.000+00:00
         recipient_account:
+          accountholder_name_plaintext: Chan Li Pak
           account_number:
             number: number
-            number_plain_text: number_plain_text
+            number_plaintext: number_plaintext
             type: LOCAL
           bank_code: bank_code
           account_type: EXTERNAL_ACCOUNT
@@ -7629,7 +7630,6 @@ components:
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
           account_number_masked: account_number_masked
           accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
-          accountholder_name_plain_text: Chan Li Pak
           institution_id: hsbc-hk
         created_at: 2000-01-23T04:56:07.000+00:00
         type: type
@@ -8146,9 +8146,10 @@ components:
           currency: currency
           start_date: 2000-01-23
         sender_account:
+          accountholder_name_plaintext: Chan Li Pak
           account_number:
             number: number
-            number_plain_text: number_plain_text
+            number_plaintext: number_plaintext
             type: LOCAL
           bank_code: bank_code
           account_type: EXTERNAL_ACCOUNT
@@ -8158,7 +8159,6 @@ components:
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
           account_number_masked: account_number_masked
           accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
-          accountholder_name_plain_text: Chan Li Pak
           institution_id: hsbc-hk
         recipient:
           name: name
@@ -8431,9 +8431,10 @@ components:
               currency: currency
               start_date: 2000-01-23
             sender_account:
+              accountholder_name_plaintext: Chan Li Pak
               account_number:
                 number: number
-                number_plain_text: number_plain_text
+                number_plaintext: number_plaintext
                 type: LOCAL
               bank_code: bank_code
               account_type: EXTERNAL_ACCOUNT
@@ -8443,7 +8444,6 @@ components:
               user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
               account_number_masked: account_number_masked
               accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
-              accountholder_name_plain_text: Chan Li Pak
               institution_id: hsbc-hk
             recipient:
               name: name
@@ -8517,9 +8517,10 @@ components:
               currency: currency
               start_date: 2000-01-23
             sender_account:
+              accountholder_name_plaintext: Chan Li Pak
               account_number:
                 number: number
-                number_plain_text: number_plain_text
+                number_plaintext: number_plaintext
                 type: LOCAL
               bank_code: bank_code
               account_type: EXTERNAL_ACCOUNT
@@ -8529,7 +8530,6 @@ components:
               user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
               account_number_masked: account_number_masked
               accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
-              accountholder_name_plain_text: Chan Li Pak
               institution_id: hsbc-hk
             recipient:
               name: name
@@ -8681,9 +8681,10 @@ components:
             external_user_id: external_user_id
           payment_id: payment_id
           sender_account:
+            accountholder_name_plaintext: Chan Li Pak
             account_number:
               number: number
-              number_plain_text: number_plain_text
+              number_plaintext: number_plaintext
               type: LOCAL
             bank_code: bank_code
             account_type: EXTERNAL_ACCOUNT
@@ -8693,7 +8694,6 @@ components:
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             account_number_masked: account_number_masked
             accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
-            accountholder_name_plain_text: Chan Li Pak
             institution_id: hsbc-hk
           recipient:
             name: name
@@ -8762,9 +8762,10 @@ components:
               currency: currency
               start_date: 2000-01-23
             sender_account:
+              accountholder_name_plaintext: Chan Li Pak
               account_number:
                 number: number
-                number_plain_text: number_plain_text
+                number_plaintext: number_plaintext
                 type: LOCAL
               bank_code: bank_code
               account_type: EXTERNAL_ACCOUNT
@@ -8774,7 +8775,6 @@ components:
               user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
               account_number_masked: account_number_masked
               accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
-              accountholder_name_plain_text: Chan Li Pak
               institution_id: hsbc-hk
             recipient:
               name: name
@@ -9142,9 +9142,10 @@ components:
           currency: currency
           start_date: 2000-01-23
         sender_account:
+          accountholder_name_plaintext: Chan Li Pak
           account_number:
             number: number
-            number_plain_text: number_plain_text
+            number_plaintext: number_plaintext
             type: LOCAL
           bank_code: bank_code
           account_type: EXTERNAL_ACCOUNT
@@ -9154,7 +9155,6 @@ components:
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
           account_number_masked: account_number_masked
           accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
-          accountholder_name_plain_text: Chan Li Pak
           institution_id: hsbc-hk
         recipient:
           name: name
@@ -9279,9 +9279,10 @@ components:
             currency: currency
             start_date: 2000-01-23
           sender_account:
+            accountholder_name_plaintext: Chan Li Pak
             account_number:
               number: number
-              number_plain_text: number_plain_text
+              number_plaintext: number_plaintext
               type: LOCAL
             bank_code: bank_code
             account_type: EXTERNAL_ACCOUNT
@@ -9291,7 +9292,6 @@ components:
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             account_number_masked: account_number_masked
             accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
-            accountholder_name_plain_text: Chan Li Pak
             institution_id: hsbc-hk
           recipient:
             name: name
@@ -9355,9 +9355,10 @@ components:
             currency: currency
             start_date: 2000-01-23
           sender_account:
+            accountholder_name_plaintext: Chan Li Pak
             account_number:
               number: number
-              number_plain_text: number_plain_text
+              number_plaintext: number_plaintext
               type: LOCAL
             bank_code: bank_code
             account_type: EXTERNAL_ACCOUNT
@@ -9367,7 +9368,6 @@ components:
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             account_number_masked: account_number_masked
             accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
-            accountholder_name_plain_text: Chan Li Pak
             institution_id: hsbc-hk
           recipient:
             name: name
@@ -10260,7 +10260,7 @@ components:
     RecipientAccountNumber:
       example:
         number: number
-        number_plain_text: number_plain_text
+        number_plaintext: number_plaintext
         type: LOCAL
       properties:
         type:
@@ -10274,7 +10274,7 @@ components:
           maxLength: 100
           minLength: 1
           type: string
-        number_plain_text:
+        number_plaintext:
           description: Account number value
           maxLength: 100
           minLength: 1
@@ -10286,9 +10286,10 @@ components:
       type: object
     MandateSenderAccount:
       example:
+        accountholder_name_plaintext: Chan Li Pak
         account_number:
           number: number
-          number_plain_text: number_plain_text
+          number_plaintext: number_plaintext
           type: LOCAL
         bank_code: bank_code
         account_type: EXTERNAL_ACCOUNT
@@ -10298,7 +10299,6 @@ components:
         user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
         account_number_masked: account_number_masked
         accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
-        accountholder_name_plain_text: Chan Li Pak
         institution_id: hsbc-hk
       properties:
         account_id:
@@ -10309,7 +10309,7 @@ components:
           description: Tokenized accountholder name of the sender's account
           example: 01EP4A1MZDHKETZFRPF0K62S6S
           type: string
-        accountholder_name_plain_text:
+        accountholder_name_plaintext:
           description: Accountholder name of the sender's account in plain text
           example: Chan Li Pak
           nullable: true
@@ -10410,7 +10410,7 @@ components:
         payment_accounts:
         - account_number:
             number: number
-            number_plain_text: number_plain_text
+            number_plaintext: number_plaintext
             type: LOCAL
           bank_code: "004"
           account_type: EXTERNAL_ACCOUNT
@@ -10429,7 +10429,7 @@ components:
           - SGD
         - account_number:
             number: number
-            number_plain_text: number_plain_text
+            number_plaintext: number_plaintext
             type: LOCAL
           bank_code: "004"
           account_type: EXTERNAL_ACCOUNT
@@ -10456,7 +10456,7 @@ components:
       example:
         account_number:
           number: number
-          number_plain_text: number_plain_text
+          number_plaintext: number_plaintext
           type: LOCAL
         bank_code: "004"
         account_type: EXTERNAL_ACCOUNT
@@ -10540,7 +10540,7 @@ components:
       example:
         account_number:
           number: number
-          number_plain_text: number_plain_text
+          number_plaintext: number_plaintext
           type: LOCAL
         account_type: EXTERNAL_ACCOUNT
         metadata:
@@ -10792,9 +10792,10 @@ components:
             currency: currency
             start_date: 2000-01-23
           sender_account:
+            accountholder_name_plaintext: Chan Li Pak
             account_number:
               number: number
-              number_plain_text: number_plain_text
+              number_plaintext: number_plaintext
               type: LOCAL
             bank_code: bank_code
             account_type: EXTERNAL_ACCOUNT
@@ -10804,7 +10805,6 @@ components:
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             account_number_masked: account_number_masked
             accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
-            accountholder_name_plain_text: Chan Li Pak
             institution_id: hsbc-hk
           recipient:
             name: name

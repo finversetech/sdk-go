@@ -22,7 +22,7 @@ type MandateSenderAccount struct {
 	// Tokenized accountholder name of the sender's account
 	AccountholderName *string `json:"accountholder_name,omitempty"`
 	// Accountholder name of the sender's account in plain text
-	AccountholderNamePlainText NullableString          `json:"accountholder_name_plain_text,omitempty"`
+	AccountholderNamePlaintext NullableString          `json:"accountholder_name_plaintext,omitempty"`
 	AccountNumber              *RecipientAccountNumber `json:"account_number,omitempty"`
 	// Masked Account number of the sender’s account
 	AccountNumberMasked *string `json:"account_number_masked,omitempty"`
@@ -118,47 +118,47 @@ func (o *MandateSenderAccount) SetAccountholderName(v string) {
 	o.AccountholderName = &v
 }
 
-// GetAccountholderNamePlainText returns the AccountholderNamePlainText field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *MandateSenderAccount) GetAccountholderNamePlainText() string {
-	if o == nil || o.AccountholderNamePlainText.Get() == nil {
+// GetAccountholderNamePlaintext returns the AccountholderNamePlaintext field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *MandateSenderAccount) GetAccountholderNamePlaintext() string {
+	if o == nil || o.AccountholderNamePlaintext.Get() == nil {
 		var ret string
 		return ret
 	}
-	return *o.AccountholderNamePlainText.Get()
+	return *o.AccountholderNamePlaintext.Get()
 }
 
-// GetAccountholderNamePlainTextOk returns a tuple with the AccountholderNamePlainText field value if set, nil otherwise
+// GetAccountholderNamePlaintextOk returns a tuple with the AccountholderNamePlaintext field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *MandateSenderAccount) GetAccountholderNamePlainTextOk() (*string, bool) {
+func (o *MandateSenderAccount) GetAccountholderNamePlaintextOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.AccountholderNamePlainText.Get(), o.AccountholderNamePlainText.IsSet()
+	return o.AccountholderNamePlaintext.Get(), o.AccountholderNamePlaintext.IsSet()
 }
 
-// HasAccountholderNamePlainText returns a boolean if a field has been set.
-func (o *MandateSenderAccount) HasAccountholderNamePlainText() bool {
-	if o != nil && o.AccountholderNamePlainText.IsSet() {
+// HasAccountholderNamePlaintext returns a boolean if a field has been set.
+func (o *MandateSenderAccount) HasAccountholderNamePlaintext() bool {
+	if o != nil && o.AccountholderNamePlaintext.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetAccountholderNamePlainText gets a reference to the given NullableString and assigns it to the AccountholderNamePlainText field.
-func (o *MandateSenderAccount) SetAccountholderNamePlainText(v string) {
-	o.AccountholderNamePlainText.Set(&v)
+// SetAccountholderNamePlaintext gets a reference to the given NullableString and assigns it to the AccountholderNamePlaintext field.
+func (o *MandateSenderAccount) SetAccountholderNamePlaintext(v string) {
+	o.AccountholderNamePlaintext.Set(&v)
 }
 
-// SetAccountholderNamePlainTextNil sets the value for AccountholderNamePlainText to be an explicit nil
-func (o *MandateSenderAccount) SetAccountholderNamePlainTextNil() {
-	o.AccountholderNamePlainText.Set(nil)
+// SetAccountholderNamePlaintextNil sets the value for AccountholderNamePlaintext to be an explicit nil
+func (o *MandateSenderAccount) SetAccountholderNamePlaintextNil() {
+	o.AccountholderNamePlaintext.Set(nil)
 }
 
-// UnsetAccountholderNamePlainText ensures that no value is present for AccountholderNamePlainText, not even an explicit nil
-func (o *MandateSenderAccount) UnsetAccountholderNamePlainText() {
-	o.AccountholderNamePlainText.Unset()
+// UnsetAccountholderNamePlaintext ensures that no value is present for AccountholderNamePlaintext, not even an explicit nil
+func (o *MandateSenderAccount) UnsetAccountholderNamePlaintext() {
+	o.AccountholderNamePlaintext.Unset()
 }
 
 // GetAccountNumber returns the AccountNumber field value if set, zero value otherwise.
@@ -393,8 +393,8 @@ func (o MandateSenderAccount) MarshalJSON() ([]byte, error) {
 	if o.AccountholderName != nil {
 		toSerialize["accountholder_name"] = o.AccountholderName
 	}
-	if o.AccountholderNamePlainText.IsSet() {
-		toSerialize["accountholder_name_plain_text"] = o.AccountholderNamePlainText.Get()
+	if o.AccountholderNamePlaintext.IsSet() {
+		toSerialize["accountholder_name_plaintext"] = o.AccountholderNamePlaintext.Get()
 	}
 	if o.AccountNumber != nil {
 		toSerialize["account_number"] = o.AccountNumber

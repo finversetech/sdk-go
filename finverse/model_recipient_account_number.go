@@ -22,7 +22,7 @@ type RecipientAccountNumber struct {
 	// Account number value
 	Number string `json:"number"`
 	// Account number value
-	NumberPlainText NullableString `json:"number_plain_text,omitempty"`
+	NumberPlaintext NullableString `json:"number_plaintext,omitempty"`
 }
 
 // NewRecipientAccountNumber instantiates a new RecipientAccountNumber object
@@ -92,47 +92,47 @@ func (o *RecipientAccountNumber) SetNumber(v string) {
 	o.Number = v
 }
 
-// GetNumberPlainText returns the NumberPlainText field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *RecipientAccountNumber) GetNumberPlainText() string {
-	if o == nil || o.NumberPlainText.Get() == nil {
+// GetNumberPlaintext returns the NumberPlaintext field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *RecipientAccountNumber) GetNumberPlaintext() string {
+	if o == nil || o.NumberPlaintext.Get() == nil {
 		var ret string
 		return ret
 	}
-	return *o.NumberPlainText.Get()
+	return *o.NumberPlaintext.Get()
 }
 
-// GetNumberPlainTextOk returns a tuple with the NumberPlainText field value if set, nil otherwise
+// GetNumberPlaintextOk returns a tuple with the NumberPlaintext field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *RecipientAccountNumber) GetNumberPlainTextOk() (*string, bool) {
+func (o *RecipientAccountNumber) GetNumberPlaintextOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return o.NumberPlainText.Get(), o.NumberPlainText.IsSet()
+	return o.NumberPlaintext.Get(), o.NumberPlaintext.IsSet()
 }
 
-// HasNumberPlainText returns a boolean if a field has been set.
-func (o *RecipientAccountNumber) HasNumberPlainText() bool {
-	if o != nil && o.NumberPlainText.IsSet() {
+// HasNumberPlaintext returns a boolean if a field has been set.
+func (o *RecipientAccountNumber) HasNumberPlaintext() bool {
+	if o != nil && o.NumberPlaintext.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetNumberPlainText gets a reference to the given NullableString and assigns it to the NumberPlainText field.
-func (o *RecipientAccountNumber) SetNumberPlainText(v string) {
-	o.NumberPlainText.Set(&v)
+// SetNumberPlaintext gets a reference to the given NullableString and assigns it to the NumberPlaintext field.
+func (o *RecipientAccountNumber) SetNumberPlaintext(v string) {
+	o.NumberPlaintext.Set(&v)
 }
 
-// SetNumberPlainTextNil sets the value for NumberPlainText to be an explicit nil
-func (o *RecipientAccountNumber) SetNumberPlainTextNil() {
-	o.NumberPlainText.Set(nil)
+// SetNumberPlaintextNil sets the value for NumberPlaintext to be an explicit nil
+func (o *RecipientAccountNumber) SetNumberPlaintextNil() {
+	o.NumberPlaintext.Set(nil)
 }
 
-// UnsetNumberPlainText ensures that no value is present for NumberPlainText, not even an explicit nil
-func (o *RecipientAccountNumber) UnsetNumberPlainText() {
-	o.NumberPlainText.Unset()
+// UnsetNumberPlaintext ensures that no value is present for NumberPlaintext, not even an explicit nil
+func (o *RecipientAccountNumber) UnsetNumberPlaintext() {
+	o.NumberPlaintext.Unset()
 }
 
 func (o RecipientAccountNumber) MarshalJSON() ([]byte, error) {
@@ -143,8 +143,8 @@ func (o RecipientAccountNumber) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["number"] = o.Number
 	}
-	if o.NumberPlainText.IsSet() {
-		toSerialize["number_plain_text"] = o.NumberPlainText.Get()
+	if o.NumberPlaintext.IsSet() {
+		toSerialize["number_plaintext"] = o.NumberPlaintext.Get()
 	}
 	return json.Marshal(toSerialize)
 }
