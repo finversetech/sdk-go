@@ -36,6 +36,8 @@ type PaymentLinkResponse struct {
 	Url *string `json:"url,omitempty"`
 	// The status of payment link
 	Status *string `json:"status,omitempty"`
+	// The session status of payment link
+	SessionStatus *string `json:"session_status,omitempty"`
 	// Timestamp of when the payment link was or will expired in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 	// Timestamp of when the payment link was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
@@ -417,6 +419,38 @@ func (o *PaymentLinkResponse) SetStatus(v string) {
 	o.Status = &v
 }
 
+// GetSessionStatus returns the SessionStatus field value if set, zero value otherwise.
+func (o *PaymentLinkResponse) GetSessionStatus() string {
+	if o == nil || o.SessionStatus == nil {
+		var ret string
+		return ret
+	}
+	return *o.SessionStatus
+}
+
+// GetSessionStatusOk returns a tuple with the SessionStatus field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentLinkResponse) GetSessionStatusOk() (*string, bool) {
+	if o == nil || o.SessionStatus == nil {
+		return nil, false
+	}
+	return o.SessionStatus, true
+}
+
+// HasSessionStatus returns a boolean if a field has been set.
+func (o *PaymentLinkResponse) HasSessionStatus() bool {
+	if o != nil && o.SessionStatus != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSessionStatus gets a reference to the given string and assigns it to the SessionStatus field.
+func (o *PaymentLinkResponse) SetSessionStatus(v string) {
+	o.SessionStatus = &v
+}
+
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetExpiresAt() time.Time {
 	if o == nil || o.ExpiresAt == nil {
@@ -675,6 +709,9 @@ func (o PaymentLinkResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
+	}
+	if o.SessionStatus != nil {
+		toSerialize["session_status"] = o.SessionStatus
 	}
 	if o.ExpiresAt != nil {
 		toSerialize["expires_at"] = o.ExpiresAt

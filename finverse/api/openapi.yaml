@@ -8699,6 +8699,7 @@ components:
             name: name
           currency: HKD
           status: AUTHORIZATION_REQUIRED
+        session_status: OPEN
         payment_method:
           payment_method_type: payment_method_type
           payment_method_id: payment_method_id
@@ -8831,6 +8832,14 @@ components:
           - CREATED
           - PAID
           - EXPIRED
+          type: string
+        session_status:
+          description: The session status of payment link
+          enum:
+          - OPEN
+          - PROCESSING
+          - COMPLETE
+          - FAILED
           type: string
         expires_at:
           description: Timestamp of when the payment link was or will expired in ISO
