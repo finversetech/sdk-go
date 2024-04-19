@@ -29,7 +29,9 @@ type CreatePaymentLinkRequest struct {
 	UniqueReferenceId   string               `json:"unique_reference_id"`
 	PaymentSetupOptions *PaymentSetupOptions `json:"payment_setup_options,omitempty"`
 	// Additional attributes of the payment link in key:value format (e.g. payment_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
-	Metadata            *map[string]string          `json:"metadata,omitempty"`
+	Metadata *map[string]string `json:"metadata,omitempty"`
+	// Key-Value metadata to store on payments created on this Payment Link
+	PaymentMetadata     *map[string]string          `json:"payment_metadata,omitempty"`
 	IntegrationMetadata *IntegrationMetadataRequest `json:"integration_metadata,omitempty"`
 }
 
@@ -310,6 +312,38 @@ func (o *CreatePaymentLinkRequest) SetMetadata(v map[string]string) {
 	o.Metadata = &v
 }
 
+// GetPaymentMetadata returns the PaymentMetadata field value if set, zero value otherwise.
+func (o *CreatePaymentLinkRequest) GetPaymentMetadata() map[string]string {
+	if o == nil || o.PaymentMetadata == nil {
+		var ret map[string]string
+		return ret
+	}
+	return *o.PaymentMetadata
+}
+
+// GetPaymentMetadataOk returns a tuple with the PaymentMetadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreatePaymentLinkRequest) GetPaymentMetadataOk() (*map[string]string, bool) {
+	if o == nil || o.PaymentMetadata == nil {
+		return nil, false
+	}
+	return o.PaymentMetadata, true
+}
+
+// HasPaymentMetadata returns a boolean if a field has been set.
+func (o *CreatePaymentLinkRequest) HasPaymentMetadata() bool {
+	if o != nil && o.PaymentMetadata != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentMetadata gets a reference to the given map[string]string and assigns it to the PaymentMetadata field.
+func (o *CreatePaymentLinkRequest) SetPaymentMetadata(v map[string]string) {
+	o.PaymentMetadata = &v
+}
+
 // GetIntegrationMetadata returns the IntegrationMetadata field value if set, zero value otherwise.
 func (o *CreatePaymentLinkRequest) GetIntegrationMetadata() IntegrationMetadataRequest {
 	if o == nil || o.IntegrationMetadata == nil {
@@ -370,6 +404,9 @@ func (o CreatePaymentLinkRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
+	}
+	if o.PaymentMetadata != nil {
+		toSerialize["payment_metadata"] = o.PaymentMetadata
 	}
 	if o.IntegrationMetadata != nil {
 		toSerialize["integration_metadata"] = o.IntegrationMetadata

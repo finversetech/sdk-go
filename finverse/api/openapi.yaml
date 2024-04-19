@@ -8257,6 +8257,8 @@ components:
             description: description
             start_date: 2000-01-23
         unique_reference_id: unique_reference_id
+        payment_metadata:
+          key: payment_metadata
       properties:
         amount:
           description: The amount of the payment. Expressed in currency's smallest
@@ -8295,6 +8297,13 @@ components:
           description: 'Additional attributes of the payment link in key:value format
             (e.g. payment_id: 1234). It supports up to 10 key:value pairs, whereas
             the key and value supports up to 50 and 500 characters respectively.'
+          type: object
+        payment_metadata:
+          additionalProperties:
+            maxLength: 100
+            type: string
+          description: Key-Value metadata to store on payments created on this Payment
+            Link
           type: object
         integration_metadata:
           $ref: '#/components/schemas/IntegrationMetadataRequest'
@@ -8596,6 +8605,8 @@ components:
         created_at: 2000-01-23T04:56:07.000+00:00
         unique_reference_id: unique_reference_id
         url: url
+        payment_metadata:
+          key: payment_metadata
         mode: PAYMENT
         integration_metadata:
           integration_id: RAPIDSTOR
@@ -8822,6 +8833,13 @@ components:
           description: 'Additional attributes of the payment link in key:value format
             (e.g. payment_id: 1234). It supports up to 10 key:value pairs, whereas
             the key and value supports up to 50 and 500 characters respectively.'
+          type: object
+        payment_metadata:
+          additionalProperties:
+            maxLength: 100
+            type: string
+          description: Key-Value metadata to store on payments created on this Payment
+            Link
           type: object
         url:
           description: The URL for payment link
