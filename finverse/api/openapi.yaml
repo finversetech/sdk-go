@@ -7323,6 +7323,11 @@ components:
         recipient:
           name: name
         currency: HKD
+        payment_method:
+          card:
+            card_details:
+              last4: "1234"
+              brand: VISA
         status: AUTHORIZATION_REQUIRED
       properties:
         payment_id:
@@ -7394,6 +7399,8 @@ components:
           type: object
         error:
           $ref: '#/components/schemas/FvErrorModelV2'
+        payment_method:
+          $ref: '#/components/schemas/PaymentSnapshotPaymentMethod'
       required:
       - amount
       type: object
@@ -7469,6 +7476,11 @@ components:
           recipient:
             name: name
           currency: HKD
+          payment_method:
+            card:
+              card_details:
+                last4: "1234"
+                brand: VISA
           status: AUTHORIZATION_REQUIRED
         - amount: 100
           fees:
@@ -7539,6 +7551,11 @@ components:
           recipient:
             name: name
           currency: HKD
+          payment_method:
+            card:
+              card_details:
+                last4: "1234"
+                brand: VISA
           status: AUTHORIZATION_REQUIRED
         total_payments: 0
       properties:
@@ -8709,6 +8726,11 @@ components:
           recipient:
             name: name
           currency: HKD
+          payment_method:
+            card:
+              card_details:
+                last4: "1234"
+                brand: VISA
           status: AUTHORIZATION_REQUIRED
         session_status: OPEN
         payment_method:
@@ -10969,6 +10991,16 @@ components:
         redirect_url:
           type: string
       type: object
+    PaymentSnapshotPaymentMethod:
+      example:
+        card:
+          card_details:
+            last4: "1234"
+            brand: VISA
+      properties:
+        card:
+          $ref: '#/components/schemas/PaymentSnapshotPaymentMethod_card'
+      type: object
     BadRequestModel_error:
       properties:
         code:
@@ -11013,6 +11045,15 @@ components:
       - message
       - request_id
       - type
+      type: object
+    PaymentSnapshotPaymentMethod_card:
+      example:
+        card_details:
+          last4: "1234"
+          brand: VISA
+      properties:
+        card_details:
+          $ref: '#/components/schemas/FVCardDetails'
       type: object
   securitySchemes:
     Oauth2:

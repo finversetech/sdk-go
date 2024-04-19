@@ -41,8 +41,9 @@ type PaymentResponse struct {
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Additional attributes of the payment in key:value format (e.g. payment_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
-	Metadata *map[string]string `json:"metadata,omitempty"`
-	Error    *FvErrorModelV2    `json:"error,omitempty"`
+	Metadata      *map[string]string            `json:"metadata,omitempty"`
+	Error         *FvErrorModelV2               `json:"error,omitempty"`
+	PaymentMethod *PaymentSnapshotPaymentMethod `json:"payment_method,omitempty"`
 }
 
 // NewPaymentResponse instantiates a new PaymentResponse object
@@ -567,6 +568,38 @@ func (o *PaymentResponse) SetError(v FvErrorModelV2) {
 	o.Error = &v
 }
 
+// GetPaymentMethod returns the PaymentMethod field value if set, zero value otherwise.
+func (o *PaymentResponse) GetPaymentMethod() PaymentSnapshotPaymentMethod {
+	if o == nil || o.PaymentMethod == nil {
+		var ret PaymentSnapshotPaymentMethod
+		return ret
+	}
+	return *o.PaymentMethod
+}
+
+// GetPaymentMethodOk returns a tuple with the PaymentMethod field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentResponse) GetPaymentMethodOk() (*PaymentSnapshotPaymentMethod, bool) {
+	if o == nil || o.PaymentMethod == nil {
+		return nil, false
+	}
+	return o.PaymentMethod, true
+}
+
+// HasPaymentMethod returns a boolean if a field has been set.
+func (o *PaymentResponse) HasPaymentMethod() bool {
+	if o != nil && o.PaymentMethod != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentMethod gets a reference to the given PaymentSnapshotPaymentMethod and assigns it to the PaymentMethod field.
+func (o *PaymentResponse) SetPaymentMethod(v PaymentSnapshotPaymentMethod) {
+	o.PaymentMethod = &v
+}
+
 func (o PaymentResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.PaymentId != nil {
@@ -616,6 +649,9 @@ func (o PaymentResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Error != nil {
 		toSerialize["error"] = o.Error
+	}
+	if o.PaymentMethod != nil {
+		toSerialize["payment_method"] = o.PaymentMethod
 	}
 	return json.Marshal(toSerialize)
 }

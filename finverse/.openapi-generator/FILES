@@ -150,6 +150,8 @@ model_payment_method_response.go
 model_payment_response.go
 model_payment_schedule.go
 model_payment_setup_options.go
+model_payment_snapshot_payment_method.go
+model_payment_snapshot_payment_method_card.go
 model_payment_user.go
 model_payout_details.go
 model_payout_snapshot_details.go
