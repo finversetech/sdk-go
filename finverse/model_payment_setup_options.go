@@ -18,8 +18,9 @@ import (
 // PaymentSetupOptions struct for PaymentSetupOptions
 type PaymentSetupOptions struct {
 	// The type of future_payments that customer want to use. Possible values: AUTOPAY or CLICK_TO_PAY
-	FuturePayments *string                       `json:"future_payments,omitempty"`
-	MandateDetails *MandateDetailsForPaymentLink `json:"mandate_details,omitempty"`
+	FuturePayments     *string                       `json:"future_payments,omitempty"`
+	MandateDetails     *MandateDetailsForPaymentLink `json:"mandate_details,omitempty"`
+	PaymentMethodTypes []string                      `json:"payment_method_types,omitempty"`
 }
 
 // NewPaymentSetupOptions instantiates a new PaymentSetupOptions object
@@ -103,6 +104,38 @@ func (o *PaymentSetupOptions) SetMandateDetails(v MandateDetailsForPaymentLink) 
 	o.MandateDetails = &v
 }
 
+// GetPaymentMethodTypes returns the PaymentMethodTypes field value if set, zero value otherwise.
+func (o *PaymentSetupOptions) GetPaymentMethodTypes() []string {
+	if o == nil || o.PaymentMethodTypes == nil {
+		var ret []string
+		return ret
+	}
+	return o.PaymentMethodTypes
+}
+
+// GetPaymentMethodTypesOk returns a tuple with the PaymentMethodTypes field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentSetupOptions) GetPaymentMethodTypesOk() ([]string, bool) {
+	if o == nil || o.PaymentMethodTypes == nil {
+		return nil, false
+	}
+	return o.PaymentMethodTypes, true
+}
+
+// HasPaymentMethodTypes returns a boolean if a field has been set.
+func (o *PaymentSetupOptions) HasPaymentMethodTypes() bool {
+	if o != nil && o.PaymentMethodTypes != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentMethodTypes gets a reference to the given []string and assigns it to the PaymentMethodTypes field.
+func (o *PaymentSetupOptions) SetPaymentMethodTypes(v []string) {
+	o.PaymentMethodTypes = v
+}
+
 func (o PaymentSetupOptions) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.FuturePayments != nil {
@@ -110,6 +143,9 @@ func (o PaymentSetupOptions) MarshalJSON() ([]byte, error) {
 	}
 	if o.MandateDetails != nil {
 		toSerialize["mandate_details"] = o.MandateDetails
+	}
+	if o.PaymentMethodTypes != nil {
+		toSerialize["payment_method_types"] = o.PaymentMethodTypes
 	}
 	return json.Marshal(toSerialize)
 }

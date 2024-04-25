@@ -2018,6 +2018,7 @@ paths:
           - MANDATE
           - SINGLE
           - CARD
+          - MANUAL
           type: string
       - description: The mandate the payment belongs to
         in: query
@@ -7352,6 +7353,7 @@ components:
           - MANDATE
           - SINGLE
           - CARD
+          - MANUAL
           type: string
         updated_at:
           description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
@@ -8273,6 +8275,9 @@ components:
               max_transaction_amount: 1
             description: description
             start_date: 2000-01-23
+          payment_method_types:
+          - MANDATE
+          - MANDATE
         unique_reference_id: unique_reference_id
         payment_metadata:
           key: payment_metadata
@@ -8381,6 +8386,9 @@ components:
             max_transaction_amount: 1
           description: description
           start_date: 2000-01-23
+        payment_method_types:
+        - MANDATE
+        - MANDATE
       properties:
         future_payments:
           description: 'The type of future_payments that customer want to use. Possible
@@ -8391,6 +8399,15 @@ components:
           type: string
         mandate_details:
           $ref: '#/components/schemas/MandateDetailsForPaymentLink'
+        payment_method_types:
+          items:
+            enum:
+            - MANDATE
+            - SINGLE
+            - CARD
+            - MANUAL
+            type: string
+          type: array
       type: object
     ListPaymentMethodsResponse:
       example:
@@ -8656,6 +8673,9 @@ components:
               max_transaction_amount: 1
             description: description
             start_date: 2000-01-23
+          payment_method_types:
+          - MANDATE
+          - MANDATE
         payment:
           amount: 100
           fees:
