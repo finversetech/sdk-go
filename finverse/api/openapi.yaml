@@ -8407,6 +8407,7 @@ components:
             - CARD
             - MANUAL
             type: string
+          nullable: true
           type: array
       type: object
     ListPaymentMethodsResponse:
