@@ -104,9 +104,9 @@ func (o *PaymentSetupOptions) SetMandateDetails(v MandateDetailsForPaymentLink) 
 	o.MandateDetails = &v
 }
 
-// GetPaymentMethodTypes returns the PaymentMethodTypes field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetPaymentMethodTypes returns the PaymentMethodTypes field value if set, zero value otherwise.
 func (o *PaymentSetupOptions) GetPaymentMethodTypes() []string {
-	if o == nil {
+	if o == nil || o.PaymentMethodTypes == nil {
 		var ret []string
 		return ret
 	}
@@ -115,7 +115,6 @@ func (o *PaymentSetupOptions) GetPaymentMethodTypes() []string {
 
 // GetPaymentMethodTypesOk returns a tuple with the PaymentMethodTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PaymentSetupOptions) GetPaymentMethodTypesOk() ([]string, bool) {
 	if o == nil || o.PaymentMethodTypes == nil {
 		return nil, false

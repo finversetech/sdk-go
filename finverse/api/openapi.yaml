@@ -8407,8 +8407,8 @@ components:
             - CARD
             - MANUAL
             type: string
-          nullable: true
           type: array
+          x-omitempty: true
       type: object
     ListPaymentMethodsResponse:
       example:
