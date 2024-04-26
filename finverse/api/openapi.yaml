@@ -3891,10 +3891,12 @@ components:
         category_id: OTHER
         updated_at: 2000-01-23T04:56:07.000+00:00
         transaction_state: ACTIVE
+        transaction_time: 2000-01-23T04:56:07.000+00:00
         location: Pacific Place
         categories:
         - TRANSFER
         category: OTHER
+        bank_reference: bank_reference
         category_predictions:
         - categories:
           - TRANSFER
@@ -3966,6 +3968,14 @@ components:
           items:
             type: string
           type: array
+        transaction_time:
+          description: Optional field indicating when the transaction happened
+          format: date-time
+          nullable: true
+          type: string
+        bank_reference:
+          description: Transaction reference provided by the bank
+          type: string
         category_predictions:
           items:
             $ref: '#/components/schemas/categoryPredictions'
@@ -4071,10 +4081,12 @@ components:
           category_id: OTHER
           updated_at: 2000-01-23T04:56:07.000+00:00
           transaction_state: ACTIVE
+          transaction_time: 2000-01-23T04:56:07.000+00:00
           location: Pacific Place
           categories:
           - TRANSFER
           category: OTHER
+          bank_reference: bank_reference
           category_predictions:
           - categories:
             - TRANSFER
@@ -4101,10 +4113,12 @@ components:
           category_id: OTHER
           updated_at: 2000-01-23T04:56:07.000+00:00
           transaction_state: ACTIVE
+          transaction_time: 2000-01-23T04:56:07.000+00:00
           location: Pacific Place
           categories:
           - TRANSFER
           category: OTHER
+          bank_reference: bank_reference
           category_predictions:
           - categories:
             - TRANSFER

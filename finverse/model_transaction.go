@@ -39,7 +39,11 @@ type Transaction struct {
 	CreatedAt          *time.Time             `json:"created_at,omitempty"`
 	UpdatedAt          *time.Time             `json:"updated_at,omitempty"`
 	// Array of category labels
-	Categories          []string              `json:"categories,omitempty"`
+	Categories []string `json:"categories,omitempty"`
+	// Optional field indicating when the transaction happened
+	TransactionTime NullableTime `json:"transaction_time,omitempty"`
+	// Transaction reference provided by the bank
+	BankReference       *string               `json:"bank_reference,omitempty"`
 	CategoryPredictions []CategoryPredictions `json:"category_predictions,omitempty"`
 }
 
@@ -597,6 +601,81 @@ func (o *Transaction) SetCategories(v []string) {
 	o.Categories = v
 }
 
+// GetTransactionTime returns the TransactionTime field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *Transaction) GetTransactionTime() time.Time {
+	if o == nil || o.TransactionTime.Get() == nil {
+		var ret time.Time
+		return ret
+	}
+	return *o.TransactionTime.Get()
+}
+
+// GetTransactionTimeOk returns a tuple with the TransactionTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *Transaction) GetTransactionTimeOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TransactionTime.Get(), o.TransactionTime.IsSet()
+}
+
+// HasTransactionTime returns a boolean if a field has been set.
+func (o *Transaction) HasTransactionTime() bool {
+	if o != nil && o.TransactionTime.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTransactionTime gets a reference to the given NullableTime and assigns it to the TransactionTime field.
+func (o *Transaction) SetTransactionTime(v time.Time) {
+	o.TransactionTime.Set(&v)
+}
+
+// SetTransactionTimeNil sets the value for TransactionTime to be an explicit nil
+func (o *Transaction) SetTransactionTimeNil() {
+	o.TransactionTime.Set(nil)
+}
+
+// UnsetTransactionTime ensures that no value is present for TransactionTime, not even an explicit nil
+func (o *Transaction) UnsetTransactionTime() {
+	o.TransactionTime.Unset()
+}
+
+// GetBankReference returns the BankReference field value if set, zero value otherwise.
+func (o *Transaction) GetBankReference() string {
+	if o == nil || o.BankReference == nil {
+		var ret string
+		return ret
+	}
+	return *o.BankReference
+}
+
+// GetBankReferenceOk returns a tuple with the BankReference field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Transaction) GetBankReferenceOk() (*string, bool) {
+	if o == nil || o.BankReference == nil {
+		return nil, false
+	}
+	return o.BankReference, true
+}
+
+// HasBankReference returns a boolean if a field has been set.
+func (o *Transaction) HasBankReference() bool {
+	if o != nil && o.BankReference != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetBankReference gets a reference to the given string and assigns it to the BankReference field.
+func (o *Transaction) SetBankReference(v string) {
+	o.BankReference = &v
+}
+
 // GetCategoryPredictions returns the CategoryPredictions field value if set, zero value otherwise.
 func (o *Transaction) GetCategoryPredictions() []CategoryPredictions {
 	if o == nil || o.CategoryPredictions == nil {
@@ -681,6 +760,12 @@ func (o Transaction) MarshalJSON() ([]byte, error) {
 	}
 	if o.Categories != nil {
 		toSerialize["categories"] = o.Categories
+	}
+	if o.TransactionTime.IsSet() {
+		toSerialize["transaction_time"] = o.TransactionTime.Get()
+	}
+	if o.BankReference != nil {
+		toSerialize["bank_reference"] = o.BankReference
 	}
 	if o.CategoryPredictions != nil {
 		toSerialize["category_predictions"] = o.CategoryPredictions
