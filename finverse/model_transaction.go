@@ -43,8 +43,8 @@ type Transaction struct {
 	// Optional field indicating when the transaction happened
 	TransactionTime NullableTime `json:"transaction_time,omitempty"`
 	// Transaction reference provided by the bank
-	BankReference       *string               `json:"bank_reference,omitempty"`
-	CategoryPredictions []CategoryPredictions `json:"category_predictions,omitempty"`
+	TransactionReference *string               `json:"transaction_reference,omitempty"`
+	CategoryPredictions  []CategoryPredictions `json:"category_predictions,omitempty"`
 }
 
 // NewTransaction instantiates a new Transaction object
@@ -644,36 +644,36 @@ func (o *Transaction) UnsetTransactionTime() {
 	o.TransactionTime.Unset()
 }
 
-// GetBankReference returns the BankReference field value if set, zero value otherwise.
-func (o *Transaction) GetBankReference() string {
-	if o == nil || o.BankReference == nil {
+// GetTransactionReference returns the TransactionReference field value if set, zero value otherwise.
+func (o *Transaction) GetTransactionReference() string {
+	if o == nil || o.TransactionReference == nil {
 		var ret string
 		return ret
 	}
-	return *o.BankReference
+	return *o.TransactionReference
 }
 
-// GetBankReferenceOk returns a tuple with the BankReference field value if set, nil otherwise
+// GetTransactionReferenceOk returns a tuple with the TransactionReference field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Transaction) GetBankReferenceOk() (*string, bool) {
-	if o == nil || o.BankReference == nil {
+func (o *Transaction) GetTransactionReferenceOk() (*string, bool) {
+	if o == nil || o.TransactionReference == nil {
 		return nil, false
 	}
-	return o.BankReference, true
+	return o.TransactionReference, true
 }
 
-// HasBankReference returns a boolean if a field has been set.
-func (o *Transaction) HasBankReference() bool {
-	if o != nil && o.BankReference != nil {
+// HasTransactionReference returns a boolean if a field has been set.
+func (o *Transaction) HasTransactionReference() bool {
+	if o != nil && o.TransactionReference != nil {
 		return true
 	}
 
 	return false
 }
 
-// SetBankReference gets a reference to the given string and assigns it to the BankReference field.
-func (o *Transaction) SetBankReference(v string) {
-	o.BankReference = &v
+// SetTransactionReference gets a reference to the given string and assigns it to the TransactionReference field.
+func (o *Transaction) SetTransactionReference(v string) {
+	o.TransactionReference = &v
 }
 
 // GetCategoryPredictions returns the CategoryPredictions field value if set, zero value otherwise.
@@ -764,8 +764,8 @@ func (o Transaction) MarshalJSON() ([]byte, error) {
 	if o.TransactionTime.IsSet() {
 		toSerialize["transaction_time"] = o.TransactionTime.Get()
 	}
-	if o.BankReference != nil {
-		toSerialize["bank_reference"] = o.BankReference
+	if o.TransactionReference != nil {
+		toSerialize["transaction_reference"] = o.TransactionReference
 	}
 	if o.CategoryPredictions != nil {
 		toSerialize["category_predictions"] = o.CategoryPredictions

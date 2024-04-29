@@ -3895,8 +3895,8 @@ components:
         location: Pacific Place
         categories:
         - TRANSFER
+        transaction_reference: transaction_reference
         category: OTHER
-        bank_reference: bank_reference
         category_predictions:
         - categories:
           - TRANSFER
@@ -3973,7 +3973,7 @@ components:
           format: date-time
           nullable: true
           type: string
-        bank_reference:
+        transaction_reference:
           description: Transaction reference provided by the bank
           type: string
         category_predictions:
@@ -4085,8 +4085,8 @@ components:
           location: Pacific Place
           categories:
           - TRANSFER
+          transaction_reference: transaction_reference
           category: OTHER
-          bank_reference: bank_reference
           category_predictions:
           - categories:
             - TRANSFER
@@ -4117,8 +4117,8 @@ components:
           location: Pacific Place
           categories:
           - TRANSFER
+          transaction_reference: transaction_reference
           category: OTHER
-          bank_reference: bank_reference
           category_predictions:
           - categories:
             - TRANSFER
