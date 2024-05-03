@@ -2936,24 +2936,12 @@ paths:
               schema:
                 $ref: '#/components/schemas/RefreshPaymentAttemptResponse'
           description: OK
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Bad Request
         "401":
           content:
             application/json:
               schema:
                 $ref: '#/components/schemas/ErrBodyModelV2'
           description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Internal Server Error
       security:
       - Oauth2:
         - payment_attempt:refresh
