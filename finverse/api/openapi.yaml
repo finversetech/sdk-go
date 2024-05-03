@@ -2925,6 +2925,38 @@ paths:
       security:
       - Oauth2:
         - payment_links:payment_method:update
+  /payment_link/fvlink/payment_attempt/refresh:
+    post:
+      description: Refresh payment attempt from payment link front-end
+      operationId: refreshPaymentAttempt
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RefreshPaymentAttemptResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payment_attempt:refresh
 components:
   schemas:
     Principal:
@@ -11035,6 +11067,13 @@ components:
       properties:
         card:
           $ref: '#/components/schemas/PaymentSnapshotPaymentMethod_card'
+      type: object
+    RefreshPaymentAttemptResponse:
+      example:
+        redirect_url: redirect_url
+      properties:
+        redirect_url:
+          type: string
       type: object
     BadRequestModel_error:
       properties:
