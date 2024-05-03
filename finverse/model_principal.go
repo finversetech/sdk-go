@@ -35,6 +35,9 @@ type Principal struct {
 	PaymentLinkId             *string                    `json:"payment_link_id,omitempty"`
 	UniqueReferenceId         *string                    `json:"unique_reference_id,omitempty"`
 	PaymentMethodId           *string                    `json:"payment_method_id,omitempty"`
+	TppName                   *string                    `json:"tpp_name,omitempty"`
+	RetryUrl                  *string                    `json:"retry_url,omitempty"`
+	OnboardingFlow            *string                    `json:"onboarding_flow,omitempty"`
 	// The qrCode text to be used to generate the image
 	QrCodeText *string `json:"qr_code_text,omitempty"`
 }
@@ -604,6 +607,102 @@ func (o *Principal) SetPaymentMethodId(v string) {
 	o.PaymentMethodId = &v
 }
 
+// GetTppName returns the TppName field value if set, zero value otherwise.
+func (o *Principal) GetTppName() string {
+	if o == nil || o.TppName == nil {
+		var ret string
+		return ret
+	}
+	return *o.TppName
+}
+
+// GetTppNameOk returns a tuple with the TppName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Principal) GetTppNameOk() (*string, bool) {
+	if o == nil || o.TppName == nil {
+		return nil, false
+	}
+	return o.TppName, true
+}
+
+// HasTppName returns a boolean if a field has been set.
+func (o *Principal) HasTppName() bool {
+	if o != nil && o.TppName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetTppName gets a reference to the given string and assigns it to the TppName field.
+func (o *Principal) SetTppName(v string) {
+	o.TppName = &v
+}
+
+// GetRetryUrl returns the RetryUrl field value if set, zero value otherwise.
+func (o *Principal) GetRetryUrl() string {
+	if o == nil || o.RetryUrl == nil {
+		var ret string
+		return ret
+	}
+	return *o.RetryUrl
+}
+
+// GetRetryUrlOk returns a tuple with the RetryUrl field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Principal) GetRetryUrlOk() (*string, bool) {
+	if o == nil || o.RetryUrl == nil {
+		return nil, false
+	}
+	return o.RetryUrl, true
+}
+
+// HasRetryUrl returns a boolean if a field has been set.
+func (o *Principal) HasRetryUrl() bool {
+	if o != nil && o.RetryUrl != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRetryUrl gets a reference to the given string and assigns it to the RetryUrl field.
+func (o *Principal) SetRetryUrl(v string) {
+	o.RetryUrl = &v
+}
+
+// GetOnboardingFlow returns the OnboardingFlow field value if set, zero value otherwise.
+func (o *Principal) GetOnboardingFlow() string {
+	if o == nil || o.OnboardingFlow == nil {
+		var ret string
+		return ret
+	}
+	return *o.OnboardingFlow
+}
+
+// GetOnboardingFlowOk returns a tuple with the OnboardingFlow field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Principal) GetOnboardingFlowOk() (*string, bool) {
+	if o == nil || o.OnboardingFlow == nil {
+		return nil, false
+	}
+	return o.OnboardingFlow, true
+}
+
+// HasOnboardingFlow returns a boolean if a field has been set.
+func (o *Principal) HasOnboardingFlow() bool {
+	if o != nil && o.OnboardingFlow != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetOnboardingFlow gets a reference to the given string and assigns it to the OnboardingFlow field.
+func (o *Principal) SetOnboardingFlow(v string) {
+	o.OnboardingFlow = &v
+}
+
 // GetQrCodeText returns the QrCodeText field value if set, zero value otherwise.
 func (o *Principal) GetQrCodeText() string {
 	if o == nil || o.QrCodeText == nil {
@@ -691,6 +790,15 @@ func (o Principal) MarshalJSON() ([]byte, error) {
 	}
 	if o.PaymentMethodId != nil {
 		toSerialize["payment_method_id"] = o.PaymentMethodId
+	}
+	if o.TppName != nil {
+		toSerialize["tpp_name"] = o.TppName
+	}
+	if o.RetryUrl != nil {
+		toSerialize["retry_url"] = o.RetryUrl
+	}
+	if o.OnboardingFlow != nil {
+		toSerialize["onboarding_flow"] = o.OnboardingFlow
 	}
 	if o.QrCodeText != nil {
 		toSerialize["qr_code_text"] = o.QrCodeText

@@ -3013,6 +3013,12 @@ components:
           type: string
         payment_method_id:
           type: string
+        tpp_name:
+          type: string
+        retry_url:
+          type: string
+        onboarding_flow:
+          type: string
         qr_code_text:
           description: The qrCode text to be used to generate the image
           type: string
