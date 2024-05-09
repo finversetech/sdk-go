@@ -17,8 +17,8 @@ import (
 
 // ListPaymentMethodsResponse struct for ListPaymentMethodsResponse
 type ListPaymentMethodsResponse struct {
-	PaymentMethods []PaymentMethodResponse `json:"payment_methods,omitempty"`
-	Sender         *PaymentUser            `json:"sender,omitempty"`
+	PaymentMethods []PaymentMethodResponse  `json:"payment_methods,omitempty"`
+	Sender         *PaymentUserWithoutEmail `json:"sender,omitempty"`
 }
 
 // NewListPaymentMethodsResponse instantiates a new ListPaymentMethodsResponse object
@@ -71,9 +71,9 @@ func (o *ListPaymentMethodsResponse) SetPaymentMethods(v []PaymentMethodResponse
 }
 
 // GetSender returns the Sender field value if set, zero value otherwise.
-func (o *ListPaymentMethodsResponse) GetSender() PaymentUser {
+func (o *ListPaymentMethodsResponse) GetSender() PaymentUserWithoutEmail {
 	if o == nil || o.Sender == nil {
-		var ret PaymentUser
+		var ret PaymentUserWithoutEmail
 		return ret
 	}
 	return *o.Sender
@@ -81,7 +81,7 @@ func (o *ListPaymentMethodsResponse) GetSender() PaymentUser {
 
 // GetSenderOk returns a tuple with the Sender field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ListPaymentMethodsResponse) GetSenderOk() (*PaymentUser, bool) {
+func (o *ListPaymentMethodsResponse) GetSenderOk() (*PaymentUserWithoutEmail, bool) {
 	if o == nil || o.Sender == nil {
 		return nil, false
 	}
@@ -97,8 +97,8 @@ func (o *ListPaymentMethodsResponse) HasSender() bool {
 	return false
 }
 
-// SetSender gets a reference to the given PaymentUser and assigns it to the Sender field.
-func (o *ListPaymentMethodsResponse) SetSender(v PaymentUser) {
+// SetSender gets a reference to the given PaymentUserWithoutEmail and assigns it to the Sender field.
+func (o *ListPaymentMethodsResponse) SetSender(v PaymentUserWithoutEmail) {
 	o.Sender = &v
 }
 

@@ -8666,7 +8666,7 @@ components:
             $ref: '#/components/schemas/PaymentMethodResponse'
           type: array
         sender:
-          $ref: '#/components/schemas/PaymentUser'
+          $ref: '#/components/schemas/PaymentUserWithoutEmail'
       type: object
     PaymentLinkResponse:
       example:
@@ -10762,6 +10762,83 @@ components:
       - name
       type: object
     PaymentUser:
+      example:
+        integration_metadata:
+          integration_id: RAPIDSTOR
+          rapidstor_metadata:
+            tenant_id: tenant_id
+            tenant_default_currency: tenant_default_currency
+            corp_code: corp_code
+            i_anniv_days: 5.962133916683182
+            s_location_code: s_location_code
+        metadata:
+          key: metadata
+        autopay_consent: false
+        user_type: INDIVIDUAL
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        user_id: user_id
+        user_details:
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        name: name
+        created_at: 2000-01-23T04:56:07.000+00:00
+        next_bill_update: 2000-01-23T04:56:07.000+00:00
+        email: email
+        external_user_id: external_user_id
+      properties:
+        created_at:
+          format: date-time
+          type: string
+        email:
+          type: string
+        external_user_id:
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+          type: object
+        name:
+          type: string
+        user_details:
+          items:
+            $ref: '#/components/schemas/SenderDetail'
+          type: array
+        updated_at:
+          format: date-time
+          type: string
+        next_bill_update:
+          format: date-time
+          nullable: true
+          type: string
+        user_id:
+          type: string
+        user_type:
+          enum:
+          - INDIVIDUAL
+          - BUSINESS
+          type: string
+        autopay_consent:
+          description: Whether the user has given consent for autopay
+          example: false
+          type: boolean
+        integration_metadata:
+          $ref: '#/components/schemas/IntegrationMetadataResponse'
+      required:
+      - autopay_consent
+      type: object
+    PaymentUserWithoutEmail:
       example:
         integration_metadata:
           integration_id: RAPIDSTOR
