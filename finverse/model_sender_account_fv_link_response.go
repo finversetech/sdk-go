@@ -19,6 +19,7 @@ import (
 type SenderAccountFvLinkResponse struct {
 	AccountNumberMasked *string `json:"account_number_masked,omitempty"`
 	InstitutionId       *string `json:"institution_id,omitempty"`
+	InstitutionName     *string `json:"institution_name,omitempty"`
 }
 
 // NewSenderAccountFvLinkResponse instantiates a new SenderAccountFvLinkResponse object
@@ -102,6 +103,38 @@ func (o *SenderAccountFvLinkResponse) SetInstitutionId(v string) {
 	o.InstitutionId = &v
 }
 
+// GetInstitutionName returns the InstitutionName field value if set, zero value otherwise.
+func (o *SenderAccountFvLinkResponse) GetInstitutionName() string {
+	if o == nil || o.InstitutionName == nil {
+		var ret string
+		return ret
+	}
+	return *o.InstitutionName
+}
+
+// GetInstitutionNameOk returns a tuple with the InstitutionName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SenderAccountFvLinkResponse) GetInstitutionNameOk() (*string, bool) {
+	if o == nil || o.InstitutionName == nil {
+		return nil, false
+	}
+	return o.InstitutionName, true
+}
+
+// HasInstitutionName returns a boolean if a field has been set.
+func (o *SenderAccountFvLinkResponse) HasInstitutionName() bool {
+	if o != nil && o.InstitutionName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInstitutionName gets a reference to the given string and assigns it to the InstitutionName field.
+func (o *SenderAccountFvLinkResponse) SetInstitutionName(v string) {
+	o.InstitutionName = &v
+}
+
 func (o SenderAccountFvLinkResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.AccountNumberMasked != nil {
@@ -109,6 +142,9 @@ func (o SenderAccountFvLinkResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.InstitutionId != nil {
 		toSerialize["institution_id"] = o.InstitutionId
+	}
+	if o.InstitutionName != nil {
+		toSerialize["institution_name"] = o.InstitutionName
 	}
 	return json.Marshal(toSerialize)
 }

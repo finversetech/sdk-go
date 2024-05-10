@@ -29,6 +29,8 @@ type PaymentAccountDetails struct {
 	AccountholderName *string `json:"accountholder_name,omitempty"`
 	// Finverse Institution ID for the payment institution.
 	InstitutionId *string `json:"institution_id,omitempty"`
+	// Institution Name for the sender’s institution.
+	InstitutionName *string `json:"institution_name,omitempty"`
 	// A unique identifier generated after creating user (Finverse Payment User ID)
 	UserId *string `json:"user_id,omitempty"`
 	// 3-digit code associated with bank
@@ -252,6 +254,38 @@ func (o *PaymentAccountDetails) HasInstitutionId() bool {
 // SetInstitutionId gets a reference to the given string and assigns it to the InstitutionId field.
 func (o *PaymentAccountDetails) SetInstitutionId(v string) {
 	o.InstitutionId = &v
+}
+
+// GetInstitutionName returns the InstitutionName field value if set, zero value otherwise.
+func (o *PaymentAccountDetails) GetInstitutionName() string {
+	if o == nil || o.InstitutionName == nil {
+		var ret string
+		return ret
+	}
+	return *o.InstitutionName
+}
+
+// GetInstitutionNameOk returns a tuple with the InstitutionName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentAccountDetails) GetInstitutionNameOk() (*string, bool) {
+	if o == nil || o.InstitutionName == nil {
+		return nil, false
+	}
+	return o.InstitutionName, true
+}
+
+// HasInstitutionName returns a boolean if a field has been set.
+func (o *PaymentAccountDetails) HasInstitutionName() bool {
+	if o != nil && o.InstitutionName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInstitutionName gets a reference to the given string and assigns it to the InstitutionName field.
+func (o *PaymentAccountDetails) SetInstitutionName(v string) {
+	o.InstitutionName = &v
 }
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
@@ -497,6 +531,9 @@ func (o PaymentAccountDetails) MarshalJSON() ([]byte, error) {
 	}
 	if o.InstitutionId != nil {
 		toSerialize["institution_id"] = o.InstitutionId
+	}
+	if o.InstitutionName != nil {
+		toSerialize["institution_name"] = o.InstitutionName
 	}
 	if o.UserId != nil {
 		toSerialize["user_id"] = o.UserId

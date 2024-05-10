@@ -7360,6 +7360,7 @@ components:
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
           account_number_masked: account_number_masked
           accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
+          institution_name: HSBC
           institution_id: hsbc-hk
         recipient:
           name: name
@@ -7514,6 +7515,7 @@ components:
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             account_number_masked: account_number_masked
             accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
+            institution_name: HSBC
             institution_id: hsbc-hk
           recipient:
             name: name
@@ -7589,6 +7591,7 @@ components:
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             account_number_masked: account_number_masked
             accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
+            institution_name: HSBC
             institution_id: hsbc-hk
           recipient:
             name: name
@@ -7689,6 +7692,7 @@ components:
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
           account_number_masked: account_number_masked
           accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
+          institution_name: HSBC
           institution_id: hsbc-hk
         created_at: 2000-01-23T04:56:07.000+00:00
         type: type
@@ -8218,6 +8222,7 @@ components:
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
           account_number_masked: account_number_masked
           accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
+          institution_name: HSBC
           institution_id: hsbc-hk
         recipient:
           name: name
@@ -8528,6 +8533,7 @@ components:
               user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
               account_number_masked: account_number_masked
               accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
+              institution_name: HSBC
               institution_id: hsbc-hk
             recipient:
               name: name
@@ -8614,6 +8620,7 @@ components:
               user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
               account_number_masked: account_number_masked
               accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
+              institution_name: HSBC
               institution_id: hsbc-hk
             recipient:
               name: name
@@ -8783,6 +8790,7 @@ components:
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             account_number_masked: account_number_masked
             accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
+            institution_name: HSBC
             institution_id: hsbc-hk
           recipient:
             name: name
@@ -8870,6 +8878,7 @@ components:
               user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
               account_number_masked: account_number_masked
               accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
+              institution_name: HSBC
               institution_id: hsbc-hk
             recipient:
               name: name
@@ -9265,6 +9274,7 @@ components:
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
           account_number_masked: account_number_masked
           accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
+          institution_name: HSBC
           institution_id: hsbc-hk
         recipient:
           name: name
@@ -9402,6 +9412,7 @@ components:
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             account_number_masked: account_number_masked
             accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
+            institution_name: HSBC
             institution_id: hsbc-hk
           recipient:
             name: name
@@ -9478,6 +9489,7 @@ components:
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             account_number_masked: account_number_masked
             accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
+            institution_name: HSBC
             institution_id: hsbc-hk
           recipient:
             name: name
@@ -10358,6 +10370,10 @@ components:
           description: Finverse Institution ID for the recipient’s institution.
           example: hsbc-hk
           type: string
+        institution_name:
+          description: Institution Name for the sender’s institution.
+          example: HSBC
+          type: string
         bank_code:
           description: 3-digit code associated with bank
           example: "004"
@@ -10409,6 +10425,7 @@ components:
         user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
         account_number_masked: account_number_masked
         accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
+        institution_name: HSBC
         institution_id: hsbc-hk
       properties:
         account_id:
@@ -10438,6 +10455,10 @@ components:
         institution_id:
           description: Finverse Institution ID for the sender’s institution.
           example: hsbc-hk
+          type: string
+        institution_name:
+          description: Institution Name for the sender’s institution.
+          example: HSBC
           type: string
         user_id:
           description: A unique identifier generated after creating sender (Finverse
@@ -10527,6 +10548,7 @@ components:
           metadata:
             key: metadata
           created_at: 2000-01-23T04:56:07.000+00:00
+          institution_name: HSBC
           institution_id: hsbc-hk
           branch_code: "123"
           account_id: account_id
@@ -10546,6 +10568,7 @@ components:
           metadata:
             key: metadata
           created_at: 2000-01-23T04:56:07.000+00:00
+          institution_name: HSBC
           institution_id: hsbc-hk
           branch_code: "123"
           account_id: account_id
@@ -10573,6 +10596,7 @@ components:
         metadata:
           key: metadata
         created_at: 2000-01-23T04:56:07.000+00:00
+        institution_name: HSBC
         institution_id: hsbc-hk
         branch_code: "123"
         account_id: account_id
@@ -10606,6 +10630,10 @@ components:
         institution_id:
           description: Finverse Institution ID for the payment institution.
           example: hsbc-hk
+          type: string
+        institution_name:
+          description: Institution Name for the sender’s institution.
+          example: HSBC
           type: string
         user_id:
           description: A unique identifier generated after creating user (Finverse
@@ -10992,6 +11020,7 @@ components:
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             account_number_masked: account_number_masked
             accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
+            institution_name: HSBC
             institution_id: hsbc-hk
           recipient:
             name: name
@@ -11022,6 +11051,7 @@ components:
           mandate_status: mandate_status
           sender_account:
             account_number_masked: account_number_masked
+            institution_name: institution_name
             institution_id: institution_id
           recipient:
             name: name
@@ -11057,6 +11087,7 @@ components:
         mandate_status: mandate_status
         sender_account:
           account_number_masked: account_number_masked
+          institution_name: institution_name
           institution_id: institution_id
         recipient:
           name: name
@@ -11115,11 +11146,14 @@ components:
     SenderAccountFvLinkResponse:
       example:
         account_number_masked: account_number_masked
+        institution_name: institution_name
         institution_id: institution_id
       properties:
         account_number_masked:
           type: string
         institution_id:
+          type: string
+        institution_name:
           type: string
       type: object
     ChangePaymentMethodFvLinkResponse:

@@ -28,6 +28,8 @@ type RecipientAccountResponse struct {
 	Currencies []string `json:"currencies,omitempty"`
 	// Finverse Institution ID for the recipient’s institution.
 	InstitutionId *string `json:"institution_id,omitempty"`
+	// Institution Name for the sender’s institution.
+	InstitutionName *string `json:"institution_name,omitempty"`
 	// 3-digit code associated with bank
 	BankCode *string `json:"bank_code,omitempty"`
 	// 3-digit code used to identify specific bank branch
@@ -243,6 +245,38 @@ func (o *RecipientAccountResponse) SetInstitutionId(v string) {
 	o.InstitutionId = &v
 }
 
+// GetInstitutionName returns the InstitutionName field value if set, zero value otherwise.
+func (o *RecipientAccountResponse) GetInstitutionName() string {
+	if o == nil || o.InstitutionName == nil {
+		var ret string
+		return ret
+	}
+	return *o.InstitutionName
+}
+
+// GetInstitutionNameOk returns a tuple with the InstitutionName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RecipientAccountResponse) GetInstitutionNameOk() (*string, bool) {
+	if o == nil || o.InstitutionName == nil {
+		return nil, false
+	}
+	return o.InstitutionName, true
+}
+
+// HasInstitutionName returns a boolean if a field has been set.
+func (o *RecipientAccountResponse) HasInstitutionName() bool {
+	if o != nil && o.InstitutionName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetInstitutionName gets a reference to the given string and assigns it to the InstitutionName field.
+func (o *RecipientAccountResponse) SetInstitutionName(v string) {
+	o.InstitutionName = &v
+}
+
 // GetBankCode returns the BankCode field value if set, zero value otherwise.
 func (o *RecipientAccountResponse) GetBankCode() string {
 	if o == nil || o.BankCode == nil {
@@ -326,6 +360,9 @@ func (o RecipientAccountResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.InstitutionId != nil {
 		toSerialize["institution_id"] = o.InstitutionId
+	}
+	if o.InstitutionName != nil {
+		toSerialize["institution_name"] = o.InstitutionName
 	}
 	if o.BankCode != nil {
 		toSerialize["bank_code"] = o.BankCode
