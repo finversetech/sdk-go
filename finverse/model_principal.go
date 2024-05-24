@@ -39,7 +39,8 @@ type Principal struct {
 	RetryUrl                  *string                    `json:"retry_url,omitempty"`
 	OnboardingFlow            *string                    `json:"onboarding_flow,omitempty"`
 	// The qrCode text to be used to generate the image
-	QrCodeText *string `json:"qr_code_text,omitempty"`
+	QrCodeText            *string `json:"qr_code_text,omitempty"`
+	ManualPaymentProvider *string `json:"manual_payment_provider,omitempty"`
 }
 
 // NewPrincipal instantiates a new Principal object
@@ -735,6 +736,38 @@ func (o *Principal) SetQrCodeText(v string) {
 	o.QrCodeText = &v
 }
 
+// GetManualPaymentProvider returns the ManualPaymentProvider field value if set, zero value otherwise.
+func (o *Principal) GetManualPaymentProvider() string {
+	if o == nil || o.ManualPaymentProvider == nil {
+		var ret string
+		return ret
+	}
+	return *o.ManualPaymentProvider
+}
+
+// GetManualPaymentProviderOk returns a tuple with the ManualPaymentProvider field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Principal) GetManualPaymentProviderOk() (*string, bool) {
+	if o == nil || o.ManualPaymentProvider == nil {
+		return nil, false
+	}
+	return o.ManualPaymentProvider, true
+}
+
+// HasManualPaymentProvider returns a boolean if a field has been set.
+func (o *Principal) HasManualPaymentProvider() bool {
+	if o != nil && o.ManualPaymentProvider != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetManualPaymentProvider gets a reference to the given string and assigns it to the ManualPaymentProvider field.
+func (o *Principal) SetManualPaymentProvider(v string) {
+	o.ManualPaymentProvider = &v
+}
+
 func (o Principal) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -802,6 +835,9 @@ func (o Principal) MarshalJSON() ([]byte, error) {
 	}
 	if o.QrCodeText != nil {
 		toSerialize["qr_code_text"] = o.QrCodeText
+	}
+	if o.ManualPaymentProvider != nil {
+		toSerialize["manual_payment_provider"] = o.ManualPaymentProvider
 	}
 	return json.Marshal(toSerialize)
 }

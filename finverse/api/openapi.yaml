@@ -3010,6 +3010,9 @@ components:
         qr_code_text:
           description: The qrCode text to be used to generate the image
           type: string
+        manual_payment_provider:
+          example: ""
+          type: string
       required:
       - client_id
       - customer_app_id
