@@ -17,16 +17,16 @@ import (
 
 // ManualPaymentConfirmationRequest struct for ManualPaymentConfirmationRequest
 type ManualPaymentConfirmationRequest struct {
-	AccountholderName string `json:"accountholder_name"`
+	// Required if manual payment provider is HK_FPS. Not required for SG_PAYNOW
+	AccountholderName *string `json:"accountholder_name,omitempty"`
 }
 
 // NewManualPaymentConfirmationRequest instantiates a new ManualPaymentConfirmationRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewManualPaymentConfirmationRequest(accountholderName string) *ManualPaymentConfirmationRequest {
+func NewManualPaymentConfirmationRequest() *ManualPaymentConfirmationRequest {
 	this := ManualPaymentConfirmationRequest{}
-	this.AccountholderName = accountholderName
 	return &this
 }
 
@@ -38,33 +38,41 @@ func NewManualPaymentConfirmationRequestWithDefaults() *ManualPaymentConfirmatio
 	return &this
 }
 
-// GetAccountholderName returns the AccountholderName field value
+// GetAccountholderName returns the AccountholderName field value if set, zero value otherwise.
 func (o *ManualPaymentConfirmationRequest) GetAccountholderName() string {
-	if o == nil {
+	if o == nil || o.AccountholderName == nil {
 		var ret string
 		return ret
 	}
-
-	return o.AccountholderName
+	return *o.AccountholderName
 }
 
-// GetAccountholderNameOk returns a tuple with the AccountholderName field value
+// GetAccountholderNameOk returns a tuple with the AccountholderName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ManualPaymentConfirmationRequest) GetAccountholderNameOk() (*string, bool) {
-	if o == nil {
+	if o == nil || o.AccountholderName == nil {
 		return nil, false
 	}
-	return &o.AccountholderName, true
+	return o.AccountholderName, true
 }
 
-// SetAccountholderName sets field value
+// HasAccountholderName returns a boolean if a field has been set.
+func (o *ManualPaymentConfirmationRequest) HasAccountholderName() bool {
+	if o != nil && o.AccountholderName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountholderName gets a reference to the given string and assigns it to the AccountholderName field.
 func (o *ManualPaymentConfirmationRequest) SetAccountholderName(v string) {
-	o.AccountholderName = v
+	o.AccountholderName = &v
 }
 
 func (o ManualPaymentConfirmationRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
+	if o.AccountholderName != nil {
 		toSerialize["accountholder_name"] = o.AccountholderName
 	}
 	return json.Marshal(toSerialize)

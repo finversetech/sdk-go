@@ -10527,10 +10527,10 @@ components:
         accountholder_name: accountholder_name
       properties:
         accountholder_name:
+          description: Required if manual payment provider is HK_FPS. Not required
+            for SG_PAYNOW
           maxLength: 1024
           type: string
-      required:
-      - accountholder_name
       type: object
     ManualPaymentConfirmationResponse:
       example:
