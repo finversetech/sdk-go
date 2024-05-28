@@ -5112,7 +5112,6 @@ components:
         mandate_link_token:
           access_token: access_token
           link_url: link_url
-          qr_code: qr_code
           token_type: Bearer
           expires_in: 0
       properties:
@@ -5140,7 +5139,6 @@ components:
         fps_token:
           access_token: access_token
           link_url: link_url
-          qr_code: qr_code
           token_type: Bearer
           expires_in: 0
       properties:
@@ -5153,7 +5151,6 @@ components:
       example:
         access_token: access_token
         link_url: link_url
-        qr_code: qr_code
         token_type: Bearer
         expires_in: 0
       properties:
@@ -5166,9 +5163,6 @@ components:
           type: integer
         link_url:
           description: URL to launch Finverse Link to authorize the mandate
-          type: string
-        qr_code:
-          description: The FPS QR code in base64
           type: string
         token_type:
           enum:
