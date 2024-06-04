@@ -7232,6 +7232,8 @@ components:
           key: metadata
         payment_details:
           transaction_reference_id: transaction_reference_id
+          references:
+            finverse_transaction_reference: finverse_transaction_reference
           external_transaction_reference: external_transaction_reference
           description: description
           mandate_id: mandate_id
@@ -7270,6 +7272,8 @@ components:
     PaymentDetails2:
       example:
         transaction_reference_id: transaction_reference_id
+        references:
+          finverse_transaction_reference: finverse_transaction_reference
         external_transaction_reference: external_transaction_reference
         description: description
         mandate_id: mandate_id
@@ -7289,6 +7293,15 @@ components:
           description: Customer reference for this transaction
           maxLength: 10
           type: string
+        references:
+          $ref: '#/components/schemas/PaymentDetailsReferences'
+      type: object
+    PaymentDetailsReferences:
+      example:
+        finverse_transaction_reference: finverse_transaction_reference
+      properties:
+        finverse_transaction_reference:
+          type: string
       type: object
     PaymentResponse:
       example:
@@ -7306,6 +7319,8 @@ components:
           key: metadata
         payment_details:
           transaction_reference_id: transaction_reference_id
+          references:
+            finverse_transaction_reference: finverse_transaction_reference
           external_transaction_reference: external_transaction_reference
           description: description
           mandate_id: mandate_id
@@ -7461,6 +7476,8 @@ components:
             key: metadata
           payment_details:
             transaction_reference_id: transaction_reference_id
+            references:
+              finverse_transaction_reference: finverse_transaction_reference
             external_transaction_reference: external_transaction_reference
             description: description
             mandate_id: mandate_id
@@ -7537,6 +7554,8 @@ components:
             key: metadata
           payment_details:
             transaction_reference_id: transaction_reference_id
+            references:
+              finverse_transaction_reference: finverse_transaction_reference
             external_transaction_reference: external_transaction_reference
             description: description
             mandate_id: mandate_id
@@ -8736,6 +8755,8 @@ components:
             key: metadata
           payment_details:
             transaction_reference_id: transaction_reference_id
+            references:
+              finverse_transaction_reference: finverse_transaction_reference
             external_transaction_reference: external_transaction_reference
             description: description
             mandate_id: mandate_id

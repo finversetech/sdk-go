@@ -24,7 +24,8 @@ type PaymentDetails2 struct {
 	// Deprecated: Customer's ID for this transaction
 	TransactionReferenceId *string `json:"transaction_reference_id,omitempty"`
 	// Customer reference for this transaction
-	ExternalTransactionReference *string `json:"external_transaction_reference,omitempty"`
+	ExternalTransactionReference *string                   `json:"external_transaction_reference,omitempty"`
+	References                   *PaymentDetailsReferences `json:"references,omitempty"`
 }
 
 // NewPaymentDetails2 instantiates a new PaymentDetails2 object
@@ -172,6 +173,38 @@ func (o *PaymentDetails2) SetExternalTransactionReference(v string) {
 	o.ExternalTransactionReference = &v
 }
 
+// GetReferences returns the References field value if set, zero value otherwise.
+func (o *PaymentDetails2) GetReferences() PaymentDetailsReferences {
+	if o == nil || o.References == nil {
+		var ret PaymentDetailsReferences
+		return ret
+	}
+	return *o.References
+}
+
+// GetReferencesOk returns a tuple with the References field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentDetails2) GetReferencesOk() (*PaymentDetailsReferences, bool) {
+	if o == nil || o.References == nil {
+		return nil, false
+	}
+	return o.References, true
+}
+
+// HasReferences returns a boolean if a field has been set.
+func (o *PaymentDetails2) HasReferences() bool {
+	if o != nil && o.References != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetReferences gets a reference to the given PaymentDetailsReferences and assigns it to the References field.
+func (o *PaymentDetails2) SetReferences(v PaymentDetailsReferences) {
+	o.References = &v
+}
+
 func (o PaymentDetails2) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Description != nil {
@@ -185,6 +218,9 @@ func (o PaymentDetails2) MarshalJSON() ([]byte, error) {
 	}
 	if o.ExternalTransactionReference != nil {
 		toSerialize["external_transaction_reference"] = o.ExternalTransactionReference
+	}
+	if o.References != nil {
+		toSerialize["references"] = o.References
 	}
 	return json.Marshal(toSerialize)
 }
