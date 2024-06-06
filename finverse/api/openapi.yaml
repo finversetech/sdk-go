@@ -10758,8 +10758,16 @@ components:
       type: object
     CreatePaymentUserRequest:
       example:
+        integration_metadata:
+          integration_id: RAPIDSTOR
+          rapidstor_metadata:
+            tenant_id: tenant_id
+            corp_code: corp_code
+            i_anniv_days: 3.4024845713830345
+            s_location_code: s_location_code
         metadata:
           key: metadata
+        autopay_consent: true
         user_type: INDIVIDUAL
         user_details:
         - values:
@@ -10803,6 +10811,10 @@ components:
             maxLength: 100
             type: string
           type: object
+        autopay_consent:
+          type: boolean
+        integration_metadata:
+          $ref: '#/components/schemas/IntegrationMetadataRequest'
       required:
       - external_user_id
       - name

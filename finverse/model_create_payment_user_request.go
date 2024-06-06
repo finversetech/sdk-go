@@ -17,12 +17,14 @@ import (
 
 // CreatePaymentUserRequest struct for CreatePaymentUserRequest
 type CreatePaymentUserRequest struct {
-	Name           string             `json:"name"`
-	ExternalUserId string             `json:"external_user_id"`
-	UserType       *string            `json:"user_type,omitempty"`
-	Email          *string            `json:"email,omitempty"`
-	UserDetails    []SenderDetail     `json:"user_details,omitempty"`
-	Metadata       *map[string]string `json:"metadata,omitempty"`
+	Name                string                      `json:"name"`
+	ExternalUserId      string                      `json:"external_user_id"`
+	UserType            *string                     `json:"user_type,omitempty"`
+	Email               *string                     `json:"email,omitempty"`
+	UserDetails         []SenderDetail              `json:"user_details,omitempty"`
+	Metadata            *map[string]string          `json:"metadata,omitempty"`
+	AutopayConsent      *bool                       `json:"autopay_consent,omitempty"`
+	IntegrationMetadata *IntegrationMetadataRequest `json:"integration_metadata,omitempty"`
 }
 
 // NewCreatePaymentUserRequest instantiates a new CreatePaymentUserRequest object
@@ -220,6 +222,70 @@ func (o *CreatePaymentUserRequest) SetMetadata(v map[string]string) {
 	o.Metadata = &v
 }
 
+// GetAutopayConsent returns the AutopayConsent field value if set, zero value otherwise.
+func (o *CreatePaymentUserRequest) GetAutopayConsent() bool {
+	if o == nil || o.AutopayConsent == nil {
+		var ret bool
+		return ret
+	}
+	return *o.AutopayConsent
+}
+
+// GetAutopayConsentOk returns a tuple with the AutopayConsent field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreatePaymentUserRequest) GetAutopayConsentOk() (*bool, bool) {
+	if o == nil || o.AutopayConsent == nil {
+		return nil, false
+	}
+	return o.AutopayConsent, true
+}
+
+// HasAutopayConsent returns a boolean if a field has been set.
+func (o *CreatePaymentUserRequest) HasAutopayConsent() bool {
+	if o != nil && o.AutopayConsent != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAutopayConsent gets a reference to the given bool and assigns it to the AutopayConsent field.
+func (o *CreatePaymentUserRequest) SetAutopayConsent(v bool) {
+	o.AutopayConsent = &v
+}
+
+// GetIntegrationMetadata returns the IntegrationMetadata field value if set, zero value otherwise.
+func (o *CreatePaymentUserRequest) GetIntegrationMetadata() IntegrationMetadataRequest {
+	if o == nil || o.IntegrationMetadata == nil {
+		var ret IntegrationMetadataRequest
+		return ret
+	}
+	return *o.IntegrationMetadata
+}
+
+// GetIntegrationMetadataOk returns a tuple with the IntegrationMetadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreatePaymentUserRequest) GetIntegrationMetadataOk() (*IntegrationMetadataRequest, bool) {
+	if o == nil || o.IntegrationMetadata == nil {
+		return nil, false
+	}
+	return o.IntegrationMetadata, true
+}
+
+// HasIntegrationMetadata returns a boolean if a field has been set.
+func (o *CreatePaymentUserRequest) HasIntegrationMetadata() bool {
+	if o != nil && o.IntegrationMetadata != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegrationMetadata gets a reference to the given IntegrationMetadataRequest and assigns it to the IntegrationMetadata field.
+func (o *CreatePaymentUserRequest) SetIntegrationMetadata(v IntegrationMetadataRequest) {
+	o.IntegrationMetadata = &v
+}
+
 func (o CreatePaymentUserRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -239,6 +305,12 @@ func (o CreatePaymentUserRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata
+	}
+	if o.AutopayConsent != nil {
+		toSerialize["autopay_consent"] = o.AutopayConsent
+	}
+	if o.IntegrationMetadata != nil {
+		toSerialize["integration_metadata"] = o.IntegrationMetadata
 	}
 	return json.Marshal(toSerialize)
 }
