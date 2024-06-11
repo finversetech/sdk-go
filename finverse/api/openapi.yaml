@@ -1545,6 +1545,51 @@ paths:
       security:
       - Oauth2:
         - payment_method:list
+    post:
+      description: Create a Payment Method for a user
+      operationId: createPaymentMethod
+      parameters:
+      - description: Payment User ID
+        in: path
+        name: paymentUserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentMethodRequest'
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethodResponse'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - paymentMethod:create
+      x-codegen-request-body-name: createPaymentMethodRequest
   /mandates:
     get:
       description: List mandates
@@ -10973,6 +11018,35 @@ components:
       required:
       - autopay_consent
       type: object
+    CreatePaymentMethodRequest:
+      example:
+        payment_method_type: CARD
+        integration_metadata:
+          stripe_metadata:
+            payment_method:
+              id: id
+            customer:
+              id: id
+          integration_id: STRIPE
+        card:
+          card_details:
+            last4: last4
+            brand: brand
+          status: SUCCEEDED
+      properties:
+        card:
+          $ref: '#/components/schemas/CreatePaymentMethodRequest_card'
+        integration_metadata:
+          $ref: '#/components/schemas/CreatePaymentMethodRequest_integration_metadata'
+        payment_method_type:
+          enum:
+          - CARD
+          type: string
+      required:
+      - card
+      - integration_metadata
+      - payment_method_type
+      type: object
     PaymentMethodResponse:
       example:
         payment_method_type: payment_method_type
@@ -11254,6 +11328,79 @@ components:
       - message
       - request_id
       - type
+      type: object
+    CreatePaymentMethodRequest_card_card_details:
+      example:
+        last4: last4
+        brand: brand
+      properties:
+        brand:
+          type: string
+        last4:
+          type: string
+      required:
+      - brand
+      - last4
+      type: object
+    CreatePaymentMethodRequest_card:
+      example:
+        card_details:
+          last4: last4
+          brand: brand
+        status: SUCCEEDED
+      properties:
+        card_details:
+          $ref: '#/components/schemas/CreatePaymentMethodRequest_card_card_details'
+        status:
+          enum:
+          - SUCCEEDED
+          type: string
+      required:
+      - card_details
+      - status
+      type: object
+    CreatePaymentMethodRequest_integration_metadata_stripe_metadata_customer:
+      example:
+        id: id
+      properties:
+        id:
+          type: string
+      required:
+      - id
+      type: object
+    CreatePaymentMethodRequest_integration_metadata_stripe_metadata:
+      example:
+        payment_method:
+          id: id
+        customer:
+          id: id
+      properties:
+        customer:
+          $ref: '#/components/schemas/CreatePaymentMethodRequest_integration_metadata_stripe_metadata_customer'
+        payment_method:
+          $ref: '#/components/schemas/CreatePaymentMethodRequest_integration_metadata_stripe_metadata_customer'
+      required:
+      - customer
+      - payment_method
+      type: object
+    CreatePaymentMethodRequest_integration_metadata:
+      example:
+        stripe_metadata:
+          payment_method:
+            id: id
+          customer:
+            id: id
+        integration_id: STRIPE
+      properties:
+        integration_id:
+          enum:
+          - STRIPE
+          type: string
+        stripe_metadata:
+          $ref: '#/components/schemas/CreatePaymentMethodRequest_integration_metadata_stripe_metadata'
+      required:
+      - integration_id
+      - stripe_metadata
       type: object
     PaymentSnapshotPaymentMethod_card:
       example:
