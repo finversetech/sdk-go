@@ -11028,6 +11028,7 @@ components:
             customer:
               id: id
           integration_id: STRIPE
+        recipient_account_id: recipient_account_id
         card:
           card_details:
             last4: last4
@@ -11042,10 +11043,13 @@ components:
           enum:
           - CARD
           type: string
+        recipient_account_id:
+          type: string
       required:
       - card
       - integration_metadata
       - payment_method_type
+      - recipient_account_id
       type: object
     PaymentMethodResponse:
       example:
