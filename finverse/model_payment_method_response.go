@@ -17,10 +17,11 @@ import (
 
 // PaymentMethodResponse struct for PaymentMethodResponse
 type PaymentMethodResponse struct {
-	PaymentMethodId   *string             `json:"payment_method_id,omitempty"`
-	PaymentMethodType *string             `json:"payment_method_type,omitempty"`
-	Mandate           *GetMandateResponse `json:"mandate,omitempty"`
-	Card              *FVCard             `json:"card,omitempty"`
+	PaymentMethodId     *string                           `json:"payment_method_id,omitempty"`
+	PaymentMethodType   *string                           `json:"payment_method_type,omitempty"`
+	Mandate             *GetMandateResponse               `json:"mandate,omitempty"`
+	Card                *FVCard                           `json:"card,omitempty"`
+	IntegrationMetadata *PaymentMethodIntegrationMetadata `json:"integration_metadata,omitempty"`
 }
 
 // NewPaymentMethodResponse instantiates a new PaymentMethodResponse object
@@ -168,6 +169,38 @@ func (o *PaymentMethodResponse) SetCard(v FVCard) {
 	o.Card = &v
 }
 
+// GetIntegrationMetadata returns the IntegrationMetadata field value if set, zero value otherwise.
+func (o *PaymentMethodResponse) GetIntegrationMetadata() PaymentMethodIntegrationMetadata {
+	if o == nil || o.IntegrationMetadata == nil {
+		var ret PaymentMethodIntegrationMetadata
+		return ret
+	}
+	return *o.IntegrationMetadata
+}
+
+// GetIntegrationMetadataOk returns a tuple with the IntegrationMetadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentMethodResponse) GetIntegrationMetadataOk() (*PaymentMethodIntegrationMetadata, bool) {
+	if o == nil || o.IntegrationMetadata == nil {
+		return nil, false
+	}
+	return o.IntegrationMetadata, true
+}
+
+// HasIntegrationMetadata returns a boolean if a field has been set.
+func (o *PaymentMethodResponse) HasIntegrationMetadata() bool {
+	if o != nil && o.IntegrationMetadata != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegrationMetadata gets a reference to the given PaymentMethodIntegrationMetadata and assigns it to the IntegrationMetadata field.
+func (o *PaymentMethodResponse) SetIntegrationMetadata(v PaymentMethodIntegrationMetadata) {
+	o.IntegrationMetadata = &v
+}
+
 func (o PaymentMethodResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.PaymentMethodId != nil {
@@ -181,6 +214,9 @@ func (o PaymentMethodResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Card != nil {
 		toSerialize["card"] = o.Card
+	}
+	if o.IntegrationMetadata != nil {
+		toSerialize["integration_metadata"] = o.IntegrationMetadata
 	}
 	return json.Marshal(toSerialize)
 }

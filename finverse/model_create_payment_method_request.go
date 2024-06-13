@@ -17,18 +17,18 @@ import (
 
 // CreatePaymentMethodRequest struct for CreatePaymentMethodRequest
 type CreatePaymentMethodRequest struct {
-	Card                CreatePaymentMethodRequestCard                `json:"card"`
-	IntegrationMetadata CreatePaymentMethodRequestIntegrationMetadata `json:"integration_metadata"`
-	PaymentMethodType   string                                        `json:"payment_method_type"`
-	RecipientAccountId  string                                        `json:"recipient_account_id"`
-	Currency            string                                        `json:"currency"`
+	Card                CreatePaymentMethodRequestCard   `json:"card"`
+	IntegrationMetadata PaymentMethodIntegrationMetadata `json:"integration_metadata"`
+	PaymentMethodType   string                           `json:"payment_method_type"`
+	RecipientAccountId  string                           `json:"recipient_account_id"`
+	Currency            string                           `json:"currency"`
 }
 
 // NewCreatePaymentMethodRequest instantiates a new CreatePaymentMethodRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentMethodRequest(card CreatePaymentMethodRequestCard, integrationMetadata CreatePaymentMethodRequestIntegrationMetadata, paymentMethodType string, recipientAccountId string, currency string) *CreatePaymentMethodRequest {
+func NewCreatePaymentMethodRequest(card CreatePaymentMethodRequestCard, integrationMetadata PaymentMethodIntegrationMetadata, paymentMethodType string, recipientAccountId string, currency string) *CreatePaymentMethodRequest {
 	this := CreatePaymentMethodRequest{}
 	this.Card = card
 	this.IntegrationMetadata = integrationMetadata
@@ -71,9 +71,9 @@ func (o *CreatePaymentMethodRequest) SetCard(v CreatePaymentMethodRequestCard) {
 }
 
 // GetIntegrationMetadata returns the IntegrationMetadata field value
-func (o *CreatePaymentMethodRequest) GetIntegrationMetadata() CreatePaymentMethodRequestIntegrationMetadata {
+func (o *CreatePaymentMethodRequest) GetIntegrationMetadata() PaymentMethodIntegrationMetadata {
 	if o == nil {
-		var ret CreatePaymentMethodRequestIntegrationMetadata
+		var ret PaymentMethodIntegrationMetadata
 		return ret
 	}
 
@@ -82,7 +82,7 @@ func (o *CreatePaymentMethodRequest) GetIntegrationMetadata() CreatePaymentMetho
 
 // GetIntegrationMetadataOk returns a tuple with the IntegrationMetadata field value
 // and a boolean to check if the value has been set.
-func (o *CreatePaymentMethodRequest) GetIntegrationMetadataOk() (*CreatePaymentMethodRequestIntegrationMetadata, bool) {
+func (o *CreatePaymentMethodRequest) GetIntegrationMetadataOk() (*PaymentMethodIntegrationMetadata, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -90,7 +90,7 @@ func (o *CreatePaymentMethodRequest) GetIntegrationMetadataOk() (*CreatePaymentM
 }
 
 // SetIntegrationMetadata sets field value
-func (o *CreatePaymentMethodRequest) SetIntegrationMetadata(v CreatePaymentMethodRequestIntegrationMetadata) {
+func (o *CreatePaymentMethodRequest) SetIntegrationMetadata(v PaymentMethodIntegrationMetadata) {
 	o.IntegrationMetadata = v
 }
 

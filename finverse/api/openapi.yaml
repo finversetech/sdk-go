@@ -8520,6 +8520,13 @@ components:
       example:
         payment_methods:
         - payment_method_type: payment_method_type
+          integration_metadata:
+            stripe_metadata:
+              payment_method:
+                id: id
+              customer:
+                id: id
+            integration_id: STRIPE
           payment_method_id: payment_method_id
           mandate:
             fees:
@@ -8607,6 +8614,13 @@ components:
             created_at: 2000-01-23T04:56:07.000+00:00
             status: UNKNOWN
         - payment_method_type: payment_method_type
+          integration_metadata:
+            stripe_metadata:
+              payment_method:
+                id: id
+              customer:
+                id: id
+            integration_id: STRIPE
           payment_method_id: payment_method_id
           mandate:
             fees:
@@ -8867,6 +8881,13 @@ components:
         session_status: OPEN
         payment_method:
           payment_method_type: payment_method_type
+          integration_metadata:
+            stripe_metadata:
+              payment_method:
+                id: id
+              customer:
+                id: id
+            integration_id: STRIPE
           payment_method_id: payment_method_id
           mandate:
             fees:
@@ -11039,7 +11060,7 @@ components:
         card:
           $ref: '#/components/schemas/CreatePaymentMethodRequest_card'
         integration_metadata:
-          $ref: '#/components/schemas/CreatePaymentMethodRequest_integration_metadata'
+          $ref: '#/components/schemas/PaymentMethodIntegrationMetadata'
         payment_method_type:
           enum:
           - CARD
@@ -11055,9 +11076,35 @@ components:
       - payment_method_type
       - recipient_account_id
       type: object
+    PaymentMethodIntegrationMetadata:
+      example:
+        stripe_metadata:
+          payment_method:
+            id: id
+          customer:
+            id: id
+        integration_id: STRIPE
+      properties:
+        integration_id:
+          enum:
+          - STRIPE
+          type: string
+        stripe_metadata:
+          $ref: '#/components/schemas/PaymentMethodIntegrationMetadata_stripe_metadata'
+      required:
+      - integration_id
+      - stripe_metadata
+      type: object
     PaymentMethodResponse:
       example:
         payment_method_type: payment_method_type
+        integration_metadata:
+          stripe_metadata:
+            payment_method:
+              id: id
+            customer:
+              id: id
+          integration_id: STRIPE
         payment_method_id: payment_method_id
         mandate:
           fees:
@@ -11153,6 +11200,8 @@ components:
           $ref: '#/components/schemas/GetMandateResponse'
         card:
           $ref: '#/components/schemas/FVCard'
+        integration_metadata:
+          $ref: '#/components/schemas/PaymentMethodIntegrationMetadata'
       type: object
     PaymentMethodFvLinkResponse:
       example:
@@ -11367,7 +11416,7 @@ components:
       - card_details
       - status
       type: object
-    CreatePaymentMethodRequest_integration_metadata_stripe_metadata_customer:
+    PaymentMethodIntegrationMetadata_stripe_metadata_customer:
       example:
         id: id
       properties:
@@ -11376,7 +11425,7 @@ components:
       required:
       - id
       type: object
-    CreatePaymentMethodRequest_integration_metadata_stripe_metadata:
+    PaymentMethodIntegrationMetadata_stripe_metadata:
       example:
         payment_method:
           id: id
@@ -11384,31 +11433,12 @@ components:
           id: id
       properties:
         customer:
-          $ref: '#/components/schemas/CreatePaymentMethodRequest_integration_metadata_stripe_metadata_customer'
+          $ref: '#/components/schemas/PaymentMethodIntegrationMetadata_stripe_metadata_customer'
         payment_method:
-          $ref: '#/components/schemas/CreatePaymentMethodRequest_integration_metadata_stripe_metadata_customer'
+          $ref: '#/components/schemas/PaymentMethodIntegrationMetadata_stripe_metadata_customer'
       required:
       - customer
       - payment_method
-      type: object
-    CreatePaymentMethodRequest_integration_metadata:
-      example:
-        stripe_metadata:
-          payment_method:
-            id: id
-          customer:
-            id: id
-        integration_id: STRIPE
-      properties:
-        integration_id:
-          enum:
-          - STRIPE
-          type: string
-        stripe_metadata:
-          $ref: '#/components/schemas/CreatePaymentMethodRequest_integration_metadata_stripe_metadata'
-      required:
-      - integration_id
-      - stripe_metadata
       type: object
     PaymentSnapshotPaymentMethod_card:
       example:
