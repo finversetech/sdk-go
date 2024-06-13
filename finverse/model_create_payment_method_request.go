@@ -21,18 +21,20 @@ type CreatePaymentMethodRequest struct {
 	IntegrationMetadata CreatePaymentMethodRequestIntegrationMetadata `json:"integration_metadata"`
 	PaymentMethodType   string                                        `json:"payment_method_type"`
 	RecipientAccountId  string                                        `json:"recipient_account_id"`
+	Currency            string                                        `json:"currency"`
 }
 
 // NewCreatePaymentMethodRequest instantiates a new CreatePaymentMethodRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentMethodRequest(card CreatePaymentMethodRequestCard, integrationMetadata CreatePaymentMethodRequestIntegrationMetadata, paymentMethodType string, recipientAccountId string) *CreatePaymentMethodRequest {
+func NewCreatePaymentMethodRequest(card CreatePaymentMethodRequestCard, integrationMetadata CreatePaymentMethodRequestIntegrationMetadata, paymentMethodType string, recipientAccountId string, currency string) *CreatePaymentMethodRequest {
 	this := CreatePaymentMethodRequest{}
 	this.Card = card
 	this.IntegrationMetadata = integrationMetadata
 	this.PaymentMethodType = paymentMethodType
 	this.RecipientAccountId = recipientAccountId
+	this.Currency = currency
 	return &this
 }
 
@@ -140,6 +142,30 @@ func (o *CreatePaymentMethodRequest) SetRecipientAccountId(v string) {
 	o.RecipientAccountId = v
 }
 
+// GetCurrency returns the Currency field value
+func (o *CreatePaymentMethodRequest) GetCurrency() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Currency
+}
+
+// GetCurrencyOk returns a tuple with the Currency field value
+// and a boolean to check if the value has been set.
+func (o *CreatePaymentMethodRequest) GetCurrencyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Currency, true
+}
+
+// SetCurrency sets field value
+func (o *CreatePaymentMethodRequest) SetCurrency(v string) {
+	o.Currency = v
+}
+
 func (o CreatePaymentMethodRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -153,6 +179,9 @@ func (o CreatePaymentMethodRequest) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["recipient_account_id"] = o.RecipientAccountId
+	}
+	if true {
+		toSerialize["currency"] = o.Currency
 	}
 	return json.Marshal(toSerialize)
 }

@@ -11028,6 +11028,7 @@ components:
             customer:
               id: id
           integration_id: STRIPE
+        currency: currency
         recipient_account_id: recipient_account_id
         card:
           card_details:
@@ -11045,8 +11046,11 @@ components:
           type: string
         recipient_account_id:
           type: string
+        currency:
+          type: string
       required:
       - card
+      - currency
       - integration_metadata
       - payment_method_type
       - recipient_account_id
