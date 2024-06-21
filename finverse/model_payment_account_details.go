@@ -39,6 +39,8 @@ type PaymentAccountDetails struct {
 	BranchCode *string `json:"branch_code,omitempty"`
 	// List of currencies supported by the payment account
 	Currencies []string `json:"currencies,omitempty"`
+	// The business units the payment account belongs to
+	BusinessUnits []string `json:"business_units,omitempty"`
 	// Additional attributes of the sender account in key:value format (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
 	Metadata *map[string]string `json:"metadata,omitempty"`
 	// Timestamp of when the payment link was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
@@ -416,6 +418,38 @@ func (o *PaymentAccountDetails) SetCurrencies(v []string) {
 	o.Currencies = v
 }
 
+// GetBusinessUnits returns the BusinessUnits field value if set, zero value otherwise.
+func (o *PaymentAccountDetails) GetBusinessUnits() []string {
+	if o == nil || o.BusinessUnits == nil {
+		var ret []string
+		return ret
+	}
+	return o.BusinessUnits
+}
+
+// GetBusinessUnitsOk returns a tuple with the BusinessUnits field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentAccountDetails) GetBusinessUnitsOk() ([]string, bool) {
+	if o == nil || o.BusinessUnits == nil {
+		return nil, false
+	}
+	return o.BusinessUnits, true
+}
+
+// HasBusinessUnits returns a boolean if a field has been set.
+func (o *PaymentAccountDetails) HasBusinessUnits() bool {
+	if o != nil && o.BusinessUnits != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetBusinessUnits gets a reference to the given []string and assigns it to the BusinessUnits field.
+func (o *PaymentAccountDetails) SetBusinessUnits(v []string) {
+	o.BusinessUnits = v
+}
+
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *PaymentAccountDetails) GetMetadata() map[string]string {
 	if o == nil || o.Metadata == nil {
@@ -546,6 +580,9 @@ func (o PaymentAccountDetails) MarshalJSON() ([]byte, error) {
 	}
 	if o.Currencies != nil {
 		toSerialize["currencies"] = o.Currencies
+	}
+	if o.BusinessUnits != nil {
+		toSerialize["business_units"] = o.BusinessUnits
 	}
 	if o.Metadata != nil {
 		toSerialize["metadata"] = o.Metadata

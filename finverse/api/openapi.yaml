@@ -10638,6 +10638,9 @@ components:
           account_id: account_id
           updated_at: 2000-01-23T04:56:07.000+00:00
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+          business_units:
+          - business_units
+          - business_units
           account_number_masked: account_number_masked
           accountholder_name: Chan Li Pak
           currencies:
@@ -10658,6 +10661,9 @@ components:
           account_id: account_id
           updated_at: 2000-01-23T04:56:07.000+00:00
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+          business_units:
+          - business_units
+          - business_units
           account_number_masked: account_number_masked
           accountholder_name: Chan Li Pak
           currencies:
@@ -10686,6 +10692,9 @@ components:
         account_id: account_id
         updated_at: 2000-01-23T04:56:07.000+00:00
         user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+        business_units:
+        - business_units
+        - business_units
         account_number_masked: account_number_masked
         accountholder_name: Chan Li Pak
         currencies:
@@ -10737,6 +10746,11 @@ components:
           example:
           - HKD
           - SGD
+          items:
+            type: string
+          type: array
+        business_units:
+          description: The business units the payment account belongs to
           items:
             type: string
           type: array
