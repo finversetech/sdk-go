@@ -168,6 +168,7 @@ model_principal.go
 model_product_status.go
 model_rapidstor_metadata_request.go
 model_rapidstor_metadata_response.go
+model_recipient_account_filters.go
 model_recipient_account_number.go
 model_recipient_account_response.go
 model_redirect_uri_response.go

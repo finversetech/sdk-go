@@ -18,9 +18,10 @@ import (
 // PaymentSetupOptions struct for PaymentSetupOptions
 type PaymentSetupOptions struct {
 	// The type of future_payments that customer want to use. Possible values: AUTOPAY or CLICK_TO_PAY
-	FuturePayments     *string                       `json:"future_payments,omitempty"`
-	MandateDetails     *MandateDetailsForPaymentLink `json:"mandate_details,omitempty"`
-	PaymentMethodTypes []string                      `json:"payment_method_types,omitempty"`
+	FuturePayments          *string                       `json:"future_payments,omitempty"`
+	MandateDetails          *MandateDetailsForPaymentLink `json:"mandate_details,omitempty"`
+	PaymentMethodTypes      []string                      `json:"payment_method_types,omitempty"`
+	RecipientAccountFilters *RecipientAccountFilters      `json:"recipient_account_filters,omitempty"`
 }
 
 // NewPaymentSetupOptions instantiates a new PaymentSetupOptions object
@@ -136,6 +137,38 @@ func (o *PaymentSetupOptions) SetPaymentMethodTypes(v []string) {
 	o.PaymentMethodTypes = v
 }
 
+// GetRecipientAccountFilters returns the RecipientAccountFilters field value if set, zero value otherwise.
+func (o *PaymentSetupOptions) GetRecipientAccountFilters() RecipientAccountFilters {
+	if o == nil || o.RecipientAccountFilters == nil {
+		var ret RecipientAccountFilters
+		return ret
+	}
+	return *o.RecipientAccountFilters
+}
+
+// GetRecipientAccountFiltersOk returns a tuple with the RecipientAccountFilters field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentSetupOptions) GetRecipientAccountFiltersOk() (*RecipientAccountFilters, bool) {
+	if o == nil || o.RecipientAccountFilters == nil {
+		return nil, false
+	}
+	return o.RecipientAccountFilters, true
+}
+
+// HasRecipientAccountFilters returns a boolean if a field has been set.
+func (o *PaymentSetupOptions) HasRecipientAccountFilters() bool {
+	if o != nil && o.RecipientAccountFilters != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRecipientAccountFilters gets a reference to the given RecipientAccountFilters and assigns it to the RecipientAccountFilters field.
+func (o *PaymentSetupOptions) SetRecipientAccountFilters(v RecipientAccountFilters) {
+	o.RecipientAccountFilters = &v
+}
+
 func (o PaymentSetupOptions) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.FuturePayments != nil {
@@ -146,6 +179,9 @@ func (o PaymentSetupOptions) MarshalJSON() ([]byte, error) {
 	}
 	if o.PaymentMethodTypes != nil {
 		toSerialize["payment_method_types"] = o.PaymentMethodTypes
+	}
+	if o.RecipientAccountFilters != nil {
+		toSerialize["recipient_account_filters"] = o.RecipientAccountFilters
 	}
 	return json.Marshal(toSerialize)
 }

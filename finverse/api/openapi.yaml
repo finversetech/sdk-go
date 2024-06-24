@@ -8381,6 +8381,8 @@ components:
               max_transaction_amount: 1
             description: description
             start_date: 2000-01-23
+          recipient_account_filters:
+            business_unit: business_unit
           payment_method_types:
           - MANDATE
           - MANDATE
@@ -8492,6 +8494,8 @@ components:
             max_transaction_amount: 1
           description: description
           start_date: 2000-01-23
+        recipient_account_filters:
+          business_unit: business_unit
         payment_method_types:
         - MANDATE
         - MANDATE
@@ -8515,6 +8519,18 @@ components:
             type: string
           type: array
           x-omitempty: true
+        recipient_account_filters:
+          $ref: '#/components/schemas/RecipientAccountFilters'
+      type: object
+    RecipientAccountFilters:
+      example:
+        business_unit: business_unit
+      properties:
+        business_unit:
+          minLength: 1
+          type: string
+      required:
+      - business_unit
       type: object
     ListPaymentMethodsResponse:
       example:
@@ -8796,6 +8812,8 @@ components:
               max_transaction_amount: 1
             description: description
             start_date: 2000-01-23
+          recipient_account_filters:
+            business_unit: business_unit
           payment_method_types:
           - MANDATE
           - MANDATE
