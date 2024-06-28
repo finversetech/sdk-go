@@ -8354,6 +8354,7 @@ components:
             tenant_id: tenant_id
             corp_code: corp_code
             i_anniv_days: 3.4024845713830345
+            account_token: account_token
             s_location_code: s_location_code
         amount: 100
         metadata:
@@ -8731,6 +8732,7 @@ components:
               tenant_default_currency: tenant_default_currency
               corp_code: corp_code
               i_anniv_days: 5.962133916683182
+              account_token: account_token
               s_location_code: s_location_code
           metadata:
             key: metadata
@@ -8788,6 +8790,7 @@ components:
             tenant_default_currency: tenant_default_currency
             corp_code: corp_code
             i_anniv_days: 5.962133916683182
+            account_token: account_token
             s_location_code: s_location_code
         link_customizations:
           language: en
@@ -9106,6 +9109,7 @@ components:
         tenant_id: tenant_id
         corp_code: corp_code
         i_anniv_days: 3.4024845713830345
+        account_token: account_token
         s_location_code: s_location_code
       properties:
         corp_code:
@@ -9119,6 +9123,8 @@ components:
           maximum: 31
           minimum: 1
           type: number
+        account_token:
+          type: string
       required:
       - corp_code
       - s_location_code
@@ -9130,6 +9136,7 @@ components:
         tenant_default_currency: tenant_default_currency
         corp_code: corp_code
         i_anniv_days: 5.962133916683182
+        account_token: account_token
         s_location_code: s_location_code
       properties:
         corp_code:
@@ -9143,6 +9150,8 @@ components:
           type: number
         tenant_default_currency:
           type: string
+        account_token:
+          type: string
       type: object
     IntegrationMetadataRequest:
       example:
@@ -9151,6 +9160,7 @@ components:
           tenant_id: tenant_id
           corp_code: corp_code
           i_anniv_days: 3.4024845713830345
+          account_token: account_token
           s_location_code: s_location_code
       properties:
         integration_id:
@@ -9170,6 +9180,7 @@ components:
           tenant_default_currency: tenant_default_currency
           corp_code: corp_code
           i_anniv_days: 5.962133916683182
+          account_token: account_token
           s_location_code: s_location_code
       properties:
         integration_id:
@@ -10862,6 +10873,7 @@ components:
             tenant_id: tenant_id
             corp_code: corp_code
             i_anniv_days: 3.4024845713830345
+            account_token: account_token
             s_location_code: s_location_code
         metadata:
           key: metadata
@@ -10926,6 +10938,7 @@ components:
             tenant_default_currency: tenant_default_currency
             corp_code: corp_code
             i_anniv_days: 5.962133916683182
+            account_token: account_token
             s_location_code: s_location_code
         metadata:
           key: metadata
@@ -11003,6 +11016,7 @@ components:
             tenant_default_currency: tenant_default_currency
             corp_code: corp_code
             i_anniv_days: 5.962133916683182
+            account_token: account_token
             s_location_code: s_location_code
         metadata:
           key: metadata

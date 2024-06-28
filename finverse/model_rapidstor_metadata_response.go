@@ -22,6 +22,7 @@ type RapidstorMetadataResponse struct {
 	TenantId              *string  `json:"tenant_id,omitempty"`
 	IAnnivDays            *float32 `json:"i_anniv_days,omitempty"`
 	TenantDefaultCurrency *string  `json:"tenant_default_currency,omitempty"`
+	AccountToken          *string  `json:"account_token,omitempty"`
 }
 
 // NewRapidstorMetadataResponse instantiates a new RapidstorMetadataResponse object
@@ -201,6 +202,38 @@ func (o *RapidstorMetadataResponse) SetTenantDefaultCurrency(v string) {
 	o.TenantDefaultCurrency = &v
 }
 
+// GetAccountToken returns the AccountToken field value if set, zero value otherwise.
+func (o *RapidstorMetadataResponse) GetAccountToken() string {
+	if o == nil || o.AccountToken == nil {
+		var ret string
+		return ret
+	}
+	return *o.AccountToken
+}
+
+// GetAccountTokenOk returns a tuple with the AccountToken field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RapidstorMetadataResponse) GetAccountTokenOk() (*string, bool) {
+	if o == nil || o.AccountToken == nil {
+		return nil, false
+	}
+	return o.AccountToken, true
+}
+
+// HasAccountToken returns a boolean if a field has been set.
+func (o *RapidstorMetadataResponse) HasAccountToken() bool {
+	if o != nil && o.AccountToken != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountToken gets a reference to the given string and assigns it to the AccountToken field.
+func (o *RapidstorMetadataResponse) SetAccountToken(v string) {
+	o.AccountToken = &v
+}
+
 func (o RapidstorMetadataResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.CorpCode != nil {
@@ -217,6 +250,9 @@ func (o RapidstorMetadataResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.TenantDefaultCurrency != nil {
 		toSerialize["tenant_default_currency"] = o.TenantDefaultCurrency
+	}
+	if o.AccountToken != nil {
+		toSerialize["account_token"] = o.AccountToken
 	}
 	return json.Marshal(toSerialize)
 }
