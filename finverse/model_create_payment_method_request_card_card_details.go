@@ -17,18 +17,20 @@ import (
 
 // CreatePaymentMethodRequestCardCardDetails struct for CreatePaymentMethodRequestCardCardDetails
 type CreatePaymentMethodRequestCardCardDetails struct {
-	Brand string `json:"brand"`
-	Last4 string `json:"last4"`
+	Brand    string `json:"brand"`
+	Last4    string `json:"last4"`
+	Currency string `json:"currency"`
 }
 
 // NewCreatePaymentMethodRequestCardCardDetails instantiates a new CreatePaymentMethodRequestCardCardDetails object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentMethodRequestCardCardDetails(brand string, last4 string) *CreatePaymentMethodRequestCardCardDetails {
+func NewCreatePaymentMethodRequestCardCardDetails(brand string, last4 string, currency string) *CreatePaymentMethodRequestCardCardDetails {
 	this := CreatePaymentMethodRequestCardCardDetails{}
 	this.Brand = brand
 	this.Last4 = last4
+	this.Currency = currency
 	return &this
 }
 
@@ -88,6 +90,30 @@ func (o *CreatePaymentMethodRequestCardCardDetails) SetLast4(v string) {
 	o.Last4 = v
 }
 
+// GetCurrency returns the Currency field value
+func (o *CreatePaymentMethodRequestCardCardDetails) GetCurrency() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Currency
+}
+
+// GetCurrencyOk returns a tuple with the Currency field value
+// and a boolean to check if the value has been set.
+func (o *CreatePaymentMethodRequestCardCardDetails) GetCurrencyOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Currency, true
+}
+
+// SetCurrency sets field value
+func (o *CreatePaymentMethodRequestCardCardDetails) SetCurrency(v string) {
+	o.Currency = v
+}
+
 func (o CreatePaymentMethodRequestCardCardDetails) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -95,6 +121,9 @@ func (o CreatePaymentMethodRequestCardCardDetails) MarshalJSON() ([]byte, error)
 	}
 	if true {
 		toSerialize["last4"] = o.Last4
+	}
+	if true {
+		toSerialize["currency"] = o.Currency
 	}
 	return json.Marshal(toSerialize)
 }

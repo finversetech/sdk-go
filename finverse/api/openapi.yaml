@@ -11095,12 +11095,13 @@ components:
             customer:
               id: id
           integration_id: STRIPE
-        currency: currency
-        recipient_account_id: recipient_account_id
         card:
           card_details:
             last4: last4
+            currency: currency
             brand: brand
+          recipient_account:
+            account_id: account_id
           status: SUCCEEDED
       properties:
         card:
@@ -11111,16 +11112,10 @@ components:
           enum:
           - CARD
           type: string
-        recipient_account_id:
-          type: string
-        currency:
-          type: string
       required:
       - card
-      - currency
       - integration_metadata
       - payment_method_type
-      - recipient_account_id
       type: object
     PaymentMethodIntegrationMetadata:
       example:
@@ -11435,31 +11430,41 @@ components:
     CreatePaymentMethodRequest_card_card_details:
       example:
         last4: last4
+        currency: currency
         brand: brand
       properties:
         brand:
           type: string
         last4:
           type: string
+        currency:
+          type: string
       required:
       - brand
+      - currency
       - last4
       type: object
     CreatePaymentMethodRequest_card:
       example:
         card_details:
           last4: last4
+          currency: currency
           brand: brand
+        recipient_account:
+          account_id: account_id
         status: SUCCEEDED
       properties:
         card_details:
           $ref: '#/components/schemas/CreatePaymentMethodRequest_card_card_details'
+        recipient_account:
+          $ref: '#/components/schemas/MandateRecipientRequest'
         status:
           enum:
           - SUCCEEDED
           type: string
       required:
       - card_details
+      - recipient_account
       - status
       type: object
     PaymentMethodIntegrationMetadata_stripe_metadata_customer:

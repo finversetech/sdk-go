@@ -17,17 +17,19 @@ import (
 
 // CreatePaymentMethodRequestCard struct for CreatePaymentMethodRequestCard
 type CreatePaymentMethodRequestCard struct {
-	CardDetails CreatePaymentMethodRequestCardCardDetails `json:"card_details"`
-	Status      string                                    `json:"status"`
+	CardDetails      CreatePaymentMethodRequestCardCardDetails `json:"card_details"`
+	RecipientAccount MandateRecipientRequest                   `json:"recipient_account"`
+	Status           string                                    `json:"status"`
 }
 
 // NewCreatePaymentMethodRequestCard instantiates a new CreatePaymentMethodRequestCard object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentMethodRequestCard(cardDetails CreatePaymentMethodRequestCardCardDetails, status string) *CreatePaymentMethodRequestCard {
+func NewCreatePaymentMethodRequestCard(cardDetails CreatePaymentMethodRequestCardCardDetails, recipientAccount MandateRecipientRequest, status string) *CreatePaymentMethodRequestCard {
 	this := CreatePaymentMethodRequestCard{}
 	this.CardDetails = cardDetails
+	this.RecipientAccount = recipientAccount
 	this.Status = status
 	return &this
 }
@@ -64,6 +66,30 @@ func (o *CreatePaymentMethodRequestCard) SetCardDetails(v CreatePaymentMethodReq
 	o.CardDetails = v
 }
 
+// GetRecipientAccount returns the RecipientAccount field value
+func (o *CreatePaymentMethodRequestCard) GetRecipientAccount() MandateRecipientRequest {
+	if o == nil {
+		var ret MandateRecipientRequest
+		return ret
+	}
+
+	return o.RecipientAccount
+}
+
+// GetRecipientAccountOk returns a tuple with the RecipientAccount field value
+// and a boolean to check if the value has been set.
+func (o *CreatePaymentMethodRequestCard) GetRecipientAccountOk() (*MandateRecipientRequest, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.RecipientAccount, true
+}
+
+// SetRecipientAccount sets field value
+func (o *CreatePaymentMethodRequestCard) SetRecipientAccount(v MandateRecipientRequest) {
+	o.RecipientAccount = v
+}
+
 // GetStatus returns the Status field value
 func (o *CreatePaymentMethodRequestCard) GetStatus() string {
 	if o == nil {
@@ -92,6 +118,9 @@ func (o CreatePaymentMethodRequestCard) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
 		toSerialize["card_details"] = o.CardDetails
+	}
+	if true {
+		toSerialize["recipient_account"] = o.RecipientAccount
 	}
 	if true {
 		toSerialize["status"] = o.Status
