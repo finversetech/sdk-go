@@ -32,10 +32,10 @@ type GetMandateAuthResponse struct {
 	AuthChecklist  []AuthChecklistFactor     `json:"auth_checklist"`
 	EncryptionInfo MandateAuthEncryptionInfo `json:"encryption_info"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	LastUpdate     time.Time         `json:"last_update"`
-	Error          *FvErrorModelV2   `json:"error,omitempty"`
-	MandateDetails *MandateDetails   `json:"mandate_details,omitempty"`
-	Recipient      *MandateRecipient `json:"recipient,omitempty"`
+	LastUpdate     time.Time               `json:"last_update"`
+	Error          *FvErrorModelV2         `json:"error,omitempty"`
+	MandateDetails *MandateDetailsResponse `json:"mandate_details,omitempty"`
+	Recipient      *MandateRecipient       `json:"recipient,omitempty"`
 }
 
 // NewGetMandateAuthResponse instantiates a new GetMandateAuthResponse object
@@ -295,9 +295,9 @@ func (o *GetMandateAuthResponse) SetError(v FvErrorModelV2) {
 }
 
 // GetMandateDetails returns the MandateDetails field value if set, zero value otherwise.
-func (o *GetMandateAuthResponse) GetMandateDetails() MandateDetails {
+func (o *GetMandateAuthResponse) GetMandateDetails() MandateDetailsResponse {
 	if o == nil || o.MandateDetails == nil {
-		var ret MandateDetails
+		var ret MandateDetailsResponse
 		return ret
 	}
 	return *o.MandateDetails
@@ -305,7 +305,7 @@ func (o *GetMandateAuthResponse) GetMandateDetails() MandateDetails {
 
 // GetMandateDetailsOk returns a tuple with the MandateDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetMandateAuthResponse) GetMandateDetailsOk() (*MandateDetails, bool) {
+func (o *GetMandateAuthResponse) GetMandateDetailsOk() (*MandateDetailsResponse, bool) {
 	if o == nil || o.MandateDetails == nil {
 		return nil, false
 	}
@@ -321,8 +321,8 @@ func (o *GetMandateAuthResponse) HasMandateDetails() bool {
 	return false
 }
 
-// SetMandateDetails gets a reference to the given MandateDetails and assigns it to the MandateDetails field.
-func (o *GetMandateAuthResponse) SetMandateDetails(v MandateDetails) {
+// SetMandateDetails gets a reference to the given MandateDetailsResponse and assigns it to the MandateDetails field.
+func (o *GetMandateAuthResponse) SetMandateDetails(v MandateDetailsResponse) {
 	o.MandateDetails = &v
 }
 

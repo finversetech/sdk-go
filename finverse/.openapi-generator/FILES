@@ -33,6 +33,8 @@ model_category_predictions.go
 model_change_payment_method_fv_link_response.go
 model_composite_statement_link.go
 model_confirm_payment_response.go
+model_create_card_request.go
+model_create_card_request_card_details.go
 model_create_fps_token_response.go
 model_create_mandate_request.go
 model_create_mandate_response.go
@@ -45,8 +47,6 @@ model_create_payment_link_mandate_request.go
 model_create_payment_link_mandate_response.go
 model_create_payment_link_request.go
 model_create_payment_method_request.go
-model_create_payment_method_request_card.go
-model_create_payment_method_request_card_card_details.go
 model_create_payment_request.go
 model_create_payment_user_request.go
 model_create_recipient_account.go
@@ -123,8 +123,9 @@ model_login_identity_status_details.go
 model_login_method.go
 model_mandate_auth_encryption_info.go
 model_mandate_auth_link_customizations.go
-model_mandate_details.go
 model_mandate_details_for_payment_link.go
+model_mandate_details_request.go
+model_mandate_details_response.go
 model_mandate_fv_link_response.go
 model_mandate_recipient.go
 model_mandate_recipient_account.go

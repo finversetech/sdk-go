@@ -17,7 +17,7 @@ import (
 
 // CreatePaymentMethodRequest struct for CreatePaymentMethodRequest
 type CreatePaymentMethodRequest struct {
-	Card                CreatePaymentMethodRequestCard   `json:"card"`
+	Card                CreateCardRequest                `json:"card"`
 	IntegrationMetadata PaymentMethodIntegrationMetadata `json:"integration_metadata"`
 	PaymentMethodType   string                           `json:"payment_method_type"`
 }
@@ -26,7 +26,7 @@ type CreatePaymentMethodRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentMethodRequest(card CreatePaymentMethodRequestCard, integrationMetadata PaymentMethodIntegrationMetadata, paymentMethodType string) *CreatePaymentMethodRequest {
+func NewCreatePaymentMethodRequest(card CreateCardRequest, integrationMetadata PaymentMethodIntegrationMetadata, paymentMethodType string) *CreatePaymentMethodRequest {
 	this := CreatePaymentMethodRequest{}
 	this.Card = card
 	this.IntegrationMetadata = integrationMetadata
@@ -43,9 +43,9 @@ func NewCreatePaymentMethodRequestWithDefaults() *CreatePaymentMethodRequest {
 }
 
 // GetCard returns the Card field value
-func (o *CreatePaymentMethodRequest) GetCard() CreatePaymentMethodRequestCard {
+func (o *CreatePaymentMethodRequest) GetCard() CreateCardRequest {
 	if o == nil {
-		var ret CreatePaymentMethodRequestCard
+		var ret CreateCardRequest
 		return ret
 	}
 
@@ -54,7 +54,7 @@ func (o *CreatePaymentMethodRequest) GetCard() CreatePaymentMethodRequestCard {
 
 // GetCardOk returns a tuple with the Card field value
 // and a boolean to check if the value has been set.
-func (o *CreatePaymentMethodRequest) GetCardOk() (*CreatePaymentMethodRequestCard, bool) {
+func (o *CreatePaymentMethodRequest) GetCardOk() (*CreateCardRequest, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -62,7 +62,7 @@ func (o *CreatePaymentMethodRequest) GetCardOk() (*CreatePaymentMethodRequestCar
 }
 
 // SetCard sets field value
-func (o *CreatePaymentMethodRequest) SetCard(v CreatePaymentMethodRequestCard) {
+func (o *CreatePaymentMethodRequest) SetCard(v CreateCardRequest) {
 	o.Card = v
 }
 

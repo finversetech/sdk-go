@@ -8153,7 +8153,7 @@ components:
         sender:
           $ref: '#/components/schemas/CreateMandateSender'
         mandate_details:
-          $ref: '#/components/schemas/MandateDetails'
+          $ref: '#/components/schemas/MandateDetailsRequest'
         metadata:
           additionalProperties:
             maxLength: 100
@@ -8195,7 +8195,7 @@ components:
         sender_account:
           $ref: '#/components/schemas/MandateSenderAccountRequest'
         mandate_details:
-          $ref: '#/components/schemas/MandateDetails'
+          $ref: '#/components/schemas/MandateDetailsRequest'
         metadata:
           additionalProperties:
             maxLength: 100
@@ -8323,7 +8323,7 @@ components:
         sender_account:
           $ref: '#/components/schemas/MandateSenderAccount'
         mandate_details:
-          $ref: '#/components/schemas/MandateDetails'
+          $ref: '#/components/schemas/MandateDetailsResponse'
         fees:
           items:
             $ref: '#/components/schemas/Fee'
@@ -9427,7 +9427,7 @@ components:
         sender_account:
           $ref: '#/components/schemas/MandateSenderAccount'
         mandate_details:
-          $ref: '#/components/schemas/MandateDetails'
+          $ref: '#/components/schemas/MandateDetailsResponse'
         fees:
           items:
             $ref: '#/components/schemas/Fee'
@@ -9786,7 +9786,51 @@ components:
       - user_id
       - user_type
       type: object
-    MandateDetails:
+    MandateDetailsResponse:
+      example:
+        end_date: 2000-01-23
+        payment_schedule:
+          amount: 100
+          frequency: DAILY
+        transaction_limits:
+          period: DAILY
+          max_period_amount: 1
+          max_period_count: 1
+          max_transaction_amount: 1
+        mandate_bank_reference: mandate_bank_reference
+        description: description
+        currency: currency
+        start_date: 2000-01-23
+      properties:
+        currency:
+          description: ISO currency code
+          type: string
+        start_date:
+          description: YYYY-MM-DD, must be later than or the same as the date of creation.
+            If unspecified, default to the date of creation.
+          format: date
+          nullable: true
+          type: string
+        end_date:
+          description: YYYY-MM-DD, must be later than the date of creation.
+          format: date
+          nullable: true
+          type: string
+        payment_schedule:
+          $ref: '#/components/schemas/PaymentSchedule'
+        transaction_limits:
+          $ref: '#/components/schemas/TransactionLimits'
+        description:
+          description: End-user facing description of the mandate (used in notifications,
+            and in payments if no description is provided)
+          type: string
+        mandate_bank_reference:
+          description: A bank specific reference, what the end user may see
+          type: string
+      required:
+      - currency
+      type: object
+    MandateDetailsRequest:
       example:
         end_date: 2000-01-23
         payment_schedule:
@@ -10206,7 +10250,7 @@ components:
         error:
           $ref: '#/components/schemas/FvErrorModelV2'
         mandate_details:
-          $ref: '#/components/schemas/MandateDetails'
+          $ref: '#/components/schemas/MandateDetailsResponse'
         recipient:
           $ref: '#/components/schemas/MandateRecipient'
       required:
@@ -11105,7 +11149,7 @@ components:
           status: SUCCEEDED
       properties:
         card:
-          $ref: '#/components/schemas/CreatePaymentMethodRequest_card'
+          $ref: '#/components/schemas/CreateCardRequest'
         integration_metadata:
           $ref: '#/components/schemas/PaymentMethodIntegrationMetadata'
         payment_method_type:
@@ -11382,6 +11426,29 @@ components:
         redirect_url:
           type: string
       type: object
+    CreateCardRequest:
+      example:
+        card_details:
+          last4: last4
+          currency: currency
+          brand: brand
+        recipient_account:
+          account_id: account_id
+        status: SUCCEEDED
+      properties:
+        card_details:
+          $ref: '#/components/schemas/CreateCardRequest_card_details'
+        recipient_account:
+          $ref: '#/components/schemas/MandateRecipientRequest'
+        status:
+          enum:
+          - SUCCEEDED
+          type: string
+      required:
+      - card_details
+      - recipient_account
+      - status
+      type: object
     BadRequestModel_error:
       properties:
         code:
@@ -11427,46 +11494,6 @@ components:
       - request_id
       - type
       type: object
-    CreatePaymentMethodRequest_card_card_details:
-      example:
-        last4: last4
-        currency: currency
-        brand: brand
-      properties:
-        brand:
-          type: string
-        last4:
-          type: string
-        currency:
-          type: string
-      required:
-      - brand
-      - currency
-      - last4
-      type: object
-    CreatePaymentMethodRequest_card:
-      example:
-        card_details:
-          last4: last4
-          currency: currency
-          brand: brand
-        recipient_account:
-          account_id: account_id
-        status: SUCCEEDED
-      properties:
-        card_details:
-          $ref: '#/components/schemas/CreatePaymentMethodRequest_card_card_details'
-        recipient_account:
-          $ref: '#/components/schemas/MandateRecipientRequest'
-        status:
-          enum:
-          - SUCCEEDED
-          type: string
-      required:
-      - card_details
-      - recipient_account
-      - status
-      type: object
     PaymentMethodIntegrationMetadata_stripe_metadata_customer:
       example:
         id: id
@@ -11499,6 +11526,23 @@ components:
       properties:
         card_details:
           $ref: '#/components/schemas/FVCardDetails'
+      type: object
+    CreateCardRequest_card_details:
+      example:
+        last4: last4
+        currency: currency
+        brand: brand
+      properties:
+        brand:
+          type: string
+        last4:
+          type: string
+        currency:
+          type: string
+      required:
+      - brand
+      - currency
+      - last4
       type: object
   securitySchemes:
     Oauth2:

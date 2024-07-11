@@ -19,7 +19,7 @@ import (
 type CreateMandateWithSenderAccountRequest struct {
 	RecipientAccount MandateRecipientRequest     `json:"recipient_account"`
 	SenderAccount    MandateSenderAccountRequest `json:"sender_account"`
-	MandateDetails   MandateDetails              `json:"mandate_details"`
+	MandateDetails   MandateDetailsRequest       `json:"mandate_details"`
 	// Additional attributes of the mandate in key:value format (e.g. mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
 	Metadata *map[string]string `json:"metadata,omitempty"`
 }
@@ -28,7 +28,7 @@ type CreateMandateWithSenderAccountRequest struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateMandateWithSenderAccountRequest(recipientAccount MandateRecipientRequest, senderAccount MandateSenderAccountRequest, mandateDetails MandateDetails) *CreateMandateWithSenderAccountRequest {
+func NewCreateMandateWithSenderAccountRequest(recipientAccount MandateRecipientRequest, senderAccount MandateSenderAccountRequest, mandateDetails MandateDetailsRequest) *CreateMandateWithSenderAccountRequest {
 	this := CreateMandateWithSenderAccountRequest{}
 	this.RecipientAccount = recipientAccount
 	this.SenderAccount = senderAccount
@@ -93,9 +93,9 @@ func (o *CreateMandateWithSenderAccountRequest) SetSenderAccount(v MandateSender
 }
 
 // GetMandateDetails returns the MandateDetails field value
-func (o *CreateMandateWithSenderAccountRequest) GetMandateDetails() MandateDetails {
+func (o *CreateMandateWithSenderAccountRequest) GetMandateDetails() MandateDetailsRequest {
 	if o == nil {
-		var ret MandateDetails
+		var ret MandateDetailsRequest
 		return ret
 	}
 
@@ -104,7 +104,7 @@ func (o *CreateMandateWithSenderAccountRequest) GetMandateDetails() MandateDetai
 
 // GetMandateDetailsOk returns a tuple with the MandateDetails field value
 // and a boolean to check if the value has been set.
-func (o *CreateMandateWithSenderAccountRequest) GetMandateDetailsOk() (*MandateDetails, bool) {
+func (o *CreateMandateWithSenderAccountRequest) GetMandateDetailsOk() (*MandateDetailsRequest, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -112,7 +112,7 @@ func (o *CreateMandateWithSenderAccountRequest) GetMandateDetailsOk() (*MandateD
 }
 
 // SetMandateDetails sets field value
-func (o *CreateMandateWithSenderAccountRequest) SetMandateDetails(v MandateDetails) {
+func (o *CreateMandateWithSenderAccountRequest) SetMandateDetails(v MandateDetailsRequest) {
 	o.MandateDetails = v
 }
 

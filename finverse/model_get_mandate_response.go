@@ -32,7 +32,7 @@ type GetMandateResponse struct {
 	RecipientAccount *MandateRecipientAccount `json:"recipient_account,omitempty"`
 	Sender           GetMandateSender         `json:"sender"`
 	SenderAccount    *MandateSenderAccount    `json:"sender_account,omitempty"`
-	MandateDetails   MandateDetails           `json:"mandate_details"`
+	MandateDetails   MandateDetailsResponse   `json:"mandate_details"`
 	Fees             []Fee                    `json:"fees,omitempty"`
 	Error            *FvErrorModelV2          `json:"error,omitempty"`
 	// Additional attributes of the mandate in key:value format (e.g. mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
@@ -43,7 +43,7 @@ type GetMandateResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetMandateResponse(updatedAt time.Time, mandateId string, status string, recipient MandateRecipient, sender GetMandateSender, mandateDetails MandateDetails) *GetMandateResponse {
+func NewGetMandateResponse(updatedAt time.Time, mandateId string, status string, recipient MandateRecipient, sender GetMandateSender, mandateDetails MandateDetailsResponse) *GetMandateResponse {
 	this := GetMandateResponse{}
 	this.UpdatedAt = updatedAt
 	this.MandateId = mandateId
@@ -311,9 +311,9 @@ func (o *GetMandateResponse) SetSenderAccount(v MandateSenderAccount) {
 }
 
 // GetMandateDetails returns the MandateDetails field value
-func (o *GetMandateResponse) GetMandateDetails() MandateDetails {
+func (o *GetMandateResponse) GetMandateDetails() MandateDetailsResponse {
 	if o == nil {
-		var ret MandateDetails
+		var ret MandateDetailsResponse
 		return ret
 	}
 
@@ -322,7 +322,7 @@ func (o *GetMandateResponse) GetMandateDetails() MandateDetails {
 
 // GetMandateDetailsOk returns a tuple with the MandateDetails field value
 // and a boolean to check if the value has been set.
-func (o *GetMandateResponse) GetMandateDetailsOk() (*MandateDetails, bool) {
+func (o *GetMandateResponse) GetMandateDetailsOk() (*MandateDetailsResponse, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -330,7 +330,7 @@ func (o *GetMandateResponse) GetMandateDetailsOk() (*MandateDetails, bool) {
 }
 
 // SetMandateDetails sets field value
-func (o *GetMandateResponse) SetMandateDetails(v MandateDetails) {
+func (o *GetMandateResponse) SetMandateDetails(v MandateDetailsResponse) {
 	o.MandateDetails = v
 }
 
