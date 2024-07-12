@@ -17,19 +17,18 @@ import (
 
 // CreatePaymentMethodRequest struct for CreatePaymentMethodRequest
 type CreatePaymentMethodRequest struct {
-	Card                CreateCardRequest                `json:"card"`
-	IntegrationMetadata PaymentMethodIntegrationMetadata `json:"integration_metadata"`
-	PaymentMethodType   string                           `json:"payment_method_type"`
+	Card                *CreateCardRequest                    `json:"card,omitempty"`
+	Mandate             *CreateMandateRequestWithDdaReference `json:"mandate,omitempty"`
+	IntegrationMetadata *PaymentMethodIntegrationMetadata     `json:"integration_metadata,omitempty"`
+	PaymentMethodType   string                                `json:"payment_method_type"`
 }
 
 // NewCreatePaymentMethodRequest instantiates a new CreatePaymentMethodRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentMethodRequest(card CreateCardRequest, integrationMetadata PaymentMethodIntegrationMetadata, paymentMethodType string) *CreatePaymentMethodRequest {
+func NewCreatePaymentMethodRequest(paymentMethodType string) *CreatePaymentMethodRequest {
 	this := CreatePaymentMethodRequest{}
-	this.Card = card
-	this.IntegrationMetadata = integrationMetadata
 	this.PaymentMethodType = paymentMethodType
 	return &this
 }
@@ -42,52 +41,100 @@ func NewCreatePaymentMethodRequestWithDefaults() *CreatePaymentMethodRequest {
 	return &this
 }
 
-// GetCard returns the Card field value
+// GetCard returns the Card field value if set, zero value otherwise.
 func (o *CreatePaymentMethodRequest) GetCard() CreateCardRequest {
-	if o == nil {
+	if o == nil || o.Card == nil {
 		var ret CreateCardRequest
 		return ret
 	}
-
-	return o.Card
+	return *o.Card
 }
 
-// GetCardOk returns a tuple with the Card field value
+// GetCardOk returns a tuple with the Card field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentMethodRequest) GetCardOk() (*CreateCardRequest, bool) {
-	if o == nil {
+	if o == nil || o.Card == nil {
 		return nil, false
 	}
-	return &o.Card, true
+	return o.Card, true
 }
 
-// SetCard sets field value
+// HasCard returns a boolean if a field has been set.
+func (o *CreatePaymentMethodRequest) HasCard() bool {
+	if o != nil && o.Card != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCard gets a reference to the given CreateCardRequest and assigns it to the Card field.
 func (o *CreatePaymentMethodRequest) SetCard(v CreateCardRequest) {
-	o.Card = v
+	o.Card = &v
 }
 
-// GetIntegrationMetadata returns the IntegrationMetadata field value
+// GetMandate returns the Mandate field value if set, zero value otherwise.
+func (o *CreatePaymentMethodRequest) GetMandate() CreateMandateRequestWithDdaReference {
+	if o == nil || o.Mandate == nil {
+		var ret CreateMandateRequestWithDdaReference
+		return ret
+	}
+	return *o.Mandate
+}
+
+// GetMandateOk returns a tuple with the Mandate field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreatePaymentMethodRequest) GetMandateOk() (*CreateMandateRequestWithDdaReference, bool) {
+	if o == nil || o.Mandate == nil {
+		return nil, false
+	}
+	return o.Mandate, true
+}
+
+// HasMandate returns a boolean if a field has been set.
+func (o *CreatePaymentMethodRequest) HasMandate() bool {
+	if o != nil && o.Mandate != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMandate gets a reference to the given CreateMandateRequestWithDdaReference and assigns it to the Mandate field.
+func (o *CreatePaymentMethodRequest) SetMandate(v CreateMandateRequestWithDdaReference) {
+	o.Mandate = &v
+}
+
+// GetIntegrationMetadata returns the IntegrationMetadata field value if set, zero value otherwise.
 func (o *CreatePaymentMethodRequest) GetIntegrationMetadata() PaymentMethodIntegrationMetadata {
-	if o == nil {
+	if o == nil || o.IntegrationMetadata == nil {
 		var ret PaymentMethodIntegrationMetadata
 		return ret
 	}
-
-	return o.IntegrationMetadata
+	return *o.IntegrationMetadata
 }
 
-// GetIntegrationMetadataOk returns a tuple with the IntegrationMetadata field value
+// GetIntegrationMetadataOk returns a tuple with the IntegrationMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentMethodRequest) GetIntegrationMetadataOk() (*PaymentMethodIntegrationMetadata, bool) {
-	if o == nil {
+	if o == nil || o.IntegrationMetadata == nil {
 		return nil, false
 	}
-	return &o.IntegrationMetadata, true
+	return o.IntegrationMetadata, true
 }
 
-// SetIntegrationMetadata sets field value
+// HasIntegrationMetadata returns a boolean if a field has been set.
+func (o *CreatePaymentMethodRequest) HasIntegrationMetadata() bool {
+	if o != nil && o.IntegrationMetadata != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegrationMetadata gets a reference to the given PaymentMethodIntegrationMetadata and assigns it to the IntegrationMetadata field.
 func (o *CreatePaymentMethodRequest) SetIntegrationMetadata(v PaymentMethodIntegrationMetadata) {
-	o.IntegrationMetadata = v
+	o.IntegrationMetadata = &v
 }
 
 // GetPaymentMethodType returns the PaymentMethodType field value
@@ -116,10 +163,13 @@ func (o *CreatePaymentMethodRequest) SetPaymentMethodType(v string) {
 
 func (o CreatePaymentMethodRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
+	if o.Card != nil {
 		toSerialize["card"] = o.Card
 	}
-	if true {
+	if o.Mandate != nil {
+		toSerialize["mandate"] = o.Mandate
+	}
+	if o.IntegrationMetadata != nil {
 		toSerialize["integration_metadata"] = o.IntegrationMetadata
 	}
 	if true {

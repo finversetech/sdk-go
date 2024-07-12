@@ -37,6 +37,7 @@ model_create_card_request.go
 model_create_card_request_card_details.go
 model_create_fps_token_response.go
 model_create_mandate_request.go
+model_create_mandate_request_with_dda_reference.go
 model_create_mandate_response.go
 model_create_mandate_sender.go
 model_create_mandate_with_sender_account_request.go
@@ -125,6 +126,7 @@ model_mandate_auth_encryption_info.go
 model_mandate_auth_link_customizations.go
 model_mandate_details_for_payment_link.go
 model_mandate_details_request.go
+model_mandate_details_request_with_dda_reference.go
 model_mandate_details_response.go
 model_mandate_fv_link_response.go
 model_mandate_recipient.go

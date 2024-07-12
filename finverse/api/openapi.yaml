@@ -8167,6 +8167,53 @@ components:
       - recipient_account
       - sender
       type: object
+    CreateMandateRequestWithDdaReference:
+      example:
+        metadata:
+          key: metadata
+        mandate_details:
+          end_date: 2000-01-23
+          transaction_limits:
+            period: DAILY
+            max_period_amount: 1
+            max_period_count: 1
+            max_transaction_amount: 1
+          description: description
+          dda_reference: dda_reference
+          currency: currency
+          start_date: 2000-01-23
+        recipient_account:
+          account_id: account_id
+        sender_account:
+          account_id: account_id
+        status: SUCCEEDED
+      properties:
+        recipient_account:
+          $ref: '#/components/schemas/MandateRecipientRequest'
+        sender_account:
+          $ref: '#/components/schemas/MandateSenderAccountRequest'
+        mandate_details:
+          $ref: '#/components/schemas/MandateDetailsRequestWithDdaReference'
+        metadata:
+          additionalProperties:
+            maxLength: 100
+            type: string
+          description: 'Additional attributes of the mandate in key:value format (e.g.
+            mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas
+            the key and value supports up to 50 and 500 characters respectively.'
+          type: object
+        status:
+          description: The mandate status
+          enum:
+          - SUCCEEDED
+          example: SUCCEEDED
+          type: string
+      required:
+      - mandate_details
+      - recipient_account
+      - sender_account
+      - status
+      type: object
     CreateMandateWithSenderAccountRequest:
       example:
         metadata:
@@ -8267,6 +8314,7 @@ components:
             max_transaction_amount: 1
           mandate_bank_reference: mandate_bank_reference
           description: description
+          dda_reference: dda_reference
           currency: currency
           start_date: 2000-01-23
         sender_account:
@@ -8602,6 +8650,7 @@ components:
                 max_transaction_amount: 1
               mandate_bank_reference: mandate_bank_reference
               description: description
+              dda_reference: dda_reference
               currency: currency
               start_date: 2000-01-23
             sender_account:
@@ -8696,6 +8745,7 @@ components:
                 max_transaction_amount: 1
               mandate_bank_reference: mandate_bank_reference
               description: description
+              dda_reference: dda_reference
               currency: currency
               start_date: 2000-01-23
             sender_account:
@@ -8967,6 +9017,7 @@ components:
                 max_transaction_amount: 1
               mandate_bank_reference: mandate_bank_reference
               description: description
+              dda_reference: dda_reference
               currency: currency
               start_date: 2000-01-23
             sender_account:
@@ -9371,6 +9422,7 @@ components:
             max_transaction_amount: 1
           mandate_bank_reference: mandate_bank_reference
           description: description
+          dda_reference: dda_reference
           currency: currency
           start_date: 2000-01-23
         sender_account:
@@ -9509,6 +9561,7 @@ components:
               max_transaction_amount: 1
             mandate_bank_reference: mandate_bank_reference
             description: description
+            dda_reference: dda_reference
             currency: currency
             start_date: 2000-01-23
           sender_account:
@@ -9586,6 +9639,7 @@ components:
               max_transaction_amount: 1
             mandate_bank_reference: mandate_bank_reference
             description: description
+            dda_reference: dda_reference
             currency: currency
             start_date: 2000-01-23
           sender_account:
@@ -9799,9 +9853,14 @@ components:
           max_transaction_amount: 1
         mandate_bank_reference: mandate_bank_reference
         description: description
+        dda_reference: dda_reference
         currency: currency
         start_date: 2000-01-23
       properties:
+        dda_reference:
+          description: The direct debit authorization reference, if empty this will
+            be omitted from response
+          type: string
         currency:
           description: ISO currency code
           type: string
@@ -9873,6 +9932,46 @@ components:
           type: string
       required:
       - currency
+      type: object
+    MandateDetailsRequestWithDdaReference:
+      example:
+        end_date: 2000-01-23
+        transaction_limits:
+          period: DAILY
+          max_period_amount: 1
+          max_period_count: 1
+          max_transaction_amount: 1
+        description: description
+        dda_reference: dda_reference
+        currency: currency
+        start_date: 2000-01-23
+      properties:
+        dda_reference:
+          description: The direct debit authorization reference
+          type: string
+        currency:
+          description: ISO currency code
+          type: string
+        start_date:
+          description: YYYY-MM-DD, must be later than or the same as the date of creation.
+            If unspecified, default to the date of creation.
+          format: date
+          nullable: true
+          type: string
+        end_date:
+          description: YYYY-MM-DD, must be later than the date of creation.
+          format: date
+          nullable: true
+          type: string
+        transaction_limits:
+          $ref: '#/components/schemas/TransactionLimits'
+        description:
+          description: End-user facing description of the mandate (used in notifications,
+            and in payments if no description is provided)
+          type: string
+      required:
+      - currency
+      - description
       type: object
     MandateDetailsForPaymentLink:
       example:
@@ -10164,6 +10263,7 @@ components:
             max_transaction_amount: 1
           mandate_bank_reference: mandate_bank_reference
           description: description
+          dda_reference: dda_reference
           currency: currency
           start_date: 2000-01-23
         sender_type: INDIVIDUAL
@@ -11139,6 +11239,25 @@ components:
             customer:
               id: id
           integration_id: STRIPE
+        mandate:
+          metadata:
+            key: metadata
+          mandate_details:
+            end_date: 2000-01-23
+            transaction_limits:
+              period: DAILY
+              max_period_amount: 1
+              max_period_count: 1
+              max_transaction_amount: 1
+            description: description
+            dda_reference: dda_reference
+            currency: currency
+            start_date: 2000-01-23
+          recipient_account:
+            account_id: account_id
+          sender_account:
+            account_id: account_id
+          status: SUCCEEDED
         card:
           card_details:
             last4: last4
@@ -11150,15 +11269,16 @@ components:
       properties:
         card:
           $ref: '#/components/schemas/CreateCardRequest'
+        mandate:
+          $ref: '#/components/schemas/CreateMandateRequestWithDdaReference'
         integration_metadata:
           $ref: '#/components/schemas/PaymentMethodIntegrationMetadata'
         payment_method_type:
           enum:
           - CARD
+          - MANDATE
           type: string
       required:
-      - card
-      - integration_metadata
       - payment_method_type
       type: object
     PaymentMethodIntegrationMetadata:
@@ -11248,6 +11368,7 @@ components:
               max_transaction_amount: 1
             mandate_bank_reference: mandate_bank_reference
             description: description
+            dda_reference: dda_reference
             currency: currency
             start_date: 2000-01-23
           sender_account:

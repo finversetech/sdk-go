@@ -17,6 +17,8 @@ import (
 
 // MandateDetailsResponse struct for MandateDetailsResponse
 type MandateDetailsResponse struct {
+	// The direct debit authorization reference, if empty this will be omitted from response
+	DdaReference *string `json:"dda_reference,omitempty"`
 	// ISO currency code
 	Currency string `json:"currency"`
 	// YYYY-MM-DD, must be later than or the same as the date of creation. If unspecified, default to the date of creation.
@@ -47,6 +49,38 @@ func NewMandateDetailsResponse(currency string) *MandateDetailsResponse {
 func NewMandateDetailsResponseWithDefaults() *MandateDetailsResponse {
 	this := MandateDetailsResponse{}
 	return &this
+}
+
+// GetDdaReference returns the DdaReference field value if set, zero value otherwise.
+func (o *MandateDetailsResponse) GetDdaReference() string {
+	if o == nil || o.DdaReference == nil {
+		var ret string
+		return ret
+	}
+	return *o.DdaReference
+}
+
+// GetDdaReferenceOk returns a tuple with the DdaReference field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MandateDetailsResponse) GetDdaReferenceOk() (*string, bool) {
+	if o == nil || o.DdaReference == nil {
+		return nil, false
+	}
+	return o.DdaReference, true
+}
+
+// HasDdaReference returns a boolean if a field has been set.
+func (o *MandateDetailsResponse) HasDdaReference() bool {
+	if o != nil && o.DdaReference != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDdaReference gets a reference to the given string and assigns it to the DdaReference field.
+func (o *MandateDetailsResponse) SetDdaReference(v string) {
+	o.DdaReference = &v
 }
 
 // GetCurrency returns the Currency field value
@@ -289,6 +323,9 @@ func (o *MandateDetailsResponse) SetMandateBankReference(v string) {
 
 func (o MandateDetailsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
+	if o.DdaReference != nil {
+		toSerialize["dda_reference"] = o.DdaReference
+	}
 	if true {
 		toSerialize["currency"] = o.Currency
 	}
