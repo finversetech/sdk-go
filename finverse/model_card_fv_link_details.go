@@ -17,8 +17,14 @@ import (
 
 // CardFvLinkDetails struct for CardFvLinkDetails
 type CardFvLinkDetails struct {
+	// The credit card brand
 	Brand *string `json:"brand,omitempty"`
+	// Last 4 digits of the credit card number
 	Last4 *string `json:"last4,omitempty"`
+	// The credit card expiry month
+	ExpiryMonth *int32 `json:"expiry_month,omitempty"`
+	// The credit card expiry year
+	ExpiryYear *int32 `json:"expiry_year,omitempty"`
 }
 
 // NewCardFvLinkDetails instantiates a new CardFvLinkDetails object
@@ -102,6 +108,70 @@ func (o *CardFvLinkDetails) SetLast4(v string) {
 	o.Last4 = &v
 }
 
+// GetExpiryMonth returns the ExpiryMonth field value if set, zero value otherwise.
+func (o *CardFvLinkDetails) GetExpiryMonth() int32 {
+	if o == nil || o.ExpiryMonth == nil {
+		var ret int32
+		return ret
+	}
+	return *o.ExpiryMonth
+}
+
+// GetExpiryMonthOk returns a tuple with the ExpiryMonth field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CardFvLinkDetails) GetExpiryMonthOk() (*int32, bool) {
+	if o == nil || o.ExpiryMonth == nil {
+		return nil, false
+	}
+	return o.ExpiryMonth, true
+}
+
+// HasExpiryMonth returns a boolean if a field has been set.
+func (o *CardFvLinkDetails) HasExpiryMonth() bool {
+	if o != nil && o.ExpiryMonth != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetExpiryMonth gets a reference to the given int32 and assigns it to the ExpiryMonth field.
+func (o *CardFvLinkDetails) SetExpiryMonth(v int32) {
+	o.ExpiryMonth = &v
+}
+
+// GetExpiryYear returns the ExpiryYear field value if set, zero value otherwise.
+func (o *CardFvLinkDetails) GetExpiryYear() int32 {
+	if o == nil || o.ExpiryYear == nil {
+		var ret int32
+		return ret
+	}
+	return *o.ExpiryYear
+}
+
+// GetExpiryYearOk returns a tuple with the ExpiryYear field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CardFvLinkDetails) GetExpiryYearOk() (*int32, bool) {
+	if o == nil || o.ExpiryYear == nil {
+		return nil, false
+	}
+	return o.ExpiryYear, true
+}
+
+// HasExpiryYear returns a boolean if a field has been set.
+func (o *CardFvLinkDetails) HasExpiryYear() bool {
+	if o != nil && o.ExpiryYear != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetExpiryYear gets a reference to the given int32 and assigns it to the ExpiryYear field.
+func (o *CardFvLinkDetails) SetExpiryYear(v int32) {
+	o.ExpiryYear = &v
+}
+
 func (o CardFvLinkDetails) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Brand != nil {
@@ -109,6 +179,12 @@ func (o CardFvLinkDetails) MarshalJSON() ([]byte, error) {
 	}
 	if o.Last4 != nil {
 		toSerialize["last4"] = o.Last4
+	}
+	if o.ExpiryMonth != nil {
+		toSerialize["expiry_month"] = o.ExpiryMonth
+	}
+	if o.ExpiryYear != nil {
+		toSerialize["expiry_year"] = o.ExpiryYear
 	}
 	return json.Marshal(toSerialize)
 }

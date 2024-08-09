@@ -7426,7 +7426,9 @@ components:
           card:
             card_details:
               last4: "1234"
+              expiry_month: 7
               brand: VISA
+              expiry_year: 2028
         status: AUTHORIZATION_REQUIRED
       properties:
         payment_id:
@@ -7583,7 +7585,9 @@ components:
             card:
               card_details:
                 last4: "1234"
+                expiry_month: 7
                 brand: VISA
+                expiry_year: 2028
           status: AUTHORIZATION_REQUIRED
         - amount: 100
           fees:
@@ -7661,7 +7665,9 @@ components:
             card:
               card_details:
                 last4: "1234"
+                expiry_month: 7
                 brand: VISA
+                expiry_year: 2028
           status: AUTHORIZATION_REQUIRED
         total_payments: 0
       properties:
@@ -8675,7 +8681,9 @@ components:
           card:
             card_details:
               last4: "1234"
+              expiry_month: 7
               brand: VISA
+              expiry_year: 2028
             updated_at: 2000-01-23T04:56:07.000+00:00
             created_at: 2000-01-23T04:56:07.000+00:00
             status: UNKNOWN
@@ -8770,7 +8778,9 @@ components:
           card:
             card_details:
               last4: "1234"
+              expiry_month: 7
               brand: VISA
+              expiry_year: 2028
             updated_at: 2000-01-23T04:56:07.000+00:00
             created_at: 2000-01-23T04:56:07.000+00:00
             status: UNKNOWN
@@ -8947,7 +8957,9 @@ components:
             card:
               card_details:
                 last4: "1234"
+                expiry_month: 7
                 brand: VISA
+                expiry_year: 2028
           status: AUTHORIZATION_REQUIRED
         session_status: OPEN
         payment_method:
@@ -9042,7 +9054,9 @@ components:
           card:
             card_details:
               last4: "1234"
+              expiry_month: 7
               brand: VISA
+              expiry_year: 2028
             updated_at: 2000-01-23T04:56:07.000+00:00
             created_at: 2000-01-23T04:56:07.000+00:00
             status: UNKNOWN
@@ -9327,7 +9341,9 @@ components:
       example:
         card_details:
           last4: "1234"
+          expiry_month: 7
           brand: VISA
+          expiry_year: 2028
         updated_at: 2000-01-23T04:56:07.000+00:00
         created_at: 2000-01-23T04:56:07.000+00:00
         status: UNKNOWN
@@ -9353,7 +9369,9 @@ components:
     FVCardDetails:
       example:
         last4: "1234"
+        expiry_month: 7
         brand: VISA
+        expiry_year: 2028
       properties:
         brand:
           description: The credit card brand
@@ -9363,6 +9381,14 @@ components:
           description: Last 4 digits of the credit card number
           example: "1234"
           type: string
+        expiry_month:
+          description: The credit card expiry month
+          example: 7
+          type: integer
+        expiry_year:
+          description: The credit card expiry year
+          example: 2028
+          type: integer
       type: object
     GetMandateResponse:
       example:
@@ -11393,7 +11419,9 @@ components:
         card:
           card_details:
             last4: "1234"
+            expiry_month: 7
             brand: VISA
+            expiry_year: 2028
           updated_at: 2000-01-23T04:56:07.000+00:00
           created_at: 2000-01-23T04:56:07.000+00:00
           status: UNKNOWN
@@ -11432,8 +11460,10 @@ components:
           institution_id: institution_id
         card:
           card_details:
-            last4: last4
-            brand: brand
+            last4: "1234"
+            expiry_month: 7
+            brand: VISA
+            expiry_year: 2028
           recipient:
             name: name
           status: UNKNOWN
@@ -11483,8 +11513,10 @@ components:
     CardFvLinkResponse:
       example:
         card_details:
-          last4: last4
-          brand: brand
+          last4: "1234"
+          expiry_month: 7
+          brand: VISA
+          expiry_year: 2028
         recipient:
           name: name
         status: UNKNOWN
@@ -11502,13 +11534,27 @@ components:
       type: object
     CardFvLinkDetails:
       example:
-        last4: last4
-        brand: brand
+        last4: "1234"
+        expiry_month: 7
+        brand: VISA
+        expiry_year: 2028
       properties:
         brand:
+          description: The credit card brand
+          example: VISA
           type: string
         last4:
+          description: Last 4 digits of the credit card number
+          example: "1234"
           type: string
+        expiry_month:
+          description: The credit card expiry month
+          example: 7
+          type: integer
+        expiry_year:
+          description: The credit card expiry year
+          example: 2028
+          type: integer
       type: object
     SenderAccountFvLinkResponse:
       example:
@@ -11535,7 +11581,9 @@ components:
         card:
           card_details:
             last4: "1234"
+            expiry_month: 7
             brand: VISA
+            expiry_year: 2028
       properties:
         card:
           $ref: '#/components/schemas/PaymentSnapshotPaymentMethod_card'
@@ -11643,7 +11691,9 @@ components:
       example:
         card_details:
           last4: "1234"
+          expiry_month: 7
           brand: VISA
+          expiry_year: 2028
       properties:
         card_details:
           $ref: '#/components/schemas/FVCardDetails'
