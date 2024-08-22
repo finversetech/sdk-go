@@ -2375,6 +2375,46 @@ paths:
       tags:
       - customer
       x-codegen-request-body-name: paymentInstruction
+  /testing/payments/{paymentId}/status:
+    post:
+      description: Update the status of a test manual payment
+      operationId: updateTestPaymentStatus
+      parameters:
+      - description: The test payment ID
+        in: path
+        name: paymentId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdateTestPaymentStatusRequest'
+        description: Request body for updating the test manual payment status
+        required: true
+      responses:
+        "200":
+          content: {}
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - testPayment:update
+      tags:
+      - customer
+      x-codegen-request-body-name: paymentStatus
   /payments/instruction/{paymentInstructionId}:
     get:
       description: Get payment instructions by payment_instruction_id
@@ -7918,6 +7958,16 @@ components:
       properties:
         payment_instruction:
           $ref: '#/components/schemas/PaymentInstruction'
+      type: object
+    UpdateTestPaymentStatusRequest:
+      example:
+        status: EXECUTED
+      properties:
+        status:
+          description: The payment status
+          enum:
+          - EXECUTED
+          type: string
       type: object
     CustomerPaymentInstruction:
       example:
