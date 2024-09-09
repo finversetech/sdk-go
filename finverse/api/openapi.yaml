@@ -1351,9 +1351,18 @@ paths:
     post:
       description: Create a refresh job for a login identity
       operationId: refreshLoginIdentity
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/RefreshLoginIdentityRequest'
+        required: false
       responses:
         "200":
-          content: {}
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LinkTokenResponse'
           description: Refresh queued
         "400":
           content:
@@ -1375,6 +1384,7 @@ paths:
         - loginIdentity:update
       tags:
       - login_identity
+      x-codegen-request-body-name: refreshLoginIdentityReq
   /statements:
     get:
       description: Get list of available statements
@@ -4998,6 +5008,10 @@ components:
         language:
           description: ISO639-1 language code. Language to display when user open
             the link, default to English (en) if not specified
+          enum:
+          - en
+          - vi
+          - zh
           example: en
           maxLength: 3
           type: string
@@ -10233,6 +10247,10 @@ components:
         language:
           description: ISO639-1 language code. Language to display when user open
             the link, default to English (en) if not specified
+          enum:
+          - en
+          - vi
+          - zh
           example: en
           type: string
         ui_mode:
@@ -10286,6 +10304,10 @@ components:
         language:
           description: ISO639-1 language code. Language to display when user open
             the link, default to English (en) if not specified
+          enum:
+          - en
+          - vi
+          - zh
           example: en
           type: string
         link_mode:
@@ -11667,6 +11689,54 @@ components:
       - card_details
       - recipient_account
       - status
+      type: object
+    RefreshLoginIdentityLinkCustomizations:
+      example:
+        language: en
+        redirect_uri: redirect_uri
+        state: user-state-passed
+        ui_mode: redirect
+      properties:
+        language:
+          description: ISO639-1 language code. Language to display when user open
+            the link, default to English (en) if not specified
+          enum:
+          - en
+          - vi
+          - zh
+          example: en
+          type: string
+        ui_mode:
+          enum:
+          - iframe
+          - redirect
+          - auto_redirect
+          - standalone
+          example: redirect
+          type: string
+        redirect_uri:
+          description: Required if ui_mode is redirect or auto_redirect
+          type: string
+        state:
+          example: user-state-passed
+          maxLength: 100
+          type: string
+      type: object
+    RefreshLoginIdentityRequest:
+      example:
+        user_present: true
+        link_customizations:
+          language: en
+          redirect_uri: redirect_uri
+          state: user-state-passed
+          ui_mode: redirect
+      properties:
+        user_present:
+          description: Indicate whether the user is present in this flow. If the user
+            is not present, only institutions that do not require 2fa can be refreshed
+          type: boolean
+        link_customizations:
+          $ref: '#/components/schemas/RefreshLoginIdentityLinkCustomizations'
       type: object
     BadRequestModel_error:
       properties:

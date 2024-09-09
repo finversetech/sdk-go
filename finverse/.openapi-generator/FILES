@@ -176,6 +176,8 @@ model_recipient_account_number.go
 model_recipient_account_response.go
 model_redirect_uri_response.go
 model_refresh_data.go
+model_refresh_login_identity_link_customizations.go
+model_refresh_login_identity_request.go
 model_refresh_payment_attempt_response.go
 model_refresh_request.go
 model_relink_request.go

@@ -253,7 +253,8 @@ type LoginIdentityApi interface {
 	RefreshLoginIdentity(ctx context.Context) LoginIdentityApiApiRefreshLoginIdentityRequest
 
 	// RefreshLoginIdentityExecute executes the request
-	RefreshLoginIdentityExecute(r LoginIdentityApiApiRefreshLoginIdentityRequest) (*http.Response, error)
+	//  @return LinkTokenResponse
+	RefreshLoginIdentityExecute(r LoginIdentityApiApiRefreshLoginIdentityRequest) (*LinkTokenResponse, *http.Response, error)
 }
 
 // LoginIdentityApiService LoginIdentityApi service
@@ -2162,11 +2163,17 @@ func (a *LoginIdentityApiService) ListTransactionsByLoginIdentityIdExecute(r Log
 }
 
 type LoginIdentityApiApiRefreshLoginIdentityRequest struct {
-	ctx        context.Context
-	ApiService LoginIdentityApi
+	ctx                     context.Context
+	ApiService              LoginIdentityApi
+	refreshLoginIdentityReq *RefreshLoginIdentityRequest
 }
 
-func (r LoginIdentityApiApiRefreshLoginIdentityRequest) Execute() (*http.Response, error) {
+func (r LoginIdentityApiApiRefreshLoginIdentityRequest) RefreshLoginIdentityReq(refreshLoginIdentityReq RefreshLoginIdentityRequest) LoginIdentityApiApiRefreshLoginIdentityRequest {
+	r.refreshLoginIdentityReq = &refreshLoginIdentityReq
+	return r
+}
+
+func (r LoginIdentityApiApiRefreshLoginIdentityRequest) Execute() (*LinkTokenResponse, *http.Response, error) {
 	return r.ApiService.RefreshLoginIdentityExecute(r)
 }
 
@@ -2186,16 +2193,18 @@ func (a *LoginIdentityApiService) RefreshLoginIdentity(ctx context.Context) Logi
 }
 
 // Execute executes the request
-func (a *LoginIdentityApiService) RefreshLoginIdentityExecute(r LoginIdentityApiApiRefreshLoginIdentityRequest) (*http.Response, error) {
+//  @return LinkTokenResponse
+func (a *LoginIdentityApiService) RefreshLoginIdentityExecute(r LoginIdentityApiApiRefreshLoginIdentityRequest) (*LinkTokenResponse, *http.Response, error) {
 	var (
-		localVarHTTPMethod = http.MethodPost
-		localVarPostBody   interface{}
-		formFiles          []formFile
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *LinkTokenResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.RefreshLoginIdentity")
 	if err != nil {
-		return nil, &GenericOpenAPIError{error: err.Error()}
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/login_identity/refresh"
@@ -2205,7 +2214,7 @@ func (a *LoginIdentityApiService) RefreshLoginIdentityExecute(r LoginIdentityApi
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -2221,21 +2230,23 @@ func (a *LoginIdentityApiService) RefreshLoginIdentityExecute(r LoginIdentityApi
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.refreshLoginIdentityReq
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
-		return nil, err
+		return localVarReturnValue, nil, err
 	}
 
 	localVarHTTPResponse, err := a.client.callAPI(req)
 	if err != nil || localVarHTTPResponse == nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
 	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
-		return localVarHTTPResponse, err
+		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2248,22 +2259,31 @@ func (a *LoginIdentityApiService) RefreshLoginIdentityExecute(r LoginIdentityApi
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 			newErr.model = v
-			return localVarHTTPResponse, newErr
+			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
 			var v BadRequestModelV2
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
 				newErr.error = err.Error()
-				return localVarHTTPResponse, newErr
+				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
 			newErr.model = v
 		}
-		return localVarHTTPResponse, newErr
+		return localVarReturnValue, localVarHTTPResponse, newErr
 	}
 
-	return localVarHTTPResponse, nil
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
 }
