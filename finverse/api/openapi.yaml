@@ -6923,8 +6923,25 @@ components:
         action:
           $ref: '#/components/schemas/LinkStatusActionModel'
       type: object
+    NonSensitiveLinkStatusSuccessModel:
+      example:
+        code: code
+        state: state
+        login_identity_id: login_identity_id
+      properties:
+        code:
+          type: string
+        state:
+          type: string
+        login_identity_id:
+          type: string
+      type: object
     NonSensitiveLinkStatusResponse:
       example:
+        success:
+          code: code
+          state: state
+          login_identity_id: login_identity_id
         action:
           buttons:
           - name: name
@@ -6963,11 +6980,22 @@ components:
             placeholder: placeholder
             type: SELECT
         redirect_uri: redirect_uri
+        error:
+          error:
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+            request_id: request_id
       properties:
         action:
           $ref: '#/components/schemas/LinkStatusActionModel'
         redirect_uri:
           type: string
+        success:
+          $ref: '#/components/schemas/NonSensitiveLinkStatusSuccessModel'
+        error:
+          $ref: '#/components/schemas/ErrBodyModelV2'
       type: object
     LinkStatusPendingModel:
       example:
@@ -7148,6 +7176,13 @@ components:
       - value
       type: object
     ErrBodyModelV2:
+      example:
+        error:
+          error_code: CREDENTIALS_INVALID
+          details: details
+          type: LINKING_ERROR
+          message: message
+          request_id: request_id
       properties:
         error:
           $ref: '#/components/schemas/FvErrorModelV2'

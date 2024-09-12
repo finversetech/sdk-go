@@ -138,6 +138,7 @@ model_manual_payment_confirmation_request.go
 model_manual_payment_confirmation_response.go
 model_monthly_income_estimate.go
 model_non_sensitive_link_status_response.go
+model_non_sensitive_link_status_success_model.go
 model_other_info.go
 model_payment_account.go
 model_payment_account_details.go

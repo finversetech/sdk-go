@@ -17,8 +17,10 @@ import (
 
 // NonSensitiveLinkStatusResponse struct for NonSensitiveLinkStatusResponse
 type NonSensitiveLinkStatusResponse struct {
-	Action      *LinkStatusActionModel `json:"action,omitempty"`
-	RedirectUri *string                `json:"redirect_uri,omitempty"`
+	Action      *LinkStatusActionModel              `json:"action,omitempty"`
+	RedirectUri *string                             `json:"redirect_uri,omitempty"`
+	Success     *NonSensitiveLinkStatusSuccessModel `json:"success,omitempty"`
+	Error       *ErrBodyModelV2                     `json:"error,omitempty"`
 }
 
 // NewNonSensitiveLinkStatusResponse instantiates a new NonSensitiveLinkStatusResponse object
@@ -102,6 +104,70 @@ func (o *NonSensitiveLinkStatusResponse) SetRedirectUri(v string) {
 	o.RedirectUri = &v
 }
 
+// GetSuccess returns the Success field value if set, zero value otherwise.
+func (o *NonSensitiveLinkStatusResponse) GetSuccess() NonSensitiveLinkStatusSuccessModel {
+	if o == nil || o.Success == nil {
+		var ret NonSensitiveLinkStatusSuccessModel
+		return ret
+	}
+	return *o.Success
+}
+
+// GetSuccessOk returns a tuple with the Success field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NonSensitiveLinkStatusResponse) GetSuccessOk() (*NonSensitiveLinkStatusSuccessModel, bool) {
+	if o == nil || o.Success == nil {
+		return nil, false
+	}
+	return o.Success, true
+}
+
+// HasSuccess returns a boolean if a field has been set.
+func (o *NonSensitiveLinkStatusResponse) HasSuccess() bool {
+	if o != nil && o.Success != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetSuccess gets a reference to the given NonSensitiveLinkStatusSuccessModel and assigns it to the Success field.
+func (o *NonSensitiveLinkStatusResponse) SetSuccess(v NonSensitiveLinkStatusSuccessModel) {
+	o.Success = &v
+}
+
+// GetError returns the Error field value if set, zero value otherwise.
+func (o *NonSensitiveLinkStatusResponse) GetError() ErrBodyModelV2 {
+	if o == nil || o.Error == nil {
+		var ret ErrBodyModelV2
+		return ret
+	}
+	return *o.Error
+}
+
+// GetErrorOk returns a tuple with the Error field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *NonSensitiveLinkStatusResponse) GetErrorOk() (*ErrBodyModelV2, bool) {
+	if o == nil || o.Error == nil {
+		return nil, false
+	}
+	return o.Error, true
+}
+
+// HasError returns a boolean if a field has been set.
+func (o *NonSensitiveLinkStatusResponse) HasError() bool {
+	if o != nil && o.Error != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetError gets a reference to the given ErrBodyModelV2 and assigns it to the Error field.
+func (o *NonSensitiveLinkStatusResponse) SetError(v ErrBodyModelV2) {
+	o.Error = &v
+}
+
 func (o NonSensitiveLinkStatusResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Action != nil {
@@ -109,6 +175,12 @@ func (o NonSensitiveLinkStatusResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.RedirectUri != nil {
 		toSerialize["redirect_uri"] = o.RedirectUri
+	}
+	if o.Success != nil {
+		toSerialize["success"] = o.Success
+	}
+	if o.Error != nil {
+		toSerialize["error"] = o.Error
 	}
 	return json.Marshal(toSerialize)
 }
