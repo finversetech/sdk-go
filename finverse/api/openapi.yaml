@@ -7001,12 +7001,11 @@ components:
             type: SELECT
         redirect_uri: redirect_uri
         error:
-          error:
-            error_code: CREDENTIALS_INVALID
-            details: details
-            type: LINKING_ERROR
-            message: message
-            request_id: request_id
+          error_code: CREDENTIALS_INVALID
+          details: details
+          type: LINKING_ERROR
+          message: message
+          request_id: request_id
       properties:
         action:
           $ref: '#/components/schemas/LinkStatusActionModel'
@@ -7015,7 +7014,7 @@ components:
         success:
           $ref: '#/components/schemas/NonSensitiveLinkStatusSuccessModel'
         error:
-          $ref: '#/components/schemas/ErrBodyModelV2'
+          $ref: '#/components/schemas/FvErrorModelV2'
       type: object
     LinkStatusPendingModel:
       example:
@@ -7196,13 +7195,6 @@ components:
       - value
       type: object
     ErrBodyModelV2:
-      example:
-        error:
-          error_code: CREDENTIALS_INVALID
-          details: details
-          type: LINKING_ERROR
-          message: message
-          request_id: request_id
       properties:
         error:
           $ref: '#/components/schemas/FvErrorModelV2'

@@ -20,7 +20,7 @@ type NonSensitiveLinkStatusResponse struct {
 	Action      *LinkStatusActionModel              `json:"action,omitempty"`
 	RedirectUri *string                             `json:"redirect_uri,omitempty"`
 	Success     *NonSensitiveLinkStatusSuccessModel `json:"success,omitempty"`
-	Error       *ErrBodyModelV2                     `json:"error,omitempty"`
+	Error       *FvErrorModelV2                     `json:"error,omitempty"`
 }
 
 // NewNonSensitiveLinkStatusResponse instantiates a new NonSensitiveLinkStatusResponse object
@@ -137,9 +137,9 @@ func (o *NonSensitiveLinkStatusResponse) SetSuccess(v NonSensitiveLinkStatusSucc
 }
 
 // GetError returns the Error field value if set, zero value otherwise.
-func (o *NonSensitiveLinkStatusResponse) GetError() ErrBodyModelV2 {
+func (o *NonSensitiveLinkStatusResponse) GetError() FvErrorModelV2 {
 	if o == nil || o.Error == nil {
-		var ret ErrBodyModelV2
+		var ret FvErrorModelV2
 		return ret
 	}
 	return *o.Error
@@ -147,7 +147,7 @@ func (o *NonSensitiveLinkStatusResponse) GetError() ErrBodyModelV2 {
 
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *NonSensitiveLinkStatusResponse) GetErrorOk() (*ErrBodyModelV2, bool) {
+func (o *NonSensitiveLinkStatusResponse) GetErrorOk() (*FvErrorModelV2, bool) {
 	if o == nil || o.Error == nil {
 		return nil, false
 	}
@@ -163,8 +163,8 @@ func (o *NonSensitiveLinkStatusResponse) HasError() bool {
 	return false
 }
 
-// SetError gets a reference to the given ErrBodyModelV2 and assigns it to the Error field.
-func (o *NonSensitiveLinkStatusResponse) SetError(v ErrBodyModelV2) {
+// SetError gets a reference to the given FvErrorModelV2 and assigns it to the Error field.
+func (o *NonSensitiveLinkStatusResponse) SetError(v FvErrorModelV2) {
 	o.Error = &v
 }
 
