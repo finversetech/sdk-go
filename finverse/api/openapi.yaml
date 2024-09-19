@@ -3040,6 +3040,26 @@ paths:
       security:
       - Oauth2:
         - payment_attempt:refresh
+  /ledger/statement:
+    get:
+      description: Download the balance statement for the ledger (CSV)
+      operationId: downloadBalanceStatement
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DownloadBalanceStatementResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Bad Request
+      security:
+      - Oauth2:
+        - ledger:statement
 components:
   schemas:
     Principal:
@@ -11772,6 +11792,16 @@ components:
           type: boolean
         link_customizations:
           $ref: '#/components/schemas/RefreshLoginIdentityLinkCustomizations'
+      type: object
+    DownloadBalanceStatementResponse:
+      example:
+        download_url: download_url
+      properties:
+        download_url:
+          description: Signed URL to download the CSV from
+          type: string
+      required:
+      - download_url
       type: object
     BadRequestModel_error:
       properties:

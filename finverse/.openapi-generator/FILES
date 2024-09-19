@@ -55,6 +55,7 @@ model_create_scheduled_payout_request.go
 model_currency_amount.go
 model_customer_payment_instruction.go
 model_delete_login_identity_response.go
+model_download_balance_statement_response.go
 model_encrypted_payload.go
 model_err_body_model.go
 model_err_body_model_v2.go
