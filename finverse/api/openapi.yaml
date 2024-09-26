@@ -7304,6 +7304,11 @@ components:
         error:
           $ref: '#/components/schemas/BadRequestModelV2_error'
       type: object
+    CreateMetadata:
+      additionalProperties:
+        maxLength: 1000
+        type: string
+      type: object
     PaymentInfo:
       example:
         currencies_supported:
@@ -7405,10 +7410,8 @@ components:
           $ref: '#/components/schemas/PaymentDetails2'
         metadata:
           additionalProperties:
+            maxLength: 1000
             type: string
-          description: 'Additional attributes of the payment in key:value format (e.g.
-            payment_internal_id: 1234). It supports up to 10 key:value pairs, whereas
-            the key and value supports up to 50 and 500 characters respectively.'
           type: object
       required:
       - amount
@@ -7598,7 +7601,7 @@ components:
             type: string
           description: 'Additional attributes of the payment in key:value format (e.g.
             payment_internal_id: 1234). It supports up to 10 key:value pairs, whereas
-            the key and value supports up to 50 and 500 characters respectively.'
+            the key and value supports up to 50 and 1000 characters respectively.'
           type: object
         error:
           $ref: '#/components/schemas/FvErrorModelV2'
@@ -7813,12 +7816,8 @@ components:
           $ref: '#/components/schemas/MandateRecipientRequest'
         metadata:
           additionalProperties:
-            maxLength: 100
+            maxLength: 1000
             type: string
-          description: 'Additional attributes of the payout instruction in key:value
-            format (e.g. payout_instruction_internal_id: 1234). It supports up to
-            10 key:value pairs, whereas the key and value supports up to 50 and 500
-            characters respectively.'
           type: object
       required:
       - amount
@@ -8273,11 +8272,8 @@ components:
           $ref: '#/components/schemas/MandateDetailsRequest'
         metadata:
           additionalProperties:
-            maxLength: 100
+            maxLength: 1000
             type: string
-          description: 'Additional attributes of the mandate in key:value format (e.g.
-            mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas
-            the key and value supports up to 50 and 500 characters respectively.'
           type: object
       required:
       - mandate_details
@@ -8313,11 +8309,8 @@ components:
           $ref: '#/components/schemas/MandateDetailsRequestWithDdaReference'
         metadata:
           additionalProperties:
-            maxLength: 100
+            maxLength: 1000
             type: string
-          description: 'Additional attributes of the mandate in key:value format (e.g.
-            mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas
-            the key and value supports up to 50 and 500 characters respectively.'
           type: object
         status:
           description: The mandate status
@@ -8362,11 +8355,8 @@ components:
           $ref: '#/components/schemas/MandateDetailsRequest'
         metadata:
           additionalProperties:
-            maxLength: 100
+            maxLength: 1000
             type: string
-          description: 'Additional attributes of the mandate in key:value format (e.g.
-            mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas
-            the key and value supports up to 50 and 500 characters respectively.'
           type: object
       required:
       - mandate_details
@@ -8498,7 +8488,7 @@ components:
             type: string
           description: 'Additional attributes of the mandate in key:value format (e.g.
             mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas
-            the key and value supports up to 50 and 500 characters respectively.'
+            the key and value supports up to 50 and 1000 characters respectively.'
           type: object
         error:
           $ref: '#/components/schemas/FvErrorModelV2'
@@ -8588,18 +8578,13 @@ components:
           $ref: '#/components/schemas/PaymentSetupOptions'
         metadata:
           additionalProperties:
-            maxLength: 100
+            maxLength: 1000
             type: string
-          description: 'Additional attributes of the payment link in key:value format
-            (e.g. payment_id: 1234). It supports up to 10 key:value pairs, whereas
-            the key and value supports up to 50 and 500 characters respectively.'
           type: object
         payment_metadata:
           additionalProperties:
-            maxLength: 100
+            maxLength: 1000
             type: string
-          description: Key-Value metadata to store on payments created on this Payment
-            Link
           type: object
         integration_metadata:
           $ref: '#/components/schemas/IntegrationMetadataRequest'
@@ -9205,11 +9190,10 @@ components:
             type: string
           description: 'Additional attributes of the payment link in key:value format
             (e.g. payment_id: 1234). It supports up to 10 key:value pairs, whereas
-            the key and value supports up to 50 and 500 characters respectively.'
+            the key and value supports up to 50 and 1000 characters respectively.'
           type: object
         payment_metadata:
           additionalProperties:
-            maxLength: 100
             type: string
           description: Key-Value metadata to store on payments created on this Payment
             Link
@@ -9628,7 +9612,7 @@ components:
             type: string
           description: 'Additional attributes of the mandate in key:value format (e.g.
             mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas
-            the key and value supports up to 50 and 500 characters respectively.'
+            the key and value supports up to 50 and 1000 characters respectively.'
           type: object
       required:
       - mandate_details
@@ -10874,7 +10858,7 @@ components:
             type: string
           description: 'Additional attributes of the sender account in key:value format
             (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas
-            the key and value supports up to 50 and 500 characters respectively.'
+            the key and value supports up to 50 and 1000 characters respectively.'
           type: object
       type: object
     GetPaymentUserResponse:
@@ -11077,7 +11061,7 @@ components:
             type: string
           description: 'Additional attributes of the sender account in key:value format
             (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas
-            the key and value supports up to 50 and 500 characters respectively.'
+            the key and value supports up to 50 and 1000 characters respectively.'
           type: object
         created_at:
           description: Timestamp of when the payment link was created in ISO format
@@ -11141,11 +11125,8 @@ components:
           type: string
         metadata:
           additionalProperties:
-            maxLength: 100
+            maxLength: 1000
             type: string
-          description: 'Additional attributes of the payment in key:value format (e.g.
-            payment_internal_id: 1234). It supports up to 10 key:value pairs, whereas
-            the key and value supports up to 50 and 500 characters respectively.'
           type: object
       required:
       - account_number
@@ -11207,7 +11188,7 @@ components:
           type: array
         metadata:
           additionalProperties:
-            maxLength: 100
+            maxLength: 1000
             type: string
           type: object
         autopay_consent:

@@ -40,7 +40,7 @@ type PaymentResponse struct {
 	Fees             []Fee                    `json:"fees,omitempty"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
-	// Additional attributes of the payment in key:value format (e.g. payment_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
+	// Additional attributes of the payment in key:value format (e.g. payment_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 1000 characters respectively.
 	Metadata      *map[string]string            `json:"metadata,omitempty"`
 	Error         *FvErrorModelV2               `json:"error,omitempty"`
 	PaymentMethod *PaymentSnapshotPaymentMethod `json:"payment_method,omitempty"`

@@ -27,8 +27,7 @@ type CreatePaymentAccountRequest struct {
 	// Finverse Institution ID for the payment institution.
 	InstitutionId string `json:"institution_id"`
 	// A unique identifier generated after creating user (Finverse Payment User ID)
-	UserId string `json:"user_id"`
-	// Additional attributes of the payment in key:value format (e.g. payment_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
+	UserId   string             `json:"user_id"`
 	Metadata *map[string]string `json:"metadata,omitempty"`
 }
 

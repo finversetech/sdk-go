@@ -23,8 +23,7 @@ type CreateScheduledPayoutRequest struct {
 	Currency         string                  `json:"currency"`
 	PaymentDetails   PayoutDetails           `json:"payment_details"`
 	RecipientAccount MandateRecipientRequest `json:"recipient_account"`
-	// Additional attributes of the payout instruction in key:value format (e.g. payout_instruction_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
-	Metadata *map[string]string `json:"metadata,omitempty"`
+	Metadata         *map[string]string      `json:"metadata,omitempty"`
 }
 
 // NewCreateScheduledPayoutRequest instantiates a new CreateScheduledPayoutRequest object

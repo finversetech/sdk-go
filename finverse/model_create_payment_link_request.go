@@ -26,11 +26,9 @@ type CreatePaymentLinkRequest struct {
 	PaymentDetails *PaymentLinkDetails `json:"payment_details,omitempty"`
 	Sender         PaymentLinkSender   `json:"sender"`
 	// Unique reference id to identifying the payment to be collected.
-	UniqueReferenceId   string               `json:"unique_reference_id"`
-	PaymentSetupOptions *PaymentSetupOptions `json:"payment_setup_options,omitempty"`
-	// Additional attributes of the payment link in key:value format (e.g. payment_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
-	Metadata *map[string]string `json:"metadata,omitempty"`
-	// Key-Value metadata to store on payments created on this Payment Link
+	UniqueReferenceId   string                      `json:"unique_reference_id"`
+	PaymentSetupOptions *PaymentSetupOptions        `json:"payment_setup_options,omitempty"`
+	Metadata            *map[string]string          `json:"metadata,omitempty"`
 	PaymentMetadata     *map[string]string          `json:"payment_metadata,omitempty"`
 	IntegrationMetadata *IntegrationMetadataRequest `json:"integration_metadata,omitempty"`
 }

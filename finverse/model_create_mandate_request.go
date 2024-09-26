@@ -20,8 +20,7 @@ type CreateMandateRequest struct {
 	RecipientAccount MandateRecipientRequest `json:"recipient_account"`
 	Sender           CreateMandateSender     `json:"sender"`
 	MandateDetails   MandateDetailsRequest   `json:"mandate_details"`
-	// Additional attributes of the mandate in key:value format (e.g. mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
-	Metadata *map[string]string `json:"metadata,omitempty"`
+	Metadata         *map[string]string      `json:"metadata,omitempty"`
 }
 
 // NewCreateMandateRequest instantiates a new CreateMandateRequest object

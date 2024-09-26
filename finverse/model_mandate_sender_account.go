@@ -35,7 +35,7 @@ type MandateSenderAccount struct {
 	// A unique identifier generated after creating sender (Finverse Payment User ID)
 	UserId   *string `json:"user_id,omitempty"`
 	BankCode *string `json:"bank_code,omitempty"`
-	// Additional attributes of the sender account in key:value format (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 500 characters respectively.
+	// Additional attributes of the sender account in key:value format (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 1000 characters respectively.
 	Metadata *map[string]string `json:"metadata,omitempty"`
 }
 
