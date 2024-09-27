@@ -182,6 +182,7 @@ model_refresh_login_identity_link_customizations.go
 model_refresh_login_identity_request.go
 model_refresh_payment_attempt_response.go
 model_refresh_request.go
+model_refresh_token_response.go
 model_relink_request.go
 model_sender_account_fv_link_response.go
 model_sender_detail.go

@@ -253,8 +253,8 @@ type LoginIdentityApi interface {
 	RefreshLoginIdentity(ctx context.Context) LoginIdentityApiApiRefreshLoginIdentityRequest
 
 	// RefreshLoginIdentityExecute executes the request
-	//  @return LinkTokenResponse
-	RefreshLoginIdentityExecute(r LoginIdentityApiApiRefreshLoginIdentityRequest) (*LinkTokenResponse, *http.Response, error)
+	//  @return RefreshTokenResponse
+	RefreshLoginIdentityExecute(r LoginIdentityApiApiRefreshLoginIdentityRequest) (*RefreshTokenResponse, *http.Response, error)
 }
 
 // LoginIdentityApiService LoginIdentityApi service
@@ -2173,7 +2173,7 @@ func (r LoginIdentityApiApiRefreshLoginIdentityRequest) RefreshLoginIdentityReq(
 	return r
 }
 
-func (r LoginIdentityApiApiRefreshLoginIdentityRequest) Execute() (*LinkTokenResponse, *http.Response, error) {
+func (r LoginIdentityApiApiRefreshLoginIdentityRequest) Execute() (*RefreshTokenResponse, *http.Response, error) {
 	return r.ApiService.RefreshLoginIdentityExecute(r)
 }
 
@@ -2193,13 +2193,13 @@ func (a *LoginIdentityApiService) RefreshLoginIdentity(ctx context.Context) Logi
 }
 
 // Execute executes the request
-//  @return LinkTokenResponse
-func (a *LoginIdentityApiService) RefreshLoginIdentityExecute(r LoginIdentityApiApiRefreshLoginIdentityRequest) (*LinkTokenResponse, *http.Response, error) {
+//  @return RefreshTokenResponse
+func (a *LoginIdentityApiService) RefreshLoginIdentityExecute(r LoginIdentityApiApiRefreshLoginIdentityRequest) (*RefreshTokenResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue *LinkTokenResponse
+		localVarReturnValue *RefreshTokenResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.RefreshLoginIdentity")
