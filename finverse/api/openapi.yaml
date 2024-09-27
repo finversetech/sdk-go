@@ -3044,6 +3044,28 @@ paths:
     get:
       description: Download the balance statement for the ledger (CSV)
       operationId: downloadBalanceStatement
+      parameters:
+      - description: ISO format (YYYY-MM-DD)
+        in: query
+        name: date_from
+        schema:
+          format: date
+          type: string
+      - description: ISO format (YYYY-MM-DD)
+        in: query
+        name: date_to
+        schema:
+          format: date
+          type: string
+      - description: The currencies to filter for
+        explode: false
+        in: query
+        name: currencies
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
       responses:
         "200":
           content:

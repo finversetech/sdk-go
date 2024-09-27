@@ -1983,6 +1983,27 @@ func (a *DefaultApiService) CreateScheduledPayoutExecute(r DefaultApiApiCreateSc
 type DefaultApiApiDownloadBalanceStatementRequest struct {
 	ctx        context.Context
 	ApiService DefaultApi
+	dateFrom   *string
+	dateTo     *string
+	currencies *[]string
+}
+
+// ISO format (YYYY-MM-DD)
+func (r DefaultApiApiDownloadBalanceStatementRequest) DateFrom(dateFrom string) DefaultApiApiDownloadBalanceStatementRequest {
+	r.dateFrom = &dateFrom
+	return r
+}
+
+// ISO format (YYYY-MM-DD)
+func (r DefaultApiApiDownloadBalanceStatementRequest) DateTo(dateTo string) DefaultApiApiDownloadBalanceStatementRequest {
+	r.dateTo = &dateTo
+	return r
+}
+
+// The currencies to filter for
+func (r DefaultApiApiDownloadBalanceStatementRequest) Currencies(currencies []string) DefaultApiApiDownloadBalanceStatementRequest {
+	r.currencies = &currencies
+	return r
 }
 
 func (r DefaultApiApiDownloadBalanceStatementRequest) Execute() (*DownloadBalanceStatementResponse, *http.Response, error) {
@@ -2025,6 +2046,15 @@ func (a *DefaultApiService) DownloadBalanceStatementExecute(r DefaultApiApiDownl
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.dateFrom != nil {
+		localVarQueryParams.Add("date_from", parameterToString(*r.dateFrom, ""))
+	}
+	if r.dateTo != nil {
+		localVarQueryParams.Add("date_to", parameterToString(*r.dateTo, ""))
+	}
+	if r.currencies != nil {
+		localVarQueryParams.Add("currencies", parameterToString(*r.currencies, "csv"))
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
