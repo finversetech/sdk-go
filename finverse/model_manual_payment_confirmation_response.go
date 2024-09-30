@@ -18,6 +18,7 @@ import (
 // ManualPaymentConfirmationResponse struct for ManualPaymentConfirmationResponse
 type ManualPaymentConfirmationResponse struct {
 	PaymentId *string `json:"payment_id,omitempty"`
+	Status    *string `json:"status,omitempty"`
 }
 
 // NewManualPaymentConfirmationResponse instantiates a new ManualPaymentConfirmationResponse object
@@ -69,10 +70,45 @@ func (o *ManualPaymentConfirmationResponse) SetPaymentId(v string) {
 	o.PaymentId = &v
 }
 
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *ManualPaymentConfirmationResponse) GetStatus() string {
+	if o == nil || o.Status == nil {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *ManualPaymentConfirmationResponse) GetStatusOk() (*string, bool) {
+	if o == nil || o.Status == nil {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *ManualPaymentConfirmationResponse) HasStatus() bool {
+	if o != nil && o.Status != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *ManualPaymentConfirmationResponse) SetStatus(v string) {
+	o.Status = &v
+}
+
 func (o ManualPaymentConfirmationResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.PaymentId != nil {
 		toSerialize["payment_id"] = o.PaymentId
+	}
+	if o.Status != nil {
+		toSerialize["status"] = o.Status
 	}
 	return json.Marshal(toSerialize)
 }

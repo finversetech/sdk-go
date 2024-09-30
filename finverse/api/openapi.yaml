@@ -10973,8 +10973,19 @@ components:
     ManualPaymentConfirmationResponse:
       example:
         payment_id: payment_id
+        status: AUTHORIZATION_REQUIRED
       properties:
         payment_id:
+          type: string
+        status:
+          enum:
+          - AUTHORIZATION_REQUIRED
+          - AUTHORIZING
+          - PROCESSING
+          - SUBMITTED
+          - EXECUTED
+          - FAILED
+          - REVOKED
           type: string
       type: object
     ListPaymentAccountsResponse:
