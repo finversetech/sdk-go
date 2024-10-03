@@ -8749,6 +8749,8 @@ components:
               customer:
                 id: id
             integration_id: STRIPE
+            cybersource_metadata:
+              payment_token: payment_token
           payment_method_id: payment_method_id
           mandate:
             fees:
@@ -8846,6 +8848,8 @@ components:
               customer:
                 id: id
             integration_id: STRIPE
+            cybersource_metadata:
+              payment_token: payment_token
           payment_method_id: payment_method_id
           mandate:
             fees:
@@ -9122,6 +9126,8 @@ components:
               customer:
                 id: id
             integration_id: STRIPE
+            cybersource_metadata:
+              payment_token: payment_token
           payment_method_id: payment_method_id
           mandate:
             fees:
@@ -11431,6 +11437,8 @@ components:
             customer:
               id: id
           integration_id: STRIPE
+          cybersource_metadata:
+            payment_token: payment_token
         mandate:
           metadata:
             key: metadata
@@ -11481,6 +11489,8 @@ components:
           customer:
             id: id
         integration_id: STRIPE
+        cybersource_metadata:
+          payment_token: payment_token
       properties:
         integration_id:
           enum:
@@ -11488,9 +11498,10 @@ components:
           type: string
         stripe_metadata:
           $ref: '#/components/schemas/PaymentMethodIntegrationMetadata_stripe_metadata'
+        cybersource_metadata:
+          $ref: '#/components/schemas/PaymentMethodIntegrationMetadata_cybersource_metadata'
       required:
       - integration_id
-      - stripe_metadata
       type: object
     PaymentMethodResponse:
       example:
@@ -11502,6 +11513,8 @@ components:
             customer:
               id: id
           integration_id: STRIPE
+          cybersource_metadata:
+            payment_token: payment_token
         payment_method_id: payment_method_id
         mandate:
           fees:
@@ -11910,6 +11923,15 @@ components:
       required:
       - customer
       - payment_method
+      type: object
+    PaymentMethodIntegrationMetadata_cybersource_metadata:
+      example:
+        payment_token: payment_token
+      properties:
+        payment_token:
+          type: string
+      required:
+      - payment_token
       type: object
     PaymentSnapshotPaymentMethod_card:
       example:

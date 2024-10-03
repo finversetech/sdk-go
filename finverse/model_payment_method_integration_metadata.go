@@ -17,18 +17,18 @@ import (
 
 // PaymentMethodIntegrationMetadata struct for PaymentMethodIntegrationMetadata
 type PaymentMethodIntegrationMetadata struct {
-	IntegrationId  string                                         `json:"integration_id"`
-	StripeMetadata PaymentMethodIntegrationMetadataStripeMetadata `json:"stripe_metadata"`
+	IntegrationId       string                                               `json:"integration_id"`
+	StripeMetadata      *PaymentMethodIntegrationMetadataStripeMetadata      `json:"stripe_metadata,omitempty"`
+	CybersourceMetadata *PaymentMethodIntegrationMetadataCybersourceMetadata `json:"cybersource_metadata,omitempty"`
 }
 
 // NewPaymentMethodIntegrationMetadata instantiates a new PaymentMethodIntegrationMetadata object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentMethodIntegrationMetadata(integrationId string, stripeMetadata PaymentMethodIntegrationMetadataStripeMetadata) *PaymentMethodIntegrationMetadata {
+func NewPaymentMethodIntegrationMetadata(integrationId string) *PaymentMethodIntegrationMetadata {
 	this := PaymentMethodIntegrationMetadata{}
 	this.IntegrationId = integrationId
-	this.StripeMetadata = stripeMetadata
 	return &this
 }
 
@@ -64,28 +64,68 @@ func (o *PaymentMethodIntegrationMetadata) SetIntegrationId(v string) {
 	o.IntegrationId = v
 }
 
-// GetStripeMetadata returns the StripeMetadata field value
+// GetStripeMetadata returns the StripeMetadata field value if set, zero value otherwise.
 func (o *PaymentMethodIntegrationMetadata) GetStripeMetadata() PaymentMethodIntegrationMetadataStripeMetadata {
-	if o == nil {
+	if o == nil || o.StripeMetadata == nil {
 		var ret PaymentMethodIntegrationMetadataStripeMetadata
 		return ret
 	}
-
-	return o.StripeMetadata
+	return *o.StripeMetadata
 }
 
-// GetStripeMetadataOk returns a tuple with the StripeMetadata field value
+// GetStripeMetadataOk returns a tuple with the StripeMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentMethodIntegrationMetadata) GetStripeMetadataOk() (*PaymentMethodIntegrationMetadataStripeMetadata, bool) {
-	if o == nil {
+	if o == nil || o.StripeMetadata == nil {
 		return nil, false
 	}
-	return &o.StripeMetadata, true
+	return o.StripeMetadata, true
 }
 
-// SetStripeMetadata sets field value
+// HasStripeMetadata returns a boolean if a field has been set.
+func (o *PaymentMethodIntegrationMetadata) HasStripeMetadata() bool {
+	if o != nil && o.StripeMetadata != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetStripeMetadata gets a reference to the given PaymentMethodIntegrationMetadataStripeMetadata and assigns it to the StripeMetadata field.
 func (o *PaymentMethodIntegrationMetadata) SetStripeMetadata(v PaymentMethodIntegrationMetadataStripeMetadata) {
-	o.StripeMetadata = v
+	o.StripeMetadata = &v
+}
+
+// GetCybersourceMetadata returns the CybersourceMetadata field value if set, zero value otherwise.
+func (o *PaymentMethodIntegrationMetadata) GetCybersourceMetadata() PaymentMethodIntegrationMetadataCybersourceMetadata {
+	if o == nil || o.CybersourceMetadata == nil {
+		var ret PaymentMethodIntegrationMetadataCybersourceMetadata
+		return ret
+	}
+	return *o.CybersourceMetadata
+}
+
+// GetCybersourceMetadataOk returns a tuple with the CybersourceMetadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentMethodIntegrationMetadata) GetCybersourceMetadataOk() (*PaymentMethodIntegrationMetadataCybersourceMetadata, bool) {
+	if o == nil || o.CybersourceMetadata == nil {
+		return nil, false
+	}
+	return o.CybersourceMetadata, true
+}
+
+// HasCybersourceMetadata returns a boolean if a field has been set.
+func (o *PaymentMethodIntegrationMetadata) HasCybersourceMetadata() bool {
+	if o != nil && o.CybersourceMetadata != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCybersourceMetadata gets a reference to the given PaymentMethodIntegrationMetadataCybersourceMetadata and assigns it to the CybersourceMetadata field.
+func (o *PaymentMethodIntegrationMetadata) SetCybersourceMetadata(v PaymentMethodIntegrationMetadataCybersourceMetadata) {
+	o.CybersourceMetadata = &v
 }
 
 func (o PaymentMethodIntegrationMetadata) MarshalJSON() ([]byte, error) {
@@ -93,8 +133,11 @@ func (o PaymentMethodIntegrationMetadata) MarshalJSON() ([]byte, error) {
 	if true {
 		toSerialize["integration_id"] = o.IntegrationId
 	}
-	if true {
+	if o.StripeMetadata != nil {
 		toSerialize["stripe_metadata"] = o.StripeMetadata
+	}
+	if o.CybersourceMetadata != nil {
+		toSerialize["cybersource_metadata"] = o.CybersourceMetadata
 	}
 	return json.Marshal(toSerialize)
 }
