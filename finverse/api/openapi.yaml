@@ -11495,6 +11495,7 @@ components:
         integration_id:
           enum:
           - STRIPE
+          - CYBERSOURCE
           type: string
         stripe_metadata:
           $ref: '#/components/schemas/PaymentMethodIntegrationMetadata_stripe_metadata'
