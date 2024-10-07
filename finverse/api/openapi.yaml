@@ -2900,6 +2900,45 @@ paths:
         - payment_user:get
       tags:
       - customer
+    post:
+      description: Update a payment user
+      operationId: updatePaymentUser
+      parameters:
+      - in: path
+        name: paymentUserId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePaymentUserRequest'
+        description: request body for updating payment user
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentUser'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - paymentUser:update
+      x-codegen-request-body-name: updatePaymentUserRequest
   /payment_link/fvlink/payment_user/sender:
     get:
       description: Get sender payment user in payment link flow
@@ -11270,6 +11309,42 @@ components:
       required:
       - external_user_id
       - name
+      type: object
+    UpdatePaymentUserRequest:
+      example:
+        autopay_consent: true
+        metadata:
+          key: metadata
+        user_type: INDIVIDUAL
+        name: name
+        next_bill_update: 2000-01-23T04:56:07.000+00:00
+        email: email
+      properties:
+        autopay_consent:
+          nullable: true
+          type: boolean
+        email:
+          maxLength: 256
+          nullable: true
+          type: string
+        metadata:
+          additionalProperties:
+            type: string
+          nullable: true
+          type: object
+        name:
+          nullable: true
+          type: string
+        next_bill_update:
+          format: date-time
+          nullable: true
+          type: string
+        user_type:
+          enum:
+          - INDIVIDUAL
+          - BUSINESS
+          nullable: true
+          type: string
       type: object
     PaymentUser:
       example:

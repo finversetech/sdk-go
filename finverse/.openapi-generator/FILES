@@ -200,6 +200,7 @@ model_token_request.go
 model_token_response.go
 model_transaction.go
 model_transaction_limits.go
+model_update_payment_user_request.go
 model_update_test_payment_status_request.go
 model_user_button.go
 model_user_field.go
