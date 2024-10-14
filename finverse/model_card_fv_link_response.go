@@ -20,6 +20,7 @@ type CardFvLinkResponse struct {
 	Status      *string            `json:"status,omitempty"`
 	CardDetails *CardFvLinkDetails `json:"card_details,omitempty"`
 	Recipient   *CardRecipient     `json:"recipient,omitempty"`
+	Error       *FvErrorModelV2    `json:"error,omitempty"`
 }
 
 // NewCardFvLinkResponse instantiates a new CardFvLinkResponse object
@@ -135,6 +136,38 @@ func (o *CardFvLinkResponse) SetRecipient(v CardRecipient) {
 	o.Recipient = &v
 }
 
+// GetError returns the Error field value if set, zero value otherwise.
+func (o *CardFvLinkResponse) GetError() FvErrorModelV2 {
+	if o == nil || o.Error == nil {
+		var ret FvErrorModelV2
+		return ret
+	}
+	return *o.Error
+}
+
+// GetErrorOk returns a tuple with the Error field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CardFvLinkResponse) GetErrorOk() (*FvErrorModelV2, bool) {
+	if o == nil || o.Error == nil {
+		return nil, false
+	}
+	return o.Error, true
+}
+
+// HasError returns a boolean if a field has been set.
+func (o *CardFvLinkResponse) HasError() bool {
+	if o != nil && o.Error != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetError gets a reference to the given FvErrorModelV2 and assigns it to the Error field.
+func (o *CardFvLinkResponse) SetError(v FvErrorModelV2) {
+	o.Error = &v
+}
+
 func (o CardFvLinkResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Status != nil {
@@ -145,6 +178,9 @@ func (o CardFvLinkResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Recipient != nil {
 		toSerialize["recipient"] = o.Recipient
+	}
+	if o.Error != nil {
+		toSerialize["error"] = o.Error
 	}
 	return json.Marshal(toSerialize)
 }

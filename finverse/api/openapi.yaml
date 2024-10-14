@@ -8878,6 +8878,12 @@ components:
               expiry_year: 2028
             updated_at: 2000-01-23T04:56:07.000+00:00
             created_at: 2000-01-23T04:56:07.000+00:00
+            error:
+              error_code: CREDENTIALS_INVALID
+              details: details
+              type: LINKING_ERROR
+              message: message
+              request_id: request_id
             status: UNKNOWN
         - payment_method_type: payment_method_type
           integration_metadata:
@@ -8977,6 +8983,12 @@ components:
               expiry_year: 2028
             updated_at: 2000-01-23T04:56:07.000+00:00
             created_at: 2000-01-23T04:56:07.000+00:00
+            error:
+              error_code: CREDENTIALS_INVALID
+              details: details
+              type: LINKING_ERROR
+              message: message
+              request_id: request_id
             status: UNKNOWN
         sender:
           integration_metadata:
@@ -9255,6 +9267,12 @@ components:
               expiry_year: 2028
             updated_at: 2000-01-23T04:56:07.000+00:00
             created_at: 2000-01-23T04:56:07.000+00:00
+            error:
+              error_code: CREDENTIALS_INVALID
+              details: details
+              type: LINKING_ERROR
+              message: message
+              request_id: request_id
             status: UNKNOWN
         status: CREATED
       properties:
@@ -9541,6 +9559,12 @@ components:
           expiry_year: 2028
         updated_at: 2000-01-23T04:56:07.000+00:00
         created_at: 2000-01-23T04:56:07.000+00:00
+        error:
+          error_code: CREDENTIALS_INVALID
+          details: details
+          type: LINKING_ERROR
+          message: message
+          request_id: request_id
         status: UNKNOWN
       properties:
         created_at:
@@ -9558,6 +9582,8 @@ components:
           - PROCESSING
           - SUCCEEDED
           type: string
+        error:
+          $ref: '#/components/schemas/FvErrorModelV2'
         card_details:
           $ref: '#/components/schemas/FVCardDetails'
       type: object
@@ -11679,6 +11705,12 @@ components:
             expiry_year: 2028
           updated_at: 2000-01-23T04:56:07.000+00:00
           created_at: 2000-01-23T04:56:07.000+00:00
+          error:
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+            request_id: request_id
           status: UNKNOWN
       properties:
         payment_method_id:
@@ -11721,6 +11753,12 @@ components:
             expiry_year: 2028
           recipient:
             name: name
+          error:
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+            request_id: request_id
           status: UNKNOWN
       properties:
         payment_method_id:
@@ -11774,6 +11812,12 @@ components:
           expiry_year: 2028
         recipient:
           name: name
+        error:
+          error_code: CREDENTIALS_INVALID
+          details: details
+          type: LINKING_ERROR
+          message: message
+          request_id: request_id
         status: UNKNOWN
       properties:
         status:
@@ -11786,6 +11830,8 @@ components:
           $ref: '#/components/schemas/CardFvLinkDetails'
         recipient:
           $ref: '#/components/schemas/CardRecipient'
+        error:
+          $ref: '#/components/schemas/FvErrorModelV2'
       type: object
     CardFvLinkDetails:
       example:
