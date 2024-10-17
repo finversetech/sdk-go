@@ -22,7 +22,7 @@ type MandateFvLinkResponse struct {
 	MandateStatus *string                      `json:"mandate_status,omitempty"`
 	Recipient     *MandateRecipient            `json:"recipient,omitempty"`
 	SenderAccount *SenderAccountFvLinkResponse `json:"sender_account,omitempty"`
-	Error         *FvErrorModelV2              `json:"error,omitempty"`
+	Error         *FvEmbeddedErrorModel        `json:"error,omitempty"`
 }
 
 // NewMandateFvLinkResponse instantiates a new MandateFvLinkResponse object
@@ -203,9 +203,9 @@ func (o *MandateFvLinkResponse) SetSenderAccount(v SenderAccountFvLinkResponse) 
 }
 
 // GetError returns the Error field value if set, zero value otherwise.
-func (o *MandateFvLinkResponse) GetError() FvErrorModelV2 {
+func (o *MandateFvLinkResponse) GetError() FvEmbeddedErrorModel {
 	if o == nil || o.Error == nil {
-		var ret FvErrorModelV2
+		var ret FvEmbeddedErrorModel
 		return ret
 	}
 	return *o.Error
@@ -213,7 +213,7 @@ func (o *MandateFvLinkResponse) GetError() FvErrorModelV2 {
 
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MandateFvLinkResponse) GetErrorOk() (*FvErrorModelV2, bool) {
+func (o *MandateFvLinkResponse) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
 	if o == nil || o.Error == nil {
 		return nil, false
 	}
@@ -229,8 +229,8 @@ func (o *MandateFvLinkResponse) HasError() bool {
 	return false
 }
 
-// SetError gets a reference to the given FvErrorModelV2 and assigns it to the Error field.
-func (o *MandateFvLinkResponse) SetError(v FvErrorModelV2) {
+// SetError gets a reference to the given FvEmbeddedErrorModel and assigns it to the Error field.
+func (o *MandateFvLinkResponse) SetError(v FvEmbeddedErrorModel) {
 	o.Error = &v
 }
 

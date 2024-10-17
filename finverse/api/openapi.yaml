@@ -7293,6 +7293,33 @@ components:
         error:
           $ref: '#/components/schemas/FvErrorModelV2'
       type: object
+    FvEmbeddedErrorModel:
+      example:
+        error_code: CREDENTIALS_INVALID
+        details: details
+        type: LINKING_ERROR
+        message: message
+      properties:
+        type:
+          description: The error type
+          enum:
+          - LINK_ERROR
+          - API_ERROR
+          example: LINKING_ERROR
+          type: string
+        error_code:
+          example: CREDENTIALS_INVALID
+          type: string
+        message:
+          type: string
+        details:
+          type: string
+      required:
+      - details
+      - error_code
+      - message
+      - type
+      type: object
     FvErrorModelV2:
       example:
         error_code: CREDENTIALS_INVALID
@@ -7577,7 +7604,6 @@ components:
           details: details
           type: LINKING_ERROR
           message: message
-          request_id: request_id
         payment_method_id: payment_method_id
         updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
@@ -7698,7 +7724,7 @@ components:
             the key and value supports up to 50 and 1000 characters respectively.'
           type: object
         error:
-          $ref: '#/components/schemas/FvErrorModelV2'
+          $ref: '#/components/schemas/FvEmbeddedErrorModel'
         payment_method:
           $ref: '#/components/schemas/PaymentSnapshotPaymentMethod'
       required:
@@ -7736,7 +7762,6 @@ components:
             details: details
             type: LINKING_ERROR
             message: message
-            request_id: request_id
           payment_method_id: payment_method_id
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
@@ -7816,7 +7841,6 @@ components:
             details: details
             type: LINKING_ERROR
             message: message
-            request_id: request_id
           payment_method_id: payment_method_id
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
@@ -7962,7 +7986,6 @@ components:
           details: details
           type: LINKING_ERROR
           message: message
-          request_id: request_id
         payout_id: payout_id
         updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
@@ -8034,7 +8057,7 @@ components:
           description: Whether this payout is live or not
           type: boolean
         error:
-          $ref: '#/components/schemas/FvErrorModelV2'
+          $ref: '#/components/schemas/FvEmbeddedErrorModel'
       required:
       - live
       type: object
@@ -8480,7 +8503,6 @@ components:
           details: details
           type: LINKING_ERROR
           message: message
-          request_id: request_id
         payment_method_id: payment_method_id
         updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
@@ -8585,7 +8607,7 @@ components:
             the key and value supports up to 50 and 1000 characters respectively.'
           type: object
         error:
-          $ref: '#/components/schemas/FvErrorModelV2'
+          $ref: '#/components/schemas/FvEmbeddedErrorModel'
       required:
       - mandate_details
       - mandate_id
@@ -8813,7 +8835,6 @@ components:
               details: details
               type: LINKING_ERROR
               message: message
-              request_id: request_id
             payment_method_id: payment_method_id
             updated_at: 2000-01-23T04:56:07.000+00:00
             sender:
@@ -8883,7 +8904,6 @@ components:
               details: details
               type: LINKING_ERROR
               message: message
-              request_id: request_id
             status: UNKNOWN
         - payment_method_type: payment_method_type
           integration_metadata:
@@ -8918,7 +8938,6 @@ components:
               details: details
               type: LINKING_ERROR
               message: message
-              request_id: request_id
             payment_method_id: payment_method_id
             updated_at: 2000-01-23T04:56:07.000+00:00
             sender:
@@ -8988,7 +9007,6 @@ components:
               details: details
               type: LINKING_ERROR
               message: message
-              request_id: request_id
             status: UNKNOWN
         sender:
           integration_metadata:
@@ -9116,7 +9134,6 @@ components:
             details: details
             type: LINKING_ERROR
             message: message
-            request_id: request_id
           payment_method_id: payment_method_id
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
@@ -9202,7 +9219,6 @@ components:
               details: details
               type: LINKING_ERROR
               message: message
-              request_id: request_id
             payment_method_id: payment_method_id
             updated_at: 2000-01-23T04:56:07.000+00:00
             sender:
@@ -9272,7 +9288,6 @@ components:
               details: details
               type: LINKING_ERROR
               message: message
-              request_id: request_id
             status: UNKNOWN
         status: CREATED
       properties:
@@ -9564,7 +9579,6 @@ components:
           details: details
           type: LINKING_ERROR
           message: message
-          request_id: request_id
         status: UNKNOWN
       properties:
         created_at:
@@ -9583,7 +9597,7 @@ components:
           - SUCCEEDED
           type: string
         error:
-          $ref: '#/components/schemas/FvErrorModelV2'
+          $ref: '#/components/schemas/FvEmbeddedErrorModel'
         card_details:
           $ref: '#/components/schemas/FVCardDetails'
       type: object
@@ -9634,7 +9648,6 @@ components:
           details: details
           type: LINKING_ERROR
           message: message
-          request_id: request_id
         payment_method_id: payment_method_id
         updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
@@ -9732,7 +9745,7 @@ components:
             $ref: '#/components/schemas/Fee'
           type: array
         error:
-          $ref: '#/components/schemas/FvErrorModelV2'
+          $ref: '#/components/schemas/FvEmbeddedErrorModel'
         metadata:
           additionalProperties:
             type: string
@@ -9773,7 +9786,6 @@ components:
             details: details
             type: LINKING_ERROR
             message: message
-            request_id: request_id
           payment_method_id: payment_method_id
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
@@ -9851,7 +9863,6 @@ components:
             details: details
             type: LINKING_ERROR
             message: message
-            request_id: request_id
           payment_method_id: payment_method_id
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
@@ -10535,7 +10546,6 @@ components:
           details: details
           type: LINKING_ERROR
           message: message
-          request_id: request_id
         institution_id: institution_id
         auth_checklist:
         - group_id: group_id
@@ -10603,7 +10613,7 @@ components:
           format: date-time
           type: string
         error:
-          $ref: '#/components/schemas/FvErrorModelV2'
+          $ref: '#/components/schemas/FvEmbeddedErrorModel'
         mandate_details:
           $ref: '#/components/schemas/MandateDetailsResponse'
         recipient:
@@ -11640,7 +11650,6 @@ components:
             details: details
             type: LINKING_ERROR
             message: message
-            request_id: request_id
           payment_method_id: payment_method_id
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
@@ -11710,7 +11719,6 @@ components:
             details: details
             type: LINKING_ERROR
             message: message
-            request_id: request_id
           status: UNKNOWN
       properties:
         payment_method_id:
@@ -11743,7 +11751,6 @@ components:
             details: details
             type: LINKING_ERROR
             message: message
-            request_id: request_id
           institution_id: institution_id
         card:
           card_details:
@@ -11758,7 +11765,6 @@ components:
             details: details
             type: LINKING_ERROR
             message: message
-            request_id: request_id
           status: UNKNOWN
       properties:
         payment_method_id:
@@ -11787,7 +11793,6 @@ components:
           details: details
           type: LINKING_ERROR
           message: message
-          request_id: request_id
         institution_id: institution_id
       properties:
         mandate_id:
@@ -11801,7 +11806,7 @@ components:
         sender_account:
           $ref: '#/components/schemas/SenderAccountFvLinkResponse'
         error:
-          $ref: '#/components/schemas/FvErrorModelV2'
+          $ref: '#/components/schemas/FvEmbeddedErrorModel'
       type: object
     CardFvLinkResponse:
       example:
@@ -11817,7 +11822,6 @@ components:
           details: details
           type: LINKING_ERROR
           message: message
-          request_id: request_id
         status: UNKNOWN
       properties:
         status:
@@ -11831,7 +11835,7 @@ components:
         recipient:
           $ref: '#/components/schemas/CardRecipient'
         error:
-          $ref: '#/components/schemas/FvErrorModelV2'
+          $ref: '#/components/schemas/FvEmbeddedErrorModel'
       type: object
     CardFvLinkDetails:
       example:

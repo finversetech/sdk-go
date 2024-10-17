@@ -34,8 +34,8 @@ type PayoutSnapshotResponse struct {
 	RecipientAccount *MandateSenderAccount    `json:"recipient_account,omitempty"`
 	Fees             []Fee                    `json:"fees,omitempty"`
 	// Whether this payout is live or not
-	Live  bool            `json:"live"`
-	Error *FvErrorModelV2 `json:"error,omitempty"`
+	Live  bool                  `json:"live"`
+	Error *FvEmbeddedErrorModel `json:"error,omitempty"`
 }
 
 // NewPayoutSnapshotResponse instantiates a new PayoutSnapshotResponse object
@@ -561,9 +561,9 @@ func (o *PayoutSnapshotResponse) SetLive(v bool) {
 }
 
 // GetError returns the Error field value if set, zero value otherwise.
-func (o *PayoutSnapshotResponse) GetError() FvErrorModelV2 {
+func (o *PayoutSnapshotResponse) GetError() FvEmbeddedErrorModel {
 	if o == nil || o.Error == nil {
-		var ret FvErrorModelV2
+		var ret FvEmbeddedErrorModel
 		return ret
 	}
 	return *o.Error
@@ -571,7 +571,7 @@ func (o *PayoutSnapshotResponse) GetError() FvErrorModelV2 {
 
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PayoutSnapshotResponse) GetErrorOk() (*FvErrorModelV2, bool) {
+func (o *PayoutSnapshotResponse) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
 	if o == nil || o.Error == nil {
 		return nil, false
 	}
@@ -587,8 +587,8 @@ func (o *PayoutSnapshotResponse) HasError() bool {
 	return false
 }
 
-// SetError gets a reference to the given FvErrorModelV2 and assigns it to the Error field.
-func (o *PayoutSnapshotResponse) SetError(v FvErrorModelV2) {
+// SetError gets a reference to the given FvEmbeddedErrorModel and assigns it to the Error field.
+func (o *PayoutSnapshotResponse) SetError(v FvEmbeddedErrorModel) {
 	o.Error = &v
 }
 

@@ -17,10 +17,10 @@ import (
 
 // CardFvLinkResponse struct for CardFvLinkResponse
 type CardFvLinkResponse struct {
-	Status      *string            `json:"status,omitempty"`
-	CardDetails *CardFvLinkDetails `json:"card_details,omitempty"`
-	Recipient   *CardRecipient     `json:"recipient,omitempty"`
-	Error       *FvErrorModelV2    `json:"error,omitempty"`
+	Status      *string               `json:"status,omitempty"`
+	CardDetails *CardFvLinkDetails    `json:"card_details,omitempty"`
+	Recipient   *CardRecipient        `json:"recipient,omitempty"`
+	Error       *FvEmbeddedErrorModel `json:"error,omitempty"`
 }
 
 // NewCardFvLinkResponse instantiates a new CardFvLinkResponse object
@@ -137,9 +137,9 @@ func (o *CardFvLinkResponse) SetRecipient(v CardRecipient) {
 }
 
 // GetError returns the Error field value if set, zero value otherwise.
-func (o *CardFvLinkResponse) GetError() FvErrorModelV2 {
+func (o *CardFvLinkResponse) GetError() FvEmbeddedErrorModel {
 	if o == nil || o.Error == nil {
-		var ret FvErrorModelV2
+		var ret FvEmbeddedErrorModel
 		return ret
 	}
 	return *o.Error
@@ -147,7 +147,7 @@ func (o *CardFvLinkResponse) GetError() FvErrorModelV2 {
 
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CardFvLinkResponse) GetErrorOk() (*FvErrorModelV2, bool) {
+func (o *CardFvLinkResponse) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
 	if o == nil || o.Error == nil {
 		return nil, false
 	}
@@ -163,8 +163,8 @@ func (o *CardFvLinkResponse) HasError() bool {
 	return false
 }
 
-// SetError gets a reference to the given FvErrorModelV2 and assigns it to the Error field.
-func (o *CardFvLinkResponse) SetError(v FvErrorModelV2) {
+// SetError gets a reference to the given FvEmbeddedErrorModel and assigns it to the Error field.
+func (o *CardFvLinkResponse) SetError(v FvEmbeddedErrorModel) {
 	o.Error = &v
 }
 

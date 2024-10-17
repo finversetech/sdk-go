@@ -23,9 +23,9 @@ type FVCard struct {
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	// Card Status
-	Status      *string         `json:"status,omitempty"`
-	Error       *FvErrorModelV2 `json:"error,omitempty"`
-	CardDetails *FVCardDetails  `json:"card_details,omitempty"`
+	Status      *string               `json:"status,omitempty"`
+	Error       *FvEmbeddedErrorModel `json:"error,omitempty"`
+	CardDetails *FVCardDetails        `json:"card_details,omitempty"`
 }
 
 // NewFVCard instantiates a new FVCard object
@@ -142,9 +142,9 @@ func (o *FVCard) SetStatus(v string) {
 }
 
 // GetError returns the Error field value if set, zero value otherwise.
-func (o *FVCard) GetError() FvErrorModelV2 {
+func (o *FVCard) GetError() FvEmbeddedErrorModel {
 	if o == nil || o.Error == nil {
-		var ret FvErrorModelV2
+		var ret FvEmbeddedErrorModel
 		return ret
 	}
 	return *o.Error
@@ -152,7 +152,7 @@ func (o *FVCard) GetError() FvErrorModelV2 {
 
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FVCard) GetErrorOk() (*FvErrorModelV2, bool) {
+func (o *FVCard) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
 	if o == nil || o.Error == nil {
 		return nil, false
 	}
@@ -168,8 +168,8 @@ func (o *FVCard) HasError() bool {
 	return false
 }
 
-// SetError gets a reference to the given FvErrorModelV2 and assigns it to the Error field.
-func (o *FVCard) SetError(v FvErrorModelV2) {
+// SetError gets a reference to the given FvEmbeddedErrorModel and assigns it to the Error field.
+func (o *FVCard) SetError(v FvEmbeddedErrorModel) {
 	o.Error = &v
 }
 

@@ -35,8 +35,8 @@ type CreateMandateResponse struct {
 	MandateDetails   MandateDetailsResponse   `json:"mandate_details"`
 	Fees             []Fee                    `json:"fees,omitempty"`
 	// Additional attributes of the mandate in key:value format (e.g. mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 1000 characters respectively.
-	Metadata *map[string]string `json:"metadata,omitempty"`
-	Error    *FvErrorModelV2    `json:"error,omitempty"`
+	Metadata *map[string]string    `json:"metadata,omitempty"`
+	Error    *FvEmbeddedErrorModel `json:"error,omitempty"`
 }
 
 // NewCreateMandateResponse instantiates a new CreateMandateResponse object
@@ -399,9 +399,9 @@ func (o *CreateMandateResponse) SetMetadata(v map[string]string) {
 }
 
 // GetError returns the Error field value if set, zero value otherwise.
-func (o *CreateMandateResponse) GetError() FvErrorModelV2 {
+func (o *CreateMandateResponse) GetError() FvEmbeddedErrorModel {
 	if o == nil || o.Error == nil {
-		var ret FvErrorModelV2
+		var ret FvEmbeddedErrorModel
 		return ret
 	}
 	return *o.Error
@@ -409,7 +409,7 @@ func (o *CreateMandateResponse) GetError() FvErrorModelV2 {
 
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateMandateResponse) GetErrorOk() (*FvErrorModelV2, bool) {
+func (o *CreateMandateResponse) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
 	if o == nil || o.Error == nil {
 		return nil, false
 	}
@@ -425,8 +425,8 @@ func (o *CreateMandateResponse) HasError() bool {
 	return false
 }
 
-// SetError gets a reference to the given FvErrorModelV2 and assigns it to the Error field.
-func (o *CreateMandateResponse) SetError(v FvErrorModelV2) {
+// SetError gets a reference to the given FvEmbeddedErrorModel and assigns it to the Error field.
+func (o *CreateMandateResponse) SetError(v FvEmbeddedErrorModel) {
 	o.Error = &v
 }
 
