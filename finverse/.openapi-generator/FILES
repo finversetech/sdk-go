@@ -147,6 +147,7 @@ model_payment_account_details.go
 model_payment_details.go
 model_payment_details2.go
 model_payment_details_references.go
+model_payment_fv_link_response.go
 model_payment_info.go
 model_payment_instruction.go
 model_payment_link_customizations.go

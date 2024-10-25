@@ -3079,6 +3079,38 @@ paths:
       security:
       - Oauth2:
         - payment_attempt:refresh
+  /payment_link/fvlink/payment:
+    get:
+      description: Get payment (if exists) on the payment link for front-end
+      operationId: getPaymentPaymentLink
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentFvLinkResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - paymentLinks:payment:get
   /ledger/statement:
     get:
       description: Download the balance statement for the ledger (CSV)
@@ -11777,6 +11809,31 @@ components:
           $ref: '#/components/schemas/MandateFvLinkResponse'
         card:
           $ref: '#/components/schemas/CardFvLinkResponse'
+      type: object
+    PaymentFvLinkResponse:
+      example:
+        payment_id: payment_id
+        error:
+          error_code: CREDENTIALS_INVALID
+          details: details
+          type: LINKING_ERROR
+          message: message
+        status: AUTHORIZATION_REQUIRED
+      properties:
+        payment_id:
+          type: string
+        status:
+          enum:
+          - AUTHORIZATION_REQUIRED
+          - AUTHORIZING
+          - PROCESSING
+          - SUBMITTED
+          - EXECUTED
+          - FAILED
+          - REVOKED
+          type: string
+        error:
+          $ref: '#/components/schemas/FvEmbeddedErrorModel'
       type: object
     MandateFvLinkResponse:
       example:
