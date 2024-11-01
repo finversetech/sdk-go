@@ -3111,6 +3111,35 @@ paths:
       security:
       - Oauth2:
         - paymentLinks:payment:get
+  /payment_link/fvlink/payment/cancel:
+    post:
+      description: cancel payment on payment link
+      operationId: cancelPaymentPaymentLink
+      responses:
+        "200":
+          content: {}
+          description: ok
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - paymentLinks:payment:cancel
   /ledger/statement:
     get:
       description: Download the balance statement for the ledger (CSV)

@@ -43,6 +43,19 @@ type DefaultApi interface {
 	CancelPaymentLinkExecute(r DefaultApiApiCancelPaymentLinkRequest) (*PaymentLinkResponse, *http.Response, error)
 
 	/*
+		CancelPaymentPaymentLink Method for CancelPaymentPaymentLink
+
+		cancel payment on payment link
+
+		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		 @return DefaultApiApiCancelPaymentPaymentLinkRequest
+	*/
+	CancelPaymentPaymentLink(ctx context.Context) DefaultApiApiCancelPaymentPaymentLinkRequest
+
+	// CancelPaymentPaymentLinkExecute executes the request
+	CancelPaymentPaymentLinkExecute(r DefaultApiApiCancelPaymentPaymentLinkRequest) (*http.Response, error)
+
+	/*
 		CancelPayout Method for CancelPayout
 
 		Cancel Payout by payout_id
@@ -538,6 +551,123 @@ func (a *DefaultApiService) CancelPaymentLinkExecute(r DefaultApiApiCancelPaymen
 	}
 
 	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type DefaultApiApiCancelPaymentPaymentLinkRequest struct {
+	ctx        context.Context
+	ApiService DefaultApi
+}
+
+func (r DefaultApiApiCancelPaymentPaymentLinkRequest) Execute() (*http.Response, error) {
+	return r.ApiService.CancelPaymentPaymentLinkExecute(r)
+}
+
+/*
+CancelPaymentPaymentLink Method for CancelPaymentPaymentLink
+
+cancel payment on payment link
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return DefaultApiApiCancelPaymentPaymentLinkRequest
+*/
+func (a *DefaultApiService) CancelPaymentPaymentLink(ctx context.Context) DefaultApiApiCancelPaymentPaymentLinkRequest {
+	return DefaultApiApiCancelPaymentPaymentLinkRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+func (a *DefaultApiService) CancelPaymentPaymentLinkExecute(r DefaultApiApiCancelPaymentPaymentLinkRequest) (*http.Response, error) {
+	var (
+		localVarHTTPMethod = http.MethodPost
+		localVarPostBody   interface{}
+		formFiles          []formFile
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CancelPaymentPaymentLink")
+	if err != nil {
+		return nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/payment_link/fvlink/payment/cancel"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarHTTPResponse, err
+	}
+
+	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarHTTPResponse, err
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+			return localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarHTTPResponse, newErr
+			}
+			newErr.model = v
+		}
+		return localVarHTTPResponse, newErr
+	}
+
+	return localVarHTTPResponse, nil
 }
 
 type DefaultApiApiCancelPayoutRequest struct {
