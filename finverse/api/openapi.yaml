@@ -7666,6 +7666,7 @@ components:
           type: LINKING_ERROR
           message: message
         payment_method_id: payment_method_id
+        amount_total_with_surcharge: 100
         updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
           user_type: INDIVIDUAL
@@ -7707,6 +7708,7 @@ components:
         recipient:
           name: name
         currency: HKD
+        surcharge_amount: 100
         payment_method:
           card:
             card_details:
@@ -7725,6 +7727,14 @@ components:
             = 10001 (minor unit = cents). For currencies without minor units (e.g.
             VND, JPY), the amount is represented as is, without modification. For
             example, VND 15101 is represented as amount = 15101.
+          example: 100
+          type: integer
+        surcharge_amount:
+          description: Surcharge amount in minor
+          example: 100
+          type: integer
+        amount_total_with_surcharge:
+          description: Amount with all fees and surcharges applied in minor
           example: 100
           type: integer
         currency:
@@ -7790,6 +7800,8 @@ components:
           $ref: '#/components/schemas/PaymentSnapshotPaymentMethod'
       required:
       - amount
+      - amount_total_with_surcharge
+      - surcharge_amount
       type: object
     ListPaymentsResponse:
       example:
@@ -7824,6 +7836,7 @@ components:
             type: LINKING_ERROR
             message: message
           payment_method_id: payment_method_id
+          amount_total_with_surcharge: 100
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
             user_type: INDIVIDUAL
@@ -7865,6 +7878,7 @@ components:
           recipient:
             name: name
           currency: HKD
+          surcharge_amount: 100
           payment_method:
             card:
               card_details:
@@ -7903,6 +7917,7 @@ components:
             type: LINKING_ERROR
             message: message
           payment_method_id: payment_method_id
+          amount_total_with_surcharge: 100
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
             user_type: INDIVIDUAL
@@ -7944,6 +7959,7 @@ components:
           recipient:
             name: name
           currency: HKD
+          surcharge_amount: 100
           payment_method:
             card:
               card_details:
@@ -9196,6 +9212,7 @@ components:
             type: LINKING_ERROR
             message: message
           payment_method_id: payment_method_id
+          amount_total_with_surcharge: 100
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
             user_type: INDIVIDUAL
@@ -9237,6 +9254,7 @@ components:
           recipient:
             name: name
           currency: HKD
+          surcharge_amount: 100
           payment_method:
             card:
               card_details:

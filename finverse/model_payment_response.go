@@ -22,6 +22,10 @@ type PaymentResponse struct {
 	PaymentId *string `json:"payment_id,omitempty"`
 	// Amount to be paid, in currency's smallest unit or “minor unit”, as defined in ISO 4217. For example, HKD 100.01 is represented as amount = 10001 (minor unit = cents). For currencies without minor units (e.g. VND, JPY), the amount is represented as is, without modification. For example, VND 15101 is represented as amount = 15101.
 	Amount int32 `json:"amount"`
+	// Surcharge amount in minor
+	SurchargeAmount int32 `json:"surcharge_amount"`
+	// Amount with all fees and surcharges applied in minor
+	AmountTotalWithSurcharge int32 `json:"amount_total_with_surcharge"`
 	// The currency code as defined in ISO 4217.
 	Currency *string `json:"currency,omitempty"`
 	// Indicates whether this is a mandate-based payment or one-off direct payment to an account. Possible values - MANDATE, SINGLE
@@ -50,9 +54,11 @@ type PaymentResponse struct {
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentResponse(amount int32) *PaymentResponse {
+func NewPaymentResponse(amount int32, surchargeAmount int32, amountTotalWithSurcharge int32) *PaymentResponse {
 	this := PaymentResponse{}
 	this.Amount = amount
+	this.SurchargeAmount = surchargeAmount
+	this.AmountTotalWithSurcharge = amountTotalWithSurcharge
 	return &this
 }
 
@@ -118,6 +124,54 @@ func (o *PaymentResponse) GetAmountOk() (*int32, bool) {
 // SetAmount sets field value
 func (o *PaymentResponse) SetAmount(v int32) {
 	o.Amount = v
+}
+
+// GetSurchargeAmount returns the SurchargeAmount field value
+func (o *PaymentResponse) GetSurchargeAmount() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.SurchargeAmount
+}
+
+// GetSurchargeAmountOk returns a tuple with the SurchargeAmount field value
+// and a boolean to check if the value has been set.
+func (o *PaymentResponse) GetSurchargeAmountOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SurchargeAmount, true
+}
+
+// SetSurchargeAmount sets field value
+func (o *PaymentResponse) SetSurchargeAmount(v int32) {
+	o.SurchargeAmount = v
+}
+
+// GetAmountTotalWithSurcharge returns the AmountTotalWithSurcharge field value
+func (o *PaymentResponse) GetAmountTotalWithSurcharge() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.AmountTotalWithSurcharge
+}
+
+// GetAmountTotalWithSurchargeOk returns a tuple with the AmountTotalWithSurcharge field value
+// and a boolean to check if the value has been set.
+func (o *PaymentResponse) GetAmountTotalWithSurchargeOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.AmountTotalWithSurcharge, true
+}
+
+// SetAmountTotalWithSurcharge sets field value
+func (o *PaymentResponse) SetAmountTotalWithSurcharge(v int32) {
+	o.AmountTotalWithSurcharge = v
 }
 
 // GetCurrency returns the Currency field value if set, zero value otherwise.
@@ -607,6 +661,12 @@ func (o PaymentResponse) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["amount"] = o.Amount
+	}
+	if true {
+		toSerialize["surcharge_amount"] = o.SurchargeAmount
+	}
+	if true {
+		toSerialize["amount_total_with_surcharge"] = o.AmountTotalWithSurcharge
 	}
 	if o.Currency != nil {
 		toSerialize["currency"] = o.Currency
