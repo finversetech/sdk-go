@@ -2939,6 +2939,44 @@ paths:
       - Oauth2:
         - paymentUser:update
       x-codegen-request-body-name: updatePaymentUserRequest
+  /payment_methods/{paymentMethodId}:
+    get:
+      description: Get a payment method
+      operationId: getPaymentMethod
+      parameters:
+      - in: path
+        name: paymentMethodId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethodResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - paymentMethod:get
   /payment_link/fvlink/payment_user/sender:
     get:
       description: Get sender payment user in payment link flow
