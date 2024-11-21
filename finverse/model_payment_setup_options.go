@@ -18,10 +18,11 @@ import (
 // PaymentSetupOptions struct for PaymentSetupOptions
 type PaymentSetupOptions struct {
 	// The type of future_payments that customer want to use. Possible values: AUTOPAY or CLICK_TO_PAY
-	FuturePayments          *string                       `json:"future_payments,omitempty"`
-	MandateDetails          *MandateDetailsForPaymentLink `json:"mandate_details,omitempty"`
-	PaymentMethodTypes      []string                      `json:"payment_method_types,omitempty"`
-	RecipientAccountFilters *RecipientAccountFilters      `json:"recipient_account_filters,omitempty"`
+	FuturePayments                  *string                         `json:"future_payments,omitempty"`
+	MandateDetails                  *MandateDetailsForPaymentLink   `json:"mandate_details,omitempty"`
+	PaymentMethodTypes              []string                        `json:"payment_method_types,omitempty"`
+	RecipientAccountFilters         *RecipientAccountFilters        `json:"recipient_account_filters,omitempty"`
+	AutopayEnrollmentConfigurations *AutopayEnrollmentConfiguration `json:"autopay_enrollment_configurations,omitempty"`
 }
 
 // NewPaymentSetupOptions instantiates a new PaymentSetupOptions object
@@ -169,6 +170,38 @@ func (o *PaymentSetupOptions) SetRecipientAccountFilters(v RecipientAccountFilte
 	o.RecipientAccountFilters = &v
 }
 
+// GetAutopayEnrollmentConfigurations returns the AutopayEnrollmentConfigurations field value if set, zero value otherwise.
+func (o *PaymentSetupOptions) GetAutopayEnrollmentConfigurations() AutopayEnrollmentConfiguration {
+	if o == nil || o.AutopayEnrollmentConfigurations == nil {
+		var ret AutopayEnrollmentConfiguration
+		return ret
+	}
+	return *o.AutopayEnrollmentConfigurations
+}
+
+// GetAutopayEnrollmentConfigurationsOk returns a tuple with the AutopayEnrollmentConfigurations field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentSetupOptions) GetAutopayEnrollmentConfigurationsOk() (*AutopayEnrollmentConfiguration, bool) {
+	if o == nil || o.AutopayEnrollmentConfigurations == nil {
+		return nil, false
+	}
+	return o.AutopayEnrollmentConfigurations, true
+}
+
+// HasAutopayEnrollmentConfigurations returns a boolean if a field has been set.
+func (o *PaymentSetupOptions) HasAutopayEnrollmentConfigurations() bool {
+	if o != nil && o.AutopayEnrollmentConfigurations != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetAutopayEnrollmentConfigurations gets a reference to the given AutopayEnrollmentConfiguration and assigns it to the AutopayEnrollmentConfigurations field.
+func (o *PaymentSetupOptions) SetAutopayEnrollmentConfigurations(v AutopayEnrollmentConfiguration) {
+	o.AutopayEnrollmentConfigurations = &v
+}
+
 func (o PaymentSetupOptions) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.FuturePayments != nil {
@@ -182,6 +215,9 @@ func (o PaymentSetupOptions) MarshalJSON() ([]byte, error) {
 	}
 	if o.RecipientAccountFilters != nil {
 		toSerialize["recipient_account_filters"] = o.RecipientAccountFilters
+	}
+	if o.AutopayEnrollmentConfigurations != nil {
+		toSerialize["autopay_enrollment_configurations"] = o.AutopayEnrollmentConfigurations
 	}
 	return json.Marshal(toSerialize)
 }

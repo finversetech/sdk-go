@@ -8773,6 +8773,9 @@ components:
           payment_method_types:
           - MANDATE
           - MANDATE
+          autopay_enrollment_configurations:
+            display_enrollment_screen: true
+            enrollment_prefill_value: "YES"
         unique_reference_id: unique_reference_id
         payment_metadata:
           key: payment_metadata
@@ -8881,6 +8884,9 @@ components:
         payment_method_types:
         - MANDATE
         - MANDATE
+        autopay_enrollment_configurations:
+          display_enrollment_screen: true
+          enrollment_prefill_value: "YES"
       properties:
         future_payments:
           description: 'The type of future_payments that customer want to use. Possible
@@ -8903,6 +8909,28 @@ components:
           x-omitempty: true
         recipient_account_filters:
           $ref: '#/components/schemas/RecipientAccountFilters'
+        autopay_enrollment_configurations:
+          $ref: '#/components/schemas/AutopayEnrollmentConfiguration'
+      type: object
+    AutopayEnrollmentConfiguration:
+      example:
+        display_enrollment_screen: true
+        enrollment_prefill_value: "YES"
+      properties:
+        display_enrollment_screen:
+          description: Indicate whether the autopay enrollment screen should be prompted
+            to the end user
+          type: boolean
+        enrollment_prefill_value:
+          description: Indicate what value should be prefilled on the autopay enrollment
+            screen
+          enum:
+          - "YES"
+          - "NO"
+          type: string
+      required:
+      - display_enrollment_screen
+      - enrollment_prefill_value
       type: object
     RecipientAccountFilters:
       example:
@@ -9219,6 +9247,9 @@ components:
           payment_method_types:
           - MANDATE
           - MANDATE
+          autopay_enrollment_configurations:
+            display_enrollment_screen: true
+            enrollment_prefill_value: "YES"
         payment:
           amount: 100
           fees:
