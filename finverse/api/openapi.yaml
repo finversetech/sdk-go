@@ -3038,6 +3038,7 @@ paths:
       security:
       - Oauth2:
         - payment_links:payment_user:set
+        - paymentLinks:paymentUser:setAutopayConsent
       x-codegen-request-body-name: setAutopayConsentRequest
   /payment_link/fvlink/payment_method:
     get:
