@@ -8774,7 +8774,7 @@ components:
           payment_method_types:
           - MANDATE
           - MANDATE
-          autopay_enrollment_configurations:
+          autopay_enrollment_configuration:
             display_enrollment_screen: true
             enrollment_prefill_value: "YES"
         unique_reference_id: unique_reference_id
@@ -8885,7 +8885,7 @@ components:
         payment_method_types:
         - MANDATE
         - MANDATE
-        autopay_enrollment_configurations:
+        autopay_enrollment_configuration:
           display_enrollment_screen: true
           enrollment_prefill_value: "YES"
       properties:
@@ -8910,7 +8910,7 @@ components:
           x-omitempty: true
         recipient_account_filters:
           $ref: '#/components/schemas/RecipientAccountFilters'
-        autopay_enrollment_configurations:
+        autopay_enrollment_configuration:
           $ref: '#/components/schemas/AutopayEnrollmentConfiguration'
       type: object
     AutopayEnrollmentConfiguration:
@@ -9248,7 +9248,7 @@ components:
           payment_method_types:
           - MANDATE
           - MANDATE
-          autopay_enrollment_configurations:
+          autopay_enrollment_configuration:
             display_enrollment_screen: true
             enrollment_prefill_value: "YES"
         payment:
