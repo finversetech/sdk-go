@@ -23,9 +23,10 @@ type FVCard struct {
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	// Card Status
-	Status      *string               `json:"status,omitempty"`
-	Error       *FvEmbeddedErrorModel `json:"error,omitempty"`
-	CardDetails *FVCardDetails        `json:"card_details,omitempty"`
+	Status           *string                  `json:"status,omitempty"`
+	Error            *FvEmbeddedErrorModel    `json:"error,omitempty"`
+	CardDetails      *FVCardDetails           `json:"card_details,omitempty"`
+	RecipientAccount *MandateRecipientAccount `json:"recipient_account,omitempty"`
 }
 
 // NewFVCard instantiates a new FVCard object
@@ -205,6 +206,38 @@ func (o *FVCard) SetCardDetails(v FVCardDetails) {
 	o.CardDetails = &v
 }
 
+// GetRecipientAccount returns the RecipientAccount field value if set, zero value otherwise.
+func (o *FVCard) GetRecipientAccount() MandateRecipientAccount {
+	if o == nil || o.RecipientAccount == nil {
+		var ret MandateRecipientAccount
+		return ret
+	}
+	return *o.RecipientAccount
+}
+
+// GetRecipientAccountOk returns a tuple with the RecipientAccount field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FVCard) GetRecipientAccountOk() (*MandateRecipientAccount, bool) {
+	if o == nil || o.RecipientAccount == nil {
+		return nil, false
+	}
+	return o.RecipientAccount, true
+}
+
+// HasRecipientAccount returns a boolean if a field has been set.
+func (o *FVCard) HasRecipientAccount() bool {
+	if o != nil && o.RecipientAccount != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetRecipientAccount gets a reference to the given MandateRecipientAccount and assigns it to the RecipientAccount field.
+func (o *FVCard) SetRecipientAccount(v MandateRecipientAccount) {
+	o.RecipientAccount = &v
+}
+
 func (o FVCard) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.CreatedAt != nil {
@@ -221,6 +254,9 @@ func (o FVCard) MarshalJSON() ([]byte, error) {
 	}
 	if o.CardDetails != nil {
 		toSerialize["card_details"] = o.CardDetails
+	}
+	if o.RecipientAccount != nil {
+		toSerialize["recipient_account"] = o.RecipientAccount
 	}
 	return json.Marshal(toSerialize)
 }

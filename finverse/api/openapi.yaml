@@ -9041,6 +9041,9 @@ components:
               brand: VISA
               expiry_year: 2028
             updated_at: 2000-01-23T04:56:07.000+00:00
+            recipient_account:
+              account_type: SETTLEMENT_ACCOUNT
+              account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
             error:
               error_code: CREDENTIALS_INVALID
@@ -9144,6 +9147,9 @@ components:
               brand: VISA
               expiry_year: 2028
             updated_at: 2000-01-23T04:56:07.000+00:00
+            recipient_account:
+              account_type: SETTLEMENT_ACCOUNT
+              account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
             error:
               error_code: CREDENTIALS_INVALID
@@ -9430,6 +9436,9 @@ components:
               brand: VISA
               expiry_year: 2028
             updated_at: 2000-01-23T04:56:07.000+00:00
+            recipient_account:
+              account_type: SETTLEMENT_ACCOUNT
+              account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
             error:
               error_code: CREDENTIALS_INVALID
@@ -9721,6 +9730,9 @@ components:
           brand: VISA
           expiry_year: 2028
         updated_at: 2000-01-23T04:56:07.000+00:00
+        recipient_account:
+          account_type: SETTLEMENT_ACCOUNT
+          account_id: account_id
         created_at: 2000-01-23T04:56:07.000+00:00
         error:
           error_code: CREDENTIALS_INVALID
@@ -9748,6 +9760,8 @@ components:
           $ref: '#/components/schemas/FvEmbeddedErrorModel'
         card_details:
           $ref: '#/components/schemas/FVCardDetails'
+        recipient_account:
+          $ref: '#/components/schemas/MandateRecipientAccount'
       type: object
     FVCardDetails:
       example:
@@ -11861,6 +11875,9 @@ components:
             brand: VISA
             expiry_year: 2028
           updated_at: 2000-01-23T04:56:07.000+00:00
+          recipient_account:
+            account_type: SETTLEMENT_ACCOUNT
+            account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
           error:
             error_code: CREDENTIALS_INVALID
