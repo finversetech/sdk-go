@@ -9576,6 +9576,7 @@ components:
         account_token:
           type: string
       required:
+      - account_token
       - corp_code
       - s_location_code
       - tenant_id
