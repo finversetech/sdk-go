@@ -11734,8 +11734,10 @@ components:
         card:
           card_details:
             last4: last4
+            expiry_month: 0
             currency: currency
             brand: brand
+            expiry_year: 6
           recipient_account:
             account_id: account_id
           status: SUCCEEDED
@@ -12094,8 +12096,10 @@ components:
       example:
         card_details:
           last4: last4
+          expiry_month: 0
           currency: currency
           brand: brand
+          expiry_year: 6
         recipient_account:
           account_id: account_id
         status: SUCCEEDED
@@ -12263,8 +12267,10 @@ components:
     CreateCardRequest_card_details:
       example:
         last4: last4
+        expiry_month: 0
         currency: currency
         brand: brand
+        expiry_year: 6
       properties:
         brand:
           type: string
@@ -12272,6 +12278,10 @@ components:
           type: string
         currency:
           type: string
+        expiry_month:
+          type: integer
+        expiry_year:
+          type: integer
       required:
       - brand
       - currency

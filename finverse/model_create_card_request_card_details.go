@@ -17,9 +17,11 @@ import (
 
 // CreateCardRequestCardDetails struct for CreateCardRequestCardDetails
 type CreateCardRequestCardDetails struct {
-	Brand    string `json:"brand"`
-	Last4    string `json:"last4"`
-	Currency string `json:"currency"`
+	Brand       string `json:"brand"`
+	Last4       string `json:"last4"`
+	Currency    string `json:"currency"`
+	ExpiryMonth *int32 `json:"expiry_month,omitempty"`
+	ExpiryYear  *int32 `json:"expiry_year,omitempty"`
 }
 
 // NewCreateCardRequestCardDetails instantiates a new CreateCardRequestCardDetails object
@@ -114,6 +116,70 @@ func (o *CreateCardRequestCardDetails) SetCurrency(v string) {
 	o.Currency = v
 }
 
+// GetExpiryMonth returns the ExpiryMonth field value if set, zero value otherwise.
+func (o *CreateCardRequestCardDetails) GetExpiryMonth() int32 {
+	if o == nil || o.ExpiryMonth == nil {
+		var ret int32
+		return ret
+	}
+	return *o.ExpiryMonth
+}
+
+// GetExpiryMonthOk returns a tuple with the ExpiryMonth field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCardRequestCardDetails) GetExpiryMonthOk() (*int32, bool) {
+	if o == nil || o.ExpiryMonth == nil {
+		return nil, false
+	}
+	return o.ExpiryMonth, true
+}
+
+// HasExpiryMonth returns a boolean if a field has been set.
+func (o *CreateCardRequestCardDetails) HasExpiryMonth() bool {
+	if o != nil && o.ExpiryMonth != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetExpiryMonth gets a reference to the given int32 and assigns it to the ExpiryMonth field.
+func (o *CreateCardRequestCardDetails) SetExpiryMonth(v int32) {
+	o.ExpiryMonth = &v
+}
+
+// GetExpiryYear returns the ExpiryYear field value if set, zero value otherwise.
+func (o *CreateCardRequestCardDetails) GetExpiryYear() int32 {
+	if o == nil || o.ExpiryYear == nil {
+		var ret int32
+		return ret
+	}
+	return *o.ExpiryYear
+}
+
+// GetExpiryYearOk returns a tuple with the ExpiryYear field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCardRequestCardDetails) GetExpiryYearOk() (*int32, bool) {
+	if o == nil || o.ExpiryYear == nil {
+		return nil, false
+	}
+	return o.ExpiryYear, true
+}
+
+// HasExpiryYear returns a boolean if a field has been set.
+func (o *CreateCardRequestCardDetails) HasExpiryYear() bool {
+	if o != nil && o.ExpiryYear != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetExpiryYear gets a reference to the given int32 and assigns it to the ExpiryYear field.
+func (o *CreateCardRequestCardDetails) SetExpiryYear(v int32) {
+	o.ExpiryYear = &v
+}
+
 func (o CreateCardRequestCardDetails) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -124,6 +190,12 @@ func (o CreateCardRequestCardDetails) MarshalJSON() ([]byte, error) {
 	}
 	if true {
 		toSerialize["currency"] = o.Currency
+	}
+	if o.ExpiryMonth != nil {
+		toSerialize["expiry_month"] = o.ExpiryMonth
+	}
+	if o.ExpiryYear != nil {
+		toSerialize["expiry_year"] = o.ExpiryYear
 	}
 	return json.Marshal(toSerialize)
 }
