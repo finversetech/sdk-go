@@ -21,18 +21,19 @@ type RapidstorMetadataRequest struct {
 	SLocationCode string   `json:"s_location_code"`
 	TenantId      string   `json:"tenant_id"`
 	IAnnivDays    *float32 `json:"i_anniv_days,omitempty"`
-	AccountToken  *string  `json:"account_token,omitempty"`
+	AccountToken  string   `json:"account_token"`
 }
 
 // NewRapidstorMetadataRequest instantiates a new RapidstorMetadataRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRapidstorMetadataRequest(corpCode string, sLocationCode string, tenantId string) *RapidstorMetadataRequest {
+func NewRapidstorMetadataRequest(corpCode string, sLocationCode string, tenantId string, accountToken string) *RapidstorMetadataRequest {
 	this := RapidstorMetadataRequest{}
 	this.CorpCode = corpCode
 	this.SLocationCode = sLocationCode
 	this.TenantId = tenantId
+	this.AccountToken = accountToken
 	return &this
 }
 
@@ -148,36 +149,28 @@ func (o *RapidstorMetadataRequest) SetIAnnivDays(v float32) {
 	o.IAnnivDays = &v
 }
 
-// GetAccountToken returns the AccountToken field value if set, zero value otherwise.
+// GetAccountToken returns the AccountToken field value
 func (o *RapidstorMetadataRequest) GetAccountToken() string {
-	if o == nil || o.AccountToken == nil {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.AccountToken
+
+	return o.AccountToken
 }
 
-// GetAccountTokenOk returns a tuple with the AccountToken field value if set, nil otherwise
+// GetAccountTokenOk returns a tuple with the AccountToken field value
 // and a boolean to check if the value has been set.
 func (o *RapidstorMetadataRequest) GetAccountTokenOk() (*string, bool) {
-	if o == nil || o.AccountToken == nil {
+	if o == nil {
 		return nil, false
 	}
-	return o.AccountToken, true
+	return &o.AccountToken, true
 }
 
-// HasAccountToken returns a boolean if a field has been set.
-func (o *RapidstorMetadataRequest) HasAccountToken() bool {
-	if o != nil && o.AccountToken != nil {
-		return true
-	}
-
-	return false
-}
-
-// SetAccountToken gets a reference to the given string and assigns it to the AccountToken field.
+// SetAccountToken sets field value
 func (o *RapidstorMetadataRequest) SetAccountToken(v string) {
-	o.AccountToken = &v
+	o.AccountToken = v
 }
 
 func (o RapidstorMetadataRequest) MarshalJSON() ([]byte, error) {
@@ -194,7 +187,7 @@ func (o RapidstorMetadataRequest) MarshalJSON() ([]byte, error) {
 	if o.IAnnivDays != nil {
 		toSerialize["i_anniv_days"] = o.IAnnivDays
 	}
-	if o.AccountToken != nil {
+	if true {
 		toSerialize["account_token"] = o.AccountToken
 	}
 	return json.Marshal(toSerialize)
