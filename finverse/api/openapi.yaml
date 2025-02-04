@@ -2218,6 +2218,54 @@ paths:
         - payment:get
       tags:
       - customer
+    post:
+      description: Update payment
+      operationId: updatePayment
+      parameters:
+      - description: payment id
+        in: path
+        name: paymentId
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UpdatePaymentRequest'
+        description: request body for updating payment
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - payment:update
+      tags:
+      - customer
+      x-codegen-request-body-name: updatePaymentRequest
   /mandates/auth:
     get:
       description: Get Mandate Authorization by mandate id
@@ -8843,6 +8891,17 @@ components:
       required:
       - description
       - external_transaction_reference
+      type: object
+    UpdatePaymentRequest:
+      example:
+        metadata:
+          key: metadata
+      properties:
+        metadata:
+          additionalProperties:
+            maxLength: 1000
+            type: string
+          type: object
       type: object
     PaymentLinkSender:
       example:
