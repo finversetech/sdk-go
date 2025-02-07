@@ -18,6 +18,7 @@ import (
 // PaymentDetailsReferences struct for PaymentDetailsReferences
 type PaymentDetailsReferences struct {
 	FinverseTransactionReference *string `json:"finverse_transaction_reference,omitempty"`
+	DdaReference                 *string `json:"dda_reference,omitempty"`
 }
 
 // NewPaymentDetailsReferences instantiates a new PaymentDetailsReferences object
@@ -69,10 +70,45 @@ func (o *PaymentDetailsReferences) SetFinverseTransactionReference(v string) {
 	o.FinverseTransactionReference = &v
 }
 
+// GetDdaReference returns the DdaReference field value if set, zero value otherwise.
+func (o *PaymentDetailsReferences) GetDdaReference() string {
+	if o == nil || o.DdaReference == nil {
+		var ret string
+		return ret
+	}
+	return *o.DdaReference
+}
+
+// GetDdaReferenceOk returns a tuple with the DdaReference field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentDetailsReferences) GetDdaReferenceOk() (*string, bool) {
+	if o == nil || o.DdaReference == nil {
+		return nil, false
+	}
+	return o.DdaReference, true
+}
+
+// HasDdaReference returns a boolean if a field has been set.
+func (o *PaymentDetailsReferences) HasDdaReference() bool {
+	if o != nil && o.DdaReference != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetDdaReference gets a reference to the given string and assigns it to the DdaReference field.
+func (o *PaymentDetailsReferences) SetDdaReference(v string) {
+	o.DdaReference = &v
+}
+
 func (o PaymentDetailsReferences) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.FinverseTransactionReference != nil {
 		toSerialize["finverse_transaction_reference"] = o.FinverseTransactionReference
+	}
+	if o.DdaReference != nil {
+		toSerialize["dda_reference"] = o.DdaReference
 	}
 	return json.Marshal(toSerialize)
 }

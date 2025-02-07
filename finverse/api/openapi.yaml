@@ -7653,6 +7653,7 @@ components:
           transaction_reference_id: transaction_reference_id
           references:
             finverse_transaction_reference: finverse_transaction_reference
+            dda_reference: dda_reference
           external_transaction_reference: external_transaction_reference
           description: description
           mandate_id: mandate_id
@@ -7691,6 +7692,7 @@ components:
         transaction_reference_id: transaction_reference_id
         references:
           finverse_transaction_reference: finverse_transaction_reference
+          dda_reference: dda_reference
         external_transaction_reference: external_transaction_reference
         description: description
         mandate_id: mandate_id
@@ -7716,8 +7718,11 @@ components:
     PaymentDetailsReferences:
       example:
         finverse_transaction_reference: finverse_transaction_reference
+        dda_reference: dda_reference
       properties:
         finverse_transaction_reference:
+          type: string
+        dda_reference:
           type: string
       type: object
     PaymentResponse:
@@ -7738,6 +7743,7 @@ components:
           transaction_reference_id: transaction_reference_id
           references:
             finverse_transaction_reference: finverse_transaction_reference
+            dda_reference: dda_reference
           external_transaction_reference: external_transaction_reference
           description: description
           mandate_id: mandate_id
@@ -7908,6 +7914,7 @@ components:
             transaction_reference_id: transaction_reference_id
             references:
               finverse_transaction_reference: finverse_transaction_reference
+              dda_reference: dda_reference
             external_transaction_reference: external_transaction_reference
             description: description
             mandate_id: mandate_id
@@ -7989,6 +7996,7 @@ components:
             transaction_reference_id: transaction_reference_id
             references:
               finverse_transaction_reference: finverse_transaction_reference
+              dda_reference: dda_reference
             external_transaction_reference: external_transaction_reference
             description: description
             mandate_id: mandate_id
@@ -9332,6 +9340,7 @@ components:
             transaction_reference_id: transaction_reference_id
             references:
               finverse_transaction_reference: finverse_transaction_reference
+              dda_reference: dda_reference
             external_transaction_reference: external_transaction_reference
             description: description
             mandate_id: mandate_id
