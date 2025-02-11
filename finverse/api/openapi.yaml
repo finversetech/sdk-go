@@ -5436,16 +5436,11 @@ components:
     ConfirmPaymentResponse:
       example:
         success: true
-        skip_autopay_consent: true
       properties:
         success:
           example: true
           type: boolean
-        skip_autopay_consent:
-          example: true
-          type: boolean
       required:
-      - skip_autopay_consent
       - success
       type: object
     CreatePaymentLinkMandateRequest:
