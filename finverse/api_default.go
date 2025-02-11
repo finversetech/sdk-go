@@ -3849,8 +3849,10 @@ type DefaultApiApiListPaymentsRequest struct {
 	userId        *string
 	institutionId *string
 	paymentType   *string
+	paymentTypes  *[]string
 	mandateId     *string
 	currency      *string
+	currencies    *[]string
 	offset        *int32
 	limit         *int32
 }
@@ -3891,9 +3893,13 @@ func (r DefaultApiApiListPaymentsRequest) InstitutionId(institutionId string) De
 	return r
 }
 
-// The type of payment
+// Deprecated - The type of payment
 func (r DefaultApiApiListPaymentsRequest) PaymentType(paymentType string) DefaultApiApiListPaymentsRequest {
 	r.paymentType = &paymentType
+	return r
+}
+func (r DefaultApiApiListPaymentsRequest) PaymentTypes(paymentTypes []string) DefaultApiApiListPaymentsRequest {
+	r.paymentTypes = &paymentTypes
 	return r
 }
 
@@ -3903,9 +3909,13 @@ func (r DefaultApiApiListPaymentsRequest) MandateId(mandateId string) DefaultApi
 	return r
 }
 
-// The currency the payment is made in
+// Deprecated - The currency the payment is made in
 func (r DefaultApiApiListPaymentsRequest) Currency(currency string) DefaultApiApiListPaymentsRequest {
 	r.currency = &currency
+	return r
+}
+func (r DefaultApiApiListPaymentsRequest) Currencies(currencies []string) DefaultApiApiListPaymentsRequest {
+	r.currencies = &currencies
 	return r
 }
 
@@ -3982,11 +3992,17 @@ func (a *DefaultApiService) ListPaymentsExecute(r DefaultApiApiListPaymentsReque
 	if r.paymentType != nil {
 		localVarQueryParams.Add("payment_type", parameterToString(*r.paymentType, ""))
 	}
+	if r.paymentTypes != nil {
+		localVarQueryParams.Add("payment_types", parameterToString(*r.paymentTypes, "csv"))
+	}
 	if r.mandateId != nil {
 		localVarQueryParams.Add("mandate_id", parameterToString(*r.mandateId, ""))
 	}
 	if r.currency != nil {
 		localVarQueryParams.Add("currency", parameterToString(*r.currency, ""))
+	}
+	if r.currencies != nil {
+		localVarQueryParams.Add("currencies", parameterToString(*r.currencies, "csv"))
 	}
 	if r.offset != nil {
 		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))

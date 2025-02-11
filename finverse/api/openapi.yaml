@@ -2065,7 +2065,7 @@ paths:
         name: institution_id
         schema:
           type: string
-      - description: The type of payment
+      - description: Deprecated - The type of payment
         in: query
         name: payment_type
         schema:
@@ -2075,16 +2075,37 @@ paths:
           - CARD
           - MANUAL
           type: string
+      - explode: false
+        in: query
+        name: payment_types
+        schema:
+          items:
+            enum:
+            - MANDATE
+            - SINGLE
+            - CARD
+            - MANUAL
+            type: string
+          type: array
+        style: form
       - description: The mandate the payment belongs to
         in: query
         name: mandate_id
         schema:
           type: string
-      - description: The currency the payment is made in
+      - description: Deprecated - The currency the payment is made in
         in: query
         name: currency
         schema:
           type: string
+      - explode: false
+        in: query
+        name: currencies
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
       - description: default is 0
         in: query
         name: offset
