@@ -3218,9 +3218,38 @@ paths:
       security:
       - Oauth2:
         - paymentLinks:payment:get
+  /payment_link/fvlink/payment/unlink:
+    post:
+      description: Unlink payment on payment link
+      operationId: unlinkPaymentPaymentLink
+      responses:
+        "200":
+          content: {}
+          description: ok
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - paymentLinks:payment:unlink
   /payment_link/fvlink/payment/cancel:
     post:
-      description: cancel payment on payment link
+      description: cancel payment on payment link (Deprecated, should use unlink instead)
       operationId: cancelPaymentPaymentLink
       responses:
         "200":
