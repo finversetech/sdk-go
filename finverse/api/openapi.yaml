@@ -7673,6 +7673,8 @@ components:
           external_transaction_reference: external_transaction_reference
           description: description
           mandate_id: mandate_id
+          collection_entity_name: collection_entity_name
+          processor_entity_name: processor_entity_name
         currency: HKD
       properties:
         amount:
@@ -7712,6 +7714,8 @@ components:
         external_transaction_reference: external_transaction_reference
         description: description
         mandate_id: mandate_id
+        collection_entity_name: collection_entity_name
+        processor_entity_name: processor_entity_name
       properties:
         description:
           description: The transaction description provided to banks, which banks
@@ -7730,6 +7734,10 @@ components:
           type: string
         references:
           $ref: '#/components/schemas/PaymentDetailsReferences'
+        processor_entity_name:
+          type: string
+        collection_entity_name:
+          type: string
       type: object
     PaymentDetailsReferences:
       example:
@@ -7763,6 +7771,8 @@ components:
           external_transaction_reference: external_transaction_reference
           description: description
           mandate_id: mandate_id
+          collection_entity_name: collection_entity_name
+          processor_entity_name: processor_entity_name
         recipient_account:
           account_type: SETTLEMENT_ACCOUNT
           account_id: account_id
@@ -7822,8 +7832,10 @@ components:
             card_details:
               last4: "1234"
               expiry_month: 7
+              collection_entity_name: collection_entity_name
               brand: VISA
               expiry_year: 2028
+              processor_entity_name: processor_entity_name
         status: AUTHORIZATION_REQUIRED
       properties:
         payment_id:
@@ -7934,6 +7946,8 @@ components:
             external_transaction_reference: external_transaction_reference
             description: description
             mandate_id: mandate_id
+            collection_entity_name: collection_entity_name
+            processor_entity_name: processor_entity_name
           recipient_account:
             account_type: SETTLEMENT_ACCOUNT
             account_id: account_id
@@ -7993,8 +8007,10 @@ components:
               card_details:
                 last4: "1234"
                 expiry_month: 7
+                collection_entity_name: collection_entity_name
                 brand: VISA
                 expiry_year: 2028
+                processor_entity_name: processor_entity_name
           status: AUTHORIZATION_REQUIRED
         - amount: 100
           fees:
@@ -8016,6 +8032,8 @@ components:
             external_transaction_reference: external_transaction_reference
             description: description
             mandate_id: mandate_id
+            collection_entity_name: collection_entity_name
+            processor_entity_name: processor_entity_name
           recipient_account:
             account_type: SETTLEMENT_ACCOUNT
             account_id: account_id
@@ -8075,8 +8093,10 @@ components:
               card_details:
                 last4: "1234"
                 expiry_month: 7
+                collection_entity_name: collection_entity_name
                 brand: VISA
                 expiry_year: 2028
+                processor_entity_name: processor_entity_name
           status: AUTHORIZATION_REQUIRED
         total_payments: 0
       properties:
@@ -8726,7 +8746,9 @@ components:
           description: description
           dda_reference: dda_reference
           currency: currency
+          collection_entity_name: collection_entity_name
           start_date: 2000-01-23
+          processor_entity_name: processor_entity_name
         sender_account:
           accountholder_name_plaintext: Chan Li Pak
           account_number:
@@ -9097,7 +9119,9 @@ components:
               description: description
               dda_reference: dda_reference
               currency: currency
+              collection_entity_name: collection_entity_name
               start_date: 2000-01-23
+              processor_entity_name: processor_entity_name
             sender_account:
               accountholder_name_plaintext: Chan Li Pak
               account_number:
@@ -9121,8 +9145,10 @@ components:
             card_details:
               last4: "1234"
               expiry_month: 7
+              collection_entity_name: collection_entity_name
               brand: VISA
               expiry_year: 2028
+              processor_entity_name: processor_entity_name
             updated_at: 2000-01-23T04:56:07.000+00:00
             recipient_account:
               account_type: SETTLEMENT_ACCOUNT
@@ -9203,7 +9229,9 @@ components:
               description: description
               dda_reference: dda_reference
               currency: currency
+              collection_entity_name: collection_entity_name
               start_date: 2000-01-23
+              processor_entity_name: processor_entity_name
             sender_account:
               accountholder_name_plaintext: Chan Li Pak
               account_number:
@@ -9227,8 +9255,10 @@ components:
             card_details:
               last4: "1234"
               expiry_month: 7
+              collection_entity_name: collection_entity_name
               brand: VISA
               expiry_year: 2028
+              processor_entity_name: processor_entity_name
             updated_at: 2000-01-23T04:56:07.000+00:00
             recipient_account:
               account_type: SETTLEMENT_ACCOUNT
@@ -9360,6 +9390,8 @@ components:
             external_transaction_reference: external_transaction_reference
             description: description
             mandate_id: mandate_id
+            collection_entity_name: collection_entity_name
+            processor_entity_name: processor_entity_name
           recipient_account:
             account_type: SETTLEMENT_ACCOUNT
             account_id: account_id
@@ -9419,8 +9451,10 @@ components:
               card_details:
                 last4: "1234"
                 expiry_month: 7
+                collection_entity_name: collection_entity_name
                 brand: VISA
                 expiry_year: 2028
+                processor_entity_name: processor_entity_name
           status: AUTHORIZATION_REQUIRED
         session_status: OPEN
         payment_method:
@@ -9493,7 +9527,9 @@ components:
               description: description
               dda_reference: dda_reference
               currency: currency
+              collection_entity_name: collection_entity_name
               start_date: 2000-01-23
+              processor_entity_name: processor_entity_name
             sender_account:
               accountholder_name_plaintext: Chan Li Pak
               account_number:
@@ -9517,8 +9553,10 @@ components:
             card_details:
               last4: "1234"
               expiry_month: 7
+              collection_entity_name: collection_entity_name
               brand: VISA
               expiry_year: 2028
+              processor_entity_name: processor_entity_name
             updated_at: 2000-01-23T04:56:07.000+00:00
             recipient_account:
               account_type: SETTLEMENT_ACCOUNT
@@ -9812,8 +9850,10 @@ components:
         card_details:
           last4: "1234"
           expiry_month: 7
+          collection_entity_name: collection_entity_name
           brand: VISA
           expiry_year: 2028
+          processor_entity_name: processor_entity_name
         updated_at: 2000-01-23T04:56:07.000+00:00
         recipient_account:
           account_type: SETTLEMENT_ACCOUNT
@@ -9852,8 +9892,10 @@ components:
       example:
         last4: "1234"
         expiry_month: 7
+        collection_entity_name: collection_entity_name
         brand: VISA
         expiry_year: 2028
+        processor_entity_name: processor_entity_name
       properties:
         brand:
           description: The credit card brand
@@ -9871,6 +9913,10 @@ components:
           description: The credit card expiry year
           example: 2028
           type: integer
+        processor_entity_name:
+          type: string
+        collection_entity_name:
+          type: string
       type: object
     GetMandateResponse:
       example:
@@ -9931,7 +9977,9 @@ components:
           description: description
           dda_reference: dda_reference
           currency: currency
+          collection_entity_name: collection_entity_name
           start_date: 2000-01-23
+          processor_entity_name: processor_entity_name
         sender_account:
           accountholder_name_plaintext: Chan Li Pak
           account_number:
@@ -10069,7 +10117,9 @@ components:
             description: description
             dda_reference: dda_reference
             currency: currency
+            collection_entity_name: collection_entity_name
             start_date: 2000-01-23
+            processor_entity_name: processor_entity_name
           sender_account:
             accountholder_name_plaintext: Chan Li Pak
             account_number:
@@ -10146,7 +10196,9 @@ components:
             description: description
             dda_reference: dda_reference
             currency: currency
+            collection_entity_name: collection_entity_name
             start_date: 2000-01-23
+            processor_entity_name: processor_entity_name
           sender_account:
             accountholder_name_plaintext: Chan Li Pak
             account_number:
@@ -10360,7 +10412,9 @@ components:
         description: description
         dda_reference: dda_reference
         currency: currency
+        collection_entity_name: collection_entity_name
         start_date: 2000-01-23
+        processor_entity_name: processor_entity_name
       properties:
         dda_reference:
           description: The direct debit authorization reference, if empty this will
@@ -10390,6 +10444,10 @@ components:
           type: string
         mandate_bank_reference:
           description: A bank specific reference, what the end user may see
+          type: string
+        processor_entity_name:
+          type: string
+        collection_entity_name:
           type: string
       required:
       - currency
@@ -10778,7 +10836,9 @@ components:
           description: description
           dda_reference: dda_reference
           currency: currency
+          collection_entity_name: collection_entity_name
           start_date: 2000-01-23
+          processor_entity_name: processor_entity_name
         sender_type: INDIVIDUAL
         last_update: 2000-01-23T04:56:07.000+00:00
         recipient:
@@ -11935,7 +11995,9 @@ components:
             description: description
             dda_reference: dda_reference
             currency: currency
+            collection_entity_name: collection_entity_name
             start_date: 2000-01-23
+            processor_entity_name: processor_entity_name
           sender_account:
             accountholder_name_plaintext: Chan Li Pak
             account_number:
@@ -11959,8 +12021,10 @@ components:
           card_details:
             last4: "1234"
             expiry_month: 7
+            collection_entity_name: collection_entity_name
             brand: VISA
             expiry_year: 2028
+            processor_entity_name: processor_entity_name
           updated_at: 2000-01-23T04:56:07.000+00:00
           recipient_account:
             account_type: SETTLEMENT_ACCOUNT
@@ -12164,8 +12228,10 @@ components:
           card_details:
             last4: "1234"
             expiry_month: 7
+            collection_entity_name: collection_entity_name
             brand: VISA
             expiry_year: 2028
+            processor_entity_name: processor_entity_name
       properties:
         card:
           $ref: '#/components/schemas/PaymentSnapshotPaymentMethod_card'
@@ -12343,8 +12409,10 @@ components:
         card_details:
           last4: "1234"
           expiry_month: 7
+          collection_entity_name: collection_entity_name
           brand: VISA
           expiry_year: 2028
+          processor_entity_name: processor_entity_name
       properties:
         card_details:
           $ref: '#/components/schemas/FVCardDetails'

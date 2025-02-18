@@ -24,7 +24,9 @@ type FVCardDetails struct {
 	// The credit card expiry month
 	ExpiryMonth *int32 `json:"expiry_month,omitempty"`
 	// The credit card expiry year
-	ExpiryYear *int32 `json:"expiry_year,omitempty"`
+	ExpiryYear           *int32  `json:"expiry_year,omitempty"`
+	ProcessorEntityName  *string `json:"processor_entity_name,omitempty"`
+	CollectionEntityName *string `json:"collection_entity_name,omitempty"`
 }
 
 // NewFVCardDetails instantiates a new FVCardDetails object
@@ -172,6 +174,70 @@ func (o *FVCardDetails) SetExpiryYear(v int32) {
 	o.ExpiryYear = &v
 }
 
+// GetProcessorEntityName returns the ProcessorEntityName field value if set, zero value otherwise.
+func (o *FVCardDetails) GetProcessorEntityName() string {
+	if o == nil || o.ProcessorEntityName == nil {
+		var ret string
+		return ret
+	}
+	return *o.ProcessorEntityName
+}
+
+// GetProcessorEntityNameOk returns a tuple with the ProcessorEntityName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FVCardDetails) GetProcessorEntityNameOk() (*string, bool) {
+	if o == nil || o.ProcessorEntityName == nil {
+		return nil, false
+	}
+	return o.ProcessorEntityName, true
+}
+
+// HasProcessorEntityName returns a boolean if a field has been set.
+func (o *FVCardDetails) HasProcessorEntityName() bool {
+	if o != nil && o.ProcessorEntityName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProcessorEntityName gets a reference to the given string and assigns it to the ProcessorEntityName field.
+func (o *FVCardDetails) SetProcessorEntityName(v string) {
+	o.ProcessorEntityName = &v
+}
+
+// GetCollectionEntityName returns the CollectionEntityName field value if set, zero value otherwise.
+func (o *FVCardDetails) GetCollectionEntityName() string {
+	if o == nil || o.CollectionEntityName == nil {
+		var ret string
+		return ret
+	}
+	return *o.CollectionEntityName
+}
+
+// GetCollectionEntityNameOk returns a tuple with the CollectionEntityName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FVCardDetails) GetCollectionEntityNameOk() (*string, bool) {
+	if o == nil || o.CollectionEntityName == nil {
+		return nil, false
+	}
+	return o.CollectionEntityName, true
+}
+
+// HasCollectionEntityName returns a boolean if a field has been set.
+func (o *FVCardDetails) HasCollectionEntityName() bool {
+	if o != nil && o.CollectionEntityName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCollectionEntityName gets a reference to the given string and assigns it to the CollectionEntityName field.
+func (o *FVCardDetails) SetCollectionEntityName(v string) {
+	o.CollectionEntityName = &v
+}
+
 func (o FVCardDetails) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Brand != nil {
@@ -185,6 +251,12 @@ func (o FVCardDetails) MarshalJSON() ([]byte, error) {
 	}
 	if o.ExpiryYear != nil {
 		toSerialize["expiry_year"] = o.ExpiryYear
+	}
+	if o.ProcessorEntityName != nil {
+		toSerialize["processor_entity_name"] = o.ProcessorEntityName
+	}
+	if o.CollectionEntityName != nil {
+		toSerialize["collection_entity_name"] = o.CollectionEntityName
 	}
 	return json.Marshal(toSerialize)
 }

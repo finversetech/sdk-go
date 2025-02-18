@@ -31,6 +31,8 @@ type MandateDetailsResponse struct {
 	Description *string `json:"description,omitempty"`
 	// A bank specific reference, what the end user may see
 	MandateBankReference *string `json:"mandate_bank_reference,omitempty"`
+	ProcessorEntityName  *string `json:"processor_entity_name,omitempty"`
+	CollectionEntityName *string `json:"collection_entity_name,omitempty"`
 }
 
 // NewMandateDetailsResponse instantiates a new MandateDetailsResponse object
@@ -321,6 +323,70 @@ func (o *MandateDetailsResponse) SetMandateBankReference(v string) {
 	o.MandateBankReference = &v
 }
 
+// GetProcessorEntityName returns the ProcessorEntityName field value if set, zero value otherwise.
+func (o *MandateDetailsResponse) GetProcessorEntityName() string {
+	if o == nil || o.ProcessorEntityName == nil {
+		var ret string
+		return ret
+	}
+	return *o.ProcessorEntityName
+}
+
+// GetProcessorEntityNameOk returns a tuple with the ProcessorEntityName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MandateDetailsResponse) GetProcessorEntityNameOk() (*string, bool) {
+	if o == nil || o.ProcessorEntityName == nil {
+		return nil, false
+	}
+	return o.ProcessorEntityName, true
+}
+
+// HasProcessorEntityName returns a boolean if a field has been set.
+func (o *MandateDetailsResponse) HasProcessorEntityName() bool {
+	if o != nil && o.ProcessorEntityName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProcessorEntityName gets a reference to the given string and assigns it to the ProcessorEntityName field.
+func (o *MandateDetailsResponse) SetProcessorEntityName(v string) {
+	o.ProcessorEntityName = &v
+}
+
+// GetCollectionEntityName returns the CollectionEntityName field value if set, zero value otherwise.
+func (o *MandateDetailsResponse) GetCollectionEntityName() string {
+	if o == nil || o.CollectionEntityName == nil {
+		var ret string
+		return ret
+	}
+	return *o.CollectionEntityName
+}
+
+// GetCollectionEntityNameOk returns a tuple with the CollectionEntityName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MandateDetailsResponse) GetCollectionEntityNameOk() (*string, bool) {
+	if o == nil || o.CollectionEntityName == nil {
+		return nil, false
+	}
+	return o.CollectionEntityName, true
+}
+
+// HasCollectionEntityName returns a boolean if a field has been set.
+func (o *MandateDetailsResponse) HasCollectionEntityName() bool {
+	if o != nil && o.CollectionEntityName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCollectionEntityName gets a reference to the given string and assigns it to the CollectionEntityName field.
+func (o *MandateDetailsResponse) SetCollectionEntityName(v string) {
+	o.CollectionEntityName = &v
+}
+
 func (o MandateDetailsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.DdaReference != nil {
@@ -346,6 +412,12 @@ func (o MandateDetailsResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.MandateBankReference != nil {
 		toSerialize["mandate_bank_reference"] = o.MandateBankReference
+	}
+	if o.ProcessorEntityName != nil {
+		toSerialize["processor_entity_name"] = o.ProcessorEntityName
+	}
+	if o.CollectionEntityName != nil {
+		toSerialize["collection_entity_name"] = o.CollectionEntityName
 	}
 	return json.Marshal(toSerialize)
 }

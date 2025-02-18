@@ -26,6 +26,8 @@ type PaymentDetails2 struct {
 	// Customer reference for this transaction
 	ExternalTransactionReference *string                   `json:"external_transaction_reference,omitempty"`
 	References                   *PaymentDetailsReferences `json:"references,omitempty"`
+	ProcessorEntityName          *string                   `json:"processor_entity_name,omitempty"`
+	CollectionEntityName         *string                   `json:"collection_entity_name,omitempty"`
 }
 
 // NewPaymentDetails2 instantiates a new PaymentDetails2 object
@@ -205,6 +207,70 @@ func (o *PaymentDetails2) SetReferences(v PaymentDetailsReferences) {
 	o.References = &v
 }
 
+// GetProcessorEntityName returns the ProcessorEntityName field value if set, zero value otherwise.
+func (o *PaymentDetails2) GetProcessorEntityName() string {
+	if o == nil || o.ProcessorEntityName == nil {
+		var ret string
+		return ret
+	}
+	return *o.ProcessorEntityName
+}
+
+// GetProcessorEntityNameOk returns a tuple with the ProcessorEntityName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentDetails2) GetProcessorEntityNameOk() (*string, bool) {
+	if o == nil || o.ProcessorEntityName == nil {
+		return nil, false
+	}
+	return o.ProcessorEntityName, true
+}
+
+// HasProcessorEntityName returns a boolean if a field has been set.
+func (o *PaymentDetails2) HasProcessorEntityName() bool {
+	if o != nil && o.ProcessorEntityName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetProcessorEntityName gets a reference to the given string and assigns it to the ProcessorEntityName field.
+func (o *PaymentDetails2) SetProcessorEntityName(v string) {
+	o.ProcessorEntityName = &v
+}
+
+// GetCollectionEntityName returns the CollectionEntityName field value if set, zero value otherwise.
+func (o *PaymentDetails2) GetCollectionEntityName() string {
+	if o == nil || o.CollectionEntityName == nil {
+		var ret string
+		return ret
+	}
+	return *o.CollectionEntityName
+}
+
+// GetCollectionEntityNameOk returns a tuple with the CollectionEntityName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentDetails2) GetCollectionEntityNameOk() (*string, bool) {
+	if o == nil || o.CollectionEntityName == nil {
+		return nil, false
+	}
+	return o.CollectionEntityName, true
+}
+
+// HasCollectionEntityName returns a boolean if a field has been set.
+func (o *PaymentDetails2) HasCollectionEntityName() bool {
+	if o != nil && o.CollectionEntityName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCollectionEntityName gets a reference to the given string and assigns it to the CollectionEntityName field.
+func (o *PaymentDetails2) SetCollectionEntityName(v string) {
+	o.CollectionEntityName = &v
+}
+
 func (o PaymentDetails2) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Description != nil {
@@ -221,6 +287,12 @@ func (o PaymentDetails2) MarshalJSON() ([]byte, error) {
 	}
 	if o.References != nil {
 		toSerialize["references"] = o.References
+	}
+	if o.ProcessorEntityName != nil {
+		toSerialize["processor_entity_name"] = o.ProcessorEntityName
+	}
+	if o.CollectionEntityName != nil {
+		toSerialize["collection_entity_name"] = o.CollectionEntityName
 	}
 	return json.Marshal(toSerialize)
 }
