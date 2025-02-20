@@ -3381,6 +3381,8 @@ components:
           account_type:
             subtype: SAVINGS
             type: DEPOSIT
+          metadata:
+            key: metadata
           account_holder_name: John Doe
           account_sub_type: TIME_DEPOSIT
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -3595,6 +3597,8 @@ components:
           account_type:
             subtype: SAVINGS
             type: DEPOSIT
+          metadata:
+            key: metadata
           account_holder_name: John Doe
           account_sub_type: TIME_DEPOSIT
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -3655,6 +3659,8 @@ components:
           account_type:
             subtype: SAVINGS
             type: DEPOSIT
+          metadata:
+            key: metadata
           account_holder_name: John Doe
           account_sub_type: TIME_DEPOSIT
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -4021,6 +4027,8 @@ components:
           account_type:
             subtype: SAVINGS
             type: DEPOSIT
+          metadata:
+            key: metadata
           account_holder_name: John Doe
           account_sub_type: TIME_DEPOSIT
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -4046,6 +4054,8 @@ components:
           account_type:
             subtype: SAVINGS
             type: DEPOSIT
+          metadata:
+            key: metadata
           account_holder_name: John Doe
           account_sub_type: TIME_DEPOSIT
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -4092,6 +4102,8 @@ components:
         account_type:
           subtype: SAVINGS
           type: DEPOSIT
+        metadata:
+          key: metadata
         account_holder_name: John Doe
         account_sub_type: TIME_DEPOSIT
         created_at: 2000-01-23T04:56:07.000+00:00
@@ -4162,6 +4174,10 @@ components:
           type: boolean
         account_type:
           $ref: '#/components/schemas/AccountType'
+        metadata:
+          additionalProperties:
+            type: string
+          type: object
       required:
       - account_id
       - account_name
@@ -4169,6 +4185,7 @@ components:
       - is_closed
       - is_excluded
       - is_parent
+      - metadata
       type: object
     BalanceHistory:
       example:
@@ -4394,6 +4411,8 @@ components:
           account_type:
             subtype: SAVINGS
             type: DEPOSIT
+          metadata:
+            key: metadata
           account_holder_name: John Doe
           account_sub_type: TIME_DEPOSIT
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -4419,6 +4438,8 @@ components:
           account_type:
             subtype: SAVINGS
             type: DEPOSIT
+          metadata:
+            key: metadata
           account_holder_name: John Doe
           account_sub_type: TIME_DEPOSIT
           created_at: 2000-01-23T04:56:07.000+00:00

@@ -20,29 +20,30 @@ import (
 type Account struct {
 	AccountId string `json:"account_id"`
 	// The SHA3-256 hash of the account number, salted with the loginIdentityId
-	GroupId             string          `json:"group_id"`
-	AccountHolderName   *string         `json:"account_holder_name,omitempty"`
-	AccountName         string          `json:"account_name"`
-	AccountNickname     *string         `json:"account_nickname,omitempty"`
-	AccountSubType      *string         `json:"account_sub_type,omitempty"`
-	AccountNumberMasked *string         `json:"account_number_masked,omitempty"`
-	Country             *string         `json:"country,omitempty"`
-	CreatedAt           *time.Time      `json:"created_at,omitempty"`
-	UpdatedAt           *time.Time      `json:"updated_at,omitempty"`
-	AccountCurrency     *string         `json:"account_currency,omitempty"`
-	Balance             *CurrencyAmount `json:"balance,omitempty"`
-	StatementBalance    *CurrencyAmount `json:"statement_balance,omitempty"`
-	IsParent            bool            `json:"is_parent"`
-	IsClosed            bool            `json:"is_closed"`
-	IsExcluded          bool            `json:"is_excluded"`
-	AccountType         *AccountType    `json:"account_type,omitempty"`
+	GroupId             string            `json:"group_id"`
+	AccountHolderName   *string           `json:"account_holder_name,omitempty"`
+	AccountName         string            `json:"account_name"`
+	AccountNickname     *string           `json:"account_nickname,omitempty"`
+	AccountSubType      *string           `json:"account_sub_type,omitempty"`
+	AccountNumberMasked *string           `json:"account_number_masked,omitempty"`
+	Country             *string           `json:"country,omitempty"`
+	CreatedAt           *time.Time        `json:"created_at,omitempty"`
+	UpdatedAt           *time.Time        `json:"updated_at,omitempty"`
+	AccountCurrency     *string           `json:"account_currency,omitempty"`
+	Balance             *CurrencyAmount   `json:"balance,omitempty"`
+	StatementBalance    *CurrencyAmount   `json:"statement_balance,omitempty"`
+	IsParent            bool              `json:"is_parent"`
+	IsClosed            bool              `json:"is_closed"`
+	IsExcluded          bool              `json:"is_excluded"`
+	AccountType         *AccountType      `json:"account_type,omitempty"`
+	Metadata            map[string]string `json:"metadata"`
 }
 
 // NewAccount instantiates a new Account object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccount(accountId string, groupId string, accountName string, isParent bool, isClosed bool, isExcluded bool) *Account {
+func NewAccount(accountId string, groupId string, accountName string, isParent bool, isClosed bool, isExcluded bool, metadata map[string]string) *Account {
 	this := Account{}
 	this.AccountId = accountId
 	this.GroupId = groupId
@@ -50,6 +51,7 @@ func NewAccount(accountId string, groupId string, accountName string, isParent b
 	this.IsParent = isParent
 	this.IsClosed = isClosed
 	this.IsExcluded = isExcluded
+	this.Metadata = metadata
 	return &this
 }
 
@@ -557,6 +559,30 @@ func (o *Account) SetAccountType(v AccountType) {
 	o.AccountType = &v
 }
 
+// GetMetadata returns the Metadata field value
+func (o *Account) GetMetadata() map[string]string {
+	if o == nil {
+		var ret map[string]string
+		return ret
+	}
+
+	return o.Metadata
+}
+
+// GetMetadataOk returns a tuple with the Metadata field value
+// and a boolean to check if the value has been set.
+func (o *Account) GetMetadataOk() (*map[string]string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Metadata, true
+}
+
+// SetMetadata sets field value
+func (o *Account) SetMetadata(v map[string]string) {
+	o.Metadata = v
+}
+
 func (o Account) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -609,6 +635,9 @@ func (o Account) MarshalJSON() ([]byte, error) {
 	}
 	if o.AccountType != nil {
 		toSerialize["account_type"] = o.AccountType
+	}
+	if true {
+		toSerialize["metadata"] = o.Metadata
 	}
 	return json.Marshal(toSerialize)
 }
