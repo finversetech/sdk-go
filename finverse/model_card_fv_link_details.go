@@ -24,7 +24,8 @@ type CardFvLinkDetails struct {
 	// The credit card expiry month
 	ExpiryMonth *int32 `json:"expiry_month,omitempty"`
 	// The credit card expiry year
-	ExpiryYear *int32 `json:"expiry_year,omitempty"`
+	ExpiryYear           *int32  `json:"expiry_year,omitempty"`
+	CollectionEntityName *string `json:"collection_entity_name,omitempty"`
 }
 
 // NewCardFvLinkDetails instantiates a new CardFvLinkDetails object
@@ -172,6 +173,38 @@ func (o *CardFvLinkDetails) SetExpiryYear(v int32) {
 	o.ExpiryYear = &v
 }
 
+// GetCollectionEntityName returns the CollectionEntityName field value if set, zero value otherwise.
+func (o *CardFvLinkDetails) GetCollectionEntityName() string {
+	if o == nil || o.CollectionEntityName == nil {
+		var ret string
+		return ret
+	}
+	return *o.CollectionEntityName
+}
+
+// GetCollectionEntityNameOk returns a tuple with the CollectionEntityName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CardFvLinkDetails) GetCollectionEntityNameOk() (*string, bool) {
+	if o == nil || o.CollectionEntityName == nil {
+		return nil, false
+	}
+	return o.CollectionEntityName, true
+}
+
+// HasCollectionEntityName returns a boolean if a field has been set.
+func (o *CardFvLinkDetails) HasCollectionEntityName() bool {
+	if o != nil && o.CollectionEntityName != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetCollectionEntityName gets a reference to the given string and assigns it to the CollectionEntityName field.
+func (o *CardFvLinkDetails) SetCollectionEntityName(v string) {
+	o.CollectionEntityName = &v
+}
+
 func (o CardFvLinkDetails) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.Brand != nil {
@@ -185,6 +218,9 @@ func (o CardFvLinkDetails) MarshalJSON() ([]byte, error) {
 	}
 	if o.ExpiryYear != nil {
 		toSerialize["expiry_year"] = o.ExpiryYear
+	}
+	if o.CollectionEntityName != nil {
+		toSerialize["collection_entity_name"] = o.CollectionEntityName
 	}
 	return json.Marshal(toSerialize)
 }

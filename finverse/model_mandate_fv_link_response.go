@@ -17,12 +17,13 @@ import (
 
 // MandateFvLinkResponse struct for MandateFvLinkResponse
 type MandateFvLinkResponse struct {
-	MandateId     *string                      `json:"mandate_id,omitempty"`
-	InstitutionId *string                      `json:"institution_id,omitempty"`
-	MandateStatus *string                      `json:"mandate_status,omitempty"`
-	Recipient     *MandateRecipient            `json:"recipient,omitempty"`
-	SenderAccount *SenderAccountFvLinkResponse `json:"sender_account,omitempty"`
-	Error         *FvEmbeddedErrorModel        `json:"error,omitempty"`
+	MandateId      *string                      `json:"mandate_id,omitempty"`
+	InstitutionId  *string                      `json:"institution_id,omitempty"`
+	MandateStatus  *string                      `json:"mandate_status,omitempty"`
+	Recipient      *MandateRecipient            `json:"recipient,omitempty"`
+	SenderAccount  *SenderAccountFvLinkResponse `json:"sender_account,omitempty"`
+	Error          *FvEmbeddedErrorModel        `json:"error,omitempty"`
+	MandateDetails *MandateFvLinkDetails        `json:"mandate_details,omitempty"`
 }
 
 // NewMandateFvLinkResponse instantiates a new MandateFvLinkResponse object
@@ -234,6 +235,38 @@ func (o *MandateFvLinkResponse) SetError(v FvEmbeddedErrorModel) {
 	o.Error = &v
 }
 
+// GetMandateDetails returns the MandateDetails field value if set, zero value otherwise.
+func (o *MandateFvLinkResponse) GetMandateDetails() MandateFvLinkDetails {
+	if o == nil || o.MandateDetails == nil {
+		var ret MandateFvLinkDetails
+		return ret
+	}
+	return *o.MandateDetails
+}
+
+// GetMandateDetailsOk returns a tuple with the MandateDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MandateFvLinkResponse) GetMandateDetailsOk() (*MandateFvLinkDetails, bool) {
+	if o == nil || o.MandateDetails == nil {
+		return nil, false
+	}
+	return o.MandateDetails, true
+}
+
+// HasMandateDetails returns a boolean if a field has been set.
+func (o *MandateFvLinkResponse) HasMandateDetails() bool {
+	if o != nil && o.MandateDetails != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetMandateDetails gets a reference to the given MandateFvLinkDetails and assigns it to the MandateDetails field.
+func (o *MandateFvLinkResponse) SetMandateDetails(v MandateFvLinkDetails) {
+	o.MandateDetails = &v
+}
+
 func (o MandateFvLinkResponse) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.MandateId != nil {
@@ -253,6 +286,9 @@ func (o MandateFvLinkResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Error != nil {
 		toSerialize["error"] = o.Error
+	}
+	if o.MandateDetails != nil {
+		toSerialize["mandate_details"] = o.MandateDetails
 	}
 	return json.Marshal(toSerialize)
 }

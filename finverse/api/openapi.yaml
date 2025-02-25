@@ -12076,6 +12076,8 @@ components:
         payment_method_id: payment_method_id
         mandate:
           mandate_status: mandate_status
+          mandate_details:
+            collection_entity_name: collection_entity_name
           sender_account:
             account_number_masked: account_number_masked
             institution_name: institution_name
@@ -12093,6 +12095,7 @@ components:
           card_details:
             last4: "1234"
             expiry_month: 7
+            collection_entity_name: collection_entity_name
             brand: VISA
             expiry_year: 2028
           recipient:
@@ -12154,6 +12157,8 @@ components:
     MandateFvLinkResponse:
       example:
         mandate_status: mandate_status
+        mandate_details:
+          collection_entity_name: collection_entity_name
         sender_account:
           account_number_masked: account_number_masked
           institution_name: institution_name
@@ -12180,12 +12185,22 @@ components:
           $ref: '#/components/schemas/SenderAccountFvLinkResponse'
         error:
           $ref: '#/components/schemas/FvEmbeddedErrorModel'
+        mandate_details:
+          $ref: '#/components/schemas/MandateFvLinkDetails'
+      type: object
+    MandateFvLinkDetails:
+      example:
+        collection_entity_name: collection_entity_name
+      properties:
+        collection_entity_name:
+          type: string
       type: object
     CardFvLinkResponse:
       example:
         card_details:
           last4: "1234"
           expiry_month: 7
+          collection_entity_name: collection_entity_name
           brand: VISA
           expiry_year: 2028
         recipient:
@@ -12214,6 +12229,7 @@ components:
       example:
         last4: "1234"
         expiry_month: 7
+        collection_entity_name: collection_entity_name
         brand: VISA
         expiry_year: 2028
       properties:
@@ -12233,6 +12249,8 @@ components:
           description: The credit card expiry year
           example: 2028
           type: integer
+        collection_entity_name:
+          type: string
       type: object
     SenderAccountFvLinkResponse:
       example:
