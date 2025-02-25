@@ -12117,6 +12117,8 @@ components:
       type: object
     PaymentFvLinkResponse:
       example:
+        payment_details:
+          collection_entity_name: collection_entity_name
         payment_id: payment_id
         error:
           error_code: CREDENTIALS_INVALID
@@ -12137,8 +12139,17 @@ components:
           - FAILED
           - REVOKED
           type: string
+        payment_details:
+          $ref: '#/components/schemas/PaymentFvLinkDetails'
         error:
           $ref: '#/components/schemas/FvEmbeddedErrorModel'
+      type: object
+    PaymentFvLinkDetails:
+      example:
+        collection_entity_name: collection_entity_name
+      properties:
+        collection_entity_name:
+          type: string
       type: object
     MandateFvLinkResponse:
       example:

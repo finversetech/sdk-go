@@ -17,9 +17,10 @@ import (
 
 // PaymentFvLinkResponse struct for PaymentFvLinkResponse
 type PaymentFvLinkResponse struct {
-	PaymentId *string               `json:"payment_id,omitempty"`
-	Status    *string               `json:"status,omitempty"`
-	Error     *FvEmbeddedErrorModel `json:"error,omitempty"`
+	PaymentId      *string               `json:"payment_id,omitempty"`
+	Status         *string               `json:"status,omitempty"`
+	PaymentDetails *PaymentFvLinkDetails `json:"payment_details,omitempty"`
+	Error          *FvEmbeddedErrorModel `json:"error,omitempty"`
 }
 
 // NewPaymentFvLinkResponse instantiates a new PaymentFvLinkResponse object
@@ -103,6 +104,38 @@ func (o *PaymentFvLinkResponse) SetStatus(v string) {
 	o.Status = &v
 }
 
+// GetPaymentDetails returns the PaymentDetails field value if set, zero value otherwise.
+func (o *PaymentFvLinkResponse) GetPaymentDetails() PaymentFvLinkDetails {
+	if o == nil || o.PaymentDetails == nil {
+		var ret PaymentFvLinkDetails
+		return ret
+	}
+	return *o.PaymentDetails
+}
+
+// GetPaymentDetailsOk returns a tuple with the PaymentDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentFvLinkResponse) GetPaymentDetailsOk() (*PaymentFvLinkDetails, bool) {
+	if o == nil || o.PaymentDetails == nil {
+		return nil, false
+	}
+	return o.PaymentDetails, true
+}
+
+// HasPaymentDetails returns a boolean if a field has been set.
+func (o *PaymentFvLinkResponse) HasPaymentDetails() bool {
+	if o != nil && o.PaymentDetails != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentDetails gets a reference to the given PaymentFvLinkDetails and assigns it to the PaymentDetails field.
+func (o *PaymentFvLinkResponse) SetPaymentDetails(v PaymentFvLinkDetails) {
+	o.PaymentDetails = &v
+}
+
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *PaymentFvLinkResponse) GetError() FvEmbeddedErrorModel {
 	if o == nil || o.Error == nil {
@@ -142,6 +175,9 @@ func (o PaymentFvLinkResponse) MarshalJSON() ([]byte, error) {
 	}
 	if o.Status != nil {
 		toSerialize["status"] = o.Status
+	}
+	if o.PaymentDetails != nil {
+		toSerialize["payment_details"] = o.PaymentDetails
 	}
 	if o.Error != nil {
 		toSerialize["error"] = o.Error
