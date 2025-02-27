@@ -7751,7 +7751,7 @@ components:
           type: string
         external_transaction_reference:
           description: Customer reference for this transaction
-          maxLength: 10
+          maxLength: 35
           type: string
         references:
           $ref: '#/components/schemas/PaymentDetailsReferences'
@@ -8953,7 +8953,7 @@ components:
           type: string
         external_transaction_reference:
           description: For external invoice/transaction reference
-          maxLength: 10
+          maxLength: 35
           type: string
       required:
       - description
