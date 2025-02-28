@@ -4910,6 +4910,7 @@ components:
         - STATEMENTS
         - ACCOUNT_NUMBERS
         - IDENTITY
+        - AUTO_DEBIT_SETUP
         login_url: https://example.com/login
         user_type:
         - INDIVIDUAL
@@ -4959,6 +4960,7 @@ components:
           - STATEMENTS
           - ACCOUNT_NUMBERS
           - IDENTITY
+          - AUTO_DEBIT_SETUP
           items:
             enum:
             - ACCOUNTS
@@ -4966,6 +4968,7 @@ components:
             - STATEMENTS
             - ACCOUNT_NUMBERS
             - IDENTITY
+            - AUTO_DEBIT_SETUP
             type: string
           type: array
         parent_institution_name:
@@ -5217,6 +5220,8 @@ components:
         state: user-state-passed
         login_identity_id: uhdasidasodaso
         ui_mode: redirect
+        user_configs:
+          ada_account_number: ada_account_number
         code_challenge: code-challenge
         products_requested:
         - ACCOUNTS
@@ -5363,12 +5368,22 @@ components:
           example: alpha beta supported
           maxLength: 100
           type: string
+        user_configs:
+          $ref: '#/components/schemas/LinkTokenUserConfigs'
       required:
       - client_id
       - grant_type
       - redirect_uri
       - response_mode
       - response_type
+      type: object
+    LinkTokenUserConfigs:
+      example:
+        ada_account_number: ada_account_number
+      properties:
+        ada_account_number:
+          description: Account Number to use for ADA setup
+          type: string
       type: object
     LinkTokenResponse:
       example:

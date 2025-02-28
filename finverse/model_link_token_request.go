@@ -54,7 +54,8 @@ type LinkTokenRequest struct {
 	// Controls the behavior of the automatic data refresh checkbox
 	AutomaticDataRefresh *string `json:"automatic_data_refresh,omitempty"`
 	// institution's status filter
-	InstitutionStatus *string `json:"institution_status,omitempty"`
+	InstitutionStatus *string               `json:"institution_status,omitempty"`
+	UserConfigs       *LinkTokenUserConfigs `json:"user_configs,omitempty"`
 }
 
 // NewLinkTokenRequest instantiates a new LinkTokenRequest object
@@ -775,6 +776,38 @@ func (o *LinkTokenRequest) SetInstitutionStatus(v string) {
 	o.InstitutionStatus = &v
 }
 
+// GetUserConfigs returns the UserConfigs field value if set, zero value otherwise.
+func (o *LinkTokenRequest) GetUserConfigs() LinkTokenUserConfigs {
+	if o == nil || o.UserConfigs == nil {
+		var ret LinkTokenUserConfigs
+		return ret
+	}
+	return *o.UserConfigs
+}
+
+// GetUserConfigsOk returns a tuple with the UserConfigs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LinkTokenRequest) GetUserConfigsOk() (*LinkTokenUserConfigs, bool) {
+	if o == nil || o.UserConfigs == nil {
+		return nil, false
+	}
+	return o.UserConfigs, true
+}
+
+// HasUserConfigs returns a boolean if a field has been set.
+func (o *LinkTokenRequest) HasUserConfigs() bool {
+	if o != nil && o.UserConfigs != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetUserConfigs gets a reference to the given LinkTokenUserConfigs and assigns it to the UserConfigs field.
+func (o *LinkTokenRequest) SetUserConfigs(v LinkTokenUserConfigs) {
+	o.UserConfigs = &v
+}
+
 func (o LinkTokenRequest) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if true {
@@ -845,6 +878,9 @@ func (o LinkTokenRequest) MarshalJSON() ([]byte, error) {
 	}
 	if o.InstitutionStatus != nil {
 		toSerialize["institution_status"] = o.InstitutionStatus
+	}
+	if o.UserConfigs != nil {
+		toSerialize["user_configs"] = o.UserConfigs
 	}
 	return json.Marshal(toSerialize)
 }
