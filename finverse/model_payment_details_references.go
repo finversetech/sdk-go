@@ -19,6 +19,7 @@ import (
 type PaymentDetailsReferences struct {
 	FinverseTransactionReference *string `json:"finverse_transaction_reference,omitempty"`
 	DdaReference                 *string `json:"dda_reference,omitempty"`
+	BankTransactionReference     *string `json:"bank_transaction_reference,omitempty"`
 }
 
 // NewPaymentDetailsReferences instantiates a new PaymentDetailsReferences object
@@ -102,6 +103,38 @@ func (o *PaymentDetailsReferences) SetDdaReference(v string) {
 	o.DdaReference = &v
 }
 
+// GetBankTransactionReference returns the BankTransactionReference field value if set, zero value otherwise.
+func (o *PaymentDetailsReferences) GetBankTransactionReference() string {
+	if o == nil || o.BankTransactionReference == nil {
+		var ret string
+		return ret
+	}
+	return *o.BankTransactionReference
+}
+
+// GetBankTransactionReferenceOk returns a tuple with the BankTransactionReference field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentDetailsReferences) GetBankTransactionReferenceOk() (*string, bool) {
+	if o == nil || o.BankTransactionReference == nil {
+		return nil, false
+	}
+	return o.BankTransactionReference, true
+}
+
+// HasBankTransactionReference returns a boolean if a field has been set.
+func (o *PaymentDetailsReferences) HasBankTransactionReference() bool {
+	if o != nil && o.BankTransactionReference != nil {
+		return true
+	}
+
+	return false
+}
+
+// SetBankTransactionReference gets a reference to the given string and assigns it to the BankTransactionReference field.
+func (o *PaymentDetailsReferences) SetBankTransactionReference(v string) {
+	o.BankTransactionReference = &v
+}
+
 func (o PaymentDetailsReferences) MarshalJSON() ([]byte, error) {
 	toSerialize := map[string]interface{}{}
 	if o.FinverseTransactionReference != nil {
@@ -109,6 +142,9 @@ func (o PaymentDetailsReferences) MarshalJSON() ([]byte, error) {
 	}
 	if o.DdaReference != nil {
 		toSerialize["dda_reference"] = o.DdaReference
+	}
+	if o.BankTransactionReference != nil {
+		toSerialize["bank_transaction_reference"] = o.BankTransactionReference
 	}
 	return json.Marshal(toSerialize)
 }
