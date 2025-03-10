@@ -475,7 +475,6 @@ paths:
         - institution
       tags:
       - customer
-      - link
   /institutions/customer:
     get:
       description: Get a customer-specific list of institutions for Finverse Link
