@@ -12,9 +12,14 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the CreateMandateResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateMandateResponse{}
 
 // CreateMandateResponse struct for CreateMandateResponse
 type CreateMandateResponse struct {
@@ -38,6 +43,8 @@ type CreateMandateResponse struct {
 	Metadata *map[string]string    `json:"metadata,omitempty"`
 	Error    *FvEmbeddedErrorModel `json:"error,omitempty"`
 }
+
+type _CreateMandateResponse CreateMandateResponse
 
 // NewCreateMandateResponse instantiates a new CreateMandateResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -64,7 +71,7 @@ func NewCreateMandateResponseWithDefaults() *CreateMandateResponse {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *CreateMandateResponse) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -74,7 +81,7 @@ func (o *CreateMandateResponse) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateMandateResponse) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -82,7 +89,7 @@ func (o *CreateMandateResponse) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *CreateMandateResponse) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -144,7 +151,7 @@ func (o *CreateMandateResponse) SetMandateId(v string) {
 
 // GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise.
 func (o *CreateMandateResponse) GetPaymentMethodId() string {
-	if o == nil || o.PaymentMethodId == nil {
+	if o == nil || IsNil(o.PaymentMethodId) {
 		var ret string
 		return ret
 	}
@@ -154,7 +161,7 @@ func (o *CreateMandateResponse) GetPaymentMethodId() string {
 // GetPaymentMethodIdOk returns a tuple with the PaymentMethodId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateMandateResponse) GetPaymentMethodIdOk() (*string, bool) {
-	if o == nil || o.PaymentMethodId == nil {
+	if o == nil || IsNil(o.PaymentMethodId) {
 		return nil, false
 	}
 	return o.PaymentMethodId, true
@@ -162,7 +169,7 @@ func (o *CreateMandateResponse) GetPaymentMethodIdOk() (*string, bool) {
 
 // HasPaymentMethodId returns a boolean if a field has been set.
 func (o *CreateMandateResponse) HasPaymentMethodId() bool {
-	if o != nil && o.PaymentMethodId != nil {
+	if o != nil && !IsNil(o.PaymentMethodId) {
 		return true
 	}
 
@@ -224,7 +231,7 @@ func (o *CreateMandateResponse) SetRecipient(v MandateRecipient) {
 
 // GetRecipientAccount returns the RecipientAccount field value if set, zero value otherwise.
 func (o *CreateMandateResponse) GetRecipientAccount() MandateRecipientAccount {
-	if o == nil || o.RecipientAccount == nil {
+	if o == nil || IsNil(o.RecipientAccount) {
 		var ret MandateRecipientAccount
 		return ret
 	}
@@ -234,7 +241,7 @@ func (o *CreateMandateResponse) GetRecipientAccount() MandateRecipientAccount {
 // GetRecipientAccountOk returns a tuple with the RecipientAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateMandateResponse) GetRecipientAccountOk() (*MandateRecipientAccount, bool) {
-	if o == nil || o.RecipientAccount == nil {
+	if o == nil || IsNil(o.RecipientAccount) {
 		return nil, false
 	}
 	return o.RecipientAccount, true
@@ -242,7 +249,7 @@ func (o *CreateMandateResponse) GetRecipientAccountOk() (*MandateRecipientAccoun
 
 // HasRecipientAccount returns a boolean if a field has been set.
 func (o *CreateMandateResponse) HasRecipientAccount() bool {
-	if o != nil && o.RecipientAccount != nil {
+	if o != nil && !IsNil(o.RecipientAccount) {
 		return true
 	}
 
@@ -280,7 +287,7 @@ func (o *CreateMandateResponse) SetSender(v GetMandateSender) {
 
 // GetSenderAccount returns the SenderAccount field value if set, zero value otherwise.
 func (o *CreateMandateResponse) GetSenderAccount() MandateSenderAccount {
-	if o == nil || o.SenderAccount == nil {
+	if o == nil || IsNil(o.SenderAccount) {
 		var ret MandateSenderAccount
 		return ret
 	}
@@ -290,7 +297,7 @@ func (o *CreateMandateResponse) GetSenderAccount() MandateSenderAccount {
 // GetSenderAccountOk returns a tuple with the SenderAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateMandateResponse) GetSenderAccountOk() (*MandateSenderAccount, bool) {
-	if o == nil || o.SenderAccount == nil {
+	if o == nil || IsNil(o.SenderAccount) {
 		return nil, false
 	}
 	return o.SenderAccount, true
@@ -298,7 +305,7 @@ func (o *CreateMandateResponse) GetSenderAccountOk() (*MandateSenderAccount, boo
 
 // HasSenderAccount returns a boolean if a field has been set.
 func (o *CreateMandateResponse) HasSenderAccount() bool {
-	if o != nil && o.SenderAccount != nil {
+	if o != nil && !IsNil(o.SenderAccount) {
 		return true
 	}
 
@@ -336,7 +343,7 @@ func (o *CreateMandateResponse) SetMandateDetails(v MandateDetailsResponse) {
 
 // GetFees returns the Fees field value if set, zero value otherwise.
 func (o *CreateMandateResponse) GetFees() []Fee {
-	if o == nil || o.Fees == nil {
+	if o == nil || IsNil(o.Fees) {
 		var ret []Fee
 		return ret
 	}
@@ -346,7 +353,7 @@ func (o *CreateMandateResponse) GetFees() []Fee {
 // GetFeesOk returns a tuple with the Fees field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateMandateResponse) GetFeesOk() ([]Fee, bool) {
-	if o == nil || o.Fees == nil {
+	if o == nil || IsNil(o.Fees) {
 		return nil, false
 	}
 	return o.Fees, true
@@ -354,7 +361,7 @@ func (o *CreateMandateResponse) GetFeesOk() ([]Fee, bool) {
 
 // HasFees returns a boolean if a field has been set.
 func (o *CreateMandateResponse) HasFees() bool {
-	if o != nil && o.Fees != nil {
+	if o != nil && !IsNil(o.Fees) {
 		return true
 	}
 
@@ -368,7 +375,7 @@ func (o *CreateMandateResponse) SetFees(v []Fee) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *CreateMandateResponse) GetMetadata() map[string]string {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]string
 		return ret
 	}
@@ -378,7 +385,7 @@ func (o *CreateMandateResponse) GetMetadata() map[string]string {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateMandateResponse) GetMetadataOk() (*map[string]string, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -386,7 +393,7 @@ func (o *CreateMandateResponse) GetMetadataOk() (*map[string]string, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *CreateMandateResponse) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -400,7 +407,7 @@ func (o *CreateMandateResponse) SetMetadata(v map[string]string) {
 
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *CreateMandateResponse) GetError() FvEmbeddedErrorModel {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		var ret FvEmbeddedErrorModel
 		return ret
 	}
@@ -410,7 +417,7 @@ func (o *CreateMandateResponse) GetError() FvEmbeddedErrorModel {
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateMandateResponse) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
 	return o.Error, true
@@ -418,7 +425,7 @@ func (o *CreateMandateResponse) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
 
 // HasError returns a boolean if a field has been set.
 func (o *CreateMandateResponse) HasError() bool {
-	if o != nil && o.Error != nil {
+	if o != nil && !IsNil(o.Error) {
 		return true
 	}
 
@@ -431,47 +438,85 @@ func (o *CreateMandateResponse) SetError(v FvEmbeddedErrorModel) {
 }
 
 func (o CreateMandateResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if true {
-		toSerialize["updated_at"] = o.UpdatedAt
-	}
-	if true {
-		toSerialize["mandate_id"] = o.MandateId
-	}
-	if o.PaymentMethodId != nil {
-		toSerialize["payment_method_id"] = o.PaymentMethodId
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if true {
-		toSerialize["recipient"] = o.Recipient
-	}
-	if o.RecipientAccount != nil {
-		toSerialize["recipient_account"] = o.RecipientAccount
-	}
-	if true {
-		toSerialize["sender"] = o.Sender
-	}
-	if o.SenderAccount != nil {
-		toSerialize["sender_account"] = o.SenderAccount
-	}
-	if true {
-		toSerialize["mandate_details"] = o.MandateDetails
-	}
-	if o.Fees != nil {
-		toSerialize["fees"] = o.Fees
-	}
-	if o.Metadata != nil {
-		toSerialize["metadata"] = o.Metadata
-	}
-	if o.Error != nil {
-		toSerialize["error"] = o.Error
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateMandateResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	toSerialize["updated_at"] = o.UpdatedAt
+	toSerialize["mandate_id"] = o.MandateId
+	if !IsNil(o.PaymentMethodId) {
+		toSerialize["payment_method_id"] = o.PaymentMethodId
+	}
+	toSerialize["status"] = o.Status
+	toSerialize["recipient"] = o.Recipient
+	if !IsNil(o.RecipientAccount) {
+		toSerialize["recipient_account"] = o.RecipientAccount
+	}
+	toSerialize["sender"] = o.Sender
+	if !IsNil(o.SenderAccount) {
+		toSerialize["sender_account"] = o.SenderAccount
+	}
+	toSerialize["mandate_details"] = o.MandateDetails
+	if !IsNil(o.Fees) {
+		toSerialize["fees"] = o.Fees
+	}
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.Error) {
+		toSerialize["error"] = o.Error
+	}
+	return toSerialize, nil
+}
+
+func (o *CreateMandateResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"updated_at",
+		"mandate_id",
+		"status",
+		"recipient",
+		"sender",
+		"mandate_details",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateMandateResponse := _CreateMandateResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCreateMandateResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateMandateResponse(varCreateMandateResponse)
+
+	return err
 }
 
 type NullableCreateMandateResponse struct {

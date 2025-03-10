@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CreatePaymentRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreatePaymentRequest{}
 
 // CreatePaymentRequest struct for CreatePaymentRequest
 type CreatePaymentRequest struct {
@@ -26,6 +31,8 @@ type CreatePaymentRequest struct {
 	PaymentDetails  PaymentDetails2    `json:"payment_details"`
 	Metadata        *map[string]string `json:"metadata,omitempty"`
 }
+
+type _CreatePaymentRequest CreatePaymentRequest
 
 // NewCreatePaymentRequest instantiates a new CreatePaymentRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -97,7 +104,7 @@ func (o *CreatePaymentRequest) SetCurrency(v string) {
 
 // GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise.
 func (o *CreatePaymentRequest) GetPaymentMethodId() string {
-	if o == nil || o.PaymentMethodId == nil {
+	if o == nil || IsNil(o.PaymentMethodId) {
 		var ret string
 		return ret
 	}
@@ -107,7 +114,7 @@ func (o *CreatePaymentRequest) GetPaymentMethodId() string {
 // GetPaymentMethodIdOk returns a tuple with the PaymentMethodId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentRequest) GetPaymentMethodIdOk() (*string, bool) {
-	if o == nil || o.PaymentMethodId == nil {
+	if o == nil || IsNil(o.PaymentMethodId) {
 		return nil, false
 	}
 	return o.PaymentMethodId, true
@@ -115,7 +122,7 @@ func (o *CreatePaymentRequest) GetPaymentMethodIdOk() (*string, bool) {
 
 // HasPaymentMethodId returns a boolean if a field has been set.
 func (o *CreatePaymentRequest) HasPaymentMethodId() bool {
-	if o != nil && o.PaymentMethodId != nil {
+	if o != nil && !IsNil(o.PaymentMethodId) {
 		return true
 	}
 
@@ -153,7 +160,7 @@ func (o *CreatePaymentRequest) SetPaymentDetails(v PaymentDetails2) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *CreatePaymentRequest) GetMetadata() map[string]string {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]string
 		return ret
 	}
@@ -163,7 +170,7 @@ func (o *CreatePaymentRequest) GetMetadata() map[string]string {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentRequest) GetMetadataOk() (*map[string]string, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -171,7 +178,7 @@ func (o *CreatePaymentRequest) GetMetadataOk() (*map[string]string, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *CreatePaymentRequest) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -184,23 +191,64 @@ func (o *CreatePaymentRequest) SetMetadata(v map[string]string) {
 }
 
 func (o CreatePaymentRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["amount"] = o.Amount
-	}
-	if true {
-		toSerialize["currency"] = o.Currency
-	}
-	if o.PaymentMethodId != nil {
-		toSerialize["payment_method_id"] = o.PaymentMethodId
-	}
-	if true {
-		toSerialize["payment_details"] = o.PaymentDetails
-	}
-	if o.Metadata != nil {
-		toSerialize["metadata"] = o.Metadata
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreatePaymentRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["amount"] = o.Amount
+	toSerialize["currency"] = o.Currency
+	if !IsNil(o.PaymentMethodId) {
+		toSerialize["payment_method_id"] = o.PaymentMethodId
+	}
+	toSerialize["payment_details"] = o.PaymentDetails
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
+	return toSerialize, nil
+}
+
+func (o *CreatePaymentRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"amount",
+		"currency",
+		"payment_details",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreatePaymentRequest := _CreatePaymentRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCreatePaymentRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreatePaymentRequest(varCreatePaymentRequest)
+
+	return err
 }
 
 type NullableCreatePaymentRequest struct {

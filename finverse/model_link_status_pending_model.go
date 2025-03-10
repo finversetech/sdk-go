@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinkStatusPendingModel type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinkStatusPendingModel{}
+
 // LinkStatusPendingModel struct for LinkStatusPendingModel
 type LinkStatusPendingModel struct {
 	Code    *string `json:"code,omitempty"`
@@ -41,7 +44,7 @@ func NewLinkStatusPendingModelWithDefaults() *LinkStatusPendingModel {
 
 // GetCode returns the Code field value if set, zero value otherwise.
 func (o *LinkStatusPendingModel) GetCode() string {
-	if o == nil || o.Code == nil {
+	if o == nil || IsNil(o.Code) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *LinkStatusPendingModel) GetCode() string {
 // GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkStatusPendingModel) GetCodeOk() (*string, bool) {
-	if o == nil || o.Code == nil {
+	if o == nil || IsNil(o.Code) {
 		return nil, false
 	}
 	return o.Code, true
@@ -59,7 +62,7 @@ func (o *LinkStatusPendingModel) GetCodeOk() (*string, bool) {
 
 // HasCode returns a boolean if a field has been set.
 func (o *LinkStatusPendingModel) HasCode() bool {
-	if o != nil && o.Code != nil {
+	if o != nil && !IsNil(o.Code) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *LinkStatusPendingModel) SetCode(v string) {
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *LinkStatusPendingModel) GetMessage() string {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *LinkStatusPendingModel) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkStatusPendingModel) GetMessageOk() (*string, bool) {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -91,7 +94,7 @@ func (o *LinkStatusPendingModel) GetMessageOk() (*string, bool) {
 
 // HasMessage returns a boolean if a field has been set.
 func (o *LinkStatusPendingModel) HasMessage() bool {
-	if o != nil && o.Message != nil {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *LinkStatusPendingModel) SetMessage(v string) {
 
 // GetDetails returns the Details field value if set, zero value otherwise.
 func (o *LinkStatusPendingModel) GetDetails() string {
-	if o == nil || o.Details == nil {
+	if o == nil || IsNil(o.Details) {
 		var ret string
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *LinkStatusPendingModel) GetDetails() string {
 // GetDetailsOk returns a tuple with the Details field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkStatusPendingModel) GetDetailsOk() (*string, bool) {
-	if o == nil || o.Details == nil {
+	if o == nil || IsNil(o.Details) {
 		return nil, false
 	}
 	return o.Details, true
@@ -123,7 +126,7 @@ func (o *LinkStatusPendingModel) GetDetailsOk() (*string, bool) {
 
 // HasDetails returns a boolean if a field has been set.
 func (o *LinkStatusPendingModel) HasDetails() bool {
-	if o != nil && o.Details != nil {
+	if o != nil && !IsNil(o.Details) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *LinkStatusPendingModel) SetDetails(v string) {
 }
 
 func (o LinkStatusPendingModel) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Code != nil {
-		toSerialize["code"] = o.Code
-	}
-	if o.Message != nil {
-		toSerialize["message"] = o.Message
-	}
-	if o.Details != nil {
-		toSerialize["details"] = o.Details
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o LinkStatusPendingModel) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Code) {
+		toSerialize["code"] = o.Code
+	}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	if !IsNil(o.Details) {
+		toSerialize["details"] = o.Details
+	}
+	return toSerialize, nil
 }
 
 type NullableLinkStatusPendingModel struct {

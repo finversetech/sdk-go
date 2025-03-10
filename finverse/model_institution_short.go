@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the InstitutionShort type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &InstitutionShort{}
+
 // InstitutionShort struct for InstitutionShort
 type InstitutionShort struct {
 	InstitutionId   *string  `json:"institution_id,omitempty"`
@@ -42,7 +45,7 @@ func NewInstitutionShortWithDefaults() *InstitutionShort {
 
 // GetInstitutionId returns the InstitutionId field value if set, zero value otherwise.
 func (o *InstitutionShort) GetInstitutionId() string {
-	if o == nil || o.InstitutionId == nil {
+	if o == nil || IsNil(o.InstitutionId) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *InstitutionShort) GetInstitutionId() string {
 // GetInstitutionIdOk returns a tuple with the InstitutionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InstitutionShort) GetInstitutionIdOk() (*string, bool) {
-	if o == nil || o.InstitutionId == nil {
+	if o == nil || IsNil(o.InstitutionId) {
 		return nil, false
 	}
 	return o.InstitutionId, true
@@ -60,7 +63,7 @@ func (o *InstitutionShort) GetInstitutionIdOk() (*string, bool) {
 
 // HasInstitutionId returns a boolean if a field has been set.
 func (o *InstitutionShort) HasInstitutionId() bool {
-	if o != nil && o.InstitutionId != nil {
+	if o != nil && !IsNil(o.InstitutionId) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *InstitutionShort) SetInstitutionId(v string) {
 
 // GetCountries returns the Countries field value if set, zero value otherwise.
 func (o *InstitutionShort) GetCountries() []string {
-	if o == nil || o.Countries == nil {
+	if o == nil || IsNil(o.Countries) {
 		var ret []string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *InstitutionShort) GetCountries() []string {
 // GetCountriesOk returns a tuple with the Countries field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InstitutionShort) GetCountriesOk() ([]string, bool) {
-	if o == nil || o.Countries == nil {
+	if o == nil || IsNil(o.Countries) {
 		return nil, false
 	}
 	return o.Countries, true
@@ -92,7 +95,7 @@ func (o *InstitutionShort) GetCountriesOk() ([]string, bool) {
 
 // HasCountries returns a boolean if a field has been set.
 func (o *InstitutionShort) HasCountries() bool {
-	if o != nil && o.Countries != nil {
+	if o != nil && !IsNil(o.Countries) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *InstitutionShort) SetCountries(v []string) {
 
 // GetInstitutionName returns the InstitutionName field value if set, zero value otherwise.
 func (o *InstitutionShort) GetInstitutionName() string {
-	if o == nil || o.InstitutionName == nil {
+	if o == nil || IsNil(o.InstitutionName) {
 		var ret string
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *InstitutionShort) GetInstitutionName() string {
 // GetInstitutionNameOk returns a tuple with the InstitutionName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InstitutionShort) GetInstitutionNameOk() (*string, bool) {
-	if o == nil || o.InstitutionName == nil {
+	if o == nil || IsNil(o.InstitutionName) {
 		return nil, false
 	}
 	return o.InstitutionName, true
@@ -124,7 +127,7 @@ func (o *InstitutionShort) GetInstitutionNameOk() (*string, bool) {
 
 // HasInstitutionName returns a boolean if a field has been set.
 func (o *InstitutionShort) HasInstitutionName() bool {
-	if o != nil && o.InstitutionName != nil {
+	if o != nil && !IsNil(o.InstitutionName) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *InstitutionShort) SetInstitutionName(v string) {
 
 // GetPortalName returns the PortalName field value if set, zero value otherwise.
 func (o *InstitutionShort) GetPortalName() string {
-	if o == nil || o.PortalName == nil {
+	if o == nil || IsNil(o.PortalName) {
 		var ret string
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *InstitutionShort) GetPortalName() string {
 // GetPortalNameOk returns a tuple with the PortalName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *InstitutionShort) GetPortalNameOk() (*string, bool) {
-	if o == nil || o.PortalName == nil {
+	if o == nil || IsNil(o.PortalName) {
 		return nil, false
 	}
 	return o.PortalName, true
@@ -156,7 +159,7 @@ func (o *InstitutionShort) GetPortalNameOk() (*string, bool) {
 
 // HasPortalName returns a boolean if a field has been set.
 func (o *InstitutionShort) HasPortalName() bool {
-	if o != nil && o.PortalName != nil {
+	if o != nil && !IsNil(o.PortalName) {
 		return true
 	}
 
@@ -169,20 +172,28 @@ func (o *InstitutionShort) SetPortalName(v string) {
 }
 
 func (o InstitutionShort) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.InstitutionId != nil {
-		toSerialize["institution_id"] = o.InstitutionId
-	}
-	if o.Countries != nil {
-		toSerialize["countries"] = o.Countries
-	}
-	if o.InstitutionName != nil {
-		toSerialize["institution_name"] = o.InstitutionName
-	}
-	if o.PortalName != nil {
-		toSerialize["portal_name"] = o.PortalName
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o InstitutionShort) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.InstitutionId) {
+		toSerialize["institution_id"] = o.InstitutionId
+	}
+	if !IsNil(o.Countries) {
+		toSerialize["countries"] = o.Countries
+	}
+	if !IsNil(o.InstitutionName) {
+		toSerialize["institution_name"] = o.InstitutionName
+	}
+	if !IsNil(o.PortalName) {
+		toSerialize["portal_name"] = o.PortalName
+	}
+	return toSerialize, nil
 }
 
 type NullableInstitutionShort struct {

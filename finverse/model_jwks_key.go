@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the JWKSKey type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &JWKSKey{}
+
 // JWKSKey struct for JWKSKey
 type JWKSKey struct {
 	// The \"kty\" (key type) parameter identifies the cryptographic algorithm family used with the key, such as \"RSA\" or \"EC\".
@@ -50,7 +53,7 @@ func NewJWKSKeyWithDefaults() *JWKSKey {
 
 // GetKty returns the Kty field value if set, zero value otherwise.
 func (o *JWKSKey) GetKty() string {
-	if o == nil || o.Kty == nil {
+	if o == nil || IsNil(o.Kty) {
 		var ret string
 		return ret
 	}
@@ -60,7 +63,7 @@ func (o *JWKSKey) GetKty() string {
 // GetKtyOk returns a tuple with the Kty field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JWKSKey) GetKtyOk() (*string, bool) {
-	if o == nil || o.Kty == nil {
+	if o == nil || IsNil(o.Kty) {
 		return nil, false
 	}
 	return o.Kty, true
@@ -68,7 +71,7 @@ func (o *JWKSKey) GetKtyOk() (*string, bool) {
 
 // HasKty returns a boolean if a field has been set.
 func (o *JWKSKey) HasKty() bool {
-	if o != nil && o.Kty != nil {
+	if o != nil && !IsNil(o.Kty) {
 		return true
 	}
 
@@ -82,7 +85,7 @@ func (o *JWKSKey) SetKty(v string) {
 
 // GetKid returns the Kid field value if set, zero value otherwise.
 func (o *JWKSKey) GetKid() string {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		var ret string
 		return ret
 	}
@@ -92,7 +95,7 @@ func (o *JWKSKey) GetKid() string {
 // GetKidOk returns a tuple with the Kid field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JWKSKey) GetKidOk() (*string, bool) {
-	if o == nil || o.Kid == nil {
+	if o == nil || IsNil(o.Kid) {
 		return nil, false
 	}
 	return o.Kid, true
@@ -100,7 +103,7 @@ func (o *JWKSKey) GetKidOk() (*string, bool) {
 
 // HasKid returns a boolean if a field has been set.
 func (o *JWKSKey) HasKid() bool {
-	if o != nil && o.Kid != nil {
+	if o != nil && !IsNil(o.Kid) {
 		return true
 	}
 
@@ -114,7 +117,7 @@ func (o *JWKSKey) SetKid(v string) {
 
 // GetUse returns the Use field value if set, zero value otherwise.
 func (o *JWKSKey) GetUse() string {
-	if o == nil || o.Use == nil {
+	if o == nil || IsNil(o.Use) {
 		var ret string
 		return ret
 	}
@@ -124,7 +127,7 @@ func (o *JWKSKey) GetUse() string {
 // GetUseOk returns a tuple with the Use field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JWKSKey) GetUseOk() (*string, bool) {
-	if o == nil || o.Use == nil {
+	if o == nil || IsNil(o.Use) {
 		return nil, false
 	}
 	return o.Use, true
@@ -132,7 +135,7 @@ func (o *JWKSKey) GetUseOk() (*string, bool) {
 
 // HasUse returns a boolean if a field has been set.
 func (o *JWKSKey) HasUse() bool {
-	if o != nil && o.Use != nil {
+	if o != nil && !IsNil(o.Use) {
 		return true
 	}
 
@@ -146,7 +149,7 @@ func (o *JWKSKey) SetUse(v string) {
 
 // GetE returns the E field value if set, zero value otherwise.
 func (o *JWKSKey) GetE() string {
-	if o == nil || o.E == nil {
+	if o == nil || IsNil(o.E) {
 		var ret string
 		return ret
 	}
@@ -156,7 +159,7 @@ func (o *JWKSKey) GetE() string {
 // GetEOk returns a tuple with the E field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JWKSKey) GetEOk() (*string, bool) {
-	if o == nil || o.E == nil {
+	if o == nil || IsNil(o.E) {
 		return nil, false
 	}
 	return o.E, true
@@ -164,7 +167,7 @@ func (o *JWKSKey) GetEOk() (*string, bool) {
 
 // HasE returns a boolean if a field has been set.
 func (o *JWKSKey) HasE() bool {
-	if o != nil && o.E != nil {
+	if o != nil && !IsNil(o.E) {
 		return true
 	}
 
@@ -178,7 +181,7 @@ func (o *JWKSKey) SetE(v string) {
 
 // GetN returns the N field value if set, zero value otherwise.
 func (o *JWKSKey) GetN() string {
-	if o == nil || o.N == nil {
+	if o == nil || IsNil(o.N) {
 		var ret string
 		return ret
 	}
@@ -188,7 +191,7 @@ func (o *JWKSKey) GetN() string {
 // GetNOk returns a tuple with the N field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JWKSKey) GetNOk() (*string, bool) {
-	if o == nil || o.N == nil {
+	if o == nil || IsNil(o.N) {
 		return nil, false
 	}
 	return o.N, true
@@ -196,7 +199,7 @@ func (o *JWKSKey) GetNOk() (*string, bool) {
 
 // HasN returns a boolean if a field has been set.
 func (o *JWKSKey) HasN() bool {
-	if o != nil && o.N != nil {
+	if o != nil && !IsNil(o.N) {
 		return true
 	}
 
@@ -210,7 +213,7 @@ func (o *JWKSKey) SetN(v string) {
 
 // GetX5c returns the X5c field value if set, zero value otherwise.
 func (o *JWKSKey) GetX5c() []string {
-	if o == nil || o.X5c == nil {
+	if o == nil || IsNil(o.X5c) {
 		var ret []string
 		return ret
 	}
@@ -220,7 +223,7 @@ func (o *JWKSKey) GetX5c() []string {
 // GetX5cOk returns a tuple with the X5c field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *JWKSKey) GetX5cOk() ([]string, bool) {
-	if o == nil || o.X5c == nil {
+	if o == nil || IsNil(o.X5c) {
 		return nil, false
 	}
 	return o.X5c, true
@@ -228,7 +231,7 @@ func (o *JWKSKey) GetX5cOk() ([]string, bool) {
 
 // HasX5c returns a boolean if a field has been set.
 func (o *JWKSKey) HasX5c() bool {
-	if o != nil && o.X5c != nil {
+	if o != nil && !IsNil(o.X5c) {
 		return true
 	}
 
@@ -241,26 +244,34 @@ func (o *JWKSKey) SetX5c(v []string) {
 }
 
 func (o JWKSKey) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Kty != nil {
-		toSerialize["kty"] = o.Kty
-	}
-	if o.Kid != nil {
-		toSerialize["kid"] = o.Kid
-	}
-	if o.Use != nil {
-		toSerialize["use"] = o.Use
-	}
-	if o.E != nil {
-		toSerialize["e"] = o.E
-	}
-	if o.N != nil {
-		toSerialize["n"] = o.N
-	}
-	if o.X5c != nil {
-		toSerialize["x5c"] = o.X5c
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o JWKSKey) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Kty) {
+		toSerialize["kty"] = o.Kty
+	}
+	if !IsNil(o.Kid) {
+		toSerialize["kid"] = o.Kid
+	}
+	if !IsNil(o.Use) {
+		toSerialize["use"] = o.Use
+	}
+	if !IsNil(o.E) {
+		toSerialize["e"] = o.E
+	}
+	if !IsNil(o.N) {
+		toSerialize["n"] = o.N
+	}
+	if !IsNil(o.X5c) {
+		toSerialize["x5c"] = o.X5c
+	}
+	return toSerialize, nil
 }
 
 type NullableJWKSKey struct {

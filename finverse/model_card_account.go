@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the CardAccount type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CardAccount{}
+
 // CardAccount struct for CardAccount
 type CardAccount struct {
 	// Account this card is associated with
@@ -62,7 +65,7 @@ func NewCardAccountWithDefaults() *CardAccount {
 
 // GetAccountId returns the AccountId field value if set, zero value otherwise.
 func (o *CardAccount) GetAccountId() string {
-	if o == nil || o.AccountId == nil {
+	if o == nil || IsNil(o.AccountId) {
 		var ret string
 		return ret
 	}
@@ -72,7 +75,7 @@ func (o *CardAccount) GetAccountId() string {
 // GetAccountIdOk returns a tuple with the AccountId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardAccount) GetAccountIdOk() (*string, bool) {
-	if o == nil || o.AccountId == nil {
+	if o == nil || IsNil(o.AccountId) {
 		return nil, false
 	}
 	return o.AccountId, true
@@ -80,7 +83,7 @@ func (o *CardAccount) GetAccountIdOk() (*string, bool) {
 
 // HasAccountId returns a boolean if a field has been set.
 func (o *CardAccount) HasAccountId() bool {
-	if o != nil && o.AccountId != nil {
+	if o != nil && !IsNil(o.AccountId) {
 		return true
 	}
 
@@ -94,7 +97,7 @@ func (o *CardAccount) SetAccountId(v string) {
 
 // GetAccountName returns the AccountName field value if set, zero value otherwise.
 func (o *CardAccount) GetAccountName() string {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		var ret string
 		return ret
 	}
@@ -104,7 +107,7 @@ func (o *CardAccount) GetAccountName() string {
 // GetAccountNameOk returns a tuple with the AccountName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardAccount) GetAccountNameOk() (*string, bool) {
-	if o == nil || o.AccountName == nil {
+	if o == nil || IsNil(o.AccountName) {
 		return nil, false
 	}
 	return o.AccountName, true
@@ -112,7 +115,7 @@ func (o *CardAccount) GetAccountNameOk() (*string, bool) {
 
 // HasAccountName returns a boolean if a field has been set.
 func (o *CardAccount) HasAccountName() bool {
-	if o != nil && o.AccountName != nil {
+	if o != nil && !IsNil(o.AccountName) {
 		return true
 	}
 
@@ -126,7 +129,7 @@ func (o *CardAccount) SetAccountName(v string) {
 
 // GetAccountNumberMasked returns the AccountNumberMasked field value if set, zero value otherwise.
 func (o *CardAccount) GetAccountNumberMasked() string {
-	if o == nil || o.AccountNumberMasked == nil {
+	if o == nil || IsNil(o.AccountNumberMasked) {
 		var ret string
 		return ret
 	}
@@ -136,7 +139,7 @@ func (o *CardAccount) GetAccountNumberMasked() string {
 // GetAccountNumberMaskedOk returns a tuple with the AccountNumberMasked field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardAccount) GetAccountNumberMaskedOk() (*string, bool) {
-	if o == nil || o.AccountNumberMasked == nil {
+	if o == nil || IsNil(o.AccountNumberMasked) {
 		return nil, false
 	}
 	return o.AccountNumberMasked, true
@@ -144,7 +147,7 @@ func (o *CardAccount) GetAccountNumberMaskedOk() (*string, bool) {
 
 // HasAccountNumberMasked returns a boolean if a field has been set.
 func (o *CardAccount) HasAccountNumberMasked() bool {
-	if o != nil && o.AccountNumberMasked != nil {
+	if o != nil && !IsNil(o.AccountNumberMasked) {
 		return true
 	}
 
@@ -158,7 +161,7 @@ func (o *CardAccount) SetAccountNumberMasked(v string) {
 
 // GetAccountType returns the AccountType field value if set, zero value otherwise.
 func (o *CardAccount) GetAccountType() AccountType {
-	if o == nil || o.AccountType == nil {
+	if o == nil || IsNil(o.AccountType) {
 		var ret AccountType
 		return ret
 	}
@@ -168,7 +171,7 @@ func (o *CardAccount) GetAccountType() AccountType {
 // GetAccountTypeOk returns a tuple with the AccountType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardAccount) GetAccountTypeOk() (*AccountType, bool) {
-	if o == nil || o.AccountType == nil {
+	if o == nil || IsNil(o.AccountType) {
 		return nil, false
 	}
 	return o.AccountType, true
@@ -176,7 +179,7 @@ func (o *CardAccount) GetAccountTypeOk() (*AccountType, bool) {
 
 // HasAccountType returns a boolean if a field has been set.
 func (o *CardAccount) HasAccountType() bool {
-	if o != nil && o.AccountType != nil {
+	if o != nil && !IsNil(o.AccountType) {
 		return true
 	}
 
@@ -190,7 +193,7 @@ func (o *CardAccount) SetAccountType(v AccountType) {
 
 // GetStatementPaymentDueDate returns the StatementPaymentDueDate field value if set, zero value otherwise.
 func (o *CardAccount) GetStatementPaymentDueDate() string {
-	if o == nil || o.StatementPaymentDueDate == nil {
+	if o == nil || IsNil(o.StatementPaymentDueDate) {
 		var ret string
 		return ret
 	}
@@ -200,7 +203,7 @@ func (o *CardAccount) GetStatementPaymentDueDate() string {
 // GetStatementPaymentDueDateOk returns a tuple with the StatementPaymentDueDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardAccount) GetStatementPaymentDueDateOk() (*string, bool) {
-	if o == nil || o.StatementPaymentDueDate == nil {
+	if o == nil || IsNil(o.StatementPaymentDueDate) {
 		return nil, false
 	}
 	return o.StatementPaymentDueDate, true
@@ -208,7 +211,7 @@ func (o *CardAccount) GetStatementPaymentDueDateOk() (*string, bool) {
 
 // HasStatementPaymentDueDate returns a boolean if a field has been set.
 func (o *CardAccount) HasStatementPaymentDueDate() bool {
-	if o != nil && o.StatementPaymentDueDate != nil {
+	if o != nil && !IsNil(o.StatementPaymentDueDate) {
 		return true
 	}
 
@@ -222,7 +225,7 @@ func (o *CardAccount) SetStatementPaymentDueDate(v string) {
 
 // GetNextPaymentDueDate returns the NextPaymentDueDate field value if set, zero value otherwise.
 func (o *CardAccount) GetNextPaymentDueDate() string {
-	if o == nil || o.NextPaymentDueDate == nil {
+	if o == nil || IsNil(o.NextPaymentDueDate) {
 		var ret string
 		return ret
 	}
@@ -232,7 +235,7 @@ func (o *CardAccount) GetNextPaymentDueDate() string {
 // GetNextPaymentDueDateOk returns a tuple with the NextPaymentDueDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardAccount) GetNextPaymentDueDateOk() (*string, bool) {
-	if o == nil || o.NextPaymentDueDate == nil {
+	if o == nil || IsNil(o.NextPaymentDueDate) {
 		return nil, false
 	}
 	return o.NextPaymentDueDate, true
@@ -240,7 +243,7 @@ func (o *CardAccount) GetNextPaymentDueDateOk() (*string, bool) {
 
 // HasNextPaymentDueDate returns a boolean if a field has been set.
 func (o *CardAccount) HasNextPaymentDueDate() bool {
-	if o != nil && o.NextPaymentDueDate != nil {
+	if o != nil && !IsNil(o.NextPaymentDueDate) {
 		return true
 	}
 
@@ -254,7 +257,7 @@ func (o *CardAccount) SetNextPaymentDueDate(v string) {
 
 // GetStatementDate returns the StatementDate field value if set, zero value otherwise.
 func (o *CardAccount) GetStatementDate() string {
-	if o == nil || o.StatementDate == nil {
+	if o == nil || IsNil(o.StatementDate) {
 		var ret string
 		return ret
 	}
@@ -264,7 +267,7 @@ func (o *CardAccount) GetStatementDate() string {
 // GetStatementDateOk returns a tuple with the StatementDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardAccount) GetStatementDateOk() (*string, bool) {
-	if o == nil || o.StatementDate == nil {
+	if o == nil || IsNil(o.StatementDate) {
 		return nil, false
 	}
 	return o.StatementDate, true
@@ -272,7 +275,7 @@ func (o *CardAccount) GetStatementDateOk() (*string, bool) {
 
 // HasStatementDate returns a boolean if a field has been set.
 func (o *CardAccount) HasStatementDate() bool {
-	if o != nil && o.StatementDate != nil {
+	if o != nil && !IsNil(o.StatementDate) {
 		return true
 	}
 
@@ -286,7 +289,7 @@ func (o *CardAccount) SetStatementDate(v string) {
 
 // GetLastPaymentDate returns the LastPaymentDate field value if set, zero value otherwise.
 func (o *CardAccount) GetLastPaymentDate() string {
-	if o == nil || o.LastPaymentDate == nil {
+	if o == nil || IsNil(o.LastPaymentDate) {
 		var ret string
 		return ret
 	}
@@ -296,7 +299,7 @@ func (o *CardAccount) GetLastPaymentDate() string {
 // GetLastPaymentDateOk returns a tuple with the LastPaymentDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardAccount) GetLastPaymentDateOk() (*string, bool) {
-	if o == nil || o.LastPaymentDate == nil {
+	if o == nil || IsNil(o.LastPaymentDate) {
 		return nil, false
 	}
 	return o.LastPaymentDate, true
@@ -304,7 +307,7 @@ func (o *CardAccount) GetLastPaymentDateOk() (*string, bool) {
 
 // HasLastPaymentDate returns a boolean if a field has been set.
 func (o *CardAccount) HasLastPaymentDate() bool {
-	if o != nil && o.LastPaymentDate != nil {
+	if o != nil && !IsNil(o.LastPaymentDate) {
 		return true
 	}
 
@@ -318,7 +321,7 @@ func (o *CardAccount) SetLastPaymentDate(v string) {
 
 // GetLastPaymentAmount returns the LastPaymentAmount field value if set, zero value otherwise.
 func (o *CardAccount) GetLastPaymentAmount() CurrencyAmount {
-	if o == nil || o.LastPaymentAmount == nil {
+	if o == nil || IsNil(o.LastPaymentAmount) {
 		var ret CurrencyAmount
 		return ret
 	}
@@ -328,7 +331,7 @@ func (o *CardAccount) GetLastPaymentAmount() CurrencyAmount {
 // GetLastPaymentAmountOk returns a tuple with the LastPaymentAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardAccount) GetLastPaymentAmountOk() (*CurrencyAmount, bool) {
-	if o == nil || o.LastPaymentAmount == nil {
+	if o == nil || IsNil(o.LastPaymentAmount) {
 		return nil, false
 	}
 	return o.LastPaymentAmount, true
@@ -336,7 +339,7 @@ func (o *CardAccount) GetLastPaymentAmountOk() (*CurrencyAmount, bool) {
 
 // HasLastPaymentAmount returns a boolean if a field has been set.
 func (o *CardAccount) HasLastPaymentAmount() bool {
-	if o != nil && o.LastPaymentAmount != nil {
+	if o != nil && !IsNil(o.LastPaymentAmount) {
 		return true
 	}
 
@@ -350,7 +353,7 @@ func (o *CardAccount) SetLastPaymentAmount(v CurrencyAmount) {
 
 // GetCurrentBalance returns the CurrentBalance field value if set, zero value otherwise.
 func (o *CardAccount) GetCurrentBalance() CurrencyAmount {
-	if o == nil || o.CurrentBalance == nil {
+	if o == nil || IsNil(o.CurrentBalance) {
 		var ret CurrencyAmount
 		return ret
 	}
@@ -360,7 +363,7 @@ func (o *CardAccount) GetCurrentBalance() CurrencyAmount {
 // GetCurrentBalanceOk returns a tuple with the CurrentBalance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardAccount) GetCurrentBalanceOk() (*CurrencyAmount, bool) {
-	if o == nil || o.CurrentBalance == nil {
+	if o == nil || IsNil(o.CurrentBalance) {
 		return nil, false
 	}
 	return o.CurrentBalance, true
@@ -368,7 +371,7 @@ func (o *CardAccount) GetCurrentBalanceOk() (*CurrencyAmount, bool) {
 
 // HasCurrentBalance returns a boolean if a field has been set.
 func (o *CardAccount) HasCurrentBalance() bool {
-	if o != nil && o.CurrentBalance != nil {
+	if o != nil && !IsNil(o.CurrentBalance) {
 		return true
 	}
 
@@ -382,7 +385,7 @@ func (o *CardAccount) SetCurrentBalance(v CurrencyAmount) {
 
 // GetPaymentDueAmount returns the PaymentDueAmount field value if set, zero value otherwise.
 func (o *CardAccount) GetPaymentDueAmount() CurrencyAmount {
-	if o == nil || o.PaymentDueAmount == nil {
+	if o == nil || IsNil(o.PaymentDueAmount) {
 		var ret CurrencyAmount
 		return ret
 	}
@@ -392,7 +395,7 @@ func (o *CardAccount) GetPaymentDueAmount() CurrencyAmount {
 // GetPaymentDueAmountOk returns a tuple with the PaymentDueAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardAccount) GetPaymentDueAmountOk() (*CurrencyAmount, bool) {
-	if o == nil || o.PaymentDueAmount == nil {
+	if o == nil || IsNil(o.PaymentDueAmount) {
 		return nil, false
 	}
 	return o.PaymentDueAmount, true
@@ -400,7 +403,7 @@ func (o *CardAccount) GetPaymentDueAmountOk() (*CurrencyAmount, bool) {
 
 // HasPaymentDueAmount returns a boolean if a field has been set.
 func (o *CardAccount) HasPaymentDueAmount() bool {
-	if o != nil && o.PaymentDueAmount != nil {
+	if o != nil && !IsNil(o.PaymentDueAmount) {
 		return true
 	}
 
@@ -414,7 +417,7 @@ func (o *CardAccount) SetPaymentDueAmount(v CurrencyAmount) {
 
 // GetStatementDueAmount returns the StatementDueAmount field value if set, zero value otherwise.
 func (o *CardAccount) GetStatementDueAmount() CurrencyAmount {
-	if o == nil || o.StatementDueAmount == nil {
+	if o == nil || IsNil(o.StatementDueAmount) {
 		var ret CurrencyAmount
 		return ret
 	}
@@ -424,7 +427,7 @@ func (o *CardAccount) GetStatementDueAmount() CurrencyAmount {
 // GetStatementDueAmountOk returns a tuple with the StatementDueAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardAccount) GetStatementDueAmountOk() (*CurrencyAmount, bool) {
-	if o == nil || o.StatementDueAmount == nil {
+	if o == nil || IsNil(o.StatementDueAmount) {
 		return nil, false
 	}
 	return o.StatementDueAmount, true
@@ -432,7 +435,7 @@ func (o *CardAccount) GetStatementDueAmountOk() (*CurrencyAmount, bool) {
 
 // HasStatementDueAmount returns a boolean if a field has been set.
 func (o *CardAccount) HasStatementDueAmount() bool {
-	if o != nil && o.StatementDueAmount != nil {
+	if o != nil && !IsNil(o.StatementDueAmount) {
 		return true
 	}
 
@@ -446,7 +449,7 @@ func (o *CardAccount) SetStatementDueAmount(v CurrencyAmount) {
 
 // GetTotalCreditLimit returns the TotalCreditLimit field value if set, zero value otherwise.
 func (o *CardAccount) GetTotalCreditLimit() CurrencyAmount {
-	if o == nil || o.TotalCreditLimit == nil {
+	if o == nil || IsNil(o.TotalCreditLimit) {
 		var ret CurrencyAmount
 		return ret
 	}
@@ -456,7 +459,7 @@ func (o *CardAccount) GetTotalCreditLimit() CurrencyAmount {
 // GetTotalCreditLimitOk returns a tuple with the TotalCreditLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardAccount) GetTotalCreditLimitOk() (*CurrencyAmount, bool) {
-	if o == nil || o.TotalCreditLimit == nil {
+	if o == nil || IsNil(o.TotalCreditLimit) {
 		return nil, false
 	}
 	return o.TotalCreditLimit, true
@@ -464,7 +467,7 @@ func (o *CardAccount) GetTotalCreditLimitOk() (*CurrencyAmount, bool) {
 
 // HasTotalCreditLimit returns a boolean if a field has been set.
 func (o *CardAccount) HasTotalCreditLimit() bool {
-	if o != nil && o.TotalCreditLimit != nil {
+	if o != nil && !IsNil(o.TotalCreditLimit) {
 		return true
 	}
 
@@ -478,7 +481,7 @@ func (o *CardAccount) SetTotalCreditLimit(v CurrencyAmount) {
 
 // GetAvailableCreditLimit returns the AvailableCreditLimit field value if set, zero value otherwise.
 func (o *CardAccount) GetAvailableCreditLimit() CurrencyAmount {
-	if o == nil || o.AvailableCreditLimit == nil {
+	if o == nil || IsNil(o.AvailableCreditLimit) {
 		var ret CurrencyAmount
 		return ret
 	}
@@ -488,7 +491,7 @@ func (o *CardAccount) GetAvailableCreditLimit() CurrencyAmount {
 // GetAvailableCreditLimitOk returns a tuple with the AvailableCreditLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardAccount) GetAvailableCreditLimitOk() (*CurrencyAmount, bool) {
-	if o == nil || o.AvailableCreditLimit == nil {
+	if o == nil || IsNil(o.AvailableCreditLimit) {
 		return nil, false
 	}
 	return o.AvailableCreditLimit, true
@@ -496,7 +499,7 @@ func (o *CardAccount) GetAvailableCreditLimitOk() (*CurrencyAmount, bool) {
 
 // HasAvailableCreditLimit returns a boolean if a field has been set.
 func (o *CardAccount) HasAvailableCreditLimit() bool {
-	if o != nil && o.AvailableCreditLimit != nil {
+	if o != nil && !IsNil(o.AvailableCreditLimit) {
 		return true
 	}
 
@@ -510,7 +513,7 @@ func (o *CardAccount) SetAvailableCreditLimit(v CurrencyAmount) {
 
 // GetMinimumPaymentDue returns the MinimumPaymentDue field value if set, zero value otherwise.
 func (o *CardAccount) GetMinimumPaymentDue() CurrencyAmount {
-	if o == nil || o.MinimumPaymentDue == nil {
+	if o == nil || IsNil(o.MinimumPaymentDue) {
 		var ret CurrencyAmount
 		return ret
 	}
@@ -520,7 +523,7 @@ func (o *CardAccount) GetMinimumPaymentDue() CurrencyAmount {
 // GetMinimumPaymentDueOk returns a tuple with the MinimumPaymentDue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardAccount) GetMinimumPaymentDueOk() (*CurrencyAmount, bool) {
-	if o == nil || o.MinimumPaymentDue == nil {
+	if o == nil || IsNil(o.MinimumPaymentDue) {
 		return nil, false
 	}
 	return o.MinimumPaymentDue, true
@@ -528,7 +531,7 @@ func (o *CardAccount) GetMinimumPaymentDueOk() (*CurrencyAmount, bool) {
 
 // HasMinimumPaymentDue returns a boolean if a field has been set.
 func (o *CardAccount) HasMinimumPaymentDue() bool {
-	if o != nil && o.MinimumPaymentDue != nil {
+	if o != nil && !IsNil(o.MinimumPaymentDue) {
 		return true
 	}
 
@@ -542,7 +545,7 @@ func (o *CardAccount) SetMinimumPaymentDue(v CurrencyAmount) {
 
 // GetRewardsBalances returns the RewardsBalances field value if set, zero value otherwise.
 func (o *CardAccount) GetRewardsBalances() []GenericAmount {
-	if o == nil || o.RewardsBalances == nil {
+	if o == nil || IsNil(o.RewardsBalances) {
 		var ret []GenericAmount
 		return ret
 	}
@@ -552,7 +555,7 @@ func (o *CardAccount) GetRewardsBalances() []GenericAmount {
 // GetRewardsBalancesOk returns a tuple with the RewardsBalances field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardAccount) GetRewardsBalancesOk() ([]GenericAmount, bool) {
-	if o == nil || o.RewardsBalances == nil {
+	if o == nil || IsNil(o.RewardsBalances) {
 		return nil, false
 	}
 	return o.RewardsBalances, true
@@ -560,7 +563,7 @@ func (o *CardAccount) GetRewardsBalancesOk() ([]GenericAmount, bool) {
 
 // HasRewardsBalances returns a boolean if a field has been set.
 func (o *CardAccount) HasRewardsBalances() bool {
-	if o != nil && o.RewardsBalances != nil {
+	if o != nil && !IsNil(o.RewardsBalances) {
 		return true
 	}
 
@@ -574,7 +577,7 @@ func (o *CardAccount) SetRewardsBalances(v []GenericAmount) {
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *CardAccount) GetUpdatedAt() time.Time {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -584,7 +587,7 @@ func (o *CardAccount) GetUpdatedAt() time.Time {
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardAccount) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
 	return o.UpdatedAt, true
@@ -592,7 +595,7 @@ func (o *CardAccount) GetUpdatedAtOk() (*time.Time, bool) {
 
 // HasUpdatedAt returns a boolean if a field has been set.
 func (o *CardAccount) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
+	if o != nil && !IsNil(o.UpdatedAt) {
 		return true
 	}
 
@@ -605,59 +608,67 @@ func (o *CardAccount) SetUpdatedAt(v time.Time) {
 }
 
 func (o CardAccount) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AccountId != nil {
-		toSerialize["account_id"] = o.AccountId
-	}
-	if o.AccountName != nil {
-		toSerialize["account_name"] = o.AccountName
-	}
-	if o.AccountNumberMasked != nil {
-		toSerialize["account_number_masked"] = o.AccountNumberMasked
-	}
-	if o.AccountType != nil {
-		toSerialize["account_type"] = o.AccountType
-	}
-	if o.StatementPaymentDueDate != nil {
-		toSerialize["statement_payment_due_date"] = o.StatementPaymentDueDate
-	}
-	if o.NextPaymentDueDate != nil {
-		toSerialize["next_payment_due_date"] = o.NextPaymentDueDate
-	}
-	if o.StatementDate != nil {
-		toSerialize["statement_date"] = o.StatementDate
-	}
-	if o.LastPaymentDate != nil {
-		toSerialize["last_payment_date"] = o.LastPaymentDate
-	}
-	if o.LastPaymentAmount != nil {
-		toSerialize["last_payment_amount"] = o.LastPaymentAmount
-	}
-	if o.CurrentBalance != nil {
-		toSerialize["current_balance"] = o.CurrentBalance
-	}
-	if o.PaymentDueAmount != nil {
-		toSerialize["payment_due_amount"] = o.PaymentDueAmount
-	}
-	if o.StatementDueAmount != nil {
-		toSerialize["statement_due_amount"] = o.StatementDueAmount
-	}
-	if o.TotalCreditLimit != nil {
-		toSerialize["total_credit_limit"] = o.TotalCreditLimit
-	}
-	if o.AvailableCreditLimit != nil {
-		toSerialize["available_credit_limit"] = o.AvailableCreditLimit
-	}
-	if o.MinimumPaymentDue != nil {
-		toSerialize["minimum_payment_due"] = o.MinimumPaymentDue
-	}
-	if o.RewardsBalances != nil {
-		toSerialize["rewards_balances"] = o.RewardsBalances
-	}
-	if o.UpdatedAt != nil {
-		toSerialize["updated_at"] = o.UpdatedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CardAccount) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AccountId) {
+		toSerialize["account_id"] = o.AccountId
+	}
+	if !IsNil(o.AccountName) {
+		toSerialize["account_name"] = o.AccountName
+	}
+	if !IsNil(o.AccountNumberMasked) {
+		toSerialize["account_number_masked"] = o.AccountNumberMasked
+	}
+	if !IsNil(o.AccountType) {
+		toSerialize["account_type"] = o.AccountType
+	}
+	if !IsNil(o.StatementPaymentDueDate) {
+		toSerialize["statement_payment_due_date"] = o.StatementPaymentDueDate
+	}
+	if !IsNil(o.NextPaymentDueDate) {
+		toSerialize["next_payment_due_date"] = o.NextPaymentDueDate
+	}
+	if !IsNil(o.StatementDate) {
+		toSerialize["statement_date"] = o.StatementDate
+	}
+	if !IsNil(o.LastPaymentDate) {
+		toSerialize["last_payment_date"] = o.LastPaymentDate
+	}
+	if !IsNil(o.LastPaymentAmount) {
+		toSerialize["last_payment_amount"] = o.LastPaymentAmount
+	}
+	if !IsNil(o.CurrentBalance) {
+		toSerialize["current_balance"] = o.CurrentBalance
+	}
+	if !IsNil(o.PaymentDueAmount) {
+		toSerialize["payment_due_amount"] = o.PaymentDueAmount
+	}
+	if !IsNil(o.StatementDueAmount) {
+		toSerialize["statement_due_amount"] = o.StatementDueAmount
+	}
+	if !IsNil(o.TotalCreditLimit) {
+		toSerialize["total_credit_limit"] = o.TotalCreditLimit
+	}
+	if !IsNil(o.AvailableCreditLimit) {
+		toSerialize["available_credit_limit"] = o.AvailableCreditLimit
+	}
+	if !IsNil(o.MinimumPaymentDue) {
+		toSerialize["minimum_payment_due"] = o.MinimumPaymentDue
+	}
+	if !IsNil(o.RewardsBalances) {
+		toSerialize["rewards_balances"] = o.RewardsBalances
+	}
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updated_at"] = o.UpdatedAt
+	}
+	return toSerialize, nil
 }
 
 type NullableCardAccount struct {

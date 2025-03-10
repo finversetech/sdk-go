@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PaymentSnapshotPaymentMethod type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaymentSnapshotPaymentMethod{}
+
 // PaymentSnapshotPaymentMethod struct for PaymentSnapshotPaymentMethod
 type PaymentSnapshotPaymentMethod struct {
 	Card *PaymentSnapshotPaymentMethodCard `json:"card,omitempty"`
@@ -39,7 +42,7 @@ func NewPaymentSnapshotPaymentMethodWithDefaults() *PaymentSnapshotPaymentMethod
 
 // GetCard returns the Card field value if set, zero value otherwise.
 func (o *PaymentSnapshotPaymentMethod) GetCard() PaymentSnapshotPaymentMethodCard {
-	if o == nil || o.Card == nil {
+	if o == nil || IsNil(o.Card) {
 		var ret PaymentSnapshotPaymentMethodCard
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *PaymentSnapshotPaymentMethod) GetCard() PaymentSnapshotPaymentMethodCar
 // GetCardOk returns a tuple with the Card field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentSnapshotPaymentMethod) GetCardOk() (*PaymentSnapshotPaymentMethodCard, bool) {
-	if o == nil || o.Card == nil {
+	if o == nil || IsNil(o.Card) {
 		return nil, false
 	}
 	return o.Card, true
@@ -57,7 +60,7 @@ func (o *PaymentSnapshotPaymentMethod) GetCardOk() (*PaymentSnapshotPaymentMetho
 
 // HasCard returns a boolean if a field has been set.
 func (o *PaymentSnapshotPaymentMethod) HasCard() bool {
-	if o != nil && o.Card != nil {
+	if o != nil && !IsNil(o.Card) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *PaymentSnapshotPaymentMethod) SetCard(v PaymentSnapshotPaymentMethodCar
 }
 
 func (o PaymentSnapshotPaymentMethod) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Card != nil {
-		toSerialize["card"] = o.Card
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PaymentSnapshotPaymentMethod) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Card) {
+		toSerialize["card"] = o.Card
+	}
+	return toSerialize, nil
 }
 
 type NullablePaymentSnapshotPaymentMethod struct {

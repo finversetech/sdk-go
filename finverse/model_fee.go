@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the Fee type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Fee{}
 
 // Fee struct for Fee
 type Fee struct {
@@ -24,6 +29,8 @@ type Fee struct {
 	// The payment account Id
 	PaidByAccountId *string `json:"paid_by_account_id,omitempty"`
 }
+
+type _Fee Fee
 
 // NewFee instantiates a new Fee object
 // This constructor will assign default values to properties that have it defined,
@@ -69,7 +76,7 @@ func (o *Fee) SetAmount(v int32) {
 
 // GetCurrency returns the Currency field value if set, zero value otherwise.
 func (o *Fee) GetCurrency() string {
-	if o == nil || o.Currency == nil {
+	if o == nil || IsNil(o.Currency) {
 		var ret string
 		return ret
 	}
@@ -79,7 +86,7 @@ func (o *Fee) GetCurrency() string {
 // GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Fee) GetCurrencyOk() (*string, bool) {
-	if o == nil || o.Currency == nil {
+	if o == nil || IsNil(o.Currency) {
 		return nil, false
 	}
 	return o.Currency, true
@@ -87,7 +94,7 @@ func (o *Fee) GetCurrencyOk() (*string, bool) {
 
 // HasCurrency returns a boolean if a field has been set.
 func (o *Fee) HasCurrency() bool {
-	if o != nil && o.Currency != nil {
+	if o != nil && !IsNil(o.Currency) {
 		return true
 	}
 
@@ -101,7 +108,7 @@ func (o *Fee) SetCurrency(v string) {
 
 // GetPaidBy returns the PaidBy field value if set, zero value otherwise.
 func (o *Fee) GetPaidBy() string {
-	if o == nil || o.PaidBy == nil {
+	if o == nil || IsNil(o.PaidBy) {
 		var ret string
 		return ret
 	}
@@ -111,7 +118,7 @@ func (o *Fee) GetPaidBy() string {
 // GetPaidByOk returns a tuple with the PaidBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Fee) GetPaidByOk() (*string, bool) {
-	if o == nil || o.PaidBy == nil {
+	if o == nil || IsNil(o.PaidBy) {
 		return nil, false
 	}
 	return o.PaidBy, true
@@ -119,7 +126,7 @@ func (o *Fee) GetPaidByOk() (*string, bool) {
 
 // HasPaidBy returns a boolean if a field has been set.
 func (o *Fee) HasPaidBy() bool {
-	if o != nil && o.PaidBy != nil {
+	if o != nil && !IsNil(o.PaidBy) {
 		return true
 	}
 
@@ -133,7 +140,7 @@ func (o *Fee) SetPaidBy(v string) {
 
 // GetPaidByAccountId returns the PaidByAccountId field value if set, zero value otherwise.
 func (o *Fee) GetPaidByAccountId() string {
-	if o == nil || o.PaidByAccountId == nil {
+	if o == nil || IsNil(o.PaidByAccountId) {
 		var ret string
 		return ret
 	}
@@ -143,7 +150,7 @@ func (o *Fee) GetPaidByAccountId() string {
 // GetPaidByAccountIdOk returns a tuple with the PaidByAccountId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Fee) GetPaidByAccountIdOk() (*string, bool) {
-	if o == nil || o.PaidByAccountId == nil {
+	if o == nil || IsNil(o.PaidByAccountId) {
 		return nil, false
 	}
 	return o.PaidByAccountId, true
@@ -151,7 +158,7 @@ func (o *Fee) GetPaidByAccountIdOk() (*string, bool) {
 
 // HasPaidByAccountId returns a boolean if a field has been set.
 func (o *Fee) HasPaidByAccountId() bool {
-	if o != nil && o.PaidByAccountId != nil {
+	if o != nil && !IsNil(o.PaidByAccountId) {
 		return true
 	}
 
@@ -164,20 +171,63 @@ func (o *Fee) SetPaidByAccountId(v string) {
 }
 
 func (o Fee) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["amount"] = o.Amount
-	}
-	if o.Currency != nil {
-		toSerialize["currency"] = o.Currency
-	}
-	if o.PaidBy != nil {
-		toSerialize["paid_by"] = o.PaidBy
-	}
-	if o.PaidByAccountId != nil {
-		toSerialize["paid_by_account_id"] = o.PaidByAccountId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Fee) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["amount"] = o.Amount
+	if !IsNil(o.Currency) {
+		toSerialize["currency"] = o.Currency
+	}
+	if !IsNil(o.PaidBy) {
+		toSerialize["paid_by"] = o.PaidBy
+	}
+	if !IsNil(o.PaidByAccountId) {
+		toSerialize["paid_by_account_id"] = o.PaidByAccountId
+	}
+	return toSerialize, nil
+}
+
+func (o *Fee) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"amount",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFee := _Fee{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFee)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Fee(varFee)
+
+	return err
 }
 
 type NullableFee struct {

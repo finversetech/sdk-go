@@ -14,442 +14,437 @@ package finverse
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
-type DefaultApi interface {
+type DefaultAPI interface {
 
 	/*
 		CancelPaymentLink Method for CancelPaymentLink
 
 		Cancel a payment link
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param paymentLinkId The payment link id
-		 @return DefaultApiApiCancelPaymentLinkRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param paymentLinkId The payment link id
+		@return DefaultAPICancelPaymentLinkRequest
 	*/
-	CancelPaymentLink(ctx context.Context, paymentLinkId string) DefaultApiApiCancelPaymentLinkRequest
+	CancelPaymentLink(ctx context.Context, paymentLinkId string) DefaultAPICancelPaymentLinkRequest
 
 	// CancelPaymentLinkExecute executes the request
 	//  @return PaymentLinkResponse
-	CancelPaymentLinkExecute(r DefaultApiApiCancelPaymentLinkRequest) (*PaymentLinkResponse, *http.Response, error)
+	CancelPaymentLinkExecute(r DefaultAPICancelPaymentLinkRequest) (*PaymentLinkResponse, *http.Response, error)
 
 	/*
 		CancelPayout Method for CancelPayout
 
 		Cancel Payout by payout_id
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param payoutId payout id
-		 @return DefaultApiApiCancelPayoutRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param payoutId payout id
+		@return DefaultAPICancelPayoutRequest
 	*/
-	CancelPayout(ctx context.Context, payoutId string) DefaultApiApiCancelPayoutRequest
+	CancelPayout(ctx context.Context, payoutId string) DefaultAPICancelPayoutRequest
 
 	// CancelPayoutExecute executes the request
 	//  @return PayoutSnapshotResponse
-	CancelPayoutExecute(r DefaultApiApiCancelPayoutRequest) (*PayoutSnapshotResponse, *http.Response, error)
+	CancelPayoutExecute(r DefaultAPICancelPayoutRequest) (*PayoutSnapshotResponse, *http.Response, error)
 
 	/*
 		ChangePaymentMethodPaymentLink Method for ChangePaymentMethodPaymentLink
 
 		Initiate change payment method from payment link front-end
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiChangePaymentMethodPaymentLinkRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPIChangePaymentMethodPaymentLinkRequest
 	*/
-	ChangePaymentMethodPaymentLink(ctx context.Context) DefaultApiApiChangePaymentMethodPaymentLinkRequest
+	ChangePaymentMethodPaymentLink(ctx context.Context) DefaultAPIChangePaymentMethodPaymentLinkRequest
 
 	// ChangePaymentMethodPaymentLinkExecute executes the request
 	//  @return ChangePaymentMethodFvLinkResponse
-	ChangePaymentMethodPaymentLinkExecute(r DefaultApiApiChangePaymentMethodPaymentLinkRequest) (*ChangePaymentMethodFvLinkResponse, *http.Response, error)
+	ChangePaymentMethodPaymentLinkExecute(r DefaultAPIChangePaymentMethodPaymentLinkRequest) (*ChangePaymentMethodFvLinkResponse, *http.Response, error)
 
 	/*
 		ConfirmManualPayment Method for ConfirmManualPayment
 
 		Submit manual payment confirmation
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiConfirmManualPaymentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPIConfirmManualPaymentRequest
 	*/
-	ConfirmManualPayment(ctx context.Context) DefaultApiApiConfirmManualPaymentRequest
+	ConfirmManualPayment(ctx context.Context) DefaultAPIConfirmManualPaymentRequest
 
 	// ConfirmManualPaymentExecute executes the request
 	//  @return ManualPaymentConfirmationResponse
-	ConfirmManualPaymentExecute(r DefaultApiApiConfirmManualPaymentRequest) (*ManualPaymentConfirmationResponse, *http.Response, error)
+	ConfirmManualPaymentExecute(r DefaultAPIConfirmManualPaymentRequest) (*ManualPaymentConfirmationResponse, *http.Response, error)
 
 	/*
 		ConfirmPayment Method for ConfirmPayment
 
 		Confirm a payment against a payment Link
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiConfirmPaymentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPIConfirmPaymentRequest
 	*/
-	ConfirmPayment(ctx context.Context) DefaultApiApiConfirmPaymentRequest
+	ConfirmPayment(ctx context.Context) DefaultAPIConfirmPaymentRequest
 
 	// ConfirmPaymentExecute executes the request
 	//  @return ConfirmPaymentResponse
-	ConfirmPaymentExecute(r DefaultApiApiConfirmPaymentRequest) (*ConfirmPaymentResponse, *http.Response, error)
+	ConfirmPaymentExecute(r DefaultAPIConfirmPaymentRequest) (*ConfirmPaymentResponse, *http.Response, error)
 
 	/*
 		CreateFpsToken Method for CreateFpsToken
 
 		Create token for fps flow
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiCreateFpsTokenRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPICreateFpsTokenRequest
 	*/
-	CreateFpsToken(ctx context.Context) DefaultApiApiCreateFpsTokenRequest
+	CreateFpsToken(ctx context.Context) DefaultAPICreateFpsTokenRequest
 
 	// CreateFpsTokenExecute executes the request
 	//  @return CreateFpsTokenResponse
-	CreateFpsTokenExecute(r DefaultApiApiCreateFpsTokenRequest) (*CreateFpsTokenResponse, *http.Response, error)
+	CreateFpsTokenExecute(r DefaultAPICreateFpsTokenRequest) (*CreateFpsTokenResponse, *http.Response, error)
 
 	/*
 		CreateMandateForExistingSender Method for CreateMandateForExistingSender
 
 		Create mandate for an existing sender account
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiCreateMandateForExistingSenderRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPICreateMandateForExistingSenderRequest
 	*/
-	CreateMandateForExistingSender(ctx context.Context) DefaultApiApiCreateMandateForExistingSenderRequest
+	CreateMandateForExistingSender(ctx context.Context) DefaultAPICreateMandateForExistingSenderRequest
 
 	// CreateMandateForExistingSenderExecute executes the request
 	//  @return CreateMandateResponse
-	CreateMandateForExistingSenderExecute(r DefaultApiApiCreateMandateForExistingSenderRequest) (*CreateMandateResponse, *http.Response, error)
+	CreateMandateForExistingSenderExecute(r DefaultAPICreateMandateForExistingSenderRequest) (*CreateMandateResponse, *http.Response, error)
 
 	/*
 		CreatePaymentLink Method for CreatePaymentLink
 
 		Create payment link
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiCreatePaymentLinkRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPICreatePaymentLinkRequest
 	*/
-	CreatePaymentLink(ctx context.Context) DefaultApiApiCreatePaymentLinkRequest
+	CreatePaymentLink(ctx context.Context) DefaultAPICreatePaymentLinkRequest
 
 	// CreatePaymentLinkExecute executes the request
 	//  @return PaymentLinkResponse
-	CreatePaymentLinkExecute(r DefaultApiApiCreatePaymentLinkRequest) (*PaymentLinkResponse, *http.Response, error)
+	CreatePaymentLinkExecute(r DefaultAPICreatePaymentLinkRequest) (*PaymentLinkResponse, *http.Response, error)
 
 	/*
 		CreatePaymentLinkCardPayment Method for CreatePaymentLinkCardPayment
 
 		Initiate Card Payment for a Payment Link
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiCreatePaymentLinkCardPaymentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPICreatePaymentLinkCardPaymentRequest
 	*/
-	CreatePaymentLinkCardPayment(ctx context.Context) DefaultApiApiCreatePaymentLinkCardPaymentRequest
+	CreatePaymentLinkCardPayment(ctx context.Context) DefaultAPICreatePaymentLinkCardPaymentRequest
 
 	// CreatePaymentLinkCardPaymentExecute executes the request
 	//  @return CreatePaymentLinkCardPaymentResponse
-	CreatePaymentLinkCardPaymentExecute(r DefaultApiApiCreatePaymentLinkCardPaymentRequest) (*CreatePaymentLinkCardPaymentResponse, *http.Response, error)
+	CreatePaymentLinkCardPaymentExecute(r DefaultAPICreatePaymentLinkCardPaymentRequest) (*CreatePaymentLinkCardPaymentResponse, *http.Response, error)
 
 	/*
 		CreatePaymentLinkMandate Method for CreatePaymentLinkMandate
 
 		CREATE Mandate for payment link
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiCreatePaymentLinkMandateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPICreatePaymentLinkMandateRequest
 	*/
-	CreatePaymentLinkMandate(ctx context.Context) DefaultApiApiCreatePaymentLinkMandateRequest
+	CreatePaymentLinkMandate(ctx context.Context) DefaultAPICreatePaymentLinkMandateRequest
 
 	// CreatePaymentLinkMandateExecute executes the request
 	//  @return CreatePaymentLinkMandateResponse
-	CreatePaymentLinkMandateExecute(r DefaultApiApiCreatePaymentLinkMandateRequest) (*CreatePaymentLinkMandateResponse, *http.Response, error)
+	CreatePaymentLinkMandateExecute(r DefaultAPICreatePaymentLinkMandateRequest) (*CreatePaymentLinkMandateResponse, *http.Response, error)
 
 	/*
 		CreatePaymentMethod Method for CreatePaymentMethod
 
 		Create a Payment Method for a user
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param paymentUserId Payment User ID
-		 @return DefaultApiApiCreatePaymentMethodRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param paymentUserId Payment User ID
+		@return DefaultAPICreatePaymentMethodRequest
 	*/
-	CreatePaymentMethod(ctx context.Context, paymentUserId string) DefaultApiApiCreatePaymentMethodRequest
+	CreatePaymentMethod(ctx context.Context, paymentUserId string) DefaultAPICreatePaymentMethodRequest
 
 	// CreatePaymentMethodExecute executes the request
 	//  @return PaymentMethodResponse
-	CreatePaymentMethodExecute(r DefaultApiApiCreatePaymentMethodRequest) (*PaymentMethodResponse, *http.Response, error)
+	CreatePaymentMethodExecute(r DefaultAPICreatePaymentMethodRequest) (*PaymentMethodResponse, *http.Response, error)
 
 	/*
 		CreateScheduledPayout Method for CreateScheduledPayout
 
 		Create a scheduled payout
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiCreateScheduledPayoutRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPICreateScheduledPayoutRequest
 	*/
-	CreateScheduledPayout(ctx context.Context) DefaultApiApiCreateScheduledPayoutRequest
+	CreateScheduledPayout(ctx context.Context) DefaultAPICreateScheduledPayoutRequest
 
 	// CreateScheduledPayoutExecute executes the request
 	//  @return PayoutSnapshotResponse
-	CreateScheduledPayoutExecute(r DefaultApiApiCreateScheduledPayoutRequest) (*PayoutSnapshotResponse, *http.Response, error)
+	CreateScheduledPayoutExecute(r DefaultAPICreateScheduledPayoutRequest) (*PayoutSnapshotResponse, *http.Response, error)
 
 	/*
 		DownloadBalanceStatement Method for DownloadBalanceStatement
 
 		Download the balance statement for the ledger (CSV)
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiDownloadBalanceStatementRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPIDownloadBalanceStatementRequest
 	*/
-	DownloadBalanceStatement(ctx context.Context) DefaultApiApiDownloadBalanceStatementRequest
+	DownloadBalanceStatement(ctx context.Context) DefaultAPIDownloadBalanceStatementRequest
 
 	// DownloadBalanceStatementExecute executes the request
 	//  @return DownloadBalanceStatementResponse
-	DownloadBalanceStatementExecute(r DefaultApiApiDownloadBalanceStatementRequest) (*DownloadBalanceStatementResponse, *http.Response, error)
+	DownloadBalanceStatementExecute(r DefaultAPIDownloadBalanceStatementRequest) (*DownloadBalanceStatementResponse, *http.Response, error)
 
 	/*
 		GetFpsQrCode Method for GetFpsQrCode
 
 		Get the FPS QR code
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiGetFpsQrCodeRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPIGetFpsQrCodeRequest
 	*/
-	GetFpsQrCode(ctx context.Context) DefaultApiApiGetFpsQrCodeRequest
+	GetFpsQrCode(ctx context.Context) DefaultAPIGetFpsQrCodeRequest
 
 	// GetFpsQrCodeExecute executes the request
 	//  @return FpsQrCodeResponse
-	GetFpsQrCodeExecute(r DefaultApiApiGetFpsQrCodeRequest) (*FpsQrCodeResponse, *http.Response, error)
+	GetFpsQrCodeExecute(r DefaultAPIGetFpsQrCodeRequest) (*FpsQrCodeResponse, *http.Response, error)
 
 	/*
 		GetInstitutionsForCustomer Method for GetInstitutionsForCustomer
 
 		Get a customer-specific list of institutions for Finverse Link
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiGetInstitutionsForCustomerRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPIGetInstitutionsForCustomerRequest
 	*/
-	GetInstitutionsForCustomer(ctx context.Context) DefaultApiApiGetInstitutionsForCustomerRequest
+	GetInstitutionsForCustomer(ctx context.Context) DefaultAPIGetInstitutionsForCustomerRequest
 
 	// GetInstitutionsForCustomerExecute executes the request
 	//  @return []Institution
-	GetInstitutionsForCustomerExecute(r DefaultApiApiGetInstitutionsForCustomerRequest) ([]Institution, *http.Response, error)
+	GetInstitutionsForCustomerExecute(r DefaultAPIGetInstitutionsForCustomerRequest) ([]Institution, *http.Response, error)
 
 	/*
 		GetPaymentLink Method for GetPaymentLink
 
 		Get payment link
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param paymentLinkId The payment link id
-		 @return DefaultApiApiGetPaymentLinkRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param paymentLinkId The payment link id
+		@return DefaultAPIGetPaymentLinkRequest
 	*/
-	GetPaymentLink(ctx context.Context, paymentLinkId string) DefaultApiApiGetPaymentLinkRequest
+	GetPaymentLink(ctx context.Context, paymentLinkId string) DefaultAPIGetPaymentLinkRequest
 
 	// GetPaymentLinkExecute executes the request
 	//  @return PaymentLinkResponse
-	GetPaymentLinkExecute(r DefaultApiApiGetPaymentLinkRequest) (*PaymentLinkResponse, *http.Response, error)
+	GetPaymentLinkExecute(r DefaultAPIGetPaymentLinkRequest) (*PaymentLinkResponse, *http.Response, error)
 
 	/*
 		GetPaymentMethod Method for GetPaymentMethod
 
 		Get a payment method
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param paymentMethodId
-		 @return DefaultApiApiGetPaymentMethodRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param paymentMethodId
+		@return DefaultAPIGetPaymentMethodRequest
 	*/
-	GetPaymentMethod(ctx context.Context, paymentMethodId string) DefaultApiApiGetPaymentMethodRequest
+	GetPaymentMethod(ctx context.Context, paymentMethodId string) DefaultAPIGetPaymentMethodRequest
 
 	// GetPaymentMethodExecute executes the request
 	//  @return PaymentMethodResponse
-	GetPaymentMethodExecute(r DefaultApiApiGetPaymentMethodRequest) (*PaymentMethodResponse, *http.Response, error)
+	GetPaymentMethodExecute(r DefaultAPIGetPaymentMethodRequest) (*PaymentMethodResponse, *http.Response, error)
 
 	/*
 		GetPaymentMethodPaymentLink Method for GetPaymentMethodPaymentLink
 
 		Get payment method in payment link flow
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiGetPaymentMethodPaymentLinkRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPIGetPaymentMethodPaymentLinkRequest
 	*/
-	GetPaymentMethodPaymentLink(ctx context.Context) DefaultApiApiGetPaymentMethodPaymentLinkRequest
+	GetPaymentMethodPaymentLink(ctx context.Context) DefaultAPIGetPaymentMethodPaymentLinkRequest
 
 	// GetPaymentMethodPaymentLinkExecute executes the request
 	//  @return PaymentMethodFvLinkResponse
-	GetPaymentMethodPaymentLinkExecute(r DefaultApiApiGetPaymentMethodPaymentLinkRequest) (*PaymentMethodFvLinkResponse, *http.Response, error)
+	GetPaymentMethodPaymentLinkExecute(r DefaultAPIGetPaymentMethodPaymentLinkRequest) (*PaymentMethodFvLinkResponse, *http.Response, error)
 
 	/*
 		GetPaymentPaymentLink Method for GetPaymentPaymentLink
 
 		Get payment (if exists) on the payment link for front-end
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiGetPaymentPaymentLinkRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPIGetPaymentPaymentLinkRequest
 	*/
-	GetPaymentPaymentLink(ctx context.Context) DefaultApiApiGetPaymentPaymentLinkRequest
+	GetPaymentPaymentLink(ctx context.Context) DefaultAPIGetPaymentPaymentLinkRequest
 
 	// GetPaymentPaymentLinkExecute executes the request
 	//  @return PaymentFvLinkResponse
-	GetPaymentPaymentLinkExecute(r DefaultApiApiGetPaymentPaymentLinkRequest) (*PaymentFvLinkResponse, *http.Response, error)
+	GetPaymentPaymentLinkExecute(r DefaultAPIGetPaymentPaymentLinkRequest) (*PaymentFvLinkResponse, *http.Response, error)
 
 	/*
 		GetPayoutById Method for GetPayoutById
 
 		Get payout by payout_id
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param payoutId payout id
-		 @return DefaultApiApiGetPayoutByIdRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param payoutId payout id
+		@return DefaultAPIGetPayoutByIdRequest
 	*/
-	GetPayoutById(ctx context.Context, payoutId string) DefaultApiApiGetPayoutByIdRequest
+	GetPayoutById(ctx context.Context, payoutId string) DefaultAPIGetPayoutByIdRequest
 
 	// GetPayoutByIdExecute executes the request
 	//  @return PayoutSnapshotResponse
-	GetPayoutByIdExecute(r DefaultApiApiGetPayoutByIdRequest) (*PayoutSnapshotResponse, *http.Response, error)
+	GetPayoutByIdExecute(r DefaultAPIGetPayoutByIdRequest) (*PayoutSnapshotResponse, *http.Response, error)
 
 	/*
 		GetSenderPaymentUser Method for GetSenderPaymentUser
 
 		Get sender payment user in payment link flow
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiGetSenderPaymentUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPIGetSenderPaymentUserRequest
 	*/
-	GetSenderPaymentUser(ctx context.Context) DefaultApiApiGetSenderPaymentUserRequest
+	GetSenderPaymentUser(ctx context.Context) DefaultAPIGetSenderPaymentUserRequest
 
 	// GetSenderPaymentUserExecute executes the request
 	//  @return GetPaymentUserResponse
-	GetSenderPaymentUserExecute(r DefaultApiApiGetSenderPaymentUserRequest) (*GetPaymentUserResponse, *http.Response, error)
+	GetSenderPaymentUserExecute(r DefaultAPIGetSenderPaymentUserRequest) (*GetPaymentUserResponse, *http.Response, error)
 
 	/*
 		ListDetokenizedMandates Method for ListDetokenizedMandates
 
 		List mandates details
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiListDetokenizedMandatesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPIListDetokenizedMandatesRequest
 	*/
-	ListDetokenizedMandates(ctx context.Context) DefaultApiApiListDetokenizedMandatesRequest
+	ListDetokenizedMandates(ctx context.Context) DefaultAPIListDetokenizedMandatesRequest
 
 	// ListDetokenizedMandatesExecute executes the request
 	//  @return ListMandatesResponse
-	ListDetokenizedMandatesExecute(r DefaultApiApiListDetokenizedMandatesRequest) (*ListMandatesResponse, *http.Response, error)
+	ListDetokenizedMandatesExecute(r DefaultAPIListDetokenizedMandatesRequest) (*ListMandatesResponse, *http.Response, error)
 
 	/*
 		ListMandates Method for ListMandates
 
 		List mandates
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiListMandatesRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPIListMandatesRequest
 	*/
-	ListMandates(ctx context.Context) DefaultApiApiListMandatesRequest
+	ListMandates(ctx context.Context) DefaultAPIListMandatesRequest
 
 	// ListMandatesExecute executes the request
 	//  @return ListMandatesResponse
-	ListMandatesExecute(r DefaultApiApiListMandatesRequest) (*ListMandatesResponse, *http.Response, error)
+	ListMandatesExecute(r DefaultAPIListMandatesRequest) (*ListMandatesResponse, *http.Response, error)
 
 	/*
 		ListPaymentMethods Method for ListPaymentMethods
 
 		List Payment Methods for a User
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param paymentUserId Payment User Id
-		 @return DefaultApiApiListPaymentMethodsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param paymentUserId Payment User Id
+		@return DefaultAPIListPaymentMethodsRequest
 	*/
-	ListPaymentMethods(ctx context.Context, paymentUserId string) DefaultApiApiListPaymentMethodsRequest
+	ListPaymentMethods(ctx context.Context, paymentUserId string) DefaultAPIListPaymentMethodsRequest
 
 	// ListPaymentMethodsExecute executes the request
 	//  @return ListPaymentMethodsResponse
-	ListPaymentMethodsExecute(r DefaultApiApiListPaymentMethodsRequest) (*ListPaymentMethodsResponse, *http.Response, error)
+	ListPaymentMethodsExecute(r DefaultAPIListPaymentMethodsRequest) (*ListPaymentMethodsResponse, *http.Response, error)
 
 	/*
 		ListPayments Method for ListPayments
 
 		List Payments
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiListPaymentsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPIListPaymentsRequest
 	*/
-	ListPayments(ctx context.Context) DefaultApiApiListPaymentsRequest
+	ListPayments(ctx context.Context) DefaultAPIListPaymentsRequest
 
 	// ListPaymentsExecute executes the request
 	//  @return ListPaymentsResponse
-	ListPaymentsExecute(r DefaultApiApiListPaymentsRequest) (*ListPaymentsResponse, *http.Response, error)
+	ListPaymentsExecute(r DefaultAPIListPaymentsRequest) (*ListPaymentsResponse, *http.Response, error)
 
 	/*
 		RefreshPaymentAttempt Method for RefreshPaymentAttempt
 
 		Refresh payment attempt from payment link front-end
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiRefreshPaymentAttemptRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPIRefreshPaymentAttemptRequest
 	*/
-	RefreshPaymentAttempt(ctx context.Context) DefaultApiApiRefreshPaymentAttemptRequest
+	RefreshPaymentAttempt(ctx context.Context) DefaultAPIRefreshPaymentAttemptRequest
 
 	// RefreshPaymentAttemptExecute executes the request
 	//  @return RefreshPaymentAttemptResponse
-	RefreshPaymentAttemptExecute(r DefaultApiApiRefreshPaymentAttemptRequest) (*RefreshPaymentAttemptResponse, *http.Response, error)
+	RefreshPaymentAttemptExecute(r DefaultAPIRefreshPaymentAttemptRequest) (*RefreshPaymentAttemptResponse, *http.Response, error)
 
 	/*
 		SetAutopayConsent Method for SetAutopayConsent
 
 		Set autopay consent for payment user
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiSetAutopayConsentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPISetAutopayConsentRequest
 	*/
-	SetAutopayConsent(ctx context.Context) DefaultApiApiSetAutopayConsentRequest
+	SetAutopayConsent(ctx context.Context) DefaultAPISetAutopayConsentRequest
 
 	// SetAutopayConsentExecute executes the request
-	SetAutopayConsentExecute(r DefaultApiApiSetAutopayConsentRequest) (*http.Response, error)
+	SetAutopayConsentExecute(r DefaultAPISetAutopayConsentRequest) (*http.Response, error)
 
 	/*
 		UnlinkPaymentPaymentLink Method for UnlinkPaymentPaymentLink
 
 		Unlink payment on payment link
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return DefaultApiApiUnlinkPaymentPaymentLinkRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPIUnlinkPaymentPaymentLinkRequest
 	*/
-	UnlinkPaymentPaymentLink(ctx context.Context) DefaultApiApiUnlinkPaymentPaymentLinkRequest
+	UnlinkPaymentPaymentLink(ctx context.Context) DefaultAPIUnlinkPaymentPaymentLinkRequest
 
 	// UnlinkPaymentPaymentLinkExecute executes the request
-	UnlinkPaymentPaymentLinkExecute(r DefaultApiApiUnlinkPaymentPaymentLinkRequest) (*http.Response, error)
+	UnlinkPaymentPaymentLinkExecute(r DefaultAPIUnlinkPaymentPaymentLinkRequest) (*http.Response, error)
 
 	/*
 		UpdatePaymentUser Method for UpdatePaymentUser
 
 		Update a payment user
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param paymentUserId
-		 @return DefaultApiApiUpdatePaymentUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param paymentUserId
+		@return DefaultAPIUpdatePaymentUserRequest
 	*/
-	UpdatePaymentUser(ctx context.Context, paymentUserId string) DefaultApiApiUpdatePaymentUserRequest
+	UpdatePaymentUser(ctx context.Context, paymentUserId string) DefaultAPIUpdatePaymentUserRequest
 
 	// UpdatePaymentUserExecute executes the request
 	//  @return PaymentUser
-	UpdatePaymentUserExecute(r DefaultApiApiUpdatePaymentUserRequest) (*PaymentUser, *http.Response, error)
+	UpdatePaymentUserExecute(r DefaultAPIUpdatePaymentUserRequest) (*PaymentUser, *http.Response, error)
 }
 
-// DefaultApiService DefaultApi service
-type DefaultApiService service
+// DefaultAPIService DefaultAPI service
+type DefaultAPIService service
 
-type DefaultApiApiCancelPaymentLinkRequest struct {
+type DefaultAPICancelPaymentLinkRequest struct {
 	ctx           context.Context
-	ApiService    DefaultApi
+	ApiService    DefaultAPI
 	paymentLinkId string
 }
 
-func (r DefaultApiApiCancelPaymentLinkRequest) Execute() (*PaymentLinkResponse, *http.Response, error) {
+func (r DefaultAPICancelPaymentLinkRequest) Execute() (*PaymentLinkResponse, *http.Response, error) {
 	return r.ApiService.CancelPaymentLinkExecute(r)
 }
 
@@ -460,10 +455,10 @@ Cancel a payment link
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param paymentLinkId The payment link id
- @return DefaultApiApiCancelPaymentLinkRequest
+ @return DefaultAPICancelPaymentLinkRequest
 */
-func (a *DefaultApiService) CancelPaymentLink(ctx context.Context, paymentLinkId string) DefaultApiApiCancelPaymentLinkRequest {
-	return DefaultApiApiCancelPaymentLinkRequest{
+func (a *DefaultAPIService) CancelPaymentLink(ctx context.Context, paymentLinkId string) DefaultAPICancelPaymentLinkRequest {
+	return DefaultAPICancelPaymentLinkRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		paymentLinkId: paymentLinkId,
@@ -472,7 +467,7 @@ func (a *DefaultApiService) CancelPaymentLink(ctx context.Context, paymentLinkId
 
 // Execute executes the request
 //  @return PaymentLinkResponse
-func (a *DefaultApiService) CancelPaymentLinkExecute(r DefaultApiApiCancelPaymentLinkRequest) (*PaymentLinkResponse, *http.Response, error) {
+func (a *DefaultAPIService) CancelPaymentLinkExecute(r DefaultAPICancelPaymentLinkRequest) (*PaymentLinkResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -480,13 +475,13 @@ func (a *DefaultApiService) CancelPaymentLinkExecute(r DefaultApiApiCancelPaymen
 		localVarReturnValue *PaymentLinkResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CancelPaymentLink")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.CancelPaymentLink")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/payment_links/{paymentLinkId}/cancel"
-	localVarPath = strings.Replace(localVarPath, "{"+"paymentLinkId"+"}", url.PathEscape(parameterToString(r.paymentLinkId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentLinkId"+"}", url.PathEscape(parameterValueToString(r.paymentLinkId, "paymentLinkId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -522,11 +517,18 @@ func (a *DefaultApiService) CancelPaymentLinkExecute(r DefaultApiApiCancelPaymen
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -541,6 +543,7 @@ func (a *DefaultApiService) CancelPaymentLinkExecute(r DefaultApiApiCancelPaymen
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -551,6 +554,7 @@ func (a *DefaultApiService) CancelPaymentLinkExecute(r DefaultApiApiCancelPaymen
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -568,13 +572,13 @@ func (a *DefaultApiService) CancelPaymentLinkExecute(r DefaultApiApiCancelPaymen
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiCancelPayoutRequest struct {
+type DefaultAPICancelPayoutRequest struct {
 	ctx        context.Context
-	ApiService DefaultApi
+	ApiService DefaultAPI
 	payoutId   string
 }
 
-func (r DefaultApiApiCancelPayoutRequest) Execute() (*PayoutSnapshotResponse, *http.Response, error) {
+func (r DefaultAPICancelPayoutRequest) Execute() (*PayoutSnapshotResponse, *http.Response, error) {
 	return r.ApiService.CancelPayoutExecute(r)
 }
 
@@ -585,10 +589,10 @@ Cancel Payout by payout_id
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param payoutId payout id
- @return DefaultApiApiCancelPayoutRequest
+ @return DefaultAPICancelPayoutRequest
 */
-func (a *DefaultApiService) CancelPayout(ctx context.Context, payoutId string) DefaultApiApiCancelPayoutRequest {
-	return DefaultApiApiCancelPayoutRequest{
+func (a *DefaultAPIService) CancelPayout(ctx context.Context, payoutId string) DefaultAPICancelPayoutRequest {
+	return DefaultAPICancelPayoutRequest{
 		ApiService: a,
 		ctx:        ctx,
 		payoutId:   payoutId,
@@ -597,7 +601,7 @@ func (a *DefaultApiService) CancelPayout(ctx context.Context, payoutId string) D
 
 // Execute executes the request
 //  @return PayoutSnapshotResponse
-func (a *DefaultApiService) CancelPayoutExecute(r DefaultApiApiCancelPayoutRequest) (*PayoutSnapshotResponse, *http.Response, error) {
+func (a *DefaultAPIService) CancelPayoutExecute(r DefaultAPICancelPayoutRequest) (*PayoutSnapshotResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -605,13 +609,13 @@ func (a *DefaultApiService) CancelPayoutExecute(r DefaultApiApiCancelPayoutReque
 		localVarReturnValue *PayoutSnapshotResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CancelPayout")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.CancelPayout")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/payouts/{payoutId}/cancel"
-	localVarPath = strings.Replace(localVarPath, "{"+"payoutId"+"}", url.PathEscape(parameterToString(r.payoutId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"payoutId"+"}", url.PathEscape(parameterValueToString(r.payoutId, "payoutId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -644,11 +648,18 @@ func (a *DefaultApiService) CancelPayoutExecute(r DefaultApiApiCancelPayoutReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -663,6 +674,7 @@ func (a *DefaultApiService) CancelPayoutExecute(r DefaultApiApiCancelPayoutReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -673,6 +685,7 @@ func (a *DefaultApiService) CancelPayoutExecute(r DefaultApiApiCancelPayoutReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -683,6 +696,7 @@ func (a *DefaultApiService) CancelPayoutExecute(r DefaultApiApiCancelPayoutReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -700,12 +714,12 @@ func (a *DefaultApiService) CancelPayoutExecute(r DefaultApiApiCancelPayoutReque
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiChangePaymentMethodPaymentLinkRequest struct {
+type DefaultAPIChangePaymentMethodPaymentLinkRequest struct {
 	ctx        context.Context
-	ApiService DefaultApi
+	ApiService DefaultAPI
 }
 
-func (r DefaultApiApiChangePaymentMethodPaymentLinkRequest) Execute() (*ChangePaymentMethodFvLinkResponse, *http.Response, error) {
+func (r DefaultAPIChangePaymentMethodPaymentLinkRequest) Execute() (*ChangePaymentMethodFvLinkResponse, *http.Response, error) {
 	return r.ApiService.ChangePaymentMethodPaymentLinkExecute(r)
 }
 
@@ -715,10 +729,10 @@ ChangePaymentMethodPaymentLink Method for ChangePaymentMethodPaymentLink
 Initiate change payment method from payment link front-end
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiChangePaymentMethodPaymentLinkRequest
+ @return DefaultAPIChangePaymentMethodPaymentLinkRequest
 */
-func (a *DefaultApiService) ChangePaymentMethodPaymentLink(ctx context.Context) DefaultApiApiChangePaymentMethodPaymentLinkRequest {
-	return DefaultApiApiChangePaymentMethodPaymentLinkRequest{
+func (a *DefaultAPIService) ChangePaymentMethodPaymentLink(ctx context.Context) DefaultAPIChangePaymentMethodPaymentLinkRequest {
+	return DefaultAPIChangePaymentMethodPaymentLinkRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -726,7 +740,7 @@ func (a *DefaultApiService) ChangePaymentMethodPaymentLink(ctx context.Context) 
 
 // Execute executes the request
 //  @return ChangePaymentMethodFvLinkResponse
-func (a *DefaultApiService) ChangePaymentMethodPaymentLinkExecute(r DefaultApiApiChangePaymentMethodPaymentLinkRequest) (*ChangePaymentMethodFvLinkResponse, *http.Response, error) {
+func (a *DefaultAPIService) ChangePaymentMethodPaymentLinkExecute(r DefaultAPIChangePaymentMethodPaymentLinkRequest) (*ChangePaymentMethodFvLinkResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -734,7 +748,7 @@ func (a *DefaultApiService) ChangePaymentMethodPaymentLinkExecute(r DefaultApiAp
 		localVarReturnValue *ChangePaymentMethodFvLinkResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ChangePaymentMethodPaymentLink")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ChangePaymentMethodPaymentLink")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -772,11 +786,18 @@ func (a *DefaultApiService) ChangePaymentMethodPaymentLinkExecute(r DefaultApiAp
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -791,6 +812,7 @@ func (a *DefaultApiService) ChangePaymentMethodPaymentLinkExecute(r DefaultApiAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -801,6 +823,7 @@ func (a *DefaultApiService) ChangePaymentMethodPaymentLinkExecute(r DefaultApiAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -811,6 +834,7 @@ func (a *DefaultApiService) ChangePaymentMethodPaymentLinkExecute(r DefaultApiAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -828,19 +852,19 @@ func (a *DefaultApiService) ChangePaymentMethodPaymentLinkExecute(r DefaultApiAp
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiConfirmManualPaymentRequest struct {
+type DefaultAPIConfirmManualPaymentRequest struct {
 	ctx                      context.Context
-	ApiService               DefaultApi
+	ApiService               DefaultAPI
 	manualPaymentIdentifiers *ManualPaymentConfirmationRequest
 }
 
 // Request body containing information to identify manual payment
-func (r DefaultApiApiConfirmManualPaymentRequest) ManualPaymentIdentifiers(manualPaymentIdentifiers ManualPaymentConfirmationRequest) DefaultApiApiConfirmManualPaymentRequest {
+func (r DefaultAPIConfirmManualPaymentRequest) ManualPaymentIdentifiers(manualPaymentIdentifiers ManualPaymentConfirmationRequest) DefaultAPIConfirmManualPaymentRequest {
 	r.manualPaymentIdentifiers = &manualPaymentIdentifiers
 	return r
 }
 
-func (r DefaultApiApiConfirmManualPaymentRequest) Execute() (*ManualPaymentConfirmationResponse, *http.Response, error) {
+func (r DefaultAPIConfirmManualPaymentRequest) Execute() (*ManualPaymentConfirmationResponse, *http.Response, error) {
 	return r.ApiService.ConfirmManualPaymentExecute(r)
 }
 
@@ -850,10 +874,10 @@ ConfirmManualPayment Method for ConfirmManualPayment
 Submit manual payment confirmation
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiConfirmManualPaymentRequest
+ @return DefaultAPIConfirmManualPaymentRequest
 */
-func (a *DefaultApiService) ConfirmManualPayment(ctx context.Context) DefaultApiApiConfirmManualPaymentRequest {
-	return DefaultApiApiConfirmManualPaymentRequest{
+func (a *DefaultAPIService) ConfirmManualPayment(ctx context.Context) DefaultAPIConfirmManualPaymentRequest {
+	return DefaultAPIConfirmManualPaymentRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -861,7 +885,7 @@ func (a *DefaultApiService) ConfirmManualPayment(ctx context.Context) DefaultApi
 
 // Execute executes the request
 //  @return ManualPaymentConfirmationResponse
-func (a *DefaultApiService) ConfirmManualPaymentExecute(r DefaultApiApiConfirmManualPaymentRequest) (*ManualPaymentConfirmationResponse, *http.Response, error) {
+func (a *DefaultAPIService) ConfirmManualPaymentExecute(r DefaultAPIConfirmManualPaymentRequest) (*ManualPaymentConfirmationResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -869,7 +893,7 @@ func (a *DefaultApiService) ConfirmManualPaymentExecute(r DefaultApiApiConfirmMa
 		localVarReturnValue *ManualPaymentConfirmationResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ConfirmManualPayment")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ConfirmManualPayment")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -912,11 +936,18 @@ func (a *DefaultApiService) ConfirmManualPaymentExecute(r DefaultApiApiConfirmMa
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -931,6 +962,7 @@ func (a *DefaultApiService) ConfirmManualPaymentExecute(r DefaultApiApiConfirmMa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -941,6 +973,7 @@ func (a *DefaultApiService) ConfirmManualPaymentExecute(r DefaultApiApiConfirmMa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -958,12 +991,12 @@ func (a *DefaultApiService) ConfirmManualPaymentExecute(r DefaultApiApiConfirmMa
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiConfirmPaymentRequest struct {
+type DefaultAPIConfirmPaymentRequest struct {
 	ctx        context.Context
-	ApiService DefaultApi
+	ApiService DefaultAPI
 }
 
-func (r DefaultApiApiConfirmPaymentRequest) Execute() (*ConfirmPaymentResponse, *http.Response, error) {
+func (r DefaultAPIConfirmPaymentRequest) Execute() (*ConfirmPaymentResponse, *http.Response, error) {
 	return r.ApiService.ConfirmPaymentExecute(r)
 }
 
@@ -973,10 +1006,10 @@ ConfirmPayment Method for ConfirmPayment
 Confirm a payment against a payment Link
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiConfirmPaymentRequest
+ @return DefaultAPIConfirmPaymentRequest
 */
-func (a *DefaultApiService) ConfirmPayment(ctx context.Context) DefaultApiApiConfirmPaymentRequest {
-	return DefaultApiApiConfirmPaymentRequest{
+func (a *DefaultAPIService) ConfirmPayment(ctx context.Context) DefaultAPIConfirmPaymentRequest {
+	return DefaultAPIConfirmPaymentRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -984,7 +1017,7 @@ func (a *DefaultApiService) ConfirmPayment(ctx context.Context) DefaultApiApiCon
 
 // Execute executes the request
 //  @return ConfirmPaymentResponse
-func (a *DefaultApiService) ConfirmPaymentExecute(r DefaultApiApiConfirmPaymentRequest) (*ConfirmPaymentResponse, *http.Response, error) {
+func (a *DefaultAPIService) ConfirmPaymentExecute(r DefaultAPIConfirmPaymentRequest) (*ConfirmPaymentResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -992,7 +1025,7 @@ func (a *DefaultApiService) ConfirmPaymentExecute(r DefaultApiApiConfirmPaymentR
 		localVarReturnValue *ConfirmPaymentResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ConfirmPayment")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ConfirmPayment")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1030,11 +1063,18 @@ func (a *DefaultApiService) ConfirmPaymentExecute(r DefaultApiApiConfirmPaymentR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1049,6 +1089,7 @@ func (a *DefaultApiService) ConfirmPaymentExecute(r DefaultApiApiConfirmPaymentR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1059,6 +1100,7 @@ func (a *DefaultApiService) ConfirmPaymentExecute(r DefaultApiApiConfirmPaymentR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1076,12 +1118,12 @@ func (a *DefaultApiService) ConfirmPaymentExecute(r DefaultApiApiConfirmPaymentR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiCreateFpsTokenRequest struct {
+type DefaultAPICreateFpsTokenRequest struct {
 	ctx        context.Context
-	ApiService DefaultApi
+	ApiService DefaultAPI
 }
 
-func (r DefaultApiApiCreateFpsTokenRequest) Execute() (*CreateFpsTokenResponse, *http.Response, error) {
+func (r DefaultAPICreateFpsTokenRequest) Execute() (*CreateFpsTokenResponse, *http.Response, error) {
 	return r.ApiService.CreateFpsTokenExecute(r)
 }
 
@@ -1091,10 +1133,10 @@ CreateFpsToken Method for CreateFpsToken
 Create token for fps flow
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiCreateFpsTokenRequest
+ @return DefaultAPICreateFpsTokenRequest
 */
-func (a *DefaultApiService) CreateFpsToken(ctx context.Context) DefaultApiApiCreateFpsTokenRequest {
-	return DefaultApiApiCreateFpsTokenRequest{
+func (a *DefaultAPIService) CreateFpsToken(ctx context.Context) DefaultAPICreateFpsTokenRequest {
+	return DefaultAPICreateFpsTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1102,7 +1144,7 @@ func (a *DefaultApiService) CreateFpsToken(ctx context.Context) DefaultApiApiCre
 
 // Execute executes the request
 //  @return CreateFpsTokenResponse
-func (a *DefaultApiService) CreateFpsTokenExecute(r DefaultApiApiCreateFpsTokenRequest) (*CreateFpsTokenResponse, *http.Response, error) {
+func (a *DefaultAPIService) CreateFpsTokenExecute(r DefaultAPICreateFpsTokenRequest) (*CreateFpsTokenResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1110,7 +1152,7 @@ func (a *DefaultApiService) CreateFpsTokenExecute(r DefaultApiApiCreateFpsTokenR
 		localVarReturnValue *CreateFpsTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CreateFpsToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.CreateFpsToken")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1148,11 +1190,18 @@ func (a *DefaultApiService) CreateFpsTokenExecute(r DefaultApiApiCreateFpsTokenR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1167,6 +1216,7 @@ func (a *DefaultApiService) CreateFpsTokenExecute(r DefaultApiApiCreateFpsTokenR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1177,6 +1227,7 @@ func (a *DefaultApiService) CreateFpsTokenExecute(r DefaultApiApiCreateFpsTokenR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1187,6 +1238,7 @@ func (a *DefaultApiService) CreateFpsTokenExecute(r DefaultApiApiCreateFpsTokenR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1204,26 +1256,26 @@ func (a *DefaultApiService) CreateFpsTokenExecute(r DefaultApiApiCreateFpsTokenR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiCreateMandateForExistingSenderRequest struct {
+type DefaultAPICreateMandateForExistingSenderRequest struct {
 	ctx                  context.Context
-	ApiService           DefaultApi
+	ApiService           DefaultAPI
 	idempotencyKey       *string
 	createMandateRequest *CreateMandateWithSenderAccountRequest
 }
 
 // A random key provided by the customer, per unique payment. The purpose for the Idempotency key is to allow safe retrying without the operation being performed multiple times.
-func (r DefaultApiApiCreateMandateForExistingSenderRequest) IdempotencyKey(idempotencyKey string) DefaultApiApiCreateMandateForExistingSenderRequest {
+func (r DefaultAPICreateMandateForExistingSenderRequest) IdempotencyKey(idempotencyKey string) DefaultAPICreateMandateForExistingSenderRequest {
 	r.idempotencyKey = &idempotencyKey
 	return r
 }
 
 // request body for creating mandate
-func (r DefaultApiApiCreateMandateForExistingSenderRequest) CreateMandateRequest(createMandateRequest CreateMandateWithSenderAccountRequest) DefaultApiApiCreateMandateForExistingSenderRequest {
+func (r DefaultAPICreateMandateForExistingSenderRequest) CreateMandateRequest(createMandateRequest CreateMandateWithSenderAccountRequest) DefaultAPICreateMandateForExistingSenderRequest {
 	r.createMandateRequest = &createMandateRequest
 	return r
 }
 
-func (r DefaultApiApiCreateMandateForExistingSenderRequest) Execute() (*CreateMandateResponse, *http.Response, error) {
+func (r DefaultAPICreateMandateForExistingSenderRequest) Execute() (*CreateMandateResponse, *http.Response, error) {
 	return r.ApiService.CreateMandateForExistingSenderExecute(r)
 }
 
@@ -1233,10 +1285,10 @@ CreateMandateForExistingSender Method for CreateMandateForExistingSender
 Create mandate for an existing sender account
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiCreateMandateForExistingSenderRequest
+ @return DefaultAPICreateMandateForExistingSenderRequest
 */
-func (a *DefaultApiService) CreateMandateForExistingSender(ctx context.Context) DefaultApiApiCreateMandateForExistingSenderRequest {
-	return DefaultApiApiCreateMandateForExistingSenderRequest{
+func (a *DefaultAPIService) CreateMandateForExistingSender(ctx context.Context) DefaultAPICreateMandateForExistingSenderRequest {
+	return DefaultAPICreateMandateForExistingSenderRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1244,7 +1296,7 @@ func (a *DefaultApiService) CreateMandateForExistingSender(ctx context.Context) 
 
 // Execute executes the request
 //  @return CreateMandateResponse
-func (a *DefaultApiService) CreateMandateForExistingSenderExecute(r DefaultApiApiCreateMandateForExistingSenderRequest) (*CreateMandateResponse, *http.Response, error) {
+func (a *DefaultAPIService) CreateMandateForExistingSenderExecute(r DefaultAPICreateMandateForExistingSenderRequest) (*CreateMandateResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1252,7 +1304,7 @@ func (a *DefaultApiService) CreateMandateForExistingSenderExecute(r DefaultApiAp
 		localVarReturnValue *CreateMandateResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CreateMandateForExistingSender")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.CreateMandateForExistingSender")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1286,7 +1338,7 @@ func (a *DefaultApiService) CreateMandateForExistingSenderExecute(r DefaultApiAp
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	localVarHeaderParams["Idempotency-Key"] = parameterToString(*r.idempotencyKey, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "", "")
 	// body params
 	localVarPostBody = r.createMandateRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -1299,11 +1351,18 @@ func (a *DefaultApiService) CreateMandateForExistingSenderExecute(r DefaultApiAp
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1318,6 +1377,7 @@ func (a *DefaultApiService) CreateMandateForExistingSenderExecute(r DefaultApiAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1328,6 +1388,7 @@ func (a *DefaultApiService) CreateMandateForExistingSenderExecute(r DefaultApiAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1338,6 +1399,7 @@ func (a *DefaultApiService) CreateMandateForExistingSenderExecute(r DefaultApiAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1355,19 +1417,19 @@ func (a *DefaultApiService) CreateMandateForExistingSenderExecute(r DefaultApiAp
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiCreatePaymentLinkRequest struct {
+type DefaultAPICreatePaymentLinkRequest struct {
 	ctx                      context.Context
-	ApiService               DefaultApi
+	ApiService               DefaultAPI
 	createPaymentLinkRequest *CreatePaymentLinkRequest
 }
 
 // Parameters required to create a payment link
-func (r DefaultApiApiCreatePaymentLinkRequest) CreatePaymentLinkRequest(createPaymentLinkRequest CreatePaymentLinkRequest) DefaultApiApiCreatePaymentLinkRequest {
+func (r DefaultAPICreatePaymentLinkRequest) CreatePaymentLinkRequest(createPaymentLinkRequest CreatePaymentLinkRequest) DefaultAPICreatePaymentLinkRequest {
 	r.createPaymentLinkRequest = &createPaymentLinkRequest
 	return r
 }
 
-func (r DefaultApiApiCreatePaymentLinkRequest) Execute() (*PaymentLinkResponse, *http.Response, error) {
+func (r DefaultAPICreatePaymentLinkRequest) Execute() (*PaymentLinkResponse, *http.Response, error) {
 	return r.ApiService.CreatePaymentLinkExecute(r)
 }
 
@@ -1377,10 +1439,10 @@ CreatePaymentLink Method for CreatePaymentLink
 Create payment link
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiCreatePaymentLinkRequest
+ @return DefaultAPICreatePaymentLinkRequest
 */
-func (a *DefaultApiService) CreatePaymentLink(ctx context.Context) DefaultApiApiCreatePaymentLinkRequest {
-	return DefaultApiApiCreatePaymentLinkRequest{
+func (a *DefaultAPIService) CreatePaymentLink(ctx context.Context) DefaultAPICreatePaymentLinkRequest {
+	return DefaultAPICreatePaymentLinkRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1388,7 +1450,7 @@ func (a *DefaultApiService) CreatePaymentLink(ctx context.Context) DefaultApiApi
 
 // Execute executes the request
 //  @return PaymentLinkResponse
-func (a *DefaultApiService) CreatePaymentLinkExecute(r DefaultApiApiCreatePaymentLinkRequest) (*PaymentLinkResponse, *http.Response, error) {
+func (a *DefaultAPIService) CreatePaymentLinkExecute(r DefaultAPICreatePaymentLinkRequest) (*PaymentLinkResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1396,7 +1458,7 @@ func (a *DefaultApiService) CreatePaymentLinkExecute(r DefaultApiApiCreatePaymen
 		localVarReturnValue *PaymentLinkResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CreatePaymentLink")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.CreatePaymentLink")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1439,11 +1501,18 @@ func (a *DefaultApiService) CreatePaymentLinkExecute(r DefaultApiApiCreatePaymen
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1458,6 +1527,7 @@ func (a *DefaultApiService) CreatePaymentLinkExecute(r DefaultApiApiCreatePaymen
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1468,6 +1538,7 @@ func (a *DefaultApiService) CreatePaymentLinkExecute(r DefaultApiApiCreatePaymen
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1485,12 +1556,12 @@ func (a *DefaultApiService) CreatePaymentLinkExecute(r DefaultApiApiCreatePaymen
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiCreatePaymentLinkCardPaymentRequest struct {
+type DefaultAPICreatePaymentLinkCardPaymentRequest struct {
 	ctx        context.Context
-	ApiService DefaultApi
+	ApiService DefaultAPI
 }
 
-func (r DefaultApiApiCreatePaymentLinkCardPaymentRequest) Execute() (*CreatePaymentLinkCardPaymentResponse, *http.Response, error) {
+func (r DefaultAPICreatePaymentLinkCardPaymentRequest) Execute() (*CreatePaymentLinkCardPaymentResponse, *http.Response, error) {
 	return r.ApiService.CreatePaymentLinkCardPaymentExecute(r)
 }
 
@@ -1500,10 +1571,10 @@ CreatePaymentLinkCardPayment Method for CreatePaymentLinkCardPayment
 Initiate Card Payment for a Payment Link
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiCreatePaymentLinkCardPaymentRequest
+ @return DefaultAPICreatePaymentLinkCardPaymentRequest
 */
-func (a *DefaultApiService) CreatePaymentLinkCardPayment(ctx context.Context) DefaultApiApiCreatePaymentLinkCardPaymentRequest {
-	return DefaultApiApiCreatePaymentLinkCardPaymentRequest{
+func (a *DefaultAPIService) CreatePaymentLinkCardPayment(ctx context.Context) DefaultAPICreatePaymentLinkCardPaymentRequest {
+	return DefaultAPICreatePaymentLinkCardPaymentRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1511,7 +1582,7 @@ func (a *DefaultApiService) CreatePaymentLinkCardPayment(ctx context.Context) De
 
 // Execute executes the request
 //  @return CreatePaymentLinkCardPaymentResponse
-func (a *DefaultApiService) CreatePaymentLinkCardPaymentExecute(r DefaultApiApiCreatePaymentLinkCardPaymentRequest) (*CreatePaymentLinkCardPaymentResponse, *http.Response, error) {
+func (a *DefaultAPIService) CreatePaymentLinkCardPaymentExecute(r DefaultAPICreatePaymentLinkCardPaymentRequest) (*CreatePaymentLinkCardPaymentResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1519,7 +1590,7 @@ func (a *DefaultApiService) CreatePaymentLinkCardPaymentExecute(r DefaultApiApiC
 		localVarReturnValue *CreatePaymentLinkCardPaymentResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CreatePaymentLinkCardPayment")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.CreatePaymentLinkCardPayment")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1557,11 +1628,18 @@ func (a *DefaultApiService) CreatePaymentLinkCardPaymentExecute(r DefaultApiApiC
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1576,6 +1654,7 @@ func (a *DefaultApiService) CreatePaymentLinkCardPaymentExecute(r DefaultApiApiC
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1586,6 +1665,7 @@ func (a *DefaultApiService) CreatePaymentLinkCardPaymentExecute(r DefaultApiApiC
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1596,6 +1676,7 @@ func (a *DefaultApiService) CreatePaymentLinkCardPaymentExecute(r DefaultApiApiC
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1613,19 +1694,19 @@ func (a *DefaultApiService) CreatePaymentLinkCardPaymentExecute(r DefaultApiApiC
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiCreatePaymentLinkMandateRequest struct {
+type DefaultAPICreatePaymentLinkMandateRequest struct {
 	ctx                             context.Context
-	ApiService                      DefaultApi
+	ApiService                      DefaultAPI
 	createPaymentLinkMandateRequest *CreatePaymentLinkMandateRequest
 }
 
 // request body for creating mandate for payment-link
-func (r DefaultApiApiCreatePaymentLinkMandateRequest) CreatePaymentLinkMandateRequest(createPaymentLinkMandateRequest CreatePaymentLinkMandateRequest) DefaultApiApiCreatePaymentLinkMandateRequest {
+func (r DefaultAPICreatePaymentLinkMandateRequest) CreatePaymentLinkMandateRequest(createPaymentLinkMandateRequest CreatePaymentLinkMandateRequest) DefaultAPICreatePaymentLinkMandateRequest {
 	r.createPaymentLinkMandateRequest = &createPaymentLinkMandateRequest
 	return r
 }
 
-func (r DefaultApiApiCreatePaymentLinkMandateRequest) Execute() (*CreatePaymentLinkMandateResponse, *http.Response, error) {
+func (r DefaultAPICreatePaymentLinkMandateRequest) Execute() (*CreatePaymentLinkMandateResponse, *http.Response, error) {
 	return r.ApiService.CreatePaymentLinkMandateExecute(r)
 }
 
@@ -1635,10 +1716,10 @@ CreatePaymentLinkMandate Method for CreatePaymentLinkMandate
 CREATE Mandate for payment link
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiCreatePaymentLinkMandateRequest
+ @return DefaultAPICreatePaymentLinkMandateRequest
 */
-func (a *DefaultApiService) CreatePaymentLinkMandate(ctx context.Context) DefaultApiApiCreatePaymentLinkMandateRequest {
-	return DefaultApiApiCreatePaymentLinkMandateRequest{
+func (a *DefaultAPIService) CreatePaymentLinkMandate(ctx context.Context) DefaultAPICreatePaymentLinkMandateRequest {
+	return DefaultAPICreatePaymentLinkMandateRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1646,7 +1727,7 @@ func (a *DefaultApiService) CreatePaymentLinkMandate(ctx context.Context) Defaul
 
 // Execute executes the request
 //  @return CreatePaymentLinkMandateResponse
-func (a *DefaultApiService) CreatePaymentLinkMandateExecute(r DefaultApiApiCreatePaymentLinkMandateRequest) (*CreatePaymentLinkMandateResponse, *http.Response, error) {
+func (a *DefaultAPIService) CreatePaymentLinkMandateExecute(r DefaultAPICreatePaymentLinkMandateRequest) (*CreatePaymentLinkMandateResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1654,7 +1735,7 @@ func (a *DefaultApiService) CreatePaymentLinkMandateExecute(r DefaultApiApiCreat
 		localVarReturnValue *CreatePaymentLinkMandateResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CreatePaymentLinkMandate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.CreatePaymentLinkMandate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1697,11 +1778,18 @@ func (a *DefaultApiService) CreatePaymentLinkMandateExecute(r DefaultApiApiCreat
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1716,6 +1804,7 @@ func (a *DefaultApiService) CreatePaymentLinkMandateExecute(r DefaultApiApiCreat
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1726,6 +1815,7 @@ func (a *DefaultApiService) CreatePaymentLinkMandateExecute(r DefaultApiApiCreat
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1736,6 +1826,7 @@ func (a *DefaultApiService) CreatePaymentLinkMandateExecute(r DefaultApiApiCreat
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1753,19 +1844,19 @@ func (a *DefaultApiService) CreatePaymentLinkMandateExecute(r DefaultApiApiCreat
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiCreatePaymentMethodRequest struct {
+type DefaultAPICreatePaymentMethodRequest struct {
 	ctx                        context.Context
-	ApiService                 DefaultApi
+	ApiService                 DefaultAPI
 	paymentUserId              string
 	createPaymentMethodRequest *CreatePaymentMethodRequest
 }
 
-func (r DefaultApiApiCreatePaymentMethodRequest) CreatePaymentMethodRequest(createPaymentMethodRequest CreatePaymentMethodRequest) DefaultApiApiCreatePaymentMethodRequest {
+func (r DefaultAPICreatePaymentMethodRequest) CreatePaymentMethodRequest(createPaymentMethodRequest CreatePaymentMethodRequest) DefaultAPICreatePaymentMethodRequest {
 	r.createPaymentMethodRequest = &createPaymentMethodRequest
 	return r
 }
 
-func (r DefaultApiApiCreatePaymentMethodRequest) Execute() (*PaymentMethodResponse, *http.Response, error) {
+func (r DefaultAPICreatePaymentMethodRequest) Execute() (*PaymentMethodResponse, *http.Response, error) {
 	return r.ApiService.CreatePaymentMethodExecute(r)
 }
 
@@ -1776,10 +1867,10 @@ Create a Payment Method for a user
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param paymentUserId Payment User ID
- @return DefaultApiApiCreatePaymentMethodRequest
+ @return DefaultAPICreatePaymentMethodRequest
 */
-func (a *DefaultApiService) CreatePaymentMethod(ctx context.Context, paymentUserId string) DefaultApiApiCreatePaymentMethodRequest {
-	return DefaultApiApiCreatePaymentMethodRequest{
+func (a *DefaultAPIService) CreatePaymentMethod(ctx context.Context, paymentUserId string) DefaultAPICreatePaymentMethodRequest {
+	return DefaultAPICreatePaymentMethodRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		paymentUserId: paymentUserId,
@@ -1788,7 +1879,7 @@ func (a *DefaultApiService) CreatePaymentMethod(ctx context.Context, paymentUser
 
 // Execute executes the request
 //  @return PaymentMethodResponse
-func (a *DefaultApiService) CreatePaymentMethodExecute(r DefaultApiApiCreatePaymentMethodRequest) (*PaymentMethodResponse, *http.Response, error) {
+func (a *DefaultAPIService) CreatePaymentMethodExecute(r DefaultAPICreatePaymentMethodRequest) (*PaymentMethodResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1796,13 +1887,13 @@ func (a *DefaultApiService) CreatePaymentMethodExecute(r DefaultApiApiCreatePaym
 		localVarReturnValue *PaymentMethodResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CreatePaymentMethod")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.CreatePaymentMethod")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/payment_users/{paymentUserId}/payment_methods"
-	localVarPath = strings.Replace(localVarPath, "{"+"paymentUserId"+"}", url.PathEscape(parameterToString(r.paymentUserId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentUserId"+"}", url.PathEscape(parameterValueToString(r.paymentUserId, "paymentUserId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1840,11 +1931,18 @@ func (a *DefaultApiService) CreatePaymentMethodExecute(r DefaultApiApiCreatePaym
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1859,6 +1957,7 @@ func (a *DefaultApiService) CreatePaymentMethodExecute(r DefaultApiApiCreatePaym
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1869,6 +1968,7 @@ func (a *DefaultApiService) CreatePaymentMethodExecute(r DefaultApiApiCreatePaym
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1879,6 +1979,7 @@ func (a *DefaultApiService) CreatePaymentMethodExecute(r DefaultApiApiCreatePaym
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1896,26 +1997,26 @@ func (a *DefaultApiService) CreatePaymentMethodExecute(r DefaultApiApiCreatePaym
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiCreateScheduledPayoutRequest struct {
+type DefaultAPICreateScheduledPayoutRequest struct {
 	ctx                          context.Context
-	ApiService                   DefaultApi
+	ApiService                   DefaultAPI
 	idempotencyKey               *string
 	createScheduledPayoutRequest *CreateScheduledPayoutRequest
 }
 
 // A random key provided by the customer, per unique payment. The purpose for the Idempotency key is to allow safe retrying without the operation being performed multiple times.
-func (r DefaultApiApiCreateScheduledPayoutRequest) IdempotencyKey(idempotencyKey string) DefaultApiApiCreateScheduledPayoutRequest {
+func (r DefaultAPICreateScheduledPayoutRequest) IdempotencyKey(idempotencyKey string) DefaultAPICreateScheduledPayoutRequest {
 	r.idempotencyKey = &idempotencyKey
 	return r
 }
 
 // Request body containing information to create scheduled payout
-func (r DefaultApiApiCreateScheduledPayoutRequest) CreateScheduledPayoutRequest(createScheduledPayoutRequest CreateScheduledPayoutRequest) DefaultApiApiCreateScheduledPayoutRequest {
+func (r DefaultAPICreateScheduledPayoutRequest) CreateScheduledPayoutRequest(createScheduledPayoutRequest CreateScheduledPayoutRequest) DefaultAPICreateScheduledPayoutRequest {
 	r.createScheduledPayoutRequest = &createScheduledPayoutRequest
 	return r
 }
 
-func (r DefaultApiApiCreateScheduledPayoutRequest) Execute() (*PayoutSnapshotResponse, *http.Response, error) {
+func (r DefaultAPICreateScheduledPayoutRequest) Execute() (*PayoutSnapshotResponse, *http.Response, error) {
 	return r.ApiService.CreateScheduledPayoutExecute(r)
 }
 
@@ -1925,10 +2026,10 @@ CreateScheduledPayout Method for CreateScheduledPayout
 Create a scheduled payout
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiCreateScheduledPayoutRequest
+ @return DefaultAPICreateScheduledPayoutRequest
 */
-func (a *DefaultApiService) CreateScheduledPayout(ctx context.Context) DefaultApiApiCreateScheduledPayoutRequest {
-	return DefaultApiApiCreateScheduledPayoutRequest{
+func (a *DefaultAPIService) CreateScheduledPayout(ctx context.Context) DefaultAPICreateScheduledPayoutRequest {
+	return DefaultAPICreateScheduledPayoutRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1936,7 +2037,7 @@ func (a *DefaultApiService) CreateScheduledPayout(ctx context.Context) DefaultAp
 
 // Execute executes the request
 //  @return PayoutSnapshotResponse
-func (a *DefaultApiService) CreateScheduledPayoutExecute(r DefaultApiApiCreateScheduledPayoutRequest) (*PayoutSnapshotResponse, *http.Response, error) {
+func (a *DefaultAPIService) CreateScheduledPayoutExecute(r DefaultAPICreateScheduledPayoutRequest) (*PayoutSnapshotResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1944,7 +2045,7 @@ func (a *DefaultApiService) CreateScheduledPayoutExecute(r DefaultApiApiCreateSc
 		localVarReturnValue *PayoutSnapshotResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.CreateScheduledPayout")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.CreateScheduledPayout")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1978,7 +2079,7 @@ func (a *DefaultApiService) CreateScheduledPayoutExecute(r DefaultApiApiCreateSc
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	localVarHeaderParams["Idempotency-Key"] = parameterToString(*r.idempotencyKey, "")
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "", "")
 	// body params
 	localVarPostBody = r.createScheduledPayoutRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
@@ -1991,11 +2092,18 @@ func (a *DefaultApiService) CreateScheduledPayoutExecute(r DefaultApiApiCreateSc
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2010,6 +2118,7 @@ func (a *DefaultApiService) CreateScheduledPayoutExecute(r DefaultApiApiCreateSc
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2020,6 +2129,7 @@ func (a *DefaultApiService) CreateScheduledPayoutExecute(r DefaultApiApiCreateSc
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2037,33 +2147,33 @@ func (a *DefaultApiService) CreateScheduledPayoutExecute(r DefaultApiApiCreateSc
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiDownloadBalanceStatementRequest struct {
+type DefaultAPIDownloadBalanceStatementRequest struct {
 	ctx        context.Context
-	ApiService DefaultApi
+	ApiService DefaultAPI
 	dateFrom   *string
 	dateTo     *string
 	currencies *[]string
 }
 
 // ISO format (YYYY-MM-DD)
-func (r DefaultApiApiDownloadBalanceStatementRequest) DateFrom(dateFrom string) DefaultApiApiDownloadBalanceStatementRequest {
+func (r DefaultAPIDownloadBalanceStatementRequest) DateFrom(dateFrom string) DefaultAPIDownloadBalanceStatementRequest {
 	r.dateFrom = &dateFrom
 	return r
 }
 
 // ISO format (YYYY-MM-DD)
-func (r DefaultApiApiDownloadBalanceStatementRequest) DateTo(dateTo string) DefaultApiApiDownloadBalanceStatementRequest {
+func (r DefaultAPIDownloadBalanceStatementRequest) DateTo(dateTo string) DefaultAPIDownloadBalanceStatementRequest {
 	r.dateTo = &dateTo
 	return r
 }
 
 // The currencies to filter for
-func (r DefaultApiApiDownloadBalanceStatementRequest) Currencies(currencies []string) DefaultApiApiDownloadBalanceStatementRequest {
+func (r DefaultAPIDownloadBalanceStatementRequest) Currencies(currencies []string) DefaultAPIDownloadBalanceStatementRequest {
 	r.currencies = &currencies
 	return r
 }
 
-func (r DefaultApiApiDownloadBalanceStatementRequest) Execute() (*DownloadBalanceStatementResponse, *http.Response, error) {
+func (r DefaultAPIDownloadBalanceStatementRequest) Execute() (*DownloadBalanceStatementResponse, *http.Response, error) {
 	return r.ApiService.DownloadBalanceStatementExecute(r)
 }
 
@@ -2073,10 +2183,10 @@ DownloadBalanceStatement Method for DownloadBalanceStatement
 Download the balance statement for the ledger (CSV)
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiDownloadBalanceStatementRequest
+ @return DefaultAPIDownloadBalanceStatementRequest
 */
-func (a *DefaultApiService) DownloadBalanceStatement(ctx context.Context) DefaultApiApiDownloadBalanceStatementRequest {
-	return DefaultApiApiDownloadBalanceStatementRequest{
+func (a *DefaultAPIService) DownloadBalanceStatement(ctx context.Context) DefaultAPIDownloadBalanceStatementRequest {
+	return DefaultAPIDownloadBalanceStatementRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2084,7 +2194,7 @@ func (a *DefaultApiService) DownloadBalanceStatement(ctx context.Context) Defaul
 
 // Execute executes the request
 //  @return DownloadBalanceStatementResponse
-func (a *DefaultApiService) DownloadBalanceStatementExecute(r DefaultApiApiDownloadBalanceStatementRequest) (*DownloadBalanceStatementResponse, *http.Response, error) {
+func (a *DefaultAPIService) DownloadBalanceStatementExecute(r DefaultAPIDownloadBalanceStatementRequest) (*DownloadBalanceStatementResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2092,7 +2202,7 @@ func (a *DefaultApiService) DownloadBalanceStatementExecute(r DefaultApiApiDownl
 		localVarReturnValue *DownloadBalanceStatementResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.DownloadBalanceStatement")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.DownloadBalanceStatement")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2104,13 +2214,13 @@ func (a *DefaultApiService) DownloadBalanceStatementExecute(r DefaultApiApiDownl
 	localVarFormParams := url.Values{}
 
 	if r.dateFrom != nil {
-		localVarQueryParams.Add("date_from", parameterToString(*r.dateFrom, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "date_from", r.dateFrom, "", "")
 	}
 	if r.dateTo != nil {
-		localVarQueryParams.Add("date_to", parameterToString(*r.dateTo, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "date_to", r.dateTo, "", "")
 	}
 	if r.currencies != nil {
-		localVarQueryParams.Add("currencies", parameterToString(*r.currencies, "csv"))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "currencies", r.currencies, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2139,11 +2249,18 @@ func (a *DefaultApiService) DownloadBalanceStatementExecute(r DefaultApiApiDownl
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2158,6 +2275,7 @@ func (a *DefaultApiService) DownloadBalanceStatementExecute(r DefaultApiApiDownl
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2175,12 +2293,12 @@ func (a *DefaultApiService) DownloadBalanceStatementExecute(r DefaultApiApiDownl
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiGetFpsQrCodeRequest struct {
+type DefaultAPIGetFpsQrCodeRequest struct {
 	ctx        context.Context
-	ApiService DefaultApi
+	ApiService DefaultAPI
 }
 
-func (r DefaultApiApiGetFpsQrCodeRequest) Execute() (*FpsQrCodeResponse, *http.Response, error) {
+func (r DefaultAPIGetFpsQrCodeRequest) Execute() (*FpsQrCodeResponse, *http.Response, error) {
 	return r.ApiService.GetFpsQrCodeExecute(r)
 }
 
@@ -2190,10 +2308,10 @@ GetFpsQrCode Method for GetFpsQrCode
 Get the FPS QR code
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiGetFpsQrCodeRequest
+ @return DefaultAPIGetFpsQrCodeRequest
 */
-func (a *DefaultApiService) GetFpsQrCode(ctx context.Context) DefaultApiApiGetFpsQrCodeRequest {
-	return DefaultApiApiGetFpsQrCodeRequest{
+func (a *DefaultAPIService) GetFpsQrCode(ctx context.Context) DefaultAPIGetFpsQrCodeRequest {
+	return DefaultAPIGetFpsQrCodeRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2201,7 +2319,7 @@ func (a *DefaultApiService) GetFpsQrCode(ctx context.Context) DefaultApiApiGetFp
 
 // Execute executes the request
 //  @return FpsQrCodeResponse
-func (a *DefaultApiService) GetFpsQrCodeExecute(r DefaultApiApiGetFpsQrCodeRequest) (*FpsQrCodeResponse, *http.Response, error) {
+func (a *DefaultAPIService) GetFpsQrCodeExecute(r DefaultAPIGetFpsQrCodeRequest) (*FpsQrCodeResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2209,7 +2327,7 @@ func (a *DefaultApiService) GetFpsQrCodeExecute(r DefaultApiApiGetFpsQrCodeReque
 		localVarReturnValue *FpsQrCodeResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetFpsQrCode")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetFpsQrCode")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2247,11 +2365,18 @@ func (a *DefaultApiService) GetFpsQrCodeExecute(r DefaultApiApiGetFpsQrCodeReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2266,6 +2391,7 @@ func (a *DefaultApiService) GetFpsQrCodeExecute(r DefaultApiApiGetFpsQrCodeReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2276,6 +2402,7 @@ func (a *DefaultApiService) GetFpsQrCodeExecute(r DefaultApiApiGetFpsQrCodeReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2286,6 +2413,7 @@ func (a *DefaultApiService) GetFpsQrCodeExecute(r DefaultApiApiGetFpsQrCodeReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2303,12 +2431,12 @@ func (a *DefaultApiService) GetFpsQrCodeExecute(r DefaultApiApiGetFpsQrCodeReque
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiGetInstitutionsForCustomerRequest struct {
+type DefaultAPIGetInstitutionsForCustomerRequest struct {
 	ctx        context.Context
-	ApiService DefaultApi
+	ApiService DefaultAPI
 }
 
-func (r DefaultApiApiGetInstitutionsForCustomerRequest) Execute() ([]Institution, *http.Response, error) {
+func (r DefaultAPIGetInstitutionsForCustomerRequest) Execute() ([]Institution, *http.Response, error) {
 	return r.ApiService.GetInstitutionsForCustomerExecute(r)
 }
 
@@ -2318,10 +2446,10 @@ GetInstitutionsForCustomer Method for GetInstitutionsForCustomer
 Get a customer-specific list of institutions for Finverse Link
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiGetInstitutionsForCustomerRequest
+ @return DefaultAPIGetInstitutionsForCustomerRequest
 */
-func (a *DefaultApiService) GetInstitutionsForCustomer(ctx context.Context) DefaultApiApiGetInstitutionsForCustomerRequest {
-	return DefaultApiApiGetInstitutionsForCustomerRequest{
+func (a *DefaultAPIService) GetInstitutionsForCustomer(ctx context.Context) DefaultAPIGetInstitutionsForCustomerRequest {
+	return DefaultAPIGetInstitutionsForCustomerRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2329,7 +2457,7 @@ func (a *DefaultApiService) GetInstitutionsForCustomer(ctx context.Context) Defa
 
 // Execute executes the request
 //  @return []Institution
-func (a *DefaultApiService) GetInstitutionsForCustomerExecute(r DefaultApiApiGetInstitutionsForCustomerRequest) ([]Institution, *http.Response, error) {
+func (a *DefaultAPIService) GetInstitutionsForCustomerExecute(r DefaultAPIGetInstitutionsForCustomerRequest) ([]Institution, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2337,7 +2465,7 @@ func (a *DefaultApiService) GetInstitutionsForCustomerExecute(r DefaultApiApiGet
 		localVarReturnValue []Institution
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetInstitutionsForCustomer")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetInstitutionsForCustomer")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2375,11 +2503,18 @@ func (a *DefaultApiService) GetInstitutionsForCustomerExecute(r DefaultApiApiGet
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2394,6 +2529,7 @@ func (a *DefaultApiService) GetInstitutionsForCustomerExecute(r DefaultApiApiGet
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2404,6 +2540,7 @@ func (a *DefaultApiService) GetInstitutionsForCustomerExecute(r DefaultApiApiGet
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2421,13 +2558,13 @@ func (a *DefaultApiService) GetInstitutionsForCustomerExecute(r DefaultApiApiGet
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiGetPaymentLinkRequest struct {
+type DefaultAPIGetPaymentLinkRequest struct {
 	ctx           context.Context
-	ApiService    DefaultApi
+	ApiService    DefaultAPI
 	paymentLinkId string
 }
 
-func (r DefaultApiApiGetPaymentLinkRequest) Execute() (*PaymentLinkResponse, *http.Response, error) {
+func (r DefaultAPIGetPaymentLinkRequest) Execute() (*PaymentLinkResponse, *http.Response, error) {
 	return r.ApiService.GetPaymentLinkExecute(r)
 }
 
@@ -2438,10 +2575,10 @@ Get payment link
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param paymentLinkId The payment link id
- @return DefaultApiApiGetPaymentLinkRequest
+ @return DefaultAPIGetPaymentLinkRequest
 */
-func (a *DefaultApiService) GetPaymentLink(ctx context.Context, paymentLinkId string) DefaultApiApiGetPaymentLinkRequest {
-	return DefaultApiApiGetPaymentLinkRequest{
+func (a *DefaultAPIService) GetPaymentLink(ctx context.Context, paymentLinkId string) DefaultAPIGetPaymentLinkRequest {
+	return DefaultAPIGetPaymentLinkRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		paymentLinkId: paymentLinkId,
@@ -2450,7 +2587,7 @@ func (a *DefaultApiService) GetPaymentLink(ctx context.Context, paymentLinkId st
 
 // Execute executes the request
 //  @return PaymentLinkResponse
-func (a *DefaultApiService) GetPaymentLinkExecute(r DefaultApiApiGetPaymentLinkRequest) (*PaymentLinkResponse, *http.Response, error) {
+func (a *DefaultAPIService) GetPaymentLinkExecute(r DefaultAPIGetPaymentLinkRequest) (*PaymentLinkResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2458,13 +2595,13 @@ func (a *DefaultApiService) GetPaymentLinkExecute(r DefaultApiApiGetPaymentLinkR
 		localVarReturnValue *PaymentLinkResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetPaymentLink")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetPaymentLink")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/payment_links/{paymentLinkId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"paymentLinkId"+"}", url.PathEscape(parameterToString(r.paymentLinkId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentLinkId"+"}", url.PathEscape(parameterValueToString(r.paymentLinkId, "paymentLinkId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2500,11 +2637,18 @@ func (a *DefaultApiService) GetPaymentLinkExecute(r DefaultApiApiGetPaymentLinkR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2519,6 +2663,7 @@ func (a *DefaultApiService) GetPaymentLinkExecute(r DefaultApiApiGetPaymentLinkR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2529,6 +2674,7 @@ func (a *DefaultApiService) GetPaymentLinkExecute(r DefaultApiApiGetPaymentLinkR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2546,13 +2692,13 @@ func (a *DefaultApiService) GetPaymentLinkExecute(r DefaultApiApiGetPaymentLinkR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiGetPaymentMethodRequest struct {
+type DefaultAPIGetPaymentMethodRequest struct {
 	ctx             context.Context
-	ApiService      DefaultApi
+	ApiService      DefaultAPI
 	paymentMethodId string
 }
 
-func (r DefaultApiApiGetPaymentMethodRequest) Execute() (*PaymentMethodResponse, *http.Response, error) {
+func (r DefaultAPIGetPaymentMethodRequest) Execute() (*PaymentMethodResponse, *http.Response, error) {
 	return r.ApiService.GetPaymentMethodExecute(r)
 }
 
@@ -2563,10 +2709,10 @@ Get a payment method
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param paymentMethodId
- @return DefaultApiApiGetPaymentMethodRequest
+ @return DefaultAPIGetPaymentMethodRequest
 */
-func (a *DefaultApiService) GetPaymentMethod(ctx context.Context, paymentMethodId string) DefaultApiApiGetPaymentMethodRequest {
-	return DefaultApiApiGetPaymentMethodRequest{
+func (a *DefaultAPIService) GetPaymentMethod(ctx context.Context, paymentMethodId string) DefaultAPIGetPaymentMethodRequest {
+	return DefaultAPIGetPaymentMethodRequest{
 		ApiService:      a,
 		ctx:             ctx,
 		paymentMethodId: paymentMethodId,
@@ -2575,7 +2721,7 @@ func (a *DefaultApiService) GetPaymentMethod(ctx context.Context, paymentMethodI
 
 // Execute executes the request
 //  @return PaymentMethodResponse
-func (a *DefaultApiService) GetPaymentMethodExecute(r DefaultApiApiGetPaymentMethodRequest) (*PaymentMethodResponse, *http.Response, error) {
+func (a *DefaultAPIService) GetPaymentMethodExecute(r DefaultAPIGetPaymentMethodRequest) (*PaymentMethodResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2583,13 +2729,13 @@ func (a *DefaultApiService) GetPaymentMethodExecute(r DefaultApiApiGetPaymentMet
 		localVarReturnValue *PaymentMethodResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetPaymentMethod")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetPaymentMethod")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/payment_methods/{paymentMethodId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"paymentMethodId"+"}", url.PathEscape(parameterToString(r.paymentMethodId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentMethodId"+"}", url.PathEscape(parameterValueToString(r.paymentMethodId, "paymentMethodId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2622,11 +2768,18 @@ func (a *DefaultApiService) GetPaymentMethodExecute(r DefaultApiApiGetPaymentMet
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2641,6 +2794,7 @@ func (a *DefaultApiService) GetPaymentMethodExecute(r DefaultApiApiGetPaymentMet
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2651,6 +2805,7 @@ func (a *DefaultApiService) GetPaymentMethodExecute(r DefaultApiApiGetPaymentMet
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2661,6 +2816,7 @@ func (a *DefaultApiService) GetPaymentMethodExecute(r DefaultApiApiGetPaymentMet
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2678,12 +2834,12 @@ func (a *DefaultApiService) GetPaymentMethodExecute(r DefaultApiApiGetPaymentMet
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiGetPaymentMethodPaymentLinkRequest struct {
+type DefaultAPIGetPaymentMethodPaymentLinkRequest struct {
 	ctx        context.Context
-	ApiService DefaultApi
+	ApiService DefaultAPI
 }
 
-func (r DefaultApiApiGetPaymentMethodPaymentLinkRequest) Execute() (*PaymentMethodFvLinkResponse, *http.Response, error) {
+func (r DefaultAPIGetPaymentMethodPaymentLinkRequest) Execute() (*PaymentMethodFvLinkResponse, *http.Response, error) {
 	return r.ApiService.GetPaymentMethodPaymentLinkExecute(r)
 }
 
@@ -2693,10 +2849,10 @@ GetPaymentMethodPaymentLink Method for GetPaymentMethodPaymentLink
 Get payment method in payment link flow
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiGetPaymentMethodPaymentLinkRequest
+ @return DefaultAPIGetPaymentMethodPaymentLinkRequest
 */
-func (a *DefaultApiService) GetPaymentMethodPaymentLink(ctx context.Context) DefaultApiApiGetPaymentMethodPaymentLinkRequest {
-	return DefaultApiApiGetPaymentMethodPaymentLinkRequest{
+func (a *DefaultAPIService) GetPaymentMethodPaymentLink(ctx context.Context) DefaultAPIGetPaymentMethodPaymentLinkRequest {
+	return DefaultAPIGetPaymentMethodPaymentLinkRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2704,7 +2860,7 @@ func (a *DefaultApiService) GetPaymentMethodPaymentLink(ctx context.Context) Def
 
 // Execute executes the request
 //  @return PaymentMethodFvLinkResponse
-func (a *DefaultApiService) GetPaymentMethodPaymentLinkExecute(r DefaultApiApiGetPaymentMethodPaymentLinkRequest) (*PaymentMethodFvLinkResponse, *http.Response, error) {
+func (a *DefaultAPIService) GetPaymentMethodPaymentLinkExecute(r DefaultAPIGetPaymentMethodPaymentLinkRequest) (*PaymentMethodFvLinkResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2712,7 +2868,7 @@ func (a *DefaultApiService) GetPaymentMethodPaymentLinkExecute(r DefaultApiApiGe
 		localVarReturnValue *PaymentMethodFvLinkResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetPaymentMethodPaymentLink")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetPaymentMethodPaymentLink")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2750,11 +2906,18 @@ func (a *DefaultApiService) GetPaymentMethodPaymentLinkExecute(r DefaultApiApiGe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2769,6 +2932,7 @@ func (a *DefaultApiService) GetPaymentMethodPaymentLinkExecute(r DefaultApiApiGe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2779,6 +2943,7 @@ func (a *DefaultApiService) GetPaymentMethodPaymentLinkExecute(r DefaultApiApiGe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2796,12 +2961,12 @@ func (a *DefaultApiService) GetPaymentMethodPaymentLinkExecute(r DefaultApiApiGe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiGetPaymentPaymentLinkRequest struct {
+type DefaultAPIGetPaymentPaymentLinkRequest struct {
 	ctx        context.Context
-	ApiService DefaultApi
+	ApiService DefaultAPI
 }
 
-func (r DefaultApiApiGetPaymentPaymentLinkRequest) Execute() (*PaymentFvLinkResponse, *http.Response, error) {
+func (r DefaultAPIGetPaymentPaymentLinkRequest) Execute() (*PaymentFvLinkResponse, *http.Response, error) {
 	return r.ApiService.GetPaymentPaymentLinkExecute(r)
 }
 
@@ -2811,10 +2976,10 @@ GetPaymentPaymentLink Method for GetPaymentPaymentLink
 Get payment (if exists) on the payment link for front-end
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiGetPaymentPaymentLinkRequest
+ @return DefaultAPIGetPaymentPaymentLinkRequest
 */
-func (a *DefaultApiService) GetPaymentPaymentLink(ctx context.Context) DefaultApiApiGetPaymentPaymentLinkRequest {
-	return DefaultApiApiGetPaymentPaymentLinkRequest{
+func (a *DefaultAPIService) GetPaymentPaymentLink(ctx context.Context) DefaultAPIGetPaymentPaymentLinkRequest {
+	return DefaultAPIGetPaymentPaymentLinkRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2822,7 +2987,7 @@ func (a *DefaultApiService) GetPaymentPaymentLink(ctx context.Context) DefaultAp
 
 // Execute executes the request
 //  @return PaymentFvLinkResponse
-func (a *DefaultApiService) GetPaymentPaymentLinkExecute(r DefaultApiApiGetPaymentPaymentLinkRequest) (*PaymentFvLinkResponse, *http.Response, error) {
+func (a *DefaultAPIService) GetPaymentPaymentLinkExecute(r DefaultAPIGetPaymentPaymentLinkRequest) (*PaymentFvLinkResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2830,7 +2995,7 @@ func (a *DefaultApiService) GetPaymentPaymentLinkExecute(r DefaultApiApiGetPayme
 		localVarReturnValue *PaymentFvLinkResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetPaymentPaymentLink")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetPaymentPaymentLink")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2868,11 +3033,18 @@ func (a *DefaultApiService) GetPaymentPaymentLinkExecute(r DefaultApiApiGetPayme
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2887,6 +3059,7 @@ func (a *DefaultApiService) GetPaymentPaymentLinkExecute(r DefaultApiApiGetPayme
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2897,6 +3070,7 @@ func (a *DefaultApiService) GetPaymentPaymentLinkExecute(r DefaultApiApiGetPayme
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2907,6 +3081,7 @@ func (a *DefaultApiService) GetPaymentPaymentLinkExecute(r DefaultApiApiGetPayme
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2924,13 +3099,13 @@ func (a *DefaultApiService) GetPaymentPaymentLinkExecute(r DefaultApiApiGetPayme
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiGetPayoutByIdRequest struct {
+type DefaultAPIGetPayoutByIdRequest struct {
 	ctx        context.Context
-	ApiService DefaultApi
+	ApiService DefaultAPI
 	payoutId   string
 }
 
-func (r DefaultApiApiGetPayoutByIdRequest) Execute() (*PayoutSnapshotResponse, *http.Response, error) {
+func (r DefaultAPIGetPayoutByIdRequest) Execute() (*PayoutSnapshotResponse, *http.Response, error) {
 	return r.ApiService.GetPayoutByIdExecute(r)
 }
 
@@ -2941,10 +3116,10 @@ Get payout by payout_id
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param payoutId payout id
- @return DefaultApiApiGetPayoutByIdRequest
+ @return DefaultAPIGetPayoutByIdRequest
 */
-func (a *DefaultApiService) GetPayoutById(ctx context.Context, payoutId string) DefaultApiApiGetPayoutByIdRequest {
-	return DefaultApiApiGetPayoutByIdRequest{
+func (a *DefaultAPIService) GetPayoutById(ctx context.Context, payoutId string) DefaultAPIGetPayoutByIdRequest {
+	return DefaultAPIGetPayoutByIdRequest{
 		ApiService: a,
 		ctx:        ctx,
 		payoutId:   payoutId,
@@ -2953,7 +3128,7 @@ func (a *DefaultApiService) GetPayoutById(ctx context.Context, payoutId string) 
 
 // Execute executes the request
 //  @return PayoutSnapshotResponse
-func (a *DefaultApiService) GetPayoutByIdExecute(r DefaultApiApiGetPayoutByIdRequest) (*PayoutSnapshotResponse, *http.Response, error) {
+func (a *DefaultAPIService) GetPayoutByIdExecute(r DefaultAPIGetPayoutByIdRequest) (*PayoutSnapshotResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2961,13 +3136,13 @@ func (a *DefaultApiService) GetPayoutByIdExecute(r DefaultApiApiGetPayoutByIdReq
 		localVarReturnValue *PayoutSnapshotResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetPayoutById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetPayoutById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/payouts/{payoutId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"payoutId"+"}", url.PathEscape(parameterToString(r.payoutId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"payoutId"+"}", url.PathEscape(parameterValueToString(r.payoutId, "payoutId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3000,11 +3175,18 @@ func (a *DefaultApiService) GetPayoutByIdExecute(r DefaultApiApiGetPayoutByIdReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3019,6 +3201,7 @@ func (a *DefaultApiService) GetPayoutByIdExecute(r DefaultApiApiGetPayoutByIdReq
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3029,6 +3212,7 @@ func (a *DefaultApiService) GetPayoutByIdExecute(r DefaultApiApiGetPayoutByIdReq
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3039,6 +3223,7 @@ func (a *DefaultApiService) GetPayoutByIdExecute(r DefaultApiApiGetPayoutByIdReq
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -3056,12 +3241,12 @@ func (a *DefaultApiService) GetPayoutByIdExecute(r DefaultApiApiGetPayoutByIdReq
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiGetSenderPaymentUserRequest struct {
+type DefaultAPIGetSenderPaymentUserRequest struct {
 	ctx        context.Context
-	ApiService DefaultApi
+	ApiService DefaultAPI
 }
 
-func (r DefaultApiApiGetSenderPaymentUserRequest) Execute() (*GetPaymentUserResponse, *http.Response, error) {
+func (r DefaultAPIGetSenderPaymentUserRequest) Execute() (*GetPaymentUserResponse, *http.Response, error) {
 	return r.ApiService.GetSenderPaymentUserExecute(r)
 }
 
@@ -3071,10 +3256,10 @@ GetSenderPaymentUser Method for GetSenderPaymentUser
 Get sender payment user in payment link flow
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiGetSenderPaymentUserRequest
+ @return DefaultAPIGetSenderPaymentUserRequest
 */
-func (a *DefaultApiService) GetSenderPaymentUser(ctx context.Context) DefaultApiApiGetSenderPaymentUserRequest {
-	return DefaultApiApiGetSenderPaymentUserRequest{
+func (a *DefaultAPIService) GetSenderPaymentUser(ctx context.Context) DefaultAPIGetSenderPaymentUserRequest {
+	return DefaultAPIGetSenderPaymentUserRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -3082,7 +3267,7 @@ func (a *DefaultApiService) GetSenderPaymentUser(ctx context.Context) DefaultApi
 
 // Execute executes the request
 //  @return GetPaymentUserResponse
-func (a *DefaultApiService) GetSenderPaymentUserExecute(r DefaultApiApiGetSenderPaymentUserRequest) (*GetPaymentUserResponse, *http.Response, error) {
+func (a *DefaultAPIService) GetSenderPaymentUserExecute(r DefaultAPIGetSenderPaymentUserRequest) (*GetPaymentUserResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -3090,7 +3275,7 @@ func (a *DefaultApiService) GetSenderPaymentUserExecute(r DefaultApiApiGetSender
 		localVarReturnValue *GetPaymentUserResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.GetSenderPaymentUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.GetSenderPaymentUser")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -3128,11 +3313,18 @@ func (a *DefaultApiService) GetSenderPaymentUserExecute(r DefaultApiApiGetSender
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3147,6 +3339,7 @@ func (a *DefaultApiService) GetSenderPaymentUserExecute(r DefaultApiApiGetSender
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3157,6 +3350,7 @@ func (a *DefaultApiService) GetSenderPaymentUserExecute(r DefaultApiApiGetSender
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -3174,9 +3368,9 @@ func (a *DefaultApiService) GetSenderPaymentUserExecute(r DefaultApiApiGetSender
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiListDetokenizedMandatesRequest struct {
+type DefaultAPIListDetokenizedMandatesRequest struct {
 	ctx           context.Context
-	ApiService    DefaultApi
+	ApiService    DefaultAPI
 	dateFrom      *string
 	dateTo        *string
 	statuses      *[]string
@@ -3188,54 +3382,54 @@ type DefaultApiApiListDetokenizedMandatesRequest struct {
 }
 
 // ISO format (YYYY-MM-DD)
-func (r DefaultApiApiListDetokenizedMandatesRequest) DateFrom(dateFrom string) DefaultApiApiListDetokenizedMandatesRequest {
+func (r DefaultAPIListDetokenizedMandatesRequest) DateFrom(dateFrom string) DefaultAPIListDetokenizedMandatesRequest {
 	r.dateFrom = &dateFrom
 	return r
 }
 
 // ISO format (YYYY-MM-DD)
-func (r DefaultApiApiListDetokenizedMandatesRequest) DateTo(dateTo string) DefaultApiApiListDetokenizedMandatesRequest {
+func (r DefaultAPIListDetokenizedMandatesRequest) DateTo(dateTo string) DefaultAPIListDetokenizedMandatesRequest {
 	r.dateTo = &dateTo
 	return r
 }
 
 // The mandate statuses to filter for, comma separated
-func (r DefaultApiApiListDetokenizedMandatesRequest) Statuses(statuses []string) DefaultApiApiListDetokenizedMandatesRequest {
+func (r DefaultAPIListDetokenizedMandatesRequest) Statuses(statuses []string) DefaultAPIListDetokenizedMandatesRequest {
 	r.statuses = &statuses
 	return r
 }
 
 // The sender type of the mandate
-func (r DefaultApiApiListDetokenizedMandatesRequest) SenderType(senderType string) DefaultApiApiListDetokenizedMandatesRequest {
+func (r DefaultAPIListDetokenizedMandatesRequest) SenderType(senderType string) DefaultAPIListDetokenizedMandatesRequest {
 	r.senderType = &senderType
 	return r
 }
 
 // The user_id the mandate was setup for
-func (r DefaultApiApiListDetokenizedMandatesRequest) UserId(userId string) DefaultApiApiListDetokenizedMandatesRequest {
+func (r DefaultAPIListDetokenizedMandatesRequest) UserId(userId string) DefaultAPIListDetokenizedMandatesRequest {
 	r.userId = &userId
 	return r
 }
 
 // The institution the mandate was executed against
-func (r DefaultApiApiListDetokenizedMandatesRequest) InstitutionId(institutionId string) DefaultApiApiListDetokenizedMandatesRequest {
+func (r DefaultAPIListDetokenizedMandatesRequest) InstitutionId(institutionId string) DefaultAPIListDetokenizedMandatesRequest {
 	r.institutionId = &institutionId
 	return r
 }
 
 // default is 0
-func (r DefaultApiApiListDetokenizedMandatesRequest) Offset(offset int32) DefaultApiApiListDetokenizedMandatesRequest {
+func (r DefaultAPIListDetokenizedMandatesRequest) Offset(offset int32) DefaultAPIListDetokenizedMandatesRequest {
 	r.offset = &offset
 	return r
 }
 
 // default is 500, max is 1000
-func (r DefaultApiApiListDetokenizedMandatesRequest) Limit(limit int32) DefaultApiApiListDetokenizedMandatesRequest {
+func (r DefaultAPIListDetokenizedMandatesRequest) Limit(limit int32) DefaultAPIListDetokenizedMandatesRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r DefaultApiApiListDetokenizedMandatesRequest) Execute() (*ListMandatesResponse, *http.Response, error) {
+func (r DefaultAPIListDetokenizedMandatesRequest) Execute() (*ListMandatesResponse, *http.Response, error) {
 	return r.ApiService.ListDetokenizedMandatesExecute(r)
 }
 
@@ -3245,10 +3439,10 @@ ListDetokenizedMandates Method for ListDetokenizedMandates
 List mandates details
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiListDetokenizedMandatesRequest
+ @return DefaultAPIListDetokenizedMandatesRequest
 */
-func (a *DefaultApiService) ListDetokenizedMandates(ctx context.Context) DefaultApiApiListDetokenizedMandatesRequest {
-	return DefaultApiApiListDetokenizedMandatesRequest{
+func (a *DefaultAPIService) ListDetokenizedMandates(ctx context.Context) DefaultAPIListDetokenizedMandatesRequest {
+	return DefaultAPIListDetokenizedMandatesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -3256,7 +3450,7 @@ func (a *DefaultApiService) ListDetokenizedMandates(ctx context.Context) Default
 
 // Execute executes the request
 //  @return ListMandatesResponse
-func (a *DefaultApiService) ListDetokenizedMandatesExecute(r DefaultApiApiListDetokenizedMandatesRequest) (*ListMandatesResponse, *http.Response, error) {
+func (a *DefaultAPIService) ListDetokenizedMandatesExecute(r DefaultAPIListDetokenizedMandatesRequest) (*ListMandatesResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -3264,7 +3458,7 @@ func (a *DefaultApiService) ListDetokenizedMandatesExecute(r DefaultApiApiListDe
 		localVarReturnValue *ListMandatesResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListDetokenizedMandates")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListDetokenizedMandates")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -3276,28 +3470,34 @@ func (a *DefaultApiService) ListDetokenizedMandatesExecute(r DefaultApiApiListDe
 	localVarFormParams := url.Values{}
 
 	if r.dateFrom != nil {
-		localVarQueryParams.Add("date_from", parameterToString(*r.dateFrom, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "date_from", r.dateFrom, "", "")
 	}
 	if r.dateTo != nil {
-		localVarQueryParams.Add("date_to", parameterToString(*r.dateTo, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "date_to", r.dateTo, "", "")
 	}
 	if r.statuses != nil {
-		localVarQueryParams.Add("statuses", parameterToString(*r.statuses, "csv"))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "statuses", r.statuses, "form", "csv")
 	}
 	if r.senderType != nil {
-		localVarQueryParams.Add("sender_type", parameterToString(*r.senderType, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sender_type", r.senderType, "", "")
 	}
 	if r.userId != nil {
-		localVarQueryParams.Add("user_id", parameterToString(*r.userId, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "user_id", r.userId, "", "")
 	}
 	if r.institutionId != nil {
-		localVarQueryParams.Add("institution_id", parameterToString(*r.institutionId, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "institution_id", r.institutionId, "", "")
 	}
 	if r.offset != nil {
-		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "", "")
+	} else {
+		var defaultValue int32 = 0
+		r.offset = &defaultValue
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "", "")
+	} else {
+		var defaultValue int32 = 500
+		r.limit = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3326,11 +3526,18 @@ func (a *DefaultApiService) ListDetokenizedMandatesExecute(r DefaultApiApiListDe
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3345,6 +3552,7 @@ func (a *DefaultApiService) ListDetokenizedMandatesExecute(r DefaultApiApiListDe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3355,6 +3563,7 @@ func (a *DefaultApiService) ListDetokenizedMandatesExecute(r DefaultApiApiListDe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3365,6 +3574,7 @@ func (a *DefaultApiService) ListDetokenizedMandatesExecute(r DefaultApiApiListDe
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -3382,9 +3592,9 @@ func (a *DefaultApiService) ListDetokenizedMandatesExecute(r DefaultApiApiListDe
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiListMandatesRequest struct {
+type DefaultAPIListMandatesRequest struct {
 	ctx           context.Context
-	ApiService    DefaultApi
+	ApiService    DefaultAPI
 	dateFrom      *string
 	dateTo        *string
 	statuses      *[]string
@@ -3396,54 +3606,54 @@ type DefaultApiApiListMandatesRequest struct {
 }
 
 // ISO format (YYYY-MM-DD)
-func (r DefaultApiApiListMandatesRequest) DateFrom(dateFrom string) DefaultApiApiListMandatesRequest {
+func (r DefaultAPIListMandatesRequest) DateFrom(dateFrom string) DefaultAPIListMandatesRequest {
 	r.dateFrom = &dateFrom
 	return r
 }
 
 // ISO format (YYYY-MM-DD)
-func (r DefaultApiApiListMandatesRequest) DateTo(dateTo string) DefaultApiApiListMandatesRequest {
+func (r DefaultAPIListMandatesRequest) DateTo(dateTo string) DefaultAPIListMandatesRequest {
 	r.dateTo = &dateTo
 	return r
 }
 
 // The mandate statuses to filter for, comma separated
-func (r DefaultApiApiListMandatesRequest) Statuses(statuses []string) DefaultApiApiListMandatesRequest {
+func (r DefaultAPIListMandatesRequest) Statuses(statuses []string) DefaultAPIListMandatesRequest {
 	r.statuses = &statuses
 	return r
 }
 
 // The sender type of the mandate
-func (r DefaultApiApiListMandatesRequest) SenderType(senderType string) DefaultApiApiListMandatesRequest {
+func (r DefaultAPIListMandatesRequest) SenderType(senderType string) DefaultAPIListMandatesRequest {
 	r.senderType = &senderType
 	return r
 }
 
 // The user_id the mandate was setup for
-func (r DefaultApiApiListMandatesRequest) UserId(userId string) DefaultApiApiListMandatesRequest {
+func (r DefaultAPIListMandatesRequest) UserId(userId string) DefaultAPIListMandatesRequest {
 	r.userId = &userId
 	return r
 }
 
 // The institution the mandate was executed against
-func (r DefaultApiApiListMandatesRequest) InstitutionId(institutionId string) DefaultApiApiListMandatesRequest {
+func (r DefaultAPIListMandatesRequest) InstitutionId(institutionId string) DefaultAPIListMandatesRequest {
 	r.institutionId = &institutionId
 	return r
 }
 
 // default is 0
-func (r DefaultApiApiListMandatesRequest) Offset(offset int32) DefaultApiApiListMandatesRequest {
+func (r DefaultAPIListMandatesRequest) Offset(offset int32) DefaultAPIListMandatesRequest {
 	r.offset = &offset
 	return r
 }
 
 // default is 500, max is 1000
-func (r DefaultApiApiListMandatesRequest) Limit(limit int32) DefaultApiApiListMandatesRequest {
+func (r DefaultAPIListMandatesRequest) Limit(limit int32) DefaultAPIListMandatesRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r DefaultApiApiListMandatesRequest) Execute() (*ListMandatesResponse, *http.Response, error) {
+func (r DefaultAPIListMandatesRequest) Execute() (*ListMandatesResponse, *http.Response, error) {
 	return r.ApiService.ListMandatesExecute(r)
 }
 
@@ -3453,10 +3663,10 @@ ListMandates Method for ListMandates
 List mandates
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiListMandatesRequest
+ @return DefaultAPIListMandatesRequest
 */
-func (a *DefaultApiService) ListMandates(ctx context.Context) DefaultApiApiListMandatesRequest {
-	return DefaultApiApiListMandatesRequest{
+func (a *DefaultAPIService) ListMandates(ctx context.Context) DefaultAPIListMandatesRequest {
+	return DefaultAPIListMandatesRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -3464,7 +3674,7 @@ func (a *DefaultApiService) ListMandates(ctx context.Context) DefaultApiApiListM
 
 // Execute executes the request
 //  @return ListMandatesResponse
-func (a *DefaultApiService) ListMandatesExecute(r DefaultApiApiListMandatesRequest) (*ListMandatesResponse, *http.Response, error) {
+func (a *DefaultAPIService) ListMandatesExecute(r DefaultAPIListMandatesRequest) (*ListMandatesResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -3472,7 +3682,7 @@ func (a *DefaultApiService) ListMandatesExecute(r DefaultApiApiListMandatesReque
 		localVarReturnValue *ListMandatesResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListMandates")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListMandates")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -3484,28 +3694,34 @@ func (a *DefaultApiService) ListMandatesExecute(r DefaultApiApiListMandatesReque
 	localVarFormParams := url.Values{}
 
 	if r.dateFrom != nil {
-		localVarQueryParams.Add("date_from", parameterToString(*r.dateFrom, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "date_from", r.dateFrom, "", "")
 	}
 	if r.dateTo != nil {
-		localVarQueryParams.Add("date_to", parameterToString(*r.dateTo, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "date_to", r.dateTo, "", "")
 	}
 	if r.statuses != nil {
-		localVarQueryParams.Add("statuses", parameterToString(*r.statuses, "csv"))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "statuses", r.statuses, "form", "csv")
 	}
 	if r.senderType != nil {
-		localVarQueryParams.Add("sender_type", parameterToString(*r.senderType, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sender_type", r.senderType, "", "")
 	}
 	if r.userId != nil {
-		localVarQueryParams.Add("user_id", parameterToString(*r.userId, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "user_id", r.userId, "", "")
 	}
 	if r.institutionId != nil {
-		localVarQueryParams.Add("institution_id", parameterToString(*r.institutionId, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "institution_id", r.institutionId, "", "")
 	}
 	if r.offset != nil {
-		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "", "")
+	} else {
+		var defaultValue int32 = 0
+		r.offset = &defaultValue
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "", "")
+	} else {
+		var defaultValue int32 = 500
+		r.limit = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3534,11 +3750,18 @@ func (a *DefaultApiService) ListMandatesExecute(r DefaultApiApiListMandatesReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3553,6 +3776,7 @@ func (a *DefaultApiService) ListMandatesExecute(r DefaultApiApiListMandatesReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3563,6 +3787,7 @@ func (a *DefaultApiService) ListMandatesExecute(r DefaultApiApiListMandatesReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3573,6 +3798,7 @@ func (a *DefaultApiService) ListMandatesExecute(r DefaultApiApiListMandatesReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -3590,13 +3816,13 @@ func (a *DefaultApiService) ListMandatesExecute(r DefaultApiApiListMandatesReque
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiListPaymentMethodsRequest struct {
+type DefaultAPIListPaymentMethodsRequest struct {
 	ctx           context.Context
-	ApiService    DefaultApi
+	ApiService    DefaultAPI
 	paymentUserId string
 }
 
-func (r DefaultApiApiListPaymentMethodsRequest) Execute() (*ListPaymentMethodsResponse, *http.Response, error) {
+func (r DefaultAPIListPaymentMethodsRequest) Execute() (*ListPaymentMethodsResponse, *http.Response, error) {
 	return r.ApiService.ListPaymentMethodsExecute(r)
 }
 
@@ -3607,10 +3833,10 @@ List Payment Methods for a User
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param paymentUserId Payment User Id
- @return DefaultApiApiListPaymentMethodsRequest
+ @return DefaultAPIListPaymentMethodsRequest
 */
-func (a *DefaultApiService) ListPaymentMethods(ctx context.Context, paymentUserId string) DefaultApiApiListPaymentMethodsRequest {
-	return DefaultApiApiListPaymentMethodsRequest{
+func (a *DefaultAPIService) ListPaymentMethods(ctx context.Context, paymentUserId string) DefaultAPIListPaymentMethodsRequest {
+	return DefaultAPIListPaymentMethodsRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		paymentUserId: paymentUserId,
@@ -3619,7 +3845,7 @@ func (a *DefaultApiService) ListPaymentMethods(ctx context.Context, paymentUserI
 
 // Execute executes the request
 //  @return ListPaymentMethodsResponse
-func (a *DefaultApiService) ListPaymentMethodsExecute(r DefaultApiApiListPaymentMethodsRequest) (*ListPaymentMethodsResponse, *http.Response, error) {
+func (a *DefaultAPIService) ListPaymentMethodsExecute(r DefaultAPIListPaymentMethodsRequest) (*ListPaymentMethodsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -3627,13 +3853,13 @@ func (a *DefaultApiService) ListPaymentMethodsExecute(r DefaultApiApiListPayment
 		localVarReturnValue *ListPaymentMethodsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListPaymentMethods")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListPaymentMethods")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/payment_users/{paymentUserId}/payment_methods"
-	localVarPath = strings.Replace(localVarPath, "{"+"paymentUserId"+"}", url.PathEscape(parameterToString(r.paymentUserId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentUserId"+"}", url.PathEscape(parameterValueToString(r.paymentUserId, "paymentUserId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3666,11 +3892,18 @@ func (a *DefaultApiService) ListPaymentMethodsExecute(r DefaultApiApiListPayment
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3685,6 +3918,7 @@ func (a *DefaultApiService) ListPaymentMethodsExecute(r DefaultApiApiListPayment
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3695,6 +3929,7 @@ func (a *DefaultApiService) ListPaymentMethodsExecute(r DefaultApiApiListPayment
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3705,6 +3940,7 @@ func (a *DefaultApiService) ListPaymentMethodsExecute(r DefaultApiApiListPayment
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -3722,9 +3958,9 @@ func (a *DefaultApiService) ListPaymentMethodsExecute(r DefaultApiApiListPayment
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiListPaymentsRequest struct {
+type DefaultAPIListPaymentsRequest struct {
 	ctx           context.Context
-	ApiService    DefaultApi
+	ApiService    DefaultAPI
 	dateFrom      *string
 	dateTo        *string
 	statuses      *[]string
@@ -3741,80 +3977,82 @@ type DefaultApiApiListPaymentsRequest struct {
 }
 
 // ISO format (YYYY-MM-DD)
-func (r DefaultApiApiListPaymentsRequest) DateFrom(dateFrom string) DefaultApiApiListPaymentsRequest {
+func (r DefaultAPIListPaymentsRequest) DateFrom(dateFrom string) DefaultAPIListPaymentsRequest {
 	r.dateFrom = &dateFrom
 	return r
 }
 
 // ISO format (YYYY-MM-DD)
-func (r DefaultApiApiListPaymentsRequest) DateTo(dateTo string) DefaultApiApiListPaymentsRequest {
+func (r DefaultAPIListPaymentsRequest) DateTo(dateTo string) DefaultAPIListPaymentsRequest {
 	r.dateTo = &dateTo
 	return r
 }
 
 // The payment statuses to filter for, comma separated
-func (r DefaultApiApiListPaymentsRequest) Statuses(statuses []string) DefaultApiApiListPaymentsRequest {
+func (r DefaultAPIListPaymentsRequest) Statuses(statuses []string) DefaultAPIListPaymentsRequest {
 	r.statuses = &statuses
 	return r
 }
 
 // The sender type of the mandate
-func (r DefaultApiApiListPaymentsRequest) SenderType(senderType string) DefaultApiApiListPaymentsRequest {
+func (r DefaultAPIListPaymentsRequest) SenderType(senderType string) DefaultAPIListPaymentsRequest {
 	r.senderType = &senderType
 	return r
 }
 
 // The user_id the mandate was setup for
-func (r DefaultApiApiListPaymentsRequest) UserId(userId string) DefaultApiApiListPaymentsRequest {
+func (r DefaultAPIListPaymentsRequest) UserId(userId string) DefaultAPIListPaymentsRequest {
 	r.userId = &userId
 	return r
 }
 
 // The institution the mandate was executed against
-func (r DefaultApiApiListPaymentsRequest) InstitutionId(institutionId string) DefaultApiApiListPaymentsRequest {
+func (r DefaultAPIListPaymentsRequest) InstitutionId(institutionId string) DefaultAPIListPaymentsRequest {
 	r.institutionId = &institutionId
 	return r
 }
 
 // Deprecated - The type of payment
-func (r DefaultApiApiListPaymentsRequest) PaymentType(paymentType string) DefaultApiApiListPaymentsRequest {
+func (r DefaultAPIListPaymentsRequest) PaymentType(paymentType string) DefaultAPIListPaymentsRequest {
 	r.paymentType = &paymentType
 	return r
 }
-func (r DefaultApiApiListPaymentsRequest) PaymentTypes(paymentTypes []string) DefaultApiApiListPaymentsRequest {
+
+func (r DefaultAPIListPaymentsRequest) PaymentTypes(paymentTypes []string) DefaultAPIListPaymentsRequest {
 	r.paymentTypes = &paymentTypes
 	return r
 }
 
 // The mandate the payment belongs to
-func (r DefaultApiApiListPaymentsRequest) MandateId(mandateId string) DefaultApiApiListPaymentsRequest {
+func (r DefaultAPIListPaymentsRequest) MandateId(mandateId string) DefaultAPIListPaymentsRequest {
 	r.mandateId = &mandateId
 	return r
 }
 
 // Deprecated - The currency the payment is made in
-func (r DefaultApiApiListPaymentsRequest) Currency(currency string) DefaultApiApiListPaymentsRequest {
+func (r DefaultAPIListPaymentsRequest) Currency(currency string) DefaultAPIListPaymentsRequest {
 	r.currency = &currency
 	return r
 }
-func (r DefaultApiApiListPaymentsRequest) Currencies(currencies []string) DefaultApiApiListPaymentsRequest {
+
+func (r DefaultAPIListPaymentsRequest) Currencies(currencies []string) DefaultAPIListPaymentsRequest {
 	r.currencies = &currencies
 	return r
 }
 
 // default is 0
-func (r DefaultApiApiListPaymentsRequest) Offset(offset int32) DefaultApiApiListPaymentsRequest {
+func (r DefaultAPIListPaymentsRequest) Offset(offset int32) DefaultAPIListPaymentsRequest {
 	r.offset = &offset
 	return r
 }
 
 // default is 500, max is 1000
-func (r DefaultApiApiListPaymentsRequest) Limit(limit int32) DefaultApiApiListPaymentsRequest {
+func (r DefaultAPIListPaymentsRequest) Limit(limit int32) DefaultAPIListPaymentsRequest {
 	r.limit = &limit
 	return r
 }
 
-func (r DefaultApiApiListPaymentsRequest) Execute() (*ListPaymentsResponse, *http.Response, error) {
+func (r DefaultAPIListPaymentsRequest) Execute() (*ListPaymentsResponse, *http.Response, error) {
 	return r.ApiService.ListPaymentsExecute(r)
 }
 
@@ -3824,10 +4062,10 @@ ListPayments Method for ListPayments
 List Payments
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiListPaymentsRequest
+ @return DefaultAPIListPaymentsRequest
 */
-func (a *DefaultApiService) ListPayments(ctx context.Context) DefaultApiApiListPaymentsRequest {
-	return DefaultApiApiListPaymentsRequest{
+func (a *DefaultAPIService) ListPayments(ctx context.Context) DefaultAPIListPaymentsRequest {
+	return DefaultAPIListPaymentsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -3835,7 +4073,7 @@ func (a *DefaultApiService) ListPayments(ctx context.Context) DefaultApiApiListP
 
 // Execute executes the request
 //  @return ListPaymentsResponse
-func (a *DefaultApiService) ListPaymentsExecute(r DefaultApiApiListPaymentsRequest) (*ListPaymentsResponse, *http.Response, error) {
+func (a *DefaultAPIService) ListPaymentsExecute(r DefaultAPIListPaymentsRequest) (*ListPaymentsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -3843,7 +4081,7 @@ func (a *DefaultApiService) ListPaymentsExecute(r DefaultApiApiListPaymentsReque
 		localVarReturnValue *ListPaymentsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.ListPayments")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListPayments")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -3855,43 +4093,49 @@ func (a *DefaultApiService) ListPaymentsExecute(r DefaultApiApiListPaymentsReque
 	localVarFormParams := url.Values{}
 
 	if r.dateFrom != nil {
-		localVarQueryParams.Add("date_from", parameterToString(*r.dateFrom, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "date_from", r.dateFrom, "", "")
 	}
 	if r.dateTo != nil {
-		localVarQueryParams.Add("date_to", parameterToString(*r.dateTo, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "date_to", r.dateTo, "", "")
 	}
 	if r.statuses != nil {
-		localVarQueryParams.Add("statuses", parameterToString(*r.statuses, "csv"))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "statuses", r.statuses, "form", "csv")
 	}
 	if r.senderType != nil {
-		localVarQueryParams.Add("sender_type", parameterToString(*r.senderType, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sender_type", r.senderType, "", "")
 	}
 	if r.userId != nil {
-		localVarQueryParams.Add("user_id", parameterToString(*r.userId, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "user_id", r.userId, "", "")
 	}
 	if r.institutionId != nil {
-		localVarQueryParams.Add("institution_id", parameterToString(*r.institutionId, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "institution_id", r.institutionId, "", "")
 	}
 	if r.paymentType != nil {
-		localVarQueryParams.Add("payment_type", parameterToString(*r.paymentType, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "payment_type", r.paymentType, "", "")
 	}
 	if r.paymentTypes != nil {
-		localVarQueryParams.Add("payment_types", parameterToString(*r.paymentTypes, "csv"))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "payment_types", r.paymentTypes, "form", "csv")
 	}
 	if r.mandateId != nil {
-		localVarQueryParams.Add("mandate_id", parameterToString(*r.mandateId, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "mandate_id", r.mandateId, "", "")
 	}
 	if r.currency != nil {
-		localVarQueryParams.Add("currency", parameterToString(*r.currency, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "currency", r.currency, "", "")
 	}
 	if r.currencies != nil {
-		localVarQueryParams.Add("currencies", parameterToString(*r.currencies, "csv"))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "currencies", r.currencies, "form", "csv")
 	}
 	if r.offset != nil {
-		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "", "")
+	} else {
+		var defaultValue int32 = 0
+		r.offset = &defaultValue
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "", "")
+	} else {
+		var defaultValue int32 = 500
+		r.limit = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -3920,11 +4164,18 @@ func (a *DefaultApiService) ListPaymentsExecute(r DefaultApiApiListPaymentsReque
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3939,6 +4190,7 @@ func (a *DefaultApiService) ListPaymentsExecute(r DefaultApiApiListPaymentsReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3949,6 +4201,7 @@ func (a *DefaultApiService) ListPaymentsExecute(r DefaultApiApiListPaymentsReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3959,6 +4212,7 @@ func (a *DefaultApiService) ListPaymentsExecute(r DefaultApiApiListPaymentsReque
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -3976,12 +4230,12 @@ func (a *DefaultApiService) ListPaymentsExecute(r DefaultApiApiListPaymentsReque
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiRefreshPaymentAttemptRequest struct {
+type DefaultAPIRefreshPaymentAttemptRequest struct {
 	ctx        context.Context
-	ApiService DefaultApi
+	ApiService DefaultAPI
 }
 
-func (r DefaultApiApiRefreshPaymentAttemptRequest) Execute() (*RefreshPaymentAttemptResponse, *http.Response, error) {
+func (r DefaultAPIRefreshPaymentAttemptRequest) Execute() (*RefreshPaymentAttemptResponse, *http.Response, error) {
 	return r.ApiService.RefreshPaymentAttemptExecute(r)
 }
 
@@ -3991,10 +4245,10 @@ RefreshPaymentAttempt Method for RefreshPaymentAttempt
 Refresh payment attempt from payment link front-end
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiRefreshPaymentAttemptRequest
+ @return DefaultAPIRefreshPaymentAttemptRequest
 */
-func (a *DefaultApiService) RefreshPaymentAttempt(ctx context.Context) DefaultApiApiRefreshPaymentAttemptRequest {
-	return DefaultApiApiRefreshPaymentAttemptRequest{
+func (a *DefaultAPIService) RefreshPaymentAttempt(ctx context.Context) DefaultAPIRefreshPaymentAttemptRequest {
+	return DefaultAPIRefreshPaymentAttemptRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -4002,7 +4256,7 @@ func (a *DefaultApiService) RefreshPaymentAttempt(ctx context.Context) DefaultAp
 
 // Execute executes the request
 //  @return RefreshPaymentAttemptResponse
-func (a *DefaultApiService) RefreshPaymentAttemptExecute(r DefaultApiApiRefreshPaymentAttemptRequest) (*RefreshPaymentAttemptResponse, *http.Response, error) {
+func (a *DefaultAPIService) RefreshPaymentAttemptExecute(r DefaultAPIRefreshPaymentAttemptRequest) (*RefreshPaymentAttemptResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -4010,7 +4264,7 @@ func (a *DefaultApiService) RefreshPaymentAttemptExecute(r DefaultApiApiRefreshP
 		localVarReturnValue *RefreshPaymentAttemptResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.RefreshPaymentAttempt")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.RefreshPaymentAttempt")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -4048,11 +4302,18 @@ func (a *DefaultApiService) RefreshPaymentAttemptExecute(r DefaultApiApiRefreshP
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4067,6 +4328,7 @@ func (a *DefaultApiService) RefreshPaymentAttemptExecute(r DefaultApiApiRefreshP
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -4084,18 +4346,18 @@ func (a *DefaultApiService) RefreshPaymentAttemptExecute(r DefaultApiApiRefreshP
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type DefaultApiApiSetAutopayConsentRequest struct {
+type DefaultAPISetAutopayConsentRequest struct {
 	ctx                      context.Context
-	ApiService               DefaultApi
+	ApiService               DefaultAPI
 	setAutopayConsentRequest *SetAutopayConsentRequest
 }
 
-func (r DefaultApiApiSetAutopayConsentRequest) SetAutopayConsentRequest(setAutopayConsentRequest SetAutopayConsentRequest) DefaultApiApiSetAutopayConsentRequest {
+func (r DefaultAPISetAutopayConsentRequest) SetAutopayConsentRequest(setAutopayConsentRequest SetAutopayConsentRequest) DefaultAPISetAutopayConsentRequest {
 	r.setAutopayConsentRequest = &setAutopayConsentRequest
 	return r
 }
 
-func (r DefaultApiApiSetAutopayConsentRequest) Execute() (*http.Response, error) {
+func (r DefaultAPISetAutopayConsentRequest) Execute() (*http.Response, error) {
 	return r.ApiService.SetAutopayConsentExecute(r)
 }
 
@@ -4105,24 +4367,24 @@ SetAutopayConsent Method for SetAutopayConsent
 Set autopay consent for payment user
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiSetAutopayConsentRequest
+ @return DefaultAPISetAutopayConsentRequest
 */
-func (a *DefaultApiService) SetAutopayConsent(ctx context.Context) DefaultApiApiSetAutopayConsentRequest {
-	return DefaultApiApiSetAutopayConsentRequest{
+func (a *DefaultAPIService) SetAutopayConsent(ctx context.Context) DefaultAPISetAutopayConsentRequest {
+	return DefaultAPISetAutopayConsentRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *DefaultApiService) SetAutopayConsentExecute(r DefaultApiApiSetAutopayConsentRequest) (*http.Response, error) {
+func (a *DefaultAPIService) SetAutopayConsentExecute(r DefaultAPISetAutopayConsentRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.SetAutopayConsent")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.SetAutopayConsent")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -4165,11 +4427,18 @@ func (a *DefaultApiService) SetAutopayConsentExecute(r DefaultApiApiSetAutopayCo
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4184,6 +4453,7 @@ func (a *DefaultApiService) SetAutopayConsentExecute(r DefaultApiApiSetAutopayCo
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -4194,6 +4464,7 @@ func (a *DefaultApiService) SetAutopayConsentExecute(r DefaultApiApiSetAutopayCo
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -4204,6 +4475,7 @@ func (a *DefaultApiService) SetAutopayConsentExecute(r DefaultApiApiSetAutopayCo
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
@@ -4212,12 +4484,12 @@ func (a *DefaultApiService) SetAutopayConsentExecute(r DefaultApiApiSetAutopayCo
 	return localVarHTTPResponse, nil
 }
 
-type DefaultApiApiUnlinkPaymentPaymentLinkRequest struct {
+type DefaultAPIUnlinkPaymentPaymentLinkRequest struct {
 	ctx        context.Context
-	ApiService DefaultApi
+	ApiService DefaultAPI
 }
 
-func (r DefaultApiApiUnlinkPaymentPaymentLinkRequest) Execute() (*http.Response, error) {
+func (r DefaultAPIUnlinkPaymentPaymentLinkRequest) Execute() (*http.Response, error) {
 	return r.ApiService.UnlinkPaymentPaymentLinkExecute(r)
 }
 
@@ -4227,24 +4499,24 @@ UnlinkPaymentPaymentLink Method for UnlinkPaymentPaymentLink
 Unlink payment on payment link
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return DefaultApiApiUnlinkPaymentPaymentLinkRequest
+ @return DefaultAPIUnlinkPaymentPaymentLinkRequest
 */
-func (a *DefaultApiService) UnlinkPaymentPaymentLink(ctx context.Context) DefaultApiApiUnlinkPaymentPaymentLinkRequest {
-	return DefaultApiApiUnlinkPaymentPaymentLinkRequest{
+func (a *DefaultAPIService) UnlinkPaymentPaymentLink(ctx context.Context) DefaultAPIUnlinkPaymentPaymentLinkRequest {
+	return DefaultAPIUnlinkPaymentPaymentLinkRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
 }
 
 // Execute executes the request
-func (a *DefaultApiService) UnlinkPaymentPaymentLinkExecute(r DefaultApiApiUnlinkPaymentPaymentLinkRequest) (*http.Response, error) {
+func (a *DefaultAPIService) UnlinkPaymentPaymentLinkExecute(r DefaultAPIUnlinkPaymentPaymentLinkRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UnlinkPaymentPaymentLink")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UnlinkPaymentPaymentLink")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -4282,11 +4554,18 @@ func (a *DefaultApiService) UnlinkPaymentPaymentLinkExecute(r DefaultApiApiUnlin
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4301,6 +4580,7 @@ func (a *DefaultApiService) UnlinkPaymentPaymentLinkExecute(r DefaultApiApiUnlin
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -4311,6 +4591,7 @@ func (a *DefaultApiService) UnlinkPaymentPaymentLinkExecute(r DefaultApiApiUnlin
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -4321,6 +4602,7 @@ func (a *DefaultApiService) UnlinkPaymentPaymentLinkExecute(r DefaultApiApiUnlin
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
@@ -4329,20 +4611,20 @@ func (a *DefaultApiService) UnlinkPaymentPaymentLinkExecute(r DefaultApiApiUnlin
 	return localVarHTTPResponse, nil
 }
 
-type DefaultApiApiUpdatePaymentUserRequest struct {
+type DefaultAPIUpdatePaymentUserRequest struct {
 	ctx                      context.Context
-	ApiService               DefaultApi
+	ApiService               DefaultAPI
 	paymentUserId            string
 	updatePaymentUserRequest *UpdatePaymentUserRequest
 }
 
 // request body for updating payment user
-func (r DefaultApiApiUpdatePaymentUserRequest) UpdatePaymentUserRequest(updatePaymentUserRequest UpdatePaymentUserRequest) DefaultApiApiUpdatePaymentUserRequest {
+func (r DefaultAPIUpdatePaymentUserRequest) UpdatePaymentUserRequest(updatePaymentUserRequest UpdatePaymentUserRequest) DefaultAPIUpdatePaymentUserRequest {
 	r.updatePaymentUserRequest = &updatePaymentUserRequest
 	return r
 }
 
-func (r DefaultApiApiUpdatePaymentUserRequest) Execute() (*PaymentUser, *http.Response, error) {
+func (r DefaultAPIUpdatePaymentUserRequest) Execute() (*PaymentUser, *http.Response, error) {
 	return r.ApiService.UpdatePaymentUserExecute(r)
 }
 
@@ -4353,10 +4635,10 @@ Update a payment user
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param paymentUserId
- @return DefaultApiApiUpdatePaymentUserRequest
+ @return DefaultAPIUpdatePaymentUserRequest
 */
-func (a *DefaultApiService) UpdatePaymentUser(ctx context.Context, paymentUserId string) DefaultApiApiUpdatePaymentUserRequest {
-	return DefaultApiApiUpdatePaymentUserRequest{
+func (a *DefaultAPIService) UpdatePaymentUser(ctx context.Context, paymentUserId string) DefaultAPIUpdatePaymentUserRequest {
+	return DefaultAPIUpdatePaymentUserRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		paymentUserId: paymentUserId,
@@ -4365,7 +4647,7 @@ func (a *DefaultApiService) UpdatePaymentUser(ctx context.Context, paymentUserId
 
 // Execute executes the request
 //  @return PaymentUser
-func (a *DefaultApiService) UpdatePaymentUserExecute(r DefaultApiApiUpdatePaymentUserRequest) (*PaymentUser, *http.Response, error) {
+func (a *DefaultAPIService) UpdatePaymentUserExecute(r DefaultAPIUpdatePaymentUserRequest) (*PaymentUser, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -4373,13 +4655,13 @@ func (a *DefaultApiService) UpdatePaymentUserExecute(r DefaultApiApiUpdatePaymen
 		localVarReturnValue *PaymentUser
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultApiService.UpdatePaymentUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.UpdatePaymentUser")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/payment_users/{paymentUserId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"paymentUserId"+"}", url.PathEscape(parameterToString(r.paymentUserId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentUserId"+"}", url.PathEscape(parameterValueToString(r.paymentUserId, "paymentUserId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -4417,11 +4699,18 @@ func (a *DefaultApiService) UpdatePaymentUserExecute(r DefaultApiApiUpdatePaymen
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -4436,6 +4725,7 @@ func (a *DefaultApiService) UpdatePaymentUserExecute(r DefaultApiApiUpdatePaymen
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -4446,6 +4736,7 @@ func (a *DefaultApiService) UpdatePaymentUserExecute(r DefaultApiApiUpdatePaymen
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr

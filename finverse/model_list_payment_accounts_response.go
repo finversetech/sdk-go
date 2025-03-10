@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ListPaymentAccountsResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ListPaymentAccountsResponse{}
+
 // ListPaymentAccountsResponse struct for ListPaymentAccountsResponse
 type ListPaymentAccountsResponse struct {
 	PaymentAccounts []PaymentAccountDetails `json:"payment_accounts,omitempty"`
@@ -39,7 +42,7 @@ func NewListPaymentAccountsResponseWithDefaults() *ListPaymentAccountsResponse {
 
 // GetPaymentAccounts returns the PaymentAccounts field value if set, zero value otherwise.
 func (o *ListPaymentAccountsResponse) GetPaymentAccounts() []PaymentAccountDetails {
-	if o == nil || o.PaymentAccounts == nil {
+	if o == nil || IsNil(o.PaymentAccounts) {
 		var ret []PaymentAccountDetails
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *ListPaymentAccountsResponse) GetPaymentAccounts() []PaymentAccountDetai
 // GetPaymentAccountsOk returns a tuple with the PaymentAccounts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ListPaymentAccountsResponse) GetPaymentAccountsOk() ([]PaymentAccountDetails, bool) {
-	if o == nil || o.PaymentAccounts == nil {
+	if o == nil || IsNil(o.PaymentAccounts) {
 		return nil, false
 	}
 	return o.PaymentAccounts, true
@@ -57,7 +60,7 @@ func (o *ListPaymentAccountsResponse) GetPaymentAccountsOk() ([]PaymentAccountDe
 
 // HasPaymentAccounts returns a boolean if a field has been set.
 func (o *ListPaymentAccountsResponse) HasPaymentAccounts() bool {
-	if o != nil && o.PaymentAccounts != nil {
+	if o != nil && !IsNil(o.PaymentAccounts) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *ListPaymentAccountsResponse) SetPaymentAccounts(v []PaymentAccountDetai
 }
 
 func (o ListPaymentAccountsResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.PaymentAccounts != nil {
-		toSerialize["payment_accounts"] = o.PaymentAccounts
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ListPaymentAccountsResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.PaymentAccounts) {
+		toSerialize["payment_accounts"] = o.PaymentAccounts
+	}
+	return toSerialize, nil
 }
 
 type NullableListPaymentAccountsResponse struct {

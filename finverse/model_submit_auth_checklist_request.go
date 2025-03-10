@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the SubmitAuthChecklistRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SubmitAuthChecklistRequest{}
 
 // SubmitAuthChecklistRequest struct for SubmitAuthChecklistRequest
 type SubmitAuthChecklistRequest struct {
@@ -28,6 +33,8 @@ type SubmitAuthChecklistRequest struct {
 	// The encrypted payload that contains auth checklist items
 	Ciphertext string `json:"ciphertext"`
 }
+
+type _SubmitAuthChecklistRequest SubmitAuthChecklistRequest
 
 // NewSubmitAuthChecklistRequest instantiates a new SubmitAuthChecklistRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -172,23 +179,62 @@ func (o *SubmitAuthChecklistRequest) SetCiphertext(v string) {
 }
 
 func (o SubmitAuthChecklistRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["key_id"] = o.KeyId
-	}
-	if true {
-		toSerialize["envelope_encryption_key"] = o.EnvelopeEncryptionKey
-	}
-	if true {
-		toSerialize["initialization_vector"] = o.InitializationVector
-	}
-	if true {
-		toSerialize["message_authentication_code"] = o.MessageAuthenticationCode
-	}
-	if true {
-		toSerialize["ciphertext"] = o.Ciphertext
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SubmitAuthChecklistRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["key_id"] = o.KeyId
+	toSerialize["envelope_encryption_key"] = o.EnvelopeEncryptionKey
+	toSerialize["initialization_vector"] = o.InitializationVector
+	toSerialize["message_authentication_code"] = o.MessageAuthenticationCode
+	toSerialize["ciphertext"] = o.Ciphertext
+	return toSerialize, nil
+}
+
+func (o *SubmitAuthChecklistRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"key_id",
+		"envelope_encryption_key",
+		"initialization_vector",
+		"message_authentication_code",
+		"ciphertext",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSubmitAuthChecklistRequest := _SubmitAuthChecklistRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varSubmitAuthChecklistRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SubmitAuthChecklistRequest(varSubmitAuthChecklistRequest)
+
+	return err
 }
 
 type NullableSubmitAuthChecklistRequest struct {

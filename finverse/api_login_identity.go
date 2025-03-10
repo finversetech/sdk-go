@@ -14,258 +14,253 @@ package finverse
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
-type LoginIdentityApi interface {
+type LoginIdentityAPI interface {
 
 	/*
 		DeleteLoginIdentity Method for DeleteLoginIdentity
 
 		Delete a specific loginIdentity
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return LoginIdentityApiApiDeleteLoginIdentityRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return LoginIdentityAPIDeleteLoginIdentityRequest
 	*/
-	DeleteLoginIdentity(ctx context.Context) LoginIdentityApiApiDeleteLoginIdentityRequest
+	DeleteLoginIdentity(ctx context.Context) LoginIdentityAPIDeleteLoginIdentityRequest
 
 	// DeleteLoginIdentityExecute executes the request
 	//  @return DeleteLoginIdentityResponse
-	DeleteLoginIdentityExecute(r LoginIdentityApiApiDeleteLoginIdentityRequest) (*DeleteLoginIdentityResponse, *http.Response, error)
+	DeleteLoginIdentityExecute(r LoginIdentityAPIDeleteLoginIdentityRequest) (*DeleteLoginIdentityResponse, *http.Response, error)
 
 	/*
 		GenerateLinkToken Method for GenerateLinkToken
 
 		generate a link token that can be used to create link
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return LoginIdentityApiApiGenerateLinkTokenRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return LoginIdentityAPIGenerateLinkTokenRequest
 	*/
-	GenerateLinkToken(ctx context.Context) LoginIdentityApiApiGenerateLinkTokenRequest
+	GenerateLinkToken(ctx context.Context) LoginIdentityAPIGenerateLinkTokenRequest
 
 	// GenerateLinkTokenExecute executes the request
 	//  @return LinkTokenResponse
-	GenerateLinkTokenExecute(r LoginIdentityApiApiGenerateLinkTokenRequest) (*LinkTokenResponse, *http.Response, error)
+	GenerateLinkTokenExecute(r LoginIdentityAPIGenerateLinkTokenRequest) (*LinkTokenResponse, *http.Response, error)
 
 	/*
 		GetAccount Method for GetAccount
 
 		Get a specific account's information
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param accountId The account id
-		 @return LoginIdentityApiApiGetAccountRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param accountId The account id
+		@return LoginIdentityAPIGetAccountRequest
 	*/
-	GetAccount(ctx context.Context, accountId string) LoginIdentityApiApiGetAccountRequest
+	GetAccount(ctx context.Context, accountId string) LoginIdentityAPIGetAccountRequest
 
 	// GetAccountExecute executes the request
 	//  @return GetAccountResponse
-	GetAccountExecute(r LoginIdentityApiApiGetAccountRequest) (*GetAccountResponse, *http.Response, error)
+	GetAccountExecute(r LoginIdentityAPIGetAccountRequest) (*GetAccountResponse, *http.Response, error)
 
 	/*
 		GetAccountNumber Method for GetAccountNumber
 
 		Get the account number for a specific account
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param accountId The account id
-		 @return LoginIdentityApiApiGetAccountNumberRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param accountId The account id
+		@return LoginIdentityAPIGetAccountNumberRequest
 	*/
-	GetAccountNumber(ctx context.Context, accountId string) LoginIdentityApiApiGetAccountNumberRequest
+	GetAccountNumber(ctx context.Context, accountId string) LoginIdentityAPIGetAccountNumberRequest
 
 	// GetAccountNumberExecute executes the request
 	//  @return GetAccountNumberResponse
-	GetAccountNumberExecute(r LoginIdentityApiApiGetAccountNumberRequest) (*GetAccountNumberResponse, *http.Response, error)
+	GetAccountNumberExecute(r LoginIdentityAPIGetAccountNumberRequest) (*GetAccountNumberResponse, *http.Response, error)
 
 	/*
 		GetBalanceHistory Method for GetBalanceHistory
 
 		Get the balance history for a specific account
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param accountId The account id
-		 @return LoginIdentityApiApiGetBalanceHistoryRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param accountId The account id
+		@return LoginIdentityAPIGetBalanceHistoryRequest
 	*/
-	GetBalanceHistory(ctx context.Context, accountId string) LoginIdentityApiApiGetBalanceHistoryRequest
+	GetBalanceHistory(ctx context.Context, accountId string) LoginIdentityAPIGetBalanceHistoryRequest
 
 	// GetBalanceHistoryExecute executes the request
 	//  @return GetBalanceHistoryResponse
-	GetBalanceHistoryExecute(r LoginIdentityApiApiGetBalanceHistoryRequest) (*GetBalanceHistoryResponse, *http.Response, error)
+	GetBalanceHistoryExecute(r LoginIdentityAPIGetBalanceHistoryRequest) (*GetBalanceHistoryResponse, *http.Response, error)
 
 	/*
 		GetCompositeStatement Method for GetCompositeStatement
 
 		Download composite statement
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return LoginIdentityApiApiGetCompositeStatementRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return LoginIdentityAPIGetCompositeStatementRequest
 	*/
-	GetCompositeStatement(ctx context.Context) LoginIdentityApiApiGetCompositeStatementRequest
+	GetCompositeStatement(ctx context.Context) LoginIdentityAPIGetCompositeStatementRequest
 
 	// GetCompositeStatementExecute executes the request
 	//  @return CompositeStatementLink
-	GetCompositeStatementExecute(r LoginIdentityApiApiGetCompositeStatementRequest) (*CompositeStatementLink, *http.Response, error)
+	GetCompositeStatementExecute(r LoginIdentityAPIGetCompositeStatementRequest) (*CompositeStatementLink, *http.Response, error)
 
 	/*
 		GetIdentity Method for GetIdentity
 
 		\[BETA] Get a list of identity data for a given login identity
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return LoginIdentityApiApiGetIdentityRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return LoginIdentityAPIGetIdentityRequest
 	*/
-	GetIdentity(ctx context.Context) LoginIdentityApiApiGetIdentityRequest
+	GetIdentity(ctx context.Context) LoginIdentityAPIGetIdentityRequest
 
 	// GetIdentityExecute executes the request
 	//  @return GetIdentityResponse
-	GetIdentityExecute(r LoginIdentityApiApiGetIdentityRequest) (*GetIdentityResponse, *http.Response, error)
+	GetIdentityExecute(r LoginIdentityAPIGetIdentityRequest) (*GetIdentityResponse, *http.Response, error)
 
 	/*
 		GetIncomeEstimateByLoginIdentityId Method for GetIncomeEstimateByLoginIdentityId
 
 		Get income figures for a login identity
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return LoginIdentityApiApiGetIncomeEstimateByLoginIdentityIdRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return LoginIdentityAPIGetIncomeEstimateByLoginIdentityIdRequest
 	*/
-	GetIncomeEstimateByLoginIdentityId(ctx context.Context) LoginIdentityApiApiGetIncomeEstimateByLoginIdentityIdRequest
+	GetIncomeEstimateByLoginIdentityId(ctx context.Context) LoginIdentityAPIGetIncomeEstimateByLoginIdentityIdRequest
 
 	// GetIncomeEstimateByLoginIdentityIdExecute executes the request
 	//  @return IncomeResponse
-	GetIncomeEstimateByLoginIdentityIdExecute(r LoginIdentityApiApiGetIncomeEstimateByLoginIdentityIdRequest) (*IncomeResponse, *http.Response, error)
+	GetIncomeEstimateByLoginIdentityIdExecute(r LoginIdentityAPIGetIncomeEstimateByLoginIdentityIdRequest) (*IncomeResponse, *http.Response, error)
 
 	/*
 		GetLoginIdentity Method for GetLoginIdentity
 
 		Get a specific loginIdentity
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return LoginIdentityApiApiGetLoginIdentityRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return LoginIdentityAPIGetLoginIdentityRequest
 	*/
-	GetLoginIdentity(ctx context.Context) LoginIdentityApiApiGetLoginIdentityRequest
+	GetLoginIdentity(ctx context.Context) LoginIdentityAPIGetLoginIdentityRequest
 
 	// GetLoginIdentityExecute executes the request
 	//  @return GetLoginIdentityByIdResponse
-	GetLoginIdentityExecute(r LoginIdentityApiApiGetLoginIdentityRequest) (*GetLoginIdentityByIdResponse, *http.Response, error)
+	GetLoginIdentityExecute(r LoginIdentityAPIGetLoginIdentityRequest) (*GetLoginIdentityByIdResponse, *http.Response, error)
 
 	/*
 		GetStatement Method for GetStatement
 
 		Download statement
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param statementId The statement id
-		 @return LoginIdentityApiApiGetStatementRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param statementId The statement id
+		@return LoginIdentityAPIGetStatementRequest
 	*/
-	GetStatement(ctx context.Context, statementId string) LoginIdentityApiApiGetStatementRequest
+	GetStatement(ctx context.Context, statementId string) LoginIdentityAPIGetStatementRequest
 
 	// GetStatementExecute executes the request
 	//  @return GetStatementLinkResponse
-	GetStatementExecute(r LoginIdentityApiApiGetStatementRequest) (*GetStatementLinkResponse, *http.Response, error)
+	GetStatementExecute(r LoginIdentityAPIGetStatementRequest) (*GetStatementLinkResponse, *http.Response, error)
 
 	/*
 		GetStatements Method for GetStatements
 
 		Get list of available statements
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return LoginIdentityApiApiGetStatementsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return LoginIdentityAPIGetStatementsRequest
 	*/
-	GetStatements(ctx context.Context) LoginIdentityApiApiGetStatementsRequest
+	GetStatements(ctx context.Context) LoginIdentityAPIGetStatementsRequest
 
 	// GetStatementsExecute executes the request
 	//  @return GetStatementsResponse
-	GetStatementsExecute(r LoginIdentityApiApiGetStatementsRequest) (*GetStatementsResponse, *http.Response, error)
+	GetStatementsExecute(r LoginIdentityAPIGetStatementsRequest) (*GetStatementsResponse, *http.Response, error)
 
 	/*
 		ListAccounts Method for ListAccounts
 
 		Get a list of accounts for a login identity
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return LoginIdentityApiApiListAccountsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return LoginIdentityAPIListAccountsRequest
 	*/
-	ListAccounts(ctx context.Context) LoginIdentityApiApiListAccountsRequest
+	ListAccounts(ctx context.Context) LoginIdentityAPIListAccountsRequest
 
 	// ListAccountsExecute executes the request
 	//  @return ListAccountsResponse
-	ListAccountsExecute(r LoginIdentityApiApiListAccountsRequest) (*ListAccountsResponse, *http.Response, error)
+	ListAccountsExecute(r LoginIdentityAPIListAccountsRequest) (*ListAccountsResponse, *http.Response, error)
 
 	/*
 		ListCardDetails Method for ListCardDetails
 
 		Get a list of card details for a login identity
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return LoginIdentityApiApiListCardDetailsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return LoginIdentityAPIListCardDetailsRequest
 	*/
-	ListCardDetails(ctx context.Context) LoginIdentityApiApiListCardDetailsRequest
+	ListCardDetails(ctx context.Context) LoginIdentityAPIListCardDetailsRequest
 
 	// ListCardDetailsExecute executes the request
 	//  @return ListCardsDetailsResponse
-	ListCardDetailsExecute(r LoginIdentityApiApiListCardDetailsRequest) (*ListCardsDetailsResponse, *http.Response, error)
+	ListCardDetailsExecute(r LoginIdentityAPIListCardDetailsRequest) (*ListCardsDetailsResponse, *http.Response, error)
 
 	/*
 		ListTransactionsByAccountId Method for ListTransactionsByAccountId
 
 		Get a list of transactions for a particular account. The transactions are returned in sorted order, with the most recent one appearing first.
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param accountId The account id (ULID, example - 01EP4A1MZDHKETZFRPF0K62S6S)
-		 @return LoginIdentityApiApiListTransactionsByAccountIdRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param accountId The account id (ULID, example - 01EP4A1MZDHKETZFRPF0K62S6S)
+		@return LoginIdentityAPIListTransactionsByAccountIdRequest
 	*/
-	ListTransactionsByAccountId(ctx context.Context, accountId string) LoginIdentityApiApiListTransactionsByAccountIdRequest
+	ListTransactionsByAccountId(ctx context.Context, accountId string) LoginIdentityAPIListTransactionsByAccountIdRequest
 
 	// ListTransactionsByAccountIdExecute executes the request
 	//  @return ListTransactionsResponse
-	ListTransactionsByAccountIdExecute(r LoginIdentityApiApiListTransactionsByAccountIdRequest) (*ListTransactionsResponse, *http.Response, error)
+	ListTransactionsByAccountIdExecute(r LoginIdentityAPIListTransactionsByAccountIdRequest) (*ListTransactionsResponse, *http.Response, error)
 
 	/*
 		ListTransactionsByLoginIdentityId Method for ListTransactionsByLoginIdentityId
 
 		Get a list of transactions for a login identity. The transactions are returned in sorted order, with the most recent one appearing first.
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return LoginIdentityAPIListTransactionsByLoginIdentityIdRequest
 	*/
-	ListTransactionsByLoginIdentityId(ctx context.Context) LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest
+	ListTransactionsByLoginIdentityId(ctx context.Context) LoginIdentityAPIListTransactionsByLoginIdentityIdRequest
 
 	// ListTransactionsByLoginIdentityIdExecute executes the request
 	//  @return ListTransactionsResponse
-	ListTransactionsByLoginIdentityIdExecute(r LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest) (*ListTransactionsResponse, *http.Response, error)
+	ListTransactionsByLoginIdentityIdExecute(r LoginIdentityAPIListTransactionsByLoginIdentityIdRequest) (*ListTransactionsResponse, *http.Response, error)
 
 	/*
 		RefreshLoginIdentity Method for RefreshLoginIdentity
 
 		Create a refresh job for a login identity
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return LoginIdentityApiApiRefreshLoginIdentityRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return LoginIdentityAPIRefreshLoginIdentityRequest
 	*/
-	RefreshLoginIdentity(ctx context.Context) LoginIdentityApiApiRefreshLoginIdentityRequest
+	RefreshLoginIdentity(ctx context.Context) LoginIdentityAPIRefreshLoginIdentityRequest
 
 	// RefreshLoginIdentityExecute executes the request
 	//  @return RefreshTokenResponse
-	RefreshLoginIdentityExecute(r LoginIdentityApiApiRefreshLoginIdentityRequest) (*RefreshTokenResponse, *http.Response, error)
+	RefreshLoginIdentityExecute(r LoginIdentityAPIRefreshLoginIdentityRequest) (*RefreshTokenResponse, *http.Response, error)
 }
 
-// LoginIdentityApiService LoginIdentityApi service
-type LoginIdentityApiService service
+// LoginIdentityAPIService LoginIdentityAPI service
+type LoginIdentityAPIService service
 
-type LoginIdentityApiApiDeleteLoginIdentityRequest struct {
+type LoginIdentityAPIDeleteLoginIdentityRequest struct {
 	ctx        context.Context
-	ApiService LoginIdentityApi
+	ApiService LoginIdentityAPI
 }
 
-func (r LoginIdentityApiApiDeleteLoginIdentityRequest) Execute() (*DeleteLoginIdentityResponse, *http.Response, error) {
+func (r LoginIdentityAPIDeleteLoginIdentityRequest) Execute() (*DeleteLoginIdentityResponse, *http.Response, error) {
 	return r.ApiService.DeleteLoginIdentityExecute(r)
 }
 
@@ -275,10 +270,10 @@ DeleteLoginIdentity Method for DeleteLoginIdentity
 Delete a specific loginIdentity
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return LoginIdentityApiApiDeleteLoginIdentityRequest
+ @return LoginIdentityAPIDeleteLoginIdentityRequest
 */
-func (a *LoginIdentityApiService) DeleteLoginIdentity(ctx context.Context) LoginIdentityApiApiDeleteLoginIdentityRequest {
-	return LoginIdentityApiApiDeleteLoginIdentityRequest{
+func (a *LoginIdentityAPIService) DeleteLoginIdentity(ctx context.Context) LoginIdentityAPIDeleteLoginIdentityRequest {
+	return LoginIdentityAPIDeleteLoginIdentityRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -286,7 +281,7 @@ func (a *LoginIdentityApiService) DeleteLoginIdentity(ctx context.Context) Login
 
 // Execute executes the request
 //  @return DeleteLoginIdentityResponse
-func (a *LoginIdentityApiService) DeleteLoginIdentityExecute(r LoginIdentityApiApiDeleteLoginIdentityRequest) (*DeleteLoginIdentityResponse, *http.Response, error) {
+func (a *LoginIdentityAPIService) DeleteLoginIdentityExecute(r LoginIdentityAPIDeleteLoginIdentityRequest) (*DeleteLoginIdentityResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodDelete
 		localVarPostBody    interface{}
@@ -294,7 +289,7 @@ func (a *LoginIdentityApiService) DeleteLoginIdentityExecute(r LoginIdentityApiA
 		localVarReturnValue *DeleteLoginIdentityResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.DeleteLoginIdentity")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityAPIService.DeleteLoginIdentity")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -332,11 +327,18 @@ func (a *LoginIdentityApiService) DeleteLoginIdentityExecute(r LoginIdentityApiA
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -351,6 +353,7 @@ func (a *LoginIdentityApiService) DeleteLoginIdentityExecute(r LoginIdentityApiA
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -361,6 +364,7 @@ func (a *LoginIdentityApiService) DeleteLoginIdentityExecute(r LoginIdentityApiA
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -378,19 +382,19 @@ func (a *LoginIdentityApiService) DeleteLoginIdentityExecute(r LoginIdentityApiA
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LoginIdentityApiApiGenerateLinkTokenRequest struct {
+type LoginIdentityAPIGenerateLinkTokenRequest struct {
 	ctx              context.Context
-	ApiService       LoginIdentityApi
+	ApiService       LoginIdentityAPI
 	linkTokenRequest *LinkTokenRequest
 }
 
 // token request
-func (r LoginIdentityApiApiGenerateLinkTokenRequest) LinkTokenRequest(linkTokenRequest LinkTokenRequest) LoginIdentityApiApiGenerateLinkTokenRequest {
+func (r LoginIdentityAPIGenerateLinkTokenRequest) LinkTokenRequest(linkTokenRequest LinkTokenRequest) LoginIdentityAPIGenerateLinkTokenRequest {
 	r.linkTokenRequest = &linkTokenRequest
 	return r
 }
 
-func (r LoginIdentityApiApiGenerateLinkTokenRequest) Execute() (*LinkTokenResponse, *http.Response, error) {
+func (r LoginIdentityAPIGenerateLinkTokenRequest) Execute() (*LinkTokenResponse, *http.Response, error) {
 	return r.ApiService.GenerateLinkTokenExecute(r)
 }
 
@@ -400,10 +404,10 @@ GenerateLinkToken Method for GenerateLinkToken
 generate a link token that can be used to create link
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return LoginIdentityApiApiGenerateLinkTokenRequest
+ @return LoginIdentityAPIGenerateLinkTokenRequest
 */
-func (a *LoginIdentityApiService) GenerateLinkToken(ctx context.Context) LoginIdentityApiApiGenerateLinkTokenRequest {
-	return LoginIdentityApiApiGenerateLinkTokenRequest{
+func (a *LoginIdentityAPIService) GenerateLinkToken(ctx context.Context) LoginIdentityAPIGenerateLinkTokenRequest {
+	return LoginIdentityAPIGenerateLinkTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -411,7 +415,7 @@ func (a *LoginIdentityApiService) GenerateLinkToken(ctx context.Context) LoginId
 
 // Execute executes the request
 //  @return LinkTokenResponse
-func (a *LoginIdentityApiService) GenerateLinkTokenExecute(r LoginIdentityApiApiGenerateLinkTokenRequest) (*LinkTokenResponse, *http.Response, error) {
+func (a *LoginIdentityAPIService) GenerateLinkTokenExecute(r LoginIdentityAPIGenerateLinkTokenRequest) (*LinkTokenResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -419,7 +423,7 @@ func (a *LoginIdentityApiService) GenerateLinkTokenExecute(r LoginIdentityApiApi
 		localVarReturnValue *LinkTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.GenerateLinkToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityAPIService.GenerateLinkToken")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -462,11 +466,18 @@ func (a *LoginIdentityApiService) GenerateLinkTokenExecute(r LoginIdentityApiApi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -481,6 +492,7 @@ func (a *LoginIdentityApiService) GenerateLinkTokenExecute(r LoginIdentityApiApi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -491,6 +503,7 @@ func (a *LoginIdentityApiService) GenerateLinkTokenExecute(r LoginIdentityApiApi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -501,6 +514,7 @@ func (a *LoginIdentityApiService) GenerateLinkTokenExecute(r LoginIdentityApiApi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -518,13 +532,13 @@ func (a *LoginIdentityApiService) GenerateLinkTokenExecute(r LoginIdentityApiApi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LoginIdentityApiApiGetAccountRequest struct {
+type LoginIdentityAPIGetAccountRequest struct {
 	ctx        context.Context
-	ApiService LoginIdentityApi
+	ApiService LoginIdentityAPI
 	accountId  string
 }
 
-func (r LoginIdentityApiApiGetAccountRequest) Execute() (*GetAccountResponse, *http.Response, error) {
+func (r LoginIdentityAPIGetAccountRequest) Execute() (*GetAccountResponse, *http.Response, error) {
 	return r.ApiService.GetAccountExecute(r)
 }
 
@@ -535,10 +549,10 @@ Get a specific account's information
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param accountId The account id
- @return LoginIdentityApiApiGetAccountRequest
+ @return LoginIdentityAPIGetAccountRequest
 */
-func (a *LoginIdentityApiService) GetAccount(ctx context.Context, accountId string) LoginIdentityApiApiGetAccountRequest {
-	return LoginIdentityApiApiGetAccountRequest{
+func (a *LoginIdentityAPIService) GetAccount(ctx context.Context, accountId string) LoginIdentityAPIGetAccountRequest {
+	return LoginIdentityAPIGetAccountRequest{
 		ApiService: a,
 		ctx:        ctx,
 		accountId:  accountId,
@@ -547,7 +561,7 @@ func (a *LoginIdentityApiService) GetAccount(ctx context.Context, accountId stri
 
 // Execute executes the request
 //  @return GetAccountResponse
-func (a *LoginIdentityApiService) GetAccountExecute(r LoginIdentityApiApiGetAccountRequest) (*GetAccountResponse, *http.Response, error) {
+func (a *LoginIdentityAPIService) GetAccountExecute(r LoginIdentityAPIGetAccountRequest) (*GetAccountResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -555,13 +569,13 @@ func (a *LoginIdentityApiService) GetAccountExecute(r LoginIdentityApiApiGetAcco
 		localVarReturnValue *GetAccountResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.GetAccount")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityAPIService.GetAccount")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/accounts/{accountId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterToString(r.accountId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -594,11 +608,18 @@ func (a *LoginIdentityApiService) GetAccountExecute(r LoginIdentityApiApiGetAcco
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -613,6 +634,7 @@ func (a *LoginIdentityApiService) GetAccountExecute(r LoginIdentityApiApiGetAcco
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -623,6 +645,7 @@ func (a *LoginIdentityApiService) GetAccountExecute(r LoginIdentityApiApiGetAcco
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -640,13 +663,13 @@ func (a *LoginIdentityApiService) GetAccountExecute(r LoginIdentityApiApiGetAcco
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LoginIdentityApiApiGetAccountNumberRequest struct {
+type LoginIdentityAPIGetAccountNumberRequest struct {
 	ctx        context.Context
-	ApiService LoginIdentityApi
+	ApiService LoginIdentityAPI
 	accountId  string
 }
 
-func (r LoginIdentityApiApiGetAccountNumberRequest) Execute() (*GetAccountNumberResponse, *http.Response, error) {
+func (r LoginIdentityAPIGetAccountNumberRequest) Execute() (*GetAccountNumberResponse, *http.Response, error) {
 	return r.ApiService.GetAccountNumberExecute(r)
 }
 
@@ -657,10 +680,10 @@ Get the account number for a specific account
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param accountId The account id
- @return LoginIdentityApiApiGetAccountNumberRequest
+ @return LoginIdentityAPIGetAccountNumberRequest
 */
-func (a *LoginIdentityApiService) GetAccountNumber(ctx context.Context, accountId string) LoginIdentityApiApiGetAccountNumberRequest {
-	return LoginIdentityApiApiGetAccountNumberRequest{
+func (a *LoginIdentityAPIService) GetAccountNumber(ctx context.Context, accountId string) LoginIdentityAPIGetAccountNumberRequest {
+	return LoginIdentityAPIGetAccountNumberRequest{
 		ApiService: a,
 		ctx:        ctx,
 		accountId:  accountId,
@@ -669,7 +692,7 @@ func (a *LoginIdentityApiService) GetAccountNumber(ctx context.Context, accountI
 
 // Execute executes the request
 //  @return GetAccountNumberResponse
-func (a *LoginIdentityApiService) GetAccountNumberExecute(r LoginIdentityApiApiGetAccountNumberRequest) (*GetAccountNumberResponse, *http.Response, error) {
+func (a *LoginIdentityAPIService) GetAccountNumberExecute(r LoginIdentityAPIGetAccountNumberRequest) (*GetAccountNumberResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -677,13 +700,13 @@ func (a *LoginIdentityApiService) GetAccountNumberExecute(r LoginIdentityApiApiG
 		localVarReturnValue *GetAccountNumberResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.GetAccountNumber")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityAPIService.GetAccountNumber")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/account_numbers/{accountId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterToString(r.accountId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -716,11 +739,18 @@ func (a *LoginIdentityApiService) GetAccountNumberExecute(r LoginIdentityApiApiG
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -735,6 +765,7 @@ func (a *LoginIdentityApiService) GetAccountNumberExecute(r LoginIdentityApiApiG
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -745,6 +776,7 @@ func (a *LoginIdentityApiService) GetAccountNumberExecute(r LoginIdentityApiApiG
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -762,20 +794,20 @@ func (a *LoginIdentityApiService) GetAccountNumberExecute(r LoginIdentityApiApiG
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LoginIdentityApiApiGetBalanceHistoryRequest struct {
+type LoginIdentityAPIGetBalanceHistoryRequest struct {
 	ctx        context.Context
-	ApiService LoginIdentityApi
+	ApiService LoginIdentityAPI
 	accountId  string
 	source     *string
 }
 
 // The source will determine what type of balance history will be returned
-func (r LoginIdentityApiApiGetBalanceHistoryRequest) Source(source string) LoginIdentityApiApiGetBalanceHistoryRequest {
+func (r LoginIdentityAPIGetBalanceHistoryRequest) Source(source string) LoginIdentityAPIGetBalanceHistoryRequest {
 	r.source = &source
 	return r
 }
 
-func (r LoginIdentityApiApiGetBalanceHistoryRequest) Execute() (*GetBalanceHistoryResponse, *http.Response, error) {
+func (r LoginIdentityAPIGetBalanceHistoryRequest) Execute() (*GetBalanceHistoryResponse, *http.Response, error) {
 	return r.ApiService.GetBalanceHistoryExecute(r)
 }
 
@@ -786,10 +818,10 @@ Get the balance history for a specific account
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param accountId The account id
- @return LoginIdentityApiApiGetBalanceHistoryRequest
+ @return LoginIdentityAPIGetBalanceHistoryRequest
 */
-func (a *LoginIdentityApiService) GetBalanceHistory(ctx context.Context, accountId string) LoginIdentityApiApiGetBalanceHistoryRequest {
-	return LoginIdentityApiApiGetBalanceHistoryRequest{
+func (a *LoginIdentityAPIService) GetBalanceHistory(ctx context.Context, accountId string) LoginIdentityAPIGetBalanceHistoryRequest {
+	return LoginIdentityAPIGetBalanceHistoryRequest{
 		ApiService: a,
 		ctx:        ctx,
 		accountId:  accountId,
@@ -798,7 +830,7 @@ func (a *LoginIdentityApiService) GetBalanceHistory(ctx context.Context, account
 
 // Execute executes the request
 //  @return GetBalanceHistoryResponse
-func (a *LoginIdentityApiService) GetBalanceHistoryExecute(r LoginIdentityApiApiGetBalanceHistoryRequest) (*GetBalanceHistoryResponse, *http.Response, error) {
+func (a *LoginIdentityAPIService) GetBalanceHistoryExecute(r LoginIdentityAPIGetBalanceHistoryRequest) (*GetBalanceHistoryResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -806,20 +838,20 @@ func (a *LoginIdentityApiService) GetBalanceHistoryExecute(r LoginIdentityApiApi
 		localVarReturnValue *GetBalanceHistoryResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.GetBalanceHistory")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityAPIService.GetBalanceHistory")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/balance_history/{accountId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterToString(r.accountId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.source != nil {
-		localVarQueryParams.Add("source", parameterToString(*r.source, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "source", r.source, "", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -848,11 +880,18 @@ func (a *LoginIdentityApiService) GetBalanceHistoryExecute(r LoginIdentityApiApi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -867,6 +906,7 @@ func (a *LoginIdentityApiService) GetBalanceHistoryExecute(r LoginIdentityApiApi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -877,6 +917,7 @@ func (a *LoginIdentityApiService) GetBalanceHistoryExecute(r LoginIdentityApiApi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -894,19 +935,19 @@ func (a *LoginIdentityApiService) GetBalanceHistoryExecute(r LoginIdentityApiApi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LoginIdentityApiApiGetCompositeStatementRequest struct {
+type LoginIdentityAPIGetCompositeStatementRequest struct {
 	ctx        context.Context
-	ApiService LoginIdentityApi
+	ApiService LoginIdentityAPI
 	redirect   *bool
 }
 
 // when true, response will be http redirect; otherwise it will be json response with the download link
-func (r LoginIdentityApiApiGetCompositeStatementRequest) Redirect(redirect bool) LoginIdentityApiApiGetCompositeStatementRequest {
+func (r LoginIdentityAPIGetCompositeStatementRequest) Redirect(redirect bool) LoginIdentityAPIGetCompositeStatementRequest {
 	r.redirect = &redirect
 	return r
 }
 
-func (r LoginIdentityApiApiGetCompositeStatementRequest) Execute() (*CompositeStatementLink, *http.Response, error) {
+func (r LoginIdentityAPIGetCompositeStatementRequest) Execute() (*CompositeStatementLink, *http.Response, error) {
 	return r.ApiService.GetCompositeStatementExecute(r)
 }
 
@@ -916,10 +957,10 @@ GetCompositeStatement Method for GetCompositeStatement
 Download composite statement
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return LoginIdentityApiApiGetCompositeStatementRequest
+ @return LoginIdentityAPIGetCompositeStatementRequest
 */
-func (a *LoginIdentityApiService) GetCompositeStatement(ctx context.Context) LoginIdentityApiApiGetCompositeStatementRequest {
-	return LoginIdentityApiApiGetCompositeStatementRequest{
+func (a *LoginIdentityAPIService) GetCompositeStatement(ctx context.Context) LoginIdentityAPIGetCompositeStatementRequest {
+	return LoginIdentityAPIGetCompositeStatementRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -927,7 +968,7 @@ func (a *LoginIdentityApiService) GetCompositeStatement(ctx context.Context) Log
 
 // Execute executes the request
 //  @return CompositeStatementLink
-func (a *LoginIdentityApiService) GetCompositeStatementExecute(r LoginIdentityApiApiGetCompositeStatementRequest) (*CompositeStatementLink, *http.Response, error) {
+func (a *LoginIdentityAPIService) GetCompositeStatementExecute(r LoginIdentityAPIGetCompositeStatementRequest) (*CompositeStatementLink, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -935,7 +976,7 @@ func (a *LoginIdentityApiService) GetCompositeStatementExecute(r LoginIdentityAp
 		localVarReturnValue *CompositeStatementLink
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.GetCompositeStatement")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityAPIService.GetCompositeStatement")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -947,7 +988,10 @@ func (a *LoginIdentityApiService) GetCompositeStatementExecute(r LoginIdentityAp
 	localVarFormParams := url.Values{}
 
 	if r.redirect != nil {
-		localVarQueryParams.Add("redirect", parameterToString(*r.redirect, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "redirect", r.redirect, "", "")
+	} else {
+		var defaultValue bool = true
+		r.redirect = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -976,11 +1020,18 @@ func (a *LoginIdentityApiService) GetCompositeStatementExecute(r LoginIdentityAp
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -995,6 +1046,7 @@ func (a *LoginIdentityApiService) GetCompositeStatementExecute(r LoginIdentityAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1005,6 +1057,7 @@ func (a *LoginIdentityApiService) GetCompositeStatementExecute(r LoginIdentityAp
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1022,12 +1075,12 @@ func (a *LoginIdentityApiService) GetCompositeStatementExecute(r LoginIdentityAp
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LoginIdentityApiApiGetIdentityRequest struct {
+type LoginIdentityAPIGetIdentityRequest struct {
 	ctx        context.Context
-	ApiService LoginIdentityApi
+	ApiService LoginIdentityAPI
 }
 
-func (r LoginIdentityApiApiGetIdentityRequest) Execute() (*GetIdentityResponse, *http.Response, error) {
+func (r LoginIdentityAPIGetIdentityRequest) Execute() (*GetIdentityResponse, *http.Response, error) {
 	return r.ApiService.GetIdentityExecute(r)
 }
 
@@ -1037,10 +1090,10 @@ GetIdentity Method for GetIdentity
 \[BETA] Get a list of identity data for a given login identity
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return LoginIdentityApiApiGetIdentityRequest
+ @return LoginIdentityAPIGetIdentityRequest
 */
-func (a *LoginIdentityApiService) GetIdentity(ctx context.Context) LoginIdentityApiApiGetIdentityRequest {
-	return LoginIdentityApiApiGetIdentityRequest{
+func (a *LoginIdentityAPIService) GetIdentity(ctx context.Context) LoginIdentityAPIGetIdentityRequest {
+	return LoginIdentityAPIGetIdentityRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1048,7 +1101,7 @@ func (a *LoginIdentityApiService) GetIdentity(ctx context.Context) LoginIdentity
 
 // Execute executes the request
 //  @return GetIdentityResponse
-func (a *LoginIdentityApiService) GetIdentityExecute(r LoginIdentityApiApiGetIdentityRequest) (*GetIdentityResponse, *http.Response, error) {
+func (a *LoginIdentityAPIService) GetIdentityExecute(r LoginIdentityAPIGetIdentityRequest) (*GetIdentityResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1056,7 +1109,7 @@ func (a *LoginIdentityApiService) GetIdentityExecute(r LoginIdentityApiApiGetIde
 		localVarReturnValue *GetIdentityResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.GetIdentity")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityAPIService.GetIdentity")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1094,11 +1147,18 @@ func (a *LoginIdentityApiService) GetIdentityExecute(r LoginIdentityApiApiGetIde
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1113,6 +1173,7 @@ func (a *LoginIdentityApiService) GetIdentityExecute(r LoginIdentityApiApiGetIde
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1123,6 +1184,7 @@ func (a *LoginIdentityApiService) GetIdentityExecute(r LoginIdentityApiApiGetIde
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1140,12 +1202,12 @@ func (a *LoginIdentityApiService) GetIdentityExecute(r LoginIdentityApiApiGetIde
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LoginIdentityApiApiGetIncomeEstimateByLoginIdentityIdRequest struct {
+type LoginIdentityAPIGetIncomeEstimateByLoginIdentityIdRequest struct {
 	ctx        context.Context
-	ApiService LoginIdentityApi
+	ApiService LoginIdentityAPI
 }
 
-func (r LoginIdentityApiApiGetIncomeEstimateByLoginIdentityIdRequest) Execute() (*IncomeResponse, *http.Response, error) {
+func (r LoginIdentityAPIGetIncomeEstimateByLoginIdentityIdRequest) Execute() (*IncomeResponse, *http.Response, error) {
 	return r.ApiService.GetIncomeEstimateByLoginIdentityIdExecute(r)
 }
 
@@ -1155,10 +1217,10 @@ GetIncomeEstimateByLoginIdentityId Method for GetIncomeEstimateByLoginIdentityId
 Get income figures for a login identity
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return LoginIdentityApiApiGetIncomeEstimateByLoginIdentityIdRequest
+ @return LoginIdentityAPIGetIncomeEstimateByLoginIdentityIdRequest
 */
-func (a *LoginIdentityApiService) GetIncomeEstimateByLoginIdentityId(ctx context.Context) LoginIdentityApiApiGetIncomeEstimateByLoginIdentityIdRequest {
-	return LoginIdentityApiApiGetIncomeEstimateByLoginIdentityIdRequest{
+func (a *LoginIdentityAPIService) GetIncomeEstimateByLoginIdentityId(ctx context.Context) LoginIdentityAPIGetIncomeEstimateByLoginIdentityIdRequest {
+	return LoginIdentityAPIGetIncomeEstimateByLoginIdentityIdRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1166,7 +1228,7 @@ func (a *LoginIdentityApiService) GetIncomeEstimateByLoginIdentityId(ctx context
 
 // Execute executes the request
 //  @return IncomeResponse
-func (a *LoginIdentityApiService) GetIncomeEstimateByLoginIdentityIdExecute(r LoginIdentityApiApiGetIncomeEstimateByLoginIdentityIdRequest) (*IncomeResponse, *http.Response, error) {
+func (a *LoginIdentityAPIService) GetIncomeEstimateByLoginIdentityIdExecute(r LoginIdentityAPIGetIncomeEstimateByLoginIdentityIdRequest) (*IncomeResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1174,7 +1236,7 @@ func (a *LoginIdentityApiService) GetIncomeEstimateByLoginIdentityIdExecute(r Lo
 		localVarReturnValue *IncomeResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.GetIncomeEstimateByLoginIdentityId")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityAPIService.GetIncomeEstimateByLoginIdentityId")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1212,11 +1274,18 @@ func (a *LoginIdentityApiService) GetIncomeEstimateByLoginIdentityIdExecute(r Lo
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1231,6 +1300,7 @@ func (a *LoginIdentityApiService) GetIncomeEstimateByLoginIdentityIdExecute(r Lo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1241,6 +1311,7 @@ func (a *LoginIdentityApiService) GetIncomeEstimateByLoginIdentityIdExecute(r Lo
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1258,12 +1329,12 @@ func (a *LoginIdentityApiService) GetIncomeEstimateByLoginIdentityIdExecute(r Lo
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LoginIdentityApiApiGetLoginIdentityRequest struct {
+type LoginIdentityAPIGetLoginIdentityRequest struct {
 	ctx        context.Context
-	ApiService LoginIdentityApi
+	ApiService LoginIdentityAPI
 }
 
-func (r LoginIdentityApiApiGetLoginIdentityRequest) Execute() (*GetLoginIdentityByIdResponse, *http.Response, error) {
+func (r LoginIdentityAPIGetLoginIdentityRequest) Execute() (*GetLoginIdentityByIdResponse, *http.Response, error) {
 	return r.ApiService.GetLoginIdentityExecute(r)
 }
 
@@ -1273,10 +1344,10 @@ GetLoginIdentity Method for GetLoginIdentity
 Get a specific loginIdentity
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return LoginIdentityApiApiGetLoginIdentityRequest
+ @return LoginIdentityAPIGetLoginIdentityRequest
 */
-func (a *LoginIdentityApiService) GetLoginIdentity(ctx context.Context) LoginIdentityApiApiGetLoginIdentityRequest {
-	return LoginIdentityApiApiGetLoginIdentityRequest{
+func (a *LoginIdentityAPIService) GetLoginIdentity(ctx context.Context) LoginIdentityAPIGetLoginIdentityRequest {
+	return LoginIdentityAPIGetLoginIdentityRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1284,7 +1355,7 @@ func (a *LoginIdentityApiService) GetLoginIdentity(ctx context.Context) LoginIde
 
 // Execute executes the request
 //  @return GetLoginIdentityByIdResponse
-func (a *LoginIdentityApiService) GetLoginIdentityExecute(r LoginIdentityApiApiGetLoginIdentityRequest) (*GetLoginIdentityByIdResponse, *http.Response, error) {
+func (a *LoginIdentityAPIService) GetLoginIdentityExecute(r LoginIdentityAPIGetLoginIdentityRequest) (*GetLoginIdentityByIdResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1292,7 +1363,7 @@ func (a *LoginIdentityApiService) GetLoginIdentityExecute(r LoginIdentityApiApiG
 		localVarReturnValue *GetLoginIdentityByIdResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.GetLoginIdentity")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityAPIService.GetLoginIdentity")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1330,11 +1401,18 @@ func (a *LoginIdentityApiService) GetLoginIdentityExecute(r LoginIdentityApiApiG
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1349,6 +1427,7 @@ func (a *LoginIdentityApiService) GetLoginIdentityExecute(r LoginIdentityApiApiG
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1359,6 +1438,7 @@ func (a *LoginIdentityApiService) GetLoginIdentityExecute(r LoginIdentityApiApiG
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1376,20 +1456,20 @@ func (a *LoginIdentityApiService) GetLoginIdentityExecute(r LoginIdentityApiApiG
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LoginIdentityApiApiGetStatementRequest struct {
+type LoginIdentityAPIGetStatementRequest struct {
 	ctx         context.Context
-	ApiService  LoginIdentityApi
+	ApiService  LoginIdentityAPI
 	statementId string
 	redirect    *bool
 }
 
 // when true, response will be http redirect; otherwise it will be json response with the download link
-func (r LoginIdentityApiApiGetStatementRequest) Redirect(redirect bool) LoginIdentityApiApiGetStatementRequest {
+func (r LoginIdentityAPIGetStatementRequest) Redirect(redirect bool) LoginIdentityAPIGetStatementRequest {
 	r.redirect = &redirect
 	return r
 }
 
-func (r LoginIdentityApiApiGetStatementRequest) Execute() (*GetStatementLinkResponse, *http.Response, error) {
+func (r LoginIdentityAPIGetStatementRequest) Execute() (*GetStatementLinkResponse, *http.Response, error) {
 	return r.ApiService.GetStatementExecute(r)
 }
 
@@ -1400,10 +1480,10 @@ Download statement
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param statementId The statement id
- @return LoginIdentityApiApiGetStatementRequest
+ @return LoginIdentityAPIGetStatementRequest
 */
-func (a *LoginIdentityApiService) GetStatement(ctx context.Context, statementId string) LoginIdentityApiApiGetStatementRequest {
-	return LoginIdentityApiApiGetStatementRequest{
+func (a *LoginIdentityAPIService) GetStatement(ctx context.Context, statementId string) LoginIdentityAPIGetStatementRequest {
+	return LoginIdentityAPIGetStatementRequest{
 		ApiService:  a,
 		ctx:         ctx,
 		statementId: statementId,
@@ -1412,7 +1492,7 @@ func (a *LoginIdentityApiService) GetStatement(ctx context.Context, statementId 
 
 // Execute executes the request
 //  @return GetStatementLinkResponse
-func (a *LoginIdentityApiService) GetStatementExecute(r LoginIdentityApiApiGetStatementRequest) (*GetStatementLinkResponse, *http.Response, error) {
+func (a *LoginIdentityAPIService) GetStatementExecute(r LoginIdentityAPIGetStatementRequest) (*GetStatementLinkResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1420,20 +1500,23 @@ func (a *LoginIdentityApiService) GetStatementExecute(r LoginIdentityApiApiGetSt
 		localVarReturnValue *GetStatementLinkResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.GetStatement")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityAPIService.GetStatement")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/statements/{statementId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"statementId"+"}", url.PathEscape(parameterToString(r.statementId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"statementId"+"}", url.PathEscape(parameterValueToString(r.statementId, "statementId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.redirect != nil {
-		localVarQueryParams.Add("redirect", parameterToString(*r.redirect, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "redirect", r.redirect, "", "")
+	} else {
+		var defaultValue bool = true
+		r.redirect = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1462,11 +1545,18 @@ func (a *LoginIdentityApiService) GetStatementExecute(r LoginIdentityApiApiGetSt
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1481,6 +1571,7 @@ func (a *LoginIdentityApiService) GetStatementExecute(r LoginIdentityApiApiGetSt
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1491,6 +1582,7 @@ func (a *LoginIdentityApiService) GetStatementExecute(r LoginIdentityApiApiGetSt
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1508,12 +1600,12 @@ func (a *LoginIdentityApiService) GetStatementExecute(r LoginIdentityApiApiGetSt
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LoginIdentityApiApiGetStatementsRequest struct {
+type LoginIdentityAPIGetStatementsRequest struct {
 	ctx        context.Context
-	ApiService LoginIdentityApi
+	ApiService LoginIdentityAPI
 }
 
-func (r LoginIdentityApiApiGetStatementsRequest) Execute() (*GetStatementsResponse, *http.Response, error) {
+func (r LoginIdentityAPIGetStatementsRequest) Execute() (*GetStatementsResponse, *http.Response, error) {
 	return r.ApiService.GetStatementsExecute(r)
 }
 
@@ -1523,10 +1615,10 @@ GetStatements Method for GetStatements
 Get list of available statements
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return LoginIdentityApiApiGetStatementsRequest
+ @return LoginIdentityAPIGetStatementsRequest
 */
-func (a *LoginIdentityApiService) GetStatements(ctx context.Context) LoginIdentityApiApiGetStatementsRequest {
-	return LoginIdentityApiApiGetStatementsRequest{
+func (a *LoginIdentityAPIService) GetStatements(ctx context.Context) LoginIdentityAPIGetStatementsRequest {
+	return LoginIdentityAPIGetStatementsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1534,7 +1626,7 @@ func (a *LoginIdentityApiService) GetStatements(ctx context.Context) LoginIdenti
 
 // Execute executes the request
 //  @return GetStatementsResponse
-func (a *LoginIdentityApiService) GetStatementsExecute(r LoginIdentityApiApiGetStatementsRequest) (*GetStatementsResponse, *http.Response, error) {
+func (a *LoginIdentityAPIService) GetStatementsExecute(r LoginIdentityAPIGetStatementsRequest) (*GetStatementsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1542,7 +1634,7 @@ func (a *LoginIdentityApiService) GetStatementsExecute(r LoginIdentityApiApiGetS
 		localVarReturnValue *GetStatementsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.GetStatements")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityAPIService.GetStatements")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1580,11 +1672,18 @@ func (a *LoginIdentityApiService) GetStatementsExecute(r LoginIdentityApiApiGetS
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1599,6 +1698,7 @@ func (a *LoginIdentityApiService) GetStatementsExecute(r LoginIdentityApiApiGetS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1609,6 +1709,7 @@ func (a *LoginIdentityApiService) GetStatementsExecute(r LoginIdentityApiApiGetS
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1626,12 +1727,12 @@ func (a *LoginIdentityApiService) GetStatementsExecute(r LoginIdentityApiApiGetS
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LoginIdentityApiApiListAccountsRequest struct {
+type LoginIdentityAPIListAccountsRequest struct {
 	ctx        context.Context
-	ApiService LoginIdentityApi
+	ApiService LoginIdentityAPI
 }
 
-func (r LoginIdentityApiApiListAccountsRequest) Execute() (*ListAccountsResponse, *http.Response, error) {
+func (r LoginIdentityAPIListAccountsRequest) Execute() (*ListAccountsResponse, *http.Response, error) {
 	return r.ApiService.ListAccountsExecute(r)
 }
 
@@ -1641,10 +1742,10 @@ ListAccounts Method for ListAccounts
 Get a list of accounts for a login identity
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return LoginIdentityApiApiListAccountsRequest
+ @return LoginIdentityAPIListAccountsRequest
 */
-func (a *LoginIdentityApiService) ListAccounts(ctx context.Context) LoginIdentityApiApiListAccountsRequest {
-	return LoginIdentityApiApiListAccountsRequest{
+func (a *LoginIdentityAPIService) ListAccounts(ctx context.Context) LoginIdentityAPIListAccountsRequest {
+	return LoginIdentityAPIListAccountsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1652,7 +1753,7 @@ func (a *LoginIdentityApiService) ListAccounts(ctx context.Context) LoginIdentit
 
 // Execute executes the request
 //  @return ListAccountsResponse
-func (a *LoginIdentityApiService) ListAccountsExecute(r LoginIdentityApiApiListAccountsRequest) (*ListAccountsResponse, *http.Response, error) {
+func (a *LoginIdentityAPIService) ListAccountsExecute(r LoginIdentityAPIListAccountsRequest) (*ListAccountsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1660,7 +1761,7 @@ func (a *LoginIdentityApiService) ListAccountsExecute(r LoginIdentityApiApiListA
 		localVarReturnValue *ListAccountsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.ListAccounts")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityAPIService.ListAccounts")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1698,11 +1799,18 @@ func (a *LoginIdentityApiService) ListAccountsExecute(r LoginIdentityApiApiListA
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1717,6 +1825,7 @@ func (a *LoginIdentityApiService) ListAccountsExecute(r LoginIdentityApiApiListA
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1727,6 +1836,7 @@ func (a *LoginIdentityApiService) ListAccountsExecute(r LoginIdentityApiApiListA
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1744,12 +1854,12 @@ func (a *LoginIdentityApiService) ListAccountsExecute(r LoginIdentityApiApiListA
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LoginIdentityApiApiListCardDetailsRequest struct {
+type LoginIdentityAPIListCardDetailsRequest struct {
 	ctx        context.Context
-	ApiService LoginIdentityApi
+	ApiService LoginIdentityAPI
 }
 
-func (r LoginIdentityApiApiListCardDetailsRequest) Execute() (*ListCardsDetailsResponse, *http.Response, error) {
+func (r LoginIdentityAPIListCardDetailsRequest) Execute() (*ListCardsDetailsResponse, *http.Response, error) {
 	return r.ApiService.ListCardDetailsExecute(r)
 }
 
@@ -1759,10 +1869,10 @@ ListCardDetails Method for ListCardDetails
 Get a list of card details for a login identity
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return LoginIdentityApiApiListCardDetailsRequest
+ @return LoginIdentityAPIListCardDetailsRequest
 */
-func (a *LoginIdentityApiService) ListCardDetails(ctx context.Context) LoginIdentityApiApiListCardDetailsRequest {
-	return LoginIdentityApiApiListCardDetailsRequest{
+func (a *LoginIdentityAPIService) ListCardDetails(ctx context.Context) LoginIdentityAPIListCardDetailsRequest {
+	return LoginIdentityAPIListCardDetailsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1770,7 +1880,7 @@ func (a *LoginIdentityApiService) ListCardDetails(ctx context.Context) LoginIden
 
 // Execute executes the request
 //  @return ListCardsDetailsResponse
-func (a *LoginIdentityApiService) ListCardDetailsExecute(r LoginIdentityApiApiListCardDetailsRequest) (*ListCardsDetailsResponse, *http.Response, error) {
+func (a *LoginIdentityAPIService) ListCardDetailsExecute(r LoginIdentityAPIListCardDetailsRequest) (*ListCardsDetailsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1778,7 +1888,7 @@ func (a *LoginIdentityApiService) ListCardDetailsExecute(r LoginIdentityApiApiLi
 		localVarReturnValue *ListCardsDetailsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.ListCardDetails")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityAPIService.ListCardDetails")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1816,11 +1926,18 @@ func (a *LoginIdentityApiService) ListCardDetailsExecute(r LoginIdentityApiApiLi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1835,6 +1952,7 @@ func (a *LoginIdentityApiService) ListCardDetailsExecute(r LoginIdentityApiApiLi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1845,6 +1963,7 @@ func (a *LoginIdentityApiService) ListCardDetailsExecute(r LoginIdentityApiApiLi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1862,9 +1981,9 @@ func (a *LoginIdentityApiService) ListCardDetailsExecute(r LoginIdentityApiApiLi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LoginIdentityApiApiListTransactionsByAccountIdRequest struct {
+type LoginIdentityAPIListTransactionsByAccountIdRequest struct {
 	ctx         context.Context
-	ApiService  LoginIdentityApi
+	ApiService  LoginIdentityAPI
 	accountId   string
 	offset      *int32
 	limit       *int32
@@ -1872,24 +1991,24 @@ type LoginIdentityApiApiListTransactionsByAccountIdRequest struct {
 }
 
 // default is 0
-func (r LoginIdentityApiApiListTransactionsByAccountIdRequest) Offset(offset int32) LoginIdentityApiApiListTransactionsByAccountIdRequest {
+func (r LoginIdentityAPIListTransactionsByAccountIdRequest) Offset(offset int32) LoginIdentityAPIListTransactionsByAccountIdRequest {
 	r.offset = &offset
 	return r
 }
 
 // default is 500, max is 1000
-func (r LoginIdentityApiApiListTransactionsByAccountIdRequest) Limit(limit int32) LoginIdentityApiApiListTransactionsByAccountIdRequest {
+func (r LoginIdentityAPIListTransactionsByAccountIdRequest) Limit(limit int32) LoginIdentityAPIListTransactionsByAccountIdRequest {
 	r.limit = &limit
 	return r
 }
 
 // when true, response will be enriched transactions; otherwise it will be raw transactions
-func (r LoginIdentityApiApiListTransactionsByAccountIdRequest) Enrichments(enrichments bool) LoginIdentityApiApiListTransactionsByAccountIdRequest {
+func (r LoginIdentityAPIListTransactionsByAccountIdRequest) Enrichments(enrichments bool) LoginIdentityAPIListTransactionsByAccountIdRequest {
 	r.enrichments = &enrichments
 	return r
 }
 
-func (r LoginIdentityApiApiListTransactionsByAccountIdRequest) Execute() (*ListTransactionsResponse, *http.Response, error) {
+func (r LoginIdentityAPIListTransactionsByAccountIdRequest) Execute() (*ListTransactionsResponse, *http.Response, error) {
 	return r.ApiService.ListTransactionsByAccountIdExecute(r)
 }
 
@@ -1900,10 +2019,10 @@ Get a list of transactions for a particular account. The transactions are return
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param accountId The account id (ULID, example - 01EP4A1MZDHKETZFRPF0K62S6S)
- @return LoginIdentityApiApiListTransactionsByAccountIdRequest
+ @return LoginIdentityAPIListTransactionsByAccountIdRequest
 */
-func (a *LoginIdentityApiService) ListTransactionsByAccountId(ctx context.Context, accountId string) LoginIdentityApiApiListTransactionsByAccountIdRequest {
-	return LoginIdentityApiApiListTransactionsByAccountIdRequest{
+func (a *LoginIdentityAPIService) ListTransactionsByAccountId(ctx context.Context, accountId string) LoginIdentityAPIListTransactionsByAccountIdRequest {
+	return LoginIdentityAPIListTransactionsByAccountIdRequest{
 		ApiService: a,
 		ctx:        ctx,
 		accountId:  accountId,
@@ -1912,7 +2031,7 @@ func (a *LoginIdentityApiService) ListTransactionsByAccountId(ctx context.Contex
 
 // Execute executes the request
 //  @return ListTransactionsResponse
-func (a *LoginIdentityApiService) ListTransactionsByAccountIdExecute(r LoginIdentityApiApiListTransactionsByAccountIdRequest) (*ListTransactionsResponse, *http.Response, error) {
+func (a *LoginIdentityAPIService) ListTransactionsByAccountIdExecute(r LoginIdentityAPIListTransactionsByAccountIdRequest) (*ListTransactionsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1920,26 +2039,35 @@ func (a *LoginIdentityApiService) ListTransactionsByAccountIdExecute(r LoginIden
 		localVarReturnValue *ListTransactionsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.ListTransactionsByAccountId")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityAPIService.ListTransactionsByAccountId")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/transactions/{accountId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterToString(r.accountId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"accountId"+"}", url.PathEscape(parameterValueToString(r.accountId, "accountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
 	if r.offset != nil {
-		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "", "")
+	} else {
+		var defaultValue int32 = 0
+		r.offset = &defaultValue
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "", "")
+	} else {
+		var defaultValue int32 = 500
+		r.limit = &defaultValue
 	}
 	if r.enrichments != nil {
-		localVarQueryParams.Add("enrichments", parameterToString(*r.enrichments, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "enrichments", r.enrichments, "", "")
+	} else {
+		var defaultValue bool = false
+		r.enrichments = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -1968,11 +2096,18 @@ func (a *LoginIdentityApiService) ListTransactionsByAccountIdExecute(r LoginIden
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1987,6 +2122,7 @@ func (a *LoginIdentityApiService) ListTransactionsByAccountIdExecute(r LoginIden
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1997,6 +2133,7 @@ func (a *LoginIdentityApiService) ListTransactionsByAccountIdExecute(r LoginIden
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2014,33 +2151,33 @@ func (a *LoginIdentityApiService) ListTransactionsByAccountIdExecute(r LoginIden
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest struct {
+type LoginIdentityAPIListTransactionsByLoginIdentityIdRequest struct {
 	ctx         context.Context
-	ApiService  LoginIdentityApi
+	ApiService  LoginIdentityAPI
 	offset      *int32
 	limit       *int32
 	enrichments *bool
 }
 
 // default is 0
-func (r LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest) Offset(offset int32) LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest {
+func (r LoginIdentityAPIListTransactionsByLoginIdentityIdRequest) Offset(offset int32) LoginIdentityAPIListTransactionsByLoginIdentityIdRequest {
 	r.offset = &offset
 	return r
 }
 
 // default is 500, max is 1000
-func (r LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest) Limit(limit int32) LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest {
+func (r LoginIdentityAPIListTransactionsByLoginIdentityIdRequest) Limit(limit int32) LoginIdentityAPIListTransactionsByLoginIdentityIdRequest {
 	r.limit = &limit
 	return r
 }
 
 // when true, response will be enriched transactions; otherwise it will be raw transactions
-func (r LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest) Enrichments(enrichments bool) LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest {
+func (r LoginIdentityAPIListTransactionsByLoginIdentityIdRequest) Enrichments(enrichments bool) LoginIdentityAPIListTransactionsByLoginIdentityIdRequest {
 	r.enrichments = &enrichments
 	return r
 }
 
-func (r LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest) Execute() (*ListTransactionsResponse, *http.Response, error) {
+func (r LoginIdentityAPIListTransactionsByLoginIdentityIdRequest) Execute() (*ListTransactionsResponse, *http.Response, error) {
 	return r.ApiService.ListTransactionsByLoginIdentityIdExecute(r)
 }
 
@@ -2050,10 +2187,10 @@ ListTransactionsByLoginIdentityId Method for ListTransactionsByLoginIdentityId
 Get a list of transactions for a login identity. The transactions are returned in sorted order, with the most recent one appearing first.
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest
+ @return LoginIdentityAPIListTransactionsByLoginIdentityIdRequest
 */
-func (a *LoginIdentityApiService) ListTransactionsByLoginIdentityId(ctx context.Context) LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest {
-	return LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest{
+func (a *LoginIdentityAPIService) ListTransactionsByLoginIdentityId(ctx context.Context) LoginIdentityAPIListTransactionsByLoginIdentityIdRequest {
+	return LoginIdentityAPIListTransactionsByLoginIdentityIdRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2061,7 +2198,7 @@ func (a *LoginIdentityApiService) ListTransactionsByLoginIdentityId(ctx context.
 
 // Execute executes the request
 //  @return ListTransactionsResponse
-func (a *LoginIdentityApiService) ListTransactionsByLoginIdentityIdExecute(r LoginIdentityApiApiListTransactionsByLoginIdentityIdRequest) (*ListTransactionsResponse, *http.Response, error) {
+func (a *LoginIdentityAPIService) ListTransactionsByLoginIdentityIdExecute(r LoginIdentityAPIListTransactionsByLoginIdentityIdRequest) (*ListTransactionsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2069,7 +2206,7 @@ func (a *LoginIdentityApiService) ListTransactionsByLoginIdentityIdExecute(r Log
 		localVarReturnValue *ListTransactionsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.ListTransactionsByLoginIdentityId")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityAPIService.ListTransactionsByLoginIdentityId")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2081,13 +2218,22 @@ func (a *LoginIdentityApiService) ListTransactionsByLoginIdentityIdExecute(r Log
 	localVarFormParams := url.Values{}
 
 	if r.offset != nil {
-		localVarQueryParams.Add("offset", parameterToString(*r.offset, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "", "")
+	} else {
+		var defaultValue int32 = 0
+		r.offset = &defaultValue
 	}
 	if r.limit != nil {
-		localVarQueryParams.Add("limit", parameterToString(*r.limit, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "", "")
+	} else {
+		var defaultValue int32 = 500
+		r.limit = &defaultValue
 	}
 	if r.enrichments != nil {
-		localVarQueryParams.Add("enrichments", parameterToString(*r.enrichments, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "enrichments", r.enrichments, "", "")
+	} else {
+		var defaultValue bool = false
+		r.enrichments = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2116,11 +2262,18 @@ func (a *LoginIdentityApiService) ListTransactionsByLoginIdentityIdExecute(r Log
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2135,6 +2288,7 @@ func (a *LoginIdentityApiService) ListTransactionsByLoginIdentityIdExecute(r Log
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2145,6 +2299,7 @@ func (a *LoginIdentityApiService) ListTransactionsByLoginIdentityIdExecute(r Log
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2162,18 +2317,18 @@ func (a *LoginIdentityApiService) ListTransactionsByLoginIdentityIdExecute(r Log
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LoginIdentityApiApiRefreshLoginIdentityRequest struct {
+type LoginIdentityAPIRefreshLoginIdentityRequest struct {
 	ctx                     context.Context
-	ApiService              LoginIdentityApi
+	ApiService              LoginIdentityAPI
 	refreshLoginIdentityReq *RefreshLoginIdentityRequest
 }
 
-func (r LoginIdentityApiApiRefreshLoginIdentityRequest) RefreshLoginIdentityReq(refreshLoginIdentityReq RefreshLoginIdentityRequest) LoginIdentityApiApiRefreshLoginIdentityRequest {
+func (r LoginIdentityAPIRefreshLoginIdentityRequest) RefreshLoginIdentityReq(refreshLoginIdentityReq RefreshLoginIdentityRequest) LoginIdentityAPIRefreshLoginIdentityRequest {
 	r.refreshLoginIdentityReq = &refreshLoginIdentityReq
 	return r
 }
 
-func (r LoginIdentityApiApiRefreshLoginIdentityRequest) Execute() (*RefreshTokenResponse, *http.Response, error) {
+func (r LoginIdentityAPIRefreshLoginIdentityRequest) Execute() (*RefreshTokenResponse, *http.Response, error) {
 	return r.ApiService.RefreshLoginIdentityExecute(r)
 }
 
@@ -2183,10 +2338,10 @@ RefreshLoginIdentity Method for RefreshLoginIdentity
 Create a refresh job for a login identity
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return LoginIdentityApiApiRefreshLoginIdentityRequest
+ @return LoginIdentityAPIRefreshLoginIdentityRequest
 */
-func (a *LoginIdentityApiService) RefreshLoginIdentity(ctx context.Context) LoginIdentityApiApiRefreshLoginIdentityRequest {
-	return LoginIdentityApiApiRefreshLoginIdentityRequest{
+func (a *LoginIdentityAPIService) RefreshLoginIdentity(ctx context.Context) LoginIdentityAPIRefreshLoginIdentityRequest {
+	return LoginIdentityAPIRefreshLoginIdentityRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2194,7 +2349,7 @@ func (a *LoginIdentityApiService) RefreshLoginIdentity(ctx context.Context) Logi
 
 // Execute executes the request
 //  @return RefreshTokenResponse
-func (a *LoginIdentityApiService) RefreshLoginIdentityExecute(r LoginIdentityApiApiRefreshLoginIdentityRequest) (*RefreshTokenResponse, *http.Response, error) {
+func (a *LoginIdentityAPIService) RefreshLoginIdentityExecute(r LoginIdentityAPIRefreshLoginIdentityRequest) (*RefreshTokenResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -2202,7 +2357,7 @@ func (a *LoginIdentityApiService) RefreshLoginIdentityExecute(r LoginIdentityApi
 		localVarReturnValue *RefreshTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityApiService.RefreshLoginIdentity")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityAPIService.RefreshLoginIdentity")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2242,11 +2397,18 @@ func (a *LoginIdentityApiService) RefreshLoginIdentityExecute(r LoginIdentityApi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2261,6 +2423,7 @@ func (a *LoginIdentityApiService) RefreshLoginIdentityExecute(r LoginIdentityApi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2271,6 +2434,7 @@ func (a *LoginIdentityApiService) RefreshLoginIdentityExecute(r LoginIdentityApi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr

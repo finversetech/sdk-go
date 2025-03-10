@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RapidstorMetadataResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RapidstorMetadataResponse{}
+
 // RapidstorMetadataResponse struct for RapidstorMetadataResponse
 type RapidstorMetadataResponse struct {
 	CorpCode              *string  `json:"corp_code,omitempty"`
@@ -44,7 +47,7 @@ func NewRapidstorMetadataResponseWithDefaults() *RapidstorMetadataResponse {
 
 // GetCorpCode returns the CorpCode field value if set, zero value otherwise.
 func (o *RapidstorMetadataResponse) GetCorpCode() string {
-	if o == nil || o.CorpCode == nil {
+	if o == nil || IsNil(o.CorpCode) {
 		var ret string
 		return ret
 	}
@@ -54,7 +57,7 @@ func (o *RapidstorMetadataResponse) GetCorpCode() string {
 // GetCorpCodeOk returns a tuple with the CorpCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RapidstorMetadataResponse) GetCorpCodeOk() (*string, bool) {
-	if o == nil || o.CorpCode == nil {
+	if o == nil || IsNil(o.CorpCode) {
 		return nil, false
 	}
 	return o.CorpCode, true
@@ -62,7 +65,7 @@ func (o *RapidstorMetadataResponse) GetCorpCodeOk() (*string, bool) {
 
 // HasCorpCode returns a boolean if a field has been set.
 func (o *RapidstorMetadataResponse) HasCorpCode() bool {
-	if o != nil && o.CorpCode != nil {
+	if o != nil && !IsNil(o.CorpCode) {
 		return true
 	}
 
@@ -76,7 +79,7 @@ func (o *RapidstorMetadataResponse) SetCorpCode(v string) {
 
 // GetSLocationCode returns the SLocationCode field value if set, zero value otherwise.
 func (o *RapidstorMetadataResponse) GetSLocationCode() string {
-	if o == nil || o.SLocationCode == nil {
+	if o == nil || IsNil(o.SLocationCode) {
 		var ret string
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *RapidstorMetadataResponse) GetSLocationCode() string {
 // GetSLocationCodeOk returns a tuple with the SLocationCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RapidstorMetadataResponse) GetSLocationCodeOk() (*string, bool) {
-	if o == nil || o.SLocationCode == nil {
+	if o == nil || IsNil(o.SLocationCode) {
 		return nil, false
 	}
 	return o.SLocationCode, true
@@ -94,7 +97,7 @@ func (o *RapidstorMetadataResponse) GetSLocationCodeOk() (*string, bool) {
 
 // HasSLocationCode returns a boolean if a field has been set.
 func (o *RapidstorMetadataResponse) HasSLocationCode() bool {
-	if o != nil && o.SLocationCode != nil {
+	if o != nil && !IsNil(o.SLocationCode) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *RapidstorMetadataResponse) SetSLocationCode(v string) {
 
 // GetTenantId returns the TenantId field value if set, zero value otherwise.
 func (o *RapidstorMetadataResponse) GetTenantId() string {
-	if o == nil || o.TenantId == nil {
+	if o == nil || IsNil(o.TenantId) {
 		var ret string
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *RapidstorMetadataResponse) GetTenantId() string {
 // GetTenantIdOk returns a tuple with the TenantId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RapidstorMetadataResponse) GetTenantIdOk() (*string, bool) {
-	if o == nil || o.TenantId == nil {
+	if o == nil || IsNil(o.TenantId) {
 		return nil, false
 	}
 	return o.TenantId, true
@@ -126,7 +129,7 @@ func (o *RapidstorMetadataResponse) GetTenantIdOk() (*string, bool) {
 
 // HasTenantId returns a boolean if a field has been set.
 func (o *RapidstorMetadataResponse) HasTenantId() bool {
-	if o != nil && o.TenantId != nil {
+	if o != nil && !IsNil(o.TenantId) {
 		return true
 	}
 
@@ -140,7 +143,7 @@ func (o *RapidstorMetadataResponse) SetTenantId(v string) {
 
 // GetIAnnivDays returns the IAnnivDays field value if set, zero value otherwise.
 func (o *RapidstorMetadataResponse) GetIAnnivDays() float32 {
-	if o == nil || o.IAnnivDays == nil {
+	if o == nil || IsNil(o.IAnnivDays) {
 		var ret float32
 		return ret
 	}
@@ -150,7 +153,7 @@ func (o *RapidstorMetadataResponse) GetIAnnivDays() float32 {
 // GetIAnnivDaysOk returns a tuple with the IAnnivDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RapidstorMetadataResponse) GetIAnnivDaysOk() (*float32, bool) {
-	if o == nil || o.IAnnivDays == nil {
+	if o == nil || IsNil(o.IAnnivDays) {
 		return nil, false
 	}
 	return o.IAnnivDays, true
@@ -158,7 +161,7 @@ func (o *RapidstorMetadataResponse) GetIAnnivDaysOk() (*float32, bool) {
 
 // HasIAnnivDays returns a boolean if a field has been set.
 func (o *RapidstorMetadataResponse) HasIAnnivDays() bool {
-	if o != nil && o.IAnnivDays != nil {
+	if o != nil && !IsNil(o.IAnnivDays) {
 		return true
 	}
 
@@ -172,7 +175,7 @@ func (o *RapidstorMetadataResponse) SetIAnnivDays(v float32) {
 
 // GetTenantDefaultCurrency returns the TenantDefaultCurrency field value if set, zero value otherwise.
 func (o *RapidstorMetadataResponse) GetTenantDefaultCurrency() string {
-	if o == nil || o.TenantDefaultCurrency == nil {
+	if o == nil || IsNil(o.TenantDefaultCurrency) {
 		var ret string
 		return ret
 	}
@@ -182,7 +185,7 @@ func (o *RapidstorMetadataResponse) GetTenantDefaultCurrency() string {
 // GetTenantDefaultCurrencyOk returns a tuple with the TenantDefaultCurrency field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RapidstorMetadataResponse) GetTenantDefaultCurrencyOk() (*string, bool) {
-	if o == nil || o.TenantDefaultCurrency == nil {
+	if o == nil || IsNil(o.TenantDefaultCurrency) {
 		return nil, false
 	}
 	return o.TenantDefaultCurrency, true
@@ -190,7 +193,7 @@ func (o *RapidstorMetadataResponse) GetTenantDefaultCurrencyOk() (*string, bool)
 
 // HasTenantDefaultCurrency returns a boolean if a field has been set.
 func (o *RapidstorMetadataResponse) HasTenantDefaultCurrency() bool {
-	if o != nil && o.TenantDefaultCurrency != nil {
+	if o != nil && !IsNil(o.TenantDefaultCurrency) {
 		return true
 	}
 
@@ -204,7 +207,7 @@ func (o *RapidstorMetadataResponse) SetTenantDefaultCurrency(v string) {
 
 // GetAccountToken returns the AccountToken field value if set, zero value otherwise.
 func (o *RapidstorMetadataResponse) GetAccountToken() string {
-	if o == nil || o.AccountToken == nil {
+	if o == nil || IsNil(o.AccountToken) {
 		var ret string
 		return ret
 	}
@@ -214,7 +217,7 @@ func (o *RapidstorMetadataResponse) GetAccountToken() string {
 // GetAccountTokenOk returns a tuple with the AccountToken field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RapidstorMetadataResponse) GetAccountTokenOk() (*string, bool) {
-	if o == nil || o.AccountToken == nil {
+	if o == nil || IsNil(o.AccountToken) {
 		return nil, false
 	}
 	return o.AccountToken, true
@@ -222,7 +225,7 @@ func (o *RapidstorMetadataResponse) GetAccountTokenOk() (*string, bool) {
 
 // HasAccountToken returns a boolean if a field has been set.
 func (o *RapidstorMetadataResponse) HasAccountToken() bool {
-	if o != nil && o.AccountToken != nil {
+	if o != nil && !IsNil(o.AccountToken) {
 		return true
 	}
 
@@ -235,26 +238,34 @@ func (o *RapidstorMetadataResponse) SetAccountToken(v string) {
 }
 
 func (o RapidstorMetadataResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.CorpCode != nil {
-		toSerialize["corp_code"] = o.CorpCode
-	}
-	if o.SLocationCode != nil {
-		toSerialize["s_location_code"] = o.SLocationCode
-	}
-	if o.TenantId != nil {
-		toSerialize["tenant_id"] = o.TenantId
-	}
-	if o.IAnnivDays != nil {
-		toSerialize["i_anniv_days"] = o.IAnnivDays
-	}
-	if o.TenantDefaultCurrency != nil {
-		toSerialize["tenant_default_currency"] = o.TenantDefaultCurrency
-	}
-	if o.AccountToken != nil {
-		toSerialize["account_token"] = o.AccountToken
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RapidstorMetadataResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CorpCode) {
+		toSerialize["corp_code"] = o.CorpCode
+	}
+	if !IsNil(o.SLocationCode) {
+		toSerialize["s_location_code"] = o.SLocationCode
+	}
+	if !IsNil(o.TenantId) {
+		toSerialize["tenant_id"] = o.TenantId
+	}
+	if !IsNil(o.IAnnivDays) {
+		toSerialize["i_anniv_days"] = o.IAnnivDays
+	}
+	if !IsNil(o.TenantDefaultCurrency) {
+		toSerialize["tenant_default_currency"] = o.TenantDefaultCurrency
+	}
+	if !IsNil(o.AccountToken) {
+		toSerialize["account_token"] = o.AccountToken
+	}
+	return toSerialize, nil
 }
 
 type NullableRapidstorMetadataResponse struct {

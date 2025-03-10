@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ListPaymentMethodsResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ListPaymentMethodsResponse{}
+
 // ListPaymentMethodsResponse struct for ListPaymentMethodsResponse
 type ListPaymentMethodsResponse struct {
 	PaymentMethods []PaymentMethodResponse  `json:"payment_methods,omitempty"`
@@ -40,7 +43,7 @@ func NewListPaymentMethodsResponseWithDefaults() *ListPaymentMethodsResponse {
 
 // GetPaymentMethods returns the PaymentMethods field value if set, zero value otherwise.
 func (o *ListPaymentMethodsResponse) GetPaymentMethods() []PaymentMethodResponse {
-	if o == nil || o.PaymentMethods == nil {
+	if o == nil || IsNil(o.PaymentMethods) {
 		var ret []PaymentMethodResponse
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *ListPaymentMethodsResponse) GetPaymentMethods() []PaymentMethodResponse
 // GetPaymentMethodsOk returns a tuple with the PaymentMethods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ListPaymentMethodsResponse) GetPaymentMethodsOk() ([]PaymentMethodResponse, bool) {
-	if o == nil || o.PaymentMethods == nil {
+	if o == nil || IsNil(o.PaymentMethods) {
 		return nil, false
 	}
 	return o.PaymentMethods, true
@@ -58,7 +61,7 @@ func (o *ListPaymentMethodsResponse) GetPaymentMethodsOk() ([]PaymentMethodRespo
 
 // HasPaymentMethods returns a boolean if a field has been set.
 func (o *ListPaymentMethodsResponse) HasPaymentMethods() bool {
-	if o != nil && o.PaymentMethods != nil {
+	if o != nil && !IsNil(o.PaymentMethods) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *ListPaymentMethodsResponse) SetPaymentMethods(v []PaymentMethodResponse
 
 // GetSender returns the Sender field value if set, zero value otherwise.
 func (o *ListPaymentMethodsResponse) GetSender() PaymentUserWithoutEmail {
-	if o == nil || o.Sender == nil {
+	if o == nil || IsNil(o.Sender) {
 		var ret PaymentUserWithoutEmail
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *ListPaymentMethodsResponse) GetSender() PaymentUserWithoutEmail {
 // GetSenderOk returns a tuple with the Sender field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ListPaymentMethodsResponse) GetSenderOk() (*PaymentUserWithoutEmail, bool) {
-	if o == nil || o.Sender == nil {
+	if o == nil || IsNil(o.Sender) {
 		return nil, false
 	}
 	return o.Sender, true
@@ -90,7 +93,7 @@ func (o *ListPaymentMethodsResponse) GetSenderOk() (*PaymentUserWithoutEmail, bo
 
 // HasSender returns a boolean if a field has been set.
 func (o *ListPaymentMethodsResponse) HasSender() bool {
-	if o != nil && o.Sender != nil {
+	if o != nil && !IsNil(o.Sender) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *ListPaymentMethodsResponse) SetSender(v PaymentUserWithoutEmail) {
 }
 
 func (o ListPaymentMethodsResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.PaymentMethods != nil {
-		toSerialize["payment_methods"] = o.PaymentMethods
-	}
-	if o.Sender != nil {
-		toSerialize["sender"] = o.Sender
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ListPaymentMethodsResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.PaymentMethods) {
+		toSerialize["payment_methods"] = o.PaymentMethods
+	}
+	if !IsNil(o.Sender) {
+		toSerialize["sender"] = o.Sender
+	}
+	return toSerialize, nil
 }
 
 type NullableListPaymentMethodsResponse struct {

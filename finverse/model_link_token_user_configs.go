@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinkTokenUserConfigs type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinkTokenUserConfigs{}
+
 // LinkTokenUserConfigs struct for LinkTokenUserConfigs
 type LinkTokenUserConfigs struct {
 	// Account Number to use for ADA setup
@@ -40,7 +43,7 @@ func NewLinkTokenUserConfigsWithDefaults() *LinkTokenUserConfigs {
 
 // GetAdaAccountNumber returns the AdaAccountNumber field value if set, zero value otherwise.
 func (o *LinkTokenUserConfigs) GetAdaAccountNumber() string {
-	if o == nil || o.AdaAccountNumber == nil {
+	if o == nil || IsNil(o.AdaAccountNumber) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *LinkTokenUserConfigs) GetAdaAccountNumber() string {
 // GetAdaAccountNumberOk returns a tuple with the AdaAccountNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkTokenUserConfigs) GetAdaAccountNumberOk() (*string, bool) {
-	if o == nil || o.AdaAccountNumber == nil {
+	if o == nil || IsNil(o.AdaAccountNumber) {
 		return nil, false
 	}
 	return o.AdaAccountNumber, true
@@ -58,7 +61,7 @@ func (o *LinkTokenUserConfigs) GetAdaAccountNumberOk() (*string, bool) {
 
 // HasAdaAccountNumber returns a boolean if a field has been set.
 func (o *LinkTokenUserConfigs) HasAdaAccountNumber() bool {
-	if o != nil && o.AdaAccountNumber != nil {
+	if o != nil && !IsNil(o.AdaAccountNumber) {
 		return true
 	}
 
@@ -71,11 +74,19 @@ func (o *LinkTokenUserConfigs) SetAdaAccountNumber(v string) {
 }
 
 func (o LinkTokenUserConfigs) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AdaAccountNumber != nil {
-		toSerialize["ada_account_number"] = o.AdaAccountNumber
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o LinkTokenUserConfigs) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AdaAccountNumber) {
+		toSerialize["ada_account_number"] = o.AdaAccountNumber
+	}
+	return toSerialize, nil
 }
 
 type NullableLinkTokenUserConfigs struct {

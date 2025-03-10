@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CreatePaymentUserRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreatePaymentUserRequest{}
 
 // CreatePaymentUserRequest struct for CreatePaymentUserRequest
 type CreatePaymentUserRequest struct {
@@ -26,6 +31,8 @@ type CreatePaymentUserRequest struct {
 	AutopayConsent      *bool                       `json:"autopay_consent,omitempty"`
 	IntegrationMetadata *IntegrationMetadataRequest `json:"integration_metadata,omitempty"`
 }
+
+type _CreatePaymentUserRequest CreatePaymentUserRequest
 
 // NewCreatePaymentUserRequest instantiates a new CreatePaymentUserRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -96,7 +103,7 @@ func (o *CreatePaymentUserRequest) SetExternalUserId(v string) {
 
 // GetUserType returns the UserType field value if set, zero value otherwise.
 func (o *CreatePaymentUserRequest) GetUserType() string {
-	if o == nil || o.UserType == nil {
+	if o == nil || IsNil(o.UserType) {
 		var ret string
 		return ret
 	}
@@ -106,7 +113,7 @@ func (o *CreatePaymentUserRequest) GetUserType() string {
 // GetUserTypeOk returns a tuple with the UserType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentUserRequest) GetUserTypeOk() (*string, bool) {
-	if o == nil || o.UserType == nil {
+	if o == nil || IsNil(o.UserType) {
 		return nil, false
 	}
 	return o.UserType, true
@@ -114,7 +121,7 @@ func (o *CreatePaymentUserRequest) GetUserTypeOk() (*string, bool) {
 
 // HasUserType returns a boolean if a field has been set.
 func (o *CreatePaymentUserRequest) HasUserType() bool {
-	if o != nil && o.UserType != nil {
+	if o != nil && !IsNil(o.UserType) {
 		return true
 	}
 
@@ -128,7 +135,7 @@ func (o *CreatePaymentUserRequest) SetUserType(v string) {
 
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *CreatePaymentUserRequest) GetEmail() string {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		var ret string
 		return ret
 	}
@@ -138,7 +145,7 @@ func (o *CreatePaymentUserRequest) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentUserRequest) GetEmailOk() (*string, bool) {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
 	return o.Email, true
@@ -146,7 +153,7 @@ func (o *CreatePaymentUserRequest) GetEmailOk() (*string, bool) {
 
 // HasEmail returns a boolean if a field has been set.
 func (o *CreatePaymentUserRequest) HasEmail() bool {
-	if o != nil && o.Email != nil {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
@@ -160,7 +167,7 @@ func (o *CreatePaymentUserRequest) SetEmail(v string) {
 
 // GetUserDetails returns the UserDetails field value if set, zero value otherwise.
 func (o *CreatePaymentUserRequest) GetUserDetails() []SenderDetail {
-	if o == nil || o.UserDetails == nil {
+	if o == nil || IsNil(o.UserDetails) {
 		var ret []SenderDetail
 		return ret
 	}
@@ -170,7 +177,7 @@ func (o *CreatePaymentUserRequest) GetUserDetails() []SenderDetail {
 // GetUserDetailsOk returns a tuple with the UserDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentUserRequest) GetUserDetailsOk() ([]SenderDetail, bool) {
-	if o == nil || o.UserDetails == nil {
+	if o == nil || IsNil(o.UserDetails) {
 		return nil, false
 	}
 	return o.UserDetails, true
@@ -178,7 +185,7 @@ func (o *CreatePaymentUserRequest) GetUserDetailsOk() ([]SenderDetail, bool) {
 
 // HasUserDetails returns a boolean if a field has been set.
 func (o *CreatePaymentUserRequest) HasUserDetails() bool {
-	if o != nil && o.UserDetails != nil {
+	if o != nil && !IsNil(o.UserDetails) {
 		return true
 	}
 
@@ -192,7 +199,7 @@ func (o *CreatePaymentUserRequest) SetUserDetails(v []SenderDetail) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *CreatePaymentUserRequest) GetMetadata() map[string]string {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]string
 		return ret
 	}
@@ -202,7 +209,7 @@ func (o *CreatePaymentUserRequest) GetMetadata() map[string]string {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentUserRequest) GetMetadataOk() (*map[string]string, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -210,7 +217,7 @@ func (o *CreatePaymentUserRequest) GetMetadataOk() (*map[string]string, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *CreatePaymentUserRequest) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -224,7 +231,7 @@ func (o *CreatePaymentUserRequest) SetMetadata(v map[string]string) {
 
 // GetAutopayConsent returns the AutopayConsent field value if set, zero value otherwise.
 func (o *CreatePaymentUserRequest) GetAutopayConsent() bool {
-	if o == nil || o.AutopayConsent == nil {
+	if o == nil || IsNil(o.AutopayConsent) {
 		var ret bool
 		return ret
 	}
@@ -234,7 +241,7 @@ func (o *CreatePaymentUserRequest) GetAutopayConsent() bool {
 // GetAutopayConsentOk returns a tuple with the AutopayConsent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentUserRequest) GetAutopayConsentOk() (*bool, bool) {
-	if o == nil || o.AutopayConsent == nil {
+	if o == nil || IsNil(o.AutopayConsent) {
 		return nil, false
 	}
 	return o.AutopayConsent, true
@@ -242,7 +249,7 @@ func (o *CreatePaymentUserRequest) GetAutopayConsentOk() (*bool, bool) {
 
 // HasAutopayConsent returns a boolean if a field has been set.
 func (o *CreatePaymentUserRequest) HasAutopayConsent() bool {
-	if o != nil && o.AutopayConsent != nil {
+	if o != nil && !IsNil(o.AutopayConsent) {
 		return true
 	}
 
@@ -256,7 +263,7 @@ func (o *CreatePaymentUserRequest) SetAutopayConsent(v bool) {
 
 // GetIntegrationMetadata returns the IntegrationMetadata field value if set, zero value otherwise.
 func (o *CreatePaymentUserRequest) GetIntegrationMetadata() IntegrationMetadataRequest {
-	if o == nil || o.IntegrationMetadata == nil {
+	if o == nil || IsNil(o.IntegrationMetadata) {
 		var ret IntegrationMetadataRequest
 		return ret
 	}
@@ -266,7 +273,7 @@ func (o *CreatePaymentUserRequest) GetIntegrationMetadata() IntegrationMetadataR
 // GetIntegrationMetadataOk returns a tuple with the IntegrationMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentUserRequest) GetIntegrationMetadataOk() (*IntegrationMetadataRequest, bool) {
-	if o == nil || o.IntegrationMetadata == nil {
+	if o == nil || IsNil(o.IntegrationMetadata) {
 		return nil, false
 	}
 	return o.IntegrationMetadata, true
@@ -274,7 +281,7 @@ func (o *CreatePaymentUserRequest) GetIntegrationMetadataOk() (*IntegrationMetad
 
 // HasIntegrationMetadata returns a boolean if a field has been set.
 func (o *CreatePaymentUserRequest) HasIntegrationMetadata() bool {
-	if o != nil && o.IntegrationMetadata != nil {
+	if o != nil && !IsNil(o.IntegrationMetadata) {
 		return true
 	}
 
@@ -287,32 +294,74 @@ func (o *CreatePaymentUserRequest) SetIntegrationMetadata(v IntegrationMetadataR
 }
 
 func (o CreatePaymentUserRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["external_user_id"] = o.ExternalUserId
-	}
-	if o.UserType != nil {
-		toSerialize["user_type"] = o.UserType
-	}
-	if o.Email != nil {
-		toSerialize["email"] = o.Email
-	}
-	if o.UserDetails != nil {
-		toSerialize["user_details"] = o.UserDetails
-	}
-	if o.Metadata != nil {
-		toSerialize["metadata"] = o.Metadata
-	}
-	if o.AutopayConsent != nil {
-		toSerialize["autopay_consent"] = o.AutopayConsent
-	}
-	if o.IntegrationMetadata != nil {
-		toSerialize["integration_metadata"] = o.IntegrationMetadata
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreatePaymentUserRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["external_user_id"] = o.ExternalUserId
+	if !IsNil(o.UserType) {
+		toSerialize["user_type"] = o.UserType
+	}
+	if !IsNil(o.Email) {
+		toSerialize["email"] = o.Email
+	}
+	if !IsNil(o.UserDetails) {
+		toSerialize["user_details"] = o.UserDetails
+	}
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.AutopayConsent) {
+		toSerialize["autopay_consent"] = o.AutopayConsent
+	}
+	if !IsNil(o.IntegrationMetadata) {
+		toSerialize["integration_metadata"] = o.IntegrationMetadata
+	}
+	return toSerialize, nil
+}
+
+func (o *CreatePaymentUserRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"external_user_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreatePaymentUserRequest := _CreatePaymentUserRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCreatePaymentUserRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreatePaymentUserRequest(varCreatePaymentUserRequest)
+
+	return err
 }
 
 type NullableCreatePaymentUserRequest struct {

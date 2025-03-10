@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the GetAccountNumberResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetAccountNumberResponse{}
+
 // GetAccountNumberResponse struct for GetAccountNumberResponse
 type GetAccountNumberResponse struct {
 	AccountNumber  *AccountNumber      `json:"account_number,omitempty"`
@@ -43,7 +46,7 @@ func NewGetAccountNumberResponseWithDefaults() *GetAccountNumberResponse {
 
 // GetAccountNumber returns the AccountNumber field value if set, zero value otherwise.
 func (o *GetAccountNumberResponse) GetAccountNumber() AccountNumber {
-	if o == nil || o.AccountNumber == nil {
+	if o == nil || IsNil(o.AccountNumber) {
 		var ret AccountNumber
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *GetAccountNumberResponse) GetAccountNumber() AccountNumber {
 // GetAccountNumberOk returns a tuple with the AccountNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetAccountNumberResponse) GetAccountNumberOk() (*AccountNumber, bool) {
-	if o == nil || o.AccountNumber == nil {
+	if o == nil || IsNil(o.AccountNumber) {
 		return nil, false
 	}
 	return o.AccountNumber, true
@@ -61,7 +64,7 @@ func (o *GetAccountNumberResponse) GetAccountNumberOk() (*AccountNumber, bool) {
 
 // HasAccountNumber returns a boolean if a field has been set.
 func (o *GetAccountNumberResponse) HasAccountNumber() bool {
-	if o != nil && o.AccountNumber != nil {
+	if o != nil && !IsNil(o.AccountNumber) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *GetAccountNumberResponse) SetAccountNumber(v AccountNumber) {
 
 // GetAccount returns the Account field value if set, zero value otherwise.
 func (o *GetAccountNumberResponse) GetAccount() Account {
-	if o == nil || o.Account == nil {
+	if o == nil || IsNil(o.Account) {
 		var ret Account
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *GetAccountNumberResponse) GetAccount() Account {
 // GetAccountOk returns a tuple with the Account field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetAccountNumberResponse) GetAccountOk() (*Account, bool) {
-	if o == nil || o.Account == nil {
+	if o == nil || IsNil(o.Account) {
 		return nil, false
 	}
 	return o.Account, true
@@ -93,7 +96,7 @@ func (o *GetAccountNumberResponse) GetAccountOk() (*Account, bool) {
 
 // HasAccount returns a boolean if a field has been set.
 func (o *GetAccountNumberResponse) HasAccount() bool {
-	if o != nil && o.Account != nil {
+	if o != nil && !IsNil(o.Account) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *GetAccountNumberResponse) SetAccount(v Account) {
 
 // GetLoginIdentity returns the LoginIdentity field value if set, zero value otherwise.
 func (o *GetAccountNumberResponse) GetLoginIdentity() LoginIdentityShort {
-	if o == nil || o.LoginIdentity == nil {
+	if o == nil || IsNil(o.LoginIdentity) {
 		var ret LoginIdentityShort
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *GetAccountNumberResponse) GetLoginIdentity() LoginIdentityShort {
 // GetLoginIdentityOk returns a tuple with the LoginIdentity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetAccountNumberResponse) GetLoginIdentityOk() (*LoginIdentityShort, bool) {
-	if o == nil || o.LoginIdentity == nil {
+	if o == nil || IsNil(o.LoginIdentity) {
 		return nil, false
 	}
 	return o.LoginIdentity, true
@@ -125,7 +128,7 @@ func (o *GetAccountNumberResponse) GetLoginIdentityOk() (*LoginIdentityShort, bo
 
 // HasLoginIdentity returns a boolean if a field has been set.
 func (o *GetAccountNumberResponse) HasLoginIdentity() bool {
-	if o != nil && o.LoginIdentity != nil {
+	if o != nil && !IsNil(o.LoginIdentity) {
 		return true
 	}
 
@@ -139,7 +142,7 @@ func (o *GetAccountNumberResponse) SetLoginIdentity(v LoginIdentityShort) {
 
 // GetInstitution returns the Institution field value if set, zero value otherwise.
 func (o *GetAccountNumberResponse) GetInstitution() InstitutionShort {
-	if o == nil || o.Institution == nil {
+	if o == nil || IsNil(o.Institution) {
 		var ret InstitutionShort
 		return ret
 	}
@@ -149,7 +152,7 @@ func (o *GetAccountNumberResponse) GetInstitution() InstitutionShort {
 // GetInstitutionOk returns a tuple with the Institution field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetAccountNumberResponse) GetInstitutionOk() (*InstitutionShort, bool) {
-	if o == nil || o.Institution == nil {
+	if o == nil || IsNil(o.Institution) {
 		return nil, false
 	}
 	return o.Institution, true
@@ -157,7 +160,7 @@ func (o *GetAccountNumberResponse) GetInstitutionOk() (*InstitutionShort, bool) 
 
 // HasInstitution returns a boolean if a field has been set.
 func (o *GetAccountNumberResponse) HasInstitution() bool {
-	if o != nil && o.Institution != nil {
+	if o != nil && !IsNil(o.Institution) {
 		return true
 	}
 
@@ -171,7 +174,7 @@ func (o *GetAccountNumberResponse) SetInstitution(v InstitutionShort) {
 
 // GetPaymentDetails returns the PaymentDetails field value if set, zero value otherwise.
 func (o *GetAccountNumberResponse) GetPaymentDetails() []PaymentDetails {
-	if o == nil || o.PaymentDetails == nil {
+	if o == nil || IsNil(o.PaymentDetails) {
 		var ret []PaymentDetails
 		return ret
 	}
@@ -181,7 +184,7 @@ func (o *GetAccountNumberResponse) GetPaymentDetails() []PaymentDetails {
 // GetPaymentDetailsOk returns a tuple with the PaymentDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetAccountNumberResponse) GetPaymentDetailsOk() ([]PaymentDetails, bool) {
-	if o == nil || o.PaymentDetails == nil {
+	if o == nil || IsNil(o.PaymentDetails) {
 		return nil, false
 	}
 	return o.PaymentDetails, true
@@ -189,7 +192,7 @@ func (o *GetAccountNumberResponse) GetPaymentDetailsOk() ([]PaymentDetails, bool
 
 // HasPaymentDetails returns a boolean if a field has been set.
 func (o *GetAccountNumberResponse) HasPaymentDetails() bool {
-	if o != nil && o.PaymentDetails != nil {
+	if o != nil && !IsNil(o.PaymentDetails) {
 		return true
 	}
 
@@ -202,23 +205,31 @@ func (o *GetAccountNumberResponse) SetPaymentDetails(v []PaymentDetails) {
 }
 
 func (o GetAccountNumberResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AccountNumber != nil {
-		toSerialize["account_number"] = o.AccountNumber
-	}
-	if o.Account != nil {
-		toSerialize["account"] = o.Account
-	}
-	if o.LoginIdentity != nil {
-		toSerialize["login_identity"] = o.LoginIdentity
-	}
-	if o.Institution != nil {
-		toSerialize["institution"] = o.Institution
-	}
-	if o.PaymentDetails != nil {
-		toSerialize["payment_details"] = o.PaymentDetails
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GetAccountNumberResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AccountNumber) {
+		toSerialize["account_number"] = o.AccountNumber
+	}
+	if !IsNil(o.Account) {
+		toSerialize["account"] = o.Account
+	}
+	if !IsNil(o.LoginIdentity) {
+		toSerialize["login_identity"] = o.LoginIdentity
+	}
+	if !IsNil(o.Institution) {
+		toSerialize["institution"] = o.Institution
+	}
+	if !IsNil(o.PaymentDetails) {
+		toSerialize["payment_details"] = o.PaymentDetails
+	}
+	return toSerialize, nil
 }
 
 type NullableGetAccountNumberResponse struct {

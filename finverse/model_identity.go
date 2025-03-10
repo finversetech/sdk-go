@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the Identity type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Identity{}
+
 // Identity struct for Identity
 type Identity struct {
 	Names        []IdentityName        `json:"names,omitempty"`
@@ -43,7 +46,7 @@ func NewIdentityWithDefaults() *Identity {
 
 // GetNames returns the Names field value if set, zero value otherwise.
 func (o *Identity) GetNames() []IdentityName {
-	if o == nil || o.Names == nil {
+	if o == nil || IsNil(o.Names) {
 		var ret []IdentityName
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *Identity) GetNames() []IdentityName {
 // GetNamesOk returns a tuple with the Names field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Identity) GetNamesOk() ([]IdentityName, bool) {
-	if o == nil || o.Names == nil {
+	if o == nil || IsNil(o.Names) {
 		return nil, false
 	}
 	return o.Names, true
@@ -61,7 +64,7 @@ func (o *Identity) GetNamesOk() ([]IdentityName, bool) {
 
 // HasNames returns a boolean if a field has been set.
 func (o *Identity) HasNames() bool {
-	if o != nil && o.Names != nil {
+	if o != nil && !IsNil(o.Names) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *Identity) SetNames(v []IdentityName) {
 
 // GetAddresses returns the Addresses field value if set, zero value otherwise.
 func (o *Identity) GetAddresses() []IdentityAddress {
-	if o == nil || o.Addresses == nil {
+	if o == nil || IsNil(o.Addresses) {
 		var ret []IdentityAddress
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *Identity) GetAddresses() []IdentityAddress {
 // GetAddressesOk returns a tuple with the Addresses field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Identity) GetAddressesOk() ([]IdentityAddress, bool) {
-	if o == nil || o.Addresses == nil {
+	if o == nil || IsNil(o.Addresses) {
 		return nil, false
 	}
 	return o.Addresses, true
@@ -93,7 +96,7 @@ func (o *Identity) GetAddressesOk() ([]IdentityAddress, bool) {
 
 // HasAddresses returns a boolean if a field has been set.
 func (o *Identity) HasAddresses() bool {
-	if o != nil && o.Addresses != nil {
+	if o != nil && !IsNil(o.Addresses) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *Identity) SetAddresses(v []IdentityAddress) {
 
 // GetEmails returns the Emails field value if set, zero value otherwise.
 func (o *Identity) GetEmails() []IdentityEmail {
-	if o == nil || o.Emails == nil {
+	if o == nil || IsNil(o.Emails) {
 		var ret []IdentityEmail
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *Identity) GetEmails() []IdentityEmail {
 // GetEmailsOk returns a tuple with the Emails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Identity) GetEmailsOk() ([]IdentityEmail, bool) {
-	if o == nil || o.Emails == nil {
+	if o == nil || IsNil(o.Emails) {
 		return nil, false
 	}
 	return o.Emails, true
@@ -125,7 +128,7 @@ func (o *Identity) GetEmailsOk() ([]IdentityEmail, bool) {
 
 // HasEmails returns a boolean if a field has been set.
 func (o *Identity) HasEmails() bool {
-	if o != nil && o.Emails != nil {
+	if o != nil && !IsNil(o.Emails) {
 		return true
 	}
 
@@ -139,7 +142,7 @@ func (o *Identity) SetEmails(v []IdentityEmail) {
 
 // GetPhoneNumbers returns the PhoneNumbers field value if set, zero value otherwise.
 func (o *Identity) GetPhoneNumbers() []IdentityPhoneNumber {
-	if o == nil || o.PhoneNumbers == nil {
+	if o == nil || IsNil(o.PhoneNumbers) {
 		var ret []IdentityPhoneNumber
 		return ret
 	}
@@ -149,7 +152,7 @@ func (o *Identity) GetPhoneNumbers() []IdentityPhoneNumber {
 // GetPhoneNumbersOk returns a tuple with the PhoneNumbers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Identity) GetPhoneNumbersOk() ([]IdentityPhoneNumber, bool) {
-	if o == nil || o.PhoneNumbers == nil {
+	if o == nil || IsNil(o.PhoneNumbers) {
 		return nil, false
 	}
 	return o.PhoneNumbers, true
@@ -157,7 +160,7 @@ func (o *Identity) GetPhoneNumbersOk() ([]IdentityPhoneNumber, bool) {
 
 // HasPhoneNumbers returns a boolean if a field has been set.
 func (o *Identity) HasPhoneNumbers() bool {
-	if o != nil && o.PhoneNumbers != nil {
+	if o != nil && !IsNil(o.PhoneNumbers) {
 		return true
 	}
 
@@ -171,7 +174,7 @@ func (o *Identity) SetPhoneNumbers(v []IdentityPhoneNumber) {
 
 // GetDateOfBirths returns the DateOfBirths field value if set, zero value otherwise.
 func (o *Identity) GetDateOfBirths() []IdentityDateOfBirth {
-	if o == nil || o.DateOfBirths == nil {
+	if o == nil || IsNil(o.DateOfBirths) {
 		var ret []IdentityDateOfBirth
 		return ret
 	}
@@ -181,7 +184,7 @@ func (o *Identity) GetDateOfBirths() []IdentityDateOfBirth {
 // GetDateOfBirthsOk returns a tuple with the DateOfBirths field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Identity) GetDateOfBirthsOk() ([]IdentityDateOfBirth, bool) {
-	if o == nil || o.DateOfBirths == nil {
+	if o == nil || IsNil(o.DateOfBirths) {
 		return nil, false
 	}
 	return o.DateOfBirths, true
@@ -189,7 +192,7 @@ func (o *Identity) GetDateOfBirthsOk() ([]IdentityDateOfBirth, bool) {
 
 // HasDateOfBirths returns a boolean if a field has been set.
 func (o *Identity) HasDateOfBirths() bool {
-	if o != nil && o.DateOfBirths != nil {
+	if o != nil && !IsNil(o.DateOfBirths) {
 		return true
 	}
 
@@ -202,23 +205,31 @@ func (o *Identity) SetDateOfBirths(v []IdentityDateOfBirth) {
 }
 
 func (o Identity) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Names != nil {
-		toSerialize["names"] = o.Names
-	}
-	if o.Addresses != nil {
-		toSerialize["addresses"] = o.Addresses
-	}
-	if o.Emails != nil {
-		toSerialize["emails"] = o.Emails
-	}
-	if o.PhoneNumbers != nil {
-		toSerialize["phone_numbers"] = o.PhoneNumbers
-	}
-	if o.DateOfBirths != nil {
-		toSerialize["date_of_births"] = o.DateOfBirths
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Identity) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Names) {
+		toSerialize["names"] = o.Names
+	}
+	if !IsNil(o.Addresses) {
+		toSerialize["addresses"] = o.Addresses
+	}
+	if !IsNil(o.Emails) {
+		toSerialize["emails"] = o.Emails
+	}
+	if !IsNil(o.PhoneNumbers) {
+		toSerialize["phone_numbers"] = o.PhoneNumbers
+	}
+	if !IsNil(o.DateOfBirths) {
+		toSerialize["date_of_births"] = o.DateOfBirths
+	}
+	return toSerialize, nil
 }
 
 type NullableIdentity struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ErrBodyModelV2 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ErrBodyModelV2{}
+
 // ErrBodyModelV2 struct for ErrBodyModelV2
 type ErrBodyModelV2 struct {
 	Error *FvErrorModelV2 `json:"error,omitempty"`
@@ -39,7 +42,7 @@ func NewErrBodyModelV2WithDefaults() *ErrBodyModelV2 {
 
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *ErrBodyModelV2) GetError() FvErrorModelV2 {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		var ret FvErrorModelV2
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *ErrBodyModelV2) GetError() FvErrorModelV2 {
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrBodyModelV2) GetErrorOk() (*FvErrorModelV2, bool) {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
 	return o.Error, true
@@ -57,7 +60,7 @@ func (o *ErrBodyModelV2) GetErrorOk() (*FvErrorModelV2, bool) {
 
 // HasError returns a boolean if a field has been set.
 func (o *ErrBodyModelV2) HasError() bool {
-	if o != nil && o.Error != nil {
+	if o != nil && !IsNil(o.Error) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *ErrBodyModelV2) SetError(v FvErrorModelV2) {
 }
 
 func (o ErrBodyModelV2) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Error != nil {
-		toSerialize["error"] = o.Error
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ErrBodyModelV2) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Error) {
+		toSerialize["error"] = o.Error
+	}
+	return toSerialize, nil
 }
 
 type NullableErrBodyModelV2 struct {

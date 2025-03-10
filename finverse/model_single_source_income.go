@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the SingleSourceIncome type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SingleSourceIncome{}
 
 // SingleSourceIncome struct for SingleSourceIncome
 type SingleSourceIncome struct {
@@ -24,6 +29,8 @@ type SingleSourceIncome struct {
 	// Unknown
 	SourceId string `json:"source_id"`
 }
+
+type _SingleSourceIncome SingleSourceIncome
 
 // NewSingleSourceIncome instantiates a new SingleSourceIncome object
 // This constructor will assign default values to properties that have it defined,
@@ -143,20 +150,60 @@ func (o *SingleSourceIncome) SetSourceId(v string) {
 }
 
 func (o SingleSourceIncome) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["income_streams"] = o.IncomeStreams
-	}
-	if true {
-		toSerialize["income_total"] = o.IncomeTotal
-	}
-	if true {
-		toSerialize["source"] = o.Source
-	}
-	if true {
-		toSerialize["source_id"] = o.SourceId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SingleSourceIncome) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["income_streams"] = o.IncomeStreams
+	toSerialize["income_total"] = o.IncomeTotal
+	toSerialize["source"] = o.Source
+	toSerialize["source_id"] = o.SourceId
+	return toSerialize, nil
+}
+
+func (o *SingleSourceIncome) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"income_streams",
+		"income_total",
+		"source",
+		"source_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSingleSourceIncome := _SingleSourceIncome{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varSingleSourceIncome)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SingleSourceIncome(varSingleSourceIncome)
+
+	return err
 }
 
 type NullableSingleSourceIncome struct {

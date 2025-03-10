@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the PaymentInstruction type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaymentInstruction{}
+
 // PaymentInstruction struct for PaymentInstruction
 type PaymentInstruction struct {
 	// An id of the this payment
@@ -75,7 +78,7 @@ func NewPaymentInstructionWithDefaults() *PaymentInstruction {
 
 // GetPaymentInstructionId returns the PaymentInstructionId field value if set, zero value otherwise.
 func (o *PaymentInstruction) GetPaymentInstructionId() string {
-	if o == nil || o.PaymentInstructionId == nil {
+	if o == nil || IsNil(o.PaymentInstructionId) {
 		var ret string
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *PaymentInstruction) GetPaymentInstructionId() string {
 // GetPaymentInstructionIdOk returns a tuple with the PaymentInstructionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentInstruction) GetPaymentInstructionIdOk() (*string, bool) {
-	if o == nil || o.PaymentInstructionId == nil {
+	if o == nil || IsNil(o.PaymentInstructionId) {
 		return nil, false
 	}
 	return o.PaymentInstructionId, true
@@ -93,7 +96,7 @@ func (o *PaymentInstruction) GetPaymentInstructionIdOk() (*string, bool) {
 
 // HasPaymentInstructionId returns a boolean if a field has been set.
 func (o *PaymentInstruction) HasPaymentInstructionId() bool {
-	if o != nil && o.PaymentInstructionId != nil {
+	if o != nil && !IsNil(o.PaymentInstructionId) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *PaymentInstruction) SetPaymentInstructionId(v string) {
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *PaymentInstruction) GetUserId() string {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		var ret string
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *PaymentInstruction) GetUserId() string {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentInstruction) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		return nil, false
 	}
 	return o.UserId, true
@@ -125,7 +128,7 @@ func (o *PaymentInstruction) GetUserIdOk() (*string, bool) {
 
 // HasUserId returns a boolean if a field has been set.
 func (o *PaymentInstruction) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -139,7 +142,7 @@ func (o *PaymentInstruction) SetUserId(v string) {
 
 // GetLoginIdentityId returns the LoginIdentityId field value if set, zero value otherwise.
 func (o *PaymentInstruction) GetLoginIdentityId() string {
-	if o == nil || o.LoginIdentityId == nil {
+	if o == nil || IsNil(o.LoginIdentityId) {
 		var ret string
 		return ret
 	}
@@ -149,7 +152,7 @@ func (o *PaymentInstruction) GetLoginIdentityId() string {
 // GetLoginIdentityIdOk returns a tuple with the LoginIdentityId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentInstruction) GetLoginIdentityIdOk() (*string, bool) {
-	if o == nil || o.LoginIdentityId == nil {
+	if o == nil || IsNil(o.LoginIdentityId) {
 		return nil, false
 	}
 	return o.LoginIdentityId, true
@@ -157,7 +160,7 @@ func (o *PaymentInstruction) GetLoginIdentityIdOk() (*string, bool) {
 
 // HasLoginIdentityId returns a boolean if a field has been set.
 func (o *PaymentInstruction) HasLoginIdentityId() bool {
-	if o != nil && o.LoginIdentityId != nil {
+	if o != nil && !IsNil(o.LoginIdentityId) {
 		return true
 	}
 
@@ -171,7 +174,7 @@ func (o *PaymentInstruction) SetLoginIdentityId(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *PaymentInstruction) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -181,7 +184,7 @@ func (o *PaymentInstruction) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentInstruction) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -189,7 +192,7 @@ func (o *PaymentInstruction) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *PaymentInstruction) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -203,7 +206,7 @@ func (o *PaymentInstruction) SetType(v string) {
 
 // GetRecipientName returns the RecipientName field value if set, zero value otherwise.
 func (o *PaymentInstruction) GetRecipientName() string {
-	if o == nil || o.RecipientName == nil {
+	if o == nil || IsNil(o.RecipientName) {
 		var ret string
 		return ret
 	}
@@ -213,7 +216,7 @@ func (o *PaymentInstruction) GetRecipientName() string {
 // GetRecipientNameOk returns a tuple with the RecipientName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentInstruction) GetRecipientNameOk() (*string, bool) {
-	if o == nil || o.RecipientName == nil {
+	if o == nil || IsNil(o.RecipientName) {
 		return nil, false
 	}
 	return o.RecipientName, true
@@ -221,7 +224,7 @@ func (o *PaymentInstruction) GetRecipientNameOk() (*string, bool) {
 
 // HasRecipientName returns a boolean if a field has been set.
 func (o *PaymentInstruction) HasRecipientName() bool {
-	if o != nil && o.RecipientName != nil {
+	if o != nil && !IsNil(o.RecipientName) {
 		return true
 	}
 
@@ -235,7 +238,7 @@ func (o *PaymentInstruction) SetRecipientName(v string) {
 
 // GetRecipientAccountId returns the RecipientAccountId field value if set, zero value otherwise.
 func (o *PaymentInstruction) GetRecipientAccountId() string {
-	if o == nil || o.RecipientAccountId == nil {
+	if o == nil || IsNil(o.RecipientAccountId) {
 		var ret string
 		return ret
 	}
@@ -245,7 +248,7 @@ func (o *PaymentInstruction) GetRecipientAccountId() string {
 // GetRecipientAccountIdOk returns a tuple with the RecipientAccountId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentInstruction) GetRecipientAccountIdOk() (*string, bool) {
-	if o == nil || o.RecipientAccountId == nil {
+	if o == nil || IsNil(o.RecipientAccountId) {
 		return nil, false
 	}
 	return o.RecipientAccountId, true
@@ -253,7 +256,7 @@ func (o *PaymentInstruction) GetRecipientAccountIdOk() (*string, bool) {
 
 // HasRecipientAccountId returns a boolean if a field has been set.
 func (o *PaymentInstruction) HasRecipientAccountId() bool {
-	if o != nil && o.RecipientAccountId != nil {
+	if o != nil && !IsNil(o.RecipientAccountId) {
 		return true
 	}
 
@@ -267,7 +270,7 @@ func (o *PaymentInstruction) SetRecipientAccountId(v string) {
 
 // GetSenderName returns the SenderName field value if set, zero value otherwise.
 func (o *PaymentInstruction) GetSenderName() string {
-	if o == nil || o.SenderName == nil {
+	if o == nil || IsNil(o.SenderName) {
 		var ret string
 		return ret
 	}
@@ -277,7 +280,7 @@ func (o *PaymentInstruction) GetSenderName() string {
 // GetSenderNameOk returns a tuple with the SenderName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentInstruction) GetSenderNameOk() (*string, bool) {
-	if o == nil || o.SenderName == nil {
+	if o == nil || IsNil(o.SenderName) {
 		return nil, false
 	}
 	return o.SenderName, true
@@ -285,7 +288,7 @@ func (o *PaymentInstruction) GetSenderNameOk() (*string, bool) {
 
 // HasSenderName returns a boolean if a field has been set.
 func (o *PaymentInstruction) HasSenderName() bool {
-	if o != nil && o.SenderName != nil {
+	if o != nil && !IsNil(o.SenderName) {
 		return true
 	}
 
@@ -299,7 +302,7 @@ func (o *PaymentInstruction) SetSenderName(v string) {
 
 // GetSenderAccount returns the SenderAccount field value if set, zero value otherwise.
 func (o *PaymentInstruction) GetSenderAccount() PaymentAccount {
-	if o == nil || o.SenderAccount == nil {
+	if o == nil || IsNil(o.SenderAccount) {
 		var ret PaymentAccount
 		return ret
 	}
@@ -309,7 +312,7 @@ func (o *PaymentInstruction) GetSenderAccount() PaymentAccount {
 // GetSenderAccountOk returns a tuple with the SenderAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentInstruction) GetSenderAccountOk() (*PaymentAccount, bool) {
-	if o == nil || o.SenderAccount == nil {
+	if o == nil || IsNil(o.SenderAccount) {
 		return nil, false
 	}
 	return o.SenderAccount, true
@@ -317,7 +320,7 @@ func (o *PaymentInstruction) GetSenderAccountOk() (*PaymentAccount, bool) {
 
 // HasSenderAccount returns a boolean if a field has been set.
 func (o *PaymentInstruction) HasSenderAccount() bool {
-	if o != nil && o.SenderAccount != nil {
+	if o != nil && !IsNil(o.SenderAccount) {
 		return true
 	}
 
@@ -331,7 +334,7 @@ func (o *PaymentInstruction) SetSenderAccount(v PaymentAccount) {
 
 // GetSenderAccountId returns the SenderAccountId field value if set, zero value otherwise.
 func (o *PaymentInstruction) GetSenderAccountId() string {
-	if o == nil || o.SenderAccountId == nil {
+	if o == nil || IsNil(o.SenderAccountId) {
 		var ret string
 		return ret
 	}
@@ -341,7 +344,7 @@ func (o *PaymentInstruction) GetSenderAccountId() string {
 // GetSenderAccountIdOk returns a tuple with the SenderAccountId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentInstruction) GetSenderAccountIdOk() (*string, bool) {
-	if o == nil || o.SenderAccountId == nil {
+	if o == nil || IsNil(o.SenderAccountId) {
 		return nil, false
 	}
 	return o.SenderAccountId, true
@@ -349,7 +352,7 @@ func (o *PaymentInstruction) GetSenderAccountIdOk() (*string, bool) {
 
 // HasSenderAccountId returns a boolean if a field has been set.
 func (o *PaymentInstruction) HasSenderAccountId() bool {
-	if o != nil && o.SenderAccountId != nil {
+	if o != nil && !IsNil(o.SenderAccountId) {
 		return true
 	}
 
@@ -363,7 +366,7 @@ func (o *PaymentInstruction) SetSenderAccountId(v string) {
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PaymentInstruction) GetStartDate() string {
-	if o == nil || o.StartDate.Get() == nil {
+	if o == nil || IsNil(o.StartDate.Get()) {
 		var ret string
 		return ret
 	}
@@ -406,7 +409,7 @@ func (o *PaymentInstruction) UnsetStartDate() {
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PaymentInstruction) GetEndDate() string {
-	if o == nil || o.EndDate.Get() == nil {
+	if o == nil || IsNil(o.EndDate.Get()) {
 		var ret string
 		return ret
 	}
@@ -449,7 +452,7 @@ func (o *PaymentInstruction) UnsetEndDate() {
 
 // GetCurrency returns the Currency field value if set, zero value otherwise.
 func (o *PaymentInstruction) GetCurrency() string {
-	if o == nil || o.Currency == nil {
+	if o == nil || IsNil(o.Currency) {
 		var ret string
 		return ret
 	}
@@ -459,7 +462,7 @@ func (o *PaymentInstruction) GetCurrency() string {
 // GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentInstruction) GetCurrencyOk() (*string, bool) {
-	if o == nil || o.Currency == nil {
+	if o == nil || IsNil(o.Currency) {
 		return nil, false
 	}
 	return o.Currency, true
@@ -467,7 +470,7 @@ func (o *PaymentInstruction) GetCurrencyOk() (*string, bool) {
 
 // HasCurrency returns a boolean if a field has been set.
 func (o *PaymentInstruction) HasCurrency() bool {
-	if o != nil && o.Currency != nil {
+	if o != nil && !IsNil(o.Currency) {
 		return true
 	}
 
@@ -481,7 +484,7 @@ func (o *PaymentInstruction) SetCurrency(v string) {
 
 // GetAmount returns the Amount field value if set, zero value otherwise.
 func (o *PaymentInstruction) GetAmount() float32 {
-	if o == nil || o.Amount == nil {
+	if o == nil || IsNil(o.Amount) {
 		var ret float32
 		return ret
 	}
@@ -491,7 +494,7 @@ func (o *PaymentInstruction) GetAmount() float32 {
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentInstruction) GetAmountOk() (*float32, bool) {
-	if o == nil || o.Amount == nil {
+	if o == nil || IsNil(o.Amount) {
 		return nil, false
 	}
 	return o.Amount, true
@@ -499,7 +502,7 @@ func (o *PaymentInstruction) GetAmountOk() (*float32, bool) {
 
 // HasAmount returns a boolean if a field has been set.
 func (o *PaymentInstruction) HasAmount() bool {
-	if o != nil && o.Amount != nil {
+	if o != nil && !IsNil(o.Amount) {
 		return true
 	}
 
@@ -513,7 +516,7 @@ func (o *PaymentInstruction) SetAmount(v float32) {
 
 // GetFrequency returns the Frequency field value if set, zero value otherwise.
 func (o *PaymentInstruction) GetFrequency() string {
-	if o == nil || o.Frequency == nil {
+	if o == nil || IsNil(o.Frequency) {
 		var ret string
 		return ret
 	}
@@ -523,7 +526,7 @@ func (o *PaymentInstruction) GetFrequency() string {
 // GetFrequencyOk returns a tuple with the Frequency field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentInstruction) GetFrequencyOk() (*string, bool) {
-	if o == nil || o.Frequency == nil {
+	if o == nil || IsNil(o.Frequency) {
 		return nil, false
 	}
 	return o.Frequency, true
@@ -531,7 +534,7 @@ func (o *PaymentInstruction) GetFrequencyOk() (*string, bool) {
 
 // HasFrequency returns a boolean if a field has been set.
 func (o *PaymentInstruction) HasFrequency() bool {
-	if o != nil && o.Frequency != nil {
+	if o != nil && !IsNil(o.Frequency) {
 		return true
 	}
 
@@ -545,7 +548,7 @@ func (o *PaymentInstruction) SetFrequency(v string) {
 
 // GetRemarks returns the Remarks field value if set, zero value otherwise.
 func (o *PaymentInstruction) GetRemarks() string {
-	if o == nil || o.Remarks == nil {
+	if o == nil || IsNil(o.Remarks) {
 		var ret string
 		return ret
 	}
@@ -555,7 +558,7 @@ func (o *PaymentInstruction) GetRemarks() string {
 // GetRemarksOk returns a tuple with the Remarks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentInstruction) GetRemarksOk() (*string, bool) {
-	if o == nil || o.Remarks == nil {
+	if o == nil || IsNil(o.Remarks) {
 		return nil, false
 	}
 	return o.Remarks, true
@@ -563,7 +566,7 @@ func (o *PaymentInstruction) GetRemarksOk() (*string, bool) {
 
 // HasRemarks returns a boolean if a field has been set.
 func (o *PaymentInstruction) HasRemarks() bool {
-	if o != nil && o.Remarks != nil {
+	if o != nil && !IsNil(o.Remarks) {
 		return true
 	}
 
@@ -577,7 +580,7 @@ func (o *PaymentInstruction) SetRemarks(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *PaymentInstruction) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -587,7 +590,7 @@ func (o *PaymentInstruction) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentInstruction) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -595,7 +598,7 @@ func (o *PaymentInstruction) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *PaymentInstruction) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -609,7 +612,7 @@ func (o *PaymentInstruction) SetStatus(v string) {
 
 // GetReferenceId returns the ReferenceId field value if set, zero value otherwise.
 func (o *PaymentInstruction) GetReferenceId() string {
-	if o == nil || o.ReferenceId == nil {
+	if o == nil || IsNil(o.ReferenceId) {
 		var ret string
 		return ret
 	}
@@ -619,7 +622,7 @@ func (o *PaymentInstruction) GetReferenceId() string {
 // GetReferenceIdOk returns a tuple with the ReferenceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentInstruction) GetReferenceIdOk() (*string, bool) {
-	if o == nil || o.ReferenceId == nil {
+	if o == nil || IsNil(o.ReferenceId) {
 		return nil, false
 	}
 	return o.ReferenceId, true
@@ -627,7 +630,7 @@ func (o *PaymentInstruction) GetReferenceIdOk() (*string, bool) {
 
 // HasReferenceId returns a boolean if a field has been set.
 func (o *PaymentInstruction) HasReferenceId() bool {
-	if o != nil && o.ReferenceId != nil {
+	if o != nil && !IsNil(o.ReferenceId) {
 		return true
 	}
 
@@ -641,7 +644,7 @@ func (o *PaymentInstruction) SetReferenceId(v string) {
 
 // GetLastUpdate returns the LastUpdate field value if set, zero value otherwise.
 func (o *PaymentInstruction) GetLastUpdate() time.Time {
-	if o == nil || o.LastUpdate == nil {
+	if o == nil || IsNil(o.LastUpdate) {
 		var ret time.Time
 		return ret
 	}
@@ -651,7 +654,7 @@ func (o *PaymentInstruction) GetLastUpdate() time.Time {
 // GetLastUpdateOk returns a tuple with the LastUpdate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentInstruction) GetLastUpdateOk() (*time.Time, bool) {
-	if o == nil || o.LastUpdate == nil {
+	if o == nil || IsNil(o.LastUpdate) {
 		return nil, false
 	}
 	return o.LastUpdate, true
@@ -659,7 +662,7 @@ func (o *PaymentInstruction) GetLastUpdateOk() (*time.Time, bool) {
 
 // HasLastUpdate returns a boolean if a field has been set.
 func (o *PaymentInstruction) HasLastUpdate() bool {
-	if o != nil && o.LastUpdate != nil {
+	if o != nil && !IsNil(o.LastUpdate) {
 		return true
 	}
 
@@ -673,7 +676,7 @@ func (o *PaymentInstruction) SetLastUpdate(v time.Time) {
 
 // GetInfo returns the Info field value if set, zero value otherwise.
 func (o *PaymentInstruction) GetInfo() map[string]interface{} {
-	if o == nil || o.Info == nil {
+	if o == nil || IsNil(o.Info) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -683,15 +686,15 @@ func (o *PaymentInstruction) GetInfo() map[string]interface{} {
 // GetInfoOk returns a tuple with the Info field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentInstruction) GetInfoOk() (map[string]interface{}, bool) {
-	if o == nil || o.Info == nil {
-		return nil, false
+	if o == nil || IsNil(o.Info) {
+		return map[string]interface{}{}, false
 	}
 	return o.Info, true
 }
 
 // HasInfo returns a boolean if a field has been set.
 func (o *PaymentInstruction) HasInfo() bool {
-	if o != nil && o.Info != nil {
+	if o != nil && !IsNil(o.Info) {
 		return true
 	}
 
@@ -704,32 +707,40 @@ func (o *PaymentInstruction) SetInfo(v map[string]interface{}) {
 }
 
 func (o PaymentInstruction) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PaymentInstruction) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.PaymentInstructionId != nil {
+	if !IsNil(o.PaymentInstructionId) {
 		toSerialize["payment_instruction_id"] = o.PaymentInstructionId
 	}
-	if o.UserId != nil {
+	if !IsNil(o.UserId) {
 		toSerialize["user_id"] = o.UserId
 	}
-	if o.LoginIdentityId != nil {
+	if !IsNil(o.LoginIdentityId) {
 		toSerialize["login_identity_id"] = o.LoginIdentityId
 	}
-	if o.Type != nil {
+	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
-	if o.RecipientName != nil {
+	if !IsNil(o.RecipientName) {
 		toSerialize["recipient_name"] = o.RecipientName
 	}
-	if o.RecipientAccountId != nil {
+	if !IsNil(o.RecipientAccountId) {
 		toSerialize["recipient_account_id"] = o.RecipientAccountId
 	}
-	if o.SenderName != nil {
+	if !IsNil(o.SenderName) {
 		toSerialize["sender_name"] = o.SenderName
 	}
-	if o.SenderAccount != nil {
+	if !IsNil(o.SenderAccount) {
 		toSerialize["sender_account"] = o.SenderAccount
 	}
-	if o.SenderAccountId != nil {
+	if !IsNil(o.SenderAccountId) {
 		toSerialize["sender_account_id"] = o.SenderAccountId
 	}
 	if o.StartDate.IsSet() {
@@ -738,31 +749,31 @@ func (o PaymentInstruction) MarshalJSON() ([]byte, error) {
 	if o.EndDate.IsSet() {
 		toSerialize["end_date"] = o.EndDate.Get()
 	}
-	if o.Currency != nil {
+	if !IsNil(o.Currency) {
 		toSerialize["currency"] = o.Currency
 	}
-	if o.Amount != nil {
+	if !IsNil(o.Amount) {
 		toSerialize["amount"] = o.Amount
 	}
-	if o.Frequency != nil {
+	if !IsNil(o.Frequency) {
 		toSerialize["frequency"] = o.Frequency
 	}
-	if o.Remarks != nil {
+	if !IsNil(o.Remarks) {
 		toSerialize["remarks"] = o.Remarks
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.ReferenceId != nil {
+	if !IsNil(o.ReferenceId) {
 		toSerialize["reference_id"] = o.ReferenceId
 	}
-	if o.LastUpdate != nil {
+	if !IsNil(o.LastUpdate) {
 		toSerialize["last_update"] = o.LastUpdate
 	}
-	if o.Info != nil {
+	if !IsNil(o.Info) {
 		toSerialize["info"] = o.Info
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullablePaymentInstruction struct {

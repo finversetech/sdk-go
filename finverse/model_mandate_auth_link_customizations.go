@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the MandateAuthLinkCustomizations type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MandateAuthLinkCustomizations{}
+
 // MandateAuthLinkCustomizations struct for MandateAuthLinkCustomizations
 type MandateAuthLinkCustomizations struct {
 	// institution's country filter
@@ -56,7 +59,7 @@ func NewMandateAuthLinkCustomizationsWithDefaults() *MandateAuthLinkCustomizatio
 
 // GetCountries returns the Countries field value if set, zero value otherwise.
 func (o *MandateAuthLinkCustomizations) GetCountries() []string {
-	if o == nil || o.Countries == nil {
+	if o == nil || IsNil(o.Countries) {
 		var ret []string
 		return ret
 	}
@@ -66,7 +69,7 @@ func (o *MandateAuthLinkCustomizations) GetCountries() []string {
 // GetCountriesOk returns a tuple with the Countries field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateAuthLinkCustomizations) GetCountriesOk() ([]string, bool) {
-	if o == nil || o.Countries == nil {
+	if o == nil || IsNil(o.Countries) {
 		return nil, false
 	}
 	return o.Countries, true
@@ -74,7 +77,7 @@ func (o *MandateAuthLinkCustomizations) GetCountriesOk() ([]string, bool) {
 
 // HasCountries returns a boolean if a field has been set.
 func (o *MandateAuthLinkCustomizations) HasCountries() bool {
-	if o != nil && o.Countries != nil {
+	if o != nil && !IsNil(o.Countries) {
 		return true
 	}
 
@@ -88,7 +91,7 @@ func (o *MandateAuthLinkCustomizations) SetCountries(v []string) {
 
 // GetInstitutionId returns the InstitutionId field value if set, zero value otherwise.
 func (o *MandateAuthLinkCustomizations) GetInstitutionId() string {
-	if o == nil || o.InstitutionId == nil {
+	if o == nil || IsNil(o.InstitutionId) {
 		var ret string
 		return ret
 	}
@@ -98,7 +101,7 @@ func (o *MandateAuthLinkCustomizations) GetInstitutionId() string {
 // GetInstitutionIdOk returns a tuple with the InstitutionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateAuthLinkCustomizations) GetInstitutionIdOk() (*string, bool) {
-	if o == nil || o.InstitutionId == nil {
+	if o == nil || IsNil(o.InstitutionId) {
 		return nil, false
 	}
 	return o.InstitutionId, true
@@ -106,7 +109,7 @@ func (o *MandateAuthLinkCustomizations) GetInstitutionIdOk() (*string, bool) {
 
 // HasInstitutionId returns a boolean if a field has been set.
 func (o *MandateAuthLinkCustomizations) HasInstitutionId() bool {
-	if o != nil && o.InstitutionId != nil {
+	if o != nil && !IsNil(o.InstitutionId) {
 		return true
 	}
 
@@ -120,7 +123,7 @@ func (o *MandateAuthLinkCustomizations) SetInstitutionId(v string) {
 
 // GetInstitutionStatus returns the InstitutionStatus field value if set, zero value otherwise.
 func (o *MandateAuthLinkCustomizations) GetInstitutionStatus() string {
-	if o == nil || o.InstitutionStatus == nil {
+	if o == nil || IsNil(o.InstitutionStatus) {
 		var ret string
 		return ret
 	}
@@ -130,7 +133,7 @@ func (o *MandateAuthLinkCustomizations) GetInstitutionStatus() string {
 // GetInstitutionStatusOk returns a tuple with the InstitutionStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateAuthLinkCustomizations) GetInstitutionStatusOk() (*string, bool) {
-	if o == nil || o.InstitutionStatus == nil {
+	if o == nil || IsNil(o.InstitutionStatus) {
 		return nil, false
 	}
 	return o.InstitutionStatus, true
@@ -138,7 +141,7 @@ func (o *MandateAuthLinkCustomizations) GetInstitutionStatusOk() (*string, bool)
 
 // HasInstitutionStatus returns a boolean if a field has been set.
 func (o *MandateAuthLinkCustomizations) HasInstitutionStatus() bool {
-	if o != nil && o.InstitutionStatus != nil {
+	if o != nil && !IsNil(o.InstitutionStatus) {
 		return true
 	}
 
@@ -152,7 +155,7 @@ func (o *MandateAuthLinkCustomizations) SetInstitutionStatus(v string) {
 
 // GetLanguage returns the Language field value if set, zero value otherwise.
 func (o *MandateAuthLinkCustomizations) GetLanguage() string {
-	if o == nil || o.Language == nil {
+	if o == nil || IsNil(o.Language) {
 		var ret string
 		return ret
 	}
@@ -162,7 +165,7 @@ func (o *MandateAuthLinkCustomizations) GetLanguage() string {
 // GetLanguageOk returns a tuple with the Language field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateAuthLinkCustomizations) GetLanguageOk() (*string, bool) {
-	if o == nil || o.Language == nil {
+	if o == nil || IsNil(o.Language) {
 		return nil, false
 	}
 	return o.Language, true
@@ -170,7 +173,7 @@ func (o *MandateAuthLinkCustomizations) GetLanguageOk() (*string, bool) {
 
 // HasLanguage returns a boolean if a field has been set.
 func (o *MandateAuthLinkCustomizations) HasLanguage() bool {
-	if o != nil && o.Language != nil {
+	if o != nil && !IsNil(o.Language) {
 		return true
 	}
 
@@ -184,7 +187,7 @@ func (o *MandateAuthLinkCustomizations) SetLanguage(v string) {
 
 // GetLinkMode returns the LinkMode field value if set, zero value otherwise.
 func (o *MandateAuthLinkCustomizations) GetLinkMode() string {
-	if o == nil || o.LinkMode == nil {
+	if o == nil || IsNil(o.LinkMode) {
 		var ret string
 		return ret
 	}
@@ -194,7 +197,7 @@ func (o *MandateAuthLinkCustomizations) GetLinkMode() string {
 // GetLinkModeOk returns a tuple with the LinkMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateAuthLinkCustomizations) GetLinkModeOk() (*string, bool) {
-	if o == nil || o.LinkMode == nil {
+	if o == nil || IsNil(o.LinkMode) {
 		return nil, false
 	}
 	return o.LinkMode, true
@@ -202,7 +205,7 @@ func (o *MandateAuthLinkCustomizations) GetLinkModeOk() (*string, bool) {
 
 // HasLinkMode returns a boolean if a field has been set.
 func (o *MandateAuthLinkCustomizations) HasLinkMode() bool {
-	if o != nil && o.LinkMode != nil {
+	if o != nil && !IsNil(o.LinkMode) {
 		return true
 	}
 
@@ -216,7 +219,7 @@ func (o *MandateAuthLinkCustomizations) SetLinkMode(v string) {
 
 // GetProductsSupported returns the ProductsSupported field value if set, zero value otherwise.
 func (o *MandateAuthLinkCustomizations) GetProductsSupported() []string {
-	if o == nil || o.ProductsSupported == nil {
+	if o == nil || IsNil(o.ProductsSupported) {
 		var ret []string
 		return ret
 	}
@@ -226,7 +229,7 @@ func (o *MandateAuthLinkCustomizations) GetProductsSupported() []string {
 // GetProductsSupportedOk returns a tuple with the ProductsSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateAuthLinkCustomizations) GetProductsSupportedOk() ([]string, bool) {
-	if o == nil || o.ProductsSupported == nil {
+	if o == nil || IsNil(o.ProductsSupported) {
 		return nil, false
 	}
 	return o.ProductsSupported, true
@@ -234,7 +237,7 @@ func (o *MandateAuthLinkCustomizations) GetProductsSupportedOk() ([]string, bool
 
 // HasProductsSupported returns a boolean if a field has been set.
 func (o *MandateAuthLinkCustomizations) HasProductsSupported() bool {
-	if o != nil && o.ProductsSupported != nil {
+	if o != nil && !IsNil(o.ProductsSupported) {
 		return true
 	}
 
@@ -248,7 +251,7 @@ func (o *MandateAuthLinkCustomizations) SetProductsSupported(v []string) {
 
 // GetUiMode returns the UiMode field value if set, zero value otherwise.
 func (o *MandateAuthLinkCustomizations) GetUiMode() string {
-	if o == nil || o.UiMode == nil {
+	if o == nil || IsNil(o.UiMode) {
 		var ret string
 		return ret
 	}
@@ -258,7 +261,7 @@ func (o *MandateAuthLinkCustomizations) GetUiMode() string {
 // GetUiModeOk returns a tuple with the UiMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateAuthLinkCustomizations) GetUiModeOk() (*string, bool) {
-	if o == nil || o.UiMode == nil {
+	if o == nil || IsNil(o.UiMode) {
 		return nil, false
 	}
 	return o.UiMode, true
@@ -266,7 +269,7 @@ func (o *MandateAuthLinkCustomizations) GetUiModeOk() (*string, bool) {
 
 // HasUiMode returns a boolean if a field has been set.
 func (o *MandateAuthLinkCustomizations) HasUiMode() bool {
-	if o != nil && o.UiMode != nil {
+	if o != nil && !IsNil(o.UiMode) {
 		return true
 	}
 
@@ -280,7 +283,7 @@ func (o *MandateAuthLinkCustomizations) SetUiMode(v string) {
 
 // GetRedirectUri returns the RedirectUri field value if set, zero value otherwise.
 func (o *MandateAuthLinkCustomizations) GetRedirectUri() string {
-	if o == nil || o.RedirectUri == nil {
+	if o == nil || IsNil(o.RedirectUri) {
 		var ret string
 		return ret
 	}
@@ -290,7 +293,7 @@ func (o *MandateAuthLinkCustomizations) GetRedirectUri() string {
 // GetRedirectUriOk returns a tuple with the RedirectUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateAuthLinkCustomizations) GetRedirectUriOk() (*string, bool) {
-	if o == nil || o.RedirectUri == nil {
+	if o == nil || IsNil(o.RedirectUri) {
 		return nil, false
 	}
 	return o.RedirectUri, true
@@ -298,7 +301,7 @@ func (o *MandateAuthLinkCustomizations) GetRedirectUriOk() (*string, bool) {
 
 // HasRedirectUri returns a boolean if a field has been set.
 func (o *MandateAuthLinkCustomizations) HasRedirectUri() bool {
-	if o != nil && o.RedirectUri != nil {
+	if o != nil && !IsNil(o.RedirectUri) {
 		return true
 	}
 
@@ -312,7 +315,7 @@ func (o *MandateAuthLinkCustomizations) SetRedirectUri(v string) {
 
 // GetUserType returns the UserType field value if set, zero value otherwise.
 func (o *MandateAuthLinkCustomizations) GetUserType() []string {
-	if o == nil || o.UserType == nil {
+	if o == nil || IsNil(o.UserType) {
 		var ret []string
 		return ret
 	}
@@ -322,7 +325,7 @@ func (o *MandateAuthLinkCustomizations) GetUserType() []string {
 // GetUserTypeOk returns a tuple with the UserType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateAuthLinkCustomizations) GetUserTypeOk() ([]string, bool) {
-	if o == nil || o.UserType == nil {
+	if o == nil || IsNil(o.UserType) {
 		return nil, false
 	}
 	return o.UserType, true
@@ -330,7 +333,7 @@ func (o *MandateAuthLinkCustomizations) GetUserTypeOk() ([]string, bool) {
 
 // HasUserType returns a boolean if a field has been set.
 func (o *MandateAuthLinkCustomizations) HasUserType() bool {
-	if o != nil && o.UserType != nil {
+	if o != nil && !IsNil(o.UserType) {
 		return true
 	}
 
@@ -343,35 +346,43 @@ func (o *MandateAuthLinkCustomizations) SetUserType(v []string) {
 }
 
 func (o MandateAuthLinkCustomizations) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Countries != nil {
-		toSerialize["countries"] = o.Countries
-	}
-	if o.InstitutionId != nil {
-		toSerialize["institution_id"] = o.InstitutionId
-	}
-	if o.InstitutionStatus != nil {
-		toSerialize["institution_status"] = o.InstitutionStatus
-	}
-	if o.Language != nil {
-		toSerialize["language"] = o.Language
-	}
-	if o.LinkMode != nil {
-		toSerialize["link_mode"] = o.LinkMode
-	}
-	if o.ProductsSupported != nil {
-		toSerialize["products_supported"] = o.ProductsSupported
-	}
-	if o.UiMode != nil {
-		toSerialize["ui_mode"] = o.UiMode
-	}
-	if o.RedirectUri != nil {
-		toSerialize["redirect_uri"] = o.RedirectUri
-	}
-	if o.UserType != nil {
-		toSerialize["user_type"] = o.UserType
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o MandateAuthLinkCustomizations) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Countries) {
+		toSerialize["countries"] = o.Countries
+	}
+	if !IsNil(o.InstitutionId) {
+		toSerialize["institution_id"] = o.InstitutionId
+	}
+	if !IsNil(o.InstitutionStatus) {
+		toSerialize["institution_status"] = o.InstitutionStatus
+	}
+	if !IsNil(o.Language) {
+		toSerialize["language"] = o.Language
+	}
+	if !IsNil(o.LinkMode) {
+		toSerialize["link_mode"] = o.LinkMode
+	}
+	if !IsNil(o.ProductsSupported) {
+		toSerialize["products_supported"] = o.ProductsSupported
+	}
+	if !IsNil(o.UiMode) {
+		toSerialize["ui_mode"] = o.UiMode
+	}
+	if !IsNil(o.RedirectUri) {
+		toSerialize["redirect_uri"] = o.RedirectUri
+	}
+	if !IsNil(o.UserType) {
+		toSerialize["user_type"] = o.UserType
+	}
+	return toSerialize, nil
 }
 
 type NullableMandateAuthLinkCustomizations struct {

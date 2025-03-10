@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the BadRequestModelV2 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BadRequestModelV2{}
+
 // BadRequestModelV2 struct for BadRequestModelV2
 type BadRequestModelV2 struct {
 	Error *BadRequestModelV2Error `json:"error,omitempty"`
@@ -39,7 +42,7 @@ func NewBadRequestModelV2WithDefaults() *BadRequestModelV2 {
 
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *BadRequestModelV2) GetError() BadRequestModelV2Error {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		var ret BadRequestModelV2Error
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *BadRequestModelV2) GetError() BadRequestModelV2Error {
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BadRequestModelV2) GetErrorOk() (*BadRequestModelV2Error, bool) {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
 	return o.Error, true
@@ -57,7 +60,7 @@ func (o *BadRequestModelV2) GetErrorOk() (*BadRequestModelV2Error, bool) {
 
 // HasError returns a boolean if a field has been set.
 func (o *BadRequestModelV2) HasError() bool {
-	if o != nil && o.Error != nil {
+	if o != nil && !IsNil(o.Error) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *BadRequestModelV2) SetError(v BadRequestModelV2Error) {
 }
 
 func (o BadRequestModelV2) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Error != nil {
-		toSerialize["error"] = o.Error
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o BadRequestModelV2) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Error) {
+		toSerialize["error"] = o.Error
+	}
+	return toSerialize, nil
 }
 
 type NullableBadRequestModelV2 struct {

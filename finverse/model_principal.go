@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the Principal type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Principal{}
 
 // Principal struct for Principal
 type Principal struct {
@@ -42,6 +47,8 @@ type Principal struct {
 	QrCodeText            *string `json:"qr_code_text,omitempty"`
 	ManualPaymentProvider *string `json:"manual_payment_provider,omitempty"`
 }
+
+type _Principal Principal
 
 // NewPrincipal instantiates a new Principal object
 // This constructor will assign default values to properties that have it defined,
@@ -90,7 +97,7 @@ func (o *Principal) SetSubject(v string) {
 
 // GetToken returns the Token field value if set, zero value otherwise.
 func (o *Principal) GetToken() string {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		var ret string
 		return ret
 	}
@@ -100,7 +107,7 @@ func (o *Principal) GetToken() string {
 // GetTokenOk returns a tuple with the Token field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Principal) GetTokenOk() (*string, bool) {
-	if o == nil || o.Token == nil {
+	if o == nil || IsNil(o.Token) {
 		return nil, false
 	}
 	return o.Token, true
@@ -108,7 +115,7 @@ func (o *Principal) GetTokenOk() (*string, bool) {
 
 // HasToken returns a boolean if a field has been set.
 func (o *Principal) HasToken() bool {
-	if o != nil && o.Token != nil {
+	if o != nil && !IsNil(o.Token) {
 		return true
 	}
 
@@ -194,7 +201,7 @@ func (o *Principal) SetLoginIdentityId(v string) {
 
 // GetCustomizationId returns the CustomizationId field value if set, zero value otherwise.
 func (o *Principal) GetCustomizationId() string {
-	if o == nil || o.CustomizationId == nil {
+	if o == nil || IsNil(o.CustomizationId) {
 		var ret string
 		return ret
 	}
@@ -204,7 +211,7 @@ func (o *Principal) GetCustomizationId() string {
 // GetCustomizationIdOk returns a tuple with the CustomizationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Principal) GetCustomizationIdOk() (*string, bool) {
-	if o == nil || o.CustomizationId == nil {
+	if o == nil || IsNil(o.CustomizationId) {
 		return nil, false
 	}
 	return o.CustomizationId, true
@@ -212,7 +219,7 @@ func (o *Principal) GetCustomizationIdOk() (*string, bool) {
 
 // HasCustomizationId returns a boolean if a field has been set.
 func (o *Principal) HasCustomizationId() bool {
-	if o != nil && o.CustomizationId != nil {
+	if o != nil && !IsNil(o.CustomizationId) {
 		return true
 	}
 
@@ -226,7 +233,7 @@ func (o *Principal) SetCustomizationId(v string) {
 
 // GetMandateId returns the MandateId field value if set, zero value otherwise.
 func (o *Principal) GetMandateId() string {
-	if o == nil || o.MandateId == nil {
+	if o == nil || IsNil(o.MandateId) {
 		var ret string
 		return ret
 	}
@@ -236,7 +243,7 @@ func (o *Principal) GetMandateId() string {
 // GetMandateIdOk returns a tuple with the MandateId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Principal) GetMandateIdOk() (*string, bool) {
-	if o == nil || o.MandateId == nil {
+	if o == nil || IsNil(o.MandateId) {
 		return nil, false
 	}
 	return o.MandateId, true
@@ -244,7 +251,7 @@ func (o *Principal) GetMandateIdOk() (*string, bool) {
 
 // HasMandateId returns a boolean if a field has been set.
 func (o *Principal) HasMandateId() bool {
-	if o != nil && o.MandateId != nil {
+	if o != nil && !IsNil(o.MandateId) {
 		return true
 	}
 
@@ -258,7 +265,7 @@ func (o *Principal) SetMandateId(v string) {
 
 // GetExpiresIn returns the ExpiresIn field value if set, zero value otherwise.
 func (o *Principal) GetExpiresIn() float32 {
-	if o == nil || o.ExpiresIn == nil {
+	if o == nil || IsNil(o.ExpiresIn) {
 		var ret float32
 		return ret
 	}
@@ -268,7 +275,7 @@ func (o *Principal) GetExpiresIn() float32 {
 // GetExpiresInOk returns a tuple with the ExpiresIn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Principal) GetExpiresInOk() (*float32, bool) {
-	if o == nil || o.ExpiresIn == nil {
+	if o == nil || IsNil(o.ExpiresIn) {
 		return nil, false
 	}
 	return o.ExpiresIn, true
@@ -276,7 +283,7 @@ func (o *Principal) GetExpiresInOk() (*float32, bool) {
 
 // HasExpiresIn returns a boolean if a field has been set.
 func (o *Principal) HasExpiresIn() bool {
-	if o != nil && o.ExpiresIn != nil {
+	if o != nil && !IsNil(o.ExpiresIn) {
 		return true
 	}
 
@@ -290,7 +297,7 @@ func (o *Principal) SetExpiresIn(v float32) {
 
 // GetPaymentAttemptId returns the PaymentAttemptId field value if set, zero value otherwise.
 func (o *Principal) GetPaymentAttemptId() string {
-	if o == nil || o.PaymentAttemptId == nil {
+	if o == nil || IsNil(o.PaymentAttemptId) {
 		var ret string
 		return ret
 	}
@@ -300,7 +307,7 @@ func (o *Principal) GetPaymentAttemptId() string {
 // GetPaymentAttemptIdOk returns a tuple with the PaymentAttemptId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Principal) GetPaymentAttemptIdOk() (*string, bool) {
-	if o == nil || o.PaymentAttemptId == nil {
+	if o == nil || IsNil(o.PaymentAttemptId) {
 		return nil, false
 	}
 	return o.PaymentAttemptId, true
@@ -308,7 +315,7 @@ func (o *Principal) GetPaymentAttemptIdOk() (*string, bool) {
 
 // HasPaymentAttemptId returns a boolean if a field has been set.
 func (o *Principal) HasPaymentAttemptId() bool {
-	if o != nil && o.PaymentAttemptId != nil {
+	if o != nil && !IsNil(o.PaymentAttemptId) {
 		return true
 	}
 
@@ -322,7 +329,7 @@ func (o *Principal) SetPaymentAttemptId(v string) {
 
 // GetProductFlow returns the ProductFlow field value if set, zero value otherwise.
 func (o *Principal) GetProductFlow() string {
-	if o == nil || o.ProductFlow == nil {
+	if o == nil || IsNil(o.ProductFlow) {
 		var ret string
 		return ret
 	}
@@ -332,7 +339,7 @@ func (o *Principal) GetProductFlow() string {
 // GetProductFlowOk returns a tuple with the ProductFlow field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Principal) GetProductFlowOk() (*string, bool) {
-	if o == nil || o.ProductFlow == nil {
+	if o == nil || IsNil(o.ProductFlow) {
 		return nil, false
 	}
 	return o.ProductFlow, true
@@ -340,7 +347,7 @@ func (o *Principal) GetProductFlowOk() (*string, bool) {
 
 // HasProductFlow returns a boolean if a field has been set.
 func (o *Principal) HasProductFlow() bool {
-	if o != nil && o.ProductFlow != nil {
+	if o != nil && !IsNil(o.ProductFlow) {
 		return true
 	}
 
@@ -354,7 +361,7 @@ func (o *Principal) SetProductFlow(v string) {
 
 // GetScopes returns the Scopes field value if set, zero value otherwise.
 func (o *Principal) GetScopes() []string {
-	if o == nil || o.Scopes == nil {
+	if o == nil || IsNil(o.Scopes) {
 		var ret []string
 		return ret
 	}
@@ -364,7 +371,7 @@ func (o *Principal) GetScopes() []string {
 // GetScopesOk returns a tuple with the Scopes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Principal) GetScopesOk() ([]string, bool) {
-	if o == nil || o.Scopes == nil {
+	if o == nil || IsNil(o.Scopes) {
 		return nil, false
 	}
 	return o.Scopes, true
@@ -372,7 +379,7 @@ func (o *Principal) GetScopesOk() ([]string, bool) {
 
 // HasScopes returns a boolean if a field has been set.
 func (o *Principal) HasScopes() bool {
-	if o != nil && o.Scopes != nil {
+	if o != nil && !IsNil(o.Scopes) {
 		return true
 	}
 
@@ -386,7 +393,7 @@ func (o *Principal) SetScopes(v []string) {
 
 // GetLinkTokenRequest returns the LinkTokenRequest field value if set, zero value otherwise.
 func (o *Principal) GetLinkTokenRequest() LinkTokenRequest {
-	if o == nil || o.LinkTokenRequest == nil {
+	if o == nil || IsNil(o.LinkTokenRequest) {
 		var ret LinkTokenRequest
 		return ret
 	}
@@ -396,7 +403,7 @@ func (o *Principal) GetLinkTokenRequest() LinkTokenRequest {
 // GetLinkTokenRequestOk returns a tuple with the LinkTokenRequest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Principal) GetLinkTokenRequestOk() (*LinkTokenRequest, bool) {
-	if o == nil || o.LinkTokenRequest == nil {
+	if o == nil || IsNil(o.LinkTokenRequest) {
 		return nil, false
 	}
 	return o.LinkTokenRequest, true
@@ -404,7 +411,7 @@ func (o *Principal) GetLinkTokenRequestOk() (*LinkTokenRequest, bool) {
 
 // HasLinkTokenRequest returns a boolean if a field has been set.
 func (o *Principal) HasLinkTokenRequest() bool {
-	if o != nil && o.LinkTokenRequest != nil {
+	if o != nil && !IsNil(o.LinkTokenRequest) {
 		return true
 	}
 
@@ -418,7 +425,7 @@ func (o *Principal) SetLinkTokenRequest(v LinkTokenRequest) {
 
 // GetGetMandateAuthLinkRequest returns the GetMandateAuthLinkRequest field value if set, zero value otherwise.
 func (o *Principal) GetGetMandateAuthLinkRequest() GetMandateAuthLinkRequest {
-	if o == nil || o.GetMandateAuthLinkRequest == nil {
+	if o == nil || IsNil(o.GetMandateAuthLinkRequest) {
 		var ret GetMandateAuthLinkRequest
 		return ret
 	}
@@ -428,7 +435,7 @@ func (o *Principal) GetGetMandateAuthLinkRequest() GetMandateAuthLinkRequest {
 // GetGetMandateAuthLinkRequestOk returns a tuple with the GetMandateAuthLinkRequest field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Principal) GetGetMandateAuthLinkRequestOk() (*GetMandateAuthLinkRequest, bool) {
-	if o == nil || o.GetMandateAuthLinkRequest == nil {
+	if o == nil || IsNil(o.GetMandateAuthLinkRequest) {
 		return nil, false
 	}
 	return o.GetMandateAuthLinkRequest, true
@@ -436,7 +443,7 @@ func (o *Principal) GetGetMandateAuthLinkRequestOk() (*GetMandateAuthLinkRequest
 
 // HasGetMandateAuthLinkRequest returns a boolean if a field has been set.
 func (o *Principal) HasGetMandateAuthLinkRequest() bool {
-	if o != nil && o.GetMandateAuthLinkRequest != nil {
+	if o != nil && !IsNil(o.GetMandateAuthLinkRequest) {
 		return true
 	}
 
@@ -450,7 +457,7 @@ func (o *Principal) SetGetMandateAuthLinkRequest(v GetMandateAuthLinkRequest) {
 
 // GetCurrency returns the Currency field value if set, zero value otherwise.
 func (o *Principal) GetCurrency() string {
-	if o == nil || o.Currency == nil {
+	if o == nil || IsNil(o.Currency) {
 		var ret string
 		return ret
 	}
@@ -460,7 +467,7 @@ func (o *Principal) GetCurrency() string {
 // GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Principal) GetCurrencyOk() (*string, bool) {
-	if o == nil || o.Currency == nil {
+	if o == nil || IsNil(o.Currency) {
 		return nil, false
 	}
 	return o.Currency, true
@@ -468,7 +475,7 @@ func (o *Principal) GetCurrencyOk() (*string, bool) {
 
 // HasCurrency returns a boolean if a field has been set.
 func (o *Principal) HasCurrency() bool {
-	if o != nil && o.Currency != nil {
+	if o != nil && !IsNil(o.Currency) {
 		return true
 	}
 
@@ -482,7 +489,7 @@ func (o *Principal) SetCurrency(v string) {
 
 // GetRedirectUri returns the RedirectUri field value if set, zero value otherwise.
 func (o *Principal) GetRedirectUri() string {
-	if o == nil || o.RedirectUri == nil {
+	if o == nil || IsNil(o.RedirectUri) {
 		var ret string
 		return ret
 	}
@@ -492,7 +499,7 @@ func (o *Principal) GetRedirectUri() string {
 // GetRedirectUriOk returns a tuple with the RedirectUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Principal) GetRedirectUriOk() (*string, bool) {
-	if o == nil || o.RedirectUri == nil {
+	if o == nil || IsNil(o.RedirectUri) {
 		return nil, false
 	}
 	return o.RedirectUri, true
@@ -500,7 +507,7 @@ func (o *Principal) GetRedirectUriOk() (*string, bool) {
 
 // HasRedirectUri returns a boolean if a field has been set.
 func (o *Principal) HasRedirectUri() bool {
-	if o != nil && o.RedirectUri != nil {
+	if o != nil && !IsNil(o.RedirectUri) {
 		return true
 	}
 
@@ -514,7 +521,7 @@ func (o *Principal) SetRedirectUri(v string) {
 
 // GetPaymentLinkId returns the PaymentLinkId field value if set, zero value otherwise.
 func (o *Principal) GetPaymentLinkId() string {
-	if o == nil || o.PaymentLinkId == nil {
+	if o == nil || IsNil(o.PaymentLinkId) {
 		var ret string
 		return ret
 	}
@@ -524,7 +531,7 @@ func (o *Principal) GetPaymentLinkId() string {
 // GetPaymentLinkIdOk returns a tuple with the PaymentLinkId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Principal) GetPaymentLinkIdOk() (*string, bool) {
-	if o == nil || o.PaymentLinkId == nil {
+	if o == nil || IsNil(o.PaymentLinkId) {
 		return nil, false
 	}
 	return o.PaymentLinkId, true
@@ -532,7 +539,7 @@ func (o *Principal) GetPaymentLinkIdOk() (*string, bool) {
 
 // HasPaymentLinkId returns a boolean if a field has been set.
 func (o *Principal) HasPaymentLinkId() bool {
-	if o != nil && o.PaymentLinkId != nil {
+	if o != nil && !IsNil(o.PaymentLinkId) {
 		return true
 	}
 
@@ -546,7 +553,7 @@ func (o *Principal) SetPaymentLinkId(v string) {
 
 // GetUniqueReferenceId returns the UniqueReferenceId field value if set, zero value otherwise.
 func (o *Principal) GetUniqueReferenceId() string {
-	if o == nil || o.UniqueReferenceId == nil {
+	if o == nil || IsNil(o.UniqueReferenceId) {
 		var ret string
 		return ret
 	}
@@ -556,7 +563,7 @@ func (o *Principal) GetUniqueReferenceId() string {
 // GetUniqueReferenceIdOk returns a tuple with the UniqueReferenceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Principal) GetUniqueReferenceIdOk() (*string, bool) {
-	if o == nil || o.UniqueReferenceId == nil {
+	if o == nil || IsNil(o.UniqueReferenceId) {
 		return nil, false
 	}
 	return o.UniqueReferenceId, true
@@ -564,7 +571,7 @@ func (o *Principal) GetUniqueReferenceIdOk() (*string, bool) {
 
 // HasUniqueReferenceId returns a boolean if a field has been set.
 func (o *Principal) HasUniqueReferenceId() bool {
-	if o != nil && o.UniqueReferenceId != nil {
+	if o != nil && !IsNil(o.UniqueReferenceId) {
 		return true
 	}
 
@@ -578,7 +585,7 @@ func (o *Principal) SetUniqueReferenceId(v string) {
 
 // GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise.
 func (o *Principal) GetPaymentMethodId() string {
-	if o == nil || o.PaymentMethodId == nil {
+	if o == nil || IsNil(o.PaymentMethodId) {
 		var ret string
 		return ret
 	}
@@ -588,7 +595,7 @@ func (o *Principal) GetPaymentMethodId() string {
 // GetPaymentMethodIdOk returns a tuple with the PaymentMethodId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Principal) GetPaymentMethodIdOk() (*string, bool) {
-	if o == nil || o.PaymentMethodId == nil {
+	if o == nil || IsNil(o.PaymentMethodId) {
 		return nil, false
 	}
 	return o.PaymentMethodId, true
@@ -596,7 +603,7 @@ func (o *Principal) GetPaymentMethodIdOk() (*string, bool) {
 
 // HasPaymentMethodId returns a boolean if a field has been set.
 func (o *Principal) HasPaymentMethodId() bool {
-	if o != nil && o.PaymentMethodId != nil {
+	if o != nil && !IsNil(o.PaymentMethodId) {
 		return true
 	}
 
@@ -610,7 +617,7 @@ func (o *Principal) SetPaymentMethodId(v string) {
 
 // GetTppName returns the TppName field value if set, zero value otherwise.
 func (o *Principal) GetTppName() string {
-	if o == nil || o.TppName == nil {
+	if o == nil || IsNil(o.TppName) {
 		var ret string
 		return ret
 	}
@@ -620,7 +627,7 @@ func (o *Principal) GetTppName() string {
 // GetTppNameOk returns a tuple with the TppName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Principal) GetTppNameOk() (*string, bool) {
-	if o == nil || o.TppName == nil {
+	if o == nil || IsNil(o.TppName) {
 		return nil, false
 	}
 	return o.TppName, true
@@ -628,7 +635,7 @@ func (o *Principal) GetTppNameOk() (*string, bool) {
 
 // HasTppName returns a boolean if a field has been set.
 func (o *Principal) HasTppName() bool {
-	if o != nil && o.TppName != nil {
+	if o != nil && !IsNil(o.TppName) {
 		return true
 	}
 
@@ -642,7 +649,7 @@ func (o *Principal) SetTppName(v string) {
 
 // GetRetryUrl returns the RetryUrl field value if set, zero value otherwise.
 func (o *Principal) GetRetryUrl() string {
-	if o == nil || o.RetryUrl == nil {
+	if o == nil || IsNil(o.RetryUrl) {
 		var ret string
 		return ret
 	}
@@ -652,7 +659,7 @@ func (o *Principal) GetRetryUrl() string {
 // GetRetryUrlOk returns a tuple with the RetryUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Principal) GetRetryUrlOk() (*string, bool) {
-	if o == nil || o.RetryUrl == nil {
+	if o == nil || IsNil(o.RetryUrl) {
 		return nil, false
 	}
 	return o.RetryUrl, true
@@ -660,7 +667,7 @@ func (o *Principal) GetRetryUrlOk() (*string, bool) {
 
 // HasRetryUrl returns a boolean if a field has been set.
 func (o *Principal) HasRetryUrl() bool {
-	if o != nil && o.RetryUrl != nil {
+	if o != nil && !IsNil(o.RetryUrl) {
 		return true
 	}
 
@@ -674,7 +681,7 @@ func (o *Principal) SetRetryUrl(v string) {
 
 // GetOnboardingFlow returns the OnboardingFlow field value if set, zero value otherwise.
 func (o *Principal) GetOnboardingFlow() string {
-	if o == nil || o.OnboardingFlow == nil {
+	if o == nil || IsNil(o.OnboardingFlow) {
 		var ret string
 		return ret
 	}
@@ -684,7 +691,7 @@ func (o *Principal) GetOnboardingFlow() string {
 // GetOnboardingFlowOk returns a tuple with the OnboardingFlow field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Principal) GetOnboardingFlowOk() (*string, bool) {
-	if o == nil || o.OnboardingFlow == nil {
+	if o == nil || IsNil(o.OnboardingFlow) {
 		return nil, false
 	}
 	return o.OnboardingFlow, true
@@ -692,7 +699,7 @@ func (o *Principal) GetOnboardingFlowOk() (*string, bool) {
 
 // HasOnboardingFlow returns a boolean if a field has been set.
 func (o *Principal) HasOnboardingFlow() bool {
-	if o != nil && o.OnboardingFlow != nil {
+	if o != nil && !IsNil(o.OnboardingFlow) {
 		return true
 	}
 
@@ -706,7 +713,7 @@ func (o *Principal) SetOnboardingFlow(v string) {
 
 // GetQrCodeText returns the QrCodeText field value if set, zero value otherwise.
 func (o *Principal) GetQrCodeText() string {
-	if o == nil || o.QrCodeText == nil {
+	if o == nil || IsNil(o.QrCodeText) {
 		var ret string
 		return ret
 	}
@@ -716,7 +723,7 @@ func (o *Principal) GetQrCodeText() string {
 // GetQrCodeTextOk returns a tuple with the QrCodeText field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Principal) GetQrCodeTextOk() (*string, bool) {
-	if o == nil || o.QrCodeText == nil {
+	if o == nil || IsNil(o.QrCodeText) {
 		return nil, false
 	}
 	return o.QrCodeText, true
@@ -724,7 +731,7 @@ func (o *Principal) GetQrCodeTextOk() (*string, bool) {
 
 // HasQrCodeText returns a boolean if a field has been set.
 func (o *Principal) HasQrCodeText() bool {
-	if o != nil && o.QrCodeText != nil {
+	if o != nil && !IsNil(o.QrCodeText) {
 		return true
 	}
 
@@ -738,7 +745,7 @@ func (o *Principal) SetQrCodeText(v string) {
 
 // GetManualPaymentProvider returns the ManualPaymentProvider field value if set, zero value otherwise.
 func (o *Principal) GetManualPaymentProvider() string {
-	if o == nil || o.ManualPaymentProvider == nil {
+	if o == nil || IsNil(o.ManualPaymentProvider) {
 		var ret string
 		return ret
 	}
@@ -748,7 +755,7 @@ func (o *Principal) GetManualPaymentProvider() string {
 // GetManualPaymentProviderOk returns a tuple with the ManualPaymentProvider field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Principal) GetManualPaymentProviderOk() (*string, bool) {
-	if o == nil || o.ManualPaymentProvider == nil {
+	if o == nil || IsNil(o.ManualPaymentProvider) {
 		return nil, false
 	}
 	return o.ManualPaymentProvider, true
@@ -756,7 +763,7 @@ func (o *Principal) GetManualPaymentProviderOk() (*string, bool) {
 
 // HasManualPaymentProvider returns a boolean if a field has been set.
 func (o *Principal) HasManualPaymentProvider() bool {
-	if o != nil && o.ManualPaymentProvider != nil {
+	if o != nil && !IsNil(o.ManualPaymentProvider) {
 		return true
 	}
 
@@ -769,77 +776,117 @@ func (o *Principal) SetManualPaymentProvider(v string) {
 }
 
 func (o Principal) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["subject"] = o.Subject
-	}
-	if o.Token != nil {
-		toSerialize["token"] = o.Token
-	}
-	if true {
-		toSerialize["client_id"] = o.ClientId
-	}
-	if true {
-		toSerialize["customer_app_id"] = o.CustomerAppId
-	}
-	if true {
-		toSerialize["login_identity_id"] = o.LoginIdentityId
-	}
-	if o.CustomizationId != nil {
-		toSerialize["customization_id"] = o.CustomizationId
-	}
-	if o.MandateId != nil {
-		toSerialize["mandate_id"] = o.MandateId
-	}
-	if o.ExpiresIn != nil {
-		toSerialize["expires_in"] = o.ExpiresIn
-	}
-	if o.PaymentAttemptId != nil {
-		toSerialize["payment_attempt_id"] = o.PaymentAttemptId
-	}
-	if o.ProductFlow != nil {
-		toSerialize["product_flow"] = o.ProductFlow
-	}
-	if o.Scopes != nil {
-		toSerialize["scopes"] = o.Scopes
-	}
-	if o.LinkTokenRequest != nil {
-		toSerialize["link_token_request"] = o.LinkTokenRequest
-	}
-	if o.GetMandateAuthLinkRequest != nil {
-		toSerialize["get_mandate_auth_link_request"] = o.GetMandateAuthLinkRequest
-	}
-	if o.Currency != nil {
-		toSerialize["currency"] = o.Currency
-	}
-	if o.RedirectUri != nil {
-		toSerialize["redirect_uri"] = o.RedirectUri
-	}
-	if o.PaymentLinkId != nil {
-		toSerialize["payment_link_id"] = o.PaymentLinkId
-	}
-	if o.UniqueReferenceId != nil {
-		toSerialize["unique_reference_id"] = o.UniqueReferenceId
-	}
-	if o.PaymentMethodId != nil {
-		toSerialize["payment_method_id"] = o.PaymentMethodId
-	}
-	if o.TppName != nil {
-		toSerialize["tpp_name"] = o.TppName
-	}
-	if o.RetryUrl != nil {
-		toSerialize["retry_url"] = o.RetryUrl
-	}
-	if o.OnboardingFlow != nil {
-		toSerialize["onboarding_flow"] = o.OnboardingFlow
-	}
-	if o.QrCodeText != nil {
-		toSerialize["qr_code_text"] = o.QrCodeText
-	}
-	if o.ManualPaymentProvider != nil {
-		toSerialize["manual_payment_provider"] = o.ManualPaymentProvider
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Principal) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["subject"] = o.Subject
+	if !IsNil(o.Token) {
+		toSerialize["token"] = o.Token
+	}
+	toSerialize["client_id"] = o.ClientId
+	toSerialize["customer_app_id"] = o.CustomerAppId
+	toSerialize["login_identity_id"] = o.LoginIdentityId
+	if !IsNil(o.CustomizationId) {
+		toSerialize["customization_id"] = o.CustomizationId
+	}
+	if !IsNil(o.MandateId) {
+		toSerialize["mandate_id"] = o.MandateId
+	}
+	if !IsNil(o.ExpiresIn) {
+		toSerialize["expires_in"] = o.ExpiresIn
+	}
+	if !IsNil(o.PaymentAttemptId) {
+		toSerialize["payment_attempt_id"] = o.PaymentAttemptId
+	}
+	if !IsNil(o.ProductFlow) {
+		toSerialize["product_flow"] = o.ProductFlow
+	}
+	if !IsNil(o.Scopes) {
+		toSerialize["scopes"] = o.Scopes
+	}
+	if !IsNil(o.LinkTokenRequest) {
+		toSerialize["link_token_request"] = o.LinkTokenRequest
+	}
+	if !IsNil(o.GetMandateAuthLinkRequest) {
+		toSerialize["get_mandate_auth_link_request"] = o.GetMandateAuthLinkRequest
+	}
+	if !IsNil(o.Currency) {
+		toSerialize["currency"] = o.Currency
+	}
+	if !IsNil(o.RedirectUri) {
+		toSerialize["redirect_uri"] = o.RedirectUri
+	}
+	if !IsNil(o.PaymentLinkId) {
+		toSerialize["payment_link_id"] = o.PaymentLinkId
+	}
+	if !IsNil(o.UniqueReferenceId) {
+		toSerialize["unique_reference_id"] = o.UniqueReferenceId
+	}
+	if !IsNil(o.PaymentMethodId) {
+		toSerialize["payment_method_id"] = o.PaymentMethodId
+	}
+	if !IsNil(o.TppName) {
+		toSerialize["tpp_name"] = o.TppName
+	}
+	if !IsNil(o.RetryUrl) {
+		toSerialize["retry_url"] = o.RetryUrl
+	}
+	if !IsNil(o.OnboardingFlow) {
+		toSerialize["onboarding_flow"] = o.OnboardingFlow
+	}
+	if !IsNil(o.QrCodeText) {
+		toSerialize["qr_code_text"] = o.QrCodeText
+	}
+	if !IsNil(o.ManualPaymentProvider) {
+		toSerialize["manual_payment_provider"] = o.ManualPaymentProvider
+	}
+	return toSerialize, nil
+}
+
+func (o *Principal) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"subject",
+		"client_id",
+		"customer_app_id",
+		"login_identity_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPrincipal := _Principal{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPrincipal)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Principal(varPrincipal)
+
+	return err
 }
 
 type NullablePrincipal struct {

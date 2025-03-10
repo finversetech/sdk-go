@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the GetLineItemsForDisplayResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetLineItemsForDisplayResponse{}
+
 // GetLineItemsForDisplayResponse struct for GetLineItemsForDisplayResponse
 type GetLineItemsForDisplayResponse struct {
 	LineItems []LineItem `json:"line_items,omitempty"`
@@ -39,7 +42,7 @@ func NewGetLineItemsForDisplayResponseWithDefaults() *GetLineItemsForDisplayResp
 
 // GetLineItems returns the LineItems field value if set, zero value otherwise.
 func (o *GetLineItemsForDisplayResponse) GetLineItems() []LineItem {
-	if o == nil || o.LineItems == nil {
+	if o == nil || IsNil(o.LineItems) {
 		var ret []LineItem
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *GetLineItemsForDisplayResponse) GetLineItems() []LineItem {
 // GetLineItemsOk returns a tuple with the LineItems field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetLineItemsForDisplayResponse) GetLineItemsOk() ([]LineItem, bool) {
-	if o == nil || o.LineItems == nil {
+	if o == nil || IsNil(o.LineItems) {
 		return nil, false
 	}
 	return o.LineItems, true
@@ -57,7 +60,7 @@ func (o *GetLineItemsForDisplayResponse) GetLineItemsOk() ([]LineItem, bool) {
 
 // HasLineItems returns a boolean if a field has been set.
 func (o *GetLineItemsForDisplayResponse) HasLineItems() bool {
-	if o != nil && o.LineItems != nil {
+	if o != nil && !IsNil(o.LineItems) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *GetLineItemsForDisplayResponse) SetLineItems(v []LineItem) {
 }
 
 func (o GetLineItemsForDisplayResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.LineItems != nil {
-		toSerialize["line_items"] = o.LineItems
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GetLineItemsForDisplayResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.LineItems) {
+		toSerialize["line_items"] = o.LineItems
+	}
+	return toSerialize, nil
 }
 
 type NullableGetLineItemsForDisplayResponse struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the BadRequestModelError type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &BadRequestModelError{}
+
 // BadRequestModelError struct for BadRequestModelError
 type BadRequestModelError struct {
 	Code    *float32 `json:"code,omitempty"`
@@ -43,7 +46,7 @@ func NewBadRequestModelErrorWithDefaults() *BadRequestModelError {
 
 // GetCode returns the Code field value if set, zero value otherwise.
 func (o *BadRequestModelError) GetCode() float32 {
-	if o == nil || o.Code == nil {
+	if o == nil || IsNil(o.Code) {
 		var ret float32
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *BadRequestModelError) GetCode() float32 {
 // GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BadRequestModelError) GetCodeOk() (*float32, bool) {
-	if o == nil || o.Code == nil {
+	if o == nil || IsNil(o.Code) {
 		return nil, false
 	}
 	return o.Code, true
@@ -61,7 +64,7 @@ func (o *BadRequestModelError) GetCodeOk() (*float32, bool) {
 
 // HasCode returns a boolean if a field has been set.
 func (o *BadRequestModelError) HasCode() bool {
-	if o != nil && o.Code != nil {
+	if o != nil && !IsNil(o.Code) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *BadRequestModelError) SetCode(v float32) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *BadRequestModelError) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *BadRequestModelError) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BadRequestModelError) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -93,7 +96,7 @@ func (o *BadRequestModelError) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *BadRequestModelError) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *BadRequestModelError) SetName(v string) {
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *BadRequestModelError) GetMessage() string {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *BadRequestModelError) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BadRequestModelError) GetMessageOk() (*string, bool) {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -125,7 +128,7 @@ func (o *BadRequestModelError) GetMessageOk() (*string, bool) {
 
 // HasMessage returns a boolean if a field has been set.
 func (o *BadRequestModelError) HasMessage() bool {
-	if o != nil && o.Message != nil {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -139,7 +142,7 @@ func (o *BadRequestModelError) SetMessage(v string) {
 
 // GetLink returns the Link field value if set, zero value otherwise.
 func (o *BadRequestModelError) GetLink() string {
-	if o == nil || o.Link == nil {
+	if o == nil || IsNil(o.Link) {
 		var ret string
 		return ret
 	}
@@ -149,7 +152,7 @@ func (o *BadRequestModelError) GetLink() string {
 // GetLinkOk returns a tuple with the Link field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BadRequestModelError) GetLinkOk() (*string, bool) {
-	if o == nil || o.Link == nil {
+	if o == nil || IsNil(o.Link) {
 		return nil, false
 	}
 	return o.Link, true
@@ -157,7 +160,7 @@ func (o *BadRequestModelError) GetLinkOk() (*string, bool) {
 
 // HasLink returns a boolean if a field has been set.
 func (o *BadRequestModelError) HasLink() bool {
-	if o != nil && o.Link != nil {
+	if o != nil && !IsNil(o.Link) {
 		return true
 	}
 
@@ -170,20 +173,28 @@ func (o *BadRequestModelError) SetLink(v string) {
 }
 
 func (o BadRequestModelError) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Code != nil {
-		toSerialize["code"] = o.Code
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Message != nil {
-		toSerialize["message"] = o.Message
-	}
-	if o.Link != nil {
-		toSerialize["link"] = o.Link
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o BadRequestModelError) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Code) {
+		toSerialize["code"] = o.Code
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	if !IsNil(o.Link) {
+		toSerialize["link"] = o.Link
+	}
+	return toSerialize, nil
 }
 
 type NullableBadRequestModelError struct {

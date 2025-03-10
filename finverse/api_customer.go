@@ -14,398 +14,393 @@ package finverse
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
-type CustomerApi interface {
+type CustomerAPI interface {
 
 	/*
 		AuthorizeMandate Method for AuthorizeMandate
 
 		Allows a customer to authorize a specific mandate
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param mandateId The mandate_id that is being authorized
-		 @return CustomerApiApiAuthorizeMandateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param mandateId The mandate_id that is being authorized
+		@return CustomerAPIAuthorizeMandateRequest
 	*/
-	AuthorizeMandate(ctx context.Context, mandateId string) CustomerApiApiAuthorizeMandateRequest
+	AuthorizeMandate(ctx context.Context, mandateId string) CustomerAPIAuthorizeMandateRequest
 
 	// AuthorizeMandateExecute executes the request
 	//  @return GetMandateResponse
-	AuthorizeMandateExecute(r CustomerApiApiAuthorizeMandateRequest) (*GetMandateResponse, *http.Response, error)
+	AuthorizeMandateExecute(r CustomerAPIAuthorizeMandateRequest) (*GetMandateResponse, *http.Response, error)
 
 	/*
 		CreateMandate Method for CreateMandate
 
 		CREATE Mandate
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return CustomerApiApiCreateMandateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return CustomerAPICreateMandateRequest
 	*/
-	CreateMandate(ctx context.Context) CustomerApiApiCreateMandateRequest
+	CreateMandate(ctx context.Context) CustomerAPICreateMandateRequest
 
 	// CreateMandateExecute executes the request
 	//  @return CreateMandateResponse
-	CreateMandateExecute(r CustomerApiApiCreateMandateRequest) (*CreateMandateResponse, *http.Response, error)
+	CreateMandateExecute(r CustomerAPICreateMandateRequest) (*CreateMandateResponse, *http.Response, error)
 
 	/*
 		CreatePayment Method for CreatePayment
 
 		Create new Payment
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return CustomerApiApiCreatePaymentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return CustomerAPICreatePaymentRequest
 	*/
-	CreatePayment(ctx context.Context) CustomerApiApiCreatePaymentRequest
+	CreatePayment(ctx context.Context) CustomerAPICreatePaymentRequest
 
 	// CreatePaymentExecute executes the request
 	//  @return PaymentResponse
-	CreatePaymentExecute(r CustomerApiApiCreatePaymentRequest) (*PaymentResponse, *http.Response, error)
+	CreatePaymentExecute(r CustomerAPICreatePaymentRequest) (*PaymentResponse, *http.Response, error)
 
 	/*
 		CreatePaymentAccount Method for CreatePaymentAccount
 
 		create payment account
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return CustomerApiApiCreatePaymentAccountRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return CustomerAPICreatePaymentAccountRequest
 	*/
-	CreatePaymentAccount(ctx context.Context) CustomerApiApiCreatePaymentAccountRequest
+	CreatePaymentAccount(ctx context.Context) CustomerAPICreatePaymentAccountRequest
 
 	// CreatePaymentAccountExecute executes the request
 	//  @return PaymentAccountDetails
-	CreatePaymentAccountExecute(r CustomerApiApiCreatePaymentAccountRequest) (*PaymentAccountDetails, *http.Response, error)
+	CreatePaymentAccountExecute(r CustomerAPICreatePaymentAccountRequest) (*PaymentAccountDetails, *http.Response, error)
 
 	/*
 		CreatePaymentInstruction Method for CreatePaymentInstruction
 
 		Create a new payment instruction to be used when linking to perform new payment
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return CustomerApiApiCreatePaymentInstructionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return CustomerAPICreatePaymentInstructionRequest
 	*/
-	CreatePaymentInstruction(ctx context.Context) CustomerApiApiCreatePaymentInstructionRequest
+	CreatePaymentInstruction(ctx context.Context) CustomerAPICreatePaymentInstructionRequest
 
 	// CreatePaymentInstructionExecute executes the request
 	//  @return CreatePaymentInstructionResponse
-	CreatePaymentInstructionExecute(r CustomerApiApiCreatePaymentInstructionRequest) (*CreatePaymentInstructionResponse, *http.Response, error)
+	CreatePaymentInstructionExecute(r CustomerAPICreatePaymentInstructionRequest) (*CreatePaymentInstructionResponse, *http.Response, error)
 
 	/*
 		CreatePaymentUser Method for CreatePaymentUser
 
 		Create a payment user
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return CustomerApiApiCreatePaymentUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return CustomerAPICreatePaymentUserRequest
 	*/
-	CreatePaymentUser(ctx context.Context) CustomerApiApiCreatePaymentUserRequest
+	CreatePaymentUser(ctx context.Context) CustomerAPICreatePaymentUserRequest
 
 	// CreatePaymentUserExecute executes the request
 	//  @return PaymentUser
-	CreatePaymentUserExecute(r CustomerApiApiCreatePaymentUserRequest) (*PaymentUser, *http.Response, error)
+	CreatePaymentUserExecute(r CustomerAPICreatePaymentUserRequest) (*PaymentUser, *http.Response, error)
 
 	/*
 		DeletePaymentAccount Method for DeletePaymentAccount
 
 		delete payment account
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param paymentAccountId The payment account id
-		 @return CustomerApiApiDeletePaymentAccountRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param paymentAccountId The payment account id
+		@return CustomerAPIDeletePaymentAccountRequest
 	*/
-	DeletePaymentAccount(ctx context.Context, paymentAccountId string) CustomerApiApiDeletePaymentAccountRequest
+	DeletePaymentAccount(ctx context.Context, paymentAccountId string) CustomerAPIDeletePaymentAccountRequest
 
 	// DeletePaymentAccountExecute executes the request
-	DeletePaymentAccountExecute(r CustomerApiApiDeletePaymentAccountRequest) (*http.Response, error)
+	DeletePaymentAccountExecute(r CustomerAPIDeletePaymentAccountRequest) (*http.Response, error)
 
 	/*
 		GenerateLinkToken Method for GenerateLinkToken
 
 		generate a link token that can be used to create link
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return CustomerApiApiGenerateLinkTokenRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return CustomerAPIGenerateLinkTokenRequest
 	*/
-	GenerateLinkToken(ctx context.Context) CustomerApiApiGenerateLinkTokenRequest
+	GenerateLinkToken(ctx context.Context) CustomerAPIGenerateLinkTokenRequest
 
 	// GenerateLinkTokenExecute executes the request
 	//  @return LinkTokenResponse
-	GenerateLinkTokenExecute(r CustomerApiApiGenerateLinkTokenRequest) (*LinkTokenResponse, *http.Response, error)
+	GenerateLinkTokenExecute(r CustomerAPIGenerateLinkTokenRequest) (*LinkTokenResponse, *http.Response, error)
 
 	/*
 		GetInstitution Method for GetInstitution
 
 		Get a specific institution by institutionId
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param institutionId The institution id
-		 @return CustomerApiApiGetInstitutionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param institutionId The institution id
+		@return CustomerAPIGetInstitutionRequest
 	*/
-	GetInstitution(ctx context.Context, institutionId string) CustomerApiApiGetInstitutionRequest
+	GetInstitution(ctx context.Context, institutionId string) CustomerAPIGetInstitutionRequest
 
 	// GetInstitutionExecute executes the request
 	//  @return Institution
-	GetInstitutionExecute(r CustomerApiApiGetInstitutionRequest) (*Institution, *http.Response, error)
+	GetInstitutionExecute(r CustomerAPIGetInstitutionRequest) (*Institution, *http.Response, error)
 
 	/*
 		GetLineItemsForDisplay Method for GetLineItemsForDisplay
 
 		Get line items for display
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param paymentType The payment type
-		 @return CustomerApiApiGetLineItemsForDisplayRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param paymentType The payment type
+		@return CustomerAPIGetLineItemsForDisplayRequest
 	*/
-	GetLineItemsForDisplay(ctx context.Context, paymentType string) CustomerApiApiGetLineItemsForDisplayRequest
+	GetLineItemsForDisplay(ctx context.Context, paymentType string) CustomerAPIGetLineItemsForDisplayRequest
 
 	// GetLineItemsForDisplayExecute executes the request
 	//  @return GetLineItemsForDisplayResponse
-	GetLineItemsForDisplayExecute(r CustomerApiApiGetLineItemsForDisplayRequest) (*GetLineItemsForDisplayResponse, *http.Response, error)
+	GetLineItemsForDisplayExecute(r CustomerAPIGetLineItemsForDisplayRequest) (*GetLineItemsForDisplayResponse, *http.Response, error)
 
 	/*
 		GetLoginIdentityById Method for GetLoginIdentityById
 
 		Get a specific loginIdentity
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param loginIdentityId The login identity id
-		 @return CustomerApiApiGetLoginIdentityByIdRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param loginIdentityId The login identity id
+		@return CustomerAPIGetLoginIdentityByIdRequest
 	*/
-	GetLoginIdentityById(ctx context.Context, loginIdentityId string) CustomerApiApiGetLoginIdentityByIdRequest
+	GetLoginIdentityById(ctx context.Context, loginIdentityId string) CustomerAPIGetLoginIdentityByIdRequest
 
 	// GetLoginIdentityByIdExecute executes the request
 	//  @return GetLoginIdentityByIdResponse
-	GetLoginIdentityByIdExecute(r CustomerApiApiGetLoginIdentityByIdRequest) (*GetLoginIdentityByIdResponse, *http.Response, error)
+	GetLoginIdentityByIdExecute(r CustomerAPIGetLoginIdentityByIdRequest) (*GetLoginIdentityByIdResponse, *http.Response, error)
 
 	/*
 		GetLoginIdentityHistory Method for GetLoginIdentityHistory
 
 		Get a history of events for a specific loginIdentity
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param loginIdentityId The login identity id
-		 @return CustomerApiApiGetLoginIdentityHistoryRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param loginIdentityId The login identity id
+		@return CustomerAPIGetLoginIdentityHistoryRequest
 	*/
-	GetLoginIdentityHistory(ctx context.Context, loginIdentityId string) CustomerApiApiGetLoginIdentityHistoryRequest
+	GetLoginIdentityHistory(ctx context.Context, loginIdentityId string) CustomerAPIGetLoginIdentityHistoryRequest
 
 	// GetLoginIdentityHistoryExecute executes the request
 	//  @return GetLoginIdentityHistoryResponse
-	GetLoginIdentityHistoryExecute(r CustomerApiApiGetLoginIdentityHistoryRequest) (*GetLoginIdentityHistoryResponse, *http.Response, error)
+	GetLoginIdentityHistoryExecute(r CustomerAPIGetLoginIdentityHistoryRequest) (*GetLoginIdentityHistoryResponse, *http.Response, error)
 
 	/*
 		GetMandate Method for GetMandate
 
 		Get Mandate details by mandate_id
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param mandateId mandate id
-		 @return CustomerApiApiGetMandateRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param mandateId mandate id
+		@return CustomerAPIGetMandateRequest
 	*/
-	GetMandate(ctx context.Context, mandateId string) CustomerApiApiGetMandateRequest
+	GetMandate(ctx context.Context, mandateId string) CustomerAPIGetMandateRequest
 
 	// GetMandateExecute executes the request
 	//  @return GetMandateResponse
-	GetMandateExecute(r CustomerApiApiGetMandateRequest) (*GetMandateResponse, *http.Response, error)
+	GetMandateExecute(r CustomerAPIGetMandateRequest) (*GetMandateResponse, *http.Response, error)
 
 	/*
 		GetMandateAuth Method for GetMandateAuth
 
 		Get Mandate Authorization by mandate id
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return CustomerApiApiGetMandateAuthRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return CustomerAPIGetMandateAuthRequest
 	*/
-	GetMandateAuth(ctx context.Context) CustomerApiApiGetMandateAuthRequest
+	GetMandateAuth(ctx context.Context) CustomerAPIGetMandateAuthRequest
 
 	// GetMandateAuthExecute executes the request
 	//  @return GetMandateAuthResponse
-	GetMandateAuthExecute(r CustomerApiApiGetMandateAuthRequest) (*GetMandateAuthResponse, *http.Response, error)
+	GetMandateAuthExecute(r CustomerAPIGetMandateAuthRequest) (*GetMandateAuthResponse, *http.Response, error)
 
 	/*
 		GetMandateAuthLink Method for GetMandateAuthLink
 
 		Get link to launch FV Link UI in mandate authorization mode
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return CustomerApiApiGetMandateAuthLinkRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return CustomerAPIGetMandateAuthLinkRequest
 	*/
-	GetMandateAuthLink(ctx context.Context) CustomerApiApiGetMandateAuthLinkRequest
+	GetMandateAuthLink(ctx context.Context) CustomerAPIGetMandateAuthLinkRequest
 
 	// GetMandateAuthLinkExecute executes the request
 	//  @return GetMandateAuthLinkResponse
-	GetMandateAuthLinkExecute(r CustomerApiApiGetMandateAuthLinkRequest) (*GetMandateAuthLinkResponse, *http.Response, error)
+	GetMandateAuthLinkExecute(r CustomerAPIGetMandateAuthLinkRequest) (*GetMandateAuthLinkResponse, *http.Response, error)
 
 	/*
 		GetPayment Method for GetPayment
 
 		Get Payment details by payment_id
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param paymentId payment id
-		 @return CustomerApiApiGetPaymentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param paymentId payment id
+		@return CustomerAPIGetPaymentRequest
 	*/
-	GetPayment(ctx context.Context, paymentId string) CustomerApiApiGetPaymentRequest
+	GetPayment(ctx context.Context, paymentId string) CustomerAPIGetPaymentRequest
 
 	// GetPaymentExecute executes the request
 	//  @return PaymentResponse
-	GetPaymentExecute(r CustomerApiApiGetPaymentRequest) (*PaymentResponse, *http.Response, error)
+	GetPaymentExecute(r CustomerAPIGetPaymentRequest) (*PaymentResponse, *http.Response, error)
 
 	/*
 		GetPaymentInstruction Method for GetPaymentInstruction
 
 		Get payment instructions by payment_instruction_id
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param paymentInstructionId The id of a payment instruction
-		 @return CustomerApiApiGetPaymentInstructionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param paymentInstructionId The id of a payment instruction
+		@return CustomerAPIGetPaymentInstructionRequest
 	*/
-	GetPaymentInstruction(ctx context.Context, paymentInstructionId string) CustomerApiApiGetPaymentInstructionRequest
+	GetPaymentInstruction(ctx context.Context, paymentInstructionId string) CustomerAPIGetPaymentInstructionRequest
 
 	// GetPaymentInstructionExecute executes the request
 	//  @return GetPaymentInstructionsResponse
-	GetPaymentInstructionExecute(r CustomerApiApiGetPaymentInstructionRequest) (*GetPaymentInstructionsResponse, *http.Response, error)
+	GetPaymentInstructionExecute(r CustomerAPIGetPaymentInstructionRequest) (*GetPaymentInstructionsResponse, *http.Response, error)
 
 	/*
 		GetPaymentUser Method for GetPaymentUser
 
 		Get a payment user
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param paymentUserId
-		 @return CustomerApiApiGetPaymentUserRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param paymentUserId
+		@return CustomerAPIGetPaymentUserRequest
 	*/
-	GetPaymentUser(ctx context.Context, paymentUserId string) CustomerApiApiGetPaymentUserRequest
+	GetPaymentUser(ctx context.Context, paymentUserId string) CustomerAPIGetPaymentUserRequest
 
 	// GetPaymentUserExecute executes the request
 	//  @return PaymentUser
-	GetPaymentUserExecute(r CustomerApiApiGetPaymentUserRequest) (*PaymentUser, *http.Response, error)
+	GetPaymentUserExecute(r CustomerAPIGetPaymentUserRequest) (*PaymentUser, *http.Response, error)
 
 	/*
 		ListInstitutions Method for ListInstitutions
 
 		Get a list of institutions
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return CustomerApiApiListInstitutionsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return CustomerAPIListInstitutionsRequest
 	*/
-	ListInstitutions(ctx context.Context) CustomerApiApiListInstitutionsRequest
+	ListInstitutions(ctx context.Context) CustomerAPIListInstitutionsRequest
 
 	// ListInstitutionsExecute executes the request
 	//  @return []Institution
-	ListInstitutionsExecute(r CustomerApiApiListInstitutionsRequest) ([]Institution, *http.Response, error)
+	ListInstitutionsExecute(r CustomerAPIListInstitutionsRequest) ([]Institution, *http.Response, error)
 
 	/*
 		ListPaymentAccounts Method for ListPaymentAccounts
 
 		Get payment account by user id
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param paymentUserId The payment user id
-		 @return CustomerApiApiListPaymentAccountsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param paymentUserId The payment user id
+		@return CustomerAPIListPaymentAccountsRequest
 	*/
-	ListPaymentAccounts(ctx context.Context, paymentUserId string) CustomerApiApiListPaymentAccountsRequest
+	ListPaymentAccounts(ctx context.Context, paymentUserId string) CustomerAPIListPaymentAccountsRequest
 
 	// ListPaymentAccountsExecute executes the request
 	//  @return ListPaymentAccountsResponse
-	ListPaymentAccountsExecute(r CustomerApiApiListPaymentAccountsRequest) (*ListPaymentAccountsResponse, *http.Response, error)
+	ListPaymentAccountsExecute(r CustomerAPIListPaymentAccountsRequest) (*ListPaymentAccountsResponse, *http.Response, error)
 
 	/*
 		RefreshToken Method for RefreshToken
 
 		Refresh an access token
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return CustomerApiApiRefreshTokenRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return CustomerAPIRefreshTokenRequest
 	*/
-	RefreshToken(ctx context.Context) CustomerApiApiRefreshTokenRequest
+	RefreshToken(ctx context.Context) CustomerAPIRefreshTokenRequest
 
 	// RefreshTokenExecute executes the request
 	//  @return AccessTokenResponse
-	RefreshTokenExecute(r CustomerApiApiRefreshTokenRequest) (*AccessTokenResponse, *http.Response, error)
+	RefreshTokenExecute(r CustomerAPIRefreshTokenRequest) (*AccessTokenResponse, *http.Response, error)
 
 	/*
 		SetMandateInstitution Method for SetMandateInstitution
 
 		Update InstitutionID and SenderType for Mandate
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return CustomerApiApiSetMandateInstitutionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return CustomerAPISetMandateInstitutionRequest
 	*/
-	SetMandateInstitution(ctx context.Context) CustomerApiApiSetMandateInstitutionRequest
+	SetMandateInstitution(ctx context.Context) CustomerAPISetMandateInstitutionRequest
 
 	// SetMandateInstitutionExecute executes the request
 	//  @return SetMandateInstitutionResponse
-	SetMandateInstitutionExecute(r CustomerApiApiSetMandateInstitutionRequest) (*SetMandateInstitutionResponse, *http.Response, error)
+	SetMandateInstitutionExecute(r CustomerAPISetMandateInstitutionRequest) (*SetMandateInstitutionResponse, *http.Response, error)
 
 	/*
 		SubmitAuthChecklist Method for SubmitAuthChecklist
 
 		Submit authorization checklist items
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return CustomerApiApiSubmitAuthChecklistRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return CustomerAPISubmitAuthChecklistRequest
 	*/
-	SubmitAuthChecklist(ctx context.Context) CustomerApiApiSubmitAuthChecklistRequest
+	SubmitAuthChecklist(ctx context.Context) CustomerAPISubmitAuthChecklistRequest
 
 	// SubmitAuthChecklistExecute executes the request
 	//  @return SubmitAuthChecklistResponse
-	SubmitAuthChecklistExecute(r CustomerApiApiSubmitAuthChecklistRequest) (*SubmitAuthChecklistResponse, *http.Response, error)
+	SubmitAuthChecklistExecute(r CustomerAPISubmitAuthChecklistRequest) (*SubmitAuthChecklistResponse, *http.Response, error)
 
 	/*
 		UpdatePayment Method for UpdatePayment
 
 		Update payment
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param paymentId payment id
-		 @return CustomerApiApiUpdatePaymentRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param paymentId payment id
+		@return CustomerAPIUpdatePaymentRequest
 	*/
-	UpdatePayment(ctx context.Context, paymentId string) CustomerApiApiUpdatePaymentRequest
+	UpdatePayment(ctx context.Context, paymentId string) CustomerAPIUpdatePaymentRequest
 
 	// UpdatePaymentExecute executes the request
 	//  @return PaymentResponse
-	UpdatePaymentExecute(r CustomerApiApiUpdatePaymentRequest) (*PaymentResponse, *http.Response, error)
+	UpdatePaymentExecute(r CustomerAPIUpdatePaymentRequest) (*PaymentResponse, *http.Response, error)
 
 	/*
 		UpdateTestPaymentStatus Method for UpdateTestPaymentStatus
 
 		Update the status of a test manual payment
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param paymentId The test payment ID
-		 @return CustomerApiApiUpdateTestPaymentStatusRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param paymentId The test payment ID
+		@return CustomerAPIUpdateTestPaymentStatusRequest
 	*/
-	UpdateTestPaymentStatus(ctx context.Context, paymentId string) CustomerApiApiUpdateTestPaymentStatusRequest
+	UpdateTestPaymentStatus(ctx context.Context, paymentId string) CustomerAPIUpdateTestPaymentStatusRequest
 
 	// UpdateTestPaymentStatusExecute executes the request
-	UpdateTestPaymentStatusExecute(r CustomerApiApiUpdateTestPaymentStatusRequest) (*http.Response, error)
+	UpdateTestPaymentStatusExecute(r CustomerAPIUpdateTestPaymentStatusRequest) (*http.Response, error)
 }
 
-// CustomerApiService CustomerApi service
-type CustomerApiService service
+// CustomerAPIService CustomerAPI service
+type CustomerAPIService service
 
-type CustomerApiApiAuthorizeMandateRequest struct {
+type CustomerAPIAuthorizeMandateRequest struct {
 	ctx                     context.Context
-	ApiService              CustomerApi
+	ApiService              CustomerAPI
 	mandateId               string
 	authorizeMandateRequest *AuthorizeMandateRequest
 }
 
 // request body for authorizing a mandate
-func (r CustomerApiApiAuthorizeMandateRequest) AuthorizeMandateRequest(authorizeMandateRequest AuthorizeMandateRequest) CustomerApiApiAuthorizeMandateRequest {
+func (r CustomerAPIAuthorizeMandateRequest) AuthorizeMandateRequest(authorizeMandateRequest AuthorizeMandateRequest) CustomerAPIAuthorizeMandateRequest {
 	r.authorizeMandateRequest = &authorizeMandateRequest
 	return r
 }
 
-func (r CustomerApiApiAuthorizeMandateRequest) Execute() (*GetMandateResponse, *http.Response, error) {
+func (r CustomerAPIAuthorizeMandateRequest) Execute() (*GetMandateResponse, *http.Response, error) {
 	return r.ApiService.AuthorizeMandateExecute(r)
 }
 
@@ -416,10 +411,10 @@ Allows a customer to authorize a specific mandate
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param mandateId The mandate_id that is being authorized
- @return CustomerApiApiAuthorizeMandateRequest
+ @return CustomerAPIAuthorizeMandateRequest
 */
-func (a *CustomerApiService) AuthorizeMandate(ctx context.Context, mandateId string) CustomerApiApiAuthorizeMandateRequest {
-	return CustomerApiApiAuthorizeMandateRequest{
+func (a *CustomerAPIService) AuthorizeMandate(ctx context.Context, mandateId string) CustomerAPIAuthorizeMandateRequest {
+	return CustomerAPIAuthorizeMandateRequest{
 		ApiService: a,
 		ctx:        ctx,
 		mandateId:  mandateId,
@@ -428,7 +423,7 @@ func (a *CustomerApiService) AuthorizeMandate(ctx context.Context, mandateId str
 
 // Execute executes the request
 //  @return GetMandateResponse
-func (a *CustomerApiService) AuthorizeMandateExecute(r CustomerApiApiAuthorizeMandateRequest) (*GetMandateResponse, *http.Response, error) {
+func (a *CustomerAPIService) AuthorizeMandateExecute(r CustomerAPIAuthorizeMandateRequest) (*GetMandateResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -436,13 +431,13 @@ func (a *CustomerApiService) AuthorizeMandateExecute(r CustomerApiApiAuthorizeMa
 		localVarReturnValue *GetMandateResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.AuthorizeMandate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.AuthorizeMandate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/mandates/{mandateId}/authorize"
-	localVarPath = strings.Replace(localVarPath, "{"+"mandateId"+"}", url.PathEscape(parameterToString(r.mandateId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"mandateId"+"}", url.PathEscape(parameterValueToString(r.mandateId, "mandateId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -480,11 +475,18 @@ func (a *CustomerApiService) AuthorizeMandateExecute(r CustomerApiApiAuthorizeMa
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -499,6 +501,7 @@ func (a *CustomerApiService) AuthorizeMandateExecute(r CustomerApiApiAuthorizeMa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -509,6 +512,7 @@ func (a *CustomerApiService) AuthorizeMandateExecute(r CustomerApiApiAuthorizeMa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -519,6 +523,7 @@ func (a *CustomerApiService) AuthorizeMandateExecute(r CustomerApiApiAuthorizeMa
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -536,26 +541,26 @@ func (a *CustomerApiService) AuthorizeMandateExecute(r CustomerApiApiAuthorizeMa
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiCreateMandateRequest struct {
+type CustomerAPICreateMandateRequest struct {
 	ctx                  context.Context
-	ApiService           CustomerApi
+	ApiService           CustomerAPI
 	createMandateRequest *CreateMandateRequest
 	idempotencyKey       *string
 }
 
 // request body for creating mandate
-func (r CustomerApiApiCreateMandateRequest) CreateMandateRequest(createMandateRequest CreateMandateRequest) CustomerApiApiCreateMandateRequest {
+func (r CustomerAPICreateMandateRequest) CreateMandateRequest(createMandateRequest CreateMandateRequest) CustomerAPICreateMandateRequest {
 	r.createMandateRequest = &createMandateRequest
 	return r
 }
 
 // A random key provided by the customer, per unique payment. The purpose for the Idempotency key is to allow safe retrying without the operation being performed multiple times.
-func (r CustomerApiApiCreateMandateRequest) IdempotencyKey(idempotencyKey string) CustomerApiApiCreateMandateRequest {
+func (r CustomerAPICreateMandateRequest) IdempotencyKey(idempotencyKey string) CustomerAPICreateMandateRequest {
 	r.idempotencyKey = &idempotencyKey
 	return r
 }
 
-func (r CustomerApiApiCreateMandateRequest) Execute() (*CreateMandateResponse, *http.Response, error) {
+func (r CustomerAPICreateMandateRequest) Execute() (*CreateMandateResponse, *http.Response, error) {
 	return r.ApiService.CreateMandateExecute(r)
 }
 
@@ -565,10 +570,10 @@ CreateMandate Method for CreateMandate
 CREATE Mandate
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return CustomerApiApiCreateMandateRequest
+ @return CustomerAPICreateMandateRequest
 */
-func (a *CustomerApiService) CreateMandate(ctx context.Context) CustomerApiApiCreateMandateRequest {
-	return CustomerApiApiCreateMandateRequest{
+func (a *CustomerAPIService) CreateMandate(ctx context.Context) CustomerAPICreateMandateRequest {
+	return CustomerAPICreateMandateRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -576,7 +581,7 @@ func (a *CustomerApiService) CreateMandate(ctx context.Context) CustomerApiApiCr
 
 // Execute executes the request
 //  @return CreateMandateResponse
-func (a *CustomerApiService) CreateMandateExecute(r CustomerApiApiCreateMandateRequest) (*CreateMandateResponse, *http.Response, error) {
+func (a *CustomerAPIService) CreateMandateExecute(r CustomerAPICreateMandateRequest) (*CreateMandateResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -584,7 +589,7 @@ func (a *CustomerApiService) CreateMandateExecute(r CustomerApiApiCreateMandateR
 		localVarReturnValue *CreateMandateResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.CreateMandate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.CreateMandate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -616,7 +621,7 @@ func (a *CustomerApiService) CreateMandateExecute(r CustomerApiApiCreateMandateR
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.idempotencyKey != nil {
-		localVarHeaderParams["Idempotency-Key"] = parameterToString(*r.idempotencyKey, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "", "")
 	}
 	// body params
 	localVarPostBody = r.createMandateRequest
@@ -630,11 +635,18 @@ func (a *CustomerApiService) CreateMandateExecute(r CustomerApiApiCreateMandateR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -649,6 +661,7 @@ func (a *CustomerApiService) CreateMandateExecute(r CustomerApiApiCreateMandateR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -659,6 +672,7 @@ func (a *CustomerApiService) CreateMandateExecute(r CustomerApiApiCreateMandateR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -669,6 +683,7 @@ func (a *CustomerApiService) CreateMandateExecute(r CustomerApiApiCreateMandateR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -686,26 +701,26 @@ func (a *CustomerApiService) CreateMandateExecute(r CustomerApiApiCreateMandateR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiCreatePaymentRequest struct {
+type CustomerAPICreatePaymentRequest struct {
 	ctx                  context.Context
-	ApiService           CustomerApi
+	ApiService           CustomerAPI
 	createPaymentRequest *CreatePaymentRequest
 	idempotencyKey       *string
 }
 
 // request body for creating payment
-func (r CustomerApiApiCreatePaymentRequest) CreatePaymentRequest(createPaymentRequest CreatePaymentRequest) CustomerApiApiCreatePaymentRequest {
+func (r CustomerAPICreatePaymentRequest) CreatePaymentRequest(createPaymentRequest CreatePaymentRequest) CustomerAPICreatePaymentRequest {
 	r.createPaymentRequest = &createPaymentRequest
 	return r
 }
 
 // A random key provided by the customer, per unique payment. The purpose for the Idempotency key is to allow safe retrying without the operation being performed multiple times.
-func (r CustomerApiApiCreatePaymentRequest) IdempotencyKey(idempotencyKey string) CustomerApiApiCreatePaymentRequest {
+func (r CustomerAPICreatePaymentRequest) IdempotencyKey(idempotencyKey string) CustomerAPICreatePaymentRequest {
 	r.idempotencyKey = &idempotencyKey
 	return r
 }
 
-func (r CustomerApiApiCreatePaymentRequest) Execute() (*PaymentResponse, *http.Response, error) {
+func (r CustomerAPICreatePaymentRequest) Execute() (*PaymentResponse, *http.Response, error) {
 	return r.ApiService.CreatePaymentExecute(r)
 }
 
@@ -715,10 +730,10 @@ CreatePayment Method for CreatePayment
 Create new Payment
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return CustomerApiApiCreatePaymentRequest
+ @return CustomerAPICreatePaymentRequest
 */
-func (a *CustomerApiService) CreatePayment(ctx context.Context) CustomerApiApiCreatePaymentRequest {
-	return CustomerApiApiCreatePaymentRequest{
+func (a *CustomerAPIService) CreatePayment(ctx context.Context) CustomerAPICreatePaymentRequest {
+	return CustomerAPICreatePaymentRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -726,7 +741,7 @@ func (a *CustomerApiService) CreatePayment(ctx context.Context) CustomerApiApiCr
 
 // Execute executes the request
 //  @return PaymentResponse
-func (a *CustomerApiService) CreatePaymentExecute(r CustomerApiApiCreatePaymentRequest) (*PaymentResponse, *http.Response, error) {
+func (a *CustomerAPIService) CreatePaymentExecute(r CustomerAPICreatePaymentRequest) (*PaymentResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -734,7 +749,7 @@ func (a *CustomerApiService) CreatePaymentExecute(r CustomerApiApiCreatePaymentR
 		localVarReturnValue *PaymentResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.CreatePayment")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.CreatePayment")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -766,7 +781,7 @@ func (a *CustomerApiService) CreatePaymentExecute(r CustomerApiApiCreatePaymentR
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
 	if r.idempotencyKey != nil {
-		localVarHeaderParams["Idempotency-Key"] = parameterToString(*r.idempotencyKey, "")
+		parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "", "")
 	}
 	// body params
 	localVarPostBody = r.createPaymentRequest
@@ -780,11 +795,18 @@ func (a *CustomerApiService) CreatePaymentExecute(r CustomerApiApiCreatePaymentR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -799,6 +821,7 @@ func (a *CustomerApiService) CreatePaymentExecute(r CustomerApiApiCreatePaymentR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -809,6 +832,7 @@ func (a *CustomerApiService) CreatePaymentExecute(r CustomerApiApiCreatePaymentR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -819,6 +843,7 @@ func (a *CustomerApiService) CreatePaymentExecute(r CustomerApiApiCreatePaymentR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -836,19 +861,19 @@ func (a *CustomerApiService) CreatePaymentExecute(r CustomerApiApiCreatePaymentR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiCreatePaymentAccountRequest struct {
+type CustomerAPICreatePaymentAccountRequest struct {
 	ctx                         context.Context
-	ApiService                  CustomerApi
+	ApiService                  CustomerAPI
 	createPaymentAccountRequest *CreatePaymentAccountRequest
 }
 
 // request body for creating payment account
-func (r CustomerApiApiCreatePaymentAccountRequest) CreatePaymentAccountRequest(createPaymentAccountRequest CreatePaymentAccountRequest) CustomerApiApiCreatePaymentAccountRequest {
+func (r CustomerAPICreatePaymentAccountRequest) CreatePaymentAccountRequest(createPaymentAccountRequest CreatePaymentAccountRequest) CustomerAPICreatePaymentAccountRequest {
 	r.createPaymentAccountRequest = &createPaymentAccountRequest
 	return r
 }
 
-func (r CustomerApiApiCreatePaymentAccountRequest) Execute() (*PaymentAccountDetails, *http.Response, error) {
+func (r CustomerAPICreatePaymentAccountRequest) Execute() (*PaymentAccountDetails, *http.Response, error) {
 	return r.ApiService.CreatePaymentAccountExecute(r)
 }
 
@@ -858,10 +883,10 @@ CreatePaymentAccount Method for CreatePaymentAccount
 create payment account
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return CustomerApiApiCreatePaymentAccountRequest
+ @return CustomerAPICreatePaymentAccountRequest
 */
-func (a *CustomerApiService) CreatePaymentAccount(ctx context.Context) CustomerApiApiCreatePaymentAccountRequest {
-	return CustomerApiApiCreatePaymentAccountRequest{
+func (a *CustomerAPIService) CreatePaymentAccount(ctx context.Context) CustomerAPICreatePaymentAccountRequest {
+	return CustomerAPICreatePaymentAccountRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -869,7 +894,7 @@ func (a *CustomerApiService) CreatePaymentAccount(ctx context.Context) CustomerA
 
 // Execute executes the request
 //  @return PaymentAccountDetails
-func (a *CustomerApiService) CreatePaymentAccountExecute(r CustomerApiApiCreatePaymentAccountRequest) (*PaymentAccountDetails, *http.Response, error) {
+func (a *CustomerAPIService) CreatePaymentAccountExecute(r CustomerAPICreatePaymentAccountRequest) (*PaymentAccountDetails, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -877,7 +902,7 @@ func (a *CustomerApiService) CreatePaymentAccountExecute(r CustomerApiApiCreateP
 		localVarReturnValue *PaymentAccountDetails
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.CreatePaymentAccount")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.CreatePaymentAccount")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -920,11 +945,18 @@ func (a *CustomerApiService) CreatePaymentAccountExecute(r CustomerApiApiCreateP
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -939,6 +971,7 @@ func (a *CustomerApiService) CreatePaymentAccountExecute(r CustomerApiApiCreateP
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -949,6 +982,7 @@ func (a *CustomerApiService) CreatePaymentAccountExecute(r CustomerApiApiCreateP
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -959,6 +993,7 @@ func (a *CustomerApiService) CreatePaymentAccountExecute(r CustomerApiApiCreateP
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -976,19 +1011,19 @@ func (a *CustomerApiService) CreatePaymentAccountExecute(r CustomerApiApiCreateP
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiCreatePaymentInstructionRequest struct {
+type CustomerAPICreatePaymentInstructionRequest struct {
 	ctx                context.Context
-	ApiService         CustomerApi
+	ApiService         CustomerAPI
 	paymentInstruction *CustomerPaymentInstruction
 }
 
 // Request body for starting a new Link
-func (r CustomerApiApiCreatePaymentInstructionRequest) PaymentInstruction(paymentInstruction CustomerPaymentInstruction) CustomerApiApiCreatePaymentInstructionRequest {
+func (r CustomerAPICreatePaymentInstructionRequest) PaymentInstruction(paymentInstruction CustomerPaymentInstruction) CustomerAPICreatePaymentInstructionRequest {
 	r.paymentInstruction = &paymentInstruction
 	return r
 }
 
-func (r CustomerApiApiCreatePaymentInstructionRequest) Execute() (*CreatePaymentInstructionResponse, *http.Response, error) {
+func (r CustomerAPICreatePaymentInstructionRequest) Execute() (*CreatePaymentInstructionResponse, *http.Response, error) {
 	return r.ApiService.CreatePaymentInstructionExecute(r)
 }
 
@@ -998,10 +1033,10 @@ CreatePaymentInstruction Method for CreatePaymentInstruction
 Create a new payment instruction to be used when linking to perform new payment
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return CustomerApiApiCreatePaymentInstructionRequest
+ @return CustomerAPICreatePaymentInstructionRequest
 */
-func (a *CustomerApiService) CreatePaymentInstruction(ctx context.Context) CustomerApiApiCreatePaymentInstructionRequest {
-	return CustomerApiApiCreatePaymentInstructionRequest{
+func (a *CustomerAPIService) CreatePaymentInstruction(ctx context.Context) CustomerAPICreatePaymentInstructionRequest {
+	return CustomerAPICreatePaymentInstructionRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1009,7 +1044,7 @@ func (a *CustomerApiService) CreatePaymentInstruction(ctx context.Context) Custo
 
 // Execute executes the request
 //  @return CreatePaymentInstructionResponse
-func (a *CustomerApiService) CreatePaymentInstructionExecute(r CustomerApiApiCreatePaymentInstructionRequest) (*CreatePaymentInstructionResponse, *http.Response, error) {
+func (a *CustomerAPIService) CreatePaymentInstructionExecute(r CustomerAPICreatePaymentInstructionRequest) (*CreatePaymentInstructionResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1017,7 +1052,7 @@ func (a *CustomerApiService) CreatePaymentInstructionExecute(r CustomerApiApiCre
 		localVarReturnValue *CreatePaymentInstructionResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.CreatePaymentInstruction")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.CreatePaymentInstruction")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1060,11 +1095,18 @@ func (a *CustomerApiService) CreatePaymentInstructionExecute(r CustomerApiApiCre
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1079,6 +1121,7 @@ func (a *CustomerApiService) CreatePaymentInstructionExecute(r CustomerApiApiCre
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1089,6 +1132,7 @@ func (a *CustomerApiService) CreatePaymentInstructionExecute(r CustomerApiApiCre
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1099,6 +1143,7 @@ func (a *CustomerApiService) CreatePaymentInstructionExecute(r CustomerApiApiCre
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1116,19 +1161,19 @@ func (a *CustomerApiService) CreatePaymentInstructionExecute(r CustomerApiApiCre
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiCreatePaymentUserRequest struct {
+type CustomerAPICreatePaymentUserRequest struct {
 	ctx                      context.Context
-	ApiService               CustomerApi
+	ApiService               CustomerAPI
 	createPaymentUserRequest *CreatePaymentUserRequest
 }
 
 // request body for creating payment user
-func (r CustomerApiApiCreatePaymentUserRequest) CreatePaymentUserRequest(createPaymentUserRequest CreatePaymentUserRequest) CustomerApiApiCreatePaymentUserRequest {
+func (r CustomerAPICreatePaymentUserRequest) CreatePaymentUserRequest(createPaymentUserRequest CreatePaymentUserRequest) CustomerAPICreatePaymentUserRequest {
 	r.createPaymentUserRequest = &createPaymentUserRequest
 	return r
 }
 
-func (r CustomerApiApiCreatePaymentUserRequest) Execute() (*PaymentUser, *http.Response, error) {
+func (r CustomerAPICreatePaymentUserRequest) Execute() (*PaymentUser, *http.Response, error) {
 	return r.ApiService.CreatePaymentUserExecute(r)
 }
 
@@ -1138,10 +1183,10 @@ CreatePaymentUser Method for CreatePaymentUser
 Create a payment user
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return CustomerApiApiCreatePaymentUserRequest
+ @return CustomerAPICreatePaymentUserRequest
 */
-func (a *CustomerApiService) CreatePaymentUser(ctx context.Context) CustomerApiApiCreatePaymentUserRequest {
-	return CustomerApiApiCreatePaymentUserRequest{
+func (a *CustomerAPIService) CreatePaymentUser(ctx context.Context) CustomerAPICreatePaymentUserRequest {
+	return CustomerAPICreatePaymentUserRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1149,7 +1194,7 @@ func (a *CustomerApiService) CreatePaymentUser(ctx context.Context) CustomerApiA
 
 // Execute executes the request
 //  @return PaymentUser
-func (a *CustomerApiService) CreatePaymentUserExecute(r CustomerApiApiCreatePaymentUserRequest) (*PaymentUser, *http.Response, error) {
+func (a *CustomerAPIService) CreatePaymentUserExecute(r CustomerAPICreatePaymentUserRequest) (*PaymentUser, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1157,7 +1202,7 @@ func (a *CustomerApiService) CreatePaymentUserExecute(r CustomerApiApiCreatePaym
 		localVarReturnValue *PaymentUser
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.CreatePaymentUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.CreatePaymentUser")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1200,11 +1245,18 @@ func (a *CustomerApiService) CreatePaymentUserExecute(r CustomerApiApiCreatePaym
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1219,6 +1271,7 @@ func (a *CustomerApiService) CreatePaymentUserExecute(r CustomerApiApiCreatePaym
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1229,6 +1282,7 @@ func (a *CustomerApiService) CreatePaymentUserExecute(r CustomerApiApiCreatePaym
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1239,6 +1293,7 @@ func (a *CustomerApiService) CreatePaymentUserExecute(r CustomerApiApiCreatePaym
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1256,13 +1311,13 @@ func (a *CustomerApiService) CreatePaymentUserExecute(r CustomerApiApiCreatePaym
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiDeletePaymentAccountRequest struct {
+type CustomerAPIDeletePaymentAccountRequest struct {
 	ctx              context.Context
-	ApiService       CustomerApi
+	ApiService       CustomerAPI
 	paymentAccountId string
 }
 
-func (r CustomerApiApiDeletePaymentAccountRequest) Execute() (*http.Response, error) {
+func (r CustomerAPIDeletePaymentAccountRequest) Execute() (*http.Response, error) {
 	return r.ApiService.DeletePaymentAccountExecute(r)
 }
 
@@ -1273,10 +1328,10 @@ delete payment account
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param paymentAccountId The payment account id
- @return CustomerApiApiDeletePaymentAccountRequest
+ @return CustomerAPIDeletePaymentAccountRequest
 */
-func (a *CustomerApiService) DeletePaymentAccount(ctx context.Context, paymentAccountId string) CustomerApiApiDeletePaymentAccountRequest {
-	return CustomerApiApiDeletePaymentAccountRequest{
+func (a *CustomerAPIService) DeletePaymentAccount(ctx context.Context, paymentAccountId string) CustomerAPIDeletePaymentAccountRequest {
+	return CustomerAPIDeletePaymentAccountRequest{
 		ApiService:       a,
 		ctx:              ctx,
 		paymentAccountId: paymentAccountId,
@@ -1284,20 +1339,20 @@ func (a *CustomerApiService) DeletePaymentAccount(ctx context.Context, paymentAc
 }
 
 // Execute executes the request
-func (a *CustomerApiService) DeletePaymentAccountExecute(r CustomerApiApiDeletePaymentAccountRequest) (*http.Response, error) {
+func (a *CustomerAPIService) DeletePaymentAccountExecute(r CustomerAPIDeletePaymentAccountRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodDelete
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.DeletePaymentAccount")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.DeletePaymentAccount")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/payment_accounts/{paymentAccountId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"paymentAccountId"+"}", url.PathEscape(parameterToString(r.paymentAccountId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentAccountId"+"}", url.PathEscape(parameterValueToString(r.paymentAccountId, "paymentAccountId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1330,11 +1385,18 @@ func (a *CustomerApiService) DeletePaymentAccountExecute(r CustomerApiApiDeleteP
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1349,6 +1411,7 @@ func (a *CustomerApiService) DeletePaymentAccountExecute(r CustomerApiApiDeleteP
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -1359,6 +1422,7 @@ func (a *CustomerApiService) DeletePaymentAccountExecute(r CustomerApiApiDeleteP
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -1369,6 +1433,7 @@ func (a *CustomerApiService) DeletePaymentAccountExecute(r CustomerApiApiDeleteP
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarHTTPResponse, newErr
@@ -1377,19 +1442,19 @@ func (a *CustomerApiService) DeletePaymentAccountExecute(r CustomerApiApiDeleteP
 	return localVarHTTPResponse, nil
 }
 
-type CustomerApiApiGenerateLinkTokenRequest struct {
+type CustomerAPIGenerateLinkTokenRequest struct {
 	ctx              context.Context
-	ApiService       CustomerApi
+	ApiService       CustomerAPI
 	linkTokenRequest *LinkTokenRequest
 }
 
 // token request
-func (r CustomerApiApiGenerateLinkTokenRequest) LinkTokenRequest(linkTokenRequest LinkTokenRequest) CustomerApiApiGenerateLinkTokenRequest {
+func (r CustomerAPIGenerateLinkTokenRequest) LinkTokenRequest(linkTokenRequest LinkTokenRequest) CustomerAPIGenerateLinkTokenRequest {
 	r.linkTokenRequest = &linkTokenRequest
 	return r
 }
 
-func (r CustomerApiApiGenerateLinkTokenRequest) Execute() (*LinkTokenResponse, *http.Response, error) {
+func (r CustomerAPIGenerateLinkTokenRequest) Execute() (*LinkTokenResponse, *http.Response, error) {
 	return r.ApiService.GenerateLinkTokenExecute(r)
 }
 
@@ -1399,10 +1464,10 @@ GenerateLinkToken Method for GenerateLinkToken
 generate a link token that can be used to create link
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return CustomerApiApiGenerateLinkTokenRequest
+ @return CustomerAPIGenerateLinkTokenRequest
 */
-func (a *CustomerApiService) GenerateLinkToken(ctx context.Context) CustomerApiApiGenerateLinkTokenRequest {
-	return CustomerApiApiGenerateLinkTokenRequest{
+func (a *CustomerAPIService) GenerateLinkToken(ctx context.Context) CustomerAPIGenerateLinkTokenRequest {
+	return CustomerAPIGenerateLinkTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1410,7 +1475,7 @@ func (a *CustomerApiService) GenerateLinkToken(ctx context.Context) CustomerApiA
 
 // Execute executes the request
 //  @return LinkTokenResponse
-func (a *CustomerApiService) GenerateLinkTokenExecute(r CustomerApiApiGenerateLinkTokenRequest) (*LinkTokenResponse, *http.Response, error) {
+func (a *CustomerAPIService) GenerateLinkTokenExecute(r CustomerAPIGenerateLinkTokenRequest) (*LinkTokenResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1418,7 +1483,7 @@ func (a *CustomerApiService) GenerateLinkTokenExecute(r CustomerApiApiGenerateLi
 		localVarReturnValue *LinkTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GenerateLinkToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.GenerateLinkToken")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1461,11 +1526,18 @@ func (a *CustomerApiService) GenerateLinkTokenExecute(r CustomerApiApiGenerateLi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1480,6 +1552,7 @@ func (a *CustomerApiService) GenerateLinkTokenExecute(r CustomerApiApiGenerateLi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1490,6 +1563,7 @@ func (a *CustomerApiService) GenerateLinkTokenExecute(r CustomerApiApiGenerateLi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1500,6 +1574,7 @@ func (a *CustomerApiService) GenerateLinkTokenExecute(r CustomerApiApiGenerateLi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1517,13 +1592,13 @@ func (a *CustomerApiService) GenerateLinkTokenExecute(r CustomerApiApiGenerateLi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiGetInstitutionRequest struct {
+type CustomerAPIGetInstitutionRequest struct {
 	ctx           context.Context
-	ApiService    CustomerApi
+	ApiService    CustomerAPI
 	institutionId string
 }
 
-func (r CustomerApiApiGetInstitutionRequest) Execute() (*Institution, *http.Response, error) {
+func (r CustomerAPIGetInstitutionRequest) Execute() (*Institution, *http.Response, error) {
 	return r.ApiService.GetInstitutionExecute(r)
 }
 
@@ -1534,10 +1609,10 @@ Get a specific institution by institutionId
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param institutionId The institution id
- @return CustomerApiApiGetInstitutionRequest
+ @return CustomerAPIGetInstitutionRequest
 */
-func (a *CustomerApiService) GetInstitution(ctx context.Context, institutionId string) CustomerApiApiGetInstitutionRequest {
-	return CustomerApiApiGetInstitutionRequest{
+func (a *CustomerAPIService) GetInstitution(ctx context.Context, institutionId string) CustomerAPIGetInstitutionRequest {
+	return CustomerAPIGetInstitutionRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		institutionId: institutionId,
@@ -1546,7 +1621,7 @@ func (a *CustomerApiService) GetInstitution(ctx context.Context, institutionId s
 
 // Execute executes the request
 //  @return Institution
-func (a *CustomerApiService) GetInstitutionExecute(r CustomerApiApiGetInstitutionRequest) (*Institution, *http.Response, error) {
+func (a *CustomerAPIService) GetInstitutionExecute(r CustomerAPIGetInstitutionRequest) (*Institution, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1554,13 +1629,13 @@ func (a *CustomerApiService) GetInstitutionExecute(r CustomerApiApiGetInstitutio
 		localVarReturnValue *Institution
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetInstitution")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.GetInstitution")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/institutions/{institutionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"institutionId"+"}", url.PathEscape(parameterToString(r.institutionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"institutionId"+"}", url.PathEscape(parameterValueToString(r.institutionId, "institutionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1593,11 +1668,18 @@ func (a *CustomerApiService) GetInstitutionExecute(r CustomerApiApiGetInstitutio
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1612,6 +1694,7 @@ func (a *CustomerApiService) GetInstitutionExecute(r CustomerApiApiGetInstitutio
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1622,6 +1705,7 @@ func (a *CustomerApiService) GetInstitutionExecute(r CustomerApiApiGetInstitutio
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1639,13 +1723,13 @@ func (a *CustomerApiService) GetInstitutionExecute(r CustomerApiApiGetInstitutio
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiGetLineItemsForDisplayRequest struct {
+type CustomerAPIGetLineItemsForDisplayRequest struct {
 	ctx         context.Context
-	ApiService  CustomerApi
+	ApiService  CustomerAPI
 	paymentType string
 }
 
-func (r CustomerApiApiGetLineItemsForDisplayRequest) Execute() (*GetLineItemsForDisplayResponse, *http.Response, error) {
+func (r CustomerAPIGetLineItemsForDisplayRequest) Execute() (*GetLineItemsForDisplayResponse, *http.Response, error) {
 	return r.ApiService.GetLineItemsForDisplayExecute(r)
 }
 
@@ -1656,10 +1740,10 @@ Get line items for display
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param paymentType The payment type
- @return CustomerApiApiGetLineItemsForDisplayRequest
+ @return CustomerAPIGetLineItemsForDisplayRequest
 */
-func (a *CustomerApiService) GetLineItemsForDisplay(ctx context.Context, paymentType string) CustomerApiApiGetLineItemsForDisplayRequest {
-	return CustomerApiApiGetLineItemsForDisplayRequest{
+func (a *CustomerAPIService) GetLineItemsForDisplay(ctx context.Context, paymentType string) CustomerAPIGetLineItemsForDisplayRequest {
+	return CustomerAPIGetLineItemsForDisplayRequest{
 		ApiService:  a,
 		ctx:         ctx,
 		paymentType: paymentType,
@@ -1668,7 +1752,7 @@ func (a *CustomerApiService) GetLineItemsForDisplay(ctx context.Context, payment
 
 // Execute executes the request
 //  @return GetLineItemsForDisplayResponse
-func (a *CustomerApiService) GetLineItemsForDisplayExecute(r CustomerApiApiGetLineItemsForDisplayRequest) (*GetLineItemsForDisplayResponse, *http.Response, error) {
+func (a *CustomerAPIService) GetLineItemsForDisplayExecute(r CustomerAPIGetLineItemsForDisplayRequest) (*GetLineItemsForDisplayResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1676,13 +1760,13 @@ func (a *CustomerApiService) GetLineItemsForDisplayExecute(r CustomerApiApiGetLi
 		localVarReturnValue *GetLineItemsForDisplayResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetLineItemsForDisplay")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.GetLineItemsForDisplay")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/calculate/line_items/{paymentType}"
-	localVarPath = strings.Replace(localVarPath, "{"+"paymentType"+"}", url.PathEscape(parameterToString(r.paymentType, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentType"+"}", url.PathEscape(parameterValueToString(r.paymentType, "paymentType")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1715,11 +1799,18 @@ func (a *CustomerApiService) GetLineItemsForDisplayExecute(r CustomerApiApiGetLi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1734,6 +1825,7 @@ func (a *CustomerApiService) GetLineItemsForDisplayExecute(r CustomerApiApiGetLi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1744,6 +1836,7 @@ func (a *CustomerApiService) GetLineItemsForDisplayExecute(r CustomerApiApiGetLi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1754,6 +1847,7 @@ func (a *CustomerApiService) GetLineItemsForDisplayExecute(r CustomerApiApiGetLi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1771,13 +1865,13 @@ func (a *CustomerApiService) GetLineItemsForDisplayExecute(r CustomerApiApiGetLi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiGetLoginIdentityByIdRequest struct {
+type CustomerAPIGetLoginIdentityByIdRequest struct {
 	ctx             context.Context
-	ApiService      CustomerApi
+	ApiService      CustomerAPI
 	loginIdentityId string
 }
 
-func (r CustomerApiApiGetLoginIdentityByIdRequest) Execute() (*GetLoginIdentityByIdResponse, *http.Response, error) {
+func (r CustomerAPIGetLoginIdentityByIdRequest) Execute() (*GetLoginIdentityByIdResponse, *http.Response, error) {
 	return r.ApiService.GetLoginIdentityByIdExecute(r)
 }
 
@@ -1788,10 +1882,10 @@ Get a specific loginIdentity
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param loginIdentityId The login identity id
- @return CustomerApiApiGetLoginIdentityByIdRequest
+ @return CustomerAPIGetLoginIdentityByIdRequest
 */
-func (a *CustomerApiService) GetLoginIdentityById(ctx context.Context, loginIdentityId string) CustomerApiApiGetLoginIdentityByIdRequest {
-	return CustomerApiApiGetLoginIdentityByIdRequest{
+func (a *CustomerAPIService) GetLoginIdentityById(ctx context.Context, loginIdentityId string) CustomerAPIGetLoginIdentityByIdRequest {
+	return CustomerAPIGetLoginIdentityByIdRequest{
 		ApiService:      a,
 		ctx:             ctx,
 		loginIdentityId: loginIdentityId,
@@ -1800,7 +1894,7 @@ func (a *CustomerApiService) GetLoginIdentityById(ctx context.Context, loginIden
 
 // Execute executes the request
 //  @return GetLoginIdentityByIdResponse
-func (a *CustomerApiService) GetLoginIdentityByIdExecute(r CustomerApiApiGetLoginIdentityByIdRequest) (*GetLoginIdentityByIdResponse, *http.Response, error) {
+func (a *CustomerAPIService) GetLoginIdentityByIdExecute(r CustomerAPIGetLoginIdentityByIdRequest) (*GetLoginIdentityByIdResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1808,13 +1902,13 @@ func (a *CustomerApiService) GetLoginIdentityByIdExecute(r CustomerApiApiGetLogi
 		localVarReturnValue *GetLoginIdentityByIdResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetLoginIdentityById")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.GetLoginIdentityById")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/login_identity/{loginIdentityId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"loginIdentityId"+"}", url.PathEscape(parameterToString(r.loginIdentityId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"loginIdentityId"+"}", url.PathEscape(parameterValueToString(r.loginIdentityId, "loginIdentityId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1847,11 +1941,18 @@ func (a *CustomerApiService) GetLoginIdentityByIdExecute(r CustomerApiApiGetLogi
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1866,6 +1967,7 @@ func (a *CustomerApiService) GetLoginIdentityByIdExecute(r CustomerApiApiGetLogi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1876,6 +1978,7 @@ func (a *CustomerApiService) GetLoginIdentityByIdExecute(r CustomerApiApiGetLogi
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1893,13 +1996,13 @@ func (a *CustomerApiService) GetLoginIdentityByIdExecute(r CustomerApiApiGetLogi
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiGetLoginIdentityHistoryRequest struct {
+type CustomerAPIGetLoginIdentityHistoryRequest struct {
 	ctx             context.Context
-	ApiService      CustomerApi
+	ApiService      CustomerAPI
 	loginIdentityId string
 }
 
-func (r CustomerApiApiGetLoginIdentityHistoryRequest) Execute() (*GetLoginIdentityHistoryResponse, *http.Response, error) {
+func (r CustomerAPIGetLoginIdentityHistoryRequest) Execute() (*GetLoginIdentityHistoryResponse, *http.Response, error) {
 	return r.ApiService.GetLoginIdentityHistoryExecute(r)
 }
 
@@ -1910,10 +2013,10 @@ Get a history of events for a specific loginIdentity
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param loginIdentityId The login identity id
- @return CustomerApiApiGetLoginIdentityHistoryRequest
+ @return CustomerAPIGetLoginIdentityHistoryRequest
 */
-func (a *CustomerApiService) GetLoginIdentityHistory(ctx context.Context, loginIdentityId string) CustomerApiApiGetLoginIdentityHistoryRequest {
-	return CustomerApiApiGetLoginIdentityHistoryRequest{
+func (a *CustomerAPIService) GetLoginIdentityHistory(ctx context.Context, loginIdentityId string) CustomerAPIGetLoginIdentityHistoryRequest {
+	return CustomerAPIGetLoginIdentityHistoryRequest{
 		ApiService:      a,
 		ctx:             ctx,
 		loginIdentityId: loginIdentityId,
@@ -1922,7 +2025,7 @@ func (a *CustomerApiService) GetLoginIdentityHistory(ctx context.Context, loginI
 
 // Execute executes the request
 //  @return GetLoginIdentityHistoryResponse
-func (a *CustomerApiService) GetLoginIdentityHistoryExecute(r CustomerApiApiGetLoginIdentityHistoryRequest) (*GetLoginIdentityHistoryResponse, *http.Response, error) {
+func (a *CustomerAPIService) GetLoginIdentityHistoryExecute(r CustomerAPIGetLoginIdentityHistoryRequest) (*GetLoginIdentityHistoryResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -1930,13 +2033,13 @@ func (a *CustomerApiService) GetLoginIdentityHistoryExecute(r CustomerApiApiGetL
 		localVarReturnValue *GetLoginIdentityHistoryResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetLoginIdentityHistory")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.GetLoginIdentityHistory")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/login_identity/{loginIdentityId}/history"
-	localVarPath = strings.Replace(localVarPath, "{"+"loginIdentityId"+"}", url.PathEscape(parameterToString(r.loginIdentityId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"loginIdentityId"+"}", url.PathEscape(parameterValueToString(r.loginIdentityId, "loginIdentityId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1969,11 +2072,18 @@ func (a *CustomerApiService) GetLoginIdentityHistoryExecute(r CustomerApiApiGetL
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1988,6 +2098,7 @@ func (a *CustomerApiService) GetLoginIdentityHistoryExecute(r CustomerApiApiGetL
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1998,6 +2109,7 @@ func (a *CustomerApiService) GetLoginIdentityHistoryExecute(r CustomerApiApiGetL
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2015,13 +2127,13 @@ func (a *CustomerApiService) GetLoginIdentityHistoryExecute(r CustomerApiApiGetL
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiGetMandateRequest struct {
+type CustomerAPIGetMandateRequest struct {
 	ctx        context.Context
-	ApiService CustomerApi
+	ApiService CustomerAPI
 	mandateId  string
 }
 
-func (r CustomerApiApiGetMandateRequest) Execute() (*GetMandateResponse, *http.Response, error) {
+func (r CustomerAPIGetMandateRequest) Execute() (*GetMandateResponse, *http.Response, error) {
 	return r.ApiService.GetMandateExecute(r)
 }
 
@@ -2032,10 +2144,10 @@ Get Mandate details by mandate_id
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param mandateId mandate id
- @return CustomerApiApiGetMandateRequest
+ @return CustomerAPIGetMandateRequest
 */
-func (a *CustomerApiService) GetMandate(ctx context.Context, mandateId string) CustomerApiApiGetMandateRequest {
-	return CustomerApiApiGetMandateRequest{
+func (a *CustomerAPIService) GetMandate(ctx context.Context, mandateId string) CustomerAPIGetMandateRequest {
+	return CustomerAPIGetMandateRequest{
 		ApiService: a,
 		ctx:        ctx,
 		mandateId:  mandateId,
@@ -2044,7 +2156,7 @@ func (a *CustomerApiService) GetMandate(ctx context.Context, mandateId string) C
 
 // Execute executes the request
 //  @return GetMandateResponse
-func (a *CustomerApiService) GetMandateExecute(r CustomerApiApiGetMandateRequest) (*GetMandateResponse, *http.Response, error) {
+func (a *CustomerAPIService) GetMandateExecute(r CustomerAPIGetMandateRequest) (*GetMandateResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2052,13 +2164,13 @@ func (a *CustomerApiService) GetMandateExecute(r CustomerApiApiGetMandateRequest
 		localVarReturnValue *GetMandateResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetMandate")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.GetMandate")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/mandates/{mandateId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"mandateId"+"}", url.PathEscape(parameterToString(r.mandateId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"mandateId"+"}", url.PathEscape(parameterValueToString(r.mandateId, "mandateId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2091,11 +2203,18 @@ func (a *CustomerApiService) GetMandateExecute(r CustomerApiApiGetMandateRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2110,6 +2229,7 @@ func (a *CustomerApiService) GetMandateExecute(r CustomerApiApiGetMandateRequest
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2120,6 +2240,7 @@ func (a *CustomerApiService) GetMandateExecute(r CustomerApiApiGetMandateRequest
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2130,6 +2251,7 @@ func (a *CustomerApiService) GetMandateExecute(r CustomerApiApiGetMandateRequest
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2147,12 +2269,12 @@ func (a *CustomerApiService) GetMandateExecute(r CustomerApiApiGetMandateRequest
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiGetMandateAuthRequest struct {
+type CustomerAPIGetMandateAuthRequest struct {
 	ctx        context.Context
-	ApiService CustomerApi
+	ApiService CustomerAPI
 }
 
-func (r CustomerApiApiGetMandateAuthRequest) Execute() (*GetMandateAuthResponse, *http.Response, error) {
+func (r CustomerAPIGetMandateAuthRequest) Execute() (*GetMandateAuthResponse, *http.Response, error) {
 	return r.ApiService.GetMandateAuthExecute(r)
 }
 
@@ -2162,10 +2284,10 @@ GetMandateAuth Method for GetMandateAuth
 Get Mandate Authorization by mandate id
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return CustomerApiApiGetMandateAuthRequest
+ @return CustomerAPIGetMandateAuthRequest
 */
-func (a *CustomerApiService) GetMandateAuth(ctx context.Context) CustomerApiApiGetMandateAuthRequest {
-	return CustomerApiApiGetMandateAuthRequest{
+func (a *CustomerAPIService) GetMandateAuth(ctx context.Context) CustomerAPIGetMandateAuthRequest {
+	return CustomerAPIGetMandateAuthRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2173,7 +2295,7 @@ func (a *CustomerApiService) GetMandateAuth(ctx context.Context) CustomerApiApiG
 
 // Execute executes the request
 //  @return GetMandateAuthResponse
-func (a *CustomerApiService) GetMandateAuthExecute(r CustomerApiApiGetMandateAuthRequest) (*GetMandateAuthResponse, *http.Response, error) {
+func (a *CustomerAPIService) GetMandateAuthExecute(r CustomerAPIGetMandateAuthRequest) (*GetMandateAuthResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2181,7 +2303,7 @@ func (a *CustomerApiService) GetMandateAuthExecute(r CustomerApiApiGetMandateAut
 		localVarReturnValue *GetMandateAuthResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetMandateAuth")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.GetMandateAuth")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2219,11 +2341,18 @@ func (a *CustomerApiService) GetMandateAuthExecute(r CustomerApiApiGetMandateAut
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2238,6 +2367,7 @@ func (a *CustomerApiService) GetMandateAuthExecute(r CustomerApiApiGetMandateAut
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2248,6 +2378,7 @@ func (a *CustomerApiService) GetMandateAuthExecute(r CustomerApiApiGetMandateAut
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2258,6 +2389,7 @@ func (a *CustomerApiService) GetMandateAuthExecute(r CustomerApiApiGetMandateAut
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2275,19 +2407,19 @@ func (a *CustomerApiService) GetMandateAuthExecute(r CustomerApiApiGetMandateAut
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiGetMandateAuthLinkRequest struct {
+type CustomerAPIGetMandateAuthLinkRequest struct {
 	ctx                       context.Context
-	ApiService                CustomerApi
+	ApiService                CustomerAPI
 	getMandateAuthLinkRequest *GetMandateAuthLinkRequest
 }
 
 // request body for mandate authorization link
-func (r CustomerApiApiGetMandateAuthLinkRequest) GetMandateAuthLinkRequest(getMandateAuthLinkRequest GetMandateAuthLinkRequest) CustomerApiApiGetMandateAuthLinkRequest {
+func (r CustomerAPIGetMandateAuthLinkRequest) GetMandateAuthLinkRequest(getMandateAuthLinkRequest GetMandateAuthLinkRequest) CustomerAPIGetMandateAuthLinkRequest {
 	r.getMandateAuthLinkRequest = &getMandateAuthLinkRequest
 	return r
 }
 
-func (r CustomerApiApiGetMandateAuthLinkRequest) Execute() (*GetMandateAuthLinkResponse, *http.Response, error) {
+func (r CustomerAPIGetMandateAuthLinkRequest) Execute() (*GetMandateAuthLinkResponse, *http.Response, error) {
 	return r.ApiService.GetMandateAuthLinkExecute(r)
 }
 
@@ -2297,10 +2429,10 @@ GetMandateAuthLink Method for GetMandateAuthLink
 Get link to launch FV Link UI in mandate authorization mode
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return CustomerApiApiGetMandateAuthLinkRequest
+ @return CustomerAPIGetMandateAuthLinkRequest
 */
-func (a *CustomerApiService) GetMandateAuthLink(ctx context.Context) CustomerApiApiGetMandateAuthLinkRequest {
-	return CustomerApiApiGetMandateAuthLinkRequest{
+func (a *CustomerAPIService) GetMandateAuthLink(ctx context.Context) CustomerAPIGetMandateAuthLinkRequest {
+	return CustomerAPIGetMandateAuthLinkRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2308,7 +2440,7 @@ func (a *CustomerApiService) GetMandateAuthLink(ctx context.Context) CustomerApi
 
 // Execute executes the request
 //  @return GetMandateAuthLinkResponse
-func (a *CustomerApiService) GetMandateAuthLinkExecute(r CustomerApiApiGetMandateAuthLinkRequest) (*GetMandateAuthLinkResponse, *http.Response, error) {
+func (a *CustomerAPIService) GetMandateAuthLinkExecute(r CustomerAPIGetMandateAuthLinkRequest) (*GetMandateAuthLinkResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -2316,7 +2448,7 @@ func (a *CustomerApiService) GetMandateAuthLinkExecute(r CustomerApiApiGetMandat
 		localVarReturnValue *GetMandateAuthLinkResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetMandateAuthLink")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.GetMandateAuthLink")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2359,11 +2491,18 @@ func (a *CustomerApiService) GetMandateAuthLinkExecute(r CustomerApiApiGetMandat
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2378,6 +2517,7 @@ func (a *CustomerApiService) GetMandateAuthLinkExecute(r CustomerApiApiGetMandat
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2388,6 +2528,7 @@ func (a *CustomerApiService) GetMandateAuthLinkExecute(r CustomerApiApiGetMandat
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2398,6 +2539,7 @@ func (a *CustomerApiService) GetMandateAuthLinkExecute(r CustomerApiApiGetMandat
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2415,13 +2557,13 @@ func (a *CustomerApiService) GetMandateAuthLinkExecute(r CustomerApiApiGetMandat
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiGetPaymentRequest struct {
+type CustomerAPIGetPaymentRequest struct {
 	ctx        context.Context
-	ApiService CustomerApi
+	ApiService CustomerAPI
 	paymentId  string
 }
 
-func (r CustomerApiApiGetPaymentRequest) Execute() (*PaymentResponse, *http.Response, error) {
+func (r CustomerAPIGetPaymentRequest) Execute() (*PaymentResponse, *http.Response, error) {
 	return r.ApiService.GetPaymentExecute(r)
 }
 
@@ -2432,10 +2574,10 @@ Get Payment details by payment_id
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param paymentId payment id
- @return CustomerApiApiGetPaymentRequest
+ @return CustomerAPIGetPaymentRequest
 */
-func (a *CustomerApiService) GetPayment(ctx context.Context, paymentId string) CustomerApiApiGetPaymentRequest {
-	return CustomerApiApiGetPaymentRequest{
+func (a *CustomerAPIService) GetPayment(ctx context.Context, paymentId string) CustomerAPIGetPaymentRequest {
+	return CustomerAPIGetPaymentRequest{
 		ApiService: a,
 		ctx:        ctx,
 		paymentId:  paymentId,
@@ -2444,7 +2586,7 @@ func (a *CustomerApiService) GetPayment(ctx context.Context, paymentId string) C
 
 // Execute executes the request
 //  @return PaymentResponse
-func (a *CustomerApiService) GetPaymentExecute(r CustomerApiApiGetPaymentRequest) (*PaymentResponse, *http.Response, error) {
+func (a *CustomerAPIService) GetPaymentExecute(r CustomerAPIGetPaymentRequest) (*PaymentResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2452,13 +2594,13 @@ func (a *CustomerApiService) GetPaymentExecute(r CustomerApiApiGetPaymentRequest
 		localVarReturnValue *PaymentResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetPayment")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.GetPayment")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/payments/{paymentId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"paymentId"+"}", url.PathEscape(parameterToString(r.paymentId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentId"+"}", url.PathEscape(parameterValueToString(r.paymentId, "paymentId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2491,11 +2633,18 @@ func (a *CustomerApiService) GetPaymentExecute(r CustomerApiApiGetPaymentRequest
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2510,6 +2659,7 @@ func (a *CustomerApiService) GetPaymentExecute(r CustomerApiApiGetPaymentRequest
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2520,6 +2670,7 @@ func (a *CustomerApiService) GetPaymentExecute(r CustomerApiApiGetPaymentRequest
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2530,6 +2681,7 @@ func (a *CustomerApiService) GetPaymentExecute(r CustomerApiApiGetPaymentRequest
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2547,13 +2699,13 @@ func (a *CustomerApiService) GetPaymentExecute(r CustomerApiApiGetPaymentRequest
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiGetPaymentInstructionRequest struct {
+type CustomerAPIGetPaymentInstructionRequest struct {
 	ctx                  context.Context
-	ApiService           CustomerApi
+	ApiService           CustomerAPI
 	paymentInstructionId string
 }
 
-func (r CustomerApiApiGetPaymentInstructionRequest) Execute() (*GetPaymentInstructionsResponse, *http.Response, error) {
+func (r CustomerAPIGetPaymentInstructionRequest) Execute() (*GetPaymentInstructionsResponse, *http.Response, error) {
 	return r.ApiService.GetPaymentInstructionExecute(r)
 }
 
@@ -2564,10 +2716,10 @@ Get payment instructions by payment_instruction_id
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param paymentInstructionId The id of a payment instruction
- @return CustomerApiApiGetPaymentInstructionRequest
+ @return CustomerAPIGetPaymentInstructionRequest
 */
-func (a *CustomerApiService) GetPaymentInstruction(ctx context.Context, paymentInstructionId string) CustomerApiApiGetPaymentInstructionRequest {
-	return CustomerApiApiGetPaymentInstructionRequest{
+func (a *CustomerAPIService) GetPaymentInstruction(ctx context.Context, paymentInstructionId string) CustomerAPIGetPaymentInstructionRequest {
+	return CustomerAPIGetPaymentInstructionRequest{
 		ApiService:           a,
 		ctx:                  ctx,
 		paymentInstructionId: paymentInstructionId,
@@ -2576,7 +2728,7 @@ func (a *CustomerApiService) GetPaymentInstruction(ctx context.Context, paymentI
 
 // Execute executes the request
 //  @return GetPaymentInstructionsResponse
-func (a *CustomerApiService) GetPaymentInstructionExecute(r CustomerApiApiGetPaymentInstructionRequest) (*GetPaymentInstructionsResponse, *http.Response, error) {
+func (a *CustomerAPIService) GetPaymentInstructionExecute(r CustomerAPIGetPaymentInstructionRequest) (*GetPaymentInstructionsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2584,13 +2736,13 @@ func (a *CustomerApiService) GetPaymentInstructionExecute(r CustomerApiApiGetPay
 		localVarReturnValue *GetPaymentInstructionsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetPaymentInstruction")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.GetPaymentInstruction")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/payments/instruction/{paymentInstructionId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"paymentInstructionId"+"}", url.PathEscape(parameterToString(r.paymentInstructionId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentInstructionId"+"}", url.PathEscape(parameterValueToString(r.paymentInstructionId, "paymentInstructionId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2623,11 +2775,18 @@ func (a *CustomerApiService) GetPaymentInstructionExecute(r CustomerApiApiGetPay
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2642,6 +2801,7 @@ func (a *CustomerApiService) GetPaymentInstructionExecute(r CustomerApiApiGetPay
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2652,6 +2812,7 @@ func (a *CustomerApiService) GetPaymentInstructionExecute(r CustomerApiApiGetPay
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2662,6 +2823,7 @@ func (a *CustomerApiService) GetPaymentInstructionExecute(r CustomerApiApiGetPay
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2679,13 +2841,13 @@ func (a *CustomerApiService) GetPaymentInstructionExecute(r CustomerApiApiGetPay
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiGetPaymentUserRequest struct {
+type CustomerAPIGetPaymentUserRequest struct {
 	ctx           context.Context
-	ApiService    CustomerApi
+	ApiService    CustomerAPI
 	paymentUserId string
 }
 
-func (r CustomerApiApiGetPaymentUserRequest) Execute() (*PaymentUser, *http.Response, error) {
+func (r CustomerAPIGetPaymentUserRequest) Execute() (*PaymentUser, *http.Response, error) {
 	return r.ApiService.GetPaymentUserExecute(r)
 }
 
@@ -2696,10 +2858,10 @@ Get a payment user
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param paymentUserId
- @return CustomerApiApiGetPaymentUserRequest
+ @return CustomerAPIGetPaymentUserRequest
 */
-func (a *CustomerApiService) GetPaymentUser(ctx context.Context, paymentUserId string) CustomerApiApiGetPaymentUserRequest {
-	return CustomerApiApiGetPaymentUserRequest{
+func (a *CustomerAPIService) GetPaymentUser(ctx context.Context, paymentUserId string) CustomerAPIGetPaymentUserRequest {
+	return CustomerAPIGetPaymentUserRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		paymentUserId: paymentUserId,
@@ -2708,7 +2870,7 @@ func (a *CustomerApiService) GetPaymentUser(ctx context.Context, paymentUserId s
 
 // Execute executes the request
 //  @return PaymentUser
-func (a *CustomerApiService) GetPaymentUserExecute(r CustomerApiApiGetPaymentUserRequest) (*PaymentUser, *http.Response, error) {
+func (a *CustomerAPIService) GetPaymentUserExecute(r CustomerAPIGetPaymentUserRequest) (*PaymentUser, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2716,13 +2878,13 @@ func (a *CustomerApiService) GetPaymentUserExecute(r CustomerApiApiGetPaymentUse
 		localVarReturnValue *PaymentUser
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.GetPaymentUser")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.GetPaymentUser")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/payment_users/{paymentUserId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"paymentUserId"+"}", url.PathEscape(parameterToString(r.paymentUserId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentUserId"+"}", url.PathEscape(parameterValueToString(r.paymentUserId, "paymentUserId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -2755,11 +2917,18 @@ func (a *CustomerApiService) GetPaymentUserExecute(r CustomerApiApiGetPaymentUse
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2774,6 +2943,7 @@ func (a *CustomerApiService) GetPaymentUserExecute(r CustomerApiApiGetPaymentUse
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2784,6 +2954,7 @@ func (a *CustomerApiService) GetPaymentUserExecute(r CustomerApiApiGetPaymentUse
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -2794,6 +2965,7 @@ func (a *CustomerApiService) GetPaymentUserExecute(r CustomerApiApiGetPaymentUse
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2811,9 +2983,9 @@ func (a *CustomerApiService) GetPaymentUserExecute(r CustomerApiApiGetPaymentUse
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiListInstitutionsRequest struct {
+type CustomerAPIListInstitutionsRequest struct {
 	ctx               context.Context
-	ApiService        CustomerApi
+	ApiService        CustomerAPI
 	country           *string
 	countries         *[]string
 	productsSupported *string
@@ -2821,30 +2993,30 @@ type CustomerApiApiListInstitutionsRequest struct {
 }
 
 // (Deprecated) The country the institution belongs to
-func (r CustomerApiApiListInstitutionsRequest) Country(country string) CustomerApiApiListInstitutionsRequest {
+func (r CustomerAPIListInstitutionsRequest) Country(country string) CustomerAPIListInstitutionsRequest {
 	r.country = &country
 	return r
 }
 
 // The countries the institution belongs to
-func (r CustomerApiApiListInstitutionsRequest) Countries(countries []string) CustomerApiApiListInstitutionsRequest {
+func (r CustomerAPIListInstitutionsRequest) Countries(countries []string) CustomerAPIListInstitutionsRequest {
 	r.countries = &countries
 	return r
 }
 
 // The products that this institution supports
-func (r CustomerApiApiListInstitutionsRequest) ProductsSupported(productsSupported string) CustomerApiApiListInstitutionsRequest {
+func (r CustomerAPIListInstitutionsRequest) ProductsSupported(productsSupported string) CustomerAPIListInstitutionsRequest {
 	r.productsSupported = &productsSupported
 	return r
 }
 
 // The type of institution
-func (r CustomerApiApiListInstitutionsRequest) InstitutionType(institutionType string) CustomerApiApiListInstitutionsRequest {
+func (r CustomerAPIListInstitutionsRequest) InstitutionType(institutionType string) CustomerAPIListInstitutionsRequest {
 	r.institutionType = &institutionType
 	return r
 }
 
-func (r CustomerApiApiListInstitutionsRequest) Execute() ([]Institution, *http.Response, error) {
+func (r CustomerAPIListInstitutionsRequest) Execute() ([]Institution, *http.Response, error) {
 	return r.ApiService.ListInstitutionsExecute(r)
 }
 
@@ -2854,10 +3026,10 @@ ListInstitutions Method for ListInstitutions
 Get a list of institutions
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return CustomerApiApiListInstitutionsRequest
+ @return CustomerAPIListInstitutionsRequest
 */
-func (a *CustomerApiService) ListInstitutions(ctx context.Context) CustomerApiApiListInstitutionsRequest {
-	return CustomerApiApiListInstitutionsRequest{
+func (a *CustomerAPIService) ListInstitutions(ctx context.Context) CustomerAPIListInstitutionsRequest {
+	return CustomerAPIListInstitutionsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -2865,7 +3037,7 @@ func (a *CustomerApiService) ListInstitutions(ctx context.Context) CustomerApiAp
 
 // Execute executes the request
 //  @return []Institution
-func (a *CustomerApiService) ListInstitutionsExecute(r CustomerApiApiListInstitutionsRequest) ([]Institution, *http.Response, error) {
+func (a *CustomerAPIService) ListInstitutionsExecute(r CustomerAPIListInstitutionsRequest) ([]Institution, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2873,7 +3045,7 @@ func (a *CustomerApiService) ListInstitutionsExecute(r CustomerApiApiListInstitu
 		localVarReturnValue []Institution
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.ListInstitutions")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.ListInstitutions")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -2885,16 +3057,16 @@ func (a *CustomerApiService) ListInstitutionsExecute(r CustomerApiApiListInstitu
 	localVarFormParams := url.Values{}
 
 	if r.country != nil {
-		localVarQueryParams.Add("country", parameterToString(*r.country, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "country", r.country, "", "")
 	}
 	if r.countries != nil {
-		localVarQueryParams.Add("countries", parameterToString(*r.countries, "csv"))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "countries", r.countries, "form", "csv")
 	}
 	if r.productsSupported != nil {
-		localVarQueryParams.Add("products_supported", parameterToString(*r.productsSupported, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "products_supported", r.productsSupported, "", "")
 	}
 	if r.institutionType != nil {
-		localVarQueryParams.Add("institution_type", parameterToString(*r.institutionType, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "institution_type", r.institutionType, "", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -2923,11 +3095,18 @@ func (a *CustomerApiService) ListInstitutionsExecute(r CustomerApiApiListInstitu
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -2942,6 +3121,7 @@ func (a *CustomerApiService) ListInstitutionsExecute(r CustomerApiApiListInstitu
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -2959,13 +3139,13 @@ func (a *CustomerApiService) ListInstitutionsExecute(r CustomerApiApiListInstitu
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiListPaymentAccountsRequest struct {
+type CustomerAPIListPaymentAccountsRequest struct {
 	ctx           context.Context
-	ApiService    CustomerApi
+	ApiService    CustomerAPI
 	paymentUserId string
 }
 
-func (r CustomerApiApiListPaymentAccountsRequest) Execute() (*ListPaymentAccountsResponse, *http.Response, error) {
+func (r CustomerAPIListPaymentAccountsRequest) Execute() (*ListPaymentAccountsResponse, *http.Response, error) {
 	return r.ApiService.ListPaymentAccountsExecute(r)
 }
 
@@ -2976,10 +3156,10 @@ Get payment account by user id
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param paymentUserId The payment user id
- @return CustomerApiApiListPaymentAccountsRequest
+ @return CustomerAPIListPaymentAccountsRequest
 */
-func (a *CustomerApiService) ListPaymentAccounts(ctx context.Context, paymentUserId string) CustomerApiApiListPaymentAccountsRequest {
-	return CustomerApiApiListPaymentAccountsRequest{
+func (a *CustomerAPIService) ListPaymentAccounts(ctx context.Context, paymentUserId string) CustomerAPIListPaymentAccountsRequest {
+	return CustomerAPIListPaymentAccountsRequest{
 		ApiService:    a,
 		ctx:           ctx,
 		paymentUserId: paymentUserId,
@@ -2988,7 +3168,7 @@ func (a *CustomerApiService) ListPaymentAccounts(ctx context.Context, paymentUse
 
 // Execute executes the request
 //  @return ListPaymentAccountsResponse
-func (a *CustomerApiService) ListPaymentAccountsExecute(r CustomerApiApiListPaymentAccountsRequest) (*ListPaymentAccountsResponse, *http.Response, error) {
+func (a *CustomerAPIService) ListPaymentAccountsExecute(r CustomerAPIListPaymentAccountsRequest) (*ListPaymentAccountsResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -2996,13 +3176,13 @@ func (a *CustomerApiService) ListPaymentAccountsExecute(r CustomerApiApiListPaym
 		localVarReturnValue *ListPaymentAccountsResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.ListPaymentAccounts")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.ListPaymentAccounts")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/payment_users/{paymentUserId}/payment_accounts"
-	localVarPath = strings.Replace(localVarPath, "{"+"paymentUserId"+"}", url.PathEscape(parameterToString(r.paymentUserId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentUserId"+"}", url.PathEscape(parameterValueToString(r.paymentUserId, "paymentUserId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3035,11 +3215,18 @@ func (a *CustomerApiService) ListPaymentAccountsExecute(r CustomerApiApiListPaym
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3054,6 +3241,7 @@ func (a *CustomerApiService) ListPaymentAccountsExecute(r CustomerApiApiListPaym
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3064,6 +3252,7 @@ func (a *CustomerApiService) ListPaymentAccountsExecute(r CustomerApiApiListPaym
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3074,6 +3263,7 @@ func (a *CustomerApiService) ListPaymentAccountsExecute(r CustomerApiApiListPaym
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -3091,19 +3281,19 @@ func (a *CustomerApiService) ListPaymentAccountsExecute(r CustomerApiApiListPaym
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiRefreshTokenRequest struct {
+type CustomerAPIRefreshTokenRequest struct {
 	ctx            context.Context
-	ApiService     CustomerApi
+	ApiService     CustomerAPI
 	refreshRequest *RefreshRequest
 }
 
 // The refresh token
-func (r CustomerApiApiRefreshTokenRequest) RefreshRequest(refreshRequest RefreshRequest) CustomerApiApiRefreshTokenRequest {
+func (r CustomerAPIRefreshTokenRequest) RefreshRequest(refreshRequest RefreshRequest) CustomerAPIRefreshTokenRequest {
 	r.refreshRequest = &refreshRequest
 	return r
 }
 
-func (r CustomerApiApiRefreshTokenRequest) Execute() (*AccessTokenResponse, *http.Response, error) {
+func (r CustomerAPIRefreshTokenRequest) Execute() (*AccessTokenResponse, *http.Response, error) {
 	return r.ApiService.RefreshTokenExecute(r)
 }
 
@@ -3113,10 +3303,10 @@ RefreshToken Method for RefreshToken
 Refresh an access token
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return CustomerApiApiRefreshTokenRequest
+ @return CustomerAPIRefreshTokenRequest
 */
-func (a *CustomerApiService) RefreshToken(ctx context.Context) CustomerApiApiRefreshTokenRequest {
-	return CustomerApiApiRefreshTokenRequest{
+func (a *CustomerAPIService) RefreshToken(ctx context.Context) CustomerAPIRefreshTokenRequest {
+	return CustomerAPIRefreshTokenRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -3124,7 +3314,7 @@ func (a *CustomerApiService) RefreshToken(ctx context.Context) CustomerApiApiRef
 
 // Execute executes the request
 //  @return AccessTokenResponse
-func (a *CustomerApiService) RefreshTokenExecute(r CustomerApiApiRefreshTokenRequest) (*AccessTokenResponse, *http.Response, error) {
+func (a *CustomerAPIService) RefreshTokenExecute(r CustomerAPIRefreshTokenRequest) (*AccessTokenResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3132,7 +3322,7 @@ func (a *CustomerApiService) RefreshTokenExecute(r CustomerApiApiRefreshTokenReq
 		localVarReturnValue *AccessTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.RefreshToken")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.RefreshToken")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -3175,11 +3365,18 @@ func (a *CustomerApiService) RefreshTokenExecute(r CustomerApiApiRefreshTokenReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3194,6 +3391,7 @@ func (a *CustomerApiService) RefreshTokenExecute(r CustomerApiApiRefreshTokenReq
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3204,6 +3402,7 @@ func (a *CustomerApiService) RefreshTokenExecute(r CustomerApiApiRefreshTokenReq
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -3221,19 +3420,19 @@ func (a *CustomerApiService) RefreshTokenExecute(r CustomerApiApiRefreshTokenReq
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiSetMandateInstitutionRequest struct {
+type CustomerAPISetMandateInstitutionRequest struct {
 	ctx           context.Context
-	ApiService    CustomerApi
+	ApiService    CustomerAPI
 	updateRequest *SetMandateInstitutionRequest
 }
 
 // request body for updating mandate institutionId and senderType
-func (r CustomerApiApiSetMandateInstitutionRequest) UpdateRequest(updateRequest SetMandateInstitutionRequest) CustomerApiApiSetMandateInstitutionRequest {
+func (r CustomerAPISetMandateInstitutionRequest) UpdateRequest(updateRequest SetMandateInstitutionRequest) CustomerAPISetMandateInstitutionRequest {
 	r.updateRequest = &updateRequest
 	return r
 }
 
-func (r CustomerApiApiSetMandateInstitutionRequest) Execute() (*SetMandateInstitutionResponse, *http.Response, error) {
+func (r CustomerAPISetMandateInstitutionRequest) Execute() (*SetMandateInstitutionResponse, *http.Response, error) {
 	return r.ApiService.SetMandateInstitutionExecute(r)
 }
 
@@ -3243,10 +3442,10 @@ SetMandateInstitution Method for SetMandateInstitution
 Update InstitutionID and SenderType for Mandate
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return CustomerApiApiSetMandateInstitutionRequest
+ @return CustomerAPISetMandateInstitutionRequest
 */
-func (a *CustomerApiService) SetMandateInstitution(ctx context.Context) CustomerApiApiSetMandateInstitutionRequest {
-	return CustomerApiApiSetMandateInstitutionRequest{
+func (a *CustomerAPIService) SetMandateInstitution(ctx context.Context) CustomerAPISetMandateInstitutionRequest {
+	return CustomerAPISetMandateInstitutionRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -3254,7 +3453,7 @@ func (a *CustomerApiService) SetMandateInstitution(ctx context.Context) Customer
 
 // Execute executes the request
 //  @return SetMandateInstitutionResponse
-func (a *CustomerApiService) SetMandateInstitutionExecute(r CustomerApiApiSetMandateInstitutionRequest) (*SetMandateInstitutionResponse, *http.Response, error) {
+func (a *CustomerAPIService) SetMandateInstitutionExecute(r CustomerAPISetMandateInstitutionRequest) (*SetMandateInstitutionResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3262,7 +3461,7 @@ func (a *CustomerApiService) SetMandateInstitutionExecute(r CustomerApiApiSetMan
 		localVarReturnValue *SetMandateInstitutionResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.SetMandateInstitution")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.SetMandateInstitution")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -3305,11 +3504,18 @@ func (a *CustomerApiService) SetMandateInstitutionExecute(r CustomerApiApiSetMan
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3324,6 +3530,7 @@ func (a *CustomerApiService) SetMandateInstitutionExecute(r CustomerApiApiSetMan
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3334,6 +3541,7 @@ func (a *CustomerApiService) SetMandateInstitutionExecute(r CustomerApiApiSetMan
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3344,6 +3552,7 @@ func (a *CustomerApiService) SetMandateInstitutionExecute(r CustomerApiApiSetMan
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -3361,19 +3570,19 @@ func (a *CustomerApiService) SetMandateInstitutionExecute(r CustomerApiApiSetMan
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiSubmitAuthChecklistRequest struct {
+type CustomerAPISubmitAuthChecklistRequest struct {
 	ctx                        context.Context
-	ApiService                 CustomerApi
+	ApiService                 CustomerAPI
 	submitAuthChecklistRequest *SubmitAuthChecklistRequest
 }
 
 // request body for submitting auth checklist
-func (r CustomerApiApiSubmitAuthChecklistRequest) SubmitAuthChecklistRequest(submitAuthChecklistRequest SubmitAuthChecklistRequest) CustomerApiApiSubmitAuthChecklistRequest {
+func (r CustomerAPISubmitAuthChecklistRequest) SubmitAuthChecklistRequest(submitAuthChecklistRequest SubmitAuthChecklistRequest) CustomerAPISubmitAuthChecklistRequest {
 	r.submitAuthChecklistRequest = &submitAuthChecklistRequest
 	return r
 }
 
-func (r CustomerApiApiSubmitAuthChecklistRequest) Execute() (*SubmitAuthChecklistResponse, *http.Response, error) {
+func (r CustomerAPISubmitAuthChecklistRequest) Execute() (*SubmitAuthChecklistResponse, *http.Response, error) {
 	return r.ApiService.SubmitAuthChecklistExecute(r)
 }
 
@@ -3383,10 +3592,10 @@ SubmitAuthChecklist Method for SubmitAuthChecklist
 Submit authorization checklist items
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return CustomerApiApiSubmitAuthChecklistRequest
+ @return CustomerAPISubmitAuthChecklistRequest
 */
-func (a *CustomerApiService) SubmitAuthChecklist(ctx context.Context) CustomerApiApiSubmitAuthChecklistRequest {
-	return CustomerApiApiSubmitAuthChecklistRequest{
+func (a *CustomerAPIService) SubmitAuthChecklist(ctx context.Context) CustomerAPISubmitAuthChecklistRequest {
+	return CustomerAPISubmitAuthChecklistRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -3394,7 +3603,7 @@ func (a *CustomerApiService) SubmitAuthChecklist(ctx context.Context) CustomerAp
 
 // Execute executes the request
 //  @return SubmitAuthChecklistResponse
-func (a *CustomerApiService) SubmitAuthChecklistExecute(r CustomerApiApiSubmitAuthChecklistRequest) (*SubmitAuthChecklistResponse, *http.Response, error) {
+func (a *CustomerAPIService) SubmitAuthChecklistExecute(r CustomerAPISubmitAuthChecklistRequest) (*SubmitAuthChecklistResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3402,7 +3611,7 @@ func (a *CustomerApiService) SubmitAuthChecklistExecute(r CustomerApiApiSubmitAu
 		localVarReturnValue *SubmitAuthChecklistResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.SubmitAuthChecklist")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.SubmitAuthChecklist")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -3445,11 +3654,18 @@ func (a *CustomerApiService) SubmitAuthChecklistExecute(r CustomerApiApiSubmitAu
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3464,6 +3680,7 @@ func (a *CustomerApiService) SubmitAuthChecklistExecute(r CustomerApiApiSubmitAu
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3474,6 +3691,7 @@ func (a *CustomerApiService) SubmitAuthChecklistExecute(r CustomerApiApiSubmitAu
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3484,6 +3702,7 @@ func (a *CustomerApiService) SubmitAuthChecklistExecute(r CustomerApiApiSubmitAu
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -3501,20 +3720,20 @@ func (a *CustomerApiService) SubmitAuthChecklistExecute(r CustomerApiApiSubmitAu
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiUpdatePaymentRequest struct {
+type CustomerAPIUpdatePaymentRequest struct {
 	ctx                  context.Context
-	ApiService           CustomerApi
+	ApiService           CustomerAPI
 	paymentId            string
 	updatePaymentRequest *UpdatePaymentRequest
 }
 
 // request body for updating payment
-func (r CustomerApiApiUpdatePaymentRequest) UpdatePaymentRequest(updatePaymentRequest UpdatePaymentRequest) CustomerApiApiUpdatePaymentRequest {
+func (r CustomerAPIUpdatePaymentRequest) UpdatePaymentRequest(updatePaymentRequest UpdatePaymentRequest) CustomerAPIUpdatePaymentRequest {
 	r.updatePaymentRequest = &updatePaymentRequest
 	return r
 }
 
-func (r CustomerApiApiUpdatePaymentRequest) Execute() (*PaymentResponse, *http.Response, error) {
+func (r CustomerAPIUpdatePaymentRequest) Execute() (*PaymentResponse, *http.Response, error) {
 	return r.ApiService.UpdatePaymentExecute(r)
 }
 
@@ -3525,10 +3744,10 @@ Update payment
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param paymentId payment id
- @return CustomerApiApiUpdatePaymentRequest
+ @return CustomerAPIUpdatePaymentRequest
 */
-func (a *CustomerApiService) UpdatePayment(ctx context.Context, paymentId string) CustomerApiApiUpdatePaymentRequest {
-	return CustomerApiApiUpdatePaymentRequest{
+func (a *CustomerAPIService) UpdatePayment(ctx context.Context, paymentId string) CustomerAPIUpdatePaymentRequest {
+	return CustomerAPIUpdatePaymentRequest{
 		ApiService: a,
 		ctx:        ctx,
 		paymentId:  paymentId,
@@ -3537,7 +3756,7 @@ func (a *CustomerApiService) UpdatePayment(ctx context.Context, paymentId string
 
 // Execute executes the request
 //  @return PaymentResponse
-func (a *CustomerApiService) UpdatePaymentExecute(r CustomerApiApiUpdatePaymentRequest) (*PaymentResponse, *http.Response, error) {
+func (a *CustomerAPIService) UpdatePaymentExecute(r CustomerAPIUpdatePaymentRequest) (*PaymentResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -3545,13 +3764,13 @@ func (a *CustomerApiService) UpdatePaymentExecute(r CustomerApiApiUpdatePaymentR
 		localVarReturnValue *PaymentResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.UpdatePayment")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.UpdatePayment")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/payments/{paymentId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"paymentId"+"}", url.PathEscape(parameterToString(r.paymentId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentId"+"}", url.PathEscape(parameterValueToString(r.paymentId, "paymentId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3589,11 +3808,18 @@ func (a *CustomerApiService) UpdatePaymentExecute(r CustomerApiApiUpdatePaymentR
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3608,6 +3834,7 @@ func (a *CustomerApiService) UpdatePaymentExecute(r CustomerApiApiUpdatePaymentR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3618,6 +3845,7 @@ func (a *CustomerApiService) UpdatePaymentExecute(r CustomerApiApiUpdatePaymentR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -3628,6 +3856,7 @@ func (a *CustomerApiService) UpdatePaymentExecute(r CustomerApiApiUpdatePaymentR
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -3645,20 +3874,20 @@ func (a *CustomerApiService) UpdatePaymentExecute(r CustomerApiApiUpdatePaymentR
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type CustomerApiApiUpdateTestPaymentStatusRequest struct {
+type CustomerAPIUpdateTestPaymentStatusRequest struct {
 	ctx           context.Context
-	ApiService    CustomerApi
+	ApiService    CustomerAPI
 	paymentId     string
 	paymentStatus *UpdateTestPaymentStatusRequest
 }
 
 // Request body for updating the test manual payment status
-func (r CustomerApiApiUpdateTestPaymentStatusRequest) PaymentStatus(paymentStatus UpdateTestPaymentStatusRequest) CustomerApiApiUpdateTestPaymentStatusRequest {
+func (r CustomerAPIUpdateTestPaymentStatusRequest) PaymentStatus(paymentStatus UpdateTestPaymentStatusRequest) CustomerAPIUpdateTestPaymentStatusRequest {
 	r.paymentStatus = &paymentStatus
 	return r
 }
 
-func (r CustomerApiApiUpdateTestPaymentStatusRequest) Execute() (*http.Response, error) {
+func (r CustomerAPIUpdateTestPaymentStatusRequest) Execute() (*http.Response, error) {
 	return r.ApiService.UpdateTestPaymentStatusExecute(r)
 }
 
@@ -3669,10 +3898,10 @@ Update the status of a test manual payment
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param paymentId The test payment ID
- @return CustomerApiApiUpdateTestPaymentStatusRequest
+ @return CustomerAPIUpdateTestPaymentStatusRequest
 */
-func (a *CustomerApiService) UpdateTestPaymentStatus(ctx context.Context, paymentId string) CustomerApiApiUpdateTestPaymentStatusRequest {
-	return CustomerApiApiUpdateTestPaymentStatusRequest{
+func (a *CustomerAPIService) UpdateTestPaymentStatus(ctx context.Context, paymentId string) CustomerAPIUpdateTestPaymentStatusRequest {
+	return CustomerAPIUpdateTestPaymentStatusRequest{
 		ApiService: a,
 		ctx:        ctx,
 		paymentId:  paymentId,
@@ -3680,20 +3909,20 @@ func (a *CustomerApiService) UpdateTestPaymentStatus(ctx context.Context, paymen
 }
 
 // Execute executes the request
-func (a *CustomerApiService) UpdateTestPaymentStatusExecute(r CustomerApiApiUpdateTestPaymentStatusRequest) (*http.Response, error) {
+func (a *CustomerAPIService) UpdateTestPaymentStatusExecute(r CustomerAPIUpdateTestPaymentStatusRequest) (*http.Response, error) {
 	var (
 		localVarHTTPMethod = http.MethodPost
 		localVarPostBody   interface{}
 		formFiles          []formFile
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerApiService.UpdateTestPaymentStatus")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.UpdateTestPaymentStatus")
 	if err != nil {
 		return nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/testing/payments/{paymentId}/status"
-	localVarPath = strings.Replace(localVarPath, "{"+"paymentId"+"}", url.PathEscape(parameterToString(r.paymentId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentId"+"}", url.PathEscape(parameterValueToString(r.paymentId, "paymentId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -3731,11 +3960,18 @@ func (a *CustomerApiService) UpdateTestPaymentStatusExecute(r CustomerApiApiUpda
 		return localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -3750,6 +3986,7 @@ func (a *CustomerApiService) UpdateTestPaymentStatusExecute(r CustomerApiApiUpda
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarHTTPResponse, newErr
 		}
@@ -3760,6 +3997,7 @@ func (a *CustomerApiService) UpdateTestPaymentStatusExecute(r CustomerApiApiUpda
 				newErr.error = err.Error()
 				return localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarHTTPResponse, newErr

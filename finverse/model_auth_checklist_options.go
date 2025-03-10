@@ -12,9 +12,14 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the AuthChecklistOptions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthChecklistOptions{}
 
 // AuthChecklistOptions struct for AuthChecklistOptions
 type AuthChecklistOptions struct {
@@ -27,6 +32,8 @@ type AuthChecklistOptions struct {
 	// Redirect to bank for authentication
 	RedirectUrl *string `json:"redirect_url,omitempty"`
 }
+
+type _AuthChecklistOptions AuthChecklistOptions
 
 // NewAuthChecklistOptions instantiates a new AuthChecklistOptions object
 // This constructor will assign default values to properties that have it defined,
@@ -72,7 +79,7 @@ func (o *AuthChecklistOptions) SetName(v string) {
 
 // GetSubmittedAt returns the SubmittedAt field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *AuthChecklistOptions) GetSubmittedAt() time.Time {
-	if o == nil || o.SubmittedAt.Get() == nil {
+	if o == nil || IsNil(o.SubmittedAt.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -115,7 +122,7 @@ func (o *AuthChecklistOptions) UnsetSubmittedAt() {
 
 // GetSubmittedBy returns the SubmittedBy field value if set, zero value otherwise.
 func (o *AuthChecklistOptions) GetSubmittedBy() string {
-	if o == nil || o.SubmittedBy == nil {
+	if o == nil || IsNil(o.SubmittedBy) {
 		var ret string
 		return ret
 	}
@@ -125,7 +132,7 @@ func (o *AuthChecklistOptions) GetSubmittedBy() string {
 // GetSubmittedByOk returns a tuple with the SubmittedBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthChecklistOptions) GetSubmittedByOk() (*string, bool) {
-	if o == nil || o.SubmittedBy == nil {
+	if o == nil || IsNil(o.SubmittedBy) {
 		return nil, false
 	}
 	return o.SubmittedBy, true
@@ -133,7 +140,7 @@ func (o *AuthChecklistOptions) GetSubmittedByOk() (*string, bool) {
 
 // HasSubmittedBy returns a boolean if a field has been set.
 func (o *AuthChecklistOptions) HasSubmittedBy() bool {
-	if o != nil && o.SubmittedBy != nil {
+	if o != nil && !IsNil(o.SubmittedBy) {
 		return true
 	}
 
@@ -147,7 +154,7 @@ func (o *AuthChecklistOptions) SetSubmittedBy(v string) {
 
 // GetRedirectUrl returns the RedirectUrl field value if set, zero value otherwise.
 func (o *AuthChecklistOptions) GetRedirectUrl() string {
-	if o == nil || o.RedirectUrl == nil {
+	if o == nil || IsNil(o.RedirectUrl) {
 		var ret string
 		return ret
 	}
@@ -157,7 +164,7 @@ func (o *AuthChecklistOptions) GetRedirectUrl() string {
 // GetRedirectUrlOk returns a tuple with the RedirectUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthChecklistOptions) GetRedirectUrlOk() (*string, bool) {
-	if o == nil || o.RedirectUrl == nil {
+	if o == nil || IsNil(o.RedirectUrl) {
 		return nil, false
 	}
 	return o.RedirectUrl, true
@@ -165,7 +172,7 @@ func (o *AuthChecklistOptions) GetRedirectUrlOk() (*string, bool) {
 
 // HasRedirectUrl returns a boolean if a field has been set.
 func (o *AuthChecklistOptions) HasRedirectUrl() bool {
-	if o != nil && o.RedirectUrl != nil {
+	if o != nil && !IsNil(o.RedirectUrl) {
 		return true
 	}
 
@@ -178,20 +185,63 @@ func (o *AuthChecklistOptions) SetRedirectUrl(v string) {
 }
 
 func (o AuthChecklistOptions) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
+	return json.Marshal(toSerialize)
+}
+
+func (o AuthChecklistOptions) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
 	if o.SubmittedAt.IsSet() {
 		toSerialize["submitted_at"] = o.SubmittedAt.Get()
 	}
-	if o.SubmittedBy != nil {
+	if !IsNil(o.SubmittedBy) {
 		toSerialize["submitted_by"] = o.SubmittedBy
 	}
-	if o.RedirectUrl != nil {
+	if !IsNil(o.RedirectUrl) {
 		toSerialize["redirect_url"] = o.RedirectUrl
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
+}
+
+func (o *AuthChecklistOptions) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAuthChecklistOptions := _AuthChecklistOptions{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAuthChecklistOptions)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AuthChecklistOptions(varAuthChecklistOptions)
+
+	return err
 }
 
 type NullableAuthChecklistOptions struct {

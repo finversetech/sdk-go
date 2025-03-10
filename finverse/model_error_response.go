@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ErrorResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ErrorResponse{}
+
 // ErrorResponse struct for ErrorResponse
 type ErrorResponse struct {
 	Err            *string  `json:"err,omitempty"`
@@ -45,7 +48,7 @@ func NewErrorResponseWithDefaults() *ErrorResponse {
 
 // GetErr returns the Err field value if set, zero value otherwise.
 func (o *ErrorResponse) GetErr() string {
-	if o == nil || o.Err == nil {
+	if o == nil || IsNil(o.Err) {
 		var ret string
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *ErrorResponse) GetErr() string {
 // GetErrOk returns a tuple with the Err field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorResponse) GetErrOk() (*string, bool) {
-	if o == nil || o.Err == nil {
+	if o == nil || IsNil(o.Err) {
 		return nil, false
 	}
 	return o.Err, true
@@ -63,7 +66,7 @@ func (o *ErrorResponse) GetErrOk() (*string, bool) {
 
 // HasErr returns a boolean if a field has been set.
 func (o *ErrorResponse) HasErr() bool {
-	if o != nil && o.Err != nil {
+	if o != nil && !IsNil(o.Err) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *ErrorResponse) SetErr(v string) {
 
 // GetHttpStatusCode returns the HttpStatusCode field value if set, zero value otherwise.
 func (o *ErrorResponse) GetHttpStatusCode() float32 {
-	if o == nil || o.HttpStatusCode == nil {
+	if o == nil || IsNil(o.HttpStatusCode) {
 		var ret float32
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *ErrorResponse) GetHttpStatusCode() float32 {
 // GetHttpStatusCodeOk returns a tuple with the HttpStatusCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorResponse) GetHttpStatusCodeOk() (*float32, bool) {
-	if o == nil || o.HttpStatusCode == nil {
+	if o == nil || IsNil(o.HttpStatusCode) {
 		return nil, false
 	}
 	return o.HttpStatusCode, true
@@ -95,7 +98,7 @@ func (o *ErrorResponse) GetHttpStatusCodeOk() (*float32, bool) {
 
 // HasHttpStatusCode returns a boolean if a field has been set.
 func (o *ErrorResponse) HasHttpStatusCode() bool {
-	if o != nil && o.HttpStatusCode != nil {
+	if o != nil && !IsNil(o.HttpStatusCode) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *ErrorResponse) SetHttpStatusCode(v float32) {
 
 // GetStatusText returns the StatusText field value if set, zero value otherwise.
 func (o *ErrorResponse) GetStatusText() string {
-	if o == nil || o.StatusText == nil {
+	if o == nil || IsNil(o.StatusText) {
 		var ret string
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *ErrorResponse) GetStatusText() string {
 // GetStatusTextOk returns a tuple with the StatusText field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorResponse) GetStatusTextOk() (*string, bool) {
-	if o == nil || o.StatusText == nil {
+	if o == nil || IsNil(o.StatusText) {
 		return nil, false
 	}
 	return o.StatusText, true
@@ -127,7 +130,7 @@ func (o *ErrorResponse) GetStatusTextOk() (*string, bool) {
 
 // HasStatusText returns a boolean if a field has been set.
 func (o *ErrorResponse) HasStatusText() bool {
-	if o != nil && o.StatusText != nil {
+	if o != nil && !IsNil(o.StatusText) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *ErrorResponse) SetStatusText(v string) {
 
 // GetAppCode returns the AppCode field value if set, zero value otherwise.
 func (o *ErrorResponse) GetAppCode() float32 {
-	if o == nil || o.AppCode == nil {
+	if o == nil || IsNil(o.AppCode) {
 		var ret float32
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *ErrorResponse) GetAppCode() float32 {
 // GetAppCodeOk returns a tuple with the AppCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorResponse) GetAppCodeOk() (*float32, bool) {
-	if o == nil || o.AppCode == nil {
+	if o == nil || IsNil(o.AppCode) {
 		return nil, false
 	}
 	return o.AppCode, true
@@ -159,7 +162,7 @@ func (o *ErrorResponse) GetAppCodeOk() (*float32, bool) {
 
 // HasAppCode returns a boolean if a field has been set.
 func (o *ErrorResponse) HasAppCode() bool {
-	if o != nil && o.AppCode != nil {
+	if o != nil && !IsNil(o.AppCode) {
 		return true
 	}
 
@@ -173,7 +176,7 @@ func (o *ErrorResponse) SetAppCode(v float32) {
 
 // GetErrorCategory returns the ErrorCategory field value if set, zero value otherwise.
 func (o *ErrorResponse) GetErrorCategory() string {
-	if o == nil || o.ErrorCategory == nil {
+	if o == nil || IsNil(o.ErrorCategory) {
 		var ret string
 		return ret
 	}
@@ -183,7 +186,7 @@ func (o *ErrorResponse) GetErrorCategory() string {
 // GetErrorCategoryOk returns a tuple with the ErrorCategory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorResponse) GetErrorCategoryOk() (*string, bool) {
-	if o == nil || o.ErrorCategory == nil {
+	if o == nil || IsNil(o.ErrorCategory) {
 		return nil, false
 	}
 	return o.ErrorCategory, true
@@ -191,7 +194,7 @@ func (o *ErrorResponse) GetErrorCategoryOk() (*string, bool) {
 
 // HasErrorCategory returns a boolean if a field has been set.
 func (o *ErrorResponse) HasErrorCategory() bool {
-	if o != nil && o.ErrorCategory != nil {
+	if o != nil && !IsNil(o.ErrorCategory) {
 		return true
 	}
 
@@ -205,7 +208,7 @@ func (o *ErrorResponse) SetErrorCategory(v string) {
 
 // GetErrorText returns the ErrorText field value if set, zero value otherwise.
 func (o *ErrorResponse) GetErrorText() string {
-	if o == nil || o.ErrorText == nil {
+	if o == nil || IsNil(o.ErrorText) {
 		var ret string
 		return ret
 	}
@@ -215,7 +218,7 @@ func (o *ErrorResponse) GetErrorText() string {
 // GetErrorTextOk returns a tuple with the ErrorText field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorResponse) GetErrorTextOk() (*string, bool) {
-	if o == nil || o.ErrorText == nil {
+	if o == nil || IsNil(o.ErrorText) {
 		return nil, false
 	}
 	return o.ErrorText, true
@@ -223,7 +226,7 @@ func (o *ErrorResponse) GetErrorTextOk() (*string, bool) {
 
 // HasErrorText returns a boolean if a field has been set.
 func (o *ErrorResponse) HasErrorText() bool {
-	if o != nil && o.ErrorText != nil {
+	if o != nil && !IsNil(o.ErrorText) {
 		return true
 	}
 
@@ -237,7 +240,7 @@ func (o *ErrorResponse) SetErrorText(v string) {
 
 // GetRequestId returns the RequestId field value if set, zero value otherwise.
 func (o *ErrorResponse) GetRequestId() string {
-	if o == nil || o.RequestId == nil {
+	if o == nil || IsNil(o.RequestId) {
 		var ret string
 		return ret
 	}
@@ -247,7 +250,7 @@ func (o *ErrorResponse) GetRequestId() string {
 // GetRequestIdOk returns a tuple with the RequestId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ErrorResponse) GetRequestIdOk() (*string, bool) {
-	if o == nil || o.RequestId == nil {
+	if o == nil || IsNil(o.RequestId) {
 		return nil, false
 	}
 	return o.RequestId, true
@@ -255,7 +258,7 @@ func (o *ErrorResponse) GetRequestIdOk() (*string, bool) {
 
 // HasRequestId returns a boolean if a field has been set.
 func (o *ErrorResponse) HasRequestId() bool {
-	if o != nil && o.RequestId != nil {
+	if o != nil && !IsNil(o.RequestId) {
 		return true
 	}
 
@@ -268,29 +271,37 @@ func (o *ErrorResponse) SetRequestId(v string) {
 }
 
 func (o ErrorResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Err != nil {
-		toSerialize["err"] = o.Err
-	}
-	if o.HttpStatusCode != nil {
-		toSerialize["http_status_code"] = o.HttpStatusCode
-	}
-	if o.StatusText != nil {
-		toSerialize["status_text"] = o.StatusText
-	}
-	if o.AppCode != nil {
-		toSerialize["app_code"] = o.AppCode
-	}
-	if o.ErrorCategory != nil {
-		toSerialize["error_category"] = o.ErrorCategory
-	}
-	if o.ErrorText != nil {
-		toSerialize["error_text"] = o.ErrorText
-	}
-	if o.RequestId != nil {
-		toSerialize["request_id"] = o.RequestId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ErrorResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Err) {
+		toSerialize["err"] = o.Err
+	}
+	if !IsNil(o.HttpStatusCode) {
+		toSerialize["http_status_code"] = o.HttpStatusCode
+	}
+	if !IsNil(o.StatusText) {
+		toSerialize["status_text"] = o.StatusText
+	}
+	if !IsNil(o.AppCode) {
+		toSerialize["app_code"] = o.AppCode
+	}
+	if !IsNil(o.ErrorCategory) {
+		toSerialize["error_category"] = o.ErrorCategory
+	}
+	if !IsNil(o.ErrorText) {
+		toSerialize["error_text"] = o.ErrorText
+	}
+	if !IsNil(o.RequestId) {
+		toSerialize["request_id"] = o.RequestId
+	}
+	return toSerialize, nil
 }
 
 type NullableErrorResponse struct {

@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the LoginIdentityStatusDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LoginIdentityStatusDetails{}
+
 // LoginIdentityStatusDetails struct for LoginIdentityStatusDetails
 type LoginIdentityStatusDetails struct {
 	EventDate *time.Time `json:"event_date,omitempty"`
@@ -41,7 +44,7 @@ func NewLoginIdentityStatusDetailsWithDefaults() *LoginIdentityStatusDetails {
 
 // GetEventDate returns the EventDate field value if set, zero value otherwise.
 func (o *LoginIdentityStatusDetails) GetEventDate() time.Time {
-	if o == nil || o.EventDate == nil {
+	if o == nil || IsNil(o.EventDate) {
 		var ret time.Time
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *LoginIdentityStatusDetails) GetEventDate() time.Time {
 // GetEventDateOk returns a tuple with the EventDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LoginIdentityStatusDetails) GetEventDateOk() (*time.Time, bool) {
-	if o == nil || o.EventDate == nil {
+	if o == nil || IsNil(o.EventDate) {
 		return nil, false
 	}
 	return o.EventDate, true
@@ -59,7 +62,7 @@ func (o *LoginIdentityStatusDetails) GetEventDateOk() (*time.Time, bool) {
 
 // HasEventDate returns a boolean if a field has been set.
 func (o *LoginIdentityStatusDetails) HasEventDate() bool {
-	if o != nil && o.EventDate != nil {
+	if o != nil && !IsNil(o.EventDate) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *LoginIdentityStatusDetails) SetEventDate(v time.Time) {
 
 // GetEventName returns the EventName field value if set, zero value otherwise.
 func (o *LoginIdentityStatusDetails) GetEventName() string {
-	if o == nil || o.EventName == nil {
+	if o == nil || IsNil(o.EventName) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *LoginIdentityStatusDetails) GetEventName() string {
 // GetEventNameOk returns a tuple with the EventName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LoginIdentityStatusDetails) GetEventNameOk() (*string, bool) {
-	if o == nil || o.EventName == nil {
+	if o == nil || IsNil(o.EventName) {
 		return nil, false
 	}
 	return o.EventName, true
@@ -91,7 +94,7 @@ func (o *LoginIdentityStatusDetails) GetEventNameOk() (*string, bool) {
 
 // HasEventName returns a boolean if a field has been set.
 func (o *LoginIdentityStatusDetails) HasEventName() bool {
-	if o != nil && o.EventName != nil {
+	if o != nil && !IsNil(o.EventName) {
 		return true
 	}
 
@@ -104,14 +107,22 @@ func (o *LoginIdentityStatusDetails) SetEventName(v string) {
 }
 
 func (o LoginIdentityStatusDetails) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.EventDate != nil {
-		toSerialize["event_date"] = o.EventDate
-	}
-	if o.EventName != nil {
-		toSerialize["event_name"] = o.EventName
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o LoginIdentityStatusDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.EventDate) {
+		toSerialize["event_date"] = o.EventDate
+	}
+	if !IsNil(o.EventName) {
+		toSerialize["event_name"] = o.EventName
+	}
+	return toSerialize, nil
 }
 
 type NullableLoginIdentityStatusDetails struct {

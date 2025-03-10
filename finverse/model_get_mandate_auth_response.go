@@ -12,9 +12,14 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the GetMandateAuthResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetMandateAuthResponse{}
 
 // GetMandateAuthResponse struct for GetMandateAuthResponse
 type GetMandateAuthResponse struct {
@@ -37,6 +42,8 @@ type GetMandateAuthResponse struct {
 	MandateDetails *MandateDetailsResponse `json:"mandate_details,omitempty"`
 	Recipient      *MandateRecipient       `json:"recipient,omitempty"`
 }
+
+type _GetMandateAuthResponse GetMandateAuthResponse
 
 // NewGetMandateAuthResponse instantiates a new GetMandateAuthResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +167,7 @@ func (o *GetMandateAuthResponse) SetInstitutionId(v string) {
 
 // GetSenderType returns the SenderType field value if set, zero value otherwise.
 func (o *GetMandateAuthResponse) GetSenderType() string {
-	if o == nil || o.SenderType == nil {
+	if o == nil || IsNil(o.SenderType) {
 		var ret string
 		return ret
 	}
@@ -170,7 +177,7 @@ func (o *GetMandateAuthResponse) GetSenderType() string {
 // GetSenderTypeOk returns a tuple with the SenderType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetMandateAuthResponse) GetSenderTypeOk() (*string, bool) {
-	if o == nil || o.SenderType == nil {
+	if o == nil || IsNil(o.SenderType) {
 		return nil, false
 	}
 	return o.SenderType, true
@@ -178,7 +185,7 @@ func (o *GetMandateAuthResponse) GetSenderTypeOk() (*string, bool) {
 
 // HasSenderType returns a boolean if a field has been set.
 func (o *GetMandateAuthResponse) HasSenderType() bool {
-	if o != nil && o.SenderType != nil {
+	if o != nil && !IsNil(o.SenderType) {
 		return true
 	}
 
@@ -264,7 +271,7 @@ func (o *GetMandateAuthResponse) SetLastUpdate(v time.Time) {
 
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *GetMandateAuthResponse) GetError() FvEmbeddedErrorModel {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		var ret FvEmbeddedErrorModel
 		return ret
 	}
@@ -274,7 +281,7 @@ func (o *GetMandateAuthResponse) GetError() FvEmbeddedErrorModel {
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetMandateAuthResponse) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
 	return o.Error, true
@@ -282,7 +289,7 @@ func (o *GetMandateAuthResponse) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
 
 // HasError returns a boolean if a field has been set.
 func (o *GetMandateAuthResponse) HasError() bool {
-	if o != nil && o.Error != nil {
+	if o != nil && !IsNil(o.Error) {
 		return true
 	}
 
@@ -296,7 +303,7 @@ func (o *GetMandateAuthResponse) SetError(v FvEmbeddedErrorModel) {
 
 // GetMandateDetails returns the MandateDetails field value if set, zero value otherwise.
 func (o *GetMandateAuthResponse) GetMandateDetails() MandateDetailsResponse {
-	if o == nil || o.MandateDetails == nil {
+	if o == nil || IsNil(o.MandateDetails) {
 		var ret MandateDetailsResponse
 		return ret
 	}
@@ -306,7 +313,7 @@ func (o *GetMandateAuthResponse) GetMandateDetails() MandateDetailsResponse {
 // GetMandateDetailsOk returns a tuple with the MandateDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetMandateAuthResponse) GetMandateDetailsOk() (*MandateDetailsResponse, bool) {
-	if o == nil || o.MandateDetails == nil {
+	if o == nil || IsNil(o.MandateDetails) {
 		return nil, false
 	}
 	return o.MandateDetails, true
@@ -314,7 +321,7 @@ func (o *GetMandateAuthResponse) GetMandateDetailsOk() (*MandateDetailsResponse,
 
 // HasMandateDetails returns a boolean if a field has been set.
 func (o *GetMandateAuthResponse) HasMandateDetails() bool {
-	if o != nil && o.MandateDetails != nil {
+	if o != nil && !IsNil(o.MandateDetails) {
 		return true
 	}
 
@@ -328,7 +335,7 @@ func (o *GetMandateAuthResponse) SetMandateDetails(v MandateDetailsResponse) {
 
 // GetRecipient returns the Recipient field value if set, zero value otherwise.
 func (o *GetMandateAuthResponse) GetRecipient() MandateRecipient {
-	if o == nil || o.Recipient == nil {
+	if o == nil || IsNil(o.Recipient) {
 		var ret MandateRecipient
 		return ret
 	}
@@ -338,7 +345,7 @@ func (o *GetMandateAuthResponse) GetRecipient() MandateRecipient {
 // GetRecipientOk returns a tuple with the Recipient field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetMandateAuthResponse) GetRecipientOk() (*MandateRecipient, bool) {
-	if o == nil || o.Recipient == nil {
+	if o == nil || IsNil(o.Recipient) {
 		return nil, false
 	}
 	return o.Recipient, true
@@ -346,7 +353,7 @@ func (o *GetMandateAuthResponse) GetRecipientOk() (*MandateRecipient, bool) {
 
 // HasRecipient returns a boolean if a field has been set.
 func (o *GetMandateAuthResponse) HasRecipient() bool {
-	if o != nil && o.Recipient != nil {
+	if o != nil && !IsNil(o.Recipient) {
 		return true
 	}
 
@@ -359,41 +366,78 @@ func (o *GetMandateAuthResponse) SetRecipient(v MandateRecipient) {
 }
 
 func (o GetMandateAuthResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["mandate_id"] = o.MandateId
-	}
-	if true {
-		toSerialize["mandate_status"] = o.MandateStatus
-	}
-	if true {
-		toSerialize["recipient_account_id"] = o.RecipientAccountId
-	}
-	if true {
-		toSerialize["institution_id"] = o.InstitutionId
-	}
-	if o.SenderType != nil {
-		toSerialize["sender_type"] = o.SenderType
-	}
-	if true {
-		toSerialize["auth_checklist"] = o.AuthChecklist
-	}
-	if true {
-		toSerialize["encryption_info"] = o.EncryptionInfo
-	}
-	if true {
-		toSerialize["last_update"] = o.LastUpdate
-	}
-	if o.Error != nil {
-		toSerialize["error"] = o.Error
-	}
-	if o.MandateDetails != nil {
-		toSerialize["mandate_details"] = o.MandateDetails
-	}
-	if o.Recipient != nil {
-		toSerialize["recipient"] = o.Recipient
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GetMandateAuthResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["mandate_id"] = o.MandateId
+	toSerialize["mandate_status"] = o.MandateStatus
+	toSerialize["recipient_account_id"] = o.RecipientAccountId
+	toSerialize["institution_id"] = o.InstitutionId
+	if !IsNil(o.SenderType) {
+		toSerialize["sender_type"] = o.SenderType
+	}
+	toSerialize["auth_checklist"] = o.AuthChecklist
+	toSerialize["encryption_info"] = o.EncryptionInfo
+	toSerialize["last_update"] = o.LastUpdate
+	if !IsNil(o.Error) {
+		toSerialize["error"] = o.Error
+	}
+	if !IsNil(o.MandateDetails) {
+		toSerialize["mandate_details"] = o.MandateDetails
+	}
+	if !IsNil(o.Recipient) {
+		toSerialize["recipient"] = o.Recipient
+	}
+	return toSerialize, nil
+}
+
+func (o *GetMandateAuthResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"mandate_id",
+		"mandate_status",
+		"recipient_account_id",
+		"institution_id",
+		"auth_checklist",
+		"encryption_info",
+		"last_update",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGetMandateAuthResponse := _GetMandateAuthResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varGetMandateAuthResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetMandateAuthResponse(varGetMandateAuthResponse)
+
+	return err
 }
 
 type NullableGetMandateAuthResponse struct {

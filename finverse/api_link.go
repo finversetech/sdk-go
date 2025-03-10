@@ -14,166 +14,161 @@ package finverse
 import (
 	"bytes"
 	"context"
-	"io/ioutil"
+	"io"
 	"net/http"
 	"net/url"
 	"strings"
 )
 
-// Linger please
-var (
-	_ context.Context
-)
-
-type LinkApi interface {
+type LinkAPI interface {
 
 	/*
 		CreateLink Method for CreateLink
 
 		Create a new link and submit credentials
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return LinkApiApiCreateLinkRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return LinkAPICreateLinkRequest
 	*/
-	CreateLink(ctx context.Context) LinkApiApiCreateLinkRequest
+	CreateLink(ctx context.Context) LinkAPICreateLinkRequest
 
 	// CreateLinkExecute executes the request
 	//  @return GetLoginIdentityByIdResponse
-	CreateLinkExecute(r LinkApiApiCreateLinkRequest) (*GetLoginIdentityByIdResponse, *http.Response, error)
+	CreateLinkExecute(r LinkAPICreateLinkRequest) (*GetLoginIdentityByIdResponse, *http.Response, error)
 
 	/*
 		CreateLinkWoauth Method for CreateLinkWoauth
 
 		Creates a new link
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return LinkApiApiCreateLinkWoauthRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return LinkAPICreateLinkWoauthRequest
 	*/
-	CreateLinkWoauth(ctx context.Context) LinkApiApiCreateLinkWoauthRequest
+	CreateLinkWoauth(ctx context.Context) LinkAPICreateLinkWoauthRequest
 
 	// CreateLinkWoauthExecute executes the request
 	//  @return LinkResponse
-	CreateLinkWoauthExecute(r LinkApiApiCreateLinkWoauthRequest) (*LinkResponse, *http.Response, error)
+	CreateLinkWoauthExecute(r LinkAPICreateLinkWoauthRequest) (*LinkResponse, *http.Response, error)
 
 	/*
 		LinkAction Method for LinkAction
 
 		Post the user action value
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param loginIdentityId The login identity id
-		 @return LinkApiApiLinkActionRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param loginIdentityId The login identity id
+		@return LinkAPILinkActionRequest
 	*/
-	LinkAction(ctx context.Context, loginIdentityId string) LinkApiApiLinkActionRequest
+	LinkAction(ctx context.Context, loginIdentityId string) LinkAPILinkActionRequest
 
 	// LinkActionExecute executes the request
 	//  @return GetLoginIdentityByIdResponse
-	LinkActionExecute(r LinkApiApiLinkActionRequest) (*GetLoginIdentityByIdResponse, *http.Response, error)
+	LinkActionExecute(r LinkAPILinkActionRequest) (*GetLoginIdentityByIdResponse, *http.Response, error)
 
 	/*
 		LinkStatus Method for LinkStatus
 
 		Check the status of a given loginIdentity
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param loginIdentityId The login identity id
-		 @return LinkApiApiLinkStatusRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param loginIdentityId The login identity id
+		@return LinkAPILinkStatusRequest
 	*/
-	LinkStatus(ctx context.Context, loginIdentityId string) LinkApiApiLinkStatusRequest
+	LinkStatus(ctx context.Context, loginIdentityId string) LinkAPILinkStatusRequest
 
 	// LinkStatusExecute executes the request
 	//  @return LinkStatusResponse
-	LinkStatusExecute(r LinkApiApiLinkStatusRequest) (*LinkStatusResponse, *http.Response, error)
+	LinkStatusExecute(r LinkAPILinkStatusRequest) (*LinkStatusResponse, *http.Response, error)
 
 	/*
 		LinkStatusNonSensitive Method for LinkStatusNonSensitive
 
 		Check the status of a given login identity via FVLink
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param loginIdentityId The login identity id
-		 @return LinkApiApiLinkStatusNonSensitiveRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param loginIdentityId The login identity id
+		@return LinkAPILinkStatusNonSensitiveRequest
 	*/
-	LinkStatusNonSensitive(ctx context.Context, loginIdentityId string) LinkApiApiLinkStatusNonSensitiveRequest
+	LinkStatusNonSensitive(ctx context.Context, loginIdentityId string) LinkAPILinkStatusNonSensitiveRequest
 
 	// LinkStatusNonSensitiveExecute executes the request
 	//  @return NonSensitiveLinkStatusResponse
-	LinkStatusNonSensitiveExecute(r LinkApiApiLinkStatusNonSensitiveRequest) (*NonSensitiveLinkStatusResponse, *http.Response, error)
+	LinkStatusNonSensitiveExecute(r LinkAPILinkStatusNonSensitiveRequest) (*NonSensitiveLinkStatusResponse, *http.Response, error)
 
 	/*
 		ListInstitutions Method for ListInstitutions
 
 		Get a list of institutions
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return LinkApiApiListInstitutionsRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return LinkAPIListInstitutionsRequest
 	*/
-	ListInstitutions(ctx context.Context) LinkApiApiListInstitutionsRequest
+	ListInstitutions(ctx context.Context) LinkAPIListInstitutionsRequest
 
 	// ListInstitutionsExecute executes the request
 	//  @return []Institution
-	ListInstitutionsExecute(r LinkApiApiListInstitutionsRequest) ([]Institution, *http.Response, error)
+	ListInstitutionsExecute(r LinkAPIListInstitutionsRequest) ([]Institution, *http.Response, error)
 
 	/*
 		Relink Method for Relink
 
 		Update an existing link
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return LinkApiApiRelinkRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return LinkAPIRelinkRequest
 	*/
-	Relink(ctx context.Context) LinkApiApiRelinkRequest
+	Relink(ctx context.Context) LinkAPIRelinkRequest
 
 	// RelinkExecute executes the request
 	//  @return LinkResponse
-	RelinkExecute(r LinkApiApiRelinkRequest) (*LinkResponse, *http.Response, error)
+	RelinkExecute(r LinkAPIRelinkRequest) (*LinkResponse, *http.Response, error)
 
 	/*
 		RelinkV2 Method for RelinkV2
 
 		Create a new link using an existing LIID
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @param loginIdentityId The login identity id
-		 @return LinkApiApiRelinkV2Request
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param loginIdentityId The login identity id
+		@return LinkAPIRelinkV2Request
 	*/
-	RelinkV2(ctx context.Context, loginIdentityId string) LinkApiApiRelinkV2Request
+	RelinkV2(ctx context.Context, loginIdentityId string) LinkAPIRelinkV2Request
 
 	// RelinkV2Execute executes the request
 	//  @return GetLoginIdentityByIdResponse
-	RelinkV2Execute(r LinkApiApiRelinkV2Request) (*GetLoginIdentityByIdResponse, *http.Response, error)
+	RelinkV2Execute(r LinkAPIRelinkV2Request) (*GetLoginIdentityByIdResponse, *http.Response, error)
 
 	/*
 		Token Method for Token
 
 		Exchange authorization code for token
 
-		 @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		 @return LinkApiApiTokenRequest
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return LinkAPITokenRequest
 	*/
-	Token(ctx context.Context) LinkApiApiTokenRequest
+	Token(ctx context.Context) LinkAPITokenRequest
 
 	// TokenExecute executes the request
 	//  @return AccessTokenResponse
-	TokenExecute(r LinkApiApiTokenRequest) (*AccessTokenResponse, *http.Response, error)
+	TokenExecute(r LinkAPITokenRequest) (*AccessTokenResponse, *http.Response, error)
 }
 
-// LinkApiService LinkApi service
-type LinkApiService service
+// LinkAPIService LinkAPI service
+type LinkAPIService service
 
-type LinkApiApiCreateLinkRequest struct {
+type LinkAPICreateLinkRequest struct {
 	ctx            context.Context
-	ApiService     LinkApi
+	ApiService     LinkAPI
 	apiLinkRequest *ApiLinkRequest
 }
 
 // Request body for creating a new link and submitting credentials
-func (r LinkApiApiCreateLinkRequest) ApiLinkRequest(apiLinkRequest ApiLinkRequest) LinkApiApiCreateLinkRequest {
+func (r LinkAPICreateLinkRequest) ApiLinkRequest(apiLinkRequest ApiLinkRequest) LinkAPICreateLinkRequest {
 	r.apiLinkRequest = &apiLinkRequest
 	return r
 }
 
-func (r LinkApiApiCreateLinkRequest) Execute() (*GetLoginIdentityByIdResponse, *http.Response, error) {
+func (r LinkAPICreateLinkRequest) Execute() (*GetLoginIdentityByIdResponse, *http.Response, error) {
 	return r.ApiService.CreateLinkExecute(r)
 }
 
@@ -183,10 +178,10 @@ CreateLink Method for CreateLink
 Create a new link and submit credentials
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return LinkApiApiCreateLinkRequest
+ @return LinkAPICreateLinkRequest
 */
-func (a *LinkApiService) CreateLink(ctx context.Context) LinkApiApiCreateLinkRequest {
-	return LinkApiApiCreateLinkRequest{
+func (a *LinkAPIService) CreateLink(ctx context.Context) LinkAPICreateLinkRequest {
+	return LinkAPICreateLinkRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -194,7 +189,7 @@ func (a *LinkApiService) CreateLink(ctx context.Context) LinkApiApiCreateLinkReq
 
 // Execute executes the request
 //  @return GetLoginIdentityByIdResponse
-func (a *LinkApiService) CreateLinkExecute(r LinkApiApiCreateLinkRequest) (*GetLoginIdentityByIdResponse, *http.Response, error) {
+func (a *LinkAPIService) CreateLinkExecute(r LinkAPICreateLinkRequest) (*GetLoginIdentityByIdResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -202,7 +197,7 @@ func (a *LinkApiService) CreateLinkExecute(r LinkApiApiCreateLinkRequest) (*GetL
 		localVarReturnValue *GetLoginIdentityByIdResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkApiService.CreateLink")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkAPIService.CreateLink")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -245,11 +240,18 @@ func (a *LinkApiService) CreateLinkExecute(r LinkApiApiCreateLinkRequest) (*GetL
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -264,6 +266,7 @@ func (a *LinkApiService) CreateLinkExecute(r LinkApiApiCreateLinkRequest) (*GetL
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -274,6 +277,7 @@ func (a *LinkApiService) CreateLinkExecute(r LinkApiApiCreateLinkRequest) (*GetL
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -291,19 +295,19 @@ func (a *LinkApiService) CreateLinkExecute(r LinkApiApiCreateLinkRequest) (*GetL
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LinkApiApiCreateLinkWoauthRequest struct {
+type LinkAPICreateLinkWoauthRequest struct {
 	ctx         context.Context
-	ApiService  LinkApi
+	ApiService  LinkAPI
 	linkRequest *LinkRequest
 }
 
 // Request body for starting a new Link
-func (r LinkApiApiCreateLinkWoauthRequest) LinkRequest(linkRequest LinkRequest) LinkApiApiCreateLinkWoauthRequest {
+func (r LinkAPICreateLinkWoauthRequest) LinkRequest(linkRequest LinkRequest) LinkAPICreateLinkWoauthRequest {
 	r.linkRequest = &linkRequest
 	return r
 }
 
-func (r LinkApiApiCreateLinkWoauthRequest) Execute() (*LinkResponse, *http.Response, error) {
+func (r LinkAPICreateLinkWoauthRequest) Execute() (*LinkResponse, *http.Response, error) {
 	return r.ApiService.CreateLinkWoauthExecute(r)
 }
 
@@ -313,10 +317,10 @@ CreateLinkWoauth Method for CreateLinkWoauth
 Creates a new link
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return LinkApiApiCreateLinkWoauthRequest
+ @return LinkAPICreateLinkWoauthRequest
 */
-func (a *LinkApiService) CreateLinkWoauth(ctx context.Context) LinkApiApiCreateLinkWoauthRequest {
-	return LinkApiApiCreateLinkWoauthRequest{
+func (a *LinkAPIService) CreateLinkWoauth(ctx context.Context) LinkAPICreateLinkWoauthRequest {
+	return LinkAPICreateLinkWoauthRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -324,7 +328,7 @@ func (a *LinkApiService) CreateLinkWoauth(ctx context.Context) LinkApiApiCreateL
 
 // Execute executes the request
 //  @return LinkResponse
-func (a *LinkApiService) CreateLinkWoauthExecute(r LinkApiApiCreateLinkWoauthRequest) (*LinkResponse, *http.Response, error) {
+func (a *LinkAPIService) CreateLinkWoauthExecute(r LinkAPICreateLinkWoauthRequest) (*LinkResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -332,7 +336,7 @@ func (a *LinkApiService) CreateLinkWoauthExecute(r LinkApiApiCreateLinkWoauthReq
 		localVarReturnValue *LinkResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkApiService.CreateLinkWoauth")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkAPIService.CreateLinkWoauth")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -375,11 +379,18 @@ func (a *LinkApiService) CreateLinkWoauthExecute(r LinkApiApiCreateLinkWoauthReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -394,6 +405,7 @@ func (a *LinkApiService) CreateLinkWoauthExecute(r LinkApiApiCreateLinkWoauthReq
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -404,6 +416,7 @@ func (a *LinkApiService) CreateLinkWoauthExecute(r LinkApiApiCreateLinkWoauthReq
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -414,6 +427,7 @@ func (a *LinkApiService) CreateLinkWoauthExecute(r LinkApiApiCreateLinkWoauthReq
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -431,20 +445,20 @@ func (a *LinkApiService) CreateLinkWoauthExecute(r LinkApiApiCreateLinkWoauthReq
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LinkApiApiLinkActionRequest struct {
+type LinkAPILinkActionRequest struct {
 	ctx             context.Context
-	ApiService      LinkApi
+	ApiService      LinkAPI
 	loginIdentityId string
 	actionRequest   *ActionRequest
 }
 
 // Request body for post link action
-func (r LinkApiApiLinkActionRequest) ActionRequest(actionRequest ActionRequest) LinkApiApiLinkActionRequest {
+func (r LinkAPILinkActionRequest) ActionRequest(actionRequest ActionRequest) LinkAPILinkActionRequest {
 	r.actionRequest = &actionRequest
 	return r
 }
 
-func (r LinkApiApiLinkActionRequest) Execute() (*GetLoginIdentityByIdResponse, *http.Response, error) {
+func (r LinkAPILinkActionRequest) Execute() (*GetLoginIdentityByIdResponse, *http.Response, error) {
 	return r.ApiService.LinkActionExecute(r)
 }
 
@@ -455,10 +469,10 @@ Post the user action value
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param loginIdentityId The login identity id
- @return LinkApiApiLinkActionRequest
+ @return LinkAPILinkActionRequest
 */
-func (a *LinkApiService) LinkAction(ctx context.Context, loginIdentityId string) LinkApiApiLinkActionRequest {
-	return LinkApiApiLinkActionRequest{
+func (a *LinkAPIService) LinkAction(ctx context.Context, loginIdentityId string) LinkAPILinkActionRequest {
+	return LinkAPILinkActionRequest{
 		ApiService:      a,
 		ctx:             ctx,
 		loginIdentityId: loginIdentityId,
@@ -467,7 +481,7 @@ func (a *LinkApiService) LinkAction(ctx context.Context, loginIdentityId string)
 
 // Execute executes the request
 //  @return GetLoginIdentityByIdResponse
-func (a *LinkApiService) LinkActionExecute(r LinkApiApiLinkActionRequest) (*GetLoginIdentityByIdResponse, *http.Response, error) {
+func (a *LinkAPIService) LinkActionExecute(r LinkAPILinkActionRequest) (*GetLoginIdentityByIdResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -475,13 +489,13 @@ func (a *LinkApiService) LinkActionExecute(r LinkApiApiLinkActionRequest) (*GetL
 		localVarReturnValue *GetLoginIdentityByIdResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkApiService.LinkAction")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkAPIService.LinkAction")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/link/action/{loginIdentityId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"loginIdentityId"+"}", url.PathEscape(parameterToString(r.loginIdentityId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"loginIdentityId"+"}", url.PathEscape(parameterValueToString(r.loginIdentityId, "loginIdentityId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -519,11 +533,18 @@ func (a *LinkApiService) LinkActionExecute(r LinkApiApiLinkActionRequest) (*GetL
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -538,6 +559,7 @@ func (a *LinkApiService) LinkActionExecute(r LinkApiApiLinkActionRequest) (*GetL
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -548,6 +570,7 @@ func (a *LinkApiService) LinkActionExecute(r LinkApiApiLinkActionRequest) (*GetL
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -565,13 +588,13 @@ func (a *LinkApiService) LinkActionExecute(r LinkApiApiLinkActionRequest) (*GetL
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LinkApiApiLinkStatusRequest struct {
+type LinkAPILinkStatusRequest struct {
 	ctx             context.Context
-	ApiService      LinkApi
+	ApiService      LinkAPI
 	loginIdentityId string
 }
 
-func (r LinkApiApiLinkStatusRequest) Execute() (*LinkStatusResponse, *http.Response, error) {
+func (r LinkAPILinkStatusRequest) Execute() (*LinkStatusResponse, *http.Response, error) {
 	return r.ApiService.LinkStatusExecute(r)
 }
 
@@ -582,10 +605,10 @@ Check the status of a given loginIdentity
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param loginIdentityId The login identity id
- @return LinkApiApiLinkStatusRequest
+ @return LinkAPILinkStatusRequest
 */
-func (a *LinkApiService) LinkStatus(ctx context.Context, loginIdentityId string) LinkApiApiLinkStatusRequest {
-	return LinkApiApiLinkStatusRequest{
+func (a *LinkAPIService) LinkStatus(ctx context.Context, loginIdentityId string) LinkAPILinkStatusRequest {
+	return LinkAPILinkStatusRequest{
 		ApiService:      a,
 		ctx:             ctx,
 		loginIdentityId: loginIdentityId,
@@ -594,7 +617,7 @@ func (a *LinkApiService) LinkStatus(ctx context.Context, loginIdentityId string)
 
 // Execute executes the request
 //  @return LinkStatusResponse
-func (a *LinkApiService) LinkStatusExecute(r LinkApiApiLinkStatusRequest) (*LinkStatusResponse, *http.Response, error) {
+func (a *LinkAPIService) LinkStatusExecute(r LinkAPILinkStatusRequest) (*LinkStatusResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -602,13 +625,13 @@ func (a *LinkApiService) LinkStatusExecute(r LinkApiApiLinkStatusRequest) (*Link
 		localVarReturnValue *LinkStatusResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkApiService.LinkStatus")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkAPIService.LinkStatus")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/link/status/{loginIdentityId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"loginIdentityId"+"}", url.PathEscape(parameterToString(r.loginIdentityId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"loginIdentityId"+"}", url.PathEscape(parameterValueToString(r.loginIdentityId, "loginIdentityId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -641,11 +664,18 @@ func (a *LinkApiService) LinkStatusExecute(r LinkApiApiLinkStatusRequest) (*Link
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -660,6 +690,7 @@ func (a *LinkApiService) LinkStatusExecute(r LinkApiApiLinkStatusRequest) (*Link
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -670,6 +701,7 @@ func (a *LinkApiService) LinkStatusExecute(r LinkApiApiLinkStatusRequest) (*Link
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -687,13 +719,13 @@ func (a *LinkApiService) LinkStatusExecute(r LinkApiApiLinkStatusRequest) (*Link
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LinkApiApiLinkStatusNonSensitiveRequest struct {
+type LinkAPILinkStatusNonSensitiveRequest struct {
 	ctx             context.Context
-	ApiService      LinkApi
+	ApiService      LinkAPI
 	loginIdentityId string
 }
 
-func (r LinkApiApiLinkStatusNonSensitiveRequest) Execute() (*NonSensitiveLinkStatusResponse, *http.Response, error) {
+func (r LinkAPILinkStatusNonSensitiveRequest) Execute() (*NonSensitiveLinkStatusResponse, *http.Response, error) {
 	return r.ApiService.LinkStatusNonSensitiveExecute(r)
 }
 
@@ -704,10 +736,10 @@ Check the status of a given login identity via FVLink
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param loginIdentityId The login identity id
- @return LinkApiApiLinkStatusNonSensitiveRequest
+ @return LinkAPILinkStatusNonSensitiveRequest
 */
-func (a *LinkApiService) LinkStatusNonSensitive(ctx context.Context, loginIdentityId string) LinkApiApiLinkStatusNonSensitiveRequest {
-	return LinkApiApiLinkStatusNonSensitiveRequest{
+func (a *LinkAPIService) LinkStatusNonSensitive(ctx context.Context, loginIdentityId string) LinkAPILinkStatusNonSensitiveRequest {
+	return LinkAPILinkStatusNonSensitiveRequest{
 		ApiService:      a,
 		ctx:             ctx,
 		loginIdentityId: loginIdentityId,
@@ -716,7 +748,7 @@ func (a *LinkApiService) LinkStatusNonSensitive(ctx context.Context, loginIdenti
 
 // Execute executes the request
 //  @return NonSensitiveLinkStatusResponse
-func (a *LinkApiService) LinkStatusNonSensitiveExecute(r LinkApiApiLinkStatusNonSensitiveRequest) (*NonSensitiveLinkStatusResponse, *http.Response, error) {
+func (a *LinkAPIService) LinkStatusNonSensitiveExecute(r LinkAPILinkStatusNonSensitiveRequest) (*NonSensitiveLinkStatusResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -724,13 +756,13 @@ func (a *LinkApiService) LinkStatusNonSensitiveExecute(r LinkApiApiLinkStatusNon
 		localVarReturnValue *NonSensitiveLinkStatusResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkApiService.LinkStatusNonSensitive")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkAPIService.LinkStatusNonSensitive")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/link/fvlink/status/{loginIdentityId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"loginIdentityId"+"}", url.PathEscape(parameterToString(r.loginIdentityId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"loginIdentityId"+"}", url.PathEscape(parameterValueToString(r.loginIdentityId, "loginIdentityId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -763,11 +795,18 @@ func (a *LinkApiService) LinkStatusNonSensitiveExecute(r LinkApiApiLinkStatusNon
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -782,6 +821,7 @@ func (a *LinkApiService) LinkStatusNonSensitiveExecute(r LinkApiApiLinkStatusNon
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -792,6 +832,7 @@ func (a *LinkApiService) LinkStatusNonSensitiveExecute(r LinkApiApiLinkStatusNon
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -809,9 +850,9 @@ func (a *LinkApiService) LinkStatusNonSensitiveExecute(r LinkApiApiLinkStatusNon
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LinkApiApiListInstitutionsRequest struct {
+type LinkAPIListInstitutionsRequest struct {
 	ctx               context.Context
-	ApiService        LinkApi
+	ApiService        LinkAPI
 	country           *string
 	countries         *[]string
 	productsSupported *string
@@ -819,30 +860,30 @@ type LinkApiApiListInstitutionsRequest struct {
 }
 
 // (Deprecated) The country the institution belongs to
-func (r LinkApiApiListInstitutionsRequest) Country(country string) LinkApiApiListInstitutionsRequest {
+func (r LinkAPIListInstitutionsRequest) Country(country string) LinkAPIListInstitutionsRequest {
 	r.country = &country
 	return r
 }
 
 // The countries the institution belongs to
-func (r LinkApiApiListInstitutionsRequest) Countries(countries []string) LinkApiApiListInstitutionsRequest {
+func (r LinkAPIListInstitutionsRequest) Countries(countries []string) LinkAPIListInstitutionsRequest {
 	r.countries = &countries
 	return r
 }
 
 // The products that this institution supports
-func (r LinkApiApiListInstitutionsRequest) ProductsSupported(productsSupported string) LinkApiApiListInstitutionsRequest {
+func (r LinkAPIListInstitutionsRequest) ProductsSupported(productsSupported string) LinkAPIListInstitutionsRequest {
 	r.productsSupported = &productsSupported
 	return r
 }
 
 // The type of institution
-func (r LinkApiApiListInstitutionsRequest) InstitutionType(institutionType string) LinkApiApiListInstitutionsRequest {
+func (r LinkAPIListInstitutionsRequest) InstitutionType(institutionType string) LinkAPIListInstitutionsRequest {
 	r.institutionType = &institutionType
 	return r
 }
 
-func (r LinkApiApiListInstitutionsRequest) Execute() ([]Institution, *http.Response, error) {
+func (r LinkAPIListInstitutionsRequest) Execute() ([]Institution, *http.Response, error) {
 	return r.ApiService.ListInstitutionsExecute(r)
 }
 
@@ -852,10 +893,10 @@ ListInstitutions Method for ListInstitutions
 Get a list of institutions
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return LinkApiApiListInstitutionsRequest
+ @return LinkAPIListInstitutionsRequest
 */
-func (a *LinkApiService) ListInstitutions(ctx context.Context) LinkApiApiListInstitutionsRequest {
-	return LinkApiApiListInstitutionsRequest{
+func (a *LinkAPIService) ListInstitutions(ctx context.Context) LinkAPIListInstitutionsRequest {
+	return LinkAPIListInstitutionsRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -863,7 +904,7 @@ func (a *LinkApiService) ListInstitutions(ctx context.Context) LinkApiApiListIns
 
 // Execute executes the request
 //  @return []Institution
-func (a *LinkApiService) ListInstitutionsExecute(r LinkApiApiListInstitutionsRequest) ([]Institution, *http.Response, error) {
+func (a *LinkAPIService) ListInstitutionsExecute(r LinkAPIListInstitutionsRequest) ([]Institution, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodGet
 		localVarPostBody    interface{}
@@ -871,7 +912,7 @@ func (a *LinkApiService) ListInstitutionsExecute(r LinkApiApiListInstitutionsReq
 		localVarReturnValue []Institution
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkApiService.ListInstitutions")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkAPIService.ListInstitutions")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -883,16 +924,16 @@ func (a *LinkApiService) ListInstitutionsExecute(r LinkApiApiListInstitutionsReq
 	localVarFormParams := url.Values{}
 
 	if r.country != nil {
-		localVarQueryParams.Add("country", parameterToString(*r.country, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "country", r.country, "", "")
 	}
 	if r.countries != nil {
-		localVarQueryParams.Add("countries", parameterToString(*r.countries, "csv"))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "countries", r.countries, "form", "csv")
 	}
 	if r.productsSupported != nil {
-		localVarQueryParams.Add("products_supported", parameterToString(*r.productsSupported, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "products_supported", r.productsSupported, "", "")
 	}
 	if r.institutionType != nil {
-		localVarQueryParams.Add("institution_type", parameterToString(*r.institutionType, ""))
+		parameterAddToHeaderOrQuery(localVarQueryParams, "institution_type", r.institutionType, "", "")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
@@ -921,11 +962,18 @@ func (a *LinkApiService) ListInstitutionsExecute(r LinkApiApiListInstitutionsReq
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -940,6 +988,7 @@ func (a *LinkApiService) ListInstitutionsExecute(r LinkApiApiListInstitutionsReq
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -957,19 +1006,19 @@ func (a *LinkApiService) ListInstitutionsExecute(r LinkApiApiListInstitutionsReq
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LinkApiApiRelinkRequest struct {
+type LinkAPIRelinkRequest struct {
 	ctx           context.Context
-	ApiService    LinkApi
+	ApiService    LinkAPI
 	relinkRequest *RelinkRequest
 }
 
 // Request body for updating Link
-func (r LinkApiApiRelinkRequest) RelinkRequest(relinkRequest RelinkRequest) LinkApiApiRelinkRequest {
+func (r LinkAPIRelinkRequest) RelinkRequest(relinkRequest RelinkRequest) LinkAPIRelinkRequest {
 	r.relinkRequest = &relinkRequest
 	return r
 }
 
-func (r LinkApiApiRelinkRequest) Execute() (*LinkResponse, *http.Response, error) {
+func (r LinkAPIRelinkRequest) Execute() (*LinkResponse, *http.Response, error) {
 	return r.ApiService.RelinkExecute(r)
 }
 
@@ -979,10 +1028,10 @@ Relink Method for Relink
 Update an existing link
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return LinkApiApiRelinkRequest
+ @return LinkAPIRelinkRequest
 */
-func (a *LinkApiService) Relink(ctx context.Context) LinkApiApiRelinkRequest {
-	return LinkApiApiRelinkRequest{
+func (a *LinkAPIService) Relink(ctx context.Context) LinkAPIRelinkRequest {
+	return LinkAPIRelinkRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -990,7 +1039,7 @@ func (a *LinkApiService) Relink(ctx context.Context) LinkApiApiRelinkRequest {
 
 // Execute executes the request
 //  @return LinkResponse
-func (a *LinkApiService) RelinkExecute(r LinkApiApiRelinkRequest) (*LinkResponse, *http.Response, error) {
+func (a *LinkAPIService) RelinkExecute(r LinkAPIRelinkRequest) (*LinkResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -998,7 +1047,7 @@ func (a *LinkApiService) RelinkExecute(r LinkApiApiRelinkRequest) (*LinkResponse
 		localVarReturnValue *LinkResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkApiService.Relink")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkAPIService.Relink")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1041,11 +1090,18 @@ func (a *LinkApiService) RelinkExecute(r LinkApiApiRelinkRequest) (*LinkResponse
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1060,6 +1116,7 @@ func (a *LinkApiService) RelinkExecute(r LinkApiApiRelinkRequest) (*LinkResponse
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1070,6 +1127,7 @@ func (a *LinkApiService) RelinkExecute(r LinkApiApiRelinkRequest) (*LinkResponse
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1080,6 +1138,7 @@ func (a *LinkApiService) RelinkExecute(r LinkApiApiRelinkRequest) (*LinkResponse
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1097,20 +1156,20 @@ func (a *LinkApiService) RelinkExecute(r LinkApiApiRelinkRequest) (*LinkResponse
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LinkApiApiRelinkV2Request struct {
+type LinkAPIRelinkV2Request struct {
 	ctx              context.Context
-	ApiService       LinkApi
+	ApiService       LinkAPI
 	loginIdentityId  string
 	apiRelinkRequest *ApiRelinkRequest
 }
 
 // Request body for relinking and submitting credentials
-func (r LinkApiApiRelinkV2Request) ApiRelinkRequest(apiRelinkRequest ApiRelinkRequest) LinkApiApiRelinkV2Request {
+func (r LinkAPIRelinkV2Request) ApiRelinkRequest(apiRelinkRequest ApiRelinkRequest) LinkAPIRelinkV2Request {
 	r.apiRelinkRequest = &apiRelinkRequest
 	return r
 }
 
-func (r LinkApiApiRelinkV2Request) Execute() (*GetLoginIdentityByIdResponse, *http.Response, error) {
+func (r LinkAPIRelinkV2Request) Execute() (*GetLoginIdentityByIdResponse, *http.Response, error) {
 	return r.ApiService.RelinkV2Execute(r)
 }
 
@@ -1121,10 +1180,10 @@ Create a new link using an existing LIID
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
  @param loginIdentityId The login identity id
- @return LinkApiApiRelinkV2Request
+ @return LinkAPIRelinkV2Request
 */
-func (a *LinkApiService) RelinkV2(ctx context.Context, loginIdentityId string) LinkApiApiRelinkV2Request {
-	return LinkApiApiRelinkV2Request{
+func (a *LinkAPIService) RelinkV2(ctx context.Context, loginIdentityId string) LinkAPIRelinkV2Request {
+	return LinkAPIRelinkV2Request{
 		ApiService:      a,
 		ctx:             ctx,
 		loginIdentityId: loginIdentityId,
@@ -1133,7 +1192,7 @@ func (a *LinkApiService) RelinkV2(ctx context.Context, loginIdentityId string) L
 
 // Execute executes the request
 //  @return GetLoginIdentityByIdResponse
-func (a *LinkApiService) RelinkV2Execute(r LinkApiApiRelinkV2Request) (*GetLoginIdentityByIdResponse, *http.Response, error) {
+func (a *LinkAPIService) RelinkV2Execute(r LinkAPIRelinkV2Request) (*GetLoginIdentityByIdResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1141,13 +1200,13 @@ func (a *LinkApiService) RelinkV2Execute(r LinkApiApiRelinkV2Request) (*GetLogin
 		localVarReturnValue *GetLoginIdentityByIdResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkApiService.RelinkV2")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkAPIService.RelinkV2")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
 
 	localVarPath := localBasePath + "/link/relink/{loginIdentityId}"
-	localVarPath = strings.Replace(localVarPath, "{"+"loginIdentityId"+"}", url.PathEscape(parameterToString(r.loginIdentityId, "")), -1)
+	localVarPath = strings.Replace(localVarPath, "{"+"loginIdentityId"+"}", url.PathEscape(parameterValueToString(r.loginIdentityId, "loginIdentityId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
@@ -1185,11 +1244,18 @@ func (a *LinkApiService) RelinkV2Execute(r LinkApiApiRelinkV2Request) (*GetLogin
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1204,6 +1270,7 @@ func (a *LinkApiService) RelinkV2Execute(r LinkApiApiRelinkV2Request) (*GetLogin
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1214,6 +1281,7 @@ func (a *LinkApiService) RelinkV2Execute(r LinkApiApiRelinkV2Request) (*GetLogin
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr
@@ -1231,33 +1299,36 @@ func (a *LinkApiService) RelinkV2Execute(r LinkApiApiRelinkV2Request) (*GetLogin
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
-type LinkApiApiTokenRequest struct {
+type LinkAPITokenRequest struct {
 	ctx         context.Context
-	ApiService  LinkApi
+	ApiService  LinkAPI
 	grantType   *string
 	code        *string
 	clientId    *string
 	redirectUri *string
 }
 
-func (r LinkApiApiTokenRequest) GrantType(grantType string) LinkApiApiTokenRequest {
+func (r LinkAPITokenRequest) GrantType(grantType string) LinkAPITokenRequest {
 	r.grantType = &grantType
 	return r
 }
-func (r LinkApiApiTokenRequest) Code(code string) LinkApiApiTokenRequest {
+
+func (r LinkAPITokenRequest) Code(code string) LinkAPITokenRequest {
 	r.code = &code
 	return r
 }
-func (r LinkApiApiTokenRequest) ClientId(clientId string) LinkApiApiTokenRequest {
+
+func (r LinkAPITokenRequest) ClientId(clientId string) LinkAPITokenRequest {
 	r.clientId = &clientId
 	return r
 }
-func (r LinkApiApiTokenRequest) RedirectUri(redirectUri string) LinkApiApiTokenRequest {
+
+func (r LinkAPITokenRequest) RedirectUri(redirectUri string) LinkAPITokenRequest {
 	r.redirectUri = &redirectUri
 	return r
 }
 
-func (r LinkApiApiTokenRequest) Execute() (*AccessTokenResponse, *http.Response, error) {
+func (r LinkAPITokenRequest) Execute() (*AccessTokenResponse, *http.Response, error) {
 	return r.ApiService.TokenExecute(r)
 }
 
@@ -1267,10 +1338,10 @@ Token Method for Token
 Exchange authorization code for token
 
  @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return LinkApiApiTokenRequest
+ @return LinkAPITokenRequest
 */
-func (a *LinkApiService) Token(ctx context.Context) LinkApiApiTokenRequest {
-	return LinkApiApiTokenRequest{
+func (a *LinkAPIService) Token(ctx context.Context) LinkAPITokenRequest {
+	return LinkAPITokenRequest{
 		ApiService: a,
 		ctx:        ctx,
 	}
@@ -1278,7 +1349,7 @@ func (a *LinkApiService) Token(ctx context.Context) LinkApiApiTokenRequest {
 
 // Execute executes the request
 //  @return AccessTokenResponse
-func (a *LinkApiService) TokenExecute(r LinkApiApiTokenRequest) (*AccessTokenResponse, *http.Response, error) {
+func (a *LinkAPIService) TokenExecute(r LinkAPITokenRequest) (*AccessTokenResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
@@ -1286,7 +1357,7 @@ func (a *LinkApiService) TokenExecute(r LinkApiApiTokenRequest) (*AccessTokenRes
 		localVarReturnValue *AccessTokenResponse
 	)
 
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkApiService.Token")
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LinkAPIService.Token")
 	if err != nil {
 		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
 	}
@@ -1326,10 +1397,10 @@ func (a *LinkApiService) TokenExecute(r LinkApiApiTokenRequest) (*AccessTokenRes
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
-	localVarFormParams.Add("grant_type", parameterToString(*r.grantType, ""))
-	localVarFormParams.Add("code", parameterToString(*r.code, ""))
-	localVarFormParams.Add("client_id", parameterToString(*r.clientId, ""))
-	localVarFormParams.Add("redirect_uri", parameterToString(*r.redirectUri, ""))
+	parameterAddToHeaderOrQuery(localVarFormParams, "grant_type", r.grantType, "", "")
+	parameterAddToHeaderOrQuery(localVarFormParams, "code", r.code, "", "")
+	parameterAddToHeaderOrQuery(localVarFormParams, "client_id", r.clientId, "", "")
+	parameterAddToHeaderOrQuery(localVarFormParams, "redirect_uri", r.redirectUri, "", "")
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err
@@ -1340,11 +1411,18 @@ func (a *LinkApiService) TokenExecute(r LinkApiApiTokenRequest) (*AccessTokenRes
 		return localVarReturnValue, localVarHTTPResponse, err
 	}
 
-	localVarBody, err := ioutil.ReadAll(localVarHTTPResponse.Body)
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
 	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = ioutil.NopCloser(bytes.NewBuffer(localVarBody))
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
 	if err != nil {
 		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
 	}
 
 	if localVarHTTPResponse.StatusCode >= 300 {
@@ -1359,6 +1437,7 @@ func (a *LinkApiService) TokenExecute(r LinkApiApiTokenRequest) (*AccessTokenRes
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
@@ -1369,6 +1448,7 @@ func (a *LinkApiService) TokenExecute(r LinkApiApiTokenRequest) (*AccessTokenRes
 				newErr.error = err.Error()
 				return localVarReturnValue, localVarHTTPResponse, newErr
 			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
 			newErr.model = v
 		}
 		return localVarReturnValue, localVarHTTPResponse, newErr

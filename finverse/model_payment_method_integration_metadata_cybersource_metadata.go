@@ -12,13 +12,20 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PaymentMethodIntegrationMetadataCybersourceMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaymentMethodIntegrationMetadataCybersourceMetadata{}
 
 // PaymentMethodIntegrationMetadataCybersourceMetadata struct for PaymentMethodIntegrationMetadataCybersourceMetadata
 type PaymentMethodIntegrationMetadataCybersourceMetadata struct {
 	PaymentToken string `json:"payment_token"`
 }
+
+type _PaymentMethodIntegrationMetadataCybersourceMetadata PaymentMethodIntegrationMetadataCybersourceMetadata
 
 // NewPaymentMethodIntegrationMetadataCybersourceMetadata instantiates a new PaymentMethodIntegrationMetadataCybersourceMetadata object
 // This constructor will assign default values to properties that have it defined,
@@ -63,11 +70,54 @@ func (o *PaymentMethodIntegrationMetadataCybersourceMetadata) SetPaymentToken(v 
 }
 
 func (o PaymentMethodIntegrationMetadataCybersourceMetadata) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["payment_token"] = o.PaymentToken
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PaymentMethodIntegrationMetadataCybersourceMetadata) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["payment_token"] = o.PaymentToken
+	return toSerialize, nil
+}
+
+func (o *PaymentMethodIntegrationMetadataCybersourceMetadata) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"payment_token",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPaymentMethodIntegrationMetadataCybersourceMetadata := _PaymentMethodIntegrationMetadataCybersourceMetadata{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPaymentMethodIntegrationMetadataCybersourceMetadata)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentMethodIntegrationMetadataCybersourceMetadata(varPaymentMethodIntegrationMetadataCybersourceMetadata)
+
+	return err
 }
 
 type NullablePaymentMethodIntegrationMetadataCybersourceMetadata struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RedirectUriResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RedirectUriResponse{}
+
 // RedirectUriResponse struct for RedirectUriResponse
 type RedirectUriResponse struct {
 	RedirectUri *string `json:"redirect_uri,omitempty"`
@@ -39,7 +42,7 @@ func NewRedirectUriResponseWithDefaults() *RedirectUriResponse {
 
 // GetRedirectUri returns the RedirectUri field value if set, zero value otherwise.
 func (o *RedirectUriResponse) GetRedirectUri() string {
-	if o == nil || o.RedirectUri == nil {
+	if o == nil || IsNil(o.RedirectUri) {
 		var ret string
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *RedirectUriResponse) GetRedirectUri() string {
 // GetRedirectUriOk returns a tuple with the RedirectUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RedirectUriResponse) GetRedirectUriOk() (*string, bool) {
-	if o == nil || o.RedirectUri == nil {
+	if o == nil || IsNil(o.RedirectUri) {
 		return nil, false
 	}
 	return o.RedirectUri, true
@@ -57,7 +60,7 @@ func (o *RedirectUriResponse) GetRedirectUriOk() (*string, bool) {
 
 // HasRedirectUri returns a boolean if a field has been set.
 func (o *RedirectUriResponse) HasRedirectUri() bool {
-	if o != nil && o.RedirectUri != nil {
+	if o != nil && !IsNil(o.RedirectUri) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *RedirectUriResponse) SetRedirectUri(v string) {
 }
 
 func (o RedirectUriResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.RedirectUri != nil {
-		toSerialize["redirect_uri"] = o.RedirectUri
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RedirectUriResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.RedirectUri) {
+		toSerialize["redirect_uri"] = o.RedirectUri
+	}
+	return toSerialize, nil
 }
 
 type NullableRedirectUriResponse struct {

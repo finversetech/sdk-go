@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the AccountNumber type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AccountNumber{}
 
 // AccountNumber struct for AccountNumber
 type AccountNumber struct {
@@ -21,6 +26,8 @@ type AccountNumber struct {
 	Number    *string `json:"number,omitempty"`
 	Raw       string  `json:"raw"`
 }
+
+type _AccountNumber AccountNumber
 
 // NewAccountNumber instantiates a new AccountNumber object
 // This constructor will assign default values to properties that have it defined,
@@ -67,7 +74,7 @@ func (o *AccountNumber) SetAccountId(v string) {
 
 // GetNumber returns the Number field value if set, zero value otherwise.
 func (o *AccountNumber) GetNumber() string {
-	if o == nil || o.Number == nil {
+	if o == nil || IsNil(o.Number) {
 		var ret string
 		return ret
 	}
@@ -77,7 +84,7 @@ func (o *AccountNumber) GetNumber() string {
 // GetNumberOk returns a tuple with the Number field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccountNumber) GetNumberOk() (*string, bool) {
-	if o == nil || o.Number == nil {
+	if o == nil || IsNil(o.Number) {
 		return nil, false
 	}
 	return o.Number, true
@@ -85,7 +92,7 @@ func (o *AccountNumber) GetNumberOk() (*string, bool) {
 
 // HasNumber returns a boolean if a field has been set.
 func (o *AccountNumber) HasNumber() bool {
-	if o != nil && o.Number != nil {
+	if o != nil && !IsNil(o.Number) {
 		return true
 	}
 
@@ -122,17 +129,59 @@ func (o *AccountNumber) SetRaw(v string) {
 }
 
 func (o AccountNumber) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["account_id"] = o.AccountId
-	}
-	if o.Number != nil {
-		toSerialize["number"] = o.Number
-	}
-	if true {
-		toSerialize["raw"] = o.Raw
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AccountNumber) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["account_id"] = o.AccountId
+	if !IsNil(o.Number) {
+		toSerialize["number"] = o.Number
+	}
+	toSerialize["raw"] = o.Raw
+	return toSerialize, nil
+}
+
+func (o *AccountNumber) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"account_id",
+		"raw",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAccountNumber := _AccountNumber{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAccountNumber)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AccountNumber(varAccountNumber)
+
+	return err
 }
 
 type NullableAccountNumber struct {

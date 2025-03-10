@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CreateCardRequestCardDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateCardRequestCardDetails{}
 
 // CreateCardRequestCardDetails struct for CreateCardRequestCardDetails
 type CreateCardRequestCardDetails struct {
@@ -23,6 +28,8 @@ type CreateCardRequestCardDetails struct {
 	ExpiryMonth *int32 `json:"expiry_month,omitempty"`
 	ExpiryYear  *int32 `json:"expiry_year,omitempty"`
 }
+
+type _CreateCardRequestCardDetails CreateCardRequestCardDetails
 
 // NewCreateCardRequestCardDetails instantiates a new CreateCardRequestCardDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -118,7 +125,7 @@ func (o *CreateCardRequestCardDetails) SetCurrency(v string) {
 
 // GetExpiryMonth returns the ExpiryMonth field value if set, zero value otherwise.
 func (o *CreateCardRequestCardDetails) GetExpiryMonth() int32 {
-	if o == nil || o.ExpiryMonth == nil {
+	if o == nil || IsNil(o.ExpiryMonth) {
 		var ret int32
 		return ret
 	}
@@ -128,7 +135,7 @@ func (o *CreateCardRequestCardDetails) GetExpiryMonth() int32 {
 // GetExpiryMonthOk returns a tuple with the ExpiryMonth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateCardRequestCardDetails) GetExpiryMonthOk() (*int32, bool) {
-	if o == nil || o.ExpiryMonth == nil {
+	if o == nil || IsNil(o.ExpiryMonth) {
 		return nil, false
 	}
 	return o.ExpiryMonth, true
@@ -136,7 +143,7 @@ func (o *CreateCardRequestCardDetails) GetExpiryMonthOk() (*int32, bool) {
 
 // HasExpiryMonth returns a boolean if a field has been set.
 func (o *CreateCardRequestCardDetails) HasExpiryMonth() bool {
-	if o != nil && o.ExpiryMonth != nil {
+	if o != nil && !IsNil(o.ExpiryMonth) {
 		return true
 	}
 
@@ -150,7 +157,7 @@ func (o *CreateCardRequestCardDetails) SetExpiryMonth(v int32) {
 
 // GetExpiryYear returns the ExpiryYear field value if set, zero value otherwise.
 func (o *CreateCardRequestCardDetails) GetExpiryYear() int32 {
-	if o == nil || o.ExpiryYear == nil {
+	if o == nil || IsNil(o.ExpiryYear) {
 		var ret int32
 		return ret
 	}
@@ -160,7 +167,7 @@ func (o *CreateCardRequestCardDetails) GetExpiryYear() int32 {
 // GetExpiryYearOk returns a tuple with the ExpiryYear field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateCardRequestCardDetails) GetExpiryYearOk() (*int32, bool) {
-	if o == nil || o.ExpiryYear == nil {
+	if o == nil || IsNil(o.ExpiryYear) {
 		return nil, false
 	}
 	return o.ExpiryYear, true
@@ -168,7 +175,7 @@ func (o *CreateCardRequestCardDetails) GetExpiryYearOk() (*int32, bool) {
 
 // HasExpiryYear returns a boolean if a field has been set.
 func (o *CreateCardRequestCardDetails) HasExpiryYear() bool {
-	if o != nil && o.ExpiryYear != nil {
+	if o != nil && !IsNil(o.ExpiryYear) {
 		return true
 	}
 
@@ -181,23 +188,64 @@ func (o *CreateCardRequestCardDetails) SetExpiryYear(v int32) {
 }
 
 func (o CreateCardRequestCardDetails) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["brand"] = o.Brand
-	}
-	if true {
-		toSerialize["last4"] = o.Last4
-	}
-	if true {
-		toSerialize["currency"] = o.Currency
-	}
-	if o.ExpiryMonth != nil {
-		toSerialize["expiry_month"] = o.ExpiryMonth
-	}
-	if o.ExpiryYear != nil {
-		toSerialize["expiry_year"] = o.ExpiryYear
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateCardRequestCardDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["brand"] = o.Brand
+	toSerialize["last4"] = o.Last4
+	toSerialize["currency"] = o.Currency
+	if !IsNil(o.ExpiryMonth) {
+		toSerialize["expiry_month"] = o.ExpiryMonth
+	}
+	if !IsNil(o.ExpiryYear) {
+		toSerialize["expiry_year"] = o.ExpiryYear
+	}
+	return toSerialize, nil
+}
+
+func (o *CreateCardRequestCardDetails) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"brand",
+		"last4",
+		"currency",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateCardRequestCardDetails := _CreateCardRequestCardDetails{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCreateCardRequestCardDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateCardRequestCardDetails(varCreateCardRequestCardDetails)
+
+	return err
 }
 
 type NullableCreateCardRequestCardDetails struct {

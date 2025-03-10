@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RelinkRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RelinkRequest{}
 
 // RelinkRequest struct for RelinkRequest
 type RelinkRequest struct {
@@ -21,6 +26,8 @@ type RelinkRequest struct {
 	// this is a mandatory field
 	Consent NullableBool `json:"consent,omitempty"`
 }
+
+type _RelinkRequest RelinkRequest
 
 // NewRelinkRequest instantiates a new RelinkRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -66,7 +73,7 @@ func (o *RelinkRequest) SetStoreCredential(v bool) {
 
 // GetConsent returns the Consent field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *RelinkRequest) GetConsent() bool {
-	if o == nil || o.Consent.Get() == nil {
+	if o == nil || IsNil(o.Consent.Get()) {
 		var ret bool
 		return ret
 	}
@@ -108,14 +115,57 @@ func (o *RelinkRequest) UnsetConsent() {
 }
 
 func (o RelinkRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["store_credential"] = o.StoreCredential
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
+	return json.Marshal(toSerialize)
+}
+
+func (o RelinkRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["store_credential"] = o.StoreCredential
 	if o.Consent.IsSet() {
 		toSerialize["consent"] = o.Consent.Get()
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
+}
+
+func (o *RelinkRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"store_credential",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRelinkRequest := _RelinkRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varRelinkRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RelinkRequest(varRelinkRequest)
+
+	return err
 }
 
 type NullableRelinkRequest struct {

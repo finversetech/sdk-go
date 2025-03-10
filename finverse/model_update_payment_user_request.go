@@ -16,15 +16,21 @@ import (
 	"time"
 )
 
+// checks if the UpdatePaymentUserRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdatePaymentUserRequest{}
+
 // UpdatePaymentUserRequest struct for UpdatePaymentUserRequest
 type UpdatePaymentUserRequest struct {
-	AutopayConsent NullableBool      `json:"autopay_consent,omitempty"`
-	Email          NullableString    `json:"email,omitempty"`
-	Metadata       map[string]string `json:"metadata,omitempty"`
-	Name           NullableString    `json:"name,omitempty"`
-	NextBillUpdate NullableTime      `json:"next_bill_update,omitempty"`
-	UserType       NullableString    `json:"user_type,omitempty"`
+	AutopayConsent       NullableBool      `json:"autopay_consent,omitempty"`
+	Email                NullableString    `json:"email,omitempty"`
+	Metadata             map[string]string `json:"metadata,omitempty"`
+	Name                 NullableString    `json:"name,omitempty"`
+	NextBillUpdate       NullableTime      `json:"next_bill_update,omitempty"`
+	UserType             NullableString    `json:"user_type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _UpdatePaymentUserRequest UpdatePaymentUserRequest
 
 // NewUpdatePaymentUserRequest instantiates a new UpdatePaymentUserRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -45,7 +51,7 @@ func NewUpdatePaymentUserRequestWithDefaults() *UpdatePaymentUserRequest {
 
 // GetAutopayConsent returns the AutopayConsent field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdatePaymentUserRequest) GetAutopayConsent() bool {
-	if o == nil || o.AutopayConsent.Get() == nil {
+	if o == nil || IsNil(o.AutopayConsent.Get()) {
 		var ret bool
 		return ret
 	}
@@ -88,7 +94,7 @@ func (o *UpdatePaymentUserRequest) UnsetAutopayConsent() {
 
 // GetEmail returns the Email field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdatePaymentUserRequest) GetEmail() string {
-	if o == nil || o.Email.Get() == nil {
+	if o == nil || IsNil(o.Email.Get()) {
 		var ret string
 		return ret
 	}
@@ -142,7 +148,7 @@ func (o *UpdatePaymentUserRequest) GetMetadata() map[string]string {
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *UpdatePaymentUserRequest) GetMetadataOk() (*map[string]string, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return &o.Metadata, true
@@ -150,7 +156,7 @@ func (o *UpdatePaymentUserRequest) GetMetadataOk() (*map[string]string, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *UpdatePaymentUserRequest) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -164,7 +170,7 @@ func (o *UpdatePaymentUserRequest) SetMetadata(v map[string]string) {
 
 // GetName returns the Name field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdatePaymentUserRequest) GetName() string {
-	if o == nil || o.Name.Get() == nil {
+	if o == nil || IsNil(o.Name.Get()) {
 		var ret string
 		return ret
 	}
@@ -207,7 +213,7 @@ func (o *UpdatePaymentUserRequest) UnsetName() {
 
 // GetNextBillUpdate returns the NextBillUpdate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdatePaymentUserRequest) GetNextBillUpdate() time.Time {
-	if o == nil || o.NextBillUpdate.Get() == nil {
+	if o == nil || IsNil(o.NextBillUpdate.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -250,7 +256,7 @@ func (o *UpdatePaymentUserRequest) UnsetNextBillUpdate() {
 
 // GetUserType returns the UserType field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *UpdatePaymentUserRequest) GetUserType() string {
-	if o == nil || o.UserType.Get() == nil {
+	if o == nil || IsNil(o.UserType.Get()) {
 		var ret string
 		return ret
 	}
@@ -292,6 +298,14 @@ func (o *UpdatePaymentUserRequest) UnsetUserType() {
 }
 
 func (o UpdatePaymentUserRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o UpdatePaymentUserRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.AutopayConsent.IsSet() {
 		toSerialize["autopay_consent"] = o.AutopayConsent.Get()
@@ -311,7 +325,38 @@ func (o UpdatePaymentUserRequest) MarshalJSON() ([]byte, error) {
 	if o.UserType.IsSet() {
 		toSerialize["user_type"] = o.UserType.Get()
 	}
-	return json.Marshal(toSerialize)
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *UpdatePaymentUserRequest) UnmarshalJSON(data []byte) (err error) {
+	varUpdatePaymentUserRequest := _UpdatePaymentUserRequest{}
+
+	err = json.Unmarshal(data, &varUpdatePaymentUserRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UpdatePaymentUserRequest(varUpdatePaymentUserRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "autopay_consent")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "next_bill_update")
+		delete(additionalProperties, "user_type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableUpdatePaymentUserRequest struct {

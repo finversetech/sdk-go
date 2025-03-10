@@ -12,9 +12,14 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the PaymentResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaymentResponse{}
 
 // PaymentResponse struct for PaymentResponse
 type PaymentResponse struct {
@@ -50,6 +55,8 @@ type PaymentResponse struct {
 	PaymentMethod *PaymentSnapshotPaymentMethod `json:"payment_method,omitempty"`
 }
 
+type _PaymentResponse PaymentResponse
+
 // NewPaymentResponse instantiates a new PaymentResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
@@ -72,7 +79,7 @@ func NewPaymentResponseWithDefaults() *PaymentResponse {
 
 // GetPaymentId returns the PaymentId field value if set, zero value otherwise.
 func (o *PaymentResponse) GetPaymentId() string {
-	if o == nil || o.PaymentId == nil {
+	if o == nil || IsNil(o.PaymentId) {
 		var ret string
 		return ret
 	}
@@ -82,7 +89,7 @@ func (o *PaymentResponse) GetPaymentId() string {
 // GetPaymentIdOk returns a tuple with the PaymentId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetPaymentIdOk() (*string, bool) {
-	if o == nil || o.PaymentId == nil {
+	if o == nil || IsNil(o.PaymentId) {
 		return nil, false
 	}
 	return o.PaymentId, true
@@ -90,7 +97,7 @@ func (o *PaymentResponse) GetPaymentIdOk() (*string, bool) {
 
 // HasPaymentId returns a boolean if a field has been set.
 func (o *PaymentResponse) HasPaymentId() bool {
-	if o != nil && o.PaymentId != nil {
+	if o != nil && !IsNil(o.PaymentId) {
 		return true
 	}
 
@@ -176,7 +183,7 @@ func (o *PaymentResponse) SetAmountTotalWithSurcharge(v int32) {
 
 // GetCurrency returns the Currency field value if set, zero value otherwise.
 func (o *PaymentResponse) GetCurrency() string {
-	if o == nil || o.Currency == nil {
+	if o == nil || IsNil(o.Currency) {
 		var ret string
 		return ret
 	}
@@ -186,7 +193,7 @@ func (o *PaymentResponse) GetCurrency() string {
 // GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetCurrencyOk() (*string, bool) {
-	if o == nil || o.Currency == nil {
+	if o == nil || IsNil(o.Currency) {
 		return nil, false
 	}
 	return o.Currency, true
@@ -194,7 +201,7 @@ func (o *PaymentResponse) GetCurrencyOk() (*string, bool) {
 
 // HasCurrency returns a boolean if a field has been set.
 func (o *PaymentResponse) HasCurrency() bool {
-	if o != nil && o.Currency != nil {
+	if o != nil && !IsNil(o.Currency) {
 		return true
 	}
 
@@ -208,7 +215,7 @@ func (o *PaymentResponse) SetCurrency(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *PaymentResponse) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -218,7 +225,7 @@ func (o *PaymentResponse) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -226,7 +233,7 @@ func (o *PaymentResponse) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *PaymentResponse) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -240,7 +247,7 @@ func (o *PaymentResponse) SetType(v string) {
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *PaymentResponse) GetUpdatedAt() time.Time {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -250,7 +257,7 @@ func (o *PaymentResponse) GetUpdatedAt() time.Time {
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
 	return o.UpdatedAt, true
@@ -258,7 +265,7 @@ func (o *PaymentResponse) GetUpdatedAtOk() (*time.Time, bool) {
 
 // HasUpdatedAt returns a boolean if a field has been set.
 func (o *PaymentResponse) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
+	if o != nil && !IsNil(o.UpdatedAt) {
 		return true
 	}
 
@@ -272,7 +279,7 @@ func (o *PaymentResponse) SetUpdatedAt(v time.Time) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *PaymentResponse) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -282,7 +289,7 @@ func (o *PaymentResponse) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -290,7 +297,7 @@ func (o *PaymentResponse) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *PaymentResponse) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -304,7 +311,7 @@ func (o *PaymentResponse) SetStatus(v string) {
 
 // GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise.
 func (o *PaymentResponse) GetPaymentMethodId() string {
-	if o == nil || o.PaymentMethodId == nil {
+	if o == nil || IsNil(o.PaymentMethodId) {
 		var ret string
 		return ret
 	}
@@ -314,7 +321,7 @@ func (o *PaymentResponse) GetPaymentMethodId() string {
 // GetPaymentMethodIdOk returns a tuple with the PaymentMethodId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetPaymentMethodIdOk() (*string, bool) {
-	if o == nil || o.PaymentMethodId == nil {
+	if o == nil || IsNil(o.PaymentMethodId) {
 		return nil, false
 	}
 	return o.PaymentMethodId, true
@@ -322,7 +329,7 @@ func (o *PaymentResponse) GetPaymentMethodIdOk() (*string, bool) {
 
 // HasPaymentMethodId returns a boolean if a field has been set.
 func (o *PaymentResponse) HasPaymentMethodId() bool {
-	if o != nil && o.PaymentMethodId != nil {
+	if o != nil && !IsNil(o.PaymentMethodId) {
 		return true
 	}
 
@@ -336,7 +343,7 @@ func (o *PaymentResponse) SetPaymentMethodId(v string) {
 
 // GetPaymentDetails returns the PaymentDetails field value if set, zero value otherwise.
 func (o *PaymentResponse) GetPaymentDetails() PaymentDetails2 {
-	if o == nil || o.PaymentDetails == nil {
+	if o == nil || IsNil(o.PaymentDetails) {
 		var ret PaymentDetails2
 		return ret
 	}
@@ -346,7 +353,7 @@ func (o *PaymentResponse) GetPaymentDetails() PaymentDetails2 {
 // GetPaymentDetailsOk returns a tuple with the PaymentDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetPaymentDetailsOk() (*PaymentDetails2, bool) {
-	if o == nil || o.PaymentDetails == nil {
+	if o == nil || IsNil(o.PaymentDetails) {
 		return nil, false
 	}
 	return o.PaymentDetails, true
@@ -354,7 +361,7 @@ func (o *PaymentResponse) GetPaymentDetailsOk() (*PaymentDetails2, bool) {
 
 // HasPaymentDetails returns a boolean if a field has been set.
 func (o *PaymentResponse) HasPaymentDetails() bool {
-	if o != nil && o.PaymentDetails != nil {
+	if o != nil && !IsNil(o.PaymentDetails) {
 		return true
 	}
 
@@ -368,7 +375,7 @@ func (o *PaymentResponse) SetPaymentDetails(v PaymentDetails2) {
 
 // GetRecipient returns the Recipient field value if set, zero value otherwise.
 func (o *PaymentResponse) GetRecipient() MandateRecipient {
-	if o == nil || o.Recipient == nil {
+	if o == nil || IsNil(o.Recipient) {
 		var ret MandateRecipient
 		return ret
 	}
@@ -378,7 +385,7 @@ func (o *PaymentResponse) GetRecipient() MandateRecipient {
 // GetRecipientOk returns a tuple with the Recipient field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetRecipientOk() (*MandateRecipient, bool) {
-	if o == nil || o.Recipient == nil {
+	if o == nil || IsNil(o.Recipient) {
 		return nil, false
 	}
 	return o.Recipient, true
@@ -386,7 +393,7 @@ func (o *PaymentResponse) GetRecipientOk() (*MandateRecipient, bool) {
 
 // HasRecipient returns a boolean if a field has been set.
 func (o *PaymentResponse) HasRecipient() bool {
-	if o != nil && o.Recipient != nil {
+	if o != nil && !IsNil(o.Recipient) {
 		return true
 	}
 
@@ -400,7 +407,7 @@ func (o *PaymentResponse) SetRecipient(v MandateRecipient) {
 
 // GetRecipientAccount returns the RecipientAccount field value if set, zero value otherwise.
 func (o *PaymentResponse) GetRecipientAccount() MandateRecipientAccount {
-	if o == nil || o.RecipientAccount == nil {
+	if o == nil || IsNil(o.RecipientAccount) {
 		var ret MandateRecipientAccount
 		return ret
 	}
@@ -410,7 +417,7 @@ func (o *PaymentResponse) GetRecipientAccount() MandateRecipientAccount {
 // GetRecipientAccountOk returns a tuple with the RecipientAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetRecipientAccountOk() (*MandateRecipientAccount, bool) {
-	if o == nil || o.RecipientAccount == nil {
+	if o == nil || IsNil(o.RecipientAccount) {
 		return nil, false
 	}
 	return o.RecipientAccount, true
@@ -418,7 +425,7 @@ func (o *PaymentResponse) GetRecipientAccountOk() (*MandateRecipientAccount, boo
 
 // HasRecipientAccount returns a boolean if a field has been set.
 func (o *PaymentResponse) HasRecipientAccount() bool {
-	if o != nil && o.RecipientAccount != nil {
+	if o != nil && !IsNil(o.RecipientAccount) {
 		return true
 	}
 
@@ -432,7 +439,7 @@ func (o *PaymentResponse) SetRecipientAccount(v MandateRecipientAccount) {
 
 // GetSender returns the Sender field value if set, zero value otherwise.
 func (o *PaymentResponse) GetSender() GetMandateSender {
-	if o == nil || o.Sender == nil {
+	if o == nil || IsNil(o.Sender) {
 		var ret GetMandateSender
 		return ret
 	}
@@ -442,7 +449,7 @@ func (o *PaymentResponse) GetSender() GetMandateSender {
 // GetSenderOk returns a tuple with the Sender field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetSenderOk() (*GetMandateSender, bool) {
-	if o == nil || o.Sender == nil {
+	if o == nil || IsNil(o.Sender) {
 		return nil, false
 	}
 	return o.Sender, true
@@ -450,7 +457,7 @@ func (o *PaymentResponse) GetSenderOk() (*GetMandateSender, bool) {
 
 // HasSender returns a boolean if a field has been set.
 func (o *PaymentResponse) HasSender() bool {
-	if o != nil && o.Sender != nil {
+	if o != nil && !IsNil(o.Sender) {
 		return true
 	}
 
@@ -464,7 +471,7 @@ func (o *PaymentResponse) SetSender(v GetMandateSender) {
 
 // GetSenderAccount returns the SenderAccount field value if set, zero value otherwise.
 func (o *PaymentResponse) GetSenderAccount() MandateSenderAccount {
-	if o == nil || o.SenderAccount == nil {
+	if o == nil || IsNil(o.SenderAccount) {
 		var ret MandateSenderAccount
 		return ret
 	}
@@ -474,7 +481,7 @@ func (o *PaymentResponse) GetSenderAccount() MandateSenderAccount {
 // GetSenderAccountOk returns a tuple with the SenderAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetSenderAccountOk() (*MandateSenderAccount, bool) {
-	if o == nil || o.SenderAccount == nil {
+	if o == nil || IsNil(o.SenderAccount) {
 		return nil, false
 	}
 	return o.SenderAccount, true
@@ -482,7 +489,7 @@ func (o *PaymentResponse) GetSenderAccountOk() (*MandateSenderAccount, bool) {
 
 // HasSenderAccount returns a boolean if a field has been set.
 func (o *PaymentResponse) HasSenderAccount() bool {
-	if o != nil && o.SenderAccount != nil {
+	if o != nil && !IsNil(o.SenderAccount) {
 		return true
 	}
 
@@ -496,7 +503,7 @@ func (o *PaymentResponse) SetSenderAccount(v MandateSenderAccount) {
 
 // GetFees returns the Fees field value if set, zero value otherwise.
 func (o *PaymentResponse) GetFees() []Fee {
-	if o == nil || o.Fees == nil {
+	if o == nil || IsNil(o.Fees) {
 		var ret []Fee
 		return ret
 	}
@@ -506,7 +513,7 @@ func (o *PaymentResponse) GetFees() []Fee {
 // GetFeesOk returns a tuple with the Fees field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetFeesOk() ([]Fee, bool) {
-	if o == nil || o.Fees == nil {
+	if o == nil || IsNil(o.Fees) {
 		return nil, false
 	}
 	return o.Fees, true
@@ -514,7 +521,7 @@ func (o *PaymentResponse) GetFeesOk() ([]Fee, bool) {
 
 // HasFees returns a boolean if a field has been set.
 func (o *PaymentResponse) HasFees() bool {
-	if o != nil && o.Fees != nil {
+	if o != nil && !IsNil(o.Fees) {
 		return true
 	}
 
@@ -528,7 +535,7 @@ func (o *PaymentResponse) SetFees(v []Fee) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *PaymentResponse) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -538,7 +545,7 @@ func (o *PaymentResponse) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -546,7 +553,7 @@ func (o *PaymentResponse) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *PaymentResponse) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -560,7 +567,7 @@ func (o *PaymentResponse) SetCreatedAt(v time.Time) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *PaymentResponse) GetMetadata() map[string]string {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]string
 		return ret
 	}
@@ -570,7 +577,7 @@ func (o *PaymentResponse) GetMetadata() map[string]string {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetMetadataOk() (*map[string]string, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -578,7 +585,7 @@ func (o *PaymentResponse) GetMetadataOk() (*map[string]string, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *PaymentResponse) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -592,7 +599,7 @@ func (o *PaymentResponse) SetMetadata(v map[string]string) {
 
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *PaymentResponse) GetError() FvEmbeddedErrorModel {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		var ret FvEmbeddedErrorModel
 		return ret
 	}
@@ -602,7 +609,7 @@ func (o *PaymentResponse) GetError() FvEmbeddedErrorModel {
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
 	return o.Error, true
@@ -610,7 +617,7 @@ func (o *PaymentResponse) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
 
 // HasError returns a boolean if a field has been set.
 func (o *PaymentResponse) HasError() bool {
-	if o != nil && o.Error != nil {
+	if o != nil && !IsNil(o.Error) {
 		return true
 	}
 
@@ -624,7 +631,7 @@ func (o *PaymentResponse) SetError(v FvEmbeddedErrorModel) {
 
 // GetPaymentMethod returns the PaymentMethod field value if set, zero value otherwise.
 func (o *PaymentResponse) GetPaymentMethod() PaymentSnapshotPaymentMethod {
-	if o == nil || o.PaymentMethod == nil {
+	if o == nil || IsNil(o.PaymentMethod) {
 		var ret PaymentSnapshotPaymentMethod
 		return ret
 	}
@@ -634,7 +641,7 @@ func (o *PaymentResponse) GetPaymentMethod() PaymentSnapshotPaymentMethod {
 // GetPaymentMethodOk returns a tuple with the PaymentMethod field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetPaymentMethodOk() (*PaymentSnapshotPaymentMethod, bool) {
-	if o == nil || o.PaymentMethod == nil {
+	if o == nil || IsNil(o.PaymentMethod) {
 		return nil, false
 	}
 	return o.PaymentMethod, true
@@ -642,7 +649,7 @@ func (o *PaymentResponse) GetPaymentMethodOk() (*PaymentSnapshotPaymentMethod, b
 
 // HasPaymentMethod returns a boolean if a field has been set.
 func (o *PaymentResponse) HasPaymentMethod() bool {
-	if o != nil && o.PaymentMethod != nil {
+	if o != nil && !IsNil(o.PaymentMethod) {
 		return true
 	}
 
@@ -655,65 +662,106 @@ func (o *PaymentResponse) SetPaymentMethod(v PaymentSnapshotPaymentMethod) {
 }
 
 func (o PaymentResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.PaymentId != nil {
-		toSerialize["payment_id"] = o.PaymentId
-	}
-	if true {
-		toSerialize["amount"] = o.Amount
-	}
-	if true {
-		toSerialize["surcharge_amount"] = o.SurchargeAmount
-	}
-	if true {
-		toSerialize["amount_total_with_surcharge"] = o.AmountTotalWithSurcharge
-	}
-	if o.Currency != nil {
-		toSerialize["currency"] = o.Currency
-	}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
-	}
-	if o.UpdatedAt != nil {
-		toSerialize["updated_at"] = o.UpdatedAt
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.PaymentMethodId != nil {
-		toSerialize["payment_method_id"] = o.PaymentMethodId
-	}
-	if o.PaymentDetails != nil {
-		toSerialize["payment_details"] = o.PaymentDetails
-	}
-	if o.Recipient != nil {
-		toSerialize["recipient"] = o.Recipient
-	}
-	if o.RecipientAccount != nil {
-		toSerialize["recipient_account"] = o.RecipientAccount
-	}
-	if o.Sender != nil {
-		toSerialize["sender"] = o.Sender
-	}
-	if o.SenderAccount != nil {
-		toSerialize["sender_account"] = o.SenderAccount
-	}
-	if o.Fees != nil {
-		toSerialize["fees"] = o.Fees
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.Metadata != nil {
-		toSerialize["metadata"] = o.Metadata
-	}
-	if o.Error != nil {
-		toSerialize["error"] = o.Error
-	}
-	if o.PaymentMethod != nil {
-		toSerialize["payment_method"] = o.PaymentMethod
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PaymentResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.PaymentId) {
+		toSerialize["payment_id"] = o.PaymentId
+	}
+	toSerialize["amount"] = o.Amount
+	toSerialize["surcharge_amount"] = o.SurchargeAmount
+	toSerialize["amount_total_with_surcharge"] = o.AmountTotalWithSurcharge
+	if !IsNil(o.Currency) {
+		toSerialize["currency"] = o.Currency
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updated_at"] = o.UpdatedAt
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.PaymentMethodId) {
+		toSerialize["payment_method_id"] = o.PaymentMethodId
+	}
+	if !IsNil(o.PaymentDetails) {
+		toSerialize["payment_details"] = o.PaymentDetails
+	}
+	if !IsNil(o.Recipient) {
+		toSerialize["recipient"] = o.Recipient
+	}
+	if !IsNil(o.RecipientAccount) {
+		toSerialize["recipient_account"] = o.RecipientAccount
+	}
+	if !IsNil(o.Sender) {
+		toSerialize["sender"] = o.Sender
+	}
+	if !IsNil(o.SenderAccount) {
+		toSerialize["sender_account"] = o.SenderAccount
+	}
+	if !IsNil(o.Fees) {
+		toSerialize["fees"] = o.Fees
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.Error) {
+		toSerialize["error"] = o.Error
+	}
+	if !IsNil(o.PaymentMethod) {
+		toSerialize["payment_method"] = o.PaymentMethod
+	}
+	return toSerialize, nil
+}
+
+func (o *PaymentResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"amount",
+		"surcharge_amount",
+		"amount_total_with_surcharge",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPaymentResponse := _PaymentResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPaymentResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentResponse(varPaymentResponse)
+
+	return err
 }
 
 type NullablePaymentResponse struct {

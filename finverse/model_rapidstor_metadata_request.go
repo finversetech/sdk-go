@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RapidstorMetadataRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RapidstorMetadataRequest{}
 
 // RapidstorMetadataRequest struct for RapidstorMetadataRequest
 type RapidstorMetadataRequest struct {
@@ -23,6 +28,8 @@ type RapidstorMetadataRequest struct {
 	IAnnivDays    *float32 `json:"i_anniv_days,omitempty"`
 	AccountToken  string   `json:"account_token"`
 }
+
+type _RapidstorMetadataRequest RapidstorMetadataRequest
 
 // NewRapidstorMetadataRequest instantiates a new RapidstorMetadataRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -119,7 +126,7 @@ func (o *RapidstorMetadataRequest) SetTenantId(v string) {
 
 // GetIAnnivDays returns the IAnnivDays field value if set, zero value otherwise.
 func (o *RapidstorMetadataRequest) GetIAnnivDays() float32 {
-	if o == nil || o.IAnnivDays == nil {
+	if o == nil || IsNil(o.IAnnivDays) {
 		var ret float32
 		return ret
 	}
@@ -129,7 +136,7 @@ func (o *RapidstorMetadataRequest) GetIAnnivDays() float32 {
 // GetIAnnivDaysOk returns a tuple with the IAnnivDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RapidstorMetadataRequest) GetIAnnivDaysOk() (*float32, bool) {
-	if o == nil || o.IAnnivDays == nil {
+	if o == nil || IsNil(o.IAnnivDays) {
 		return nil, false
 	}
 	return o.IAnnivDays, true
@@ -137,7 +144,7 @@ func (o *RapidstorMetadataRequest) GetIAnnivDaysOk() (*float32, bool) {
 
 // HasIAnnivDays returns a boolean if a field has been set.
 func (o *RapidstorMetadataRequest) HasIAnnivDays() bool {
-	if o != nil && o.IAnnivDays != nil {
+	if o != nil && !IsNil(o.IAnnivDays) {
 		return true
 	}
 
@@ -174,23 +181,63 @@ func (o *RapidstorMetadataRequest) SetAccountToken(v string) {
 }
 
 func (o RapidstorMetadataRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["corp_code"] = o.CorpCode
-	}
-	if true {
-		toSerialize["s_location_code"] = o.SLocationCode
-	}
-	if true {
-		toSerialize["tenant_id"] = o.TenantId
-	}
-	if o.IAnnivDays != nil {
-		toSerialize["i_anniv_days"] = o.IAnnivDays
-	}
-	if true {
-		toSerialize["account_token"] = o.AccountToken
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RapidstorMetadataRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["corp_code"] = o.CorpCode
+	toSerialize["s_location_code"] = o.SLocationCode
+	toSerialize["tenant_id"] = o.TenantId
+	if !IsNil(o.IAnnivDays) {
+		toSerialize["i_anniv_days"] = o.IAnnivDays
+	}
+	toSerialize["account_token"] = o.AccountToken
+	return toSerialize, nil
+}
+
+func (o *RapidstorMetadataRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"corp_code",
+		"s_location_code",
+		"tenant_id",
+		"account_token",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRapidstorMetadataRequest := _RapidstorMetadataRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varRapidstorMetadataRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RapidstorMetadataRequest(varRapidstorMetadataRequest)
+
+	return err
 }
 
 type NullableRapidstorMetadataRequest struct {

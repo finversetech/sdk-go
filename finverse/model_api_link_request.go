@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ApiLinkRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApiLinkRequest{}
 
 // ApiLinkRequest struct for ApiLinkRequest
 type ApiLinkRequest struct {
@@ -28,6 +33,8 @@ type ApiLinkRequest struct {
 	EncryptedCredentials EncryptedPayload `json:"encrypted_credentials"`
 	PaymentInstructionId *string          `json:"payment_instruction_id,omitempty"`
 }
+
+type _ApiLinkRequest ApiLinkRequest
 
 // NewApiLinkRequest instantiates a new ApiLinkRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -200,7 +207,7 @@ func (o *ApiLinkRequest) SetEncryptedCredentials(v EncryptedPayload) {
 
 // GetPaymentInstructionId returns the PaymentInstructionId field value if set, zero value otherwise.
 func (o *ApiLinkRequest) GetPaymentInstructionId() string {
-	if o == nil || o.PaymentInstructionId == nil {
+	if o == nil || IsNil(o.PaymentInstructionId) {
 		var ret string
 		return ret
 	}
@@ -210,7 +217,7 @@ func (o *ApiLinkRequest) GetPaymentInstructionId() string {
 // GetPaymentInstructionIdOk returns a tuple with the PaymentInstructionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiLinkRequest) GetPaymentInstructionIdOk() (*string, bool) {
-	if o == nil || o.PaymentInstructionId == nil {
+	if o == nil || IsNil(o.PaymentInstructionId) {
 		return nil, false
 	}
 	return o.PaymentInstructionId, true
@@ -218,7 +225,7 @@ func (o *ApiLinkRequest) GetPaymentInstructionIdOk() (*string, bool) {
 
 // HasPaymentInstructionId returns a boolean if a field has been set.
 func (o *ApiLinkRequest) HasPaymentInstructionId() bool {
-	if o != nil && o.PaymentInstructionId != nil {
+	if o != nil && !IsNil(o.PaymentInstructionId) {
 		return true
 	}
 
@@ -231,29 +238,67 @@ func (o *ApiLinkRequest) SetPaymentInstructionId(v string) {
 }
 
 func (o ApiLinkRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["institution_id"] = o.InstitutionId
-	}
-	if true {
-		toSerialize["user_id"] = o.UserId
-	}
-	if true {
-		toSerialize["consent"] = o.Consent.Get()
-	}
-	if true {
-		toSerialize["products_requested"] = o.ProductsRequested
-	}
-	if true {
-		toSerialize["store_credentials"] = o.StoreCredentials
-	}
-	if true {
-		toSerialize["encrypted_credentials"] = o.EncryptedCredentials
-	}
-	if o.PaymentInstructionId != nil {
-		toSerialize["payment_instruction_id"] = o.PaymentInstructionId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ApiLinkRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["institution_id"] = o.InstitutionId
+	toSerialize["user_id"] = o.UserId
+	toSerialize["consent"] = o.Consent.Get()
+	toSerialize["products_requested"] = o.ProductsRequested
+	toSerialize["store_credentials"] = o.StoreCredentials
+	toSerialize["encrypted_credentials"] = o.EncryptedCredentials
+	if !IsNil(o.PaymentInstructionId) {
+		toSerialize["payment_instruction_id"] = o.PaymentInstructionId
+	}
+	return toSerialize, nil
+}
+
+func (o *ApiLinkRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"institution_id",
+		"user_id",
+		"consent",
+		"products_requested",
+		"store_credentials",
+		"encrypted_credentials",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varApiLinkRequest := _ApiLinkRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varApiLinkRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ApiLinkRequest(varApiLinkRequest)
+
+	return err
 }
 
 type NullableApiLinkRequest struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RefreshLoginIdentityRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RefreshLoginIdentityRequest{}
+
 // RefreshLoginIdentityRequest struct for RefreshLoginIdentityRequest
 type RefreshLoginIdentityRequest struct {
 	// Indicate whether the user is present in this flow. If the user is not present, only institutions that do not require 2fa can be refreshed
@@ -41,7 +44,7 @@ func NewRefreshLoginIdentityRequestWithDefaults() *RefreshLoginIdentityRequest {
 
 // GetUserPresent returns the UserPresent field value if set, zero value otherwise.
 func (o *RefreshLoginIdentityRequest) GetUserPresent() bool {
-	if o == nil || o.UserPresent == nil {
+	if o == nil || IsNil(o.UserPresent) {
 		var ret bool
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *RefreshLoginIdentityRequest) GetUserPresent() bool {
 // GetUserPresentOk returns a tuple with the UserPresent field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RefreshLoginIdentityRequest) GetUserPresentOk() (*bool, bool) {
-	if o == nil || o.UserPresent == nil {
+	if o == nil || IsNil(o.UserPresent) {
 		return nil, false
 	}
 	return o.UserPresent, true
@@ -59,7 +62,7 @@ func (o *RefreshLoginIdentityRequest) GetUserPresentOk() (*bool, bool) {
 
 // HasUserPresent returns a boolean if a field has been set.
 func (o *RefreshLoginIdentityRequest) HasUserPresent() bool {
-	if o != nil && o.UserPresent != nil {
+	if o != nil && !IsNil(o.UserPresent) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *RefreshLoginIdentityRequest) SetUserPresent(v bool) {
 
 // GetLinkCustomizations returns the LinkCustomizations field value if set, zero value otherwise.
 func (o *RefreshLoginIdentityRequest) GetLinkCustomizations() RefreshLoginIdentityLinkCustomizations {
-	if o == nil || o.LinkCustomizations == nil {
+	if o == nil || IsNil(o.LinkCustomizations) {
 		var ret RefreshLoginIdentityLinkCustomizations
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *RefreshLoginIdentityRequest) GetLinkCustomizations() RefreshLoginIdenti
 // GetLinkCustomizationsOk returns a tuple with the LinkCustomizations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RefreshLoginIdentityRequest) GetLinkCustomizationsOk() (*RefreshLoginIdentityLinkCustomizations, bool) {
-	if o == nil || o.LinkCustomizations == nil {
+	if o == nil || IsNil(o.LinkCustomizations) {
 		return nil, false
 	}
 	return o.LinkCustomizations, true
@@ -91,7 +94,7 @@ func (o *RefreshLoginIdentityRequest) GetLinkCustomizationsOk() (*RefreshLoginId
 
 // HasLinkCustomizations returns a boolean if a field has been set.
 func (o *RefreshLoginIdentityRequest) HasLinkCustomizations() bool {
-	if o != nil && o.LinkCustomizations != nil {
+	if o != nil && !IsNil(o.LinkCustomizations) {
 		return true
 	}
 
@@ -104,14 +107,22 @@ func (o *RefreshLoginIdentityRequest) SetLinkCustomizations(v RefreshLoginIdenti
 }
 
 func (o RefreshLoginIdentityRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.UserPresent != nil {
-		toSerialize["user_present"] = o.UserPresent
-	}
-	if o.LinkCustomizations != nil {
-		toSerialize["link_customizations"] = o.LinkCustomizations
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RefreshLoginIdentityRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.UserPresent) {
+		toSerialize["user_present"] = o.UserPresent
+	}
+	if !IsNil(o.LinkCustomizations) {
+		toSerialize["link_customizations"] = o.LinkCustomizations
+	}
+	return toSerialize, nil
 }
 
 type NullableRefreshLoginIdentityRequest struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinkStatusResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinkStatusResponse{}
+
 // LinkStatusResponse struct for LinkStatusResponse
 type LinkStatusResponse struct {
 	Success *AccessTokenResponse    `json:"success,omitempty"`
@@ -41,7 +44,7 @@ func NewLinkStatusResponseWithDefaults() *LinkStatusResponse {
 
 // GetSuccess returns the Success field value if set, zero value otherwise.
 func (o *LinkStatusResponse) GetSuccess() AccessTokenResponse {
-	if o == nil || o.Success == nil {
+	if o == nil || IsNil(o.Success) {
 		var ret AccessTokenResponse
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *LinkStatusResponse) GetSuccess() AccessTokenResponse {
 // GetSuccessOk returns a tuple with the Success field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkStatusResponse) GetSuccessOk() (*AccessTokenResponse, bool) {
-	if o == nil || o.Success == nil {
+	if o == nil || IsNil(o.Success) {
 		return nil, false
 	}
 	return o.Success, true
@@ -59,7 +62,7 @@ func (o *LinkStatusResponse) GetSuccessOk() (*AccessTokenResponse, bool) {
 
 // HasSuccess returns a boolean if a field has been set.
 func (o *LinkStatusResponse) HasSuccess() bool {
-	if o != nil && o.Success != nil {
+	if o != nil && !IsNil(o.Success) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *LinkStatusResponse) SetSuccess(v AccessTokenResponse) {
 
 // GetPending returns the Pending field value if set, zero value otherwise.
 func (o *LinkStatusResponse) GetPending() LinkStatusPendingModel {
-	if o == nil || o.Pending == nil {
+	if o == nil || IsNil(o.Pending) {
 		var ret LinkStatusPendingModel
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *LinkStatusResponse) GetPending() LinkStatusPendingModel {
 // GetPendingOk returns a tuple with the Pending field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkStatusResponse) GetPendingOk() (*LinkStatusPendingModel, bool) {
-	if o == nil || o.Pending == nil {
+	if o == nil || IsNil(o.Pending) {
 		return nil, false
 	}
 	return o.Pending, true
@@ -91,7 +94,7 @@ func (o *LinkStatusResponse) GetPendingOk() (*LinkStatusPendingModel, bool) {
 
 // HasPending returns a boolean if a field has been set.
 func (o *LinkStatusResponse) HasPending() bool {
-	if o != nil && o.Pending != nil {
+	if o != nil && !IsNil(o.Pending) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *LinkStatusResponse) SetPending(v LinkStatusPendingModel) {
 
 // GetAction returns the Action field value if set, zero value otherwise.
 func (o *LinkStatusResponse) GetAction() LinkStatusActionModel {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		var ret LinkStatusActionModel
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *LinkStatusResponse) GetAction() LinkStatusActionModel {
 // GetActionOk returns a tuple with the Action field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkStatusResponse) GetActionOk() (*LinkStatusActionModel, bool) {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		return nil, false
 	}
 	return o.Action, true
@@ -123,7 +126,7 @@ func (o *LinkStatusResponse) GetActionOk() (*LinkStatusActionModel, bool) {
 
 // HasAction returns a boolean if a field has been set.
 func (o *LinkStatusResponse) HasAction() bool {
-	if o != nil && o.Action != nil {
+	if o != nil && !IsNil(o.Action) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *LinkStatusResponse) SetAction(v LinkStatusActionModel) {
 }
 
 func (o LinkStatusResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Success != nil {
-		toSerialize["success"] = o.Success
-	}
-	if o.Pending != nil {
-		toSerialize["pending"] = o.Pending
-	}
-	if o.Action != nil {
-		toSerialize["action"] = o.Action
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o LinkStatusResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Success) {
+		toSerialize["success"] = o.Success
+	}
+	if !IsNil(o.Pending) {
+		toSerialize["pending"] = o.Pending
+	}
+	if !IsNil(o.Action) {
+		toSerialize["action"] = o.Action
+	}
+	return toSerialize, nil
 }
 
 type NullableLinkStatusResponse struct {

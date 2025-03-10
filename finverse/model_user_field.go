@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the UserField type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserField{}
 
 // UserField struct for UserField
 type UserField struct {
@@ -28,6 +33,8 @@ type UserField struct {
 	// This is only applicable when the field type is SELECT
 	Options []UserFieldOption `json:"options,omitempty"`
 }
+
+type _UserField UserField
 
 // NewUserField instantiates a new UserField object
 // This constructor will assign default values to properties that have it defined,
@@ -74,7 +81,7 @@ func (o *UserField) SetName(v string) {
 
 // GetLabel returns the Label field value if set, zero value otherwise.
 func (o *UserField) GetLabel() string {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		var ret string
 		return ret
 	}
@@ -84,7 +91,7 @@ func (o *UserField) GetLabel() string {
 // GetLabelOk returns a tuple with the Label field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserField) GetLabelOk() (*string, bool) {
-	if o == nil || o.Label == nil {
+	if o == nil || IsNil(o.Label) {
 		return nil, false
 	}
 	return o.Label, true
@@ -92,7 +99,7 @@ func (o *UserField) GetLabelOk() (*string, bool) {
 
 // HasLabel returns a boolean if a field has been set.
 func (o *UserField) HasLabel() bool {
-	if o != nil && o.Label != nil {
+	if o != nil && !IsNil(o.Label) {
 		return true
 	}
 
@@ -106,7 +113,7 @@ func (o *UserField) SetLabel(v string) {
 
 // GetPlaceholder returns the Placeholder field value if set, zero value otherwise.
 func (o *UserField) GetPlaceholder() string {
-	if o == nil || o.Placeholder == nil {
+	if o == nil || IsNil(o.Placeholder) {
 		var ret string
 		return ret
 	}
@@ -116,7 +123,7 @@ func (o *UserField) GetPlaceholder() string {
 // GetPlaceholderOk returns a tuple with the Placeholder field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserField) GetPlaceholderOk() (*string, bool) {
-	if o == nil || o.Placeholder == nil {
+	if o == nil || IsNil(o.Placeholder) {
 		return nil, false
 	}
 	return o.Placeholder, true
@@ -124,7 +131,7 @@ func (o *UserField) GetPlaceholderOk() (*string, bool) {
 
 // HasPlaceholder returns a boolean if a field has been set.
 func (o *UserField) HasPlaceholder() bool {
-	if o != nil && o.Placeholder != nil {
+	if o != nil && !IsNil(o.Placeholder) {
 		return true
 	}
 
@@ -162,7 +169,7 @@ func (o *UserField) SetType(v string) {
 
 // GetOptions returns the Options field value if set, zero value otherwise.
 func (o *UserField) GetOptions() []UserFieldOption {
-	if o == nil || o.Options == nil {
+	if o == nil || IsNil(o.Options) {
 		var ret []UserFieldOption
 		return ret
 	}
@@ -172,7 +179,7 @@ func (o *UserField) GetOptions() []UserFieldOption {
 // GetOptionsOk returns a tuple with the Options field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UserField) GetOptionsOk() ([]UserFieldOption, bool) {
-	if o == nil || o.Options == nil {
+	if o == nil || IsNil(o.Options) {
 		return nil, false
 	}
 	return o.Options, true
@@ -180,7 +187,7 @@ func (o *UserField) GetOptionsOk() ([]UserFieldOption, bool) {
 
 // HasOptions returns a boolean if a field has been set.
 func (o *UserField) HasOptions() bool {
-	if o != nil && o.Options != nil {
+	if o != nil && !IsNil(o.Options) {
 		return true
 	}
 
@@ -193,23 +200,65 @@ func (o *UserField) SetOptions(v []UserFieldOption) {
 }
 
 func (o UserField) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if o.Label != nil {
-		toSerialize["label"] = o.Label
-	}
-	if o.Placeholder != nil {
-		toSerialize["placeholder"] = o.Placeholder
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if o.Options != nil {
-		toSerialize["options"] = o.Options
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UserField) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	if !IsNil(o.Label) {
+		toSerialize["label"] = o.Label
+	}
+	if !IsNil(o.Placeholder) {
+		toSerialize["placeholder"] = o.Placeholder
+	}
+	toSerialize["type"] = o.Type
+	if !IsNil(o.Options) {
+		toSerialize["options"] = o.Options
+	}
+	return toSerialize, nil
+}
+
+func (o *UserField) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUserField := _UserField{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varUserField)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserField(varUserField)
+
+	return err
 }
 
 type NullableUserField struct {

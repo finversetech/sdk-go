@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CreateMandateSender type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateMandateSender{}
+
 // CreateMandateSender struct for CreateMandateSender
 type CreateMandateSender struct {
 	Name *string `json:"name,omitempty"`
@@ -45,7 +48,7 @@ func NewCreateMandateSenderWithDefaults() *CreateMandateSender {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *CreateMandateSender) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *CreateMandateSender) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateMandateSender) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -63,7 +66,7 @@ func (o *CreateMandateSender) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *CreateMandateSender) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *CreateMandateSender) SetName(v string) {
 
 // GetExternalUserId returns the ExternalUserId field value if set, zero value otherwise.
 func (o *CreateMandateSender) GetExternalUserId() string {
-	if o == nil || o.ExternalUserId == nil {
+	if o == nil || IsNil(o.ExternalUserId) {
 		var ret string
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *CreateMandateSender) GetExternalUserId() string {
 // GetExternalUserIdOk returns a tuple with the ExternalUserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateMandateSender) GetExternalUserIdOk() (*string, bool) {
-	if o == nil || o.ExternalUserId == nil {
+	if o == nil || IsNil(o.ExternalUserId) {
 		return nil, false
 	}
 	return o.ExternalUserId, true
@@ -95,7 +98,7 @@ func (o *CreateMandateSender) GetExternalUserIdOk() (*string, bool) {
 
 // HasExternalUserId returns a boolean if a field has been set.
 func (o *CreateMandateSender) HasExternalUserId() bool {
-	if o != nil && o.ExternalUserId != nil {
+	if o != nil && !IsNil(o.ExternalUserId) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *CreateMandateSender) SetExternalUserId(v string) {
 
 // GetUserType returns the UserType field value if set, zero value otherwise.
 func (o *CreateMandateSender) GetUserType() string {
-	if o == nil || o.UserType == nil {
+	if o == nil || IsNil(o.UserType) {
 		var ret string
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *CreateMandateSender) GetUserType() string {
 // GetUserTypeOk returns a tuple with the UserType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateMandateSender) GetUserTypeOk() (*string, bool) {
-	if o == nil || o.UserType == nil {
+	if o == nil || IsNil(o.UserType) {
 		return nil, false
 	}
 	return o.UserType, true
@@ -127,7 +130,7 @@ func (o *CreateMandateSender) GetUserTypeOk() (*string, bool) {
 
 // HasUserType returns a boolean if a field has been set.
 func (o *CreateMandateSender) HasUserType() bool {
-	if o != nil && o.UserType != nil {
+	if o != nil && !IsNil(o.UserType) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *CreateMandateSender) SetUserType(v string) {
 
 // GetUserDetails returns the UserDetails field value if set, zero value otherwise.
 func (o *CreateMandateSender) GetUserDetails() []SenderDetail {
-	if o == nil || o.UserDetails == nil {
+	if o == nil || IsNil(o.UserDetails) {
 		var ret []SenderDetail
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *CreateMandateSender) GetUserDetails() []SenderDetail {
 // GetUserDetailsOk returns a tuple with the UserDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateMandateSender) GetUserDetailsOk() ([]SenderDetail, bool) {
-	if o == nil || o.UserDetails == nil {
+	if o == nil || IsNil(o.UserDetails) {
 		return nil, false
 	}
 	return o.UserDetails, true
@@ -159,7 +162,7 @@ func (o *CreateMandateSender) GetUserDetailsOk() ([]SenderDetail, bool) {
 
 // HasUserDetails returns a boolean if a field has been set.
 func (o *CreateMandateSender) HasUserDetails() bool {
-	if o != nil && o.UserDetails != nil {
+	if o != nil && !IsNil(o.UserDetails) {
 		return true
 	}
 
@@ -172,20 +175,28 @@ func (o *CreateMandateSender) SetUserDetails(v []SenderDetail) {
 }
 
 func (o CreateMandateSender) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.ExternalUserId != nil {
-		toSerialize["external_user_id"] = o.ExternalUserId
-	}
-	if o.UserType != nil {
-		toSerialize["user_type"] = o.UserType
-	}
-	if o.UserDetails != nil {
-		toSerialize["user_details"] = o.UserDetails
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateMandateSender) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.ExternalUserId) {
+		toSerialize["external_user_id"] = o.ExternalUserId
+	}
+	if !IsNil(o.UserType) {
+		toSerialize["user_type"] = o.UserType
+	}
+	if !IsNil(o.UserDetails) {
+		toSerialize["user_details"] = o.UserDetails
+	}
+	return toSerialize, nil
 }
 
 type NullableCreateMandateSender struct {

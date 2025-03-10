@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PaymentLinkDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaymentLinkDetails{}
 
 // PaymentLinkDetails struct for PaymentLinkDetails
 type PaymentLinkDetails struct {
@@ -21,6 +26,8 @@ type PaymentLinkDetails struct {
 	// For external invoice/transaction reference
 	ExternalTransactionReference string `json:"external_transaction_reference"`
 }
+
+type _PaymentLinkDetails PaymentLinkDetails
 
 // NewPaymentLinkDetails instantiates a new PaymentLinkDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -90,14 +97,56 @@ func (o *PaymentLinkDetails) SetExternalTransactionReference(v string) {
 }
 
 func (o PaymentLinkDetails) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["external_transaction_reference"] = o.ExternalTransactionReference
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PaymentLinkDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["description"] = o.Description
+	toSerialize["external_transaction_reference"] = o.ExternalTransactionReference
+	return toSerialize, nil
+}
+
+func (o *PaymentLinkDetails) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"description",
+		"external_transaction_reference",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPaymentLinkDetails := _PaymentLinkDetails{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPaymentLinkDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentLinkDetails(varPaymentLinkDetails)
+
+	return err
 }
 
 type NullablePaymentLinkDetails struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RecipientAccountResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RecipientAccountResponse{}
+
 // RecipientAccountResponse struct for RecipientAccountResponse
 type RecipientAccountResponse struct {
 	// A unique identifier generated after creating recipient
@@ -55,7 +58,7 @@ func NewRecipientAccountResponseWithDefaults() *RecipientAccountResponse {
 
 // GetRecipientAccountId returns the RecipientAccountId field value if set, zero value otherwise.
 func (o *RecipientAccountResponse) GetRecipientAccountId() string {
-	if o == nil || o.RecipientAccountId == nil {
+	if o == nil || IsNil(o.RecipientAccountId) {
 		var ret string
 		return ret
 	}
@@ -65,7 +68,7 @@ func (o *RecipientAccountResponse) GetRecipientAccountId() string {
 // GetRecipientAccountIdOk returns a tuple with the RecipientAccountId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RecipientAccountResponse) GetRecipientAccountIdOk() (*string, bool) {
-	if o == nil || o.RecipientAccountId == nil {
+	if o == nil || IsNil(o.RecipientAccountId) {
 		return nil, false
 	}
 	return o.RecipientAccountId, true
@@ -73,7 +76,7 @@ func (o *RecipientAccountResponse) GetRecipientAccountIdOk() (*string, bool) {
 
 // HasRecipientAccountId returns a boolean if a field has been set.
 func (o *RecipientAccountResponse) HasRecipientAccountId() bool {
-	if o != nil && o.RecipientAccountId != nil {
+	if o != nil && !IsNil(o.RecipientAccountId) {
 		return true
 	}
 
@@ -87,7 +90,7 @@ func (o *RecipientAccountResponse) SetRecipientAccountId(v string) {
 
 // GetAccountholderName returns the AccountholderName field value if set, zero value otherwise.
 func (o *RecipientAccountResponse) GetAccountholderName() string {
-	if o == nil || o.AccountholderName == nil {
+	if o == nil || IsNil(o.AccountholderName) {
 		var ret string
 		return ret
 	}
@@ -97,7 +100,7 @@ func (o *RecipientAccountResponse) GetAccountholderName() string {
 // GetAccountholderNameOk returns a tuple with the AccountholderName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RecipientAccountResponse) GetAccountholderNameOk() (*string, bool) {
-	if o == nil || o.AccountholderName == nil {
+	if o == nil || IsNil(o.AccountholderName) {
 		return nil, false
 	}
 	return o.AccountholderName, true
@@ -105,7 +108,7 @@ func (o *RecipientAccountResponse) GetAccountholderNameOk() (*string, bool) {
 
 // HasAccountholderName returns a boolean if a field has been set.
 func (o *RecipientAccountResponse) HasAccountholderName() bool {
-	if o != nil && o.AccountholderName != nil {
+	if o != nil && !IsNil(o.AccountholderName) {
 		return true
 	}
 
@@ -119,7 +122,7 @@ func (o *RecipientAccountResponse) SetAccountholderName(v string) {
 
 // GetAccountNumber returns the AccountNumber field value if set, zero value otherwise.
 func (o *RecipientAccountResponse) GetAccountNumber() RecipientAccountNumber {
-	if o == nil || o.AccountNumber == nil {
+	if o == nil || IsNil(o.AccountNumber) {
 		var ret RecipientAccountNumber
 		return ret
 	}
@@ -129,7 +132,7 @@ func (o *RecipientAccountResponse) GetAccountNumber() RecipientAccountNumber {
 // GetAccountNumberOk returns a tuple with the AccountNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RecipientAccountResponse) GetAccountNumberOk() (*RecipientAccountNumber, bool) {
-	if o == nil || o.AccountNumber == nil {
+	if o == nil || IsNil(o.AccountNumber) {
 		return nil, false
 	}
 	return o.AccountNumber, true
@@ -137,7 +140,7 @@ func (o *RecipientAccountResponse) GetAccountNumberOk() (*RecipientAccountNumber
 
 // HasAccountNumber returns a boolean if a field has been set.
 func (o *RecipientAccountResponse) HasAccountNumber() bool {
-	if o != nil && o.AccountNumber != nil {
+	if o != nil && !IsNil(o.AccountNumber) {
 		return true
 	}
 
@@ -151,7 +154,7 @@ func (o *RecipientAccountResponse) SetAccountNumber(v RecipientAccountNumber) {
 
 // GetAccountType returns the AccountType field value if set, zero value otherwise.
 func (o *RecipientAccountResponse) GetAccountType() string {
-	if o == nil || o.AccountType == nil {
+	if o == nil || IsNil(o.AccountType) {
 		var ret string
 		return ret
 	}
@@ -161,7 +164,7 @@ func (o *RecipientAccountResponse) GetAccountType() string {
 // GetAccountTypeOk returns a tuple with the AccountType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RecipientAccountResponse) GetAccountTypeOk() (*string, bool) {
-	if o == nil || o.AccountType == nil {
+	if o == nil || IsNil(o.AccountType) {
 		return nil, false
 	}
 	return o.AccountType, true
@@ -169,7 +172,7 @@ func (o *RecipientAccountResponse) GetAccountTypeOk() (*string, bool) {
 
 // HasAccountType returns a boolean if a field has been set.
 func (o *RecipientAccountResponse) HasAccountType() bool {
-	if o != nil && o.AccountType != nil {
+	if o != nil && !IsNil(o.AccountType) {
 		return true
 	}
 
@@ -183,7 +186,7 @@ func (o *RecipientAccountResponse) SetAccountType(v string) {
 
 // GetCurrencies returns the Currencies field value if set, zero value otherwise.
 func (o *RecipientAccountResponse) GetCurrencies() []string {
-	if o == nil || o.Currencies == nil {
+	if o == nil || IsNil(o.Currencies) {
 		var ret []string
 		return ret
 	}
@@ -193,7 +196,7 @@ func (o *RecipientAccountResponse) GetCurrencies() []string {
 // GetCurrenciesOk returns a tuple with the Currencies field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RecipientAccountResponse) GetCurrenciesOk() ([]string, bool) {
-	if o == nil || o.Currencies == nil {
+	if o == nil || IsNil(o.Currencies) {
 		return nil, false
 	}
 	return o.Currencies, true
@@ -201,7 +204,7 @@ func (o *RecipientAccountResponse) GetCurrenciesOk() ([]string, bool) {
 
 // HasCurrencies returns a boolean if a field has been set.
 func (o *RecipientAccountResponse) HasCurrencies() bool {
-	if o != nil && o.Currencies != nil {
+	if o != nil && !IsNil(o.Currencies) {
 		return true
 	}
 
@@ -215,7 +218,7 @@ func (o *RecipientAccountResponse) SetCurrencies(v []string) {
 
 // GetInstitutionId returns the InstitutionId field value if set, zero value otherwise.
 func (o *RecipientAccountResponse) GetInstitutionId() string {
-	if o == nil || o.InstitutionId == nil {
+	if o == nil || IsNil(o.InstitutionId) {
 		var ret string
 		return ret
 	}
@@ -225,7 +228,7 @@ func (o *RecipientAccountResponse) GetInstitutionId() string {
 // GetInstitutionIdOk returns a tuple with the InstitutionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RecipientAccountResponse) GetInstitutionIdOk() (*string, bool) {
-	if o == nil || o.InstitutionId == nil {
+	if o == nil || IsNil(o.InstitutionId) {
 		return nil, false
 	}
 	return o.InstitutionId, true
@@ -233,7 +236,7 @@ func (o *RecipientAccountResponse) GetInstitutionIdOk() (*string, bool) {
 
 // HasInstitutionId returns a boolean if a field has been set.
 func (o *RecipientAccountResponse) HasInstitutionId() bool {
-	if o != nil && o.InstitutionId != nil {
+	if o != nil && !IsNil(o.InstitutionId) {
 		return true
 	}
 
@@ -247,7 +250,7 @@ func (o *RecipientAccountResponse) SetInstitutionId(v string) {
 
 // GetInstitutionName returns the InstitutionName field value if set, zero value otherwise.
 func (o *RecipientAccountResponse) GetInstitutionName() string {
-	if o == nil || o.InstitutionName == nil {
+	if o == nil || IsNil(o.InstitutionName) {
 		var ret string
 		return ret
 	}
@@ -257,7 +260,7 @@ func (o *RecipientAccountResponse) GetInstitutionName() string {
 // GetInstitutionNameOk returns a tuple with the InstitutionName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RecipientAccountResponse) GetInstitutionNameOk() (*string, bool) {
-	if o == nil || o.InstitutionName == nil {
+	if o == nil || IsNil(o.InstitutionName) {
 		return nil, false
 	}
 	return o.InstitutionName, true
@@ -265,7 +268,7 @@ func (o *RecipientAccountResponse) GetInstitutionNameOk() (*string, bool) {
 
 // HasInstitutionName returns a boolean if a field has been set.
 func (o *RecipientAccountResponse) HasInstitutionName() bool {
-	if o != nil && o.InstitutionName != nil {
+	if o != nil && !IsNil(o.InstitutionName) {
 		return true
 	}
 
@@ -279,7 +282,7 @@ func (o *RecipientAccountResponse) SetInstitutionName(v string) {
 
 // GetBankCode returns the BankCode field value if set, zero value otherwise.
 func (o *RecipientAccountResponse) GetBankCode() string {
-	if o == nil || o.BankCode == nil {
+	if o == nil || IsNil(o.BankCode) {
 		var ret string
 		return ret
 	}
@@ -289,7 +292,7 @@ func (o *RecipientAccountResponse) GetBankCode() string {
 // GetBankCodeOk returns a tuple with the BankCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RecipientAccountResponse) GetBankCodeOk() (*string, bool) {
-	if o == nil || o.BankCode == nil {
+	if o == nil || IsNil(o.BankCode) {
 		return nil, false
 	}
 	return o.BankCode, true
@@ -297,7 +300,7 @@ func (o *RecipientAccountResponse) GetBankCodeOk() (*string, bool) {
 
 // HasBankCode returns a boolean if a field has been set.
 func (o *RecipientAccountResponse) HasBankCode() bool {
-	if o != nil && o.BankCode != nil {
+	if o != nil && !IsNil(o.BankCode) {
 		return true
 	}
 
@@ -311,7 +314,7 @@ func (o *RecipientAccountResponse) SetBankCode(v string) {
 
 // GetBranchCode returns the BranchCode field value if set, zero value otherwise.
 func (o *RecipientAccountResponse) GetBranchCode() string {
-	if o == nil || o.BranchCode == nil {
+	if o == nil || IsNil(o.BranchCode) {
 		var ret string
 		return ret
 	}
@@ -321,7 +324,7 @@ func (o *RecipientAccountResponse) GetBranchCode() string {
 // GetBranchCodeOk returns a tuple with the BranchCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RecipientAccountResponse) GetBranchCodeOk() (*string, bool) {
-	if o == nil || o.BranchCode == nil {
+	if o == nil || IsNil(o.BranchCode) {
 		return nil, false
 	}
 	return o.BranchCode, true
@@ -329,7 +332,7 @@ func (o *RecipientAccountResponse) GetBranchCodeOk() (*string, bool) {
 
 // HasBranchCode returns a boolean if a field has been set.
 func (o *RecipientAccountResponse) HasBranchCode() bool {
-	if o != nil && o.BranchCode != nil {
+	if o != nil && !IsNil(o.BranchCode) {
 		return true
 	}
 
@@ -342,35 +345,43 @@ func (o *RecipientAccountResponse) SetBranchCode(v string) {
 }
 
 func (o RecipientAccountResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.RecipientAccountId != nil {
-		toSerialize["recipient_account_id"] = o.RecipientAccountId
-	}
-	if o.AccountholderName != nil {
-		toSerialize["accountholder_name"] = o.AccountholderName
-	}
-	if o.AccountNumber != nil {
-		toSerialize["account_number"] = o.AccountNumber
-	}
-	if o.AccountType != nil {
-		toSerialize["account_type"] = o.AccountType
-	}
-	if o.Currencies != nil {
-		toSerialize["currencies"] = o.Currencies
-	}
-	if o.InstitutionId != nil {
-		toSerialize["institution_id"] = o.InstitutionId
-	}
-	if o.InstitutionName != nil {
-		toSerialize["institution_name"] = o.InstitutionName
-	}
-	if o.BankCode != nil {
-		toSerialize["bank_code"] = o.BankCode
-	}
-	if o.BranchCode != nil {
-		toSerialize["branch_code"] = o.BranchCode
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RecipientAccountResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.RecipientAccountId) {
+		toSerialize["recipient_account_id"] = o.RecipientAccountId
+	}
+	if !IsNil(o.AccountholderName) {
+		toSerialize["accountholder_name"] = o.AccountholderName
+	}
+	if !IsNil(o.AccountNumber) {
+		toSerialize["account_number"] = o.AccountNumber
+	}
+	if !IsNil(o.AccountType) {
+		toSerialize["account_type"] = o.AccountType
+	}
+	if !IsNil(o.Currencies) {
+		toSerialize["currencies"] = o.Currencies
+	}
+	if !IsNil(o.InstitutionId) {
+		toSerialize["institution_id"] = o.InstitutionId
+	}
+	if !IsNil(o.InstitutionName) {
+		toSerialize["institution_name"] = o.InstitutionName
+	}
+	if !IsNil(o.BankCode) {
+		toSerialize["bank_code"] = o.BankCode
+	}
+	if !IsNil(o.BranchCode) {
+		toSerialize["branch_code"] = o.BranchCode
+	}
+	return toSerialize, nil
 }
 
 type NullableRecipientAccountResponse struct {

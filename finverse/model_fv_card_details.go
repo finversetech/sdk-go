@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the FVCardDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FVCardDetails{}
+
 // FVCardDetails struct for FVCardDetails
 type FVCardDetails struct {
 	// The credit card brand
@@ -48,7 +51,7 @@ func NewFVCardDetailsWithDefaults() *FVCardDetails {
 
 // GetBrand returns the Brand field value if set, zero value otherwise.
 func (o *FVCardDetails) GetBrand() string {
-	if o == nil || o.Brand == nil {
+	if o == nil || IsNil(o.Brand) {
 		var ret string
 		return ret
 	}
@@ -58,7 +61,7 @@ func (o *FVCardDetails) GetBrand() string {
 // GetBrandOk returns a tuple with the Brand field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FVCardDetails) GetBrandOk() (*string, bool) {
-	if o == nil || o.Brand == nil {
+	if o == nil || IsNil(o.Brand) {
 		return nil, false
 	}
 	return o.Brand, true
@@ -66,7 +69,7 @@ func (o *FVCardDetails) GetBrandOk() (*string, bool) {
 
 // HasBrand returns a boolean if a field has been set.
 func (o *FVCardDetails) HasBrand() bool {
-	if o != nil && o.Brand != nil {
+	if o != nil && !IsNil(o.Brand) {
 		return true
 	}
 
@@ -80,7 +83,7 @@ func (o *FVCardDetails) SetBrand(v string) {
 
 // GetLast4 returns the Last4 field value if set, zero value otherwise.
 func (o *FVCardDetails) GetLast4() string {
-	if o == nil || o.Last4 == nil {
+	if o == nil || IsNil(o.Last4) {
 		var ret string
 		return ret
 	}
@@ -90,7 +93,7 @@ func (o *FVCardDetails) GetLast4() string {
 // GetLast4Ok returns a tuple with the Last4 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FVCardDetails) GetLast4Ok() (*string, bool) {
-	if o == nil || o.Last4 == nil {
+	if o == nil || IsNil(o.Last4) {
 		return nil, false
 	}
 	return o.Last4, true
@@ -98,7 +101,7 @@ func (o *FVCardDetails) GetLast4Ok() (*string, bool) {
 
 // HasLast4 returns a boolean if a field has been set.
 func (o *FVCardDetails) HasLast4() bool {
-	if o != nil && o.Last4 != nil {
+	if o != nil && !IsNil(o.Last4) {
 		return true
 	}
 
@@ -112,7 +115,7 @@ func (o *FVCardDetails) SetLast4(v string) {
 
 // GetExpiryMonth returns the ExpiryMonth field value if set, zero value otherwise.
 func (o *FVCardDetails) GetExpiryMonth() int32 {
-	if o == nil || o.ExpiryMonth == nil {
+	if o == nil || IsNil(o.ExpiryMonth) {
 		var ret int32
 		return ret
 	}
@@ -122,7 +125,7 @@ func (o *FVCardDetails) GetExpiryMonth() int32 {
 // GetExpiryMonthOk returns a tuple with the ExpiryMonth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FVCardDetails) GetExpiryMonthOk() (*int32, bool) {
-	if o == nil || o.ExpiryMonth == nil {
+	if o == nil || IsNil(o.ExpiryMonth) {
 		return nil, false
 	}
 	return o.ExpiryMonth, true
@@ -130,7 +133,7 @@ func (o *FVCardDetails) GetExpiryMonthOk() (*int32, bool) {
 
 // HasExpiryMonth returns a boolean if a field has been set.
 func (o *FVCardDetails) HasExpiryMonth() bool {
-	if o != nil && o.ExpiryMonth != nil {
+	if o != nil && !IsNil(o.ExpiryMonth) {
 		return true
 	}
 
@@ -144,7 +147,7 @@ func (o *FVCardDetails) SetExpiryMonth(v int32) {
 
 // GetExpiryYear returns the ExpiryYear field value if set, zero value otherwise.
 func (o *FVCardDetails) GetExpiryYear() int32 {
-	if o == nil || o.ExpiryYear == nil {
+	if o == nil || IsNil(o.ExpiryYear) {
 		var ret int32
 		return ret
 	}
@@ -154,7 +157,7 @@ func (o *FVCardDetails) GetExpiryYear() int32 {
 // GetExpiryYearOk returns a tuple with the ExpiryYear field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FVCardDetails) GetExpiryYearOk() (*int32, bool) {
-	if o == nil || o.ExpiryYear == nil {
+	if o == nil || IsNil(o.ExpiryYear) {
 		return nil, false
 	}
 	return o.ExpiryYear, true
@@ -162,7 +165,7 @@ func (o *FVCardDetails) GetExpiryYearOk() (*int32, bool) {
 
 // HasExpiryYear returns a boolean if a field has been set.
 func (o *FVCardDetails) HasExpiryYear() bool {
-	if o != nil && o.ExpiryYear != nil {
+	if o != nil && !IsNil(o.ExpiryYear) {
 		return true
 	}
 
@@ -176,7 +179,7 @@ func (o *FVCardDetails) SetExpiryYear(v int32) {
 
 // GetProcessorEntityName returns the ProcessorEntityName field value if set, zero value otherwise.
 func (o *FVCardDetails) GetProcessorEntityName() string {
-	if o == nil || o.ProcessorEntityName == nil {
+	if o == nil || IsNil(o.ProcessorEntityName) {
 		var ret string
 		return ret
 	}
@@ -186,7 +189,7 @@ func (o *FVCardDetails) GetProcessorEntityName() string {
 // GetProcessorEntityNameOk returns a tuple with the ProcessorEntityName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FVCardDetails) GetProcessorEntityNameOk() (*string, bool) {
-	if o == nil || o.ProcessorEntityName == nil {
+	if o == nil || IsNil(o.ProcessorEntityName) {
 		return nil, false
 	}
 	return o.ProcessorEntityName, true
@@ -194,7 +197,7 @@ func (o *FVCardDetails) GetProcessorEntityNameOk() (*string, bool) {
 
 // HasProcessorEntityName returns a boolean if a field has been set.
 func (o *FVCardDetails) HasProcessorEntityName() bool {
-	if o != nil && o.ProcessorEntityName != nil {
+	if o != nil && !IsNil(o.ProcessorEntityName) {
 		return true
 	}
 
@@ -208,7 +211,7 @@ func (o *FVCardDetails) SetProcessorEntityName(v string) {
 
 // GetCollectionEntityName returns the CollectionEntityName field value if set, zero value otherwise.
 func (o *FVCardDetails) GetCollectionEntityName() string {
-	if o == nil || o.CollectionEntityName == nil {
+	if o == nil || IsNil(o.CollectionEntityName) {
 		var ret string
 		return ret
 	}
@@ -218,7 +221,7 @@ func (o *FVCardDetails) GetCollectionEntityName() string {
 // GetCollectionEntityNameOk returns a tuple with the CollectionEntityName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FVCardDetails) GetCollectionEntityNameOk() (*string, bool) {
-	if o == nil || o.CollectionEntityName == nil {
+	if o == nil || IsNil(o.CollectionEntityName) {
 		return nil, false
 	}
 	return o.CollectionEntityName, true
@@ -226,7 +229,7 @@ func (o *FVCardDetails) GetCollectionEntityNameOk() (*string, bool) {
 
 // HasCollectionEntityName returns a boolean if a field has been set.
 func (o *FVCardDetails) HasCollectionEntityName() bool {
-	if o != nil && o.CollectionEntityName != nil {
+	if o != nil && !IsNil(o.CollectionEntityName) {
 		return true
 	}
 
@@ -239,26 +242,34 @@ func (o *FVCardDetails) SetCollectionEntityName(v string) {
 }
 
 func (o FVCardDetails) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Brand != nil {
-		toSerialize["brand"] = o.Brand
-	}
-	if o.Last4 != nil {
-		toSerialize["last4"] = o.Last4
-	}
-	if o.ExpiryMonth != nil {
-		toSerialize["expiry_month"] = o.ExpiryMonth
-	}
-	if o.ExpiryYear != nil {
-		toSerialize["expiry_year"] = o.ExpiryYear
-	}
-	if o.ProcessorEntityName != nil {
-		toSerialize["processor_entity_name"] = o.ProcessorEntityName
-	}
-	if o.CollectionEntityName != nil {
-		toSerialize["collection_entity_name"] = o.CollectionEntityName
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o FVCardDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Brand) {
+		toSerialize["brand"] = o.Brand
+	}
+	if !IsNil(o.Last4) {
+		toSerialize["last4"] = o.Last4
+	}
+	if !IsNil(o.ExpiryMonth) {
+		toSerialize["expiry_month"] = o.ExpiryMonth
+	}
+	if !IsNil(o.ExpiryYear) {
+		toSerialize["expiry_year"] = o.ExpiryYear
+	}
+	if !IsNil(o.ProcessorEntityName) {
+		toSerialize["processor_entity_name"] = o.ProcessorEntityName
+	}
+	if !IsNil(o.CollectionEntityName) {
+		toSerialize["collection_entity_name"] = o.CollectionEntityName
+	}
+	return toSerialize, nil
 }
 
 type NullableFVCardDetails struct {

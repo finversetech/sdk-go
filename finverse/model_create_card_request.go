@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CreateCardRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateCardRequest{}
 
 // CreateCardRequest struct for CreateCardRequest
 type CreateCardRequest struct {
@@ -21,6 +26,8 @@ type CreateCardRequest struct {
 	RecipientAccount MandateRecipientRequest      `json:"recipient_account"`
 	Status           string                       `json:"status"`
 }
+
+type _CreateCardRequest CreateCardRequest
 
 // NewCreateCardRequest instantiates a new CreateCardRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -115,17 +122,58 @@ func (o *CreateCardRequest) SetStatus(v string) {
 }
 
 func (o CreateCardRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["card_details"] = o.CardDetails
-	}
-	if true {
-		toSerialize["recipient_account"] = o.RecipientAccount
-	}
-	if true {
-		toSerialize["status"] = o.Status
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateCardRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["card_details"] = o.CardDetails
+	toSerialize["recipient_account"] = o.RecipientAccount
+	toSerialize["status"] = o.Status
+	return toSerialize, nil
+}
+
+func (o *CreateCardRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"card_details",
+		"recipient_account",
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateCardRequest := _CreateCardRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCreateCardRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateCardRequest(varCreateCardRequest)
+
+	return err
 }
 
 type NullableCreateCardRequest struct {

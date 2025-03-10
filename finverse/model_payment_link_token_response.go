@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PaymentLinkTokenResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaymentLinkTokenResponse{}
 
 // PaymentLinkTokenResponse struct for PaymentLinkTokenResponse
 type PaymentLinkTokenResponse struct {
@@ -25,6 +30,8 @@ type PaymentLinkTokenResponse struct {
 	LinkUrl   string `json:"link_url"`
 	TokenType string `json:"token_type"`
 }
+
+type _PaymentLinkTokenResponse PaymentLinkTokenResponse
 
 // NewPaymentLinkTokenResponse instantiates a new PaymentLinkTokenResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -144,20 +151,60 @@ func (o *PaymentLinkTokenResponse) SetTokenType(v string) {
 }
 
 func (o PaymentLinkTokenResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["access_token"] = o.AccessToken
-	}
-	if true {
-		toSerialize["expires_in"] = o.ExpiresIn
-	}
-	if true {
-		toSerialize["link_url"] = o.LinkUrl
-	}
-	if true {
-		toSerialize["token_type"] = o.TokenType
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PaymentLinkTokenResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["access_token"] = o.AccessToken
+	toSerialize["expires_in"] = o.ExpiresIn
+	toSerialize["link_url"] = o.LinkUrl
+	toSerialize["token_type"] = o.TokenType
+	return toSerialize, nil
+}
+
+func (o *PaymentLinkTokenResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"access_token",
+		"expires_in",
+		"link_url",
+		"token_type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPaymentLinkTokenResponse := _PaymentLinkTokenResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPaymentLinkTokenResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentLinkTokenResponse(varPaymentLinkTokenResponse)
+
+	return err
 }
 
 type NullablePaymentLinkTokenResponse struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the LoginField type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LoginField{}
+
 // LoginField struct for LoginField
 type LoginField struct {
 	Key  *string `json:"key,omitempty"`
@@ -42,7 +45,7 @@ func NewLoginFieldWithDefaults() *LoginField {
 
 // GetKey returns the Key field value if set, zero value otherwise.
 func (o *LoginField) GetKey() string {
-	if o == nil || o.Key == nil {
+	if o == nil || IsNil(o.Key) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *LoginField) GetKey() string {
 // GetKeyOk returns a tuple with the Key field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LoginField) GetKeyOk() (*string, bool) {
-	if o == nil || o.Key == nil {
+	if o == nil || IsNil(o.Key) {
 		return nil, false
 	}
 	return o.Key, true
@@ -60,7 +63,7 @@ func (o *LoginField) GetKeyOk() (*string, bool) {
 
 // HasKey returns a boolean if a field has been set.
 func (o *LoginField) HasKey() bool {
-	if o != nil && o.Key != nil {
+	if o != nil && !IsNil(o.Key) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *LoginField) SetKey(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *LoginField) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *LoginField) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LoginField) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -92,7 +95,7 @@ func (o *LoginField) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *LoginField) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *LoginField) SetName(v string) {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *LoginField) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *LoginField) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LoginField) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -124,7 +127,7 @@ func (o *LoginField) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *LoginField) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -137,17 +140,25 @@ func (o *LoginField) SetType(v string) {
 }
 
 func (o LoginField) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Key != nil {
-		toSerialize["key"] = o.Key
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o LoginField) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Key) {
+		toSerialize["key"] = o.Key
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	return toSerialize, nil
 }
 
 type NullableLoginField struct {

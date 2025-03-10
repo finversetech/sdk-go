@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the GetStatementLinkResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetStatementLinkResponse{}
+
 // GetStatementLinkResponse struct for GetStatementLinkResponse
 type GetStatementLinkResponse struct {
 	StatementLinks []StatementLink `json:"statement_links,omitempty"`
@@ -39,7 +42,7 @@ func NewGetStatementLinkResponseWithDefaults() *GetStatementLinkResponse {
 
 // GetStatementLinks returns the StatementLinks field value if set, zero value otherwise.
 func (o *GetStatementLinkResponse) GetStatementLinks() []StatementLink {
-	if o == nil || o.StatementLinks == nil {
+	if o == nil || IsNil(o.StatementLinks) {
 		var ret []StatementLink
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *GetStatementLinkResponse) GetStatementLinks() []StatementLink {
 // GetStatementLinksOk returns a tuple with the StatementLinks field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetStatementLinkResponse) GetStatementLinksOk() ([]StatementLink, bool) {
-	if o == nil || o.StatementLinks == nil {
+	if o == nil || IsNil(o.StatementLinks) {
 		return nil, false
 	}
 	return o.StatementLinks, true
@@ -57,7 +60,7 @@ func (o *GetStatementLinkResponse) GetStatementLinksOk() ([]StatementLink, bool)
 
 // HasStatementLinks returns a boolean if a field has been set.
 func (o *GetStatementLinkResponse) HasStatementLinks() bool {
-	if o != nil && o.StatementLinks != nil {
+	if o != nil && !IsNil(o.StatementLinks) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *GetStatementLinkResponse) SetStatementLinks(v []StatementLink) {
 }
 
 func (o GetStatementLinkResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.StatementLinks != nil {
-		toSerialize["statement_links"] = o.StatementLinks
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GetStatementLinkResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.StatementLinks) {
+		toSerialize["statement_links"] = o.StatementLinks
+	}
+	return toSerialize, nil
 }
 
 type NullableGetStatementLinkResponse struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RefreshLoginIdentityLinkCustomizations type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RefreshLoginIdentityLinkCustomizations{}
+
 // RefreshLoginIdentityLinkCustomizations struct for RefreshLoginIdentityLinkCustomizations
 type RefreshLoginIdentityLinkCustomizations struct {
 	// ISO639-1 language code. Language to display when user open the link, default to English (en) if not specified
@@ -44,7 +47,7 @@ func NewRefreshLoginIdentityLinkCustomizationsWithDefaults() *RefreshLoginIdenti
 
 // GetLanguage returns the Language field value if set, zero value otherwise.
 func (o *RefreshLoginIdentityLinkCustomizations) GetLanguage() string {
-	if o == nil || o.Language == nil {
+	if o == nil || IsNil(o.Language) {
 		var ret string
 		return ret
 	}
@@ -54,7 +57,7 @@ func (o *RefreshLoginIdentityLinkCustomizations) GetLanguage() string {
 // GetLanguageOk returns a tuple with the Language field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RefreshLoginIdentityLinkCustomizations) GetLanguageOk() (*string, bool) {
-	if o == nil || o.Language == nil {
+	if o == nil || IsNil(o.Language) {
 		return nil, false
 	}
 	return o.Language, true
@@ -62,7 +65,7 @@ func (o *RefreshLoginIdentityLinkCustomizations) GetLanguageOk() (*string, bool)
 
 // HasLanguage returns a boolean if a field has been set.
 func (o *RefreshLoginIdentityLinkCustomizations) HasLanguage() bool {
-	if o != nil && o.Language != nil {
+	if o != nil && !IsNil(o.Language) {
 		return true
 	}
 
@@ -76,7 +79,7 @@ func (o *RefreshLoginIdentityLinkCustomizations) SetLanguage(v string) {
 
 // GetUiMode returns the UiMode field value if set, zero value otherwise.
 func (o *RefreshLoginIdentityLinkCustomizations) GetUiMode() string {
-	if o == nil || o.UiMode == nil {
+	if o == nil || IsNil(o.UiMode) {
 		var ret string
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *RefreshLoginIdentityLinkCustomizations) GetUiMode() string {
 // GetUiModeOk returns a tuple with the UiMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RefreshLoginIdentityLinkCustomizations) GetUiModeOk() (*string, bool) {
-	if o == nil || o.UiMode == nil {
+	if o == nil || IsNil(o.UiMode) {
 		return nil, false
 	}
 	return o.UiMode, true
@@ -94,7 +97,7 @@ func (o *RefreshLoginIdentityLinkCustomizations) GetUiModeOk() (*string, bool) {
 
 // HasUiMode returns a boolean if a field has been set.
 func (o *RefreshLoginIdentityLinkCustomizations) HasUiMode() bool {
-	if o != nil && o.UiMode != nil {
+	if o != nil && !IsNil(o.UiMode) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *RefreshLoginIdentityLinkCustomizations) SetUiMode(v string) {
 
 // GetRedirectUri returns the RedirectUri field value if set, zero value otherwise.
 func (o *RefreshLoginIdentityLinkCustomizations) GetRedirectUri() string {
-	if o == nil || o.RedirectUri == nil {
+	if o == nil || IsNil(o.RedirectUri) {
 		var ret string
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *RefreshLoginIdentityLinkCustomizations) GetRedirectUri() string {
 // GetRedirectUriOk returns a tuple with the RedirectUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RefreshLoginIdentityLinkCustomizations) GetRedirectUriOk() (*string, bool) {
-	if o == nil || o.RedirectUri == nil {
+	if o == nil || IsNil(o.RedirectUri) {
 		return nil, false
 	}
 	return o.RedirectUri, true
@@ -126,7 +129,7 @@ func (o *RefreshLoginIdentityLinkCustomizations) GetRedirectUriOk() (*string, bo
 
 // HasRedirectUri returns a boolean if a field has been set.
 func (o *RefreshLoginIdentityLinkCustomizations) HasRedirectUri() bool {
-	if o != nil && o.RedirectUri != nil {
+	if o != nil && !IsNil(o.RedirectUri) {
 		return true
 	}
 
@@ -140,7 +143,7 @@ func (o *RefreshLoginIdentityLinkCustomizations) SetRedirectUri(v string) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *RefreshLoginIdentityLinkCustomizations) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -150,7 +153,7 @@ func (o *RefreshLoginIdentityLinkCustomizations) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RefreshLoginIdentityLinkCustomizations) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -158,7 +161,7 @@ func (o *RefreshLoginIdentityLinkCustomizations) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *RefreshLoginIdentityLinkCustomizations) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -171,20 +174,28 @@ func (o *RefreshLoginIdentityLinkCustomizations) SetState(v string) {
 }
 
 func (o RefreshLoginIdentityLinkCustomizations) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Language != nil {
-		toSerialize["language"] = o.Language
-	}
-	if o.UiMode != nil {
-		toSerialize["ui_mode"] = o.UiMode
-	}
-	if o.RedirectUri != nil {
-		toSerialize["redirect_uri"] = o.RedirectUri
-	}
-	if o.State != nil {
-		toSerialize["state"] = o.State
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RefreshLoginIdentityLinkCustomizations) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Language) {
+		toSerialize["language"] = o.Language
+	}
+	if !IsNil(o.UiMode) {
+		toSerialize["ui_mode"] = o.UiMode
+	}
+	if !IsNil(o.RedirectUri) {
+		toSerialize["redirect_uri"] = o.RedirectUri
+	}
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	return toSerialize, nil
 }
 
 type NullableRefreshLoginIdentityLinkCustomizations struct {

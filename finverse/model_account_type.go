@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AccountType type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AccountType{}
+
 // AccountType struct for AccountType
 type AccountType struct {
 	Type    *string `json:"type,omitempty"`
@@ -40,7 +43,7 @@ func NewAccountTypeWithDefaults() *AccountType {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *AccountType) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *AccountType) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccountType) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -58,7 +61,7 @@ func (o *AccountType) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *AccountType) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *AccountType) SetType(v string) {
 
 // GetSubtype returns the Subtype field value if set, zero value otherwise.
 func (o *AccountType) GetSubtype() string {
-	if o == nil || o.Subtype == nil {
+	if o == nil || IsNil(o.Subtype) {
 		var ret string
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *AccountType) GetSubtype() string {
 // GetSubtypeOk returns a tuple with the Subtype field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AccountType) GetSubtypeOk() (*string, bool) {
-	if o == nil || o.Subtype == nil {
+	if o == nil || IsNil(o.Subtype) {
 		return nil, false
 	}
 	return o.Subtype, true
@@ -90,7 +93,7 @@ func (o *AccountType) GetSubtypeOk() (*string, bool) {
 
 // HasSubtype returns a boolean if a field has been set.
 func (o *AccountType) HasSubtype() bool {
-	if o != nil && o.Subtype != nil {
+	if o != nil && !IsNil(o.Subtype) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *AccountType) SetSubtype(v string) {
 }
 
 func (o AccountType) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
-	}
-	if o.Subtype != nil {
-		toSerialize["subtype"] = o.Subtype
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AccountType) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Subtype) {
+		toSerialize["subtype"] = o.Subtype
+	}
+	return toSerialize, nil
 }
 
 type NullableAccountType struct {

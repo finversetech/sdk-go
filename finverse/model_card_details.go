@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CardDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CardDetails{}
+
 // CardDetails struct for CardDetails
 type CardDetails struct {
 	CardAccounts []CardAccount `json:"card_accounts,omitempty"`
@@ -40,7 +43,7 @@ func NewCardDetailsWithDefaults() *CardDetails {
 
 // GetCardAccounts returns the CardAccounts field value if set, zero value otherwise.
 func (o *CardDetails) GetCardAccounts() []CardAccount {
-	if o == nil || o.CardAccounts == nil {
+	if o == nil || IsNil(o.CardAccounts) {
 		var ret []CardAccount
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *CardDetails) GetCardAccounts() []CardAccount {
 // GetCardAccountsOk returns a tuple with the CardAccounts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardDetails) GetCardAccountsOk() ([]CardAccount, bool) {
-	if o == nil || o.CardAccounts == nil {
+	if o == nil || IsNil(o.CardAccounts) {
 		return nil, false
 	}
 	return o.CardAccounts, true
@@ -58,7 +61,7 @@ func (o *CardDetails) GetCardAccountsOk() ([]CardAccount, bool) {
 
 // HasCardAccounts returns a boolean if a field has been set.
 func (o *CardDetails) HasCardAccounts() bool {
-	if o != nil && o.CardAccounts != nil {
+	if o != nil && !IsNil(o.CardAccounts) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *CardDetails) SetCardAccounts(v []CardAccount) {
 
 // GetCardTotal returns the CardTotal field value if set, zero value otherwise.
 func (o *CardDetails) GetCardTotal() CardTotal {
-	if o == nil || o.CardTotal == nil {
+	if o == nil || IsNil(o.CardTotal) {
 		var ret CardTotal
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *CardDetails) GetCardTotal() CardTotal {
 // GetCardTotalOk returns a tuple with the CardTotal field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardDetails) GetCardTotalOk() (*CardTotal, bool) {
-	if o == nil || o.CardTotal == nil {
+	if o == nil || IsNil(o.CardTotal) {
 		return nil, false
 	}
 	return o.CardTotal, true
@@ -90,7 +93,7 @@ func (o *CardDetails) GetCardTotalOk() (*CardTotal, bool) {
 
 // HasCardTotal returns a boolean if a field has been set.
 func (o *CardDetails) HasCardTotal() bool {
-	if o != nil && o.CardTotal != nil {
+	if o != nil && !IsNil(o.CardTotal) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *CardDetails) SetCardTotal(v CardTotal) {
 }
 
 func (o CardDetails) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.CardAccounts != nil {
-		toSerialize["card_accounts"] = o.CardAccounts
-	}
-	if o.CardTotal != nil {
-		toSerialize["card_total"] = o.CardTotal
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CardDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CardAccounts) {
+		toSerialize["card_accounts"] = o.CardAccounts
+	}
+	if !IsNil(o.CardTotal) {
+		toSerialize["card_total"] = o.CardTotal
+	}
+	return toSerialize, nil
 }
 
 type NullableCardDetails struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the NonSensitiveLinkStatusResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &NonSensitiveLinkStatusResponse{}
+
 // NonSensitiveLinkStatusResponse struct for NonSensitiveLinkStatusResponse
 type NonSensitiveLinkStatusResponse struct {
 	Action      *LinkStatusActionModel              `json:"action,omitempty"`
@@ -42,7 +45,7 @@ func NewNonSensitiveLinkStatusResponseWithDefaults() *NonSensitiveLinkStatusResp
 
 // GetAction returns the Action field value if set, zero value otherwise.
 func (o *NonSensitiveLinkStatusResponse) GetAction() LinkStatusActionModel {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		var ret LinkStatusActionModel
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *NonSensitiveLinkStatusResponse) GetAction() LinkStatusActionModel {
 // GetActionOk returns a tuple with the Action field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NonSensitiveLinkStatusResponse) GetActionOk() (*LinkStatusActionModel, bool) {
-	if o == nil || o.Action == nil {
+	if o == nil || IsNil(o.Action) {
 		return nil, false
 	}
 	return o.Action, true
@@ -60,7 +63,7 @@ func (o *NonSensitiveLinkStatusResponse) GetActionOk() (*LinkStatusActionModel, 
 
 // HasAction returns a boolean if a field has been set.
 func (o *NonSensitiveLinkStatusResponse) HasAction() bool {
-	if o != nil && o.Action != nil {
+	if o != nil && !IsNil(o.Action) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *NonSensitiveLinkStatusResponse) SetAction(v LinkStatusActionModel) {
 
 // GetRedirectUri returns the RedirectUri field value if set, zero value otherwise.
 func (o *NonSensitiveLinkStatusResponse) GetRedirectUri() string {
-	if o == nil || o.RedirectUri == nil {
+	if o == nil || IsNil(o.RedirectUri) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *NonSensitiveLinkStatusResponse) GetRedirectUri() string {
 // GetRedirectUriOk returns a tuple with the RedirectUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NonSensitiveLinkStatusResponse) GetRedirectUriOk() (*string, bool) {
-	if o == nil || o.RedirectUri == nil {
+	if o == nil || IsNil(o.RedirectUri) {
 		return nil, false
 	}
 	return o.RedirectUri, true
@@ -92,7 +95,7 @@ func (o *NonSensitiveLinkStatusResponse) GetRedirectUriOk() (*string, bool) {
 
 // HasRedirectUri returns a boolean if a field has been set.
 func (o *NonSensitiveLinkStatusResponse) HasRedirectUri() bool {
-	if o != nil && o.RedirectUri != nil {
+	if o != nil && !IsNil(o.RedirectUri) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *NonSensitiveLinkStatusResponse) SetRedirectUri(v string) {
 
 // GetSuccess returns the Success field value if set, zero value otherwise.
 func (o *NonSensitiveLinkStatusResponse) GetSuccess() NonSensitiveLinkStatusSuccessModel {
-	if o == nil || o.Success == nil {
+	if o == nil || IsNil(o.Success) {
 		var ret NonSensitiveLinkStatusSuccessModel
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *NonSensitiveLinkStatusResponse) GetSuccess() NonSensitiveLinkStatusSucc
 // GetSuccessOk returns a tuple with the Success field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NonSensitiveLinkStatusResponse) GetSuccessOk() (*NonSensitiveLinkStatusSuccessModel, bool) {
-	if o == nil || o.Success == nil {
+	if o == nil || IsNil(o.Success) {
 		return nil, false
 	}
 	return o.Success, true
@@ -124,7 +127,7 @@ func (o *NonSensitiveLinkStatusResponse) GetSuccessOk() (*NonSensitiveLinkStatus
 
 // HasSuccess returns a boolean if a field has been set.
 func (o *NonSensitiveLinkStatusResponse) HasSuccess() bool {
-	if o != nil && o.Success != nil {
+	if o != nil && !IsNil(o.Success) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *NonSensitiveLinkStatusResponse) SetSuccess(v NonSensitiveLinkStatusSucc
 
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *NonSensitiveLinkStatusResponse) GetError() FvErrorModelV2 {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		var ret FvErrorModelV2
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *NonSensitiveLinkStatusResponse) GetError() FvErrorModelV2 {
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *NonSensitiveLinkStatusResponse) GetErrorOk() (*FvErrorModelV2, bool) {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
 	return o.Error, true
@@ -156,7 +159,7 @@ func (o *NonSensitiveLinkStatusResponse) GetErrorOk() (*FvErrorModelV2, bool) {
 
 // HasError returns a boolean if a field has been set.
 func (o *NonSensitiveLinkStatusResponse) HasError() bool {
-	if o != nil && o.Error != nil {
+	if o != nil && !IsNil(o.Error) {
 		return true
 	}
 
@@ -169,20 +172,28 @@ func (o *NonSensitiveLinkStatusResponse) SetError(v FvErrorModelV2) {
 }
 
 func (o NonSensitiveLinkStatusResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Action != nil {
-		toSerialize["action"] = o.Action
-	}
-	if o.RedirectUri != nil {
-		toSerialize["redirect_uri"] = o.RedirectUri
-	}
-	if o.Success != nil {
-		toSerialize["success"] = o.Success
-	}
-	if o.Error != nil {
-		toSerialize["error"] = o.Error
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o NonSensitiveLinkStatusResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Action) {
+		toSerialize["action"] = o.Action
+	}
+	if !IsNil(o.RedirectUri) {
+		toSerialize["redirect_uri"] = o.RedirectUri
+	}
+	if !IsNil(o.Success) {
+		toSerialize["success"] = o.Success
+	}
+	if !IsNil(o.Error) {
+		toSerialize["error"] = o.Error
+	}
+	return toSerialize, nil
 }
 
 type NullableNonSensitiveLinkStatusResponse struct {

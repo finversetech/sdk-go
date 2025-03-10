@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CreatePaymentLinkRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreatePaymentLinkRequest{}
 
 // CreatePaymentLinkRequest struct for CreatePaymentLinkRequest
 type CreatePaymentLinkRequest struct {
@@ -32,6 +37,8 @@ type CreatePaymentLinkRequest struct {
 	PaymentMetadata     *map[string]string          `json:"payment_metadata,omitempty"`
 	IntegrationMetadata *IntegrationMetadataRequest `json:"integration_metadata,omitempty"`
 }
+
+type _CreatePaymentLinkRequest CreatePaymentLinkRequest
 
 // NewCreatePaymentLinkRequest instantiates a new CreatePaymentLinkRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -56,7 +63,7 @@ func NewCreatePaymentLinkRequestWithDefaults() *CreatePaymentLinkRequest {
 
 // GetAmount returns the Amount field value if set, zero value otherwise.
 func (o *CreatePaymentLinkRequest) GetAmount() int32 {
-	if o == nil || o.Amount == nil {
+	if o == nil || IsNil(o.Amount) {
 		var ret int32
 		return ret
 	}
@@ -66,7 +73,7 @@ func (o *CreatePaymentLinkRequest) GetAmount() int32 {
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentLinkRequest) GetAmountOk() (*int32, bool) {
-	if o == nil || o.Amount == nil {
+	if o == nil || IsNil(o.Amount) {
 		return nil, false
 	}
 	return o.Amount, true
@@ -74,7 +81,7 @@ func (o *CreatePaymentLinkRequest) GetAmountOk() (*int32, bool) {
 
 // HasAmount returns a boolean if a field has been set.
 func (o *CreatePaymentLinkRequest) HasAmount() bool {
-	if o != nil && o.Amount != nil {
+	if o != nil && !IsNil(o.Amount) {
 		return true
 	}
 
@@ -112,7 +119,7 @@ func (o *CreatePaymentLinkRequest) SetCurrency(v string) {
 
 // GetLinkCustomizations returns the LinkCustomizations field value if set, zero value otherwise.
 func (o *CreatePaymentLinkRequest) GetLinkCustomizations() PaymentLinkCustomizations {
-	if o == nil || o.LinkCustomizations == nil {
+	if o == nil || IsNil(o.LinkCustomizations) {
 		var ret PaymentLinkCustomizations
 		return ret
 	}
@@ -122,7 +129,7 @@ func (o *CreatePaymentLinkRequest) GetLinkCustomizations() PaymentLinkCustomizat
 // GetLinkCustomizationsOk returns a tuple with the LinkCustomizations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentLinkRequest) GetLinkCustomizationsOk() (*PaymentLinkCustomizations, bool) {
-	if o == nil || o.LinkCustomizations == nil {
+	if o == nil || IsNil(o.LinkCustomizations) {
 		return nil, false
 	}
 	return o.LinkCustomizations, true
@@ -130,7 +137,7 @@ func (o *CreatePaymentLinkRequest) GetLinkCustomizationsOk() (*PaymentLinkCustom
 
 // HasLinkCustomizations returns a boolean if a field has been set.
 func (o *CreatePaymentLinkRequest) HasLinkCustomizations() bool {
-	if o != nil && o.LinkCustomizations != nil {
+	if o != nil && !IsNil(o.LinkCustomizations) {
 		return true
 	}
 
@@ -168,7 +175,7 @@ func (o *CreatePaymentLinkRequest) SetMode(v string) {
 
 // GetPaymentDetails returns the PaymentDetails field value if set, zero value otherwise.
 func (o *CreatePaymentLinkRequest) GetPaymentDetails() PaymentLinkDetails {
-	if o == nil || o.PaymentDetails == nil {
+	if o == nil || IsNil(o.PaymentDetails) {
 		var ret PaymentLinkDetails
 		return ret
 	}
@@ -178,7 +185,7 @@ func (o *CreatePaymentLinkRequest) GetPaymentDetails() PaymentLinkDetails {
 // GetPaymentDetailsOk returns a tuple with the PaymentDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentLinkRequest) GetPaymentDetailsOk() (*PaymentLinkDetails, bool) {
-	if o == nil || o.PaymentDetails == nil {
+	if o == nil || IsNil(o.PaymentDetails) {
 		return nil, false
 	}
 	return o.PaymentDetails, true
@@ -186,7 +193,7 @@ func (o *CreatePaymentLinkRequest) GetPaymentDetailsOk() (*PaymentLinkDetails, b
 
 // HasPaymentDetails returns a boolean if a field has been set.
 func (o *CreatePaymentLinkRequest) HasPaymentDetails() bool {
-	if o != nil && o.PaymentDetails != nil {
+	if o != nil && !IsNil(o.PaymentDetails) {
 		return true
 	}
 
@@ -248,7 +255,7 @@ func (o *CreatePaymentLinkRequest) SetUniqueReferenceId(v string) {
 
 // GetPaymentSetupOptions returns the PaymentSetupOptions field value if set, zero value otherwise.
 func (o *CreatePaymentLinkRequest) GetPaymentSetupOptions() PaymentSetupOptions {
-	if o == nil || o.PaymentSetupOptions == nil {
+	if o == nil || IsNil(o.PaymentSetupOptions) {
 		var ret PaymentSetupOptions
 		return ret
 	}
@@ -258,7 +265,7 @@ func (o *CreatePaymentLinkRequest) GetPaymentSetupOptions() PaymentSetupOptions 
 // GetPaymentSetupOptionsOk returns a tuple with the PaymentSetupOptions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentLinkRequest) GetPaymentSetupOptionsOk() (*PaymentSetupOptions, bool) {
-	if o == nil || o.PaymentSetupOptions == nil {
+	if o == nil || IsNil(o.PaymentSetupOptions) {
 		return nil, false
 	}
 	return o.PaymentSetupOptions, true
@@ -266,7 +273,7 @@ func (o *CreatePaymentLinkRequest) GetPaymentSetupOptionsOk() (*PaymentSetupOpti
 
 // HasPaymentSetupOptions returns a boolean if a field has been set.
 func (o *CreatePaymentLinkRequest) HasPaymentSetupOptions() bool {
-	if o != nil && o.PaymentSetupOptions != nil {
+	if o != nil && !IsNil(o.PaymentSetupOptions) {
 		return true
 	}
 
@@ -280,7 +287,7 @@ func (o *CreatePaymentLinkRequest) SetPaymentSetupOptions(v PaymentSetupOptions)
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *CreatePaymentLinkRequest) GetMetadata() map[string]string {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]string
 		return ret
 	}
@@ -290,7 +297,7 @@ func (o *CreatePaymentLinkRequest) GetMetadata() map[string]string {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentLinkRequest) GetMetadataOk() (*map[string]string, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -298,7 +305,7 @@ func (o *CreatePaymentLinkRequest) GetMetadataOk() (*map[string]string, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *CreatePaymentLinkRequest) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -312,7 +319,7 @@ func (o *CreatePaymentLinkRequest) SetMetadata(v map[string]string) {
 
 // GetPaymentMetadata returns the PaymentMetadata field value if set, zero value otherwise.
 func (o *CreatePaymentLinkRequest) GetPaymentMetadata() map[string]string {
-	if o == nil || o.PaymentMetadata == nil {
+	if o == nil || IsNil(o.PaymentMetadata) {
 		var ret map[string]string
 		return ret
 	}
@@ -322,7 +329,7 @@ func (o *CreatePaymentLinkRequest) GetPaymentMetadata() map[string]string {
 // GetPaymentMetadataOk returns a tuple with the PaymentMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentLinkRequest) GetPaymentMetadataOk() (*map[string]string, bool) {
-	if o == nil || o.PaymentMetadata == nil {
+	if o == nil || IsNil(o.PaymentMetadata) {
 		return nil, false
 	}
 	return o.PaymentMetadata, true
@@ -330,7 +337,7 @@ func (o *CreatePaymentLinkRequest) GetPaymentMetadataOk() (*map[string]string, b
 
 // HasPaymentMetadata returns a boolean if a field has been set.
 func (o *CreatePaymentLinkRequest) HasPaymentMetadata() bool {
-	if o != nil && o.PaymentMetadata != nil {
+	if o != nil && !IsNil(o.PaymentMetadata) {
 		return true
 	}
 
@@ -344,7 +351,7 @@ func (o *CreatePaymentLinkRequest) SetPaymentMetadata(v map[string]string) {
 
 // GetIntegrationMetadata returns the IntegrationMetadata field value if set, zero value otherwise.
 func (o *CreatePaymentLinkRequest) GetIntegrationMetadata() IntegrationMetadataRequest {
-	if o == nil || o.IntegrationMetadata == nil {
+	if o == nil || IsNil(o.IntegrationMetadata) {
 		var ret IntegrationMetadataRequest
 		return ret
 	}
@@ -354,7 +361,7 @@ func (o *CreatePaymentLinkRequest) GetIntegrationMetadata() IntegrationMetadataR
 // GetIntegrationMetadataOk returns a tuple with the IntegrationMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentLinkRequest) GetIntegrationMetadataOk() (*IntegrationMetadataRequest, bool) {
-	if o == nil || o.IntegrationMetadata == nil {
+	if o == nil || IsNil(o.IntegrationMetadata) {
 		return nil, false
 	}
 	return o.IntegrationMetadata, true
@@ -362,7 +369,7 @@ func (o *CreatePaymentLinkRequest) GetIntegrationMetadataOk() (*IntegrationMetad
 
 // HasIntegrationMetadata returns a boolean if a field has been set.
 func (o *CreatePaymentLinkRequest) HasIntegrationMetadata() bool {
-	if o != nil && o.IntegrationMetadata != nil {
+	if o != nil && !IsNil(o.IntegrationMetadata) {
 		return true
 	}
 
@@ -375,41 +382,81 @@ func (o *CreatePaymentLinkRequest) SetIntegrationMetadata(v IntegrationMetadataR
 }
 
 func (o CreatePaymentLinkRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Amount != nil {
-		toSerialize["amount"] = o.Amount
-	}
-	if true {
-		toSerialize["currency"] = o.Currency
-	}
-	if o.LinkCustomizations != nil {
-		toSerialize["link_customizations"] = o.LinkCustomizations
-	}
-	if true {
-		toSerialize["mode"] = o.Mode
-	}
-	if o.PaymentDetails != nil {
-		toSerialize["payment_details"] = o.PaymentDetails
-	}
-	if true {
-		toSerialize["sender"] = o.Sender
-	}
-	if true {
-		toSerialize["unique_reference_id"] = o.UniqueReferenceId
-	}
-	if o.PaymentSetupOptions != nil {
-		toSerialize["payment_setup_options"] = o.PaymentSetupOptions
-	}
-	if o.Metadata != nil {
-		toSerialize["metadata"] = o.Metadata
-	}
-	if o.PaymentMetadata != nil {
-		toSerialize["payment_metadata"] = o.PaymentMetadata
-	}
-	if o.IntegrationMetadata != nil {
-		toSerialize["integration_metadata"] = o.IntegrationMetadata
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreatePaymentLinkRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Amount) {
+		toSerialize["amount"] = o.Amount
+	}
+	toSerialize["currency"] = o.Currency
+	if !IsNil(o.LinkCustomizations) {
+		toSerialize["link_customizations"] = o.LinkCustomizations
+	}
+	toSerialize["mode"] = o.Mode
+	if !IsNil(o.PaymentDetails) {
+		toSerialize["payment_details"] = o.PaymentDetails
+	}
+	toSerialize["sender"] = o.Sender
+	toSerialize["unique_reference_id"] = o.UniqueReferenceId
+	if !IsNil(o.PaymentSetupOptions) {
+		toSerialize["payment_setup_options"] = o.PaymentSetupOptions
+	}
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.PaymentMetadata) {
+		toSerialize["payment_metadata"] = o.PaymentMetadata
+	}
+	if !IsNil(o.IntegrationMetadata) {
+		toSerialize["integration_metadata"] = o.IntegrationMetadata
+	}
+	return toSerialize, nil
+}
+
+func (o *CreatePaymentLinkRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"currency",
+		"mode",
+		"sender",
+		"unique_reference_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreatePaymentLinkRequest := _CreatePaymentLinkRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCreatePaymentLinkRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreatePaymentLinkRequest(varCreatePaymentLinkRequest)
+
+	return err
 }
 
 type NullableCreatePaymentLinkRequest struct {

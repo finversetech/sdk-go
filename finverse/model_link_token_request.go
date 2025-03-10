@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the LinkTokenRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinkTokenRequest{}
 
 // LinkTokenRequest struct for LinkTokenRequest
 type LinkTokenRequest struct {
@@ -57,6 +62,8 @@ type LinkTokenRequest struct {
 	InstitutionStatus *string               `json:"institution_status,omitempty"`
 	UserConfigs       *LinkTokenUserConfigs `json:"user_configs,omitempty"`
 }
+
+type _LinkTokenRequest LinkTokenRequest
 
 // NewLinkTokenRequest instantiates a new LinkTokenRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -154,7 +161,7 @@ func (o *LinkTokenRequest) SetResponseMode(v string) {
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *LinkTokenRequest) GetUserId() string {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		var ret string
 		return ret
 	}
@@ -164,7 +171,7 @@ func (o *LinkTokenRequest) GetUserId() string {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		return nil, false
 	}
 	return o.UserId, true
@@ -172,7 +179,7 @@ func (o *LinkTokenRequest) GetUserIdOk() (*string, bool) {
 
 // HasUserId returns a boolean if a field has been set.
 func (o *LinkTokenRequest) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -234,7 +241,7 @@ func (o *LinkTokenRequest) SetRedirectUri(v string) {
 
 // GetState returns the State field value if set, zero value otherwise.
 func (o *LinkTokenRequest) GetState() string {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		var ret string
 		return ret
 	}
@@ -244,7 +251,7 @@ func (o *LinkTokenRequest) GetState() string {
 // GetStateOk returns a tuple with the State field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetStateOk() (*string, bool) {
-	if o == nil || o.State == nil {
+	if o == nil || IsNil(o.State) {
 		return nil, false
 	}
 	return o.State, true
@@ -252,7 +259,7 @@ func (o *LinkTokenRequest) GetStateOk() (*string, bool) {
 
 // HasState returns a boolean if a field has been set.
 func (o *LinkTokenRequest) HasState() bool {
-	if o != nil && o.State != nil {
+	if o != nil && !IsNil(o.State) {
 		return true
 	}
 
@@ -266,7 +273,7 @@ func (o *LinkTokenRequest) SetState(v string) {
 
 // GetScope returns the Scope field value if set, zero value otherwise.
 func (o *LinkTokenRequest) GetScope() string {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		var ret string
 		return ret
 	}
@@ -276,7 +283,7 @@ func (o *LinkTokenRequest) GetScope() string {
 // GetScopeOk returns a tuple with the Scope field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetScopeOk() (*string, bool) {
-	if o == nil || o.Scope == nil {
+	if o == nil || IsNil(o.Scope) {
 		return nil, false
 	}
 	return o.Scope, true
@@ -284,7 +291,7 @@ func (o *LinkTokenRequest) GetScopeOk() (*string, bool) {
 
 // HasScope returns a boolean if a field has been set.
 func (o *LinkTokenRequest) HasScope() bool {
-	if o != nil && o.Scope != nil {
+	if o != nil && !IsNil(o.Scope) {
 		return true
 	}
 
@@ -298,7 +305,7 @@ func (o *LinkTokenRequest) SetScope(v string) {
 
 // GetLinkMode returns the LinkMode field value if set, zero value otherwise.
 func (o *LinkTokenRequest) GetLinkMode() string {
-	if o == nil || o.LinkMode == nil {
+	if o == nil || IsNil(o.LinkMode) {
 		var ret string
 		return ret
 	}
@@ -308,7 +315,7 @@ func (o *LinkTokenRequest) GetLinkMode() string {
 // GetLinkModeOk returns a tuple with the LinkMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetLinkModeOk() (*string, bool) {
-	if o == nil || o.LinkMode == nil {
+	if o == nil || IsNil(o.LinkMode) {
 		return nil, false
 	}
 	return o.LinkMode, true
@@ -316,7 +323,7 @@ func (o *LinkTokenRequest) GetLinkModeOk() (*string, bool) {
 
 // HasLinkMode returns a boolean if a field has been set.
 func (o *LinkTokenRequest) HasLinkMode() bool {
-	if o != nil && o.LinkMode != nil {
+	if o != nil && !IsNil(o.LinkMode) {
 		return true
 	}
 
@@ -330,7 +337,7 @@ func (o *LinkTokenRequest) SetLinkMode(v string) {
 
 // GetUiMode returns the UiMode field value if set, zero value otherwise.
 func (o *LinkTokenRequest) GetUiMode() string {
-	if o == nil || o.UiMode == nil {
+	if o == nil || IsNil(o.UiMode) {
 		var ret string
 		return ret
 	}
@@ -340,7 +347,7 @@ func (o *LinkTokenRequest) GetUiMode() string {
 // GetUiModeOk returns a tuple with the UiMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetUiModeOk() (*string, bool) {
-	if o == nil || o.UiMode == nil {
+	if o == nil || IsNil(o.UiMode) {
 		return nil, false
 	}
 	return o.UiMode, true
@@ -348,7 +355,7 @@ func (o *LinkTokenRequest) GetUiModeOk() (*string, bool) {
 
 // HasUiMode returns a boolean if a field has been set.
 func (o *LinkTokenRequest) HasUiMode() bool {
-	if o != nil && o.UiMode != nil {
+	if o != nil && !IsNil(o.UiMode) {
 		return true
 	}
 
@@ -362,7 +369,7 @@ func (o *LinkTokenRequest) SetUiMode(v string) {
 
 // GetLanguage returns the Language field value if set, zero value otherwise.
 func (o *LinkTokenRequest) GetLanguage() string {
-	if o == nil || o.Language == nil {
+	if o == nil || IsNil(o.Language) {
 		var ret string
 		return ret
 	}
@@ -372,7 +379,7 @@ func (o *LinkTokenRequest) GetLanguage() string {
 // GetLanguageOk returns a tuple with the Language field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetLanguageOk() (*string, bool) {
-	if o == nil || o.Language == nil {
+	if o == nil || IsNil(o.Language) {
 		return nil, false
 	}
 	return o.Language, true
@@ -380,7 +387,7 @@ func (o *LinkTokenRequest) GetLanguageOk() (*string, bool) {
 
 // HasLanguage returns a boolean if a field has been set.
 func (o *LinkTokenRequest) HasLanguage() bool {
-	if o != nil && o.Language != nil {
+	if o != nil && !IsNil(o.Language) {
 		return true
 	}
 
@@ -394,7 +401,7 @@ func (o *LinkTokenRequest) SetLanguage(v string) {
 
 // GetCodeChallenge returns the CodeChallenge field value if set, zero value otherwise.
 func (o *LinkTokenRequest) GetCodeChallenge() string {
-	if o == nil || o.CodeChallenge == nil {
+	if o == nil || IsNil(o.CodeChallenge) {
 		var ret string
 		return ret
 	}
@@ -404,7 +411,7 @@ func (o *LinkTokenRequest) GetCodeChallenge() string {
 // GetCodeChallengeOk returns a tuple with the CodeChallenge field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetCodeChallengeOk() (*string, bool) {
-	if o == nil || o.CodeChallenge == nil {
+	if o == nil || IsNil(o.CodeChallenge) {
 		return nil, false
 	}
 	return o.CodeChallenge, true
@@ -412,7 +419,7 @@ func (o *LinkTokenRequest) GetCodeChallengeOk() (*string, bool) {
 
 // HasCodeChallenge returns a boolean if a field has been set.
 func (o *LinkTokenRequest) HasCodeChallenge() bool {
-	if o != nil && o.CodeChallenge != nil {
+	if o != nil && !IsNil(o.CodeChallenge) {
 		return true
 	}
 
@@ -426,7 +433,7 @@ func (o *LinkTokenRequest) SetCodeChallenge(v string) {
 
 // GetCodeChallengeMethod returns the CodeChallengeMethod field value if set, zero value otherwise.
 func (o *LinkTokenRequest) GetCodeChallengeMethod() string {
-	if o == nil || o.CodeChallengeMethod == nil {
+	if o == nil || IsNil(o.CodeChallengeMethod) {
 		var ret string
 		return ret
 	}
@@ -436,7 +443,7 @@ func (o *LinkTokenRequest) GetCodeChallengeMethod() string {
 // GetCodeChallengeMethodOk returns a tuple with the CodeChallengeMethod field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetCodeChallengeMethodOk() (*string, bool) {
-	if o == nil || o.CodeChallengeMethod == nil {
+	if o == nil || IsNil(o.CodeChallengeMethod) {
 		return nil, false
 	}
 	return o.CodeChallengeMethod, true
@@ -444,7 +451,7 @@ func (o *LinkTokenRequest) GetCodeChallengeMethodOk() (*string, bool) {
 
 // HasCodeChallengeMethod returns a boolean if a field has been set.
 func (o *LinkTokenRequest) HasCodeChallengeMethod() bool {
-	if o != nil && o.CodeChallengeMethod != nil {
+	if o != nil && !IsNil(o.CodeChallengeMethod) {
 		return true
 	}
 
@@ -458,7 +465,7 @@ func (o *LinkTokenRequest) SetCodeChallengeMethod(v string) {
 
 // GetLoginIdentityId returns the LoginIdentityId field value if set, zero value otherwise.
 func (o *LinkTokenRequest) GetLoginIdentityId() string {
-	if o == nil || o.LoginIdentityId == nil {
+	if o == nil || IsNil(o.LoginIdentityId) {
 		var ret string
 		return ret
 	}
@@ -468,7 +475,7 @@ func (o *LinkTokenRequest) GetLoginIdentityId() string {
 // GetLoginIdentityIdOk returns a tuple with the LoginIdentityId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetLoginIdentityIdOk() (*string, bool) {
-	if o == nil || o.LoginIdentityId == nil {
+	if o == nil || IsNil(o.LoginIdentityId) {
 		return nil, false
 	}
 	return o.LoginIdentityId, true
@@ -476,7 +483,7 @@ func (o *LinkTokenRequest) GetLoginIdentityIdOk() (*string, bool) {
 
 // HasLoginIdentityId returns a boolean if a field has been set.
 func (o *LinkTokenRequest) HasLoginIdentityId() bool {
-	if o != nil && o.LoginIdentityId != nil {
+	if o != nil && !IsNil(o.LoginIdentityId) {
 		return true
 	}
 
@@ -490,7 +497,7 @@ func (o *LinkTokenRequest) SetLoginIdentityId(v string) {
 
 // GetCustomizationId returns the CustomizationId field value if set, zero value otherwise.
 func (o *LinkTokenRequest) GetCustomizationId() string {
-	if o == nil || o.CustomizationId == nil {
+	if o == nil || IsNil(o.CustomizationId) {
 		var ret string
 		return ret
 	}
@@ -500,7 +507,7 @@ func (o *LinkTokenRequest) GetCustomizationId() string {
 // GetCustomizationIdOk returns a tuple with the CustomizationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetCustomizationIdOk() (*string, bool) {
-	if o == nil || o.CustomizationId == nil {
+	if o == nil || IsNil(o.CustomizationId) {
 		return nil, false
 	}
 	return o.CustomizationId, true
@@ -508,7 +515,7 @@ func (o *LinkTokenRequest) GetCustomizationIdOk() (*string, bool) {
 
 // HasCustomizationId returns a boolean if a field has been set.
 func (o *LinkTokenRequest) HasCustomizationId() bool {
-	if o != nil && o.CustomizationId != nil {
+	if o != nil && !IsNil(o.CustomizationId) {
 		return true
 	}
 
@@ -522,7 +529,7 @@ func (o *LinkTokenRequest) SetCustomizationId(v string) {
 
 // GetInstitutionId returns the InstitutionId field value if set, zero value otherwise.
 func (o *LinkTokenRequest) GetInstitutionId() string {
-	if o == nil || o.InstitutionId == nil {
+	if o == nil || IsNil(o.InstitutionId) {
 		var ret string
 		return ret
 	}
@@ -532,7 +539,7 @@ func (o *LinkTokenRequest) GetInstitutionId() string {
 // GetInstitutionIdOk returns a tuple with the InstitutionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetInstitutionIdOk() (*string, bool) {
-	if o == nil || o.InstitutionId == nil {
+	if o == nil || IsNil(o.InstitutionId) {
 		return nil, false
 	}
 	return o.InstitutionId, true
@@ -540,7 +547,7 @@ func (o *LinkTokenRequest) GetInstitutionIdOk() (*string, bool) {
 
 // HasInstitutionId returns a boolean if a field has been set.
 func (o *LinkTokenRequest) HasInstitutionId() bool {
-	if o != nil && o.InstitutionId != nil {
+	if o != nil && !IsNil(o.InstitutionId) {
 		return true
 	}
 
@@ -554,7 +561,7 @@ func (o *LinkTokenRequest) SetInstitutionId(v string) {
 
 // GetCountries returns the Countries field value if set, zero value otherwise.
 func (o *LinkTokenRequest) GetCountries() []string {
-	if o == nil || o.Countries == nil {
+	if o == nil || IsNil(o.Countries) {
 		var ret []string
 		return ret
 	}
@@ -564,7 +571,7 @@ func (o *LinkTokenRequest) GetCountries() []string {
 // GetCountriesOk returns a tuple with the Countries field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetCountriesOk() ([]string, bool) {
-	if o == nil || o.Countries == nil {
+	if o == nil || IsNil(o.Countries) {
 		return nil, false
 	}
 	return o.Countries, true
@@ -572,7 +579,7 @@ func (o *LinkTokenRequest) GetCountriesOk() ([]string, bool) {
 
 // HasCountries returns a boolean if a field has been set.
 func (o *LinkTokenRequest) HasCountries() bool {
-	if o != nil && o.Countries != nil {
+	if o != nil && !IsNil(o.Countries) {
 		return true
 	}
 
@@ -586,7 +593,7 @@ func (o *LinkTokenRequest) SetCountries(v []string) {
 
 // GetUserType returns the UserType field value if set, zero value otherwise.
 func (o *LinkTokenRequest) GetUserType() []string {
-	if o == nil || o.UserType == nil {
+	if o == nil || IsNil(o.UserType) {
 		var ret []string
 		return ret
 	}
@@ -596,7 +603,7 @@ func (o *LinkTokenRequest) GetUserType() []string {
 // GetUserTypeOk returns a tuple with the UserType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetUserTypeOk() ([]string, bool) {
-	if o == nil || o.UserType == nil {
+	if o == nil || IsNil(o.UserType) {
 		return nil, false
 	}
 	return o.UserType, true
@@ -604,7 +611,7 @@ func (o *LinkTokenRequest) GetUserTypeOk() ([]string, bool) {
 
 // HasUserType returns a boolean if a field has been set.
 func (o *LinkTokenRequest) HasUserType() bool {
-	if o != nil && o.UserType != nil {
+	if o != nil && !IsNil(o.UserType) {
 		return true
 	}
 
@@ -618,7 +625,7 @@ func (o *LinkTokenRequest) SetUserType(v []string) {
 
 // GetProductsSupported returns the ProductsSupported field value if set, zero value otherwise.
 func (o *LinkTokenRequest) GetProductsSupported() []string {
-	if o == nil || o.ProductsSupported == nil {
+	if o == nil || IsNil(o.ProductsSupported) {
 		var ret []string
 		return ret
 	}
@@ -628,7 +635,7 @@ func (o *LinkTokenRequest) GetProductsSupported() []string {
 // GetProductsSupportedOk returns a tuple with the ProductsSupported field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetProductsSupportedOk() ([]string, bool) {
-	if o == nil || o.ProductsSupported == nil {
+	if o == nil || IsNil(o.ProductsSupported) {
 		return nil, false
 	}
 	return o.ProductsSupported, true
@@ -636,7 +643,7 @@ func (o *LinkTokenRequest) GetProductsSupportedOk() ([]string, bool) {
 
 // HasProductsSupported returns a boolean if a field has been set.
 func (o *LinkTokenRequest) HasProductsSupported() bool {
-	if o != nil && o.ProductsSupported != nil {
+	if o != nil && !IsNil(o.ProductsSupported) {
 		return true
 	}
 
@@ -650,7 +657,7 @@ func (o *LinkTokenRequest) SetProductsSupported(v []string) {
 
 // GetProductsRequested returns the ProductsRequested field value if set, zero value otherwise.
 func (o *LinkTokenRequest) GetProductsRequested() []string {
-	if o == nil || o.ProductsRequested == nil {
+	if o == nil || IsNil(o.ProductsRequested) {
 		var ret []string
 		return ret
 	}
@@ -660,7 +667,7 @@ func (o *LinkTokenRequest) GetProductsRequested() []string {
 // GetProductsRequestedOk returns a tuple with the ProductsRequested field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetProductsRequestedOk() ([]string, bool) {
-	if o == nil || o.ProductsRequested == nil {
+	if o == nil || IsNil(o.ProductsRequested) {
 		return nil, false
 	}
 	return o.ProductsRequested, true
@@ -668,7 +675,7 @@ func (o *LinkTokenRequest) GetProductsRequestedOk() ([]string, bool) {
 
 // HasProductsRequested returns a boolean if a field has been set.
 func (o *LinkTokenRequest) HasProductsRequested() bool {
-	if o != nil && o.ProductsRequested != nil {
+	if o != nil && !IsNil(o.ProductsRequested) {
 		return true
 	}
 
@@ -682,7 +689,7 @@ func (o *LinkTokenRequest) SetProductsRequested(v []string) {
 
 // GetPaymentInstructionId returns the PaymentInstructionId field value if set, zero value otherwise.
 func (o *LinkTokenRequest) GetPaymentInstructionId() string {
-	if o == nil || o.PaymentInstructionId == nil {
+	if o == nil || IsNil(o.PaymentInstructionId) {
 		var ret string
 		return ret
 	}
@@ -692,7 +699,7 @@ func (o *LinkTokenRequest) GetPaymentInstructionId() string {
 // GetPaymentInstructionIdOk returns a tuple with the PaymentInstructionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetPaymentInstructionIdOk() (*string, bool) {
-	if o == nil || o.PaymentInstructionId == nil {
+	if o == nil || IsNil(o.PaymentInstructionId) {
 		return nil, false
 	}
 	return o.PaymentInstructionId, true
@@ -700,7 +707,7 @@ func (o *LinkTokenRequest) GetPaymentInstructionIdOk() (*string, bool) {
 
 // HasPaymentInstructionId returns a boolean if a field has been set.
 func (o *LinkTokenRequest) HasPaymentInstructionId() bool {
-	if o != nil && o.PaymentInstructionId != nil {
+	if o != nil && !IsNil(o.PaymentInstructionId) {
 		return true
 	}
 
@@ -714,7 +721,7 @@ func (o *LinkTokenRequest) SetPaymentInstructionId(v string) {
 
 // GetAutomaticDataRefresh returns the AutomaticDataRefresh field value if set, zero value otherwise.
 func (o *LinkTokenRequest) GetAutomaticDataRefresh() string {
-	if o == nil || o.AutomaticDataRefresh == nil {
+	if o == nil || IsNil(o.AutomaticDataRefresh) {
 		var ret string
 		return ret
 	}
@@ -724,7 +731,7 @@ func (o *LinkTokenRequest) GetAutomaticDataRefresh() string {
 // GetAutomaticDataRefreshOk returns a tuple with the AutomaticDataRefresh field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetAutomaticDataRefreshOk() (*string, bool) {
-	if o == nil || o.AutomaticDataRefresh == nil {
+	if o == nil || IsNil(o.AutomaticDataRefresh) {
 		return nil, false
 	}
 	return o.AutomaticDataRefresh, true
@@ -732,7 +739,7 @@ func (o *LinkTokenRequest) GetAutomaticDataRefreshOk() (*string, bool) {
 
 // HasAutomaticDataRefresh returns a boolean if a field has been set.
 func (o *LinkTokenRequest) HasAutomaticDataRefresh() bool {
-	if o != nil && o.AutomaticDataRefresh != nil {
+	if o != nil && !IsNil(o.AutomaticDataRefresh) {
 		return true
 	}
 
@@ -746,7 +753,7 @@ func (o *LinkTokenRequest) SetAutomaticDataRefresh(v string) {
 
 // GetInstitutionStatus returns the InstitutionStatus field value if set, zero value otherwise.
 func (o *LinkTokenRequest) GetInstitutionStatus() string {
-	if o == nil || o.InstitutionStatus == nil {
+	if o == nil || IsNil(o.InstitutionStatus) {
 		var ret string
 		return ret
 	}
@@ -756,7 +763,7 @@ func (o *LinkTokenRequest) GetInstitutionStatus() string {
 // GetInstitutionStatusOk returns a tuple with the InstitutionStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetInstitutionStatusOk() (*string, bool) {
-	if o == nil || o.InstitutionStatus == nil {
+	if o == nil || IsNil(o.InstitutionStatus) {
 		return nil, false
 	}
 	return o.InstitutionStatus, true
@@ -764,7 +771,7 @@ func (o *LinkTokenRequest) GetInstitutionStatusOk() (*string, bool) {
 
 // HasInstitutionStatus returns a boolean if a field has been set.
 func (o *LinkTokenRequest) HasInstitutionStatus() bool {
-	if o != nil && o.InstitutionStatus != nil {
+	if o != nil && !IsNil(o.InstitutionStatus) {
 		return true
 	}
 
@@ -778,7 +785,7 @@ func (o *LinkTokenRequest) SetInstitutionStatus(v string) {
 
 // GetUserConfigs returns the UserConfigs field value if set, zero value otherwise.
 func (o *LinkTokenRequest) GetUserConfigs() LinkTokenUserConfigs {
-	if o == nil || o.UserConfigs == nil {
+	if o == nil || IsNil(o.UserConfigs) {
 		var ret LinkTokenUserConfigs
 		return ret
 	}
@@ -788,7 +795,7 @@ func (o *LinkTokenRequest) GetUserConfigs() LinkTokenUserConfigs {
 // GetUserConfigsOk returns a tuple with the UserConfigs field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkTokenRequest) GetUserConfigsOk() (*LinkTokenUserConfigs, bool) {
-	if o == nil || o.UserConfigs == nil {
+	if o == nil || IsNil(o.UserConfigs) {
 		return nil, false
 	}
 	return o.UserConfigs, true
@@ -796,7 +803,7 @@ func (o *LinkTokenRequest) GetUserConfigsOk() (*LinkTokenUserConfigs, bool) {
 
 // HasUserConfigs returns a boolean if a field has been set.
 func (o *LinkTokenRequest) HasUserConfigs() bool {
-	if o != nil && o.UserConfigs != nil {
+	if o != nil && !IsNil(o.UserConfigs) {
 		return true
 	}
 
@@ -809,80 +816,119 @@ func (o *LinkTokenRequest) SetUserConfigs(v LinkTokenUserConfigs) {
 }
 
 func (o LinkTokenRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["grant_type"] = o.GrantType
-	}
-	if true {
-		toSerialize["response_type"] = o.ResponseType
-	}
-	if true {
-		toSerialize["response_mode"] = o.ResponseMode
-	}
-	if o.UserId != nil {
-		toSerialize["user_id"] = o.UserId
-	}
-	if true {
-		toSerialize["client_id"] = o.ClientId
-	}
-	if true {
-		toSerialize["redirect_uri"] = o.RedirectUri
-	}
-	if o.State != nil {
-		toSerialize["state"] = o.State
-	}
-	if o.Scope != nil {
-		toSerialize["scope"] = o.Scope
-	}
-	if o.LinkMode != nil {
-		toSerialize["link_mode"] = o.LinkMode
-	}
-	if o.UiMode != nil {
-		toSerialize["ui_mode"] = o.UiMode
-	}
-	if o.Language != nil {
-		toSerialize["language"] = o.Language
-	}
-	if o.CodeChallenge != nil {
-		toSerialize["code_challenge"] = o.CodeChallenge
-	}
-	if o.CodeChallengeMethod != nil {
-		toSerialize["code_challenge_method"] = o.CodeChallengeMethod
-	}
-	if o.LoginIdentityId != nil {
-		toSerialize["login_identity_id"] = o.LoginIdentityId
-	}
-	if o.CustomizationId != nil {
-		toSerialize["customization_id"] = o.CustomizationId
-	}
-	if o.InstitutionId != nil {
-		toSerialize["institution_id"] = o.InstitutionId
-	}
-	if o.Countries != nil {
-		toSerialize["countries"] = o.Countries
-	}
-	if o.UserType != nil {
-		toSerialize["user_type"] = o.UserType
-	}
-	if o.ProductsSupported != nil {
-		toSerialize["products_supported"] = o.ProductsSupported
-	}
-	if o.ProductsRequested != nil {
-		toSerialize["products_requested"] = o.ProductsRequested
-	}
-	if o.PaymentInstructionId != nil {
-		toSerialize["payment_instruction_id"] = o.PaymentInstructionId
-	}
-	if o.AutomaticDataRefresh != nil {
-		toSerialize["automatic_data_refresh"] = o.AutomaticDataRefresh
-	}
-	if o.InstitutionStatus != nil {
-		toSerialize["institution_status"] = o.InstitutionStatus
-	}
-	if o.UserConfigs != nil {
-		toSerialize["user_configs"] = o.UserConfigs
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o LinkTokenRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["grant_type"] = o.GrantType
+	toSerialize["response_type"] = o.ResponseType
+	toSerialize["response_mode"] = o.ResponseMode
+	if !IsNil(o.UserId) {
+		toSerialize["user_id"] = o.UserId
+	}
+	toSerialize["client_id"] = o.ClientId
+	toSerialize["redirect_uri"] = o.RedirectUri
+	if !IsNil(o.State) {
+		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.Scope) {
+		toSerialize["scope"] = o.Scope
+	}
+	if !IsNil(o.LinkMode) {
+		toSerialize["link_mode"] = o.LinkMode
+	}
+	if !IsNil(o.UiMode) {
+		toSerialize["ui_mode"] = o.UiMode
+	}
+	if !IsNil(o.Language) {
+		toSerialize["language"] = o.Language
+	}
+	if !IsNil(o.CodeChallenge) {
+		toSerialize["code_challenge"] = o.CodeChallenge
+	}
+	if !IsNil(o.CodeChallengeMethod) {
+		toSerialize["code_challenge_method"] = o.CodeChallengeMethod
+	}
+	if !IsNil(o.LoginIdentityId) {
+		toSerialize["login_identity_id"] = o.LoginIdentityId
+	}
+	if !IsNil(o.CustomizationId) {
+		toSerialize["customization_id"] = o.CustomizationId
+	}
+	if !IsNil(o.InstitutionId) {
+		toSerialize["institution_id"] = o.InstitutionId
+	}
+	if !IsNil(o.Countries) {
+		toSerialize["countries"] = o.Countries
+	}
+	if !IsNil(o.UserType) {
+		toSerialize["user_type"] = o.UserType
+	}
+	if !IsNil(o.ProductsSupported) {
+		toSerialize["products_supported"] = o.ProductsSupported
+	}
+	if !IsNil(o.ProductsRequested) {
+		toSerialize["products_requested"] = o.ProductsRequested
+	}
+	if !IsNil(o.PaymentInstructionId) {
+		toSerialize["payment_instruction_id"] = o.PaymentInstructionId
+	}
+	if !IsNil(o.AutomaticDataRefresh) {
+		toSerialize["automatic_data_refresh"] = o.AutomaticDataRefresh
+	}
+	if !IsNil(o.InstitutionStatus) {
+		toSerialize["institution_status"] = o.InstitutionStatus
+	}
+	if !IsNil(o.UserConfigs) {
+		toSerialize["user_configs"] = o.UserConfigs
+	}
+	return toSerialize, nil
+}
+
+func (o *LinkTokenRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"grant_type",
+		"response_type",
+		"response_mode",
+		"client_id",
+		"redirect_uri",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varLinkTokenRequest := _LinkTokenRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varLinkTokenRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LinkTokenRequest(varLinkTokenRequest)
+
+	return err
 }
 
 type NullableLinkTokenRequest struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the GetBalanceHistoryResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetBalanceHistoryResponse{}
+
 // GetBalanceHistoryResponse struct for GetBalanceHistoryResponse
 type GetBalanceHistoryResponse struct {
 	Account        *Account            `json:"account,omitempty"`
@@ -43,7 +46,7 @@ func NewGetBalanceHistoryResponseWithDefaults() *GetBalanceHistoryResponse {
 
 // GetAccount returns the Account field value if set, zero value otherwise.
 func (o *GetBalanceHistoryResponse) GetAccount() Account {
-	if o == nil || o.Account == nil {
+	if o == nil || IsNil(o.Account) {
 		var ret Account
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *GetBalanceHistoryResponse) GetAccount() Account {
 // GetAccountOk returns a tuple with the Account field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetBalanceHistoryResponse) GetAccountOk() (*Account, bool) {
-	if o == nil || o.Account == nil {
+	if o == nil || IsNil(o.Account) {
 		return nil, false
 	}
 	return o.Account, true
@@ -61,7 +64,7 @@ func (o *GetBalanceHistoryResponse) GetAccountOk() (*Account, bool) {
 
 // HasAccount returns a boolean if a field has been set.
 func (o *GetBalanceHistoryResponse) HasAccount() bool {
-	if o != nil && o.Account != nil {
+	if o != nil && !IsNil(o.Account) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *GetBalanceHistoryResponse) SetAccount(v Account) {
 
 // GetLoginIdentity returns the LoginIdentity field value if set, zero value otherwise.
 func (o *GetBalanceHistoryResponse) GetLoginIdentity() LoginIdentityShort {
-	if o == nil || o.LoginIdentity == nil {
+	if o == nil || IsNil(o.LoginIdentity) {
 		var ret LoginIdentityShort
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *GetBalanceHistoryResponse) GetLoginIdentity() LoginIdentityShort {
 // GetLoginIdentityOk returns a tuple with the LoginIdentity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetBalanceHistoryResponse) GetLoginIdentityOk() (*LoginIdentityShort, bool) {
-	if o == nil || o.LoginIdentity == nil {
+	if o == nil || IsNil(o.LoginIdentity) {
 		return nil, false
 	}
 	return o.LoginIdentity, true
@@ -93,7 +96,7 @@ func (o *GetBalanceHistoryResponse) GetLoginIdentityOk() (*LoginIdentityShort, b
 
 // HasLoginIdentity returns a boolean if a field has been set.
 func (o *GetBalanceHistoryResponse) HasLoginIdentity() bool {
-	if o != nil && o.LoginIdentity != nil {
+	if o != nil && !IsNil(o.LoginIdentity) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *GetBalanceHistoryResponse) SetLoginIdentity(v LoginIdentityShort) {
 
 // GetInstitution returns the Institution field value if set, zero value otherwise.
 func (o *GetBalanceHistoryResponse) GetInstitution() InstitutionShort {
-	if o == nil || o.Institution == nil {
+	if o == nil || IsNil(o.Institution) {
 		var ret InstitutionShort
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *GetBalanceHistoryResponse) GetInstitution() InstitutionShort {
 // GetInstitutionOk returns a tuple with the Institution field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetBalanceHistoryResponse) GetInstitutionOk() (*InstitutionShort, bool) {
-	if o == nil || o.Institution == nil {
+	if o == nil || IsNil(o.Institution) {
 		return nil, false
 	}
 	return o.Institution, true
@@ -125,7 +128,7 @@ func (o *GetBalanceHistoryResponse) GetInstitutionOk() (*InstitutionShort, bool)
 
 // HasInstitution returns a boolean if a field has been set.
 func (o *GetBalanceHistoryResponse) HasInstitution() bool {
-	if o != nil && o.Institution != nil {
+	if o != nil && !IsNil(o.Institution) {
 		return true
 	}
 
@@ -139,7 +142,7 @@ func (o *GetBalanceHistoryResponse) SetInstitution(v InstitutionShort) {
 
 // GetBalanceHistory returns the BalanceHistory field value if set, zero value otherwise.
 func (o *GetBalanceHistoryResponse) GetBalanceHistory() []BalanceHistory {
-	if o == nil || o.BalanceHistory == nil {
+	if o == nil || IsNil(o.BalanceHistory) {
 		var ret []BalanceHistory
 		return ret
 	}
@@ -149,7 +152,7 @@ func (o *GetBalanceHistoryResponse) GetBalanceHistory() []BalanceHistory {
 // GetBalanceHistoryOk returns a tuple with the BalanceHistory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetBalanceHistoryResponse) GetBalanceHistoryOk() ([]BalanceHistory, bool) {
-	if o == nil || o.BalanceHistory == nil {
+	if o == nil || IsNil(o.BalanceHistory) {
 		return nil, false
 	}
 	return o.BalanceHistory, true
@@ -157,7 +160,7 @@ func (o *GetBalanceHistoryResponse) GetBalanceHistoryOk() ([]BalanceHistory, boo
 
 // HasBalanceHistory returns a boolean if a field has been set.
 func (o *GetBalanceHistoryResponse) HasBalanceHistory() bool {
-	if o != nil && o.BalanceHistory != nil {
+	if o != nil && !IsNil(o.BalanceHistory) {
 		return true
 	}
 
@@ -171,7 +174,7 @@ func (o *GetBalanceHistoryResponse) SetBalanceHistory(v []BalanceHistory) {
 
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *GetBalanceHistoryResponse) GetSource() string {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret string
 		return ret
 	}
@@ -181,7 +184,7 @@ func (o *GetBalanceHistoryResponse) GetSource() string {
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetBalanceHistoryResponse) GetSourceOk() (*string, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
 	return o.Source, true
@@ -189,7 +192,7 @@ func (o *GetBalanceHistoryResponse) GetSourceOk() (*string, bool) {
 
 // HasSource returns a boolean if a field has been set.
 func (o *GetBalanceHistoryResponse) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
@@ -202,23 +205,31 @@ func (o *GetBalanceHistoryResponse) SetSource(v string) {
 }
 
 func (o GetBalanceHistoryResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Account != nil {
-		toSerialize["account"] = o.Account
-	}
-	if o.LoginIdentity != nil {
-		toSerialize["login_identity"] = o.LoginIdentity
-	}
-	if o.Institution != nil {
-		toSerialize["institution"] = o.Institution
-	}
-	if o.BalanceHistory != nil {
-		toSerialize["balance_history"] = o.BalanceHistory
-	}
-	if o.Source != nil {
-		toSerialize["source"] = o.Source
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GetBalanceHistoryResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Account) {
+		toSerialize["account"] = o.Account
+	}
+	if !IsNil(o.LoginIdentity) {
+		toSerialize["login_identity"] = o.LoginIdentity
+	}
+	if !IsNil(o.Institution) {
+		toSerialize["institution"] = o.Institution
+	}
+	if !IsNil(o.BalanceHistory) {
+		toSerialize["balance_history"] = o.BalanceHistory
+	}
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
+	return toSerialize, nil
 }
 
 type NullableGetBalanceHistoryResponse struct {

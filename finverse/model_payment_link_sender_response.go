@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PaymentLinkSenderResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaymentLinkSenderResponse{}
+
 // PaymentLinkSenderResponse struct for PaymentLinkSenderResponse
 type PaymentLinkSenderResponse struct {
 	Email *string `json:"email,omitempty"`
@@ -45,7 +48,7 @@ func NewPaymentLinkSenderResponseWithDefaults() *PaymentLinkSenderResponse {
 
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *PaymentLinkSenderResponse) GetEmail() string {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		var ret string
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *PaymentLinkSenderResponse) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkSenderResponse) GetEmailOk() (*string, bool) {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
 	return o.Email, true
@@ -63,7 +66,7 @@ func (o *PaymentLinkSenderResponse) GetEmailOk() (*string, bool) {
 
 // HasEmail returns a boolean if a field has been set.
 func (o *PaymentLinkSenderResponse) HasEmail() bool {
-	if o != nil && o.Email != nil {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *PaymentLinkSenderResponse) SetEmail(v string) {
 
 // GetExternalUserId returns the ExternalUserId field value if set, zero value otherwise.
 func (o *PaymentLinkSenderResponse) GetExternalUserId() string {
-	if o == nil || o.ExternalUserId == nil {
+	if o == nil || IsNil(o.ExternalUserId) {
 		var ret string
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *PaymentLinkSenderResponse) GetExternalUserId() string {
 // GetExternalUserIdOk returns a tuple with the ExternalUserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkSenderResponse) GetExternalUserIdOk() (*string, bool) {
-	if o == nil || o.ExternalUserId == nil {
+	if o == nil || IsNil(o.ExternalUserId) {
 		return nil, false
 	}
 	return o.ExternalUserId, true
@@ -95,7 +98,7 @@ func (o *PaymentLinkSenderResponse) GetExternalUserIdOk() (*string, bool) {
 
 // HasExternalUserId returns a boolean if a field has been set.
 func (o *PaymentLinkSenderResponse) HasExternalUserId() bool {
-	if o != nil && o.ExternalUserId != nil {
+	if o != nil && !IsNil(o.ExternalUserId) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *PaymentLinkSenderResponse) SetExternalUserId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *PaymentLinkSenderResponse) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *PaymentLinkSenderResponse) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkSenderResponse) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -127,7 +130,7 @@ func (o *PaymentLinkSenderResponse) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *PaymentLinkSenderResponse) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *PaymentLinkSenderResponse) SetName(v string) {
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *PaymentLinkSenderResponse) GetUserId() string {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		var ret string
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *PaymentLinkSenderResponse) GetUserId() string {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkSenderResponse) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		return nil, false
 	}
 	return o.UserId, true
@@ -159,7 +162,7 @@ func (o *PaymentLinkSenderResponse) GetUserIdOk() (*string, bool) {
 
 // HasUserId returns a boolean if a field has been set.
 func (o *PaymentLinkSenderResponse) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -172,20 +175,28 @@ func (o *PaymentLinkSenderResponse) SetUserId(v string) {
 }
 
 func (o PaymentLinkSenderResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Email != nil {
-		toSerialize["email"] = o.Email
-	}
-	if o.ExternalUserId != nil {
-		toSerialize["external_user_id"] = o.ExternalUserId
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.UserId != nil {
-		toSerialize["user_id"] = o.UserId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PaymentLinkSenderResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Email) {
+		toSerialize["email"] = o.Email
+	}
+	if !IsNil(o.ExternalUserId) {
+		toSerialize["external_user_id"] = o.ExternalUserId
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.UserId) {
+		toSerialize["user_id"] = o.UserId
+	}
+	return toSerialize, nil
 }
 
 type NullablePaymentLinkSenderResponse struct {

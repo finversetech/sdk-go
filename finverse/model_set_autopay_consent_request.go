@@ -12,13 +12,20 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the SetAutopayConsentRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SetAutopayConsentRequest{}
 
 // SetAutopayConsentRequest struct for SetAutopayConsentRequest
 type SetAutopayConsentRequest struct {
 	AutopayConsent bool `json:"autopay_consent"`
 }
+
+type _SetAutopayConsentRequest SetAutopayConsentRequest
 
 // NewSetAutopayConsentRequest instantiates a new SetAutopayConsentRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -63,11 +70,54 @@ func (o *SetAutopayConsentRequest) SetAutopayConsent(v bool) {
 }
 
 func (o SetAutopayConsentRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["autopay_consent"] = o.AutopayConsent
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SetAutopayConsentRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["autopay_consent"] = o.AutopayConsent
+	return toSerialize, nil
+}
+
+func (o *SetAutopayConsentRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"autopay_consent",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSetAutopayConsentRequest := _SetAutopayConsentRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varSetAutopayConsentRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SetAutopayConsentRequest(varSetAutopayConsentRequest)
+
+	return err
 }
 
 type NullableSetAutopayConsentRequest struct {

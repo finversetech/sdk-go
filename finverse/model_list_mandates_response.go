@@ -12,14 +12,21 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ListMandatesResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ListMandatesResponse{}
 
 // ListMandatesResponse struct for ListMandatesResponse
 type ListMandatesResponse struct {
 	Mandates      []GetMandateResponse `json:"mandates,omitempty"`
 	TotalMandates int32                `json:"total_mandates"`
 }
+
+type _ListMandatesResponse ListMandatesResponse
 
 // NewListMandatesResponse instantiates a new ListMandatesResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -41,7 +48,7 @@ func NewListMandatesResponseWithDefaults() *ListMandatesResponse {
 
 // GetMandates returns the Mandates field value if set, zero value otherwise.
 func (o *ListMandatesResponse) GetMandates() []GetMandateResponse {
-	if o == nil || o.Mandates == nil {
+	if o == nil || IsNil(o.Mandates) {
 		var ret []GetMandateResponse
 		return ret
 	}
@@ -51,7 +58,7 @@ func (o *ListMandatesResponse) GetMandates() []GetMandateResponse {
 // GetMandatesOk returns a tuple with the Mandates field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ListMandatesResponse) GetMandatesOk() ([]GetMandateResponse, bool) {
-	if o == nil || o.Mandates == nil {
+	if o == nil || IsNil(o.Mandates) {
 		return nil, false
 	}
 	return o.Mandates, true
@@ -59,7 +66,7 @@ func (o *ListMandatesResponse) GetMandatesOk() ([]GetMandateResponse, bool) {
 
 // HasMandates returns a boolean if a field has been set.
 func (o *ListMandatesResponse) HasMandates() bool {
-	if o != nil && o.Mandates != nil {
+	if o != nil && !IsNil(o.Mandates) {
 		return true
 	}
 
@@ -96,14 +103,57 @@ func (o *ListMandatesResponse) SetTotalMandates(v int32) {
 }
 
 func (o ListMandatesResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Mandates != nil {
-		toSerialize["mandates"] = o.Mandates
-	}
-	if true {
-		toSerialize["total_mandates"] = o.TotalMandates
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ListMandatesResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Mandates) {
+		toSerialize["mandates"] = o.Mandates
+	}
+	toSerialize["total_mandates"] = o.TotalMandates
+	return toSerialize, nil
+}
+
+func (o *ListMandatesResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"total_mandates",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varListMandatesResponse := _ListMandatesResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varListMandatesResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ListMandatesResponse(varListMandatesResponse)
+
+	return err
 }
 
 type NullableListMandatesResponse struct {

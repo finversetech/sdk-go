@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the GetLoginIdentityByIdResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetLoginIdentityByIdResponse{}
+
 // GetLoginIdentityByIdResponse struct for GetLoginIdentityByIdResponse
 type GetLoginIdentityByIdResponse struct {
 	LoginIdentity *LoginIdentity    `json:"login_identity,omitempty"`
@@ -40,7 +43,7 @@ func NewGetLoginIdentityByIdResponseWithDefaults() *GetLoginIdentityByIdResponse
 
 // GetLoginIdentity returns the LoginIdentity field value if set, zero value otherwise.
 func (o *GetLoginIdentityByIdResponse) GetLoginIdentity() LoginIdentity {
-	if o == nil || o.LoginIdentity == nil {
+	if o == nil || IsNil(o.LoginIdentity) {
 		var ret LoginIdentity
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *GetLoginIdentityByIdResponse) GetLoginIdentity() LoginIdentity {
 // GetLoginIdentityOk returns a tuple with the LoginIdentity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetLoginIdentityByIdResponse) GetLoginIdentityOk() (*LoginIdentity, bool) {
-	if o == nil || o.LoginIdentity == nil {
+	if o == nil || IsNil(o.LoginIdentity) {
 		return nil, false
 	}
 	return o.LoginIdentity, true
@@ -58,7 +61,7 @@ func (o *GetLoginIdentityByIdResponse) GetLoginIdentityOk() (*LoginIdentity, boo
 
 // HasLoginIdentity returns a boolean if a field has been set.
 func (o *GetLoginIdentityByIdResponse) HasLoginIdentity() bool {
-	if o != nil && o.LoginIdentity != nil {
+	if o != nil && !IsNil(o.LoginIdentity) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *GetLoginIdentityByIdResponse) SetLoginIdentity(v LoginIdentity) {
 
 // GetInstitution returns the Institution field value if set, zero value otherwise.
 func (o *GetLoginIdentityByIdResponse) GetInstitution() InstitutionShort {
-	if o == nil || o.Institution == nil {
+	if o == nil || IsNil(o.Institution) {
 		var ret InstitutionShort
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *GetLoginIdentityByIdResponse) GetInstitution() InstitutionShort {
 // GetInstitutionOk returns a tuple with the Institution field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetLoginIdentityByIdResponse) GetInstitutionOk() (*InstitutionShort, bool) {
-	if o == nil || o.Institution == nil {
+	if o == nil || IsNil(o.Institution) {
 		return nil, false
 	}
 	return o.Institution, true
@@ -90,7 +93,7 @@ func (o *GetLoginIdentityByIdResponse) GetInstitutionOk() (*InstitutionShort, bo
 
 // HasInstitution returns a boolean if a field has been set.
 func (o *GetLoginIdentityByIdResponse) HasInstitution() bool {
-	if o != nil && o.Institution != nil {
+	if o != nil && !IsNil(o.Institution) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *GetLoginIdentityByIdResponse) SetInstitution(v InstitutionShort) {
 }
 
 func (o GetLoginIdentityByIdResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.LoginIdentity != nil {
-		toSerialize["login_identity"] = o.LoginIdentity
-	}
-	if o.Institution != nil {
-		toSerialize["institution"] = o.Institution
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GetLoginIdentityByIdResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.LoginIdentity) {
+		toSerialize["login_identity"] = o.LoginIdentity
+	}
+	if !IsNil(o.Institution) {
+		toSerialize["institution"] = o.Institution
+	}
+	return toSerialize, nil
 }
 
 type NullableGetLoginIdentityByIdResponse struct {

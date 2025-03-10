@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ListCardsDetailsResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ListCardsDetailsResponse{}
+
 // ListCardsDetailsResponse struct for ListCardsDetailsResponse
 type ListCardsDetailsResponse struct {
 	LoginIdentity *LoginIdentityShort `json:"login_identity,omitempty"`
@@ -41,7 +44,7 @@ func NewListCardsDetailsResponseWithDefaults() *ListCardsDetailsResponse {
 
 // GetLoginIdentity returns the LoginIdentity field value if set, zero value otherwise.
 func (o *ListCardsDetailsResponse) GetLoginIdentity() LoginIdentityShort {
-	if o == nil || o.LoginIdentity == nil {
+	if o == nil || IsNil(o.LoginIdentity) {
 		var ret LoginIdentityShort
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *ListCardsDetailsResponse) GetLoginIdentity() LoginIdentityShort {
 // GetLoginIdentityOk returns a tuple with the LoginIdentity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ListCardsDetailsResponse) GetLoginIdentityOk() (*LoginIdentityShort, bool) {
-	if o == nil || o.LoginIdentity == nil {
+	if o == nil || IsNil(o.LoginIdentity) {
 		return nil, false
 	}
 	return o.LoginIdentity, true
@@ -59,7 +62,7 @@ func (o *ListCardsDetailsResponse) GetLoginIdentityOk() (*LoginIdentityShort, bo
 
 // HasLoginIdentity returns a boolean if a field has been set.
 func (o *ListCardsDetailsResponse) HasLoginIdentity() bool {
-	if o != nil && o.LoginIdentity != nil {
+	if o != nil && !IsNil(o.LoginIdentity) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *ListCardsDetailsResponse) SetLoginIdentity(v LoginIdentityShort) {
 
 // GetInstitution returns the Institution field value if set, zero value otherwise.
 func (o *ListCardsDetailsResponse) GetInstitution() InstitutionShort {
-	if o == nil || o.Institution == nil {
+	if o == nil || IsNil(o.Institution) {
 		var ret InstitutionShort
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *ListCardsDetailsResponse) GetInstitution() InstitutionShort {
 // GetInstitutionOk returns a tuple with the Institution field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ListCardsDetailsResponse) GetInstitutionOk() (*InstitutionShort, bool) {
-	if o == nil || o.Institution == nil {
+	if o == nil || IsNil(o.Institution) {
 		return nil, false
 	}
 	return o.Institution, true
@@ -91,7 +94,7 @@ func (o *ListCardsDetailsResponse) GetInstitutionOk() (*InstitutionShort, bool) 
 
 // HasInstitution returns a boolean if a field has been set.
 func (o *ListCardsDetailsResponse) HasInstitution() bool {
-	if o != nil && o.Institution != nil {
+	if o != nil && !IsNil(o.Institution) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *ListCardsDetailsResponse) SetInstitution(v InstitutionShort) {
 
 // GetCardDetails returns the CardDetails field value if set, zero value otherwise.
 func (o *ListCardsDetailsResponse) GetCardDetails() CardDetails {
-	if o == nil || o.CardDetails == nil {
+	if o == nil || IsNil(o.CardDetails) {
 		var ret CardDetails
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *ListCardsDetailsResponse) GetCardDetails() CardDetails {
 // GetCardDetailsOk returns a tuple with the CardDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ListCardsDetailsResponse) GetCardDetailsOk() (*CardDetails, bool) {
-	if o == nil || o.CardDetails == nil {
+	if o == nil || IsNil(o.CardDetails) {
 		return nil, false
 	}
 	return o.CardDetails, true
@@ -123,7 +126,7 @@ func (o *ListCardsDetailsResponse) GetCardDetailsOk() (*CardDetails, bool) {
 
 // HasCardDetails returns a boolean if a field has been set.
 func (o *ListCardsDetailsResponse) HasCardDetails() bool {
-	if o != nil && o.CardDetails != nil {
+	if o != nil && !IsNil(o.CardDetails) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *ListCardsDetailsResponse) SetCardDetails(v CardDetails) {
 }
 
 func (o ListCardsDetailsResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.LoginIdentity != nil {
-		toSerialize["login_identity"] = o.LoginIdentity
-	}
-	if o.Institution != nil {
-		toSerialize["institution"] = o.Institution
-	}
-	if o.CardDetails != nil {
-		toSerialize["card_details"] = o.CardDetails
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ListCardsDetailsResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.LoginIdentity) {
+		toSerialize["login_identity"] = o.LoginIdentity
+	}
+	if !IsNil(o.Institution) {
+		toSerialize["institution"] = o.Institution
+	}
+	if !IsNil(o.CardDetails) {
+		toSerialize["card_details"] = o.CardDetails
+	}
+	return toSerialize, nil
 }
 
 type NullableListCardsDetailsResponse struct {

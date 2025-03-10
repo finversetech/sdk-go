@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the MandateDetailsForPaymentLink type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MandateDetailsForPaymentLink{}
+
 // MandateDetailsForPaymentLink struct for MandateDetailsForPaymentLink
 type MandateDetailsForPaymentLink struct {
 	// YYYY-MM-DD, must be later than or the same as the date of creation. If unspecified, default to the date of creation.
@@ -45,7 +48,7 @@ func NewMandateDetailsForPaymentLinkWithDefaults() *MandateDetailsForPaymentLink
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MandateDetailsForPaymentLink) GetStartDate() string {
-	if o == nil || o.StartDate.Get() == nil {
+	if o == nil || IsNil(o.StartDate.Get()) {
 		var ret string
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *MandateDetailsForPaymentLink) UnsetStartDate() {
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MandateDetailsForPaymentLink) GetEndDate() string {
-	if o == nil || o.EndDate.Get() == nil {
+	if o == nil || IsNil(o.EndDate.Get()) {
 		var ret string
 		return ret
 	}
@@ -131,7 +134,7 @@ func (o *MandateDetailsForPaymentLink) UnsetEndDate() {
 
 // GetTransactionLimits returns the TransactionLimits field value if set, zero value otherwise.
 func (o *MandateDetailsForPaymentLink) GetTransactionLimits() TransactionLimits {
-	if o == nil || o.TransactionLimits == nil {
+	if o == nil || IsNil(o.TransactionLimits) {
 		var ret TransactionLimits
 		return ret
 	}
@@ -141,7 +144,7 @@ func (o *MandateDetailsForPaymentLink) GetTransactionLimits() TransactionLimits 
 // GetTransactionLimitsOk returns a tuple with the TransactionLimits field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateDetailsForPaymentLink) GetTransactionLimitsOk() (*TransactionLimits, bool) {
-	if o == nil || o.TransactionLimits == nil {
+	if o == nil || IsNil(o.TransactionLimits) {
 		return nil, false
 	}
 	return o.TransactionLimits, true
@@ -149,7 +152,7 @@ func (o *MandateDetailsForPaymentLink) GetTransactionLimitsOk() (*TransactionLim
 
 // HasTransactionLimits returns a boolean if a field has been set.
 func (o *MandateDetailsForPaymentLink) HasTransactionLimits() bool {
-	if o != nil && o.TransactionLimits != nil {
+	if o != nil && !IsNil(o.TransactionLimits) {
 		return true
 	}
 
@@ -163,7 +166,7 @@ func (o *MandateDetailsForPaymentLink) SetTransactionLimits(v TransactionLimits)
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *MandateDetailsForPaymentLink) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -173,7 +176,7 @@ func (o *MandateDetailsForPaymentLink) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateDetailsForPaymentLink) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -181,7 +184,7 @@ func (o *MandateDetailsForPaymentLink) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *MandateDetailsForPaymentLink) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -194,6 +197,14 @@ func (o *MandateDetailsForPaymentLink) SetDescription(v string) {
 }
 
 func (o MandateDetailsForPaymentLink) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o MandateDetailsForPaymentLink) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.StartDate.IsSet() {
 		toSerialize["start_date"] = o.StartDate.Get()
@@ -201,13 +212,13 @@ func (o MandateDetailsForPaymentLink) MarshalJSON() ([]byte, error) {
 	if o.EndDate.IsSet() {
 		toSerialize["end_date"] = o.EndDate.Get()
 	}
-	if o.TransactionLimits != nil {
+	if !IsNil(o.TransactionLimits) {
 		toSerialize["transaction_limits"] = o.TransactionLimits
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableMandateDetailsForPaymentLink struct {

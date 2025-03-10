@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the AuthChecklistFactor type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthChecklistFactor{}
 
 // AuthChecklistFactor struct for AuthChecklistFactor
 type AuthChecklistFactor struct {
@@ -28,6 +33,8 @@ type AuthChecklistFactor struct {
 	// Array of the options accepted for a specific authorization factor
 	Options []AuthChecklistOptions `json:"options"`
 }
+
+type _AuthChecklistFactor AuthChecklistFactor
 
 // NewAuthChecklistFactor instantiates a new AuthChecklistFactor object
 // This constructor will assign default values to properties that have it defined,
@@ -124,7 +131,7 @@ func (o *AuthChecklistFactor) SetRequired(v string) {
 
 // GetHelperText returns the HelperText field value if set, zero value otherwise.
 func (o *AuthChecklistFactor) GetHelperText() string {
-	if o == nil || o.HelperText == nil {
+	if o == nil || IsNil(o.HelperText) {
 		var ret string
 		return ret
 	}
@@ -134,7 +141,7 @@ func (o *AuthChecklistFactor) GetHelperText() string {
 // GetHelperTextOk returns a tuple with the HelperText field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AuthChecklistFactor) GetHelperTextOk() (*string, bool) {
-	if o == nil || o.HelperText == nil {
+	if o == nil || IsNil(o.HelperText) {
 		return nil, false
 	}
 	return o.HelperText, true
@@ -142,7 +149,7 @@ func (o *AuthChecklistFactor) GetHelperTextOk() (*string, bool) {
 
 // HasHelperText returns a boolean if a field has been set.
 func (o *AuthChecklistFactor) HasHelperText() bool {
-	if o != nil && o.HelperText != nil {
+	if o != nil && !IsNil(o.HelperText) {
 		return true
 	}
 
@@ -179,23 +186,63 @@ func (o *AuthChecklistFactor) SetOptions(v []AuthChecklistOptions) {
 }
 
 func (o AuthChecklistFactor) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["group_id"] = o.GroupId
-	}
-	if true {
-		toSerialize["required"] = o.Required
-	}
-	if o.HelperText != nil {
-		toSerialize["helper_text"] = o.HelperText
-	}
-	if true {
-		toSerialize["options"] = o.Options
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AuthChecklistFactor) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	toSerialize["group_id"] = o.GroupId
+	toSerialize["required"] = o.Required
+	if !IsNil(o.HelperText) {
+		toSerialize["helper_text"] = o.HelperText
+	}
+	toSerialize["options"] = o.Options
+	return toSerialize, nil
+}
+
+func (o *AuthChecklistFactor) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"group_id",
+		"required",
+		"options",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAuthChecklistFactor := _AuthChecklistFactor{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAuthChecklistFactor)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AuthChecklistFactor(varAuthChecklistFactor)
+
+	return err
 }
 
 type NullableAuthChecklistFactor struct {

@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CreateMandateWithSenderAccountRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateMandateWithSenderAccountRequest{}
 
 // CreateMandateWithSenderAccountRequest struct for CreateMandateWithSenderAccountRequest
 type CreateMandateWithSenderAccountRequest struct {
@@ -22,6 +27,8 @@ type CreateMandateWithSenderAccountRequest struct {
 	MandateDetails   MandateDetailsRequest       `json:"mandate_details"`
 	Metadata         *map[string]string          `json:"metadata,omitempty"`
 }
+
+type _CreateMandateWithSenderAccountRequest CreateMandateWithSenderAccountRequest
 
 // NewCreateMandateWithSenderAccountRequest instantiates a new CreateMandateWithSenderAccountRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -117,7 +124,7 @@ func (o *CreateMandateWithSenderAccountRequest) SetMandateDetails(v MandateDetai
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *CreateMandateWithSenderAccountRequest) GetMetadata() map[string]string {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]string
 		return ret
 	}
@@ -127,7 +134,7 @@ func (o *CreateMandateWithSenderAccountRequest) GetMetadata() map[string]string 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateMandateWithSenderAccountRequest) GetMetadataOk() (*map[string]string, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -135,7 +142,7 @@ func (o *CreateMandateWithSenderAccountRequest) GetMetadataOk() (*map[string]str
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *CreateMandateWithSenderAccountRequest) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -148,20 +155,61 @@ func (o *CreateMandateWithSenderAccountRequest) SetMetadata(v map[string]string)
 }
 
 func (o CreateMandateWithSenderAccountRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["recipient_account"] = o.RecipientAccount
-	}
-	if true {
-		toSerialize["sender_account"] = o.SenderAccount
-	}
-	if true {
-		toSerialize["mandate_details"] = o.MandateDetails
-	}
-	if o.Metadata != nil {
-		toSerialize["metadata"] = o.Metadata
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateMandateWithSenderAccountRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["recipient_account"] = o.RecipientAccount
+	toSerialize["sender_account"] = o.SenderAccount
+	toSerialize["mandate_details"] = o.MandateDetails
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
+	return toSerialize, nil
+}
+
+func (o *CreateMandateWithSenderAccountRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"recipient_account",
+		"sender_account",
+		"mandate_details",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateMandateWithSenderAccountRequest := _CreateMandateWithSenderAccountRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCreateMandateWithSenderAccountRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateMandateWithSenderAccountRequest(varCreateMandateWithSenderAccountRequest)
+
+	return err
 }
 
 type NullableCreateMandateWithSenderAccountRequest struct {

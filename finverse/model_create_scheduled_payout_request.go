@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CreateScheduledPayoutRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateScheduledPayoutRequest{}
 
 // CreateScheduledPayoutRequest struct for CreateScheduledPayoutRequest
 type CreateScheduledPayoutRequest struct {
@@ -25,6 +30,8 @@ type CreateScheduledPayoutRequest struct {
 	RecipientAccount MandateRecipientRequest `json:"recipient_account"`
 	Metadata         *map[string]string      `json:"metadata,omitempty"`
 }
+
+type _CreateScheduledPayoutRequest CreateScheduledPayoutRequest
 
 // NewCreateScheduledPayoutRequest instantiates a new CreateScheduledPayoutRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -145,7 +152,7 @@ func (o *CreateScheduledPayoutRequest) SetRecipientAccount(v MandateRecipientReq
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *CreateScheduledPayoutRequest) GetMetadata() map[string]string {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]string
 		return ret
 	}
@@ -155,7 +162,7 @@ func (o *CreateScheduledPayoutRequest) GetMetadata() map[string]string {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateScheduledPayoutRequest) GetMetadataOk() (*map[string]string, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -163,7 +170,7 @@ func (o *CreateScheduledPayoutRequest) GetMetadataOk() (*map[string]string, bool
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *CreateScheduledPayoutRequest) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -176,23 +183,63 @@ func (o *CreateScheduledPayoutRequest) SetMetadata(v map[string]string) {
 }
 
 func (o CreateScheduledPayoutRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["amount"] = o.Amount
-	}
-	if true {
-		toSerialize["currency"] = o.Currency
-	}
-	if true {
-		toSerialize["payment_details"] = o.PaymentDetails
-	}
-	if true {
-		toSerialize["recipient_account"] = o.RecipientAccount
-	}
-	if o.Metadata != nil {
-		toSerialize["metadata"] = o.Metadata
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateScheduledPayoutRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["amount"] = o.Amount
+	toSerialize["currency"] = o.Currency
+	toSerialize["payment_details"] = o.PaymentDetails
+	toSerialize["recipient_account"] = o.RecipientAccount
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
+	return toSerialize, nil
+}
+
+func (o *CreateScheduledPayoutRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"amount",
+		"currency",
+		"payment_details",
+		"recipient_account",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateScheduledPayoutRequest := _CreateScheduledPayoutRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCreateScheduledPayoutRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateScheduledPayoutRequest(varCreateScheduledPayoutRequest)
+
+	return err
 }
 
 type NullableCreateScheduledPayoutRequest struct {

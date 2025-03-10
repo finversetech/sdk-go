@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the LoginMethod type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LoginMethod{}
+
 // LoginMethod struct for LoginMethod
 type LoginMethod struct {
 	Id              *string      `json:"id,omitempty"`
@@ -43,7 +46,7 @@ func NewLoginMethodWithDefaults() *LoginMethod {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *LoginMethod) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *LoginMethod) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LoginMethod) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -61,7 +64,7 @@ func (o *LoginMethod) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *LoginMethod) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *LoginMethod) SetId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *LoginMethod) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *LoginMethod) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LoginMethod) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -93,7 +96,7 @@ func (o *LoginMethod) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *LoginMethod) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *LoginMethod) SetName(v string) {
 
 // GetIsDefaultMethod returns the IsDefaultMethod field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *LoginMethod) GetIsDefaultMethod() bool {
-	if o == nil || o.IsDefaultMethod.Get() == nil {
+	if o == nil || IsNil(o.IsDefaultMethod.Get()) {
 		var ret bool
 		return ret
 	}
@@ -150,7 +153,7 @@ func (o *LoginMethod) UnsetIsDefaultMethod() {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *LoginMethod) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -160,7 +163,7 @@ func (o *LoginMethod) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LoginMethod) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -168,7 +171,7 @@ func (o *LoginMethod) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *LoginMethod) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -182,7 +185,7 @@ func (o *LoginMethod) SetStatus(v string) {
 
 // GetLoginFields returns the LoginFields field value if set, zero value otherwise.
 func (o *LoginMethod) GetLoginFields() []LoginField {
-	if o == nil || o.LoginFields == nil {
+	if o == nil || IsNil(o.LoginFields) {
 		var ret []LoginField
 		return ret
 	}
@@ -192,7 +195,7 @@ func (o *LoginMethod) GetLoginFields() []LoginField {
 // GetLoginFieldsOk returns a tuple with the LoginFields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LoginMethod) GetLoginFieldsOk() ([]LoginField, bool) {
-	if o == nil || o.LoginFields == nil {
+	if o == nil || IsNil(o.LoginFields) {
 		return nil, false
 	}
 	return o.LoginFields, true
@@ -200,7 +203,7 @@ func (o *LoginMethod) GetLoginFieldsOk() ([]LoginField, bool) {
 
 // HasLoginFields returns a boolean if a field has been set.
 func (o *LoginMethod) HasLoginFields() bool {
-	if o != nil && o.LoginFields != nil {
+	if o != nil && !IsNil(o.LoginFields) {
 		return true
 	}
 
@@ -213,23 +216,31 @@ func (o *LoginMethod) SetLoginFields(v []LoginField) {
 }
 
 func (o LoginMethod) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LoginMethod) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
+	if !IsNil(o.Id) {
 		toSerialize["id"] = o.Id
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
 	if o.IsDefaultMethod.IsSet() {
 		toSerialize["is_default_method"] = o.IsDefaultMethod.Get()
 	}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.LoginFields != nil {
+	if !IsNil(o.LoginFields) {
 		toSerialize["login_fields"] = o.LoginFields
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableLoginMethod struct {

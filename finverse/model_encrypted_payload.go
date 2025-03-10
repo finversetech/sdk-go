@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the EncryptedPayload type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &EncryptedPayload{}
 
 // EncryptedPayload struct for EncryptedPayload
 type EncryptedPayload struct {
@@ -28,6 +33,8 @@ type EncryptedPayload struct {
 	// The identifier of the public key used to encrypt the AES key
 	KeyId string `json:"keyId"`
 }
+
+type _EncryptedPayload EncryptedPayload
 
 // NewEncryptedPayload instantiates a new EncryptedPayload object
 // This constructor will assign default values to properties that have it defined,
@@ -172,23 +179,62 @@ func (o *EncryptedPayload) SetKeyId(v string) {
 }
 
 func (o EncryptedPayload) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["ciphertext"] = o.Ciphertext
-	}
-	if true {
-		toSerialize["initializationVector"] = o.InitializationVector
-	}
-	if true {
-		toSerialize["messageAuthenticationCode"] = o.MessageAuthenticationCode
-	}
-	if true {
-		toSerialize["envelopeEncryptionKey"] = o.EnvelopeEncryptionKey
-	}
-	if true {
-		toSerialize["keyId"] = o.KeyId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o EncryptedPayload) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["ciphertext"] = o.Ciphertext
+	toSerialize["initializationVector"] = o.InitializationVector
+	toSerialize["messageAuthenticationCode"] = o.MessageAuthenticationCode
+	toSerialize["envelopeEncryptionKey"] = o.EnvelopeEncryptionKey
+	toSerialize["keyId"] = o.KeyId
+	return toSerialize, nil
+}
+
+func (o *EncryptedPayload) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"ciphertext",
+		"initializationVector",
+		"messageAuthenticationCode",
+		"envelopeEncryptionKey",
+		"keyId",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varEncryptedPayload := _EncryptedPayload{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varEncryptedPayload)
+
+	if err != nil {
+		return err
+	}
+
+	*o = EncryptedPayload(varEncryptedPayload)
+
+	return err
 }
 
 type NullableEncryptedPayload struct {

@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the GetMandateSender type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetMandateSender{}
 
 // GetMandateSender struct for GetMandateSender
 type GetMandateSender struct {
@@ -27,6 +32,8 @@ type GetMandateSender struct {
 	// Sender details which will be used for fraud checking.
 	UserDetails []SenderDetail `json:"user_details,omitempty"`
 }
+
+type _GetMandateSender GetMandateSender
 
 // NewGetMandateSender instantiates a new GetMandateSender object
 // This constructor will assign default values to properties that have it defined,
@@ -74,7 +81,7 @@ func (o *GetMandateSender) SetUserId(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *GetMandateSender) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -84,7 +91,7 @@ func (o *GetMandateSender) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetMandateSender) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -92,7 +99,7 @@ func (o *GetMandateSender) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *GetMandateSender) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -154,7 +161,7 @@ func (o *GetMandateSender) SetUserType(v string) {
 
 // GetUserDetails returns the UserDetails field value if set, zero value otherwise.
 func (o *GetMandateSender) GetUserDetails() []SenderDetail {
-	if o == nil || o.UserDetails == nil {
+	if o == nil || IsNil(o.UserDetails) {
 		var ret []SenderDetail
 		return ret
 	}
@@ -164,7 +171,7 @@ func (o *GetMandateSender) GetUserDetails() []SenderDetail {
 // GetUserDetailsOk returns a tuple with the UserDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetMandateSender) GetUserDetailsOk() ([]SenderDetail, bool) {
-	if o == nil || o.UserDetails == nil {
+	if o == nil || IsNil(o.UserDetails) {
 		return nil, false
 	}
 	return o.UserDetails, true
@@ -172,7 +179,7 @@ func (o *GetMandateSender) GetUserDetailsOk() ([]SenderDetail, bool) {
 
 // HasUserDetails returns a boolean if a field has been set.
 func (o *GetMandateSender) HasUserDetails() bool {
-	if o != nil && o.UserDetails != nil {
+	if o != nil && !IsNil(o.UserDetails) {
 		return true
 	}
 
@@ -185,23 +192,64 @@ func (o *GetMandateSender) SetUserDetails(v []SenderDetail) {
 }
 
 func (o GetMandateSender) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["user_id"] = o.UserId
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["external_user_id"] = o.ExternalUserId
-	}
-	if true {
-		toSerialize["user_type"] = o.UserType
-	}
-	if o.UserDetails != nil {
-		toSerialize["user_details"] = o.UserDetails
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GetMandateSender) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["user_id"] = o.UserId
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	toSerialize["external_user_id"] = o.ExternalUserId
+	toSerialize["user_type"] = o.UserType
+	if !IsNil(o.UserDetails) {
+		toSerialize["user_details"] = o.UserDetails
+	}
+	return toSerialize, nil
+}
+
+func (o *GetMandateSender) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"user_id",
+		"external_user_id",
+		"user_type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGetMandateSender := _GetMandateSender{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varGetMandateSender)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetMandateSender(varGetMandateSender)
+
+	return err
 }
 
 type NullableGetMandateSender struct {

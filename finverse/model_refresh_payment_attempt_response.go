@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the RefreshPaymentAttemptResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RefreshPaymentAttemptResponse{}
+
 // RefreshPaymentAttemptResponse struct for RefreshPaymentAttemptResponse
 type RefreshPaymentAttemptResponse struct {
 	RedirectUrl *string `json:"redirect_url,omitempty"`
@@ -39,7 +42,7 @@ func NewRefreshPaymentAttemptResponseWithDefaults() *RefreshPaymentAttemptRespon
 
 // GetRedirectUrl returns the RedirectUrl field value if set, zero value otherwise.
 func (o *RefreshPaymentAttemptResponse) GetRedirectUrl() string {
-	if o == nil || o.RedirectUrl == nil {
+	if o == nil || IsNil(o.RedirectUrl) {
 		var ret string
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *RefreshPaymentAttemptResponse) GetRedirectUrl() string {
 // GetRedirectUrlOk returns a tuple with the RedirectUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *RefreshPaymentAttemptResponse) GetRedirectUrlOk() (*string, bool) {
-	if o == nil || o.RedirectUrl == nil {
+	if o == nil || IsNil(o.RedirectUrl) {
 		return nil, false
 	}
 	return o.RedirectUrl, true
@@ -57,7 +60,7 @@ func (o *RefreshPaymentAttemptResponse) GetRedirectUrlOk() (*string, bool) {
 
 // HasRedirectUrl returns a boolean if a field has been set.
 func (o *RefreshPaymentAttemptResponse) HasRedirectUrl() bool {
-	if o != nil && o.RedirectUrl != nil {
+	if o != nil && !IsNil(o.RedirectUrl) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *RefreshPaymentAttemptResponse) SetRedirectUrl(v string) {
 }
 
 func (o RefreshPaymentAttemptResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.RedirectUrl != nil {
-		toSerialize["redirect_url"] = o.RedirectUrl
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RefreshPaymentAttemptResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.RedirectUrl) {
+		toSerialize["redirect_url"] = o.RedirectUrl
+	}
+	return toSerialize, nil
 }
 
 type NullableRefreshPaymentAttemptResponse struct {

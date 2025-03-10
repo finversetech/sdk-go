@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ManualPaymentConfirmationResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ManualPaymentConfirmationResponse{}
+
 // ManualPaymentConfirmationResponse struct for ManualPaymentConfirmationResponse
 type ManualPaymentConfirmationResponse struct {
 	PaymentId *string `json:"payment_id,omitempty"`
@@ -40,7 +43,7 @@ func NewManualPaymentConfirmationResponseWithDefaults() *ManualPaymentConfirmati
 
 // GetPaymentId returns the PaymentId field value if set, zero value otherwise.
 func (o *ManualPaymentConfirmationResponse) GetPaymentId() string {
-	if o == nil || o.PaymentId == nil {
+	if o == nil || IsNil(o.PaymentId) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *ManualPaymentConfirmationResponse) GetPaymentId() string {
 // GetPaymentIdOk returns a tuple with the PaymentId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ManualPaymentConfirmationResponse) GetPaymentIdOk() (*string, bool) {
-	if o == nil || o.PaymentId == nil {
+	if o == nil || IsNil(o.PaymentId) {
 		return nil, false
 	}
 	return o.PaymentId, true
@@ -58,7 +61,7 @@ func (o *ManualPaymentConfirmationResponse) GetPaymentIdOk() (*string, bool) {
 
 // HasPaymentId returns a boolean if a field has been set.
 func (o *ManualPaymentConfirmationResponse) HasPaymentId() bool {
-	if o != nil && o.PaymentId != nil {
+	if o != nil && !IsNil(o.PaymentId) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *ManualPaymentConfirmationResponse) SetPaymentId(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *ManualPaymentConfirmationResponse) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *ManualPaymentConfirmationResponse) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ManualPaymentConfirmationResponse) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -90,7 +93,7 @@ func (o *ManualPaymentConfirmationResponse) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *ManualPaymentConfirmationResponse) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *ManualPaymentConfirmationResponse) SetStatus(v string) {
 }
 
 func (o ManualPaymentConfirmationResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.PaymentId != nil {
-		toSerialize["payment_id"] = o.PaymentId
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ManualPaymentConfirmationResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.PaymentId) {
+		toSerialize["payment_id"] = o.PaymentId
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	return toSerialize, nil
 }
 
 type NullableManualPaymentConfirmationResponse struct {

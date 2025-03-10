@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the ProductStatus type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ProductStatus{}
+
 // ProductStatus struct for ProductStatus
 type ProductStatus struct {
 	// The current health of this product
@@ -45,7 +48,7 @@ func NewProductStatusWithDefaults() *ProductStatus {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *ProductStatus) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *ProductStatus) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProductStatus) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -63,7 +66,7 @@ func (o *ProductStatus) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *ProductStatus) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *ProductStatus) SetStatus(v string) {
 
 // GetStatusDetails returns the StatusDetails field value if set, zero value otherwise.
 func (o *ProductStatus) GetStatusDetails() string {
-	if o == nil || o.StatusDetails == nil {
+	if o == nil || IsNil(o.StatusDetails) {
 		var ret string
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *ProductStatus) GetStatusDetails() string {
 // GetStatusDetailsOk returns a tuple with the StatusDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ProductStatus) GetStatusDetailsOk() (*string, bool) {
-	if o == nil || o.StatusDetails == nil {
+	if o == nil || IsNil(o.StatusDetails) {
 		return nil, false
 	}
 	return o.StatusDetails, true
@@ -95,7 +98,7 @@ func (o *ProductStatus) GetStatusDetailsOk() (*string, bool) {
 
 // HasStatusDetails returns a boolean if a field has been set.
 func (o *ProductStatus) HasStatusDetails() bool {
-	if o != nil && o.StatusDetails != nil {
+	if o != nil && !IsNil(o.StatusDetails) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *ProductStatus) SetStatusDetails(v string) {
 
 // GetLastUpdate returns the LastUpdate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ProductStatus) GetLastUpdate() time.Time {
-	if o == nil || o.LastUpdate.Get() == nil {
+	if o == nil || IsNil(o.LastUpdate.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -152,7 +155,7 @@ func (o *ProductStatus) UnsetLastUpdate() {
 
 // GetLastSuccessfulUpdate returns the LastSuccessfulUpdate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *ProductStatus) GetLastSuccessfulUpdate() time.Time {
-	if o == nil || o.LastSuccessfulUpdate.Get() == nil {
+	if o == nil || IsNil(o.LastSuccessfulUpdate.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -194,11 +197,19 @@ func (o *ProductStatus) UnsetLastSuccessfulUpdate() {
 }
 
 func (o ProductStatus) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o ProductStatus) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.Status != nil {
+	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
-	if o.StatusDetails != nil {
+	if !IsNil(o.StatusDetails) {
 		toSerialize["status_details"] = o.StatusDetails
 	}
 	if o.LastUpdate.IsSet() {
@@ -207,7 +218,7 @@ func (o ProductStatus) MarshalJSON() ([]byte, error) {
 	if o.LastSuccessfulUpdate.IsSet() {
 		toSerialize["last_successful_update"] = o.LastSuccessfulUpdate.Get()
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
 }
 
 type NullableProductStatus struct {

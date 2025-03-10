@@ -12,9 +12,14 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the Institution type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Institution{}
 
 // Institution struct for Institution
 type Institution struct {
@@ -37,6 +42,8 @@ type Institution struct {
 	UpdatedAt             *time.Time             `json:"updated_at,omitempty"`
 	LoginActions          []LoginAction          `json:"login_actions,omitempty"`
 }
+
+type _Institution Institution
 
 // NewInstitution instantiates a new Institution object
 // This constructor will assign default values to properties that have it defined,
@@ -113,7 +120,7 @@ func (o *Institution) SetCountries(v []string) {
 
 // GetTags returns the Tags field value if set, zero value otherwise.
 func (o *Institution) GetTags() []string {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		var ret []string
 		return ret
 	}
@@ -123,7 +130,7 @@ func (o *Institution) GetTags() []string {
 // GetTagsOk returns a tuple with the Tags field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Institution) GetTagsOk() ([]string, bool) {
-	if o == nil || o.Tags == nil {
+	if o == nil || IsNil(o.Tags) {
 		return nil, false
 	}
 	return o.Tags, true
@@ -131,7 +138,7 @@ func (o *Institution) GetTagsOk() ([]string, bool) {
 
 // HasTags returns a boolean if a field has been set.
 func (o *Institution) HasTags() bool {
-	if o != nil && o.Tags != nil {
+	if o != nil && !IsNil(o.Tags) {
 		return true
 	}
 
@@ -193,7 +200,7 @@ func (o *Institution) SetProductsSupported(v []string) {
 
 // GetParentInstitutionName returns the ParentInstitutionName field value if set, zero value otherwise.
 func (o *Institution) GetParentInstitutionName() string {
-	if o == nil || o.ParentInstitutionName == nil {
+	if o == nil || IsNil(o.ParentInstitutionName) {
 		var ret string
 		return ret
 	}
@@ -203,7 +210,7 @@ func (o *Institution) GetParentInstitutionName() string {
 // GetParentInstitutionNameOk returns a tuple with the ParentInstitutionName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Institution) GetParentInstitutionNameOk() (*string, bool) {
-	if o == nil || o.ParentInstitutionName == nil {
+	if o == nil || IsNil(o.ParentInstitutionName) {
 		return nil, false
 	}
 	return o.ParentInstitutionName, true
@@ -211,7 +218,7 @@ func (o *Institution) GetParentInstitutionNameOk() (*string, bool) {
 
 // HasParentInstitutionName returns a boolean if a field has been set.
 func (o *Institution) HasParentInstitutionName() bool {
-	if o != nil && o.ParentInstitutionName != nil {
+	if o != nil && !IsNil(o.ParentInstitutionName) {
 		return true
 	}
 
@@ -249,7 +256,7 @@ func (o *Institution) SetInstitutionName(v string) {
 
 // GetPortalName returns the PortalName field value if set, zero value otherwise.
 func (o *Institution) GetPortalName() string {
-	if o == nil || o.PortalName == nil {
+	if o == nil || IsNil(o.PortalName) {
 		var ret string
 		return ret
 	}
@@ -259,7 +266,7 @@ func (o *Institution) GetPortalName() string {
 // GetPortalNameOk returns a tuple with the PortalName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Institution) GetPortalNameOk() (*string, bool) {
-	if o == nil || o.PortalName == nil {
+	if o == nil || IsNil(o.PortalName) {
 		return nil, false
 	}
 	return o.PortalName, true
@@ -267,7 +274,7 @@ func (o *Institution) GetPortalNameOk() (*string, bool) {
 
 // HasPortalName returns a boolean if a field has been set.
 func (o *Institution) HasPortalName() bool {
-	if o != nil && o.PortalName != nil {
+	if o != nil && !IsNil(o.PortalName) {
 		return true
 	}
 
@@ -329,7 +336,7 @@ func (o *Institution) SetStatus(v string) {
 
 // GetStatusDetails returns the StatusDetails field value if set, zero value otherwise.
 func (o *Institution) GetStatusDetails() map[string]interface{} {
-	if o == nil || o.StatusDetails == nil {
+	if o == nil || IsNil(o.StatusDetails) {
 		var ret map[string]interface{}
 		return ret
 	}
@@ -339,15 +346,15 @@ func (o *Institution) GetStatusDetails() map[string]interface{} {
 // GetStatusDetailsOk returns a tuple with the StatusDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Institution) GetStatusDetailsOk() (map[string]interface{}, bool) {
-	if o == nil || o.StatusDetails == nil {
-		return nil, false
+	if o == nil || IsNil(o.StatusDetails) {
+		return map[string]interface{}{}, false
 	}
 	return o.StatusDetails, true
 }
 
 // HasStatusDetails returns a boolean if a field has been set.
 func (o *Institution) HasStatusDetails() bool {
-	if o != nil && o.StatusDetails != nil {
+	if o != nil && !IsNil(o.StatusDetails) {
 		return true
 	}
 
@@ -361,7 +368,7 @@ func (o *Institution) SetStatusDetails(v map[string]interface{}) {
 
 // GetLoginUrl returns the LoginUrl field value if set, zero value otherwise.
 func (o *Institution) GetLoginUrl() string {
-	if o == nil || o.LoginUrl == nil {
+	if o == nil || IsNil(o.LoginUrl) {
 		var ret string
 		return ret
 	}
@@ -371,7 +378,7 @@ func (o *Institution) GetLoginUrl() string {
 // GetLoginUrlOk returns a tuple with the LoginUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Institution) GetLoginUrlOk() (*string, bool) {
-	if o == nil || o.LoginUrl == nil {
+	if o == nil || IsNil(o.LoginUrl) {
 		return nil, false
 	}
 	return o.LoginUrl, true
@@ -379,7 +386,7 @@ func (o *Institution) GetLoginUrlOk() (*string, bool) {
 
 // HasLoginUrl returns a boolean if a field has been set.
 func (o *Institution) HasLoginUrl() bool {
-	if o != nil && o.LoginUrl != nil {
+	if o != nil && !IsNil(o.LoginUrl) {
 		return true
 	}
 
@@ -405,7 +412,7 @@ func (o *Institution) GetLoginDetails() map[string]interface{} {
 // and a boolean to check if the value has been set.
 func (o *Institution) GetLoginDetailsOk() (map[string]interface{}, bool) {
 	if o == nil {
-		return nil, false
+		return map[string]interface{}{}, false
 	}
 	return o.LoginDetails, true
 }
@@ -417,7 +424,7 @@ func (o *Institution) SetLoginDetails(v map[string]interface{}) {
 
 // GetLoginMethods returns the LoginMethods field value if set, zero value otherwise.
 func (o *Institution) GetLoginMethods() []LoginMethod {
-	if o == nil || o.LoginMethods == nil {
+	if o == nil || IsNil(o.LoginMethods) {
 		var ret []LoginMethod
 		return ret
 	}
@@ -427,7 +434,7 @@ func (o *Institution) GetLoginMethods() []LoginMethod {
 // GetLoginMethodsOk returns a tuple with the LoginMethods field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Institution) GetLoginMethodsOk() ([]LoginMethod, bool) {
-	if o == nil || o.LoginMethods == nil {
+	if o == nil || IsNil(o.LoginMethods) {
 		return nil, false
 	}
 	return o.LoginMethods, true
@@ -435,7 +442,7 @@ func (o *Institution) GetLoginMethodsOk() ([]LoginMethod, bool) {
 
 // HasLoginMethods returns a boolean if a field has been set.
 func (o *Institution) HasLoginMethods() bool {
-	if o != nil && o.LoginMethods != nil {
+	if o != nil && !IsNil(o.LoginMethods) {
 		return true
 	}
 
@@ -449,7 +456,7 @@ func (o *Institution) SetLoginMethods(v []LoginMethod) {
 
 // GetPaymentInfo returns the PaymentInfo field value if set, zero value otherwise.
 func (o *Institution) GetPaymentInfo() PaymentInfo {
-	if o == nil || o.PaymentInfo == nil {
+	if o == nil || IsNil(o.PaymentInfo) {
 		var ret PaymentInfo
 		return ret
 	}
@@ -459,7 +466,7 @@ func (o *Institution) GetPaymentInfo() PaymentInfo {
 // GetPaymentInfoOk returns a tuple with the PaymentInfo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Institution) GetPaymentInfoOk() (*PaymentInfo, bool) {
-	if o == nil || o.PaymentInfo == nil {
+	if o == nil || IsNil(o.PaymentInfo) {
 		return nil, false
 	}
 	return o.PaymentInfo, true
@@ -467,7 +474,7 @@ func (o *Institution) GetPaymentInfoOk() (*PaymentInfo, bool) {
 
 // HasPaymentInfo returns a boolean if a field has been set.
 func (o *Institution) HasPaymentInfo() bool {
-	if o != nil && o.PaymentInfo != nil {
+	if o != nil && !IsNil(o.PaymentInfo) {
 		return true
 	}
 
@@ -481,7 +488,7 @@ func (o *Institution) SetPaymentInfo(v PaymentInfo) {
 
 // GetColor returns the Color field value if set, zero value otherwise.
 func (o *Institution) GetColor() string {
-	if o == nil || o.Color == nil {
+	if o == nil || IsNil(o.Color) {
 		var ret string
 		return ret
 	}
@@ -491,7 +498,7 @@ func (o *Institution) GetColor() string {
 // GetColorOk returns a tuple with the Color field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Institution) GetColorOk() (*string, bool) {
-	if o == nil || o.Color == nil {
+	if o == nil || IsNil(o.Color) {
 		return nil, false
 	}
 	return o.Color, true
@@ -499,7 +506,7 @@ func (o *Institution) GetColorOk() (*string, bool) {
 
 // HasColor returns a boolean if a field has been set.
 func (o *Institution) HasColor() bool {
-	if o != nil && o.Color != nil {
+	if o != nil && !IsNil(o.Color) {
 		return true
 	}
 
@@ -513,7 +520,7 @@ func (o *Institution) SetColor(v string) {
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *Institution) GetUpdatedAt() time.Time {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -523,7 +530,7 @@ func (o *Institution) GetUpdatedAt() time.Time {
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Institution) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
 	return o.UpdatedAt, true
@@ -531,7 +538,7 @@ func (o *Institution) GetUpdatedAtOk() (*time.Time, bool) {
 
 // HasUpdatedAt returns a boolean if a field has been set.
 func (o *Institution) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
+	if o != nil && !IsNil(o.UpdatedAt) {
 		return true
 	}
 
@@ -545,7 +552,7 @@ func (o *Institution) SetUpdatedAt(v time.Time) {
 
 // GetLoginActions returns the LoginActions field value if set, zero value otherwise.
 func (o *Institution) GetLoginActions() []LoginAction {
-	if o == nil || o.LoginActions == nil {
+	if o == nil || IsNil(o.LoginActions) {
 		var ret []LoginAction
 		return ret
 	}
@@ -555,7 +562,7 @@ func (o *Institution) GetLoginActions() []LoginAction {
 // GetLoginActionsOk returns a tuple with the LoginActions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Institution) GetLoginActionsOk() ([]LoginAction, bool) {
-	if o == nil || o.LoginActions == nil {
+	if o == nil || IsNil(o.LoginActions) {
 		return nil, false
 	}
 	return o.LoginActions, true
@@ -563,7 +570,7 @@ func (o *Institution) GetLoginActionsOk() ([]LoginAction, bool) {
 
 // HasLoginActions returns a boolean if a field has been set.
 func (o *Institution) HasLoginActions() bool {
-	if o != nil && o.LoginActions != nil {
+	if o != nil && !IsNil(o.LoginActions) {
 		return true
 	}
 
@@ -576,62 +583,98 @@ func (o *Institution) SetLoginActions(v []LoginAction) {
 }
 
 func (o Institution) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["institution_id"] = o.InstitutionId
-	}
-	if true {
-		toSerialize["countries"] = o.Countries
-	}
-	if o.Tags != nil {
-		toSerialize["tags"] = o.Tags
-	}
-	if true {
-		toSerialize["institution_type"] = o.InstitutionType
-	}
-	if true {
-		toSerialize["products_supported"] = o.ProductsSupported
-	}
-	if o.ParentInstitutionName != nil {
-		toSerialize["parent_institution_name"] = o.ParentInstitutionName
-	}
-	if true {
-		toSerialize["institution_name"] = o.InstitutionName
-	}
-	if o.PortalName != nil {
-		toSerialize["portal_name"] = o.PortalName
-	}
-	if true {
-		toSerialize["user_type"] = o.UserType
-	}
-	if true {
-		toSerialize["status"] = o.Status
-	}
-	if o.StatusDetails != nil {
-		toSerialize["status_details"] = o.StatusDetails
-	}
-	if o.LoginUrl != nil {
-		toSerialize["login_url"] = o.LoginUrl
-	}
-	if true {
-		toSerialize["login_details"] = o.LoginDetails
-	}
-	if o.LoginMethods != nil {
-		toSerialize["login_methods"] = o.LoginMethods
-	}
-	if o.PaymentInfo != nil {
-		toSerialize["payment_info"] = o.PaymentInfo
-	}
-	if o.Color != nil {
-		toSerialize["color"] = o.Color
-	}
-	if o.UpdatedAt != nil {
-		toSerialize["updated_at"] = o.UpdatedAt
-	}
-	if o.LoginActions != nil {
-		toSerialize["login_actions"] = o.LoginActions
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Institution) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["institution_id"] = o.InstitutionId
+	toSerialize["countries"] = o.Countries
+	if !IsNil(o.Tags) {
+		toSerialize["tags"] = o.Tags
+	}
+	toSerialize["institution_type"] = o.InstitutionType
+	toSerialize["products_supported"] = o.ProductsSupported
+	if !IsNil(o.ParentInstitutionName) {
+		toSerialize["parent_institution_name"] = o.ParentInstitutionName
+	}
+	toSerialize["institution_name"] = o.InstitutionName
+	if !IsNil(o.PortalName) {
+		toSerialize["portal_name"] = o.PortalName
+	}
+	toSerialize["user_type"] = o.UserType
+	toSerialize["status"] = o.Status
+	if !IsNil(o.StatusDetails) {
+		toSerialize["status_details"] = o.StatusDetails
+	}
+	if !IsNil(o.LoginUrl) {
+		toSerialize["login_url"] = o.LoginUrl
+	}
+	toSerialize["login_details"] = o.LoginDetails
+	if !IsNil(o.LoginMethods) {
+		toSerialize["login_methods"] = o.LoginMethods
+	}
+	if !IsNil(o.PaymentInfo) {
+		toSerialize["payment_info"] = o.PaymentInfo
+	}
+	if !IsNil(o.Color) {
+		toSerialize["color"] = o.Color
+	}
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updated_at"] = o.UpdatedAt
+	}
+	if !IsNil(o.LoginActions) {
+		toSerialize["login_actions"] = o.LoginActions
+	}
+	return toSerialize, nil
+}
+
+func (o *Institution) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"institution_id",
+		"countries",
+		"institution_type",
+		"products_supported",
+		"institution_name",
+		"user_type",
+		"status",
+		"login_details",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varInstitution := _Institution{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varInstitution)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Institution(varInstitution)
+
+	return err
 }
 
 type NullableInstitution struct {

@@ -12,13 +12,20 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CreateFpsTokenResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreateFpsTokenResponse{}
 
 // CreateFpsTokenResponse struct for CreateFpsTokenResponse
 type CreateFpsTokenResponse struct {
 	FpsToken PaymentLinkTokenResponse `json:"fps_token"`
 }
+
+type _CreateFpsTokenResponse CreateFpsTokenResponse
 
 // NewCreateFpsTokenResponse instantiates a new CreateFpsTokenResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -63,11 +70,54 @@ func (o *CreateFpsTokenResponse) SetFpsToken(v PaymentLinkTokenResponse) {
 }
 
 func (o CreateFpsTokenResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["fps_token"] = o.FpsToken
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreateFpsTokenResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["fps_token"] = o.FpsToken
+	return toSerialize, nil
+}
+
+func (o *CreateFpsTokenResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"fps_token",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreateFpsTokenResponse := _CreateFpsTokenResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCreateFpsTokenResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateFpsTokenResponse(varCreateFpsTokenResponse)
+
+	return err
 }
 
 type NullableCreateFpsTokenResponse struct {

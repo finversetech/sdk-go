@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the IdentityPhoneNumber type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdentityPhoneNumber{}
+
 // IdentityPhoneNumber struct for IdentityPhoneNumber
 type IdentityPhoneNumber struct {
 	Raw         *string  `json:"raw,omitempty"`
@@ -45,7 +48,7 @@ func NewIdentityPhoneNumberWithDefaults() *IdentityPhoneNumber {
 
 // GetRaw returns the Raw field value if set, zero value otherwise.
 func (o *IdentityPhoneNumber) GetRaw() string {
-	if o == nil || o.Raw == nil {
+	if o == nil || IsNil(o.Raw) {
 		var ret string
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *IdentityPhoneNumber) GetRaw() string {
 // GetRawOk returns a tuple with the Raw field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityPhoneNumber) GetRawOk() (*string, bool) {
-	if o == nil || o.Raw == nil {
+	if o == nil || IsNil(o.Raw) {
 		return nil, false
 	}
 	return o.Raw, true
@@ -63,7 +66,7 @@ func (o *IdentityPhoneNumber) GetRawOk() (*string, bool) {
 
 // HasRaw returns a boolean if a field has been set.
 func (o *IdentityPhoneNumber) HasRaw() bool {
-	if o != nil && o.Raw != nil {
+	if o != nil && !IsNil(o.Raw) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *IdentityPhoneNumber) SetRaw(v string) {
 
 // GetMobilePhone returns the MobilePhone field value if set, zero value otherwise.
 func (o *IdentityPhoneNumber) GetMobilePhone() string {
-	if o == nil || o.MobilePhone == nil {
+	if o == nil || IsNil(o.MobilePhone) {
 		var ret string
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *IdentityPhoneNumber) GetMobilePhone() string {
 // GetMobilePhoneOk returns a tuple with the MobilePhone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityPhoneNumber) GetMobilePhoneOk() (*string, bool) {
-	if o == nil || o.MobilePhone == nil {
+	if o == nil || IsNil(o.MobilePhone) {
 		return nil, false
 	}
 	return o.MobilePhone, true
@@ -95,7 +98,7 @@ func (o *IdentityPhoneNumber) GetMobilePhoneOk() (*string, bool) {
 
 // HasMobilePhone returns a boolean if a field has been set.
 func (o *IdentityPhoneNumber) HasMobilePhone() bool {
-	if o != nil && o.MobilePhone != nil {
+	if o != nil && !IsNil(o.MobilePhone) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *IdentityPhoneNumber) SetMobilePhone(v string) {
 
 // GetOtherPhone returns the OtherPhone field value if set, zero value otherwise.
 func (o *IdentityPhoneNumber) GetOtherPhone() string {
-	if o == nil || o.OtherPhone == nil {
+	if o == nil || IsNil(o.OtherPhone) {
 		var ret string
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *IdentityPhoneNumber) GetOtherPhone() string {
 // GetOtherPhoneOk returns a tuple with the OtherPhone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityPhoneNumber) GetOtherPhoneOk() (*string, bool) {
-	if o == nil || o.OtherPhone == nil {
+	if o == nil || IsNil(o.OtherPhone) {
 		return nil, false
 	}
 	return o.OtherPhone, true
@@ -127,7 +130,7 @@ func (o *IdentityPhoneNumber) GetOtherPhoneOk() (*string, bool) {
 
 // HasOtherPhone returns a boolean if a field has been set.
 func (o *IdentityPhoneNumber) HasOtherPhone() bool {
-	if o != nil && o.OtherPhone != nil {
+	if o != nil && !IsNil(o.OtherPhone) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *IdentityPhoneNumber) SetOtherPhone(v string) {
 
 // GetMaskedPhone returns the MaskedPhone field value if set, zero value otherwise.
 func (o *IdentityPhoneNumber) GetMaskedPhone() string {
-	if o == nil || o.MaskedPhone == nil {
+	if o == nil || IsNil(o.MaskedPhone) {
 		var ret string
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *IdentityPhoneNumber) GetMaskedPhone() string {
 // GetMaskedPhoneOk returns a tuple with the MaskedPhone field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityPhoneNumber) GetMaskedPhoneOk() (*string, bool) {
-	if o == nil || o.MaskedPhone == nil {
+	if o == nil || IsNil(o.MaskedPhone) {
 		return nil, false
 	}
 	return o.MaskedPhone, true
@@ -159,7 +162,7 @@ func (o *IdentityPhoneNumber) GetMaskedPhoneOk() (*string, bool) {
 
 // HasMaskedPhone returns a boolean if a field has been set.
 func (o *IdentityPhoneNumber) HasMaskedPhone() bool {
-	if o != nil && o.MaskedPhone != nil {
+	if o != nil && !IsNil(o.MaskedPhone) {
 		return true
 	}
 
@@ -173,7 +176,7 @@ func (o *IdentityPhoneNumber) SetMaskedPhone(v string) {
 
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *IdentityPhoneNumber) GetSource() string {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret string
 		return ret
 	}
@@ -183,7 +186,7 @@ func (o *IdentityPhoneNumber) GetSource() string {
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityPhoneNumber) GetSourceOk() (*string, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
 	return o.Source, true
@@ -191,7 +194,7 @@ func (o *IdentityPhoneNumber) GetSourceOk() (*string, bool) {
 
 // HasSource returns a boolean if a field has been set.
 func (o *IdentityPhoneNumber) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
@@ -205,7 +208,7 @@ func (o *IdentityPhoneNumber) SetSource(v string) {
 
 // GetSourceIds returns the SourceIds field value if set, zero value otherwise.
 func (o *IdentityPhoneNumber) GetSourceIds() []string {
-	if o == nil || o.SourceIds == nil {
+	if o == nil || IsNil(o.SourceIds) {
 		var ret []string
 		return ret
 	}
@@ -215,7 +218,7 @@ func (o *IdentityPhoneNumber) GetSourceIds() []string {
 // GetSourceIdsOk returns a tuple with the SourceIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityPhoneNumber) GetSourceIdsOk() ([]string, bool) {
-	if o == nil || o.SourceIds == nil {
+	if o == nil || IsNil(o.SourceIds) {
 		return nil, false
 	}
 	return o.SourceIds, true
@@ -223,7 +226,7 @@ func (o *IdentityPhoneNumber) GetSourceIdsOk() ([]string, bool) {
 
 // HasSourceIds returns a boolean if a field has been set.
 func (o *IdentityPhoneNumber) HasSourceIds() bool {
-	if o != nil && o.SourceIds != nil {
+	if o != nil && !IsNil(o.SourceIds) {
 		return true
 	}
 
@@ -237,7 +240,7 @@ func (o *IdentityPhoneNumber) SetSourceIds(v []string) {
 
 // GetAccountIds returns the AccountIds field value if set, zero value otherwise.
 func (o *IdentityPhoneNumber) GetAccountIds() []string {
-	if o == nil || o.AccountIds == nil {
+	if o == nil || IsNil(o.AccountIds) {
 		var ret []string
 		return ret
 	}
@@ -247,7 +250,7 @@ func (o *IdentityPhoneNumber) GetAccountIds() []string {
 // GetAccountIdsOk returns a tuple with the AccountIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityPhoneNumber) GetAccountIdsOk() ([]string, bool) {
-	if o == nil || o.AccountIds == nil {
+	if o == nil || IsNil(o.AccountIds) {
 		return nil, false
 	}
 	return o.AccountIds, true
@@ -255,7 +258,7 @@ func (o *IdentityPhoneNumber) GetAccountIdsOk() ([]string, bool) {
 
 // HasAccountIds returns a boolean if a field has been set.
 func (o *IdentityPhoneNumber) HasAccountIds() bool {
-	if o != nil && o.AccountIds != nil {
+	if o != nil && !IsNil(o.AccountIds) {
 		return true
 	}
 
@@ -268,29 +271,37 @@ func (o *IdentityPhoneNumber) SetAccountIds(v []string) {
 }
 
 func (o IdentityPhoneNumber) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Raw != nil {
-		toSerialize["raw"] = o.Raw
-	}
-	if o.MobilePhone != nil {
-		toSerialize["mobile_phone"] = o.MobilePhone
-	}
-	if o.OtherPhone != nil {
-		toSerialize["other_phone"] = o.OtherPhone
-	}
-	if o.MaskedPhone != nil {
-		toSerialize["masked_phone"] = o.MaskedPhone
-	}
-	if o.Source != nil {
-		toSerialize["source"] = o.Source
-	}
-	if o.SourceIds != nil {
-		toSerialize["source_ids"] = o.SourceIds
-	}
-	if o.AccountIds != nil {
-		toSerialize["account_ids"] = o.AccountIds
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o IdentityPhoneNumber) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Raw) {
+		toSerialize["raw"] = o.Raw
+	}
+	if !IsNil(o.MobilePhone) {
+		toSerialize["mobile_phone"] = o.MobilePhone
+	}
+	if !IsNil(o.OtherPhone) {
+		toSerialize["other_phone"] = o.OtherPhone
+	}
+	if !IsNil(o.MaskedPhone) {
+		toSerialize["masked_phone"] = o.MaskedPhone
+	}
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
+	if !IsNil(o.SourceIds) {
+		toSerialize["source_ids"] = o.SourceIds
+	}
+	if !IsNil(o.AccountIds) {
+		toSerialize["account_ids"] = o.AccountIds
+	}
+	return toSerialize, nil
 }
 
 type NullableIdentityPhoneNumber struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the LoginIdentityBillingDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LoginIdentityBillingDetails{}
+
 // LoginIdentityBillingDetails struct for LoginIdentityBillingDetails
 type LoginIdentityBillingDetails struct {
 	BilledProducts []string `json:"billed_products,omitempty"`
@@ -39,7 +42,7 @@ func NewLoginIdentityBillingDetailsWithDefaults() *LoginIdentityBillingDetails {
 
 // GetBilledProducts returns the BilledProducts field value if set, zero value otherwise.
 func (o *LoginIdentityBillingDetails) GetBilledProducts() []string {
-	if o == nil || o.BilledProducts == nil {
+	if o == nil || IsNil(o.BilledProducts) {
 		var ret []string
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *LoginIdentityBillingDetails) GetBilledProducts() []string {
 // GetBilledProductsOk returns a tuple with the BilledProducts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LoginIdentityBillingDetails) GetBilledProductsOk() ([]string, bool) {
-	if o == nil || o.BilledProducts == nil {
+	if o == nil || IsNil(o.BilledProducts) {
 		return nil, false
 	}
 	return o.BilledProducts, true
@@ -57,7 +60,7 @@ func (o *LoginIdentityBillingDetails) GetBilledProductsOk() ([]string, bool) {
 
 // HasBilledProducts returns a boolean if a field has been set.
 func (o *LoginIdentityBillingDetails) HasBilledProducts() bool {
-	if o != nil && o.BilledProducts != nil {
+	if o != nil && !IsNil(o.BilledProducts) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *LoginIdentityBillingDetails) SetBilledProducts(v []string) {
 }
 
 func (o LoginIdentityBillingDetails) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.BilledProducts != nil {
-		toSerialize["billed_products"] = o.BilledProducts
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o LoginIdentityBillingDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.BilledProducts) {
+		toSerialize["billed_products"] = o.BilledProducts
+	}
+	return toSerialize, nil
 }
 
 type NullableLoginIdentityBillingDetails struct {

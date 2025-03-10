@@ -12,9 +12,14 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the TokenResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TokenResponse{}
 
 // TokenResponse struct for TokenResponse
 type TokenResponse struct {
@@ -24,6 +29,8 @@ type TokenResponse struct {
 	ExpiresIn float32   `json:"expires_in"`
 	IssuedAt  time.Time `json:"issued_at"`
 }
+
+type _TokenResponse TokenResponse
 
 // NewTokenResponse instantiates a new TokenResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -143,20 +150,60 @@ func (o *TokenResponse) SetIssuedAt(v time.Time) {
 }
 
 func (o TokenResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["access_token"] = o.AccessToken
-	}
-	if true {
-		toSerialize["token_type"] = o.TokenType
-	}
-	if true {
-		toSerialize["expires_in"] = o.ExpiresIn
-	}
-	if true {
-		toSerialize["issued_at"] = o.IssuedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o TokenResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["access_token"] = o.AccessToken
+	toSerialize["token_type"] = o.TokenType
+	toSerialize["expires_in"] = o.ExpiresIn
+	toSerialize["issued_at"] = o.IssuedAt
+	return toSerialize, nil
+}
+
+func (o *TokenResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"access_token",
+		"token_type",
+		"expires_in",
+		"issued_at",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTokenResponse := _TokenResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varTokenResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TokenResponse(varTokenResponse)
+
+	return err
 }
 
 type NullableTokenResponse struct {

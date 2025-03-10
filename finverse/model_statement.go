@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the Statement type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &Statement{}
+
 // Statement struct for Statement
 type Statement struct {
 	Id *string `json:"id,omitempty"`
@@ -44,7 +47,7 @@ func NewStatementWithDefaults() *Statement {
 
 // GetId returns the Id field value if set, zero value otherwise.
 func (o *Statement) GetId() string {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		var ret string
 		return ret
 	}
@@ -54,7 +57,7 @@ func (o *Statement) GetId() string {
 // GetIdOk returns a tuple with the Id field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Statement) GetIdOk() (*string, bool) {
-	if o == nil || o.Id == nil {
+	if o == nil || IsNil(o.Id) {
 		return nil, false
 	}
 	return o.Id, true
@@ -62,7 +65,7 @@ func (o *Statement) GetIdOk() (*string, bool) {
 
 // HasId returns a boolean if a field has been set.
 func (o *Statement) HasId() bool {
-	if o != nil && o.Id != nil {
+	if o != nil && !IsNil(o.Id) {
 		return true
 	}
 
@@ -76,7 +79,7 @@ func (o *Statement) SetId(v string) {
 
 // GetDate returns the Date field value if set, zero value otherwise.
 func (o *Statement) GetDate() string {
-	if o == nil || o.Date == nil {
+	if o == nil || IsNil(o.Date) {
 		var ret string
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *Statement) GetDate() string {
 // GetDateOk returns a tuple with the Date field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Statement) GetDateOk() (*string, bool) {
-	if o == nil || o.Date == nil {
+	if o == nil || IsNil(o.Date) {
 		return nil, false
 	}
 	return o.Date, true
@@ -94,7 +97,7 @@ func (o *Statement) GetDateOk() (*string, bool) {
 
 // HasDate returns a boolean if a field has been set.
 func (o *Statement) HasDate() bool {
-	if o != nil && o.Date != nil {
+	if o != nil && !IsNil(o.Date) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *Statement) SetDate(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *Statement) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *Statement) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Statement) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -126,7 +129,7 @@ func (o *Statement) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *Statement) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -140,7 +143,7 @@ func (o *Statement) SetName(v string) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *Statement) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -150,7 +153,7 @@ func (o *Statement) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *Statement) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -158,7 +161,7 @@ func (o *Statement) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *Statement) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -171,20 +174,28 @@ func (o *Statement) SetCreatedAt(v time.Time) {
 }
 
 func (o Statement) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Id != nil {
-		toSerialize["id"] = o.Id
-	}
-	if o.Date != nil {
-		toSerialize["date"] = o.Date
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o Statement) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Id) {
+		toSerialize["id"] = o.Id
+	}
+	if !IsNil(o.Date) {
+		toSerialize["date"] = o.Date
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	return toSerialize, nil
 }
 
 type NullableStatement struct {

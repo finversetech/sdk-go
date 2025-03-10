@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PaymentDetailsReferences type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaymentDetailsReferences{}
+
 // PaymentDetailsReferences struct for PaymentDetailsReferences
 type PaymentDetailsReferences struct {
 	FinverseTransactionReference *string `json:"finverse_transaction_reference,omitempty"`
@@ -41,7 +44,7 @@ func NewPaymentDetailsReferencesWithDefaults() *PaymentDetailsReferences {
 
 // GetFinverseTransactionReference returns the FinverseTransactionReference field value if set, zero value otherwise.
 func (o *PaymentDetailsReferences) GetFinverseTransactionReference() string {
-	if o == nil || o.FinverseTransactionReference == nil {
+	if o == nil || IsNil(o.FinverseTransactionReference) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *PaymentDetailsReferences) GetFinverseTransactionReference() string {
 // GetFinverseTransactionReferenceOk returns a tuple with the FinverseTransactionReference field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentDetailsReferences) GetFinverseTransactionReferenceOk() (*string, bool) {
-	if o == nil || o.FinverseTransactionReference == nil {
+	if o == nil || IsNil(o.FinverseTransactionReference) {
 		return nil, false
 	}
 	return o.FinverseTransactionReference, true
@@ -59,7 +62,7 @@ func (o *PaymentDetailsReferences) GetFinverseTransactionReferenceOk() (*string,
 
 // HasFinverseTransactionReference returns a boolean if a field has been set.
 func (o *PaymentDetailsReferences) HasFinverseTransactionReference() bool {
-	if o != nil && o.FinverseTransactionReference != nil {
+	if o != nil && !IsNil(o.FinverseTransactionReference) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *PaymentDetailsReferences) SetFinverseTransactionReference(v string) {
 
 // GetDdaReference returns the DdaReference field value if set, zero value otherwise.
 func (o *PaymentDetailsReferences) GetDdaReference() string {
-	if o == nil || o.DdaReference == nil {
+	if o == nil || IsNil(o.DdaReference) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *PaymentDetailsReferences) GetDdaReference() string {
 // GetDdaReferenceOk returns a tuple with the DdaReference field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentDetailsReferences) GetDdaReferenceOk() (*string, bool) {
-	if o == nil || o.DdaReference == nil {
+	if o == nil || IsNil(o.DdaReference) {
 		return nil, false
 	}
 	return o.DdaReference, true
@@ -91,7 +94,7 @@ func (o *PaymentDetailsReferences) GetDdaReferenceOk() (*string, bool) {
 
 // HasDdaReference returns a boolean if a field has been set.
 func (o *PaymentDetailsReferences) HasDdaReference() bool {
-	if o != nil && o.DdaReference != nil {
+	if o != nil && !IsNil(o.DdaReference) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *PaymentDetailsReferences) SetDdaReference(v string) {
 
 // GetBankTransactionReference returns the BankTransactionReference field value if set, zero value otherwise.
 func (o *PaymentDetailsReferences) GetBankTransactionReference() string {
-	if o == nil || o.BankTransactionReference == nil {
+	if o == nil || IsNil(o.BankTransactionReference) {
 		var ret string
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *PaymentDetailsReferences) GetBankTransactionReference() string {
 // GetBankTransactionReferenceOk returns a tuple with the BankTransactionReference field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentDetailsReferences) GetBankTransactionReferenceOk() (*string, bool) {
-	if o == nil || o.BankTransactionReference == nil {
+	if o == nil || IsNil(o.BankTransactionReference) {
 		return nil, false
 	}
 	return o.BankTransactionReference, true
@@ -123,7 +126,7 @@ func (o *PaymentDetailsReferences) GetBankTransactionReferenceOk() (*string, boo
 
 // HasBankTransactionReference returns a boolean if a field has been set.
 func (o *PaymentDetailsReferences) HasBankTransactionReference() bool {
-	if o != nil && o.BankTransactionReference != nil {
+	if o != nil && !IsNil(o.BankTransactionReference) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *PaymentDetailsReferences) SetBankTransactionReference(v string) {
 }
 
 func (o PaymentDetailsReferences) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.FinverseTransactionReference != nil {
-		toSerialize["finverse_transaction_reference"] = o.FinverseTransactionReference
-	}
-	if o.DdaReference != nil {
-		toSerialize["dda_reference"] = o.DdaReference
-	}
-	if o.BankTransactionReference != nil {
-		toSerialize["bank_transaction_reference"] = o.BankTransactionReference
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PaymentDetailsReferences) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.FinverseTransactionReference) {
+		toSerialize["finverse_transaction_reference"] = o.FinverseTransactionReference
+	}
+	if !IsNil(o.DdaReference) {
+		toSerialize["dda_reference"] = o.DdaReference
+	}
+	if !IsNil(o.BankTransactionReference) {
+		toSerialize["bank_transaction_reference"] = o.BankTransactionReference
+	}
+	return toSerialize, nil
 }
 
 type NullablePaymentDetailsReferences struct {

@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the PaymentLinkResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaymentLinkResponse{}
+
 // PaymentLinkResponse struct for PaymentLinkResponse
 type PaymentLinkResponse struct {
 	// Finverse Payment Link ID
@@ -71,7 +74,7 @@ func NewPaymentLinkResponseWithDefaults() *PaymentLinkResponse {
 
 // GetPaymentLinkId returns the PaymentLinkId field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetPaymentLinkId() string {
-	if o == nil || o.PaymentLinkId == nil {
+	if o == nil || IsNil(o.PaymentLinkId) {
 		var ret string
 		return ret
 	}
@@ -81,7 +84,7 @@ func (o *PaymentLinkResponse) GetPaymentLinkId() string {
 // GetPaymentLinkIdOk returns a tuple with the PaymentLinkId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetPaymentLinkIdOk() (*string, bool) {
-	if o == nil || o.PaymentLinkId == nil {
+	if o == nil || IsNil(o.PaymentLinkId) {
 		return nil, false
 	}
 	return o.PaymentLinkId, true
@@ -89,7 +92,7 @@ func (o *PaymentLinkResponse) GetPaymentLinkIdOk() (*string, bool) {
 
 // HasPaymentLinkId returns a boolean if a field has been set.
 func (o *PaymentLinkResponse) HasPaymentLinkId() bool {
-	if o != nil && o.PaymentLinkId != nil {
+	if o != nil && !IsNil(o.PaymentLinkId) {
 		return true
 	}
 
@@ -103,7 +106,7 @@ func (o *PaymentLinkResponse) SetPaymentLinkId(v string) {
 
 // GetAmount returns the Amount field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetAmount() int32 {
-	if o == nil || o.Amount == nil {
+	if o == nil || IsNil(o.Amount) {
 		var ret int32
 		return ret
 	}
@@ -113,7 +116,7 @@ func (o *PaymentLinkResponse) GetAmount() int32 {
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetAmountOk() (*int32, bool) {
-	if o == nil || o.Amount == nil {
+	if o == nil || IsNil(o.Amount) {
 		return nil, false
 	}
 	return o.Amount, true
@@ -121,7 +124,7 @@ func (o *PaymentLinkResponse) GetAmountOk() (*int32, bool) {
 
 // HasAmount returns a boolean if a field has been set.
 func (o *PaymentLinkResponse) HasAmount() bool {
-	if o != nil && o.Amount != nil {
+	if o != nil && !IsNil(o.Amount) {
 		return true
 	}
 
@@ -135,7 +138,7 @@ func (o *PaymentLinkResponse) SetAmount(v int32) {
 
 // GetCurrency returns the Currency field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetCurrency() string {
-	if o == nil || o.Currency == nil {
+	if o == nil || IsNil(o.Currency) {
 		var ret string
 		return ret
 	}
@@ -145,7 +148,7 @@ func (o *PaymentLinkResponse) GetCurrency() string {
 // GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetCurrencyOk() (*string, bool) {
-	if o == nil || o.Currency == nil {
+	if o == nil || IsNil(o.Currency) {
 		return nil, false
 	}
 	return o.Currency, true
@@ -153,7 +156,7 @@ func (o *PaymentLinkResponse) GetCurrencyOk() (*string, bool) {
 
 // HasCurrency returns a boolean if a field has been set.
 func (o *PaymentLinkResponse) HasCurrency() bool {
-	if o != nil && o.Currency != nil {
+	if o != nil && !IsNil(o.Currency) {
 		return true
 	}
 
@@ -167,7 +170,7 @@ func (o *PaymentLinkResponse) SetCurrency(v string) {
 
 // GetLinkCustomizations returns the LinkCustomizations field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetLinkCustomizations() PaymentLinkCustomizations {
-	if o == nil || o.LinkCustomizations == nil {
+	if o == nil || IsNil(o.LinkCustomizations) {
 		var ret PaymentLinkCustomizations
 		return ret
 	}
@@ -177,7 +180,7 @@ func (o *PaymentLinkResponse) GetLinkCustomizations() PaymentLinkCustomizations 
 // GetLinkCustomizationsOk returns a tuple with the LinkCustomizations field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetLinkCustomizationsOk() (*PaymentLinkCustomizations, bool) {
-	if o == nil || o.LinkCustomizations == nil {
+	if o == nil || IsNil(o.LinkCustomizations) {
 		return nil, false
 	}
 	return o.LinkCustomizations, true
@@ -185,7 +188,7 @@ func (o *PaymentLinkResponse) GetLinkCustomizationsOk() (*PaymentLinkCustomizati
 
 // HasLinkCustomizations returns a boolean if a field has been set.
 func (o *PaymentLinkResponse) HasLinkCustomizations() bool {
-	if o != nil && o.LinkCustomizations != nil {
+	if o != nil && !IsNil(o.LinkCustomizations) {
 		return true
 	}
 
@@ -199,7 +202,7 @@ func (o *PaymentLinkResponse) SetLinkCustomizations(v PaymentLinkCustomizations)
 
 // GetMode returns the Mode field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetMode() string {
-	if o == nil || o.Mode == nil {
+	if o == nil || IsNil(o.Mode) {
 		var ret string
 		return ret
 	}
@@ -209,7 +212,7 @@ func (o *PaymentLinkResponse) GetMode() string {
 // GetModeOk returns a tuple with the Mode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetModeOk() (*string, bool) {
-	if o == nil || o.Mode == nil {
+	if o == nil || IsNil(o.Mode) {
 		return nil, false
 	}
 	return o.Mode, true
@@ -217,7 +220,7 @@ func (o *PaymentLinkResponse) GetModeOk() (*string, bool) {
 
 // HasMode returns a boolean if a field has been set.
 func (o *PaymentLinkResponse) HasMode() bool {
-	if o != nil && o.Mode != nil {
+	if o != nil && !IsNil(o.Mode) {
 		return true
 	}
 
@@ -231,7 +234,7 @@ func (o *PaymentLinkResponse) SetMode(v string) {
 
 // GetPaymentDetails returns the PaymentDetails field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetPaymentDetails() PaymentLinkDetails {
-	if o == nil || o.PaymentDetails == nil {
+	if o == nil || IsNil(o.PaymentDetails) {
 		var ret PaymentLinkDetails
 		return ret
 	}
@@ -241,7 +244,7 @@ func (o *PaymentLinkResponse) GetPaymentDetails() PaymentLinkDetails {
 // GetPaymentDetailsOk returns a tuple with the PaymentDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetPaymentDetailsOk() (*PaymentLinkDetails, bool) {
-	if o == nil || o.PaymentDetails == nil {
+	if o == nil || IsNil(o.PaymentDetails) {
 		return nil, false
 	}
 	return o.PaymentDetails, true
@@ -249,7 +252,7 @@ func (o *PaymentLinkResponse) GetPaymentDetailsOk() (*PaymentLinkDetails, bool) 
 
 // HasPaymentDetails returns a boolean if a field has been set.
 func (o *PaymentLinkResponse) HasPaymentDetails() bool {
-	if o != nil && o.PaymentDetails != nil {
+	if o != nil && !IsNil(o.PaymentDetails) {
 		return true
 	}
 
@@ -263,7 +266,7 @@ func (o *PaymentLinkResponse) SetPaymentDetails(v PaymentLinkDetails) {
 
 // GetUniqueReferenceId returns the UniqueReferenceId field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetUniqueReferenceId() string {
-	if o == nil || o.UniqueReferenceId == nil {
+	if o == nil || IsNil(o.UniqueReferenceId) {
 		var ret string
 		return ret
 	}
@@ -273,7 +276,7 @@ func (o *PaymentLinkResponse) GetUniqueReferenceId() string {
 // GetUniqueReferenceIdOk returns a tuple with the UniqueReferenceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetUniqueReferenceIdOk() (*string, bool) {
-	if o == nil || o.UniqueReferenceId == nil {
+	if o == nil || IsNil(o.UniqueReferenceId) {
 		return nil, false
 	}
 	return o.UniqueReferenceId, true
@@ -281,7 +284,7 @@ func (o *PaymentLinkResponse) GetUniqueReferenceIdOk() (*string, bool) {
 
 // HasUniqueReferenceId returns a boolean if a field has been set.
 func (o *PaymentLinkResponse) HasUniqueReferenceId() bool {
-	if o != nil && o.UniqueReferenceId != nil {
+	if o != nil && !IsNil(o.UniqueReferenceId) {
 		return true
 	}
 
@@ -295,7 +298,7 @@ func (o *PaymentLinkResponse) SetUniqueReferenceId(v string) {
 
 // GetPaymentSetupOptions returns the PaymentSetupOptions field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetPaymentSetupOptions() PaymentSetupOptions {
-	if o == nil || o.PaymentSetupOptions == nil {
+	if o == nil || IsNil(o.PaymentSetupOptions) {
 		var ret PaymentSetupOptions
 		return ret
 	}
@@ -305,7 +308,7 @@ func (o *PaymentLinkResponse) GetPaymentSetupOptions() PaymentSetupOptions {
 // GetPaymentSetupOptionsOk returns a tuple with the PaymentSetupOptions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetPaymentSetupOptionsOk() (*PaymentSetupOptions, bool) {
-	if o == nil || o.PaymentSetupOptions == nil {
+	if o == nil || IsNil(o.PaymentSetupOptions) {
 		return nil, false
 	}
 	return o.PaymentSetupOptions, true
@@ -313,7 +316,7 @@ func (o *PaymentLinkResponse) GetPaymentSetupOptionsOk() (*PaymentSetupOptions, 
 
 // HasPaymentSetupOptions returns a boolean if a field has been set.
 func (o *PaymentLinkResponse) HasPaymentSetupOptions() bool {
-	if o != nil && o.PaymentSetupOptions != nil {
+	if o != nil && !IsNil(o.PaymentSetupOptions) {
 		return true
 	}
 
@@ -327,7 +330,7 @@ func (o *PaymentLinkResponse) SetPaymentSetupOptions(v PaymentSetupOptions) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetMetadata() map[string]string {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]string
 		return ret
 	}
@@ -337,7 +340,7 @@ func (o *PaymentLinkResponse) GetMetadata() map[string]string {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetMetadataOk() (*map[string]string, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -345,7 +348,7 @@ func (o *PaymentLinkResponse) GetMetadataOk() (*map[string]string, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *PaymentLinkResponse) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -359,7 +362,7 @@ func (o *PaymentLinkResponse) SetMetadata(v map[string]string) {
 
 // GetPaymentMetadata returns the PaymentMetadata field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetPaymentMetadata() map[string]string {
-	if o == nil || o.PaymentMetadata == nil {
+	if o == nil || IsNil(o.PaymentMetadata) {
 		var ret map[string]string
 		return ret
 	}
@@ -369,7 +372,7 @@ func (o *PaymentLinkResponse) GetPaymentMetadata() map[string]string {
 // GetPaymentMetadataOk returns a tuple with the PaymentMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetPaymentMetadataOk() (*map[string]string, bool) {
-	if o == nil || o.PaymentMetadata == nil {
+	if o == nil || IsNil(o.PaymentMetadata) {
 		return nil, false
 	}
 	return o.PaymentMetadata, true
@@ -377,7 +380,7 @@ func (o *PaymentLinkResponse) GetPaymentMetadataOk() (*map[string]string, bool) 
 
 // HasPaymentMetadata returns a boolean if a field has been set.
 func (o *PaymentLinkResponse) HasPaymentMetadata() bool {
-	if o != nil && o.PaymentMetadata != nil {
+	if o != nil && !IsNil(o.PaymentMetadata) {
 		return true
 	}
 
@@ -391,7 +394,7 @@ func (o *PaymentLinkResponse) SetPaymentMetadata(v map[string]string) {
 
 // GetUrl returns the Url field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetUrl() string {
-	if o == nil || o.Url == nil {
+	if o == nil || IsNil(o.Url) {
 		var ret string
 		return ret
 	}
@@ -401,7 +404,7 @@ func (o *PaymentLinkResponse) GetUrl() string {
 // GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetUrlOk() (*string, bool) {
-	if o == nil || o.Url == nil {
+	if o == nil || IsNil(o.Url) {
 		return nil, false
 	}
 	return o.Url, true
@@ -409,7 +412,7 @@ func (o *PaymentLinkResponse) GetUrlOk() (*string, bool) {
 
 // HasUrl returns a boolean if a field has been set.
 func (o *PaymentLinkResponse) HasUrl() bool {
-	if o != nil && o.Url != nil {
+	if o != nil && !IsNil(o.Url) {
 		return true
 	}
 
@@ -423,7 +426,7 @@ func (o *PaymentLinkResponse) SetUrl(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -433,7 +436,7 @@ func (o *PaymentLinkResponse) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -441,7 +444,7 @@ func (o *PaymentLinkResponse) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *PaymentLinkResponse) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -455,7 +458,7 @@ func (o *PaymentLinkResponse) SetStatus(v string) {
 
 // GetSessionStatus returns the SessionStatus field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetSessionStatus() string {
-	if o == nil || o.SessionStatus == nil {
+	if o == nil || IsNil(o.SessionStatus) {
 		var ret string
 		return ret
 	}
@@ -465,7 +468,7 @@ func (o *PaymentLinkResponse) GetSessionStatus() string {
 // GetSessionStatusOk returns a tuple with the SessionStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetSessionStatusOk() (*string, bool) {
-	if o == nil || o.SessionStatus == nil {
+	if o == nil || IsNil(o.SessionStatus) {
 		return nil, false
 	}
 	return o.SessionStatus, true
@@ -473,7 +476,7 @@ func (o *PaymentLinkResponse) GetSessionStatusOk() (*string, bool) {
 
 // HasSessionStatus returns a boolean if a field has been set.
 func (o *PaymentLinkResponse) HasSessionStatus() bool {
-	if o != nil && o.SessionStatus != nil {
+	if o != nil && !IsNil(o.SessionStatus) {
 		return true
 	}
 
@@ -487,7 +490,7 @@ func (o *PaymentLinkResponse) SetSessionStatus(v string) {
 
 // GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetExpiresAt() time.Time {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		var ret time.Time
 		return ret
 	}
@@ -497,7 +500,7 @@ func (o *PaymentLinkResponse) GetExpiresAt() time.Time {
 // GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetExpiresAtOk() (*time.Time, bool) {
-	if o == nil || o.ExpiresAt == nil {
+	if o == nil || IsNil(o.ExpiresAt) {
 		return nil, false
 	}
 	return o.ExpiresAt, true
@@ -505,7 +508,7 @@ func (o *PaymentLinkResponse) GetExpiresAtOk() (*time.Time, bool) {
 
 // HasExpiresAt returns a boolean if a field has been set.
 func (o *PaymentLinkResponse) HasExpiresAt() bool {
-	if o != nil && o.ExpiresAt != nil {
+	if o != nil && !IsNil(o.ExpiresAt) {
 		return true
 	}
 
@@ -519,7 +522,7 @@ func (o *PaymentLinkResponse) SetExpiresAt(v time.Time) {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -529,7 +532,7 @@ func (o *PaymentLinkResponse) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -537,7 +540,7 @@ func (o *PaymentLinkResponse) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *PaymentLinkResponse) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -551,7 +554,7 @@ func (o *PaymentLinkResponse) SetCreatedAt(v time.Time) {
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetUpdatedAt() time.Time {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -561,7 +564,7 @@ func (o *PaymentLinkResponse) GetUpdatedAt() time.Time {
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
 	return o.UpdatedAt, true
@@ -569,7 +572,7 @@ func (o *PaymentLinkResponse) GetUpdatedAtOk() (*time.Time, bool) {
 
 // HasUpdatedAt returns a boolean if a field has been set.
 func (o *PaymentLinkResponse) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
+	if o != nil && !IsNil(o.UpdatedAt) {
 		return true
 	}
 
@@ -583,7 +586,7 @@ func (o *PaymentLinkResponse) SetUpdatedAt(v time.Time) {
 
 // GetPayment returns the Payment field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetPayment() PaymentResponse {
-	if o == nil || o.Payment == nil {
+	if o == nil || IsNil(o.Payment) {
 		var ret PaymentResponse
 		return ret
 	}
@@ -593,7 +596,7 @@ func (o *PaymentLinkResponse) GetPayment() PaymentResponse {
 // GetPaymentOk returns a tuple with the Payment field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetPaymentOk() (*PaymentResponse, bool) {
-	if o == nil || o.Payment == nil {
+	if o == nil || IsNil(o.Payment) {
 		return nil, false
 	}
 	return o.Payment, true
@@ -601,7 +604,7 @@ func (o *PaymentLinkResponse) GetPaymentOk() (*PaymentResponse, bool) {
 
 // HasPayment returns a boolean if a field has been set.
 func (o *PaymentLinkResponse) HasPayment() bool {
-	if o != nil && o.Payment != nil {
+	if o != nil && !IsNil(o.Payment) {
 		return true
 	}
 
@@ -615,7 +618,7 @@ func (o *PaymentLinkResponse) SetPayment(v PaymentResponse) {
 
 // GetSender returns the Sender field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetSender() PaymentLinkSenderResponse {
-	if o == nil || o.Sender == nil {
+	if o == nil || IsNil(o.Sender) {
 		var ret PaymentLinkSenderResponse
 		return ret
 	}
@@ -625,7 +628,7 @@ func (o *PaymentLinkResponse) GetSender() PaymentLinkSenderResponse {
 // GetSenderOk returns a tuple with the Sender field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetSenderOk() (*PaymentLinkSenderResponse, bool) {
-	if o == nil || o.Sender == nil {
+	if o == nil || IsNil(o.Sender) {
 		return nil, false
 	}
 	return o.Sender, true
@@ -633,7 +636,7 @@ func (o *PaymentLinkResponse) GetSenderOk() (*PaymentLinkSenderResponse, bool) {
 
 // HasSender returns a boolean if a field has been set.
 func (o *PaymentLinkResponse) HasSender() bool {
-	if o != nil && o.Sender != nil {
+	if o != nil && !IsNil(o.Sender) {
 		return true
 	}
 
@@ -647,7 +650,7 @@ func (o *PaymentLinkResponse) SetSender(v PaymentLinkSenderResponse) {
 
 // GetPaymentMethod returns the PaymentMethod field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetPaymentMethod() PaymentMethodResponse {
-	if o == nil || o.PaymentMethod == nil {
+	if o == nil || IsNil(o.PaymentMethod) {
 		var ret PaymentMethodResponse
 		return ret
 	}
@@ -657,7 +660,7 @@ func (o *PaymentLinkResponse) GetPaymentMethod() PaymentMethodResponse {
 // GetPaymentMethodOk returns a tuple with the PaymentMethod field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetPaymentMethodOk() (*PaymentMethodResponse, bool) {
-	if o == nil || o.PaymentMethod == nil {
+	if o == nil || IsNil(o.PaymentMethod) {
 		return nil, false
 	}
 	return o.PaymentMethod, true
@@ -665,7 +668,7 @@ func (o *PaymentLinkResponse) GetPaymentMethodOk() (*PaymentMethodResponse, bool
 
 // HasPaymentMethod returns a boolean if a field has been set.
 func (o *PaymentLinkResponse) HasPaymentMethod() bool {
-	if o != nil && o.PaymentMethod != nil {
+	if o != nil && !IsNil(o.PaymentMethod) {
 		return true
 	}
 
@@ -679,7 +682,7 @@ func (o *PaymentLinkResponse) SetPaymentMethod(v PaymentMethodResponse) {
 
 // GetIntegrationMetadata returns the IntegrationMetadata field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetIntegrationMetadata() IntegrationMetadataResponse {
-	if o == nil || o.IntegrationMetadata == nil {
+	if o == nil || IsNil(o.IntegrationMetadata) {
 		var ret IntegrationMetadataResponse
 		return ret
 	}
@@ -689,7 +692,7 @@ func (o *PaymentLinkResponse) GetIntegrationMetadata() IntegrationMetadataRespon
 // GetIntegrationMetadataOk returns a tuple with the IntegrationMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetIntegrationMetadataOk() (*IntegrationMetadataResponse, bool) {
-	if o == nil || o.IntegrationMetadata == nil {
+	if o == nil || IsNil(o.IntegrationMetadata) {
 		return nil, false
 	}
 	return o.IntegrationMetadata, true
@@ -697,7 +700,7 @@ func (o *PaymentLinkResponse) GetIntegrationMetadataOk() (*IntegrationMetadataRe
 
 // HasIntegrationMetadata returns a boolean if a field has been set.
 func (o *PaymentLinkResponse) HasIntegrationMetadata() bool {
-	if o != nil && o.IntegrationMetadata != nil {
+	if o != nil && !IsNil(o.IntegrationMetadata) {
 		return true
 	}
 
@@ -710,68 +713,76 @@ func (o *PaymentLinkResponse) SetIntegrationMetadata(v IntegrationMetadataRespon
 }
 
 func (o PaymentLinkResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.PaymentLinkId != nil {
-		toSerialize["payment_link_id"] = o.PaymentLinkId
-	}
-	if o.Amount != nil {
-		toSerialize["amount"] = o.Amount
-	}
-	if o.Currency != nil {
-		toSerialize["currency"] = o.Currency
-	}
-	if o.LinkCustomizations != nil {
-		toSerialize["link_customizations"] = o.LinkCustomizations
-	}
-	if o.Mode != nil {
-		toSerialize["mode"] = o.Mode
-	}
-	if o.PaymentDetails != nil {
-		toSerialize["payment_details"] = o.PaymentDetails
-	}
-	if o.UniqueReferenceId != nil {
-		toSerialize["unique_reference_id"] = o.UniqueReferenceId
-	}
-	if o.PaymentSetupOptions != nil {
-		toSerialize["payment_setup_options"] = o.PaymentSetupOptions
-	}
-	if o.Metadata != nil {
-		toSerialize["metadata"] = o.Metadata
-	}
-	if o.PaymentMetadata != nil {
-		toSerialize["payment_metadata"] = o.PaymentMetadata
-	}
-	if o.Url != nil {
-		toSerialize["url"] = o.Url
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.SessionStatus != nil {
-		toSerialize["session_status"] = o.SessionStatus
-	}
-	if o.ExpiresAt != nil {
-		toSerialize["expires_at"] = o.ExpiresAt
-	}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.UpdatedAt != nil {
-		toSerialize["updated_at"] = o.UpdatedAt
-	}
-	if o.Payment != nil {
-		toSerialize["payment"] = o.Payment
-	}
-	if o.Sender != nil {
-		toSerialize["sender"] = o.Sender
-	}
-	if o.PaymentMethod != nil {
-		toSerialize["payment_method"] = o.PaymentMethod
-	}
-	if o.IntegrationMetadata != nil {
-		toSerialize["integration_metadata"] = o.IntegrationMetadata
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PaymentLinkResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.PaymentLinkId) {
+		toSerialize["payment_link_id"] = o.PaymentLinkId
+	}
+	if !IsNil(o.Amount) {
+		toSerialize["amount"] = o.Amount
+	}
+	if !IsNil(o.Currency) {
+		toSerialize["currency"] = o.Currency
+	}
+	if !IsNil(o.LinkCustomizations) {
+		toSerialize["link_customizations"] = o.LinkCustomizations
+	}
+	if !IsNil(o.Mode) {
+		toSerialize["mode"] = o.Mode
+	}
+	if !IsNil(o.PaymentDetails) {
+		toSerialize["payment_details"] = o.PaymentDetails
+	}
+	if !IsNil(o.UniqueReferenceId) {
+		toSerialize["unique_reference_id"] = o.UniqueReferenceId
+	}
+	if !IsNil(o.PaymentSetupOptions) {
+		toSerialize["payment_setup_options"] = o.PaymentSetupOptions
+	}
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.PaymentMetadata) {
+		toSerialize["payment_metadata"] = o.PaymentMetadata
+	}
+	if !IsNil(o.Url) {
+		toSerialize["url"] = o.Url
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.SessionStatus) {
+		toSerialize["session_status"] = o.SessionStatus
+	}
+	if !IsNil(o.ExpiresAt) {
+		toSerialize["expires_at"] = o.ExpiresAt
+	}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updated_at"] = o.UpdatedAt
+	}
+	if !IsNil(o.Payment) {
+		toSerialize["payment"] = o.Payment
+	}
+	if !IsNil(o.Sender) {
+		toSerialize["sender"] = o.Sender
+	}
+	if !IsNil(o.PaymentMethod) {
+		toSerialize["payment_method"] = o.PaymentMethod
+	}
+	if !IsNil(o.IntegrationMetadata) {
+		toSerialize["integration_metadata"] = o.IntegrationMetadata
+	}
+	return toSerialize, nil
 }
 
 type NullablePaymentLinkResponse struct {

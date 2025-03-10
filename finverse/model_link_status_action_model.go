@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the LinkStatusActionModel type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinkStatusActionModel{}
 
 // LinkStatusActionModel struct for LinkStatusActionModel
 type LinkStatusActionModel struct {
@@ -27,6 +32,8 @@ type LinkStatusActionModel struct {
 	Fields   []UserField   `json:"fields"`
 	Buttons  []UserButton  `json:"buttons,omitempty"`
 }
+
+type _LinkStatusActionModel LinkStatusActionModel
 
 // NewLinkStatusActionModel instantiates a new LinkStatusActionModel object
 // This constructor will assign default values to properties that have it defined,
@@ -172,7 +179,7 @@ func (o *LinkStatusActionModel) SetFields(v []UserField) {
 
 // GetButtons returns the Buttons field value if set, zero value otherwise.
 func (o *LinkStatusActionModel) GetButtons() []UserButton {
-	if o == nil || o.Buttons == nil {
+	if o == nil || IsNil(o.Buttons) {
 		var ret []UserButton
 		return ret
 	}
@@ -182,7 +189,7 @@ func (o *LinkStatusActionModel) GetButtons() []UserButton {
 // GetButtonsOk returns a tuple with the Buttons field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkStatusActionModel) GetButtonsOk() ([]UserButton, bool) {
-	if o == nil || o.Buttons == nil {
+	if o == nil || IsNil(o.Buttons) {
 		return nil, false
 	}
 	return o.Buttons, true
@@ -190,7 +197,7 @@ func (o *LinkStatusActionModel) GetButtonsOk() ([]UserButton, bool) {
 
 // HasButtons returns a boolean if a field has been set.
 func (o *LinkStatusActionModel) HasButtons() bool {
-	if o != nil && o.Buttons != nil {
+	if o != nil && !IsNil(o.Buttons) {
 		return true
 	}
 
@@ -203,26 +210,65 @@ func (o *LinkStatusActionModel) SetButtons(v []UserButton) {
 }
 
 func (o LinkStatusActionModel) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["action_id"] = o.ActionId
-	}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["messages"] = o.Messages
-	}
-	if true {
-		toSerialize["fields"] = o.Fields
-	}
-	if o.Buttons != nil {
-		toSerialize["buttons"] = o.Buttons
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o LinkStatusActionModel) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["action_id"] = o.ActionId
+	toSerialize["type"] = o.Type
+	toSerialize["name"] = o.Name
+	toSerialize["messages"] = o.Messages
+	toSerialize["fields"] = o.Fields
+	if !IsNil(o.Buttons) {
+		toSerialize["buttons"] = o.Buttons
+	}
+	return toSerialize, nil
+}
+
+func (o *LinkStatusActionModel) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"action_id",
+		"type",
+		"name",
+		"messages",
+		"fields",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varLinkStatusActionModel := _LinkStatusActionModel{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varLinkStatusActionModel)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LinkStatusActionModel(varLinkStatusActionModel)
+
+	return err
 }
 
 type NullableLinkStatusActionModel struct {

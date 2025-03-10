@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the IntegrationMetadataResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IntegrationMetadataResponse{}
+
 // IntegrationMetadataResponse struct for IntegrationMetadataResponse
 type IntegrationMetadataResponse struct {
 	IntegrationId     *string                    `json:"integration_id,omitempty"`
@@ -40,7 +43,7 @@ func NewIntegrationMetadataResponseWithDefaults() *IntegrationMetadataResponse {
 
 // GetIntegrationId returns the IntegrationId field value if set, zero value otherwise.
 func (o *IntegrationMetadataResponse) GetIntegrationId() string {
-	if o == nil || o.IntegrationId == nil {
+	if o == nil || IsNil(o.IntegrationId) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *IntegrationMetadataResponse) GetIntegrationId() string {
 // GetIntegrationIdOk returns a tuple with the IntegrationId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IntegrationMetadataResponse) GetIntegrationIdOk() (*string, bool) {
-	if o == nil || o.IntegrationId == nil {
+	if o == nil || IsNil(o.IntegrationId) {
 		return nil, false
 	}
 	return o.IntegrationId, true
@@ -58,7 +61,7 @@ func (o *IntegrationMetadataResponse) GetIntegrationIdOk() (*string, bool) {
 
 // HasIntegrationId returns a boolean if a field has been set.
 func (o *IntegrationMetadataResponse) HasIntegrationId() bool {
-	if o != nil && o.IntegrationId != nil {
+	if o != nil && !IsNil(o.IntegrationId) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *IntegrationMetadataResponse) SetIntegrationId(v string) {
 
 // GetRapidstorMetadata returns the RapidstorMetadata field value if set, zero value otherwise.
 func (o *IntegrationMetadataResponse) GetRapidstorMetadata() RapidstorMetadataResponse {
-	if o == nil || o.RapidstorMetadata == nil {
+	if o == nil || IsNil(o.RapidstorMetadata) {
 		var ret RapidstorMetadataResponse
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *IntegrationMetadataResponse) GetRapidstorMetadata() RapidstorMetadataRe
 // GetRapidstorMetadataOk returns a tuple with the RapidstorMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IntegrationMetadataResponse) GetRapidstorMetadataOk() (*RapidstorMetadataResponse, bool) {
-	if o == nil || o.RapidstorMetadata == nil {
+	if o == nil || IsNil(o.RapidstorMetadata) {
 		return nil, false
 	}
 	return o.RapidstorMetadata, true
@@ -90,7 +93,7 @@ func (o *IntegrationMetadataResponse) GetRapidstorMetadataOk() (*RapidstorMetada
 
 // HasRapidstorMetadata returns a boolean if a field has been set.
 func (o *IntegrationMetadataResponse) HasRapidstorMetadata() bool {
-	if o != nil && o.RapidstorMetadata != nil {
+	if o != nil && !IsNil(o.RapidstorMetadata) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *IntegrationMetadataResponse) SetRapidstorMetadata(v RapidstorMetadataRe
 }
 
 func (o IntegrationMetadataResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.IntegrationId != nil {
-		toSerialize["integration_id"] = o.IntegrationId
-	}
-	if o.RapidstorMetadata != nil {
-		toSerialize["rapidstor_metadata"] = o.RapidstorMetadata
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o IntegrationMetadataResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.IntegrationId) {
+		toSerialize["integration_id"] = o.IntegrationId
+	}
+	if !IsNil(o.RapidstorMetadata) {
+		toSerialize["rapidstor_metadata"] = o.RapidstorMetadata
+	}
+	return toSerialize, nil
 }
 
 type NullableIntegrationMetadataResponse struct {

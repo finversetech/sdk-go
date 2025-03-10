@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the LoginIdentityShort type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LoginIdentityShort{}
+
 // LoginIdentityShort struct for LoginIdentityShort
 type LoginIdentityShort struct {
 	LoginIdentityId *string `json:"login_identity_id,omitempty"`
@@ -41,7 +44,7 @@ func NewLoginIdentityShortWithDefaults() *LoginIdentityShort {
 
 // GetLoginIdentityId returns the LoginIdentityId field value if set, zero value otherwise.
 func (o *LoginIdentityShort) GetLoginIdentityId() string {
-	if o == nil || o.LoginIdentityId == nil {
+	if o == nil || IsNil(o.LoginIdentityId) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *LoginIdentityShort) GetLoginIdentityId() string {
 // GetLoginIdentityIdOk returns a tuple with the LoginIdentityId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LoginIdentityShort) GetLoginIdentityIdOk() (*string, bool) {
-	if o == nil || o.LoginIdentityId == nil {
+	if o == nil || IsNil(o.LoginIdentityId) {
 		return nil, false
 	}
 	return o.LoginIdentityId, true
@@ -59,7 +62,7 @@ func (o *LoginIdentityShort) GetLoginIdentityIdOk() (*string, bool) {
 
 // HasLoginIdentityId returns a boolean if a field has been set.
 func (o *LoginIdentityShort) HasLoginIdentityId() bool {
-	if o != nil && o.LoginIdentityId != nil {
+	if o != nil && !IsNil(o.LoginIdentityId) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *LoginIdentityShort) SetLoginIdentityId(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *LoginIdentityShort) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *LoginIdentityShort) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LoginIdentityShort) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -91,7 +94,7 @@ func (o *LoginIdentityShort) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *LoginIdentityShort) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *LoginIdentityShort) SetStatus(v string) {
 
 // GetLastSessionId returns the LastSessionId field value if set, zero value otherwise.
 func (o *LoginIdentityShort) GetLastSessionId() string {
-	if o == nil || o.LastSessionId == nil {
+	if o == nil || IsNil(o.LastSessionId) {
 		var ret string
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *LoginIdentityShort) GetLastSessionId() string {
 // GetLastSessionIdOk returns a tuple with the LastSessionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LoginIdentityShort) GetLastSessionIdOk() (*string, bool) {
-	if o == nil || o.LastSessionId == nil {
+	if o == nil || IsNil(o.LastSessionId) {
 		return nil, false
 	}
 	return o.LastSessionId, true
@@ -123,7 +126,7 @@ func (o *LoginIdentityShort) GetLastSessionIdOk() (*string, bool) {
 
 // HasLastSessionId returns a boolean if a field has been set.
 func (o *LoginIdentityShort) HasLastSessionId() bool {
-	if o != nil && o.LastSessionId != nil {
+	if o != nil && !IsNil(o.LastSessionId) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *LoginIdentityShort) SetLastSessionId(v string) {
 }
 
 func (o LoginIdentityShort) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.LoginIdentityId != nil {
-		toSerialize["login_identity_id"] = o.LoginIdentityId
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.LastSessionId != nil {
-		toSerialize["last_session_id"] = o.LastSessionId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o LoginIdentityShort) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.LoginIdentityId) {
+		toSerialize["login_identity_id"] = o.LoginIdentityId
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.LastSessionId) {
+		toSerialize["last_session_id"] = o.LastSessionId
+	}
+	return toSerialize, nil
 }
 
 type NullableLoginIdentityShort struct {

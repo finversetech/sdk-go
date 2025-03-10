@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CardFvLinkResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CardFvLinkResponse{}
+
 // CardFvLinkResponse struct for CardFvLinkResponse
 type CardFvLinkResponse struct {
 	Status      *string               `json:"status,omitempty"`
@@ -42,7 +45,7 @@ func NewCardFvLinkResponseWithDefaults() *CardFvLinkResponse {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *CardFvLinkResponse) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *CardFvLinkResponse) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardFvLinkResponse) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -60,7 +63,7 @@ func (o *CardFvLinkResponse) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *CardFvLinkResponse) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *CardFvLinkResponse) SetStatus(v string) {
 
 // GetCardDetails returns the CardDetails field value if set, zero value otherwise.
 func (o *CardFvLinkResponse) GetCardDetails() CardFvLinkDetails {
-	if o == nil || o.CardDetails == nil {
+	if o == nil || IsNil(o.CardDetails) {
 		var ret CardFvLinkDetails
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *CardFvLinkResponse) GetCardDetails() CardFvLinkDetails {
 // GetCardDetailsOk returns a tuple with the CardDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardFvLinkResponse) GetCardDetailsOk() (*CardFvLinkDetails, bool) {
-	if o == nil || o.CardDetails == nil {
+	if o == nil || IsNil(o.CardDetails) {
 		return nil, false
 	}
 	return o.CardDetails, true
@@ -92,7 +95,7 @@ func (o *CardFvLinkResponse) GetCardDetailsOk() (*CardFvLinkDetails, bool) {
 
 // HasCardDetails returns a boolean if a field has been set.
 func (o *CardFvLinkResponse) HasCardDetails() bool {
-	if o != nil && o.CardDetails != nil {
+	if o != nil && !IsNil(o.CardDetails) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *CardFvLinkResponse) SetCardDetails(v CardFvLinkDetails) {
 
 // GetRecipient returns the Recipient field value if set, zero value otherwise.
 func (o *CardFvLinkResponse) GetRecipient() CardRecipient {
-	if o == nil || o.Recipient == nil {
+	if o == nil || IsNil(o.Recipient) {
 		var ret CardRecipient
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *CardFvLinkResponse) GetRecipient() CardRecipient {
 // GetRecipientOk returns a tuple with the Recipient field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardFvLinkResponse) GetRecipientOk() (*CardRecipient, bool) {
-	if o == nil || o.Recipient == nil {
+	if o == nil || IsNil(o.Recipient) {
 		return nil, false
 	}
 	return o.Recipient, true
@@ -124,7 +127,7 @@ func (o *CardFvLinkResponse) GetRecipientOk() (*CardRecipient, bool) {
 
 // HasRecipient returns a boolean if a field has been set.
 func (o *CardFvLinkResponse) HasRecipient() bool {
-	if o != nil && o.Recipient != nil {
+	if o != nil && !IsNil(o.Recipient) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *CardFvLinkResponse) SetRecipient(v CardRecipient) {
 
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *CardFvLinkResponse) GetError() FvEmbeddedErrorModel {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		var ret FvEmbeddedErrorModel
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *CardFvLinkResponse) GetError() FvEmbeddedErrorModel {
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardFvLinkResponse) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
 	return o.Error, true
@@ -156,7 +159,7 @@ func (o *CardFvLinkResponse) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
 
 // HasError returns a boolean if a field has been set.
 func (o *CardFvLinkResponse) HasError() bool {
-	if o != nil && o.Error != nil {
+	if o != nil && !IsNil(o.Error) {
 		return true
 	}
 
@@ -169,20 +172,28 @@ func (o *CardFvLinkResponse) SetError(v FvEmbeddedErrorModel) {
 }
 
 func (o CardFvLinkResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.CardDetails != nil {
-		toSerialize["card_details"] = o.CardDetails
-	}
-	if o.Recipient != nil {
-		toSerialize["recipient"] = o.Recipient
-	}
-	if o.Error != nil {
-		toSerialize["error"] = o.Error
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CardFvLinkResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.CardDetails) {
+		toSerialize["card_details"] = o.CardDetails
+	}
+	if !IsNil(o.Recipient) {
+		toSerialize["recipient"] = o.Recipient
+	}
+	if !IsNil(o.Error) {
+		toSerialize["error"] = o.Error
+	}
+	return toSerialize, nil
 }
 
 type NullableCardFvLinkResponse struct {

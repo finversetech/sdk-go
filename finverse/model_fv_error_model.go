@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the FvErrorModel type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FvErrorModel{}
 
 // FvErrorModel struct for FvErrorModel
 type FvErrorModel struct {
@@ -26,6 +31,8 @@ type FvErrorModel struct {
 	// The request_id provided in the request header
 	RequestId string `json:"request_id"`
 }
+
+type _FvErrorModel FvErrorModel
 
 // NewFvErrorModel instantiates a new FvErrorModel object
 // This constructor will assign default values to properties that have it defined,
@@ -195,26 +202,64 @@ func (o *FvErrorModel) SetRequestId(v string) {
 }
 
 func (o FvErrorModel) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["type"] = o.Type
-	}
-	if true {
-		toSerialize["error_code"] = o.ErrorCode
-	}
-	if true {
-		toSerialize["code"] = o.Code
-	}
-	if true {
-		toSerialize["message"] = o.Message
-	}
-	if true {
-		toSerialize["details"] = o.Details
-	}
-	if true {
-		toSerialize["request_id"] = o.RequestId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o FvErrorModel) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["type"] = o.Type
+	toSerialize["error_code"] = o.ErrorCode
+	toSerialize["code"] = o.Code
+	toSerialize["message"] = o.Message
+	toSerialize["details"] = o.Details
+	toSerialize["request_id"] = o.RequestId
+	return toSerialize, nil
+}
+
+func (o *FvErrorModel) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"type",
+		"error_code",
+		"code",
+		"message",
+		"details",
+		"request_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varFvErrorModel := _FvErrorModel{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varFvErrorModel)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FvErrorModel(varFvErrorModel)
+
+	return err
 }
 
 type NullableFvErrorModel struct {

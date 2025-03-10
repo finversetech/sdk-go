@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the DeleteLoginIdentityResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &DeleteLoginIdentityResponse{}
+
 // DeleteLoginIdentityResponse struct for DeleteLoginIdentityResponse
 type DeleteLoginIdentityResponse struct {
 	Success *bool `json:"success,omitempty"`
@@ -39,7 +42,7 @@ func NewDeleteLoginIdentityResponseWithDefaults() *DeleteLoginIdentityResponse {
 
 // GetSuccess returns the Success field value if set, zero value otherwise.
 func (o *DeleteLoginIdentityResponse) GetSuccess() bool {
-	if o == nil || o.Success == nil {
+	if o == nil || IsNil(o.Success) {
 		var ret bool
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *DeleteLoginIdentityResponse) GetSuccess() bool {
 // GetSuccessOk returns a tuple with the Success field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *DeleteLoginIdentityResponse) GetSuccessOk() (*bool, bool) {
-	if o == nil || o.Success == nil {
+	if o == nil || IsNil(o.Success) {
 		return nil, false
 	}
 	return o.Success, true
@@ -57,7 +60,7 @@ func (o *DeleteLoginIdentityResponse) GetSuccessOk() (*bool, bool) {
 
 // HasSuccess returns a boolean if a field has been set.
 func (o *DeleteLoginIdentityResponse) HasSuccess() bool {
-	if o != nil && o.Success != nil {
+	if o != nil && !IsNil(o.Success) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *DeleteLoginIdentityResponse) SetSuccess(v bool) {
 }
 
 func (o DeleteLoginIdentityResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Success != nil {
-		toSerialize["success"] = o.Success
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o DeleteLoginIdentityResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Success) {
+		toSerialize["success"] = o.Success
+	}
+	return toSerialize, nil
 }
 
 type NullableDeleteLoginIdentityResponse struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the OtherInfo type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &OtherInfo{}
+
 // OtherInfo struct for OtherInfo
 type OtherInfo struct {
 	BankCode *string `json:"bank_code,omitempty"`
@@ -39,7 +42,7 @@ func NewOtherInfoWithDefaults() *OtherInfo {
 
 // GetBankCode returns the BankCode field value if set, zero value otherwise.
 func (o *OtherInfo) GetBankCode() string {
-	if o == nil || o.BankCode == nil {
+	if o == nil || IsNil(o.BankCode) {
 		var ret string
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *OtherInfo) GetBankCode() string {
 // GetBankCodeOk returns a tuple with the BankCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *OtherInfo) GetBankCodeOk() (*string, bool) {
-	if o == nil || o.BankCode == nil {
+	if o == nil || IsNil(o.BankCode) {
 		return nil, false
 	}
 	return o.BankCode, true
@@ -57,7 +60,7 @@ func (o *OtherInfo) GetBankCodeOk() (*string, bool) {
 
 // HasBankCode returns a boolean if a field has been set.
 func (o *OtherInfo) HasBankCode() bool {
-	if o != nil && o.BankCode != nil {
+	if o != nil && !IsNil(o.BankCode) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *OtherInfo) SetBankCode(v string) {
 }
 
 func (o OtherInfo) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.BankCode != nil {
-		toSerialize["bank_code"] = o.BankCode
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o OtherInfo) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.BankCode) {
+		toSerialize["bank_code"] = o.BankCode
+	}
+	return toSerialize, nil
 }
 
 type NullableOtherInfo struct {

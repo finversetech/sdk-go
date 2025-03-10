@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SenderDetail type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SenderDetail{}
+
 // SenderDetail struct for SenderDetail
 type SenderDetail struct {
 	// The type of the details. For e.g. HK_ID, PASSPORT etc
@@ -42,7 +45,7 @@ func NewSenderDetailWithDefaults() *SenderDetail {
 
 // GetDetailsType returns the DetailsType field value if set, zero value otherwise.
 func (o *SenderDetail) GetDetailsType() string {
-	if o == nil || o.DetailsType == nil {
+	if o == nil || IsNil(o.DetailsType) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *SenderDetail) GetDetailsType() string {
 // GetDetailsTypeOk returns a tuple with the DetailsType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SenderDetail) GetDetailsTypeOk() (*string, bool) {
-	if o == nil || o.DetailsType == nil {
+	if o == nil || IsNil(o.DetailsType) {
 		return nil, false
 	}
 	return o.DetailsType, true
@@ -60,7 +63,7 @@ func (o *SenderDetail) GetDetailsTypeOk() (*string, bool) {
 
 // HasDetailsType returns a boolean if a field has been set.
 func (o *SenderDetail) HasDetailsType() bool {
-	if o != nil && o.DetailsType != nil {
+	if o != nil && !IsNil(o.DetailsType) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *SenderDetail) SetDetailsType(v string) {
 
 // GetValues returns the Values field value if set, zero value otherwise.
 func (o *SenderDetail) GetValues() []string {
-	if o == nil || o.Values == nil {
+	if o == nil || IsNil(o.Values) {
 		var ret []string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *SenderDetail) GetValues() []string {
 // GetValuesOk returns a tuple with the Values field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SenderDetail) GetValuesOk() ([]string, bool) {
-	if o == nil || o.Values == nil {
+	if o == nil || IsNil(o.Values) {
 		return nil, false
 	}
 	return o.Values, true
@@ -92,7 +95,7 @@ func (o *SenderDetail) GetValuesOk() ([]string, bool) {
 
 // HasValues returns a boolean if a field has been set.
 func (o *SenderDetail) HasValues() bool {
-	if o != nil && o.Values != nil {
+	if o != nil && !IsNil(o.Values) {
 		return true
 	}
 
@@ -105,14 +108,22 @@ func (o *SenderDetail) SetValues(v []string) {
 }
 
 func (o SenderDetail) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.DetailsType != nil {
-		toSerialize["details_type"] = o.DetailsType
-	}
-	if o.Values != nil {
-		toSerialize["values"] = o.Values
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SenderDetail) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.DetailsType) {
+		toSerialize["details_type"] = o.DetailsType
+	}
+	if !IsNil(o.Values) {
+		toSerialize["values"] = o.Values
+	}
+	return toSerialize, nil
 }
 
 type NullableSenderDetail struct {

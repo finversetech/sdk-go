@@ -15,10 +15,16 @@ import (
 	"encoding/json"
 )
 
+// checks if the UpdatePaymentRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UpdatePaymentRequest{}
+
 // UpdatePaymentRequest struct for UpdatePaymentRequest
 type UpdatePaymentRequest struct {
-	Metadata *map[string]string `json:"metadata,omitempty"`
+	Metadata             *map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _UpdatePaymentRequest UpdatePaymentRequest
 
 // NewUpdatePaymentRequest instantiates a new UpdatePaymentRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -39,7 +45,7 @@ func NewUpdatePaymentRequestWithDefaults() *UpdatePaymentRequest {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *UpdatePaymentRequest) GetMetadata() map[string]string {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]string
 		return ret
 	}
@@ -49,7 +55,7 @@ func (o *UpdatePaymentRequest) GetMetadata() map[string]string {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *UpdatePaymentRequest) GetMetadataOk() (*map[string]string, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -57,7 +63,7 @@ func (o *UpdatePaymentRequest) GetMetadataOk() (*map[string]string, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *UpdatePaymentRequest) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -70,11 +76,45 @@ func (o *UpdatePaymentRequest) SetMetadata(v map[string]string) {
 }
 
 func (o UpdatePaymentRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Metadata != nil {
-		toSerialize["metadata"] = o.Metadata
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UpdatePaymentRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Metadata) {
+		toSerialize["metadata"] = o.Metadata
+	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
+	return toSerialize, nil
+}
+
+func (o *UpdatePaymentRequest) UnmarshalJSON(data []byte) (err error) {
+	varUpdatePaymentRequest := _UpdatePaymentRequest{}
+
+	err = json.Unmarshal(data, &varUpdatePaymentRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UpdatePaymentRequest(varUpdatePaymentRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableUpdatePaymentRequest struct {

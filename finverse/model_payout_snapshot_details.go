@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the PayoutSnapshotDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PayoutSnapshotDetails{}
+
 // PayoutSnapshotDetails struct for PayoutSnapshotDetails
 type PayoutSnapshotDetails struct {
 	Description            *string    `json:"description,omitempty"`
@@ -43,7 +46,7 @@ func NewPayoutSnapshotDetailsWithDefaults() *PayoutSnapshotDetails {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *PayoutSnapshotDetails) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *PayoutSnapshotDetails) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PayoutSnapshotDetails) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -61,7 +64,7 @@ func (o *PayoutSnapshotDetails) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *PayoutSnapshotDetails) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *PayoutSnapshotDetails) SetDescription(v string) {
 
 // GetTransactionReferenceId returns the TransactionReferenceId field value if set, zero value otherwise.
 func (o *PayoutSnapshotDetails) GetTransactionReferenceId() string {
-	if o == nil || o.TransactionReferenceId == nil {
+	if o == nil || IsNil(o.TransactionReferenceId) {
 		var ret string
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *PayoutSnapshotDetails) GetTransactionReferenceId() string {
 // GetTransactionReferenceIdOk returns a tuple with the TransactionReferenceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PayoutSnapshotDetails) GetTransactionReferenceIdOk() (*string, bool) {
-	if o == nil || o.TransactionReferenceId == nil {
+	if o == nil || IsNil(o.TransactionReferenceId) {
 		return nil, false
 	}
 	return o.TransactionReferenceId, true
@@ -93,7 +96,7 @@ func (o *PayoutSnapshotDetails) GetTransactionReferenceIdOk() (*string, bool) {
 
 // HasTransactionReferenceId returns a boolean if a field has been set.
 func (o *PayoutSnapshotDetails) HasTransactionReferenceId() bool {
-	if o != nil && o.TransactionReferenceId != nil {
+	if o != nil && !IsNil(o.TransactionReferenceId) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *PayoutSnapshotDetails) SetTransactionReferenceId(v string) {
 
 // GetMandateId returns the MandateId field value if set, zero value otherwise.
 func (o *PayoutSnapshotDetails) GetMandateId() string {
-	if o == nil || o.MandateId == nil {
+	if o == nil || IsNil(o.MandateId) {
 		var ret string
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *PayoutSnapshotDetails) GetMandateId() string {
 // GetMandateIdOk returns a tuple with the MandateId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PayoutSnapshotDetails) GetMandateIdOk() (*string, bool) {
-	if o == nil || o.MandateId == nil {
+	if o == nil || IsNil(o.MandateId) {
 		return nil, false
 	}
 	return o.MandateId, true
@@ -125,7 +128,7 @@ func (o *PayoutSnapshotDetails) GetMandateIdOk() (*string, bool) {
 
 // HasMandateId returns a boolean if a field has been set.
 func (o *PayoutSnapshotDetails) HasMandateId() bool {
-	if o != nil && o.MandateId != nil {
+	if o != nil && !IsNil(o.MandateId) {
 		return true
 	}
 
@@ -139,7 +142,7 @@ func (o *PayoutSnapshotDetails) SetMandateId(v string) {
 
 // GetScheduledDate returns the ScheduledDate field value if set, zero value otherwise.
 func (o *PayoutSnapshotDetails) GetScheduledDate() time.Time {
-	if o == nil || o.ScheduledDate == nil {
+	if o == nil || IsNil(o.ScheduledDate) {
 		var ret time.Time
 		return ret
 	}
@@ -149,7 +152,7 @@ func (o *PayoutSnapshotDetails) GetScheduledDate() time.Time {
 // GetScheduledDateOk returns a tuple with the ScheduledDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PayoutSnapshotDetails) GetScheduledDateOk() (*time.Time, bool) {
-	if o == nil || o.ScheduledDate == nil {
+	if o == nil || IsNil(o.ScheduledDate) {
 		return nil, false
 	}
 	return o.ScheduledDate, true
@@ -157,7 +160,7 @@ func (o *PayoutSnapshotDetails) GetScheduledDateOk() (*time.Time, bool) {
 
 // HasScheduledDate returns a boolean if a field has been set.
 func (o *PayoutSnapshotDetails) HasScheduledDate() bool {
-	if o != nil && o.ScheduledDate != nil {
+	if o != nil && !IsNil(o.ScheduledDate) {
 		return true
 	}
 
@@ -170,20 +173,28 @@ func (o *PayoutSnapshotDetails) SetScheduledDate(v time.Time) {
 }
 
 func (o PayoutSnapshotDetails) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.TransactionReferenceId != nil {
-		toSerialize["transaction_reference_id"] = o.TransactionReferenceId
-	}
-	if o.MandateId != nil {
-		toSerialize["mandate_id"] = o.MandateId
-	}
-	if o.ScheduledDate != nil {
-		toSerialize["scheduled_date"] = o.ScheduledDate
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PayoutSnapshotDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.TransactionReferenceId) {
+		toSerialize["transaction_reference_id"] = o.TransactionReferenceId
+	}
+	if !IsNil(o.MandateId) {
+		toSerialize["mandate_id"] = o.MandateId
+	}
+	if !IsNil(o.ScheduledDate) {
+		toSerialize["scheduled_date"] = o.ScheduledDate
+	}
+	return toSerialize, nil
 }
 
 type NullablePayoutSnapshotDetails struct {

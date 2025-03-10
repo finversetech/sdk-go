@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the GetPaymentUserResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetPaymentUserResponse{}
 
 // GetPaymentUserResponse struct for GetPaymentUserResponse
 type GetPaymentUserResponse struct {
@@ -24,6 +29,8 @@ type GetPaymentUserResponse struct {
 	// This indicates the value that the user's pre-set selection should be. If this is a new user, the value will be set to true by default, else it will be the user's current autopay value.
 	AutopayPrefill bool `json:"autopay_prefill"`
 }
+
+type _GetPaymentUserResponse GetPaymentUserResponse
 
 // NewGetPaymentUserResponse instantiates a new GetPaymentUserResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -143,20 +150,60 @@ func (o *GetPaymentUserResponse) SetAutopayPrefill(v bool) {
 }
 
 func (o GetPaymentUserResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["payment_user_id"] = o.PaymentUserId
-	}
-	if true {
-		toSerialize["customer_app_id"] = o.CustomerAppId
-	}
-	if true {
-		toSerialize["autopay_consent"] = o.AutopayConsent
-	}
-	if true {
-		toSerialize["autopay_prefill"] = o.AutopayPrefill
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GetPaymentUserResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["payment_user_id"] = o.PaymentUserId
+	toSerialize["customer_app_id"] = o.CustomerAppId
+	toSerialize["autopay_consent"] = o.AutopayConsent
+	toSerialize["autopay_prefill"] = o.AutopayPrefill
+	return toSerialize, nil
+}
+
+func (o *GetPaymentUserResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"payment_user_id",
+		"customer_app_id",
+		"autopay_consent",
+		"autopay_prefill",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGetPaymentUserResponse := _GetPaymentUserResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varGetPaymentUserResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetPaymentUserResponse(varGetPaymentUserResponse)
+
+	return err
 }
 
 type NullableGetPaymentUserResponse struct {

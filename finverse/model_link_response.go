@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the LinkResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinkResponse{}
+
 // LinkResponse struct for LinkResponse
 type LinkResponse struct {
 	AuthUrl *string `json:"auth_url,omitempty"`
@@ -39,7 +42,7 @@ func NewLinkResponseWithDefaults() *LinkResponse {
 
 // GetAuthUrl returns the AuthUrl field value if set, zero value otherwise.
 func (o *LinkResponse) GetAuthUrl() string {
-	if o == nil || o.AuthUrl == nil {
+	if o == nil || IsNil(o.AuthUrl) {
 		var ret string
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *LinkResponse) GetAuthUrl() string {
 // GetAuthUrlOk returns a tuple with the AuthUrl field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkResponse) GetAuthUrlOk() (*string, bool) {
-	if o == nil || o.AuthUrl == nil {
+	if o == nil || IsNil(o.AuthUrl) {
 		return nil, false
 	}
 	return o.AuthUrl, true
@@ -57,7 +60,7 @@ func (o *LinkResponse) GetAuthUrlOk() (*string, bool) {
 
 // HasAuthUrl returns a boolean if a field has been set.
 func (o *LinkResponse) HasAuthUrl() bool {
-	if o != nil && o.AuthUrl != nil {
+	if o != nil && !IsNil(o.AuthUrl) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *LinkResponse) SetAuthUrl(v string) {
 }
 
 func (o LinkResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AuthUrl != nil {
-		toSerialize["auth_url"] = o.AuthUrl
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o LinkResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AuthUrl) {
+		toSerialize["auth_url"] = o.AuthUrl
+	}
+	return toSerialize, nil
 }
 
 type NullableLinkResponse struct {

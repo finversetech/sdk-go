@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the IdentityName type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdentityName{}
+
 // IdentityName struct for IdentityName
 type IdentityName struct {
 	Raw        *string  `json:"raw,omitempty"`
@@ -46,7 +49,7 @@ func NewIdentityNameWithDefaults() *IdentityName {
 
 // GetRaw returns the Raw field value if set, zero value otherwise.
 func (o *IdentityName) GetRaw() string {
-	if o == nil || o.Raw == nil {
+	if o == nil || IsNil(o.Raw) {
 		var ret string
 		return ret
 	}
@@ -56,7 +59,7 @@ func (o *IdentityName) GetRaw() string {
 // GetRawOk returns a tuple with the Raw field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityName) GetRawOk() (*string, bool) {
-	if o == nil || o.Raw == nil {
+	if o == nil || IsNil(o.Raw) {
 		return nil, false
 	}
 	return o.Raw, true
@@ -64,7 +67,7 @@ func (o *IdentityName) GetRawOk() (*string, bool) {
 
 // HasRaw returns a boolean if a field has been set.
 func (o *IdentityName) HasRaw() bool {
-	if o != nil && o.Raw != nil {
+	if o != nil && !IsNil(o.Raw) {
 		return true
 	}
 
@@ -78,7 +81,7 @@ func (o *IdentityName) SetRaw(v string) {
 
 // GetFullName returns the FullName field value if set, zero value otherwise.
 func (o *IdentityName) GetFullName() string {
-	if o == nil || o.FullName == nil {
+	if o == nil || IsNil(o.FullName) {
 		var ret string
 		return ret
 	}
@@ -88,7 +91,7 @@ func (o *IdentityName) GetFullName() string {
 // GetFullNameOk returns a tuple with the FullName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityName) GetFullNameOk() (*string, bool) {
-	if o == nil || o.FullName == nil {
+	if o == nil || IsNil(o.FullName) {
 		return nil, false
 	}
 	return o.FullName, true
@@ -96,7 +99,7 @@ func (o *IdentityName) GetFullNameOk() (*string, bool) {
 
 // HasFullName returns a boolean if a field has been set.
 func (o *IdentityName) HasFullName() bool {
-	if o != nil && o.FullName != nil {
+	if o != nil && !IsNil(o.FullName) {
 		return true
 	}
 
@@ -110,7 +113,7 @@ func (o *IdentityName) SetFullName(v string) {
 
 // GetFirstName returns the FirstName field value if set, zero value otherwise.
 func (o *IdentityName) GetFirstName() string {
-	if o == nil || o.FirstName == nil {
+	if o == nil || IsNil(o.FirstName) {
 		var ret string
 		return ret
 	}
@@ -120,7 +123,7 @@ func (o *IdentityName) GetFirstName() string {
 // GetFirstNameOk returns a tuple with the FirstName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityName) GetFirstNameOk() (*string, bool) {
-	if o == nil || o.FirstName == nil {
+	if o == nil || IsNil(o.FirstName) {
 		return nil, false
 	}
 	return o.FirstName, true
@@ -128,7 +131,7 @@ func (o *IdentityName) GetFirstNameOk() (*string, bool) {
 
 // HasFirstName returns a boolean if a field has been set.
 func (o *IdentityName) HasFirstName() bool {
-	if o != nil && o.FirstName != nil {
+	if o != nil && !IsNil(o.FirstName) {
 		return true
 	}
 
@@ -142,7 +145,7 @@ func (o *IdentityName) SetFirstName(v string) {
 
 // GetLastName returns the LastName field value if set, zero value otherwise.
 func (o *IdentityName) GetLastName() string {
-	if o == nil || o.LastName == nil {
+	if o == nil || IsNil(o.LastName) {
 		var ret string
 		return ret
 	}
@@ -152,7 +155,7 @@ func (o *IdentityName) GetLastName() string {
 // GetLastNameOk returns a tuple with the LastName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityName) GetLastNameOk() (*string, bool) {
-	if o == nil || o.LastName == nil {
+	if o == nil || IsNil(o.LastName) {
 		return nil, false
 	}
 	return o.LastName, true
@@ -160,7 +163,7 @@ func (o *IdentityName) GetLastNameOk() (*string, bool) {
 
 // HasLastName returns a boolean if a field has been set.
 func (o *IdentityName) HasLastName() bool {
-	if o != nil && o.LastName != nil {
+	if o != nil && !IsNil(o.LastName) {
 		return true
 	}
 
@@ -174,7 +177,7 @@ func (o *IdentityName) SetLastName(v string) {
 
 // GetOtherName returns the OtherName field value if set, zero value otherwise.
 func (o *IdentityName) GetOtherName() string {
-	if o == nil || o.OtherName == nil {
+	if o == nil || IsNil(o.OtherName) {
 		var ret string
 		return ret
 	}
@@ -184,7 +187,7 @@ func (o *IdentityName) GetOtherName() string {
 // GetOtherNameOk returns a tuple with the OtherName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityName) GetOtherNameOk() (*string, bool) {
-	if o == nil || o.OtherName == nil {
+	if o == nil || IsNil(o.OtherName) {
 		return nil, false
 	}
 	return o.OtherName, true
@@ -192,7 +195,7 @@ func (o *IdentityName) GetOtherNameOk() (*string, bool) {
 
 // HasOtherName returns a boolean if a field has been set.
 func (o *IdentityName) HasOtherName() bool {
-	if o != nil && o.OtherName != nil {
+	if o != nil && !IsNil(o.OtherName) {
 		return true
 	}
 
@@ -206,7 +209,7 @@ func (o *IdentityName) SetOtherName(v string) {
 
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *IdentityName) GetSource() string {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret string
 		return ret
 	}
@@ -216,7 +219,7 @@ func (o *IdentityName) GetSource() string {
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityName) GetSourceOk() (*string, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
 	return o.Source, true
@@ -224,7 +227,7 @@ func (o *IdentityName) GetSourceOk() (*string, bool) {
 
 // HasSource returns a boolean if a field has been set.
 func (o *IdentityName) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
@@ -238,7 +241,7 @@ func (o *IdentityName) SetSource(v string) {
 
 // GetSourceIds returns the SourceIds field value if set, zero value otherwise.
 func (o *IdentityName) GetSourceIds() []string {
-	if o == nil || o.SourceIds == nil {
+	if o == nil || IsNil(o.SourceIds) {
 		var ret []string
 		return ret
 	}
@@ -248,7 +251,7 @@ func (o *IdentityName) GetSourceIds() []string {
 // GetSourceIdsOk returns a tuple with the SourceIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityName) GetSourceIdsOk() ([]string, bool) {
-	if o == nil || o.SourceIds == nil {
+	if o == nil || IsNil(o.SourceIds) {
 		return nil, false
 	}
 	return o.SourceIds, true
@@ -256,7 +259,7 @@ func (o *IdentityName) GetSourceIdsOk() ([]string, bool) {
 
 // HasSourceIds returns a boolean if a field has been set.
 func (o *IdentityName) HasSourceIds() bool {
-	if o != nil && o.SourceIds != nil {
+	if o != nil && !IsNil(o.SourceIds) {
 		return true
 	}
 
@@ -270,7 +273,7 @@ func (o *IdentityName) SetSourceIds(v []string) {
 
 // GetAccountIds returns the AccountIds field value if set, zero value otherwise.
 func (o *IdentityName) GetAccountIds() []string {
-	if o == nil || o.AccountIds == nil {
+	if o == nil || IsNil(o.AccountIds) {
 		var ret []string
 		return ret
 	}
@@ -280,7 +283,7 @@ func (o *IdentityName) GetAccountIds() []string {
 // GetAccountIdsOk returns a tuple with the AccountIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityName) GetAccountIdsOk() ([]string, bool) {
-	if o == nil || o.AccountIds == nil {
+	if o == nil || IsNil(o.AccountIds) {
 		return nil, false
 	}
 	return o.AccountIds, true
@@ -288,7 +291,7 @@ func (o *IdentityName) GetAccountIdsOk() ([]string, bool) {
 
 // HasAccountIds returns a boolean if a field has been set.
 func (o *IdentityName) HasAccountIds() bool {
-	if o != nil && o.AccountIds != nil {
+	if o != nil && !IsNil(o.AccountIds) {
 		return true
 	}
 
@@ -301,32 +304,40 @@ func (o *IdentityName) SetAccountIds(v []string) {
 }
 
 func (o IdentityName) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Raw != nil {
-		toSerialize["raw"] = o.Raw
-	}
-	if o.FullName != nil {
-		toSerialize["full_name"] = o.FullName
-	}
-	if o.FirstName != nil {
-		toSerialize["first_name"] = o.FirstName
-	}
-	if o.LastName != nil {
-		toSerialize["last_name"] = o.LastName
-	}
-	if o.OtherName != nil {
-		toSerialize["other_name"] = o.OtherName
-	}
-	if o.Source != nil {
-		toSerialize["source"] = o.Source
-	}
-	if o.SourceIds != nil {
-		toSerialize["source_ids"] = o.SourceIds
-	}
-	if o.AccountIds != nil {
-		toSerialize["account_ids"] = o.AccountIds
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o IdentityName) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Raw) {
+		toSerialize["raw"] = o.Raw
+	}
+	if !IsNil(o.FullName) {
+		toSerialize["full_name"] = o.FullName
+	}
+	if !IsNil(o.FirstName) {
+		toSerialize["first_name"] = o.FirstName
+	}
+	if !IsNil(o.LastName) {
+		toSerialize["last_name"] = o.LastName
+	}
+	if !IsNil(o.OtherName) {
+		toSerialize["other_name"] = o.OtherName
+	}
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
+	if !IsNil(o.SourceIds) {
+		toSerialize["source_ids"] = o.SourceIds
+	}
+	if !IsNil(o.AccountIds) {
+		toSerialize["account_ids"] = o.AccountIds
+	}
+	return toSerialize, nil
 }
 
 type NullableIdentityName struct {

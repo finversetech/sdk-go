@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the ManualPaymentConfirmationRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ManualPaymentConfirmationRequest{}
+
 // ManualPaymentConfirmationRequest struct for ManualPaymentConfirmationRequest
 type ManualPaymentConfirmationRequest struct {
 	// Required if manual payment provider is HK_FPS. Not required for SG_PAYNOW
@@ -40,7 +43,7 @@ func NewManualPaymentConfirmationRequestWithDefaults() *ManualPaymentConfirmatio
 
 // GetAccountholderName returns the AccountholderName field value if set, zero value otherwise.
 func (o *ManualPaymentConfirmationRequest) GetAccountholderName() string {
-	if o == nil || o.AccountholderName == nil {
+	if o == nil || IsNil(o.AccountholderName) {
 		var ret string
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *ManualPaymentConfirmationRequest) GetAccountholderName() string {
 // GetAccountholderNameOk returns a tuple with the AccountholderName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ManualPaymentConfirmationRequest) GetAccountholderNameOk() (*string, bool) {
-	if o == nil || o.AccountholderName == nil {
+	if o == nil || IsNil(o.AccountholderName) {
 		return nil, false
 	}
 	return o.AccountholderName, true
@@ -58,7 +61,7 @@ func (o *ManualPaymentConfirmationRequest) GetAccountholderNameOk() (*string, bo
 
 // HasAccountholderName returns a boolean if a field has been set.
 func (o *ManualPaymentConfirmationRequest) HasAccountholderName() bool {
-	if o != nil && o.AccountholderName != nil {
+	if o != nil && !IsNil(o.AccountholderName) {
 		return true
 	}
 
@@ -71,11 +74,19 @@ func (o *ManualPaymentConfirmationRequest) SetAccountholderName(v string) {
 }
 
 func (o ManualPaymentConfirmationRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AccountholderName != nil {
-		toSerialize["accountholder_name"] = o.AccountholderName
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ManualPaymentConfirmationRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AccountholderName) {
+		toSerialize["accountholder_name"] = o.AccountholderName
+	}
+	return toSerialize, nil
 }
 
 type NullableManualPaymentConfirmationRequest struct {

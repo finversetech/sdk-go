@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PaymentDetails2 type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaymentDetails2{}
+
 // PaymentDetails2 struct for PaymentDetails2
 type PaymentDetails2 struct {
 	// The transaction description provided to banks, which banks will show to their customers.
@@ -49,7 +52,7 @@ func NewPaymentDetails2WithDefaults() *PaymentDetails2 {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *PaymentDetails2) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -59,7 +62,7 @@ func (o *PaymentDetails2) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentDetails2) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -67,7 +70,7 @@ func (o *PaymentDetails2) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *PaymentDetails2) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -81,7 +84,7 @@ func (o *PaymentDetails2) SetDescription(v string) {
 
 // GetMandateId returns the MandateId field value if set, zero value otherwise.
 func (o *PaymentDetails2) GetMandateId() string {
-	if o == nil || o.MandateId == nil {
+	if o == nil || IsNil(o.MandateId) {
 		var ret string
 		return ret
 	}
@@ -91,7 +94,7 @@ func (o *PaymentDetails2) GetMandateId() string {
 // GetMandateIdOk returns a tuple with the MandateId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentDetails2) GetMandateIdOk() (*string, bool) {
-	if o == nil || o.MandateId == nil {
+	if o == nil || IsNil(o.MandateId) {
 		return nil, false
 	}
 	return o.MandateId, true
@@ -99,7 +102,7 @@ func (o *PaymentDetails2) GetMandateIdOk() (*string, bool) {
 
 // HasMandateId returns a boolean if a field has been set.
 func (o *PaymentDetails2) HasMandateId() bool {
-	if o != nil && o.MandateId != nil {
+	if o != nil && !IsNil(o.MandateId) {
 		return true
 	}
 
@@ -113,7 +116,7 @@ func (o *PaymentDetails2) SetMandateId(v string) {
 
 // GetTransactionReferenceId returns the TransactionReferenceId field value if set, zero value otherwise.
 func (o *PaymentDetails2) GetTransactionReferenceId() string {
-	if o == nil || o.TransactionReferenceId == nil {
+	if o == nil || IsNil(o.TransactionReferenceId) {
 		var ret string
 		return ret
 	}
@@ -123,7 +126,7 @@ func (o *PaymentDetails2) GetTransactionReferenceId() string {
 // GetTransactionReferenceIdOk returns a tuple with the TransactionReferenceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentDetails2) GetTransactionReferenceIdOk() (*string, bool) {
-	if o == nil || o.TransactionReferenceId == nil {
+	if o == nil || IsNil(o.TransactionReferenceId) {
 		return nil, false
 	}
 	return o.TransactionReferenceId, true
@@ -131,7 +134,7 @@ func (o *PaymentDetails2) GetTransactionReferenceIdOk() (*string, bool) {
 
 // HasTransactionReferenceId returns a boolean if a field has been set.
 func (o *PaymentDetails2) HasTransactionReferenceId() bool {
-	if o != nil && o.TransactionReferenceId != nil {
+	if o != nil && !IsNil(o.TransactionReferenceId) {
 		return true
 	}
 
@@ -145,7 +148,7 @@ func (o *PaymentDetails2) SetTransactionReferenceId(v string) {
 
 // GetExternalTransactionReference returns the ExternalTransactionReference field value if set, zero value otherwise.
 func (o *PaymentDetails2) GetExternalTransactionReference() string {
-	if o == nil || o.ExternalTransactionReference == nil {
+	if o == nil || IsNil(o.ExternalTransactionReference) {
 		var ret string
 		return ret
 	}
@@ -155,7 +158,7 @@ func (o *PaymentDetails2) GetExternalTransactionReference() string {
 // GetExternalTransactionReferenceOk returns a tuple with the ExternalTransactionReference field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentDetails2) GetExternalTransactionReferenceOk() (*string, bool) {
-	if o == nil || o.ExternalTransactionReference == nil {
+	if o == nil || IsNil(o.ExternalTransactionReference) {
 		return nil, false
 	}
 	return o.ExternalTransactionReference, true
@@ -163,7 +166,7 @@ func (o *PaymentDetails2) GetExternalTransactionReferenceOk() (*string, bool) {
 
 // HasExternalTransactionReference returns a boolean if a field has been set.
 func (o *PaymentDetails2) HasExternalTransactionReference() bool {
-	if o != nil && o.ExternalTransactionReference != nil {
+	if o != nil && !IsNil(o.ExternalTransactionReference) {
 		return true
 	}
 
@@ -177,7 +180,7 @@ func (o *PaymentDetails2) SetExternalTransactionReference(v string) {
 
 // GetReferences returns the References field value if set, zero value otherwise.
 func (o *PaymentDetails2) GetReferences() PaymentDetailsReferences {
-	if o == nil || o.References == nil {
+	if o == nil || IsNil(o.References) {
 		var ret PaymentDetailsReferences
 		return ret
 	}
@@ -187,7 +190,7 @@ func (o *PaymentDetails2) GetReferences() PaymentDetailsReferences {
 // GetReferencesOk returns a tuple with the References field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentDetails2) GetReferencesOk() (*PaymentDetailsReferences, bool) {
-	if o == nil || o.References == nil {
+	if o == nil || IsNil(o.References) {
 		return nil, false
 	}
 	return o.References, true
@@ -195,7 +198,7 @@ func (o *PaymentDetails2) GetReferencesOk() (*PaymentDetailsReferences, bool) {
 
 // HasReferences returns a boolean if a field has been set.
 func (o *PaymentDetails2) HasReferences() bool {
-	if o != nil && o.References != nil {
+	if o != nil && !IsNil(o.References) {
 		return true
 	}
 
@@ -209,7 +212,7 @@ func (o *PaymentDetails2) SetReferences(v PaymentDetailsReferences) {
 
 // GetProcessorEntityName returns the ProcessorEntityName field value if set, zero value otherwise.
 func (o *PaymentDetails2) GetProcessorEntityName() string {
-	if o == nil || o.ProcessorEntityName == nil {
+	if o == nil || IsNil(o.ProcessorEntityName) {
 		var ret string
 		return ret
 	}
@@ -219,7 +222,7 @@ func (o *PaymentDetails2) GetProcessorEntityName() string {
 // GetProcessorEntityNameOk returns a tuple with the ProcessorEntityName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentDetails2) GetProcessorEntityNameOk() (*string, bool) {
-	if o == nil || o.ProcessorEntityName == nil {
+	if o == nil || IsNil(o.ProcessorEntityName) {
 		return nil, false
 	}
 	return o.ProcessorEntityName, true
@@ -227,7 +230,7 @@ func (o *PaymentDetails2) GetProcessorEntityNameOk() (*string, bool) {
 
 // HasProcessorEntityName returns a boolean if a field has been set.
 func (o *PaymentDetails2) HasProcessorEntityName() bool {
-	if o != nil && o.ProcessorEntityName != nil {
+	if o != nil && !IsNil(o.ProcessorEntityName) {
 		return true
 	}
 
@@ -241,7 +244,7 @@ func (o *PaymentDetails2) SetProcessorEntityName(v string) {
 
 // GetCollectionEntityName returns the CollectionEntityName field value if set, zero value otherwise.
 func (o *PaymentDetails2) GetCollectionEntityName() string {
-	if o == nil || o.CollectionEntityName == nil {
+	if o == nil || IsNil(o.CollectionEntityName) {
 		var ret string
 		return ret
 	}
@@ -251,7 +254,7 @@ func (o *PaymentDetails2) GetCollectionEntityName() string {
 // GetCollectionEntityNameOk returns a tuple with the CollectionEntityName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentDetails2) GetCollectionEntityNameOk() (*string, bool) {
-	if o == nil || o.CollectionEntityName == nil {
+	if o == nil || IsNil(o.CollectionEntityName) {
 		return nil, false
 	}
 	return o.CollectionEntityName, true
@@ -259,7 +262,7 @@ func (o *PaymentDetails2) GetCollectionEntityNameOk() (*string, bool) {
 
 // HasCollectionEntityName returns a boolean if a field has been set.
 func (o *PaymentDetails2) HasCollectionEntityName() bool {
-	if o != nil && o.CollectionEntityName != nil {
+	if o != nil && !IsNil(o.CollectionEntityName) {
 		return true
 	}
 
@@ -272,29 +275,37 @@ func (o *PaymentDetails2) SetCollectionEntityName(v string) {
 }
 
 func (o PaymentDetails2) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if o.MandateId != nil {
-		toSerialize["mandate_id"] = o.MandateId
-	}
-	if o.TransactionReferenceId != nil {
-		toSerialize["transaction_reference_id"] = o.TransactionReferenceId
-	}
-	if o.ExternalTransactionReference != nil {
-		toSerialize["external_transaction_reference"] = o.ExternalTransactionReference
-	}
-	if o.References != nil {
-		toSerialize["references"] = o.References
-	}
-	if o.ProcessorEntityName != nil {
-		toSerialize["processor_entity_name"] = o.ProcessorEntityName
-	}
-	if o.CollectionEntityName != nil {
-		toSerialize["collection_entity_name"] = o.CollectionEntityName
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PaymentDetails2) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	if !IsNil(o.MandateId) {
+		toSerialize["mandate_id"] = o.MandateId
+	}
+	if !IsNil(o.TransactionReferenceId) {
+		toSerialize["transaction_reference_id"] = o.TransactionReferenceId
+	}
+	if !IsNil(o.ExternalTransactionReference) {
+		toSerialize["external_transaction_reference"] = o.ExternalTransactionReference
+	}
+	if !IsNil(o.References) {
+		toSerialize["references"] = o.References
+	}
+	if !IsNil(o.ProcessorEntityName) {
+		toSerialize["processor_entity_name"] = o.ProcessorEntityName
+	}
+	if !IsNil(o.CollectionEntityName) {
+		toSerialize["collection_entity_name"] = o.CollectionEntityName
+	}
+	return toSerialize, nil
 }
 
 type NullablePaymentDetails2 struct {

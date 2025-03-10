@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the UserButton type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &UserButton{}
 
 // UserButton struct for UserButton
 type UserButton struct {
@@ -24,6 +29,8 @@ type UserButton struct {
 	// The type of button. Currently it can only be SUBMIT
 	Type string `json:"type"`
 }
+
+type _UserButton UserButton
 
 // NewUserButton instantiates a new UserButton object
 // This constructor will assign default values to properties that have it defined,
@@ -118,17 +125,58 @@ func (o *UserButton) SetType(v string) {
 }
 
 func (o UserButton) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["name"] = o.Name
-	}
-	if true {
-		toSerialize["value"] = o.Value
-	}
-	if true {
-		toSerialize["type"] = o.Type
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o UserButton) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["name"] = o.Name
+	toSerialize["value"] = o.Value
+	toSerialize["type"] = o.Type
+	return toSerialize, nil
+}
+
+func (o *UserButton) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+		"value",
+		"type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varUserButton := _UserButton{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varUserButton)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UserButton(varUserButton)
+
+	return err
 }
 
 type NullableUserButton struct {

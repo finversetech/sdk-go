@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the AllProductStatus type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AllProductStatus{}
+
 // AllProductStatus struct for AllProductStatus
 type AllProductStatus struct {
 	Accounts               *ProductStatus `json:"accounts,omitempty"`
@@ -48,7 +51,7 @@ func NewAllProductStatusWithDefaults() *AllProductStatus {
 
 // GetAccounts returns the Accounts field value if set, zero value otherwise.
 func (o *AllProductStatus) GetAccounts() ProductStatus {
-	if o == nil || o.Accounts == nil {
+	if o == nil || IsNil(o.Accounts) {
 		var ret ProductStatus
 		return ret
 	}
@@ -58,7 +61,7 @@ func (o *AllProductStatus) GetAccounts() ProductStatus {
 // GetAccountsOk returns a tuple with the Accounts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AllProductStatus) GetAccountsOk() (*ProductStatus, bool) {
-	if o == nil || o.Accounts == nil {
+	if o == nil || IsNil(o.Accounts) {
 		return nil, false
 	}
 	return o.Accounts, true
@@ -66,7 +69,7 @@ func (o *AllProductStatus) GetAccountsOk() (*ProductStatus, bool) {
 
 // HasAccounts returns a boolean if a field has been set.
 func (o *AllProductStatus) HasAccounts() bool {
-	if o != nil && o.Accounts != nil {
+	if o != nil && !IsNil(o.Accounts) {
 		return true
 	}
 
@@ -80,7 +83,7 @@ func (o *AllProductStatus) SetAccounts(v ProductStatus) {
 
 // GetOnlineTransactions returns the OnlineTransactions field value if set, zero value otherwise.
 func (o *AllProductStatus) GetOnlineTransactions() ProductStatus {
-	if o == nil || o.OnlineTransactions == nil {
+	if o == nil || IsNil(o.OnlineTransactions) {
 		var ret ProductStatus
 		return ret
 	}
@@ -90,7 +93,7 @@ func (o *AllProductStatus) GetOnlineTransactions() ProductStatus {
 // GetOnlineTransactionsOk returns a tuple with the OnlineTransactions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AllProductStatus) GetOnlineTransactionsOk() (*ProductStatus, bool) {
-	if o == nil || o.OnlineTransactions == nil {
+	if o == nil || IsNil(o.OnlineTransactions) {
 		return nil, false
 	}
 	return o.OnlineTransactions, true
@@ -98,7 +101,7 @@ func (o *AllProductStatus) GetOnlineTransactionsOk() (*ProductStatus, bool) {
 
 // HasOnlineTransactions returns a boolean if a field has been set.
 func (o *AllProductStatus) HasOnlineTransactions() bool {
-	if o != nil && o.OnlineTransactions != nil {
+	if o != nil && !IsNil(o.OnlineTransactions) {
 		return true
 	}
 
@@ -112,7 +115,7 @@ func (o *AllProductStatus) SetOnlineTransactions(v ProductStatus) {
 
 // GetStatements returns the Statements field value if set, zero value otherwise.
 func (o *AllProductStatus) GetStatements() ProductStatus {
-	if o == nil || o.Statements == nil {
+	if o == nil || IsNil(o.Statements) {
 		var ret ProductStatus
 		return ret
 	}
@@ -122,7 +125,7 @@ func (o *AllProductStatus) GetStatements() ProductStatus {
 // GetStatementsOk returns a tuple with the Statements field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AllProductStatus) GetStatementsOk() (*ProductStatus, bool) {
-	if o == nil || o.Statements == nil {
+	if o == nil || IsNil(o.Statements) {
 		return nil, false
 	}
 	return o.Statements, true
@@ -130,7 +133,7 @@ func (o *AllProductStatus) GetStatementsOk() (*ProductStatus, bool) {
 
 // HasStatements returns a boolean if a field has been set.
 func (o *AllProductStatus) HasStatements() bool {
-	if o != nil && o.Statements != nil {
+	if o != nil && !IsNil(o.Statements) {
 		return true
 	}
 
@@ -144,7 +147,7 @@ func (o *AllProductStatus) SetStatements(v ProductStatus) {
 
 // GetHistoricalTransactions returns the HistoricalTransactions field value if set, zero value otherwise.
 func (o *AllProductStatus) GetHistoricalTransactions() ProductStatus {
-	if o == nil || o.HistoricalTransactions == nil {
+	if o == nil || IsNil(o.HistoricalTransactions) {
 		var ret ProductStatus
 		return ret
 	}
@@ -154,7 +157,7 @@ func (o *AllProductStatus) GetHistoricalTransactions() ProductStatus {
 // GetHistoricalTransactionsOk returns a tuple with the HistoricalTransactions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AllProductStatus) GetHistoricalTransactionsOk() (*ProductStatus, bool) {
-	if o == nil || o.HistoricalTransactions == nil {
+	if o == nil || IsNil(o.HistoricalTransactions) {
 		return nil, false
 	}
 	return o.HistoricalTransactions, true
@@ -162,7 +165,7 @@ func (o *AllProductStatus) GetHistoricalTransactionsOk() (*ProductStatus, bool) 
 
 // HasHistoricalTransactions returns a boolean if a field has been set.
 func (o *AllProductStatus) HasHistoricalTransactions() bool {
-	if o != nil && o.HistoricalTransactions != nil {
+	if o != nil && !IsNil(o.HistoricalTransactions) {
 		return true
 	}
 
@@ -176,7 +179,7 @@ func (o *AllProductStatus) SetHistoricalTransactions(v ProductStatus) {
 
 // GetAccountNumbers returns the AccountNumbers field value if set, zero value otherwise.
 func (o *AllProductStatus) GetAccountNumbers() ProductStatus {
-	if o == nil || o.AccountNumbers == nil {
+	if o == nil || IsNil(o.AccountNumbers) {
 		var ret ProductStatus
 		return ret
 	}
@@ -186,7 +189,7 @@ func (o *AllProductStatus) GetAccountNumbers() ProductStatus {
 // GetAccountNumbersOk returns a tuple with the AccountNumbers field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AllProductStatus) GetAccountNumbersOk() (*ProductStatus, bool) {
-	if o == nil || o.AccountNumbers == nil {
+	if o == nil || IsNil(o.AccountNumbers) {
 		return nil, false
 	}
 	return o.AccountNumbers, true
@@ -194,7 +197,7 @@ func (o *AllProductStatus) GetAccountNumbersOk() (*ProductStatus, bool) {
 
 // HasAccountNumbers returns a boolean if a field has been set.
 func (o *AllProductStatus) HasAccountNumbers() bool {
-	if o != nil && o.AccountNumbers != nil {
+	if o != nil && !IsNil(o.AccountNumbers) {
 		return true
 	}
 
@@ -208,7 +211,7 @@ func (o *AllProductStatus) SetAccountNumbers(v ProductStatus) {
 
 // GetIdentity returns the Identity field value if set, zero value otherwise.
 func (o *AllProductStatus) GetIdentity() ProductStatus {
-	if o == nil || o.Identity == nil {
+	if o == nil || IsNil(o.Identity) {
 		var ret ProductStatus
 		return ret
 	}
@@ -218,7 +221,7 @@ func (o *AllProductStatus) GetIdentity() ProductStatus {
 // GetIdentityOk returns a tuple with the Identity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AllProductStatus) GetIdentityOk() (*ProductStatus, bool) {
-	if o == nil || o.Identity == nil {
+	if o == nil || IsNil(o.Identity) {
 		return nil, false
 	}
 	return o.Identity, true
@@ -226,7 +229,7 @@ func (o *AllProductStatus) GetIdentityOk() (*ProductStatus, bool) {
 
 // HasIdentity returns a boolean if a field has been set.
 func (o *AllProductStatus) HasIdentity() bool {
-	if o != nil && o.Identity != nil {
+	if o != nil && !IsNil(o.Identity) {
 		return true
 	}
 
@@ -240,7 +243,7 @@ func (o *AllProductStatus) SetIdentity(v ProductStatus) {
 
 // GetBalanceHistory returns the BalanceHistory field value if set, zero value otherwise.
 func (o *AllProductStatus) GetBalanceHistory() ProductStatus {
-	if o == nil || o.BalanceHistory == nil {
+	if o == nil || IsNil(o.BalanceHistory) {
 		var ret ProductStatus
 		return ret
 	}
@@ -250,7 +253,7 @@ func (o *AllProductStatus) GetBalanceHistory() ProductStatus {
 // GetBalanceHistoryOk returns a tuple with the BalanceHistory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AllProductStatus) GetBalanceHistoryOk() (*ProductStatus, bool) {
-	if o == nil || o.BalanceHistory == nil {
+	if o == nil || IsNil(o.BalanceHistory) {
 		return nil, false
 	}
 	return o.BalanceHistory, true
@@ -258,7 +261,7 @@ func (o *AllProductStatus) GetBalanceHistoryOk() (*ProductStatus, bool) {
 
 // HasBalanceHistory returns a boolean if a field has been set.
 func (o *AllProductStatus) HasBalanceHistory() bool {
-	if o != nil && o.BalanceHistory != nil {
+	if o != nil && !IsNil(o.BalanceHistory) {
 		return true
 	}
 
@@ -272,7 +275,7 @@ func (o *AllProductStatus) SetBalanceHistory(v ProductStatus) {
 
 // GetPayments returns the Payments field value if set, zero value otherwise.
 func (o *AllProductStatus) GetPayments() ProductStatus {
-	if o == nil || o.Payments == nil {
+	if o == nil || IsNil(o.Payments) {
 		var ret ProductStatus
 		return ret
 	}
@@ -282,7 +285,7 @@ func (o *AllProductStatus) GetPayments() ProductStatus {
 // GetPaymentsOk returns a tuple with the Payments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AllProductStatus) GetPaymentsOk() (*ProductStatus, bool) {
-	if o == nil || o.Payments == nil {
+	if o == nil || IsNil(o.Payments) {
 		return nil, false
 	}
 	return o.Payments, true
@@ -290,7 +293,7 @@ func (o *AllProductStatus) GetPaymentsOk() (*ProductStatus, bool) {
 
 // HasPayments returns a boolean if a field has been set.
 func (o *AllProductStatus) HasPayments() bool {
-	if o != nil && o.Payments != nil {
+	if o != nil && !IsNil(o.Payments) {
 		return true
 	}
 
@@ -304,7 +307,7 @@ func (o *AllProductStatus) SetPayments(v ProductStatus) {
 
 // GetIncomeEstimation returns the IncomeEstimation field value if set, zero value otherwise.
 func (o *AllProductStatus) GetIncomeEstimation() ProductStatus {
-	if o == nil || o.IncomeEstimation == nil {
+	if o == nil || IsNil(o.IncomeEstimation) {
 		var ret ProductStatus
 		return ret
 	}
@@ -314,7 +317,7 @@ func (o *AllProductStatus) GetIncomeEstimation() ProductStatus {
 // GetIncomeEstimationOk returns a tuple with the IncomeEstimation field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AllProductStatus) GetIncomeEstimationOk() (*ProductStatus, bool) {
-	if o == nil || o.IncomeEstimation == nil {
+	if o == nil || IsNil(o.IncomeEstimation) {
 		return nil, false
 	}
 	return o.IncomeEstimation, true
@@ -322,7 +325,7 @@ func (o *AllProductStatus) GetIncomeEstimationOk() (*ProductStatus, bool) {
 
 // HasIncomeEstimation returns a boolean if a field has been set.
 func (o *AllProductStatus) HasIncomeEstimation() bool {
-	if o != nil && o.IncomeEstimation != nil {
+	if o != nil && !IsNil(o.IncomeEstimation) {
 		return true
 	}
 
@@ -336,7 +339,7 @@ func (o *AllProductStatus) SetIncomeEstimation(v ProductStatus) {
 
 // GetCardDetails returns the CardDetails field value if set, zero value otherwise.
 func (o *AllProductStatus) GetCardDetails() ProductStatus {
-	if o == nil || o.CardDetails == nil {
+	if o == nil || IsNil(o.CardDetails) {
 		var ret ProductStatus
 		return ret
 	}
@@ -346,7 +349,7 @@ func (o *AllProductStatus) GetCardDetails() ProductStatus {
 // GetCardDetailsOk returns a tuple with the CardDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AllProductStatus) GetCardDetailsOk() (*ProductStatus, bool) {
-	if o == nil || o.CardDetails == nil {
+	if o == nil || IsNil(o.CardDetails) {
 		return nil, false
 	}
 	return o.CardDetails, true
@@ -354,7 +357,7 @@ func (o *AllProductStatus) GetCardDetailsOk() (*ProductStatus, bool) {
 
 // HasCardDetails returns a boolean if a field has been set.
 func (o *AllProductStatus) HasCardDetails() bool {
-	if o != nil && o.CardDetails != nil {
+	if o != nil && !IsNil(o.CardDetails) {
 		return true
 	}
 
@@ -367,38 +370,46 @@ func (o *AllProductStatus) SetCardDetails(v ProductStatus) {
 }
 
 func (o AllProductStatus) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Accounts != nil {
-		toSerialize["accounts"] = o.Accounts
-	}
-	if o.OnlineTransactions != nil {
-		toSerialize["online_transactions"] = o.OnlineTransactions
-	}
-	if o.Statements != nil {
-		toSerialize["statements"] = o.Statements
-	}
-	if o.HistoricalTransactions != nil {
-		toSerialize["historical_transactions"] = o.HistoricalTransactions
-	}
-	if o.AccountNumbers != nil {
-		toSerialize["account_numbers"] = o.AccountNumbers
-	}
-	if o.Identity != nil {
-		toSerialize["identity"] = o.Identity
-	}
-	if o.BalanceHistory != nil {
-		toSerialize["balance_history"] = o.BalanceHistory
-	}
-	if o.Payments != nil {
-		toSerialize["payments"] = o.Payments
-	}
-	if o.IncomeEstimation != nil {
-		toSerialize["income_estimation"] = o.IncomeEstimation
-	}
-	if o.CardDetails != nil {
-		toSerialize["card_details"] = o.CardDetails
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AllProductStatus) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Accounts) {
+		toSerialize["accounts"] = o.Accounts
+	}
+	if !IsNil(o.OnlineTransactions) {
+		toSerialize["online_transactions"] = o.OnlineTransactions
+	}
+	if !IsNil(o.Statements) {
+		toSerialize["statements"] = o.Statements
+	}
+	if !IsNil(o.HistoricalTransactions) {
+		toSerialize["historical_transactions"] = o.HistoricalTransactions
+	}
+	if !IsNil(o.AccountNumbers) {
+		toSerialize["account_numbers"] = o.AccountNumbers
+	}
+	if !IsNil(o.Identity) {
+		toSerialize["identity"] = o.Identity
+	}
+	if !IsNil(o.BalanceHistory) {
+		toSerialize["balance_history"] = o.BalanceHistory
+	}
+	if !IsNil(o.Payments) {
+		toSerialize["payments"] = o.Payments
+	}
+	if !IsNil(o.IncomeEstimation) {
+		toSerialize["income_estimation"] = o.IncomeEstimation
+	}
+	if !IsNil(o.CardDetails) {
+		toSerialize["card_details"] = o.CardDetails
+	}
+	return toSerialize, nil
 }
 
 type NullableAllProductStatus struct {

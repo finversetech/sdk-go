@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the LineItem type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LineItem{}
+
 // LineItem struct for LineItem
 type LineItem struct {
 	Currency *string `json:"currency,omitempty"`
@@ -42,7 +45,7 @@ func NewLineItemWithDefaults() *LineItem {
 
 // GetCurrency returns the Currency field value if set, zero value otherwise.
 func (o *LineItem) GetCurrency() string {
-	if o == nil || o.Currency == nil {
+	if o == nil || IsNil(o.Currency) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *LineItem) GetCurrency() string {
 // GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LineItem) GetCurrencyOk() (*string, bool) {
-	if o == nil || o.Currency == nil {
+	if o == nil || IsNil(o.Currency) {
 		return nil, false
 	}
 	return o.Currency, true
@@ -60,7 +63,7 @@ func (o *LineItem) GetCurrencyOk() (*string, bool) {
 
 // HasCurrency returns a boolean if a field has been set.
 func (o *LineItem) HasCurrency() bool {
-	if o != nil && o.Currency != nil {
+	if o != nil && !IsNil(o.Currency) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *LineItem) SetCurrency(v string) {
 
 // GetAmount returns the Amount field value if set, zero value otherwise.
 func (o *LineItem) GetAmount() string {
-	if o == nil || o.Amount == nil {
+	if o == nil || IsNil(o.Amount) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *LineItem) GetAmount() string {
 // GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LineItem) GetAmountOk() (*string, bool) {
-	if o == nil || o.Amount == nil {
+	if o == nil || IsNil(o.Amount) {
 		return nil, false
 	}
 	return o.Amount, true
@@ -92,7 +95,7 @@ func (o *LineItem) GetAmountOk() (*string, bool) {
 
 // HasAmount returns a boolean if a field has been set.
 func (o *LineItem) HasAmount() bool {
-	if o != nil && o.Amount != nil {
+	if o != nil && !IsNil(o.Amount) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *LineItem) SetAmount(v string) {
 
 // GetItemType returns the ItemType field value if set, zero value otherwise.
 func (o *LineItem) GetItemType() string {
-	if o == nil || o.ItemType == nil {
+	if o == nil || IsNil(o.ItemType) {
 		var ret string
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *LineItem) GetItemType() string {
 // GetItemTypeOk returns a tuple with the ItemType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LineItem) GetItemTypeOk() (*string, bool) {
-	if o == nil || o.ItemType == nil {
+	if o == nil || IsNil(o.ItemType) {
 		return nil, false
 	}
 	return o.ItemType, true
@@ -124,7 +127,7 @@ func (o *LineItem) GetItemTypeOk() (*string, bool) {
 
 // HasItemType returns a boolean if a field has been set.
 func (o *LineItem) HasItemType() bool {
-	if o != nil && o.ItemType != nil {
+	if o != nil && !IsNil(o.ItemType) {
 		return true
 	}
 
@@ -137,17 +140,25 @@ func (o *LineItem) SetItemType(v string) {
 }
 
 func (o LineItem) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Currency != nil {
-		toSerialize["currency"] = o.Currency
-	}
-	if o.Amount != nil {
-		toSerialize["amount"] = o.Amount
-	}
-	if o.ItemType != nil {
-		toSerialize["item_type"] = o.ItemType
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o LineItem) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Currency) {
+		toSerialize["currency"] = o.Currency
+	}
+	if !IsNil(o.Amount) {
+		toSerialize["amount"] = o.Amount
+	}
+	if !IsNil(o.ItemType) {
+		toSerialize["item_type"] = o.ItemType
+	}
+	return toSerialize, nil
 }
 
 type NullableLineItem struct {

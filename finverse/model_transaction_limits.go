@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the TransactionLimits type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &TransactionLimits{}
 
 // TransactionLimits struct for TransactionLimits
 type TransactionLimits struct {
@@ -26,6 +31,8 @@ type TransactionLimits struct {
 	// Reference calendar periods for the payment limits. Possible values (DAILY, WEEKLY, MONTHLY, QUARTERLY, YEARLY)
 	Period NullableString `json:"period,omitempty"`
 }
+
+type _TransactionLimits TransactionLimits
 
 // NewTransactionLimits instantiates a new TransactionLimits object
 // This constructor will assign default values to properties that have it defined,
@@ -47,7 +54,7 @@ func NewTransactionLimitsWithDefaults() *TransactionLimits {
 
 // GetMaxPeriodAmount returns the MaxPeriodAmount field value if set, zero value otherwise.
 func (o *TransactionLimits) GetMaxPeriodAmount() int32 {
-	if o == nil || o.MaxPeriodAmount == nil {
+	if o == nil || IsNil(o.MaxPeriodAmount) {
 		var ret int32
 		return ret
 	}
@@ -57,7 +64,7 @@ func (o *TransactionLimits) GetMaxPeriodAmount() int32 {
 // GetMaxPeriodAmountOk returns a tuple with the MaxPeriodAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TransactionLimits) GetMaxPeriodAmountOk() (*int32, bool) {
-	if o == nil || o.MaxPeriodAmount == nil {
+	if o == nil || IsNil(o.MaxPeriodAmount) {
 		return nil, false
 	}
 	return o.MaxPeriodAmount, true
@@ -65,7 +72,7 @@ func (o *TransactionLimits) GetMaxPeriodAmountOk() (*int32, bool) {
 
 // HasMaxPeriodAmount returns a boolean if a field has been set.
 func (o *TransactionLimits) HasMaxPeriodAmount() bool {
-	if o != nil && o.MaxPeriodAmount != nil {
+	if o != nil && !IsNil(o.MaxPeriodAmount) {
 		return true
 	}
 
@@ -79,7 +86,7 @@ func (o *TransactionLimits) SetMaxPeriodAmount(v int32) {
 
 // GetMaxPeriodCount returns the MaxPeriodCount field value if set, zero value otherwise.
 func (o *TransactionLimits) GetMaxPeriodCount() int32 {
-	if o == nil || o.MaxPeriodCount == nil {
+	if o == nil || IsNil(o.MaxPeriodCount) {
 		var ret int32
 		return ret
 	}
@@ -89,7 +96,7 @@ func (o *TransactionLimits) GetMaxPeriodCount() int32 {
 // GetMaxPeriodCountOk returns a tuple with the MaxPeriodCount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TransactionLimits) GetMaxPeriodCountOk() (*int32, bool) {
-	if o == nil || o.MaxPeriodCount == nil {
+	if o == nil || IsNil(o.MaxPeriodCount) {
 		return nil, false
 	}
 	return o.MaxPeriodCount, true
@@ -97,7 +104,7 @@ func (o *TransactionLimits) GetMaxPeriodCountOk() (*int32, bool) {
 
 // HasMaxPeriodCount returns a boolean if a field has been set.
 func (o *TransactionLimits) HasMaxPeriodCount() bool {
-	if o != nil && o.MaxPeriodCount != nil {
+	if o != nil && !IsNil(o.MaxPeriodCount) {
 		return true
 	}
 
@@ -135,7 +142,7 @@ func (o *TransactionLimits) SetMaxTransactionAmount(v int32) {
 
 // GetPeriod returns the Period field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TransactionLimits) GetPeriod() string {
-	if o == nil || o.Period.Get() == nil {
+	if o == nil || IsNil(o.Period.Get()) {
 		var ret string
 		return ret
 	}
@@ -177,20 +184,63 @@ func (o *TransactionLimits) UnsetPeriod() {
 }
 
 func (o TransactionLimits) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o TransactionLimits) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.MaxPeriodAmount != nil {
+	if !IsNil(o.MaxPeriodAmount) {
 		toSerialize["max_period_amount"] = o.MaxPeriodAmount
 	}
-	if o.MaxPeriodCount != nil {
+	if !IsNil(o.MaxPeriodCount) {
 		toSerialize["max_period_count"] = o.MaxPeriodCount
 	}
-	if true {
-		toSerialize["max_transaction_amount"] = o.MaxTransactionAmount
-	}
+	toSerialize["max_transaction_amount"] = o.MaxTransactionAmount
 	if o.Period.IsSet() {
 		toSerialize["period"] = o.Period.Get()
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
+}
+
+func (o *TransactionLimits) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"max_transaction_amount",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varTransactionLimits := _TransactionLimits{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varTransactionLimits)
+
+	if err != nil {
+		return err
+	}
+
+	*o = TransactionLimits(varTransactionLimits)
+
+	return err
 }
 
 type NullableTransactionLimits struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PaymentFvLinkResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaymentFvLinkResponse{}
+
 // PaymentFvLinkResponse struct for PaymentFvLinkResponse
 type PaymentFvLinkResponse struct {
 	PaymentId      *string               `json:"payment_id,omitempty"`
@@ -42,7 +45,7 @@ func NewPaymentFvLinkResponseWithDefaults() *PaymentFvLinkResponse {
 
 // GetPaymentId returns the PaymentId field value if set, zero value otherwise.
 func (o *PaymentFvLinkResponse) GetPaymentId() string {
-	if o == nil || o.PaymentId == nil {
+	if o == nil || IsNil(o.PaymentId) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *PaymentFvLinkResponse) GetPaymentId() string {
 // GetPaymentIdOk returns a tuple with the PaymentId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentFvLinkResponse) GetPaymentIdOk() (*string, bool) {
-	if o == nil || o.PaymentId == nil {
+	if o == nil || IsNil(o.PaymentId) {
 		return nil, false
 	}
 	return o.PaymentId, true
@@ -60,7 +63,7 @@ func (o *PaymentFvLinkResponse) GetPaymentIdOk() (*string, bool) {
 
 // HasPaymentId returns a boolean if a field has been set.
 func (o *PaymentFvLinkResponse) HasPaymentId() bool {
-	if o != nil && o.PaymentId != nil {
+	if o != nil && !IsNil(o.PaymentId) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *PaymentFvLinkResponse) SetPaymentId(v string) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *PaymentFvLinkResponse) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *PaymentFvLinkResponse) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentFvLinkResponse) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -92,7 +95,7 @@ func (o *PaymentFvLinkResponse) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *PaymentFvLinkResponse) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -106,7 +109,7 @@ func (o *PaymentFvLinkResponse) SetStatus(v string) {
 
 // GetPaymentDetails returns the PaymentDetails field value if set, zero value otherwise.
 func (o *PaymentFvLinkResponse) GetPaymentDetails() PaymentFvLinkDetails {
-	if o == nil || o.PaymentDetails == nil {
+	if o == nil || IsNil(o.PaymentDetails) {
 		var ret PaymentFvLinkDetails
 		return ret
 	}
@@ -116,7 +119,7 @@ func (o *PaymentFvLinkResponse) GetPaymentDetails() PaymentFvLinkDetails {
 // GetPaymentDetailsOk returns a tuple with the PaymentDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentFvLinkResponse) GetPaymentDetailsOk() (*PaymentFvLinkDetails, bool) {
-	if o == nil || o.PaymentDetails == nil {
+	if o == nil || IsNil(o.PaymentDetails) {
 		return nil, false
 	}
 	return o.PaymentDetails, true
@@ -124,7 +127,7 @@ func (o *PaymentFvLinkResponse) GetPaymentDetailsOk() (*PaymentFvLinkDetails, bo
 
 // HasPaymentDetails returns a boolean if a field has been set.
 func (o *PaymentFvLinkResponse) HasPaymentDetails() bool {
-	if o != nil && o.PaymentDetails != nil {
+	if o != nil && !IsNil(o.PaymentDetails) {
 		return true
 	}
 
@@ -138,7 +141,7 @@ func (o *PaymentFvLinkResponse) SetPaymentDetails(v PaymentFvLinkDetails) {
 
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *PaymentFvLinkResponse) GetError() FvEmbeddedErrorModel {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		var ret FvEmbeddedErrorModel
 		return ret
 	}
@@ -148,7 +151,7 @@ func (o *PaymentFvLinkResponse) GetError() FvEmbeddedErrorModel {
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentFvLinkResponse) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
 	return o.Error, true
@@ -156,7 +159,7 @@ func (o *PaymentFvLinkResponse) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
 
 // HasError returns a boolean if a field has been set.
 func (o *PaymentFvLinkResponse) HasError() bool {
-	if o != nil && o.Error != nil {
+	if o != nil && !IsNil(o.Error) {
 		return true
 	}
 
@@ -169,20 +172,28 @@ func (o *PaymentFvLinkResponse) SetError(v FvEmbeddedErrorModel) {
 }
 
 func (o PaymentFvLinkResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.PaymentId != nil {
-		toSerialize["payment_id"] = o.PaymentId
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.PaymentDetails != nil {
-		toSerialize["payment_details"] = o.PaymentDetails
-	}
-	if o.Error != nil {
-		toSerialize["error"] = o.Error
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PaymentFvLinkResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.PaymentId) {
+		toSerialize["payment_id"] = o.PaymentId
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.PaymentDetails) {
+		toSerialize["payment_details"] = o.PaymentDetails
+	}
+	if !IsNil(o.Error) {
+		toSerialize["error"] = o.Error
+	}
+	return toSerialize, nil
 }
 
 type NullablePaymentFvLinkResponse struct {

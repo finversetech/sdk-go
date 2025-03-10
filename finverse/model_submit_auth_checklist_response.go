@@ -12,9 +12,14 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the SubmitAuthChecklistResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SubmitAuthChecklistResponse{}
 
 // SubmitAuthChecklistResponse struct for SubmitAuthChecklistResponse
 type SubmitAuthChecklistResponse struct {
@@ -27,6 +32,8 @@ type SubmitAuthChecklistResponse struct {
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	LastUpdate time.Time `json:"last_update"`
 }
+
+type _SubmitAuthChecklistResponse SubmitAuthChecklistResponse
 
 // NewSubmitAuthChecklistResponse instantiates a new SubmitAuthChecklistResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -146,20 +153,60 @@ func (o *SubmitAuthChecklistResponse) SetLastUpdate(v time.Time) {
 }
 
 func (o SubmitAuthChecklistResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["mandate_id"] = o.MandateId
-	}
-	if true {
-		toSerialize["auth_checklist"] = o.AuthChecklist
-	}
-	if true {
-		toSerialize["mandate_status"] = o.MandateStatus
-	}
-	if true {
-		toSerialize["last_update"] = o.LastUpdate
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SubmitAuthChecklistResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["mandate_id"] = o.MandateId
+	toSerialize["auth_checklist"] = o.AuthChecklist
+	toSerialize["mandate_status"] = o.MandateStatus
+	toSerialize["last_update"] = o.LastUpdate
+	return toSerialize, nil
+}
+
+func (o *SubmitAuthChecklistResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"mandate_id",
+		"auth_checklist",
+		"mandate_status",
+		"last_update",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varSubmitAuthChecklistResponse := _SubmitAuthChecklistResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varSubmitAuthChecklistResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SubmitAuthChecklistResponse(varSubmitAuthChecklistResponse)
+
+	return err
 }
 
 type NullableSubmitAuthChecklistResponse struct {

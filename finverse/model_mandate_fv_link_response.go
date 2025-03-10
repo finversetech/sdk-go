@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the MandateFvLinkResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MandateFvLinkResponse{}
+
 // MandateFvLinkResponse struct for MandateFvLinkResponse
 type MandateFvLinkResponse struct {
 	MandateId      *string                      `json:"mandate_id,omitempty"`
@@ -45,7 +48,7 @@ func NewMandateFvLinkResponseWithDefaults() *MandateFvLinkResponse {
 
 // GetMandateId returns the MandateId field value if set, zero value otherwise.
 func (o *MandateFvLinkResponse) GetMandateId() string {
-	if o == nil || o.MandateId == nil {
+	if o == nil || IsNil(o.MandateId) {
 		var ret string
 		return ret
 	}
@@ -55,7 +58,7 @@ func (o *MandateFvLinkResponse) GetMandateId() string {
 // GetMandateIdOk returns a tuple with the MandateId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateFvLinkResponse) GetMandateIdOk() (*string, bool) {
-	if o == nil || o.MandateId == nil {
+	if o == nil || IsNil(o.MandateId) {
 		return nil, false
 	}
 	return o.MandateId, true
@@ -63,7 +66,7 @@ func (o *MandateFvLinkResponse) GetMandateIdOk() (*string, bool) {
 
 // HasMandateId returns a boolean if a field has been set.
 func (o *MandateFvLinkResponse) HasMandateId() bool {
-	if o != nil && o.MandateId != nil {
+	if o != nil && !IsNil(o.MandateId) {
 		return true
 	}
 
@@ -77,7 +80,7 @@ func (o *MandateFvLinkResponse) SetMandateId(v string) {
 
 // GetInstitutionId returns the InstitutionId field value if set, zero value otherwise.
 func (o *MandateFvLinkResponse) GetInstitutionId() string {
-	if o == nil || o.InstitutionId == nil {
+	if o == nil || IsNil(o.InstitutionId) {
 		var ret string
 		return ret
 	}
@@ -87,7 +90,7 @@ func (o *MandateFvLinkResponse) GetInstitutionId() string {
 // GetInstitutionIdOk returns a tuple with the InstitutionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateFvLinkResponse) GetInstitutionIdOk() (*string, bool) {
-	if o == nil || o.InstitutionId == nil {
+	if o == nil || IsNil(o.InstitutionId) {
 		return nil, false
 	}
 	return o.InstitutionId, true
@@ -95,7 +98,7 @@ func (o *MandateFvLinkResponse) GetInstitutionIdOk() (*string, bool) {
 
 // HasInstitutionId returns a boolean if a field has been set.
 func (o *MandateFvLinkResponse) HasInstitutionId() bool {
-	if o != nil && o.InstitutionId != nil {
+	if o != nil && !IsNil(o.InstitutionId) {
 		return true
 	}
 
@@ -109,7 +112,7 @@ func (o *MandateFvLinkResponse) SetInstitutionId(v string) {
 
 // GetMandateStatus returns the MandateStatus field value if set, zero value otherwise.
 func (o *MandateFvLinkResponse) GetMandateStatus() string {
-	if o == nil || o.MandateStatus == nil {
+	if o == nil || IsNil(o.MandateStatus) {
 		var ret string
 		return ret
 	}
@@ -119,7 +122,7 @@ func (o *MandateFvLinkResponse) GetMandateStatus() string {
 // GetMandateStatusOk returns a tuple with the MandateStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateFvLinkResponse) GetMandateStatusOk() (*string, bool) {
-	if o == nil || o.MandateStatus == nil {
+	if o == nil || IsNil(o.MandateStatus) {
 		return nil, false
 	}
 	return o.MandateStatus, true
@@ -127,7 +130,7 @@ func (o *MandateFvLinkResponse) GetMandateStatusOk() (*string, bool) {
 
 // HasMandateStatus returns a boolean if a field has been set.
 func (o *MandateFvLinkResponse) HasMandateStatus() bool {
-	if o != nil && o.MandateStatus != nil {
+	if o != nil && !IsNil(o.MandateStatus) {
 		return true
 	}
 
@@ -141,7 +144,7 @@ func (o *MandateFvLinkResponse) SetMandateStatus(v string) {
 
 // GetRecipient returns the Recipient field value if set, zero value otherwise.
 func (o *MandateFvLinkResponse) GetRecipient() MandateRecipient {
-	if o == nil || o.Recipient == nil {
+	if o == nil || IsNil(o.Recipient) {
 		var ret MandateRecipient
 		return ret
 	}
@@ -151,7 +154,7 @@ func (o *MandateFvLinkResponse) GetRecipient() MandateRecipient {
 // GetRecipientOk returns a tuple with the Recipient field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateFvLinkResponse) GetRecipientOk() (*MandateRecipient, bool) {
-	if o == nil || o.Recipient == nil {
+	if o == nil || IsNil(o.Recipient) {
 		return nil, false
 	}
 	return o.Recipient, true
@@ -159,7 +162,7 @@ func (o *MandateFvLinkResponse) GetRecipientOk() (*MandateRecipient, bool) {
 
 // HasRecipient returns a boolean if a field has been set.
 func (o *MandateFvLinkResponse) HasRecipient() bool {
-	if o != nil && o.Recipient != nil {
+	if o != nil && !IsNil(o.Recipient) {
 		return true
 	}
 
@@ -173,7 +176,7 @@ func (o *MandateFvLinkResponse) SetRecipient(v MandateRecipient) {
 
 // GetSenderAccount returns the SenderAccount field value if set, zero value otherwise.
 func (o *MandateFvLinkResponse) GetSenderAccount() SenderAccountFvLinkResponse {
-	if o == nil || o.SenderAccount == nil {
+	if o == nil || IsNil(o.SenderAccount) {
 		var ret SenderAccountFvLinkResponse
 		return ret
 	}
@@ -183,7 +186,7 @@ func (o *MandateFvLinkResponse) GetSenderAccount() SenderAccountFvLinkResponse {
 // GetSenderAccountOk returns a tuple with the SenderAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateFvLinkResponse) GetSenderAccountOk() (*SenderAccountFvLinkResponse, bool) {
-	if o == nil || o.SenderAccount == nil {
+	if o == nil || IsNil(o.SenderAccount) {
 		return nil, false
 	}
 	return o.SenderAccount, true
@@ -191,7 +194,7 @@ func (o *MandateFvLinkResponse) GetSenderAccountOk() (*SenderAccountFvLinkRespon
 
 // HasSenderAccount returns a boolean if a field has been set.
 func (o *MandateFvLinkResponse) HasSenderAccount() bool {
-	if o != nil && o.SenderAccount != nil {
+	if o != nil && !IsNil(o.SenderAccount) {
 		return true
 	}
 
@@ -205,7 +208,7 @@ func (o *MandateFvLinkResponse) SetSenderAccount(v SenderAccountFvLinkResponse) 
 
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *MandateFvLinkResponse) GetError() FvEmbeddedErrorModel {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		var ret FvEmbeddedErrorModel
 		return ret
 	}
@@ -215,7 +218,7 @@ func (o *MandateFvLinkResponse) GetError() FvEmbeddedErrorModel {
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateFvLinkResponse) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
 	return o.Error, true
@@ -223,7 +226,7 @@ func (o *MandateFvLinkResponse) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
 
 // HasError returns a boolean if a field has been set.
 func (o *MandateFvLinkResponse) HasError() bool {
-	if o != nil && o.Error != nil {
+	if o != nil && !IsNil(o.Error) {
 		return true
 	}
 
@@ -237,7 +240,7 @@ func (o *MandateFvLinkResponse) SetError(v FvEmbeddedErrorModel) {
 
 // GetMandateDetails returns the MandateDetails field value if set, zero value otherwise.
 func (o *MandateFvLinkResponse) GetMandateDetails() MandateFvLinkDetails {
-	if o == nil || o.MandateDetails == nil {
+	if o == nil || IsNil(o.MandateDetails) {
 		var ret MandateFvLinkDetails
 		return ret
 	}
@@ -247,7 +250,7 @@ func (o *MandateFvLinkResponse) GetMandateDetails() MandateFvLinkDetails {
 // GetMandateDetailsOk returns a tuple with the MandateDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateFvLinkResponse) GetMandateDetailsOk() (*MandateFvLinkDetails, bool) {
-	if o == nil || o.MandateDetails == nil {
+	if o == nil || IsNil(o.MandateDetails) {
 		return nil, false
 	}
 	return o.MandateDetails, true
@@ -255,7 +258,7 @@ func (o *MandateFvLinkResponse) GetMandateDetailsOk() (*MandateFvLinkDetails, bo
 
 // HasMandateDetails returns a boolean if a field has been set.
 func (o *MandateFvLinkResponse) HasMandateDetails() bool {
-	if o != nil && o.MandateDetails != nil {
+	if o != nil && !IsNil(o.MandateDetails) {
 		return true
 	}
 
@@ -268,29 +271,37 @@ func (o *MandateFvLinkResponse) SetMandateDetails(v MandateFvLinkDetails) {
 }
 
 func (o MandateFvLinkResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.MandateId != nil {
-		toSerialize["mandate_id"] = o.MandateId
-	}
-	if o.InstitutionId != nil {
-		toSerialize["institution_id"] = o.InstitutionId
-	}
-	if o.MandateStatus != nil {
-		toSerialize["mandate_status"] = o.MandateStatus
-	}
-	if o.Recipient != nil {
-		toSerialize["recipient"] = o.Recipient
-	}
-	if o.SenderAccount != nil {
-		toSerialize["sender_account"] = o.SenderAccount
-	}
-	if o.Error != nil {
-		toSerialize["error"] = o.Error
-	}
-	if o.MandateDetails != nil {
-		toSerialize["mandate_details"] = o.MandateDetails
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o MandateFvLinkResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.MandateId) {
+		toSerialize["mandate_id"] = o.MandateId
+	}
+	if !IsNil(o.InstitutionId) {
+		toSerialize["institution_id"] = o.InstitutionId
+	}
+	if !IsNil(o.MandateStatus) {
+		toSerialize["mandate_status"] = o.MandateStatus
+	}
+	if !IsNil(o.Recipient) {
+		toSerialize["recipient"] = o.Recipient
+	}
+	if !IsNil(o.SenderAccount) {
+		toSerialize["sender_account"] = o.SenderAccount
+	}
+	if !IsNil(o.Error) {
+		toSerialize["error"] = o.Error
+	}
+	if !IsNil(o.MandateDetails) {
+		toSerialize["mandate_details"] = o.MandateDetails
+	}
+	return toSerialize, nil
 }
 
 type NullableMandateFvLinkResponse struct {

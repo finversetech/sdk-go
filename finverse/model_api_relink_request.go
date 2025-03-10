@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ApiRelinkRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ApiRelinkRequest{}
 
 // ApiRelinkRequest struct for ApiRelinkRequest
 type ApiRelinkRequest struct {
@@ -21,6 +26,8 @@ type ApiRelinkRequest struct {
 	Consent              bool             `json:"consent"`
 	EncryptedCredentials EncryptedPayload `json:"encrypted_credentials"`
 }
+
+type _ApiRelinkRequest ApiRelinkRequest
 
 // NewApiRelinkRequest instantiates a new ApiRelinkRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -43,7 +50,7 @@ func NewApiRelinkRequestWithDefaults() *ApiRelinkRequest {
 
 // GetStoreCredential returns the StoreCredential field value if set, zero value otherwise.
 func (o *ApiRelinkRequest) GetStoreCredential() bool {
-	if o == nil || o.StoreCredential == nil {
+	if o == nil || IsNil(o.StoreCredential) {
 		var ret bool
 		return ret
 	}
@@ -53,7 +60,7 @@ func (o *ApiRelinkRequest) GetStoreCredential() bool {
 // GetStoreCredentialOk returns a tuple with the StoreCredential field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ApiRelinkRequest) GetStoreCredentialOk() (*bool, bool) {
-	if o == nil || o.StoreCredential == nil {
+	if o == nil || IsNil(o.StoreCredential) {
 		return nil, false
 	}
 	return o.StoreCredential, true
@@ -61,7 +68,7 @@ func (o *ApiRelinkRequest) GetStoreCredentialOk() (*bool, bool) {
 
 // HasStoreCredential returns a boolean if a field has been set.
 func (o *ApiRelinkRequest) HasStoreCredential() bool {
-	if o != nil && o.StoreCredential != nil {
+	if o != nil && !IsNil(o.StoreCredential) {
 		return true
 	}
 
@@ -122,17 +129,59 @@ func (o *ApiRelinkRequest) SetEncryptedCredentials(v EncryptedPayload) {
 }
 
 func (o ApiRelinkRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.StoreCredential != nil {
-		toSerialize["store_credential"] = o.StoreCredential
-	}
-	if true {
-		toSerialize["consent"] = o.Consent
-	}
-	if true {
-		toSerialize["encrypted_credentials"] = o.EncryptedCredentials
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ApiRelinkRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.StoreCredential) {
+		toSerialize["store_credential"] = o.StoreCredential
+	}
+	toSerialize["consent"] = o.Consent
+	toSerialize["encrypted_credentials"] = o.EncryptedCredentials
+	return toSerialize, nil
+}
+
+func (o *ApiRelinkRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"consent",
+		"encrypted_credentials",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varApiRelinkRequest := _ApiRelinkRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varApiRelinkRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ApiRelinkRequest(varApiRelinkRequest)
+
+	return err
 }
 
 type NullableApiRelinkRequest struct {

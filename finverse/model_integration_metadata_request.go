@@ -12,14 +12,21 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the IntegrationMetadataRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IntegrationMetadataRequest{}
 
 // IntegrationMetadataRequest struct for IntegrationMetadataRequest
 type IntegrationMetadataRequest struct {
 	IntegrationId     string                    `json:"integration_id"`
 	RapidstorMetadata *RapidstorMetadataRequest `json:"rapidstor_metadata,omitempty"`
 }
+
+type _IntegrationMetadataRequest IntegrationMetadataRequest
 
 // NewIntegrationMetadataRequest instantiates a new IntegrationMetadataRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -65,7 +72,7 @@ func (o *IntegrationMetadataRequest) SetIntegrationId(v string) {
 
 // GetRapidstorMetadata returns the RapidstorMetadata field value if set, zero value otherwise.
 func (o *IntegrationMetadataRequest) GetRapidstorMetadata() RapidstorMetadataRequest {
-	if o == nil || o.RapidstorMetadata == nil {
+	if o == nil || IsNil(o.RapidstorMetadata) {
 		var ret RapidstorMetadataRequest
 		return ret
 	}
@@ -75,7 +82,7 @@ func (o *IntegrationMetadataRequest) GetRapidstorMetadata() RapidstorMetadataReq
 // GetRapidstorMetadataOk returns a tuple with the RapidstorMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IntegrationMetadataRequest) GetRapidstorMetadataOk() (*RapidstorMetadataRequest, bool) {
-	if o == nil || o.RapidstorMetadata == nil {
+	if o == nil || IsNil(o.RapidstorMetadata) {
 		return nil, false
 	}
 	return o.RapidstorMetadata, true
@@ -83,7 +90,7 @@ func (o *IntegrationMetadataRequest) GetRapidstorMetadataOk() (*RapidstorMetadat
 
 // HasRapidstorMetadata returns a boolean if a field has been set.
 func (o *IntegrationMetadataRequest) HasRapidstorMetadata() bool {
-	if o != nil && o.RapidstorMetadata != nil {
+	if o != nil && !IsNil(o.RapidstorMetadata) {
 		return true
 	}
 
@@ -96,14 +103,57 @@ func (o *IntegrationMetadataRequest) SetRapidstorMetadata(v RapidstorMetadataReq
 }
 
 func (o IntegrationMetadataRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["integration_id"] = o.IntegrationId
-	}
-	if o.RapidstorMetadata != nil {
-		toSerialize["rapidstor_metadata"] = o.RapidstorMetadata
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o IntegrationMetadataRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["integration_id"] = o.IntegrationId
+	if !IsNil(o.RapidstorMetadata) {
+		toSerialize["rapidstor_metadata"] = o.RapidstorMetadata
+	}
+	return toSerialize, nil
+}
+
+func (o *IntegrationMetadataRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"integration_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varIntegrationMetadataRequest := _IntegrationMetadataRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varIntegrationMetadataRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IntegrationMetadataRequest(varIntegrationMetadataRequest)
+
+	return err
 }
 
 type NullableIntegrationMetadataRequest struct {

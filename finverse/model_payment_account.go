@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PaymentAccount type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaymentAccount{}
+
 // PaymentAccount struct for PaymentAccount
 type PaymentAccount struct {
 	// The raw value for the account the user selected when making payment request
@@ -42,7 +45,7 @@ func NewPaymentAccountWithDefaults() *PaymentAccount {
 
 // GetRaw returns the Raw field value if set, zero value otherwise.
 func (o *PaymentAccount) GetRaw() string {
-	if o == nil || o.Raw == nil {
+	if o == nil || IsNil(o.Raw) {
 		var ret string
 		return ret
 	}
@@ -52,7 +55,7 @@ func (o *PaymentAccount) GetRaw() string {
 // GetRawOk returns a tuple with the Raw field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentAccount) GetRawOk() (*string, bool) {
-	if o == nil || o.Raw == nil {
+	if o == nil || IsNil(o.Raw) {
 		return nil, false
 	}
 	return o.Raw, true
@@ -60,7 +63,7 @@ func (o *PaymentAccount) GetRawOk() (*string, bool) {
 
 // HasRaw returns a boolean if a field has been set.
 func (o *PaymentAccount) HasRaw() bool {
-	if o != nil && o.Raw != nil {
+	if o != nil && !IsNil(o.Raw) {
 		return true
 	}
 
@@ -74,7 +77,7 @@ func (o *PaymentAccount) SetRaw(v string) {
 
 // GetInstitutionId returns the InstitutionId field value if set, zero value otherwise.
 func (o *PaymentAccount) GetInstitutionId() string {
-	if o == nil || o.InstitutionId == nil {
+	if o == nil || IsNil(o.InstitutionId) {
 		var ret string
 		return ret
 	}
@@ -84,7 +87,7 @@ func (o *PaymentAccount) GetInstitutionId() string {
 // GetInstitutionIdOk returns a tuple with the InstitutionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentAccount) GetInstitutionIdOk() (*string, bool) {
-	if o == nil || o.InstitutionId == nil {
+	if o == nil || IsNil(o.InstitutionId) {
 		return nil, false
 	}
 	return o.InstitutionId, true
@@ -92,7 +95,7 @@ func (o *PaymentAccount) GetInstitutionIdOk() (*string, bool) {
 
 // HasInstitutionId returns a boolean if a field has been set.
 func (o *PaymentAccount) HasInstitutionId() bool {
-	if o != nil && o.InstitutionId != nil {
+	if o != nil && !IsNil(o.InstitutionId) {
 		return true
 	}
 
@@ -105,14 +108,22 @@ func (o *PaymentAccount) SetInstitutionId(v string) {
 }
 
 func (o PaymentAccount) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Raw != nil {
-		toSerialize["raw"] = o.Raw
-	}
-	if o.InstitutionId != nil {
-		toSerialize["institution_id"] = o.InstitutionId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PaymentAccount) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Raw) {
+		toSerialize["raw"] = o.Raw
+	}
+	if !IsNil(o.InstitutionId) {
+		toSerialize["institution_id"] = o.InstitutionId
+	}
+	return toSerialize, nil
 }
 
 type NullablePaymentAccount struct {

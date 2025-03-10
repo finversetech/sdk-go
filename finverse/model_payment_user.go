@@ -12,9 +12,14 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the PaymentUser type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaymentUser{}
 
 // PaymentUser struct for PaymentUser
 type PaymentUser struct {
@@ -32,6 +37,8 @@ type PaymentUser struct {
 	AutopayConsent      bool                         `json:"autopay_consent"`
 	IntegrationMetadata *IntegrationMetadataResponse `json:"integration_metadata,omitempty"`
 }
+
+type _PaymentUser PaymentUser
 
 // NewPaymentUser instantiates a new PaymentUser object
 // This constructor will assign default values to properties that have it defined,
@@ -53,7 +60,7 @@ func NewPaymentUserWithDefaults() *PaymentUser {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *PaymentUser) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -63,7 +70,7 @@ func (o *PaymentUser) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentUser) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -71,7 +78,7 @@ func (o *PaymentUser) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *PaymentUser) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -85,7 +92,7 @@ func (o *PaymentUser) SetCreatedAt(v time.Time) {
 
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *PaymentUser) GetEmail() string {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		var ret string
 		return ret
 	}
@@ -95,7 +102,7 @@ func (o *PaymentUser) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentUser) GetEmailOk() (*string, bool) {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
 	return o.Email, true
@@ -103,7 +110,7 @@ func (o *PaymentUser) GetEmailOk() (*string, bool) {
 
 // HasEmail returns a boolean if a field has been set.
 func (o *PaymentUser) HasEmail() bool {
-	if o != nil && o.Email != nil {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
@@ -117,7 +124,7 @@ func (o *PaymentUser) SetEmail(v string) {
 
 // GetExternalUserId returns the ExternalUserId field value if set, zero value otherwise.
 func (o *PaymentUser) GetExternalUserId() string {
-	if o == nil || o.ExternalUserId == nil {
+	if o == nil || IsNil(o.ExternalUserId) {
 		var ret string
 		return ret
 	}
@@ -127,7 +134,7 @@ func (o *PaymentUser) GetExternalUserId() string {
 // GetExternalUserIdOk returns a tuple with the ExternalUserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentUser) GetExternalUserIdOk() (*string, bool) {
-	if o == nil || o.ExternalUserId == nil {
+	if o == nil || IsNil(o.ExternalUserId) {
 		return nil, false
 	}
 	return o.ExternalUserId, true
@@ -135,7 +142,7 @@ func (o *PaymentUser) GetExternalUserIdOk() (*string, bool) {
 
 // HasExternalUserId returns a boolean if a field has been set.
 func (o *PaymentUser) HasExternalUserId() bool {
-	if o != nil && o.ExternalUserId != nil {
+	if o != nil && !IsNil(o.ExternalUserId) {
 		return true
 	}
 
@@ -149,7 +156,7 @@ func (o *PaymentUser) SetExternalUserId(v string) {
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *PaymentUser) GetMetadata() map[string]string {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]string
 		return ret
 	}
@@ -159,7 +166,7 @@ func (o *PaymentUser) GetMetadata() map[string]string {
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentUser) GetMetadataOk() (*map[string]string, bool) {
-	if o == nil || o.Metadata == nil {
+	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
 	return o.Metadata, true
@@ -167,7 +174,7 @@ func (o *PaymentUser) GetMetadataOk() (*map[string]string, bool) {
 
 // HasMetadata returns a boolean if a field has been set.
 func (o *PaymentUser) HasMetadata() bool {
-	if o != nil && o.Metadata != nil {
+	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
 
@@ -181,7 +188,7 @@ func (o *PaymentUser) SetMetadata(v map[string]string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *PaymentUser) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -191,7 +198,7 @@ func (o *PaymentUser) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentUser) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -199,7 +206,7 @@ func (o *PaymentUser) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *PaymentUser) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -213,7 +220,7 @@ func (o *PaymentUser) SetName(v string) {
 
 // GetUserDetails returns the UserDetails field value if set, zero value otherwise.
 func (o *PaymentUser) GetUserDetails() []SenderDetail {
-	if o == nil || o.UserDetails == nil {
+	if o == nil || IsNil(o.UserDetails) {
 		var ret []SenderDetail
 		return ret
 	}
@@ -223,7 +230,7 @@ func (o *PaymentUser) GetUserDetails() []SenderDetail {
 // GetUserDetailsOk returns a tuple with the UserDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentUser) GetUserDetailsOk() ([]SenderDetail, bool) {
-	if o == nil || o.UserDetails == nil {
+	if o == nil || IsNil(o.UserDetails) {
 		return nil, false
 	}
 	return o.UserDetails, true
@@ -231,7 +238,7 @@ func (o *PaymentUser) GetUserDetailsOk() ([]SenderDetail, bool) {
 
 // HasUserDetails returns a boolean if a field has been set.
 func (o *PaymentUser) HasUserDetails() bool {
-	if o != nil && o.UserDetails != nil {
+	if o != nil && !IsNil(o.UserDetails) {
 		return true
 	}
 
@@ -245,7 +252,7 @@ func (o *PaymentUser) SetUserDetails(v []SenderDetail) {
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *PaymentUser) GetUpdatedAt() time.Time {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -255,7 +262,7 @@ func (o *PaymentUser) GetUpdatedAt() time.Time {
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentUser) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
 	return o.UpdatedAt, true
@@ -263,7 +270,7 @@ func (o *PaymentUser) GetUpdatedAtOk() (*time.Time, bool) {
 
 // HasUpdatedAt returns a boolean if a field has been set.
 func (o *PaymentUser) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
+	if o != nil && !IsNil(o.UpdatedAt) {
 		return true
 	}
 
@@ -277,7 +284,7 @@ func (o *PaymentUser) SetUpdatedAt(v time.Time) {
 
 // GetNextBillUpdate returns the NextBillUpdate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PaymentUser) GetNextBillUpdate() time.Time {
-	if o == nil || o.NextBillUpdate.Get() == nil {
+	if o == nil || IsNil(o.NextBillUpdate.Get()) {
 		var ret time.Time
 		return ret
 	}
@@ -320,7 +327,7 @@ func (o *PaymentUser) UnsetNextBillUpdate() {
 
 // GetUserId returns the UserId field value if set, zero value otherwise.
 func (o *PaymentUser) GetUserId() string {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		var ret string
 		return ret
 	}
@@ -330,7 +337,7 @@ func (o *PaymentUser) GetUserId() string {
 // GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentUser) GetUserIdOk() (*string, bool) {
-	if o == nil || o.UserId == nil {
+	if o == nil || IsNil(o.UserId) {
 		return nil, false
 	}
 	return o.UserId, true
@@ -338,7 +345,7 @@ func (o *PaymentUser) GetUserIdOk() (*string, bool) {
 
 // HasUserId returns a boolean if a field has been set.
 func (o *PaymentUser) HasUserId() bool {
-	if o != nil && o.UserId != nil {
+	if o != nil && !IsNil(o.UserId) {
 		return true
 	}
 
@@ -352,7 +359,7 @@ func (o *PaymentUser) SetUserId(v string) {
 
 // GetUserType returns the UserType field value if set, zero value otherwise.
 func (o *PaymentUser) GetUserType() string {
-	if o == nil || o.UserType == nil {
+	if o == nil || IsNil(o.UserType) {
 		var ret string
 		return ret
 	}
@@ -362,7 +369,7 @@ func (o *PaymentUser) GetUserType() string {
 // GetUserTypeOk returns a tuple with the UserType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentUser) GetUserTypeOk() (*string, bool) {
-	if o == nil || o.UserType == nil {
+	if o == nil || IsNil(o.UserType) {
 		return nil, false
 	}
 	return o.UserType, true
@@ -370,7 +377,7 @@ func (o *PaymentUser) GetUserTypeOk() (*string, bool) {
 
 // HasUserType returns a boolean if a field has been set.
 func (o *PaymentUser) HasUserType() bool {
-	if o != nil && o.UserType != nil {
+	if o != nil && !IsNil(o.UserType) {
 		return true
 	}
 
@@ -408,7 +415,7 @@ func (o *PaymentUser) SetAutopayConsent(v bool) {
 
 // GetIntegrationMetadata returns the IntegrationMetadata field value if set, zero value otherwise.
 func (o *PaymentUser) GetIntegrationMetadata() IntegrationMetadataResponse {
-	if o == nil || o.IntegrationMetadata == nil {
+	if o == nil || IsNil(o.IntegrationMetadata) {
 		var ret IntegrationMetadataResponse
 		return ret
 	}
@@ -418,7 +425,7 @@ func (o *PaymentUser) GetIntegrationMetadata() IntegrationMetadataResponse {
 // GetIntegrationMetadataOk returns a tuple with the IntegrationMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentUser) GetIntegrationMetadataOk() (*IntegrationMetadataResponse, bool) {
-	if o == nil || o.IntegrationMetadata == nil {
+	if o == nil || IsNil(o.IntegrationMetadata) {
 		return nil, false
 	}
 	return o.IntegrationMetadata, true
@@ -426,7 +433,7 @@ func (o *PaymentUser) GetIntegrationMetadataOk() (*IntegrationMetadataResponse, 
 
 // HasIntegrationMetadata returns a boolean if a field has been set.
 func (o *PaymentUser) HasIntegrationMetadata() bool {
-	if o != nil && o.IntegrationMetadata != nil {
+	if o != nil && !IsNil(o.IntegrationMetadata) {
 		return true
 	}
 
@@ -439,44 +446,87 @@ func (o *PaymentUser) SetIntegrationMetadata(v IntegrationMetadataResponse) {
 }
 
 func (o PaymentUser) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o PaymentUser) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.CreatedAt != nil {
+	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
-	if o.Email != nil {
+	if !IsNil(o.Email) {
 		toSerialize["email"] = o.Email
 	}
-	if o.ExternalUserId != nil {
+	if !IsNil(o.ExternalUserId) {
 		toSerialize["external_user_id"] = o.ExternalUserId
 	}
-	if o.Metadata != nil {
+	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-	if o.Name != nil {
+	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
-	if o.UserDetails != nil {
+	if !IsNil(o.UserDetails) {
 		toSerialize["user_details"] = o.UserDetails
 	}
-	if o.UpdatedAt != nil {
+	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
 	}
 	if o.NextBillUpdate.IsSet() {
 		toSerialize["next_bill_update"] = o.NextBillUpdate.Get()
 	}
-	if o.UserId != nil {
+	if !IsNil(o.UserId) {
 		toSerialize["user_id"] = o.UserId
 	}
-	if o.UserType != nil {
+	if !IsNil(o.UserType) {
 		toSerialize["user_type"] = o.UserType
 	}
-	if true {
-		toSerialize["autopay_consent"] = o.AutopayConsent
-	}
-	if o.IntegrationMetadata != nil {
+	toSerialize["autopay_consent"] = o.AutopayConsent
+	if !IsNil(o.IntegrationMetadata) {
 		toSerialize["integration_metadata"] = o.IntegrationMetadata
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
+}
+
+func (o *PaymentUser) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"autopay_consent",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPaymentUser := _PaymentUser{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPaymentUser)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentUser(varPaymentUser)
+
+	return err
 }
 
 type NullablePaymentUser struct {

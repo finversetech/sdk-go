@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the LoginAction type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LoginAction{}
+
 // LoginAction struct for LoginAction
 type LoginAction struct {
 	Type     *string       `json:"type,omitempty"`
@@ -43,7 +46,7 @@ func NewLoginActionWithDefaults() *LoginAction {
 
 // GetType returns the Type field value if set, zero value otherwise.
 func (o *LoginAction) GetType() string {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		var ret string
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *LoginAction) GetType() string {
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LoginAction) GetTypeOk() (*string, bool) {
-	if o == nil || o.Type == nil {
+	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
 	return o.Type, true
@@ -61,7 +64,7 @@ func (o *LoginAction) GetTypeOk() (*string, bool) {
 
 // HasType returns a boolean if a field has been set.
 func (o *LoginAction) HasType() bool {
-	if o != nil && o.Type != nil {
+	if o != nil && !IsNil(o.Type) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *LoginAction) SetType(v string) {
 
 // GetName returns the Name field value if set, zero value otherwise.
 func (o *LoginAction) GetName() string {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		var ret string
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *LoginAction) GetName() string {
 // GetNameOk returns a tuple with the Name field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LoginAction) GetNameOk() (*string, bool) {
-	if o == nil || o.Name == nil {
+	if o == nil || IsNil(o.Name) {
 		return nil, false
 	}
 	return o.Name, true
@@ -93,7 +96,7 @@ func (o *LoginAction) GetNameOk() (*string, bool) {
 
 // HasName returns a boolean if a field has been set.
 func (o *LoginAction) HasName() bool {
-	if o != nil && o.Name != nil {
+	if o != nil && !IsNil(o.Name) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *LoginAction) SetName(v string) {
 
 // GetMessages returns the Messages field value if set, zero value otherwise.
 func (o *LoginAction) GetMessages() []UserMessage {
-	if o == nil || o.Messages == nil {
+	if o == nil || IsNil(o.Messages) {
 		var ret []UserMessage
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *LoginAction) GetMessages() []UserMessage {
 // GetMessagesOk returns a tuple with the Messages field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LoginAction) GetMessagesOk() ([]UserMessage, bool) {
-	if o == nil || o.Messages == nil {
+	if o == nil || IsNil(o.Messages) {
 		return nil, false
 	}
 	return o.Messages, true
@@ -125,7 +128,7 @@ func (o *LoginAction) GetMessagesOk() ([]UserMessage, bool) {
 
 // HasMessages returns a boolean if a field has been set.
 func (o *LoginAction) HasMessages() bool {
-	if o != nil && o.Messages != nil {
+	if o != nil && !IsNil(o.Messages) {
 		return true
 	}
 
@@ -139,7 +142,7 @@ func (o *LoginAction) SetMessages(v []UserMessage) {
 
 // GetFields returns the Fields field value if set, zero value otherwise.
 func (o *LoginAction) GetFields() []UserField {
-	if o == nil || o.Fields == nil {
+	if o == nil || IsNil(o.Fields) {
 		var ret []UserField
 		return ret
 	}
@@ -149,7 +152,7 @@ func (o *LoginAction) GetFields() []UserField {
 // GetFieldsOk returns a tuple with the Fields field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LoginAction) GetFieldsOk() ([]UserField, bool) {
-	if o == nil || o.Fields == nil {
+	if o == nil || IsNil(o.Fields) {
 		return nil, false
 	}
 	return o.Fields, true
@@ -157,7 +160,7 @@ func (o *LoginAction) GetFieldsOk() ([]UserField, bool) {
 
 // HasFields returns a boolean if a field has been set.
 func (o *LoginAction) HasFields() bool {
-	if o != nil && o.Fields != nil {
+	if o != nil && !IsNil(o.Fields) {
 		return true
 	}
 
@@ -171,7 +174,7 @@ func (o *LoginAction) SetFields(v []UserField) {
 
 // GetButtons returns the Buttons field value if set, zero value otherwise.
 func (o *LoginAction) GetButtons() []UserButton {
-	if o == nil || o.Buttons == nil {
+	if o == nil || IsNil(o.Buttons) {
 		var ret []UserButton
 		return ret
 	}
@@ -181,7 +184,7 @@ func (o *LoginAction) GetButtons() []UserButton {
 // GetButtonsOk returns a tuple with the Buttons field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LoginAction) GetButtonsOk() ([]UserButton, bool) {
-	if o == nil || o.Buttons == nil {
+	if o == nil || IsNil(o.Buttons) {
 		return nil, false
 	}
 	return o.Buttons, true
@@ -189,7 +192,7 @@ func (o *LoginAction) GetButtonsOk() ([]UserButton, bool) {
 
 // HasButtons returns a boolean if a field has been set.
 func (o *LoginAction) HasButtons() bool {
-	if o != nil && o.Buttons != nil {
+	if o != nil && !IsNil(o.Buttons) {
 		return true
 	}
 
@@ -202,23 +205,31 @@ func (o *LoginAction) SetButtons(v []UserButton) {
 }
 
 func (o LoginAction) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Type != nil {
-		toSerialize["type"] = o.Type
-	}
-	if o.Name != nil {
-		toSerialize["name"] = o.Name
-	}
-	if o.Messages != nil {
-		toSerialize["messages"] = o.Messages
-	}
-	if o.Fields != nil {
-		toSerialize["fields"] = o.Fields
-	}
-	if o.Buttons != nil {
-		toSerialize["buttons"] = o.Buttons
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o LoginAction) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Name) {
+		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.Messages) {
+		toSerialize["messages"] = o.Messages
+	}
+	if !IsNil(o.Fields) {
+		toSerialize["fields"] = o.Fields
+	}
+	if !IsNil(o.Buttons) {
+		toSerialize["buttons"] = o.Buttons
+	}
+	return toSerialize, nil
 }
 
 type NullableLoginAction struct {

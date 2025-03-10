@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CategoryPredictions type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CategoryPredictions{}
+
 // CategoryPredictions struct for CategoryPredictions
 type CategoryPredictions struct {
 	Categories []string `json:"categories,omitempty"`
@@ -41,7 +44,7 @@ func NewCategoryPredictionsWithDefaults() *CategoryPredictions {
 
 // GetCategories returns the Categories field value if set, zero value otherwise.
 func (o *CategoryPredictions) GetCategories() []string {
-	if o == nil || o.Categories == nil {
+	if o == nil || IsNil(o.Categories) {
 		var ret []string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *CategoryPredictions) GetCategories() []string {
 // GetCategoriesOk returns a tuple with the Categories field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CategoryPredictions) GetCategoriesOk() ([]string, bool) {
-	if o == nil || o.Categories == nil {
+	if o == nil || IsNil(o.Categories) {
 		return nil, false
 	}
 	return o.Categories, true
@@ -59,7 +62,7 @@ func (o *CategoryPredictions) GetCategoriesOk() ([]string, bool) {
 
 // HasCategories returns a boolean if a field has been set.
 func (o *CategoryPredictions) HasCategories() bool {
-	if o != nil && o.Categories != nil {
+	if o != nil && !IsNil(o.Categories) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *CategoryPredictions) SetCategories(v []string) {
 
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *CategoryPredictions) GetSource() string {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *CategoryPredictions) GetSource() string {
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CategoryPredictions) GetSourceOk() (*string, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
 	return o.Source, true
@@ -91,7 +94,7 @@ func (o *CategoryPredictions) GetSourceOk() (*string, bool) {
 
 // HasSource returns a boolean if a field has been set.
 func (o *CategoryPredictions) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *CategoryPredictions) SetSource(v string) {
 
 // GetSourceId returns the SourceId field value if set, zero value otherwise.
 func (o *CategoryPredictions) GetSourceId() string {
-	if o == nil || o.SourceId == nil {
+	if o == nil || IsNil(o.SourceId) {
 		var ret string
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *CategoryPredictions) GetSourceId() string {
 // GetSourceIdOk returns a tuple with the SourceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CategoryPredictions) GetSourceIdOk() (*string, bool) {
-	if o == nil || o.SourceId == nil {
+	if o == nil || IsNil(o.SourceId) {
 		return nil, false
 	}
 	return o.SourceId, true
@@ -123,7 +126,7 @@ func (o *CategoryPredictions) GetSourceIdOk() (*string, bool) {
 
 // HasSourceId returns a boolean if a field has been set.
 func (o *CategoryPredictions) HasSourceId() bool {
-	if o != nil && o.SourceId != nil {
+	if o != nil && !IsNil(o.SourceId) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *CategoryPredictions) SetSourceId(v string) {
 }
 
 func (o CategoryPredictions) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Categories != nil {
-		toSerialize["categories"] = o.Categories
-	}
-	if o.Source != nil {
-		toSerialize["source"] = o.Source
-	}
-	if o.SourceId != nil {
-		toSerialize["source_id"] = o.SourceId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CategoryPredictions) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Categories) {
+		toSerialize["categories"] = o.Categories
+	}
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
+	if !IsNil(o.SourceId) {
+		toSerialize["source_id"] = o.SourceId
+	}
+	return toSerialize, nil
 }
 
 type NullableCategoryPredictions struct {

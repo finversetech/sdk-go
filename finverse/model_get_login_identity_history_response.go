@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the GetLoginIdentityHistoryResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GetLoginIdentityHistoryResponse{}
+
 // GetLoginIdentityHistoryResponse struct for GetLoginIdentityHistoryResponse
 type GetLoginIdentityHistoryResponse struct {
 	LoginIdentity *LoginIdentity               `json:"login_identity,omitempty"`
@@ -40,7 +43,7 @@ func NewGetLoginIdentityHistoryResponseWithDefaults() *GetLoginIdentityHistoryRe
 
 // GetLoginIdentity returns the LoginIdentity field value if set, zero value otherwise.
 func (o *GetLoginIdentityHistoryResponse) GetLoginIdentity() LoginIdentity {
-	if o == nil || o.LoginIdentity == nil {
+	if o == nil || IsNil(o.LoginIdentity) {
 		var ret LoginIdentity
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *GetLoginIdentityHistoryResponse) GetLoginIdentity() LoginIdentity {
 // GetLoginIdentityOk returns a tuple with the LoginIdentity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetLoginIdentityHistoryResponse) GetLoginIdentityOk() (*LoginIdentity, bool) {
-	if o == nil || o.LoginIdentity == nil {
+	if o == nil || IsNil(o.LoginIdentity) {
 		return nil, false
 	}
 	return o.LoginIdentity, true
@@ -58,7 +61,7 @@ func (o *GetLoginIdentityHistoryResponse) GetLoginIdentityOk() (*LoginIdentity, 
 
 // HasLoginIdentity returns a boolean if a field has been set.
 func (o *GetLoginIdentityHistoryResponse) HasLoginIdentity() bool {
-	if o != nil && o.LoginIdentity != nil {
+	if o != nil && !IsNil(o.LoginIdentity) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *GetLoginIdentityHistoryResponse) SetLoginIdentity(v LoginIdentity) {
 
 // GetStatusHistory returns the StatusHistory field value if set, zero value otherwise.
 func (o *GetLoginIdentityHistoryResponse) GetStatusHistory() []LoginIdentityStatusDetails {
-	if o == nil || o.StatusHistory == nil {
+	if o == nil || IsNil(o.StatusHistory) {
 		var ret []LoginIdentityStatusDetails
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *GetLoginIdentityHistoryResponse) GetStatusHistory() []LoginIdentityStat
 // GetStatusHistoryOk returns a tuple with the StatusHistory field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GetLoginIdentityHistoryResponse) GetStatusHistoryOk() ([]LoginIdentityStatusDetails, bool) {
-	if o == nil || o.StatusHistory == nil {
+	if o == nil || IsNil(o.StatusHistory) {
 		return nil, false
 	}
 	return o.StatusHistory, true
@@ -90,7 +93,7 @@ func (o *GetLoginIdentityHistoryResponse) GetStatusHistoryOk() ([]LoginIdentityS
 
 // HasStatusHistory returns a boolean if a field has been set.
 func (o *GetLoginIdentityHistoryResponse) HasStatusHistory() bool {
-	if o != nil && o.StatusHistory != nil {
+	if o != nil && !IsNil(o.StatusHistory) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *GetLoginIdentityHistoryResponse) SetStatusHistory(v []LoginIdentityStat
 }
 
 func (o GetLoginIdentityHistoryResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.LoginIdentity != nil {
-		toSerialize["login_identity"] = o.LoginIdentity
-	}
-	if o.StatusHistory != nil {
-		toSerialize["status_history"] = o.StatusHistory
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GetLoginIdentityHistoryResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.LoginIdentity) {
+		toSerialize["login_identity"] = o.LoginIdentity
+	}
+	if !IsNil(o.StatusHistory) {
+		toSerialize["status_history"] = o.StatusHistory
+	}
+	return toSerialize, nil
 }
 
 type NullableGetLoginIdentityHistoryResponse struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SwaggerErrBodyModel type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SwaggerErrBodyModel{}
+
 // SwaggerErrBodyModel struct for SwaggerErrBodyModel
 type SwaggerErrBodyModel struct {
 	Code    *int32        `json:"code,omitempty"`
@@ -41,7 +44,7 @@ func NewSwaggerErrBodyModelWithDefaults() *SwaggerErrBodyModel {
 
 // GetCode returns the Code field value if set, zero value otherwise.
 func (o *SwaggerErrBodyModel) GetCode() int32 {
-	if o == nil || o.Code == nil {
+	if o == nil || IsNil(o.Code) {
 		var ret int32
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *SwaggerErrBodyModel) GetCode() int32 {
 // GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SwaggerErrBodyModel) GetCodeOk() (*int32, bool) {
-	if o == nil || o.Code == nil {
+	if o == nil || IsNil(o.Code) {
 		return nil, false
 	}
 	return o.Code, true
@@ -59,7 +62,7 @@ func (o *SwaggerErrBodyModel) GetCodeOk() (*int32, bool) {
 
 // HasCode returns a boolean if a field has been set.
 func (o *SwaggerErrBodyModel) HasCode() bool {
-	if o != nil && o.Code != nil {
+	if o != nil && !IsNil(o.Code) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *SwaggerErrBodyModel) SetCode(v int32) {
 
 // GetMessage returns the Message field value if set, zero value otherwise.
 func (o *SwaggerErrBodyModel) GetMessage() string {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *SwaggerErrBodyModel) GetMessage() string {
 // GetMessageOk returns a tuple with the Message field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SwaggerErrBodyModel) GetMessageOk() (*string, bool) {
-	if o == nil || o.Message == nil {
+	if o == nil || IsNil(o.Message) {
 		return nil, false
 	}
 	return o.Message, true
@@ -91,7 +94,7 @@ func (o *SwaggerErrBodyModel) GetMessageOk() (*string, bool) {
 
 // HasMessage returns a boolean if a field has been set.
 func (o *SwaggerErrBodyModel) HasMessage() bool {
-	if o != nil && o.Message != nil {
+	if o != nil && !IsNil(o.Message) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *SwaggerErrBodyModel) SetMessage(v string) {
 
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *SwaggerErrBodyModel) GetError() FvErrorModel {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		var ret FvErrorModel
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *SwaggerErrBodyModel) GetError() FvErrorModel {
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SwaggerErrBodyModel) GetErrorOk() (*FvErrorModel, bool) {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
 	return o.Error, true
@@ -123,7 +126,7 @@ func (o *SwaggerErrBodyModel) GetErrorOk() (*FvErrorModel, bool) {
 
 // HasError returns a boolean if a field has been set.
 func (o *SwaggerErrBodyModel) HasError() bool {
-	if o != nil && o.Error != nil {
+	if o != nil && !IsNil(o.Error) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *SwaggerErrBodyModel) SetError(v FvErrorModel) {
 }
 
 func (o SwaggerErrBodyModel) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Code != nil {
-		toSerialize["code"] = o.Code
-	}
-	if o.Message != nil {
-		toSerialize["message"] = o.Message
-	}
-	if o.Error != nil {
-		toSerialize["error"] = o.Error
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SwaggerErrBodyModel) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Code) {
+		toSerialize["code"] = o.Code
+	}
+	if !IsNil(o.Message) {
+		toSerialize["message"] = o.Message
+	}
+	if !IsNil(o.Error) {
+		toSerialize["error"] = o.Error
+	}
+	return toSerialize, nil
 }
 
 type NullableSwaggerErrBodyModel struct {

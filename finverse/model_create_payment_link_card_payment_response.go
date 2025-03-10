@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CreatePaymentLinkCardPaymentResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreatePaymentLinkCardPaymentResponse{}
 
 // CreatePaymentLinkCardPaymentResponse struct for CreatePaymentLinkCardPaymentResponse
 type CreatePaymentLinkCardPaymentResponse struct {
@@ -22,6 +27,8 @@ type CreatePaymentLinkCardPaymentResponse struct {
 	// Finverse Payment ID
 	PaymentId *string `json:"payment_id,omitempty"`
 }
+
+type _CreatePaymentLinkCardPaymentResponse CreatePaymentLinkCardPaymentResponse
 
 // NewCreatePaymentLinkCardPaymentResponse instantiates a new CreatePaymentLinkCardPaymentResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -67,7 +74,7 @@ func (o *CreatePaymentLinkCardPaymentResponse) SetCardProcessorRedirectUri(v str
 
 // GetPaymentId returns the PaymentId field value if set, zero value otherwise.
 func (o *CreatePaymentLinkCardPaymentResponse) GetPaymentId() string {
-	if o == nil || o.PaymentId == nil {
+	if o == nil || IsNil(o.PaymentId) {
 		var ret string
 		return ret
 	}
@@ -77,7 +84,7 @@ func (o *CreatePaymentLinkCardPaymentResponse) GetPaymentId() string {
 // GetPaymentIdOk returns a tuple with the PaymentId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentLinkCardPaymentResponse) GetPaymentIdOk() (*string, bool) {
-	if o == nil || o.PaymentId == nil {
+	if o == nil || IsNil(o.PaymentId) {
 		return nil, false
 	}
 	return o.PaymentId, true
@@ -85,7 +92,7 @@ func (o *CreatePaymentLinkCardPaymentResponse) GetPaymentIdOk() (*string, bool) 
 
 // HasPaymentId returns a boolean if a field has been set.
 func (o *CreatePaymentLinkCardPaymentResponse) HasPaymentId() bool {
-	if o != nil && o.PaymentId != nil {
+	if o != nil && !IsNil(o.PaymentId) {
 		return true
 	}
 
@@ -98,14 +105,57 @@ func (o *CreatePaymentLinkCardPaymentResponse) SetPaymentId(v string) {
 }
 
 func (o CreatePaymentLinkCardPaymentResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["card_processor_redirect_uri"] = o.CardProcessorRedirectUri
-	}
-	if o.PaymentId != nil {
-		toSerialize["payment_id"] = o.PaymentId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreatePaymentLinkCardPaymentResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["card_processor_redirect_uri"] = o.CardProcessorRedirectUri
+	if !IsNil(o.PaymentId) {
+		toSerialize["payment_id"] = o.PaymentId
+	}
+	return toSerialize, nil
+}
+
+func (o *CreatePaymentLinkCardPaymentResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"card_processor_redirect_uri",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreatePaymentLinkCardPaymentResponse := _CreatePaymentLinkCardPaymentResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCreatePaymentLinkCardPaymentResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreatePaymentLinkCardPaymentResponse(varCreatePaymentLinkCardPaymentResponse)
+
+	return err
 }
 
 type NullableCreatePaymentLinkCardPaymentResponse struct {

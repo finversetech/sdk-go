@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PaymentMethodFvLinkResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaymentMethodFvLinkResponse{}
+
 // PaymentMethodFvLinkResponse struct for PaymentMethodFvLinkResponse
 type PaymentMethodFvLinkResponse struct {
 	PaymentMethodId     *string                `json:"payment_method_id,omitempty"`
@@ -43,7 +46,7 @@ func NewPaymentMethodFvLinkResponseWithDefaults() *PaymentMethodFvLinkResponse {
 
 // GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise.
 func (o *PaymentMethodFvLinkResponse) GetPaymentMethodId() string {
-	if o == nil || o.PaymentMethodId == nil {
+	if o == nil || IsNil(o.PaymentMethodId) {
 		var ret string
 		return ret
 	}
@@ -53,7 +56,7 @@ func (o *PaymentMethodFvLinkResponse) GetPaymentMethodId() string {
 // GetPaymentMethodIdOk returns a tuple with the PaymentMethodId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentMethodFvLinkResponse) GetPaymentMethodIdOk() (*string, bool) {
-	if o == nil || o.PaymentMethodId == nil {
+	if o == nil || IsNil(o.PaymentMethodId) {
 		return nil, false
 	}
 	return o.PaymentMethodId, true
@@ -61,7 +64,7 @@ func (o *PaymentMethodFvLinkResponse) GetPaymentMethodIdOk() (*string, bool) {
 
 // HasPaymentMethodId returns a boolean if a field has been set.
 func (o *PaymentMethodFvLinkResponse) HasPaymentMethodId() bool {
-	if o != nil && o.PaymentMethodId != nil {
+	if o != nil && !IsNil(o.PaymentMethodId) {
 		return true
 	}
 
@@ -75,7 +78,7 @@ func (o *PaymentMethodFvLinkResponse) SetPaymentMethodId(v string) {
 
 // GetPaymentMethodType returns the PaymentMethodType field value if set, zero value otherwise.
 func (o *PaymentMethodFvLinkResponse) GetPaymentMethodType() string {
-	if o == nil || o.PaymentMethodType == nil {
+	if o == nil || IsNil(o.PaymentMethodType) {
 		var ret string
 		return ret
 	}
@@ -85,7 +88,7 @@ func (o *PaymentMethodFvLinkResponse) GetPaymentMethodType() string {
 // GetPaymentMethodTypeOk returns a tuple with the PaymentMethodType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentMethodFvLinkResponse) GetPaymentMethodTypeOk() (*string, bool) {
-	if o == nil || o.PaymentMethodType == nil {
+	if o == nil || IsNil(o.PaymentMethodType) {
 		return nil, false
 	}
 	return o.PaymentMethodType, true
@@ -93,7 +96,7 @@ func (o *PaymentMethodFvLinkResponse) GetPaymentMethodTypeOk() (*string, bool) {
 
 // HasPaymentMethodType returns a boolean if a field has been set.
 func (o *PaymentMethodFvLinkResponse) HasPaymentMethodType() bool {
-	if o != nil && o.PaymentMethodType != nil {
+	if o != nil && !IsNil(o.PaymentMethodType) {
 		return true
 	}
 
@@ -107,7 +110,7 @@ func (o *PaymentMethodFvLinkResponse) SetPaymentMethodType(v string) {
 
 // GetRecipientEntityName returns the RecipientEntityName field value if set, zero value otherwise.
 func (o *PaymentMethodFvLinkResponse) GetRecipientEntityName() string {
-	if o == nil || o.RecipientEntityName == nil {
+	if o == nil || IsNil(o.RecipientEntityName) {
 		var ret string
 		return ret
 	}
@@ -117,7 +120,7 @@ func (o *PaymentMethodFvLinkResponse) GetRecipientEntityName() string {
 // GetRecipientEntityNameOk returns a tuple with the RecipientEntityName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentMethodFvLinkResponse) GetRecipientEntityNameOk() (*string, bool) {
-	if o == nil || o.RecipientEntityName == nil {
+	if o == nil || IsNil(o.RecipientEntityName) {
 		return nil, false
 	}
 	return o.RecipientEntityName, true
@@ -125,7 +128,7 @@ func (o *PaymentMethodFvLinkResponse) GetRecipientEntityNameOk() (*string, bool)
 
 // HasRecipientEntityName returns a boolean if a field has been set.
 func (o *PaymentMethodFvLinkResponse) HasRecipientEntityName() bool {
-	if o != nil && o.RecipientEntityName != nil {
+	if o != nil && !IsNil(o.RecipientEntityName) {
 		return true
 	}
 
@@ -139,7 +142,7 @@ func (o *PaymentMethodFvLinkResponse) SetRecipientEntityName(v string) {
 
 // GetMandate returns the Mandate field value if set, zero value otherwise.
 func (o *PaymentMethodFvLinkResponse) GetMandate() MandateFvLinkResponse {
-	if o == nil || o.Mandate == nil {
+	if o == nil || IsNil(o.Mandate) {
 		var ret MandateFvLinkResponse
 		return ret
 	}
@@ -149,7 +152,7 @@ func (o *PaymentMethodFvLinkResponse) GetMandate() MandateFvLinkResponse {
 // GetMandateOk returns a tuple with the Mandate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentMethodFvLinkResponse) GetMandateOk() (*MandateFvLinkResponse, bool) {
-	if o == nil || o.Mandate == nil {
+	if o == nil || IsNil(o.Mandate) {
 		return nil, false
 	}
 	return o.Mandate, true
@@ -157,7 +160,7 @@ func (o *PaymentMethodFvLinkResponse) GetMandateOk() (*MandateFvLinkResponse, bo
 
 // HasMandate returns a boolean if a field has been set.
 func (o *PaymentMethodFvLinkResponse) HasMandate() bool {
-	if o != nil && o.Mandate != nil {
+	if o != nil && !IsNil(o.Mandate) {
 		return true
 	}
 
@@ -171,7 +174,7 @@ func (o *PaymentMethodFvLinkResponse) SetMandate(v MandateFvLinkResponse) {
 
 // GetCard returns the Card field value if set, zero value otherwise.
 func (o *PaymentMethodFvLinkResponse) GetCard() CardFvLinkResponse {
-	if o == nil || o.Card == nil {
+	if o == nil || IsNil(o.Card) {
 		var ret CardFvLinkResponse
 		return ret
 	}
@@ -181,7 +184,7 @@ func (o *PaymentMethodFvLinkResponse) GetCard() CardFvLinkResponse {
 // GetCardOk returns a tuple with the Card field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentMethodFvLinkResponse) GetCardOk() (*CardFvLinkResponse, bool) {
-	if o == nil || o.Card == nil {
+	if o == nil || IsNil(o.Card) {
 		return nil, false
 	}
 	return o.Card, true
@@ -189,7 +192,7 @@ func (o *PaymentMethodFvLinkResponse) GetCardOk() (*CardFvLinkResponse, bool) {
 
 // HasCard returns a boolean if a field has been set.
 func (o *PaymentMethodFvLinkResponse) HasCard() bool {
-	if o != nil && o.Card != nil {
+	if o != nil && !IsNil(o.Card) {
 		return true
 	}
 
@@ -202,23 +205,31 @@ func (o *PaymentMethodFvLinkResponse) SetCard(v CardFvLinkResponse) {
 }
 
 func (o PaymentMethodFvLinkResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.PaymentMethodId != nil {
-		toSerialize["payment_method_id"] = o.PaymentMethodId
-	}
-	if o.PaymentMethodType != nil {
-		toSerialize["payment_method_type"] = o.PaymentMethodType
-	}
-	if o.RecipientEntityName != nil {
-		toSerialize["recipient_entity_name"] = o.RecipientEntityName
-	}
-	if o.Mandate != nil {
-		toSerialize["mandate"] = o.Mandate
-	}
-	if o.Card != nil {
-		toSerialize["card"] = o.Card
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PaymentMethodFvLinkResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.PaymentMethodId) {
+		toSerialize["payment_method_id"] = o.PaymentMethodId
+	}
+	if !IsNil(o.PaymentMethodType) {
+		toSerialize["payment_method_type"] = o.PaymentMethodType
+	}
+	if !IsNil(o.RecipientEntityName) {
+		toSerialize["recipient_entity_name"] = o.RecipientEntityName
+	}
+	if !IsNil(o.Mandate) {
+		toSerialize["mandate"] = o.Mandate
+	}
+	if !IsNil(o.Card) {
+		toSerialize["card"] = o.Card
+	}
+	return toSerialize, nil
 }
 
 type NullablePaymentMethodFvLinkResponse struct {

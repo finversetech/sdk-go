@@ -12,14 +12,21 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ListPaymentsResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ListPaymentsResponse{}
 
 // ListPaymentsResponse struct for ListPaymentsResponse
 type ListPaymentsResponse struct {
 	Payments      []PaymentResponse `json:"payments,omitempty"`
 	TotalPayments int32             `json:"total_payments"`
 }
+
+type _ListPaymentsResponse ListPaymentsResponse
 
 // NewListPaymentsResponse instantiates a new ListPaymentsResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -41,7 +48,7 @@ func NewListPaymentsResponseWithDefaults() *ListPaymentsResponse {
 
 // GetPayments returns the Payments field value if set, zero value otherwise.
 func (o *ListPaymentsResponse) GetPayments() []PaymentResponse {
-	if o == nil || o.Payments == nil {
+	if o == nil || IsNil(o.Payments) {
 		var ret []PaymentResponse
 		return ret
 	}
@@ -51,7 +58,7 @@ func (o *ListPaymentsResponse) GetPayments() []PaymentResponse {
 // GetPaymentsOk returns a tuple with the Payments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ListPaymentsResponse) GetPaymentsOk() ([]PaymentResponse, bool) {
-	if o == nil || o.Payments == nil {
+	if o == nil || IsNil(o.Payments) {
 		return nil, false
 	}
 	return o.Payments, true
@@ -59,7 +66,7 @@ func (o *ListPaymentsResponse) GetPaymentsOk() ([]PaymentResponse, bool) {
 
 // HasPayments returns a boolean if a field has been set.
 func (o *ListPaymentsResponse) HasPayments() bool {
-	if o != nil && o.Payments != nil {
+	if o != nil && !IsNil(o.Payments) {
 		return true
 	}
 
@@ -96,14 +103,57 @@ func (o *ListPaymentsResponse) SetTotalPayments(v int32) {
 }
 
 func (o ListPaymentsResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Payments != nil {
-		toSerialize["payments"] = o.Payments
-	}
-	if true {
-		toSerialize["total_payments"] = o.TotalPayments
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ListPaymentsResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Payments) {
+		toSerialize["payments"] = o.Payments
+	}
+	toSerialize["total_payments"] = o.TotalPayments
+	return toSerialize, nil
+}
+
+func (o *ListPaymentsResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"total_payments",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varListPaymentsResponse := _ListPaymentsResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varListPaymentsResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ListPaymentsResponse(varListPaymentsResponse)
+
+	return err
 }
 
 type NullableListPaymentsResponse struct {

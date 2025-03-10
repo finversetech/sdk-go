@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the GenericAmount type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &GenericAmount{}
 
 // GenericAmount struct for GenericAmount
 type GenericAmount struct {
@@ -21,6 +26,8 @@ type GenericAmount struct {
 	Value float32 `json:"value"`
 	Raw   *string `json:"raw,omitempty"`
 }
+
+type _GenericAmount GenericAmount
 
 // NewGenericAmount instantiates a new GenericAmount object
 // This constructor will assign default values to properties that have it defined,
@@ -42,7 +49,7 @@ func NewGenericAmountWithDefaults() *GenericAmount {
 
 // GetUnit returns the Unit field value if set, zero value otherwise.
 func (o *GenericAmount) GetUnit() string {
-	if o == nil || o.Unit == nil {
+	if o == nil || IsNil(o.Unit) {
 		var ret string
 		return ret
 	}
@@ -52,7 +59,7 @@ func (o *GenericAmount) GetUnit() string {
 // GetUnitOk returns a tuple with the Unit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GenericAmount) GetUnitOk() (*string, bool) {
-	if o == nil || o.Unit == nil {
+	if o == nil || IsNil(o.Unit) {
 		return nil, false
 	}
 	return o.Unit, true
@@ -60,7 +67,7 @@ func (o *GenericAmount) GetUnitOk() (*string, bool) {
 
 // HasUnit returns a boolean if a field has been set.
 func (o *GenericAmount) HasUnit() bool {
-	if o != nil && o.Unit != nil {
+	if o != nil && !IsNil(o.Unit) {
 		return true
 	}
 
@@ -98,7 +105,7 @@ func (o *GenericAmount) SetValue(v float32) {
 
 // GetRaw returns the Raw field value if set, zero value otherwise.
 func (o *GenericAmount) GetRaw() string {
-	if o == nil || o.Raw == nil {
+	if o == nil || IsNil(o.Raw) {
 		var ret string
 		return ret
 	}
@@ -108,7 +115,7 @@ func (o *GenericAmount) GetRaw() string {
 // GetRawOk returns a tuple with the Raw field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *GenericAmount) GetRawOk() (*string, bool) {
-	if o == nil || o.Raw == nil {
+	if o == nil || IsNil(o.Raw) {
 		return nil, false
 	}
 	return o.Raw, true
@@ -116,7 +123,7 @@ func (o *GenericAmount) GetRawOk() (*string, bool) {
 
 // HasRaw returns a boolean if a field has been set.
 func (o *GenericAmount) HasRaw() bool {
-	if o != nil && o.Raw != nil {
+	if o != nil && !IsNil(o.Raw) {
 		return true
 	}
 
@@ -129,17 +136,60 @@ func (o *GenericAmount) SetRaw(v string) {
 }
 
 func (o GenericAmount) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Unit != nil {
-		toSerialize["unit"] = o.Unit
-	}
-	if true {
-		toSerialize["value"] = o.Value
-	}
-	if o.Raw != nil {
-		toSerialize["raw"] = o.Raw
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o GenericAmount) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Unit) {
+		toSerialize["unit"] = o.Unit
+	}
+	toSerialize["value"] = o.Value
+	if !IsNil(o.Raw) {
+		toSerialize["raw"] = o.Raw
+	}
+	return toSerialize, nil
+}
+
+func (o *GenericAmount) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"value",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varGenericAmount := _GenericAmount{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varGenericAmount)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GenericAmount(varGenericAmount)
+
+	return err
 }
 
 type NullableGenericAmount struct {

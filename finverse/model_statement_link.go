@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the StatementLink type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &StatementLink{}
+
 // StatementLink struct for StatementLink
 type StatementLink struct {
 	// signedURL to download statement
@@ -44,7 +47,7 @@ func NewStatementLinkWithDefaults() *StatementLink {
 
 // GetUrl returns the Url field value if set, zero value otherwise.
 func (o *StatementLink) GetUrl() string {
-	if o == nil || o.Url == nil {
+	if o == nil || IsNil(o.Url) {
 		var ret string
 		return ret
 	}
@@ -54,7 +57,7 @@ func (o *StatementLink) GetUrl() string {
 // GetUrlOk returns a tuple with the Url field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatementLink) GetUrlOk() (*string, bool) {
-	if o == nil || o.Url == nil {
+	if o == nil || IsNil(o.Url) {
 		return nil, false
 	}
 	return o.Url, true
@@ -62,7 +65,7 @@ func (o *StatementLink) GetUrlOk() (*string, bool) {
 
 // HasUrl returns a boolean if a field has been set.
 func (o *StatementLink) HasUrl() bool {
-	if o != nil && o.Url != nil {
+	if o != nil && !IsNil(o.Url) {
 		return true
 	}
 
@@ -76,7 +79,7 @@ func (o *StatementLink) SetUrl(v string) {
 
 // GetExpiry returns the Expiry field value if set, zero value otherwise.
 func (o *StatementLink) GetExpiry() time.Time {
-	if o == nil || o.Expiry == nil {
+	if o == nil || IsNil(o.Expiry) {
 		var ret time.Time
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *StatementLink) GetExpiry() time.Time {
 // GetExpiryOk returns a tuple with the Expiry field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatementLink) GetExpiryOk() (*time.Time, bool) {
-	if o == nil || o.Expiry == nil {
+	if o == nil || IsNil(o.Expiry) {
 		return nil, false
 	}
 	return o.Expiry, true
@@ -94,7 +97,7 @@ func (o *StatementLink) GetExpiryOk() (*time.Time, bool) {
 
 // HasExpiry returns a boolean if a field has been set.
 func (o *StatementLink) HasExpiry() bool {
-	if o != nil && o.Expiry != nil {
+	if o != nil && !IsNil(o.Expiry) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *StatementLink) SetExpiry(v time.Time) {
 
 // GetStatementId returns the StatementId field value if set, zero value otherwise.
 func (o *StatementLink) GetStatementId() string {
-	if o == nil || o.StatementId == nil {
+	if o == nil || IsNil(o.StatementId) {
 		var ret string
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *StatementLink) GetStatementId() string {
 // GetStatementIdOk returns a tuple with the StatementId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *StatementLink) GetStatementIdOk() (*string, bool) {
-	if o == nil || o.StatementId == nil {
+	if o == nil || IsNil(o.StatementId) {
 		return nil, false
 	}
 	return o.StatementId, true
@@ -126,7 +129,7 @@ func (o *StatementLink) GetStatementIdOk() (*string, bool) {
 
 // HasStatementId returns a boolean if a field has been set.
 func (o *StatementLink) HasStatementId() bool {
-	if o != nil && o.StatementId != nil {
+	if o != nil && !IsNil(o.StatementId) {
 		return true
 	}
 
@@ -139,17 +142,25 @@ func (o *StatementLink) SetStatementId(v string) {
 }
 
 func (o StatementLink) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Url != nil {
-		toSerialize["url"] = o.Url
-	}
-	if o.Expiry != nil {
-		toSerialize["expiry"] = o.Expiry
-	}
-	if o.StatementId != nil {
-		toSerialize["statement_id"] = o.StatementId
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o StatementLink) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Url) {
+		toSerialize["url"] = o.Url
+	}
+	if !IsNil(o.Expiry) {
+		toSerialize["expiry"] = o.Expiry
+	}
+	if !IsNil(o.StatementId) {
+		toSerialize["statement_id"] = o.StatementId
+	}
+	return toSerialize, nil
 }
 
 type NullableStatementLink struct {

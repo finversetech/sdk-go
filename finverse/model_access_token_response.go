@@ -12,9 +12,14 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 	"time"
 )
+
+// checks if the AccessTokenResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AccessTokenResponse{}
 
 // AccessTokenResponse struct for AccessTokenResponse
 type AccessTokenResponse struct {
@@ -26,6 +31,8 @@ type AccessTokenResponse struct {
 	RefreshToken string    `json:"refresh_token"`
 	IssuedAt     time.Time `json:"issued_at"`
 }
+
+type _AccessTokenResponse AccessTokenResponse
 
 // NewAccessTokenResponse instantiates a new AccessTokenResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -195,26 +202,64 @@ func (o *AccessTokenResponse) SetIssuedAt(v time.Time) {
 }
 
 func (o AccessTokenResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["access_token"] = o.AccessToken
-	}
-	if true {
-		toSerialize["login_identity_id"] = o.LoginIdentityId
-	}
-	if true {
-		toSerialize["token_type"] = o.TokenType
-	}
-	if true {
-		toSerialize["expires_in"] = o.ExpiresIn
-	}
-	if true {
-		toSerialize["refresh_token"] = o.RefreshToken
-	}
-	if true {
-		toSerialize["issued_at"] = o.IssuedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o AccessTokenResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["access_token"] = o.AccessToken
+	toSerialize["login_identity_id"] = o.LoginIdentityId
+	toSerialize["token_type"] = o.TokenType
+	toSerialize["expires_in"] = o.ExpiresIn
+	toSerialize["refresh_token"] = o.RefreshToken
+	toSerialize["issued_at"] = o.IssuedAt
+	return toSerialize, nil
+}
+
+func (o *AccessTokenResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"access_token",
+		"login_identity_id",
+		"token_type",
+		"expires_in",
+		"refresh_token",
+		"issued_at",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varAccessTokenResponse := _AccessTokenResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varAccessTokenResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AccessTokenResponse(varAccessTokenResponse)
+
+	return err
 }
 
 type NullableAccessTokenResponse struct {

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PaymentLinkCustomizations type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaymentLinkCustomizations{}
+
 // PaymentLinkCustomizations struct for PaymentLinkCustomizations
 type PaymentLinkCustomizations struct {
 	// ISO639-1 language code. Language to display when user open the link, default to English (en) if not specified
@@ -44,7 +47,7 @@ func NewPaymentLinkCustomizationsWithDefaults() *PaymentLinkCustomizations {
 
 // GetLanguage returns the Language field value if set, zero value otherwise.
 func (o *PaymentLinkCustomizations) GetLanguage() string {
-	if o == nil || o.Language == nil {
+	if o == nil || IsNil(o.Language) {
 		var ret string
 		return ret
 	}
@@ -54,7 +57,7 @@ func (o *PaymentLinkCustomizations) GetLanguage() string {
 // GetLanguageOk returns a tuple with the Language field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkCustomizations) GetLanguageOk() (*string, bool) {
-	if o == nil || o.Language == nil {
+	if o == nil || IsNil(o.Language) {
 		return nil, false
 	}
 	return o.Language, true
@@ -62,7 +65,7 @@ func (o *PaymentLinkCustomizations) GetLanguageOk() (*string, bool) {
 
 // HasLanguage returns a boolean if a field has been set.
 func (o *PaymentLinkCustomizations) HasLanguage() bool {
-	if o != nil && o.Language != nil {
+	if o != nil && !IsNil(o.Language) {
 		return true
 	}
 
@@ -76,7 +79,7 @@ func (o *PaymentLinkCustomizations) SetLanguage(v string) {
 
 // GetUiMode returns the UiMode field value if set, zero value otherwise.
 func (o *PaymentLinkCustomizations) GetUiMode() string {
-	if o == nil || o.UiMode == nil {
+	if o == nil || IsNil(o.UiMode) {
 		var ret string
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *PaymentLinkCustomizations) GetUiMode() string {
 // GetUiModeOk returns a tuple with the UiMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkCustomizations) GetUiModeOk() (*string, bool) {
-	if o == nil || o.UiMode == nil {
+	if o == nil || IsNil(o.UiMode) {
 		return nil, false
 	}
 	return o.UiMode, true
@@ -94,7 +97,7 @@ func (o *PaymentLinkCustomizations) GetUiModeOk() (*string, bool) {
 
 // HasUiMode returns a boolean if a field has been set.
 func (o *PaymentLinkCustomizations) HasUiMode() bool {
-	if o != nil && o.UiMode != nil {
+	if o != nil && !IsNil(o.UiMode) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *PaymentLinkCustomizations) SetUiMode(v string) {
 
 // GetRedirectUri returns the RedirectUri field value if set, zero value otherwise.
 func (o *PaymentLinkCustomizations) GetRedirectUri() string {
-	if o == nil || o.RedirectUri == nil {
+	if o == nil || IsNil(o.RedirectUri) {
 		var ret string
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *PaymentLinkCustomizations) GetRedirectUri() string {
 // GetRedirectUriOk returns a tuple with the RedirectUri field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkCustomizations) GetRedirectUriOk() (*string, bool) {
-	if o == nil || o.RedirectUri == nil {
+	if o == nil || IsNil(o.RedirectUri) {
 		return nil, false
 	}
 	return o.RedirectUri, true
@@ -126,7 +129,7 @@ func (o *PaymentLinkCustomizations) GetRedirectUriOk() (*string, bool) {
 
 // HasRedirectUri returns a boolean if a field has been set.
 func (o *PaymentLinkCustomizations) HasRedirectUri() bool {
-	if o != nil && o.RedirectUri != nil {
+	if o != nil && !IsNil(o.RedirectUri) {
 		return true
 	}
 
@@ -139,17 +142,25 @@ func (o *PaymentLinkCustomizations) SetRedirectUri(v string) {
 }
 
 func (o PaymentLinkCustomizations) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Language != nil {
-		toSerialize["language"] = o.Language
-	}
-	if o.UiMode != nil {
-		toSerialize["ui_mode"] = o.UiMode
-	}
-	if o.RedirectUri != nil {
-		toSerialize["redirect_uri"] = o.RedirectUri
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PaymentLinkCustomizations) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Language) {
+		toSerialize["language"] = o.Language
+	}
+	if !IsNil(o.UiMode) {
+		toSerialize["ui_mode"] = o.UiMode
+	}
+	if !IsNil(o.RedirectUri) {
+		toSerialize["redirect_uri"] = o.RedirectUri
+	}
+	return toSerialize, nil
 }
 
 type NullablePaymentLinkCustomizations struct {

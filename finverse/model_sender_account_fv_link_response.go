@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the SenderAccountFvLinkResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &SenderAccountFvLinkResponse{}
+
 // SenderAccountFvLinkResponse struct for SenderAccountFvLinkResponse
 type SenderAccountFvLinkResponse struct {
 	AccountNumberMasked *string `json:"account_number_masked,omitempty"`
@@ -41,7 +44,7 @@ func NewSenderAccountFvLinkResponseWithDefaults() *SenderAccountFvLinkResponse {
 
 // GetAccountNumberMasked returns the AccountNumberMasked field value if set, zero value otherwise.
 func (o *SenderAccountFvLinkResponse) GetAccountNumberMasked() string {
-	if o == nil || o.AccountNumberMasked == nil {
+	if o == nil || IsNil(o.AccountNumberMasked) {
 		var ret string
 		return ret
 	}
@@ -51,7 +54,7 @@ func (o *SenderAccountFvLinkResponse) GetAccountNumberMasked() string {
 // GetAccountNumberMaskedOk returns a tuple with the AccountNumberMasked field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SenderAccountFvLinkResponse) GetAccountNumberMaskedOk() (*string, bool) {
-	if o == nil || o.AccountNumberMasked == nil {
+	if o == nil || IsNil(o.AccountNumberMasked) {
 		return nil, false
 	}
 	return o.AccountNumberMasked, true
@@ -59,7 +62,7 @@ func (o *SenderAccountFvLinkResponse) GetAccountNumberMaskedOk() (*string, bool)
 
 // HasAccountNumberMasked returns a boolean if a field has been set.
 func (o *SenderAccountFvLinkResponse) HasAccountNumberMasked() bool {
-	if o != nil && o.AccountNumberMasked != nil {
+	if o != nil && !IsNil(o.AccountNumberMasked) {
 		return true
 	}
 
@@ -73,7 +76,7 @@ func (o *SenderAccountFvLinkResponse) SetAccountNumberMasked(v string) {
 
 // GetInstitutionId returns the InstitutionId field value if set, zero value otherwise.
 func (o *SenderAccountFvLinkResponse) GetInstitutionId() string {
-	if o == nil || o.InstitutionId == nil {
+	if o == nil || IsNil(o.InstitutionId) {
 		var ret string
 		return ret
 	}
@@ -83,7 +86,7 @@ func (o *SenderAccountFvLinkResponse) GetInstitutionId() string {
 // GetInstitutionIdOk returns a tuple with the InstitutionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SenderAccountFvLinkResponse) GetInstitutionIdOk() (*string, bool) {
-	if o == nil || o.InstitutionId == nil {
+	if o == nil || IsNil(o.InstitutionId) {
 		return nil, false
 	}
 	return o.InstitutionId, true
@@ -91,7 +94,7 @@ func (o *SenderAccountFvLinkResponse) GetInstitutionIdOk() (*string, bool) {
 
 // HasInstitutionId returns a boolean if a field has been set.
 func (o *SenderAccountFvLinkResponse) HasInstitutionId() bool {
-	if o != nil && o.InstitutionId != nil {
+	if o != nil && !IsNil(o.InstitutionId) {
 		return true
 	}
 
@@ -105,7 +108,7 @@ func (o *SenderAccountFvLinkResponse) SetInstitutionId(v string) {
 
 // GetInstitutionName returns the InstitutionName field value if set, zero value otherwise.
 func (o *SenderAccountFvLinkResponse) GetInstitutionName() string {
-	if o == nil || o.InstitutionName == nil {
+	if o == nil || IsNil(o.InstitutionName) {
 		var ret string
 		return ret
 	}
@@ -115,7 +118,7 @@ func (o *SenderAccountFvLinkResponse) GetInstitutionName() string {
 // GetInstitutionNameOk returns a tuple with the InstitutionName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *SenderAccountFvLinkResponse) GetInstitutionNameOk() (*string, bool) {
-	if o == nil || o.InstitutionName == nil {
+	if o == nil || IsNil(o.InstitutionName) {
 		return nil, false
 	}
 	return o.InstitutionName, true
@@ -123,7 +126,7 @@ func (o *SenderAccountFvLinkResponse) GetInstitutionNameOk() (*string, bool) {
 
 // HasInstitutionName returns a boolean if a field has been set.
 func (o *SenderAccountFvLinkResponse) HasInstitutionName() bool {
-	if o != nil && o.InstitutionName != nil {
+	if o != nil && !IsNil(o.InstitutionName) {
 		return true
 	}
 
@@ -136,17 +139,25 @@ func (o *SenderAccountFvLinkResponse) SetInstitutionName(v string) {
 }
 
 func (o SenderAccountFvLinkResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.AccountNumberMasked != nil {
-		toSerialize["account_number_masked"] = o.AccountNumberMasked
-	}
-	if o.InstitutionId != nil {
-		toSerialize["institution_id"] = o.InstitutionId
-	}
-	if o.InstitutionName != nil {
-		toSerialize["institution_name"] = o.InstitutionName
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o SenderAccountFvLinkResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.AccountNumberMasked) {
+		toSerialize["account_number_masked"] = o.AccountNumberMasked
+	}
+	if !IsNil(o.InstitutionId) {
+		toSerialize["institution_id"] = o.InstitutionId
+	}
+	if !IsNil(o.InstitutionName) {
+		toSerialize["institution_name"] = o.InstitutionName
+	}
+	return toSerialize, nil
 }
 
 type NullableSenderAccountFvLinkResponse struct {

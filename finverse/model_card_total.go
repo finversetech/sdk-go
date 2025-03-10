@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the CardTotal type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CardTotal{}
+
 // CardTotal struct for CardTotal
 type CardTotal struct {
 	CurrentBalance       *CurrencyAmount `json:"current_balance,omitempty"`
@@ -47,7 +50,7 @@ func NewCardTotalWithDefaults() *CardTotal {
 
 // GetCurrentBalance returns the CurrentBalance field value if set, zero value otherwise.
 func (o *CardTotal) GetCurrentBalance() CurrencyAmount {
-	if o == nil || o.CurrentBalance == nil {
+	if o == nil || IsNil(o.CurrentBalance) {
 		var ret CurrencyAmount
 		return ret
 	}
@@ -57,7 +60,7 @@ func (o *CardTotal) GetCurrentBalance() CurrencyAmount {
 // GetCurrentBalanceOk returns a tuple with the CurrentBalance field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardTotal) GetCurrentBalanceOk() (*CurrencyAmount, bool) {
-	if o == nil || o.CurrentBalance == nil {
+	if o == nil || IsNil(o.CurrentBalance) {
 		return nil, false
 	}
 	return o.CurrentBalance, true
@@ -65,7 +68,7 @@ func (o *CardTotal) GetCurrentBalanceOk() (*CurrencyAmount, bool) {
 
 // HasCurrentBalance returns a boolean if a field has been set.
 func (o *CardTotal) HasCurrentBalance() bool {
-	if o != nil && o.CurrentBalance != nil {
+	if o != nil && !IsNil(o.CurrentBalance) {
 		return true
 	}
 
@@ -79,7 +82,7 @@ func (o *CardTotal) SetCurrentBalance(v CurrencyAmount) {
 
 // GetPaymentDueAmount returns the PaymentDueAmount field value if set, zero value otherwise.
 func (o *CardTotal) GetPaymentDueAmount() CurrencyAmount {
-	if o == nil || o.PaymentDueAmount == nil {
+	if o == nil || IsNil(o.PaymentDueAmount) {
 		var ret CurrencyAmount
 		return ret
 	}
@@ -89,7 +92,7 @@ func (o *CardTotal) GetPaymentDueAmount() CurrencyAmount {
 // GetPaymentDueAmountOk returns a tuple with the PaymentDueAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardTotal) GetPaymentDueAmountOk() (*CurrencyAmount, bool) {
-	if o == nil || o.PaymentDueAmount == nil {
+	if o == nil || IsNil(o.PaymentDueAmount) {
 		return nil, false
 	}
 	return o.PaymentDueAmount, true
@@ -97,7 +100,7 @@ func (o *CardTotal) GetPaymentDueAmountOk() (*CurrencyAmount, bool) {
 
 // HasPaymentDueAmount returns a boolean if a field has been set.
 func (o *CardTotal) HasPaymentDueAmount() bool {
-	if o != nil && o.PaymentDueAmount != nil {
+	if o != nil && !IsNil(o.PaymentDueAmount) {
 		return true
 	}
 
@@ -111,7 +114,7 @@ func (o *CardTotal) SetPaymentDueAmount(v CurrencyAmount) {
 
 // GetStatementDueAmount returns the StatementDueAmount field value if set, zero value otherwise.
 func (o *CardTotal) GetStatementDueAmount() CurrencyAmount {
-	if o == nil || o.StatementDueAmount == nil {
+	if o == nil || IsNil(o.StatementDueAmount) {
 		var ret CurrencyAmount
 		return ret
 	}
@@ -121,7 +124,7 @@ func (o *CardTotal) GetStatementDueAmount() CurrencyAmount {
 // GetStatementDueAmountOk returns a tuple with the StatementDueAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardTotal) GetStatementDueAmountOk() (*CurrencyAmount, bool) {
-	if o == nil || o.StatementDueAmount == nil {
+	if o == nil || IsNil(o.StatementDueAmount) {
 		return nil, false
 	}
 	return o.StatementDueAmount, true
@@ -129,7 +132,7 @@ func (o *CardTotal) GetStatementDueAmountOk() (*CurrencyAmount, bool) {
 
 // HasStatementDueAmount returns a boolean if a field has been set.
 func (o *CardTotal) HasStatementDueAmount() bool {
-	if o != nil && o.StatementDueAmount != nil {
+	if o != nil && !IsNil(o.StatementDueAmount) {
 		return true
 	}
 
@@ -143,7 +146,7 @@ func (o *CardTotal) SetStatementDueAmount(v CurrencyAmount) {
 
 // GetTotalCreditLimit returns the TotalCreditLimit field value if set, zero value otherwise.
 func (o *CardTotal) GetTotalCreditLimit() CurrencyAmount {
-	if o == nil || o.TotalCreditLimit == nil {
+	if o == nil || IsNil(o.TotalCreditLimit) {
 		var ret CurrencyAmount
 		return ret
 	}
@@ -153,7 +156,7 @@ func (o *CardTotal) GetTotalCreditLimit() CurrencyAmount {
 // GetTotalCreditLimitOk returns a tuple with the TotalCreditLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardTotal) GetTotalCreditLimitOk() (*CurrencyAmount, bool) {
-	if o == nil || o.TotalCreditLimit == nil {
+	if o == nil || IsNil(o.TotalCreditLimit) {
 		return nil, false
 	}
 	return o.TotalCreditLimit, true
@@ -161,7 +164,7 @@ func (o *CardTotal) GetTotalCreditLimitOk() (*CurrencyAmount, bool) {
 
 // HasTotalCreditLimit returns a boolean if a field has been set.
 func (o *CardTotal) HasTotalCreditLimit() bool {
-	if o != nil && o.TotalCreditLimit != nil {
+	if o != nil && !IsNil(o.TotalCreditLimit) {
 		return true
 	}
 
@@ -175,7 +178,7 @@ func (o *CardTotal) SetTotalCreditLimit(v CurrencyAmount) {
 
 // GetAvailableCreditLimit returns the AvailableCreditLimit field value if set, zero value otherwise.
 func (o *CardTotal) GetAvailableCreditLimit() CurrencyAmount {
-	if o == nil || o.AvailableCreditLimit == nil {
+	if o == nil || IsNil(o.AvailableCreditLimit) {
 		var ret CurrencyAmount
 		return ret
 	}
@@ -185,7 +188,7 @@ func (o *CardTotal) GetAvailableCreditLimit() CurrencyAmount {
 // GetAvailableCreditLimitOk returns a tuple with the AvailableCreditLimit field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardTotal) GetAvailableCreditLimitOk() (*CurrencyAmount, bool) {
-	if o == nil || o.AvailableCreditLimit == nil {
+	if o == nil || IsNil(o.AvailableCreditLimit) {
 		return nil, false
 	}
 	return o.AvailableCreditLimit, true
@@ -193,7 +196,7 @@ func (o *CardTotal) GetAvailableCreditLimitOk() (*CurrencyAmount, bool) {
 
 // HasAvailableCreditLimit returns a boolean if a field has been set.
 func (o *CardTotal) HasAvailableCreditLimit() bool {
-	if o != nil && o.AvailableCreditLimit != nil {
+	if o != nil && !IsNil(o.AvailableCreditLimit) {
 		return true
 	}
 
@@ -207,7 +210,7 @@ func (o *CardTotal) SetAvailableCreditLimit(v CurrencyAmount) {
 
 // GetMinimumPaymentDue returns the MinimumPaymentDue field value if set, zero value otherwise.
 func (o *CardTotal) GetMinimumPaymentDue() CurrencyAmount {
-	if o == nil || o.MinimumPaymentDue == nil {
+	if o == nil || IsNil(o.MinimumPaymentDue) {
 		var ret CurrencyAmount
 		return ret
 	}
@@ -217,7 +220,7 @@ func (o *CardTotal) GetMinimumPaymentDue() CurrencyAmount {
 // GetMinimumPaymentDueOk returns a tuple with the MinimumPaymentDue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardTotal) GetMinimumPaymentDueOk() (*CurrencyAmount, bool) {
-	if o == nil || o.MinimumPaymentDue == nil {
+	if o == nil || IsNil(o.MinimumPaymentDue) {
 		return nil, false
 	}
 	return o.MinimumPaymentDue, true
@@ -225,7 +228,7 @@ func (o *CardTotal) GetMinimumPaymentDueOk() (*CurrencyAmount, bool) {
 
 // HasMinimumPaymentDue returns a boolean if a field has been set.
 func (o *CardTotal) HasMinimumPaymentDue() bool {
-	if o != nil && o.MinimumPaymentDue != nil {
+	if o != nil && !IsNil(o.MinimumPaymentDue) {
 		return true
 	}
 
@@ -239,7 +242,7 @@ func (o *CardTotal) SetMinimumPaymentDue(v CurrencyAmount) {
 
 // GetRewardsBalances returns the RewardsBalances field value if set, zero value otherwise.
 func (o *CardTotal) GetRewardsBalances() []GenericAmount {
-	if o == nil || o.RewardsBalances == nil {
+	if o == nil || IsNil(o.RewardsBalances) {
 		var ret []GenericAmount
 		return ret
 	}
@@ -249,7 +252,7 @@ func (o *CardTotal) GetRewardsBalances() []GenericAmount {
 // GetRewardsBalancesOk returns a tuple with the RewardsBalances field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardTotal) GetRewardsBalancesOk() ([]GenericAmount, bool) {
-	if o == nil || o.RewardsBalances == nil {
+	if o == nil || IsNil(o.RewardsBalances) {
 		return nil, false
 	}
 	return o.RewardsBalances, true
@@ -257,7 +260,7 @@ func (o *CardTotal) GetRewardsBalancesOk() ([]GenericAmount, bool) {
 
 // HasRewardsBalances returns a boolean if a field has been set.
 func (o *CardTotal) HasRewardsBalances() bool {
-	if o != nil && o.RewardsBalances != nil {
+	if o != nil && !IsNil(o.RewardsBalances) {
 		return true
 	}
 
@@ -271,7 +274,7 @@ func (o *CardTotal) SetRewardsBalances(v []GenericAmount) {
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *CardTotal) GetUpdatedAt() time.Time {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -281,7 +284,7 @@ func (o *CardTotal) GetUpdatedAt() time.Time {
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardTotal) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
 	return o.UpdatedAt, true
@@ -289,7 +292,7 @@ func (o *CardTotal) GetUpdatedAtOk() (*time.Time, bool) {
 
 // HasUpdatedAt returns a boolean if a field has been set.
 func (o *CardTotal) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
+	if o != nil && !IsNil(o.UpdatedAt) {
 		return true
 	}
 
@@ -302,32 +305,40 @@ func (o *CardTotal) SetUpdatedAt(v time.Time) {
 }
 
 func (o CardTotal) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.CurrentBalance != nil {
-		toSerialize["current_balance"] = o.CurrentBalance
-	}
-	if o.PaymentDueAmount != nil {
-		toSerialize["payment_due_amount"] = o.PaymentDueAmount
-	}
-	if o.StatementDueAmount != nil {
-		toSerialize["statement_due_amount"] = o.StatementDueAmount
-	}
-	if o.TotalCreditLimit != nil {
-		toSerialize["total_credit_limit"] = o.TotalCreditLimit
-	}
-	if o.AvailableCreditLimit != nil {
-		toSerialize["available_credit_limit"] = o.AvailableCreditLimit
-	}
-	if o.MinimumPaymentDue != nil {
-		toSerialize["minimum_payment_due"] = o.MinimumPaymentDue
-	}
-	if o.RewardsBalances != nil {
-		toSerialize["rewards_balances"] = o.RewardsBalances
-	}
-	if o.UpdatedAt != nil {
-		toSerialize["updated_at"] = o.UpdatedAt
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CardTotal) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CurrentBalance) {
+		toSerialize["current_balance"] = o.CurrentBalance
+	}
+	if !IsNil(o.PaymentDueAmount) {
+		toSerialize["payment_due_amount"] = o.PaymentDueAmount
+	}
+	if !IsNil(o.StatementDueAmount) {
+		toSerialize["statement_due_amount"] = o.StatementDueAmount
+	}
+	if !IsNil(o.TotalCreditLimit) {
+		toSerialize["total_credit_limit"] = o.TotalCreditLimit
+	}
+	if !IsNil(o.AvailableCreditLimit) {
+		toSerialize["available_credit_limit"] = o.AvailableCreditLimit
+	}
+	if !IsNil(o.MinimumPaymentDue) {
+		toSerialize["minimum_payment_due"] = o.MinimumPaymentDue
+	}
+	if !IsNil(o.RewardsBalances) {
+		toSerialize["rewards_balances"] = o.RewardsBalances
+	}
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updated_at"] = o.UpdatedAt
+	}
+	return toSerialize, nil
 }
 
 type NullableCardTotal struct {

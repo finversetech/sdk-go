@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the MandateDetailsResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MandateDetailsResponse{}
 
 // MandateDetailsResponse struct for MandateDetailsResponse
 type MandateDetailsResponse struct {
@@ -35,6 +40,8 @@ type MandateDetailsResponse struct {
 	CollectionEntityName *string `json:"collection_entity_name,omitempty"`
 }
 
+type _MandateDetailsResponse MandateDetailsResponse
+
 // NewMandateDetailsResponse instantiates a new MandateDetailsResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
@@ -55,7 +62,7 @@ func NewMandateDetailsResponseWithDefaults() *MandateDetailsResponse {
 
 // GetDdaReference returns the DdaReference field value if set, zero value otherwise.
 func (o *MandateDetailsResponse) GetDdaReference() string {
-	if o == nil || o.DdaReference == nil {
+	if o == nil || IsNil(o.DdaReference) {
 		var ret string
 		return ret
 	}
@@ -65,7 +72,7 @@ func (o *MandateDetailsResponse) GetDdaReference() string {
 // GetDdaReferenceOk returns a tuple with the DdaReference field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateDetailsResponse) GetDdaReferenceOk() (*string, bool) {
-	if o == nil || o.DdaReference == nil {
+	if o == nil || IsNil(o.DdaReference) {
 		return nil, false
 	}
 	return o.DdaReference, true
@@ -73,7 +80,7 @@ func (o *MandateDetailsResponse) GetDdaReferenceOk() (*string, bool) {
 
 // HasDdaReference returns a boolean if a field has been set.
 func (o *MandateDetailsResponse) HasDdaReference() bool {
-	if o != nil && o.DdaReference != nil {
+	if o != nil && !IsNil(o.DdaReference) {
 		return true
 	}
 
@@ -111,7 +118,7 @@ func (o *MandateDetailsResponse) SetCurrency(v string) {
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MandateDetailsResponse) GetStartDate() string {
-	if o == nil || o.StartDate.Get() == nil {
+	if o == nil || IsNil(o.StartDate.Get()) {
 		var ret string
 		return ret
 	}
@@ -154,7 +161,7 @@ func (o *MandateDetailsResponse) UnsetStartDate() {
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MandateDetailsResponse) GetEndDate() string {
-	if o == nil || o.EndDate.Get() == nil {
+	if o == nil || IsNil(o.EndDate.Get()) {
 		var ret string
 		return ret
 	}
@@ -197,7 +204,7 @@ func (o *MandateDetailsResponse) UnsetEndDate() {
 
 // GetPaymentSchedule returns the PaymentSchedule field value if set, zero value otherwise.
 func (o *MandateDetailsResponse) GetPaymentSchedule() PaymentSchedule {
-	if o == nil || o.PaymentSchedule == nil {
+	if o == nil || IsNil(o.PaymentSchedule) {
 		var ret PaymentSchedule
 		return ret
 	}
@@ -207,7 +214,7 @@ func (o *MandateDetailsResponse) GetPaymentSchedule() PaymentSchedule {
 // GetPaymentScheduleOk returns a tuple with the PaymentSchedule field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateDetailsResponse) GetPaymentScheduleOk() (*PaymentSchedule, bool) {
-	if o == nil || o.PaymentSchedule == nil {
+	if o == nil || IsNil(o.PaymentSchedule) {
 		return nil, false
 	}
 	return o.PaymentSchedule, true
@@ -215,7 +222,7 @@ func (o *MandateDetailsResponse) GetPaymentScheduleOk() (*PaymentSchedule, bool)
 
 // HasPaymentSchedule returns a boolean if a field has been set.
 func (o *MandateDetailsResponse) HasPaymentSchedule() bool {
-	if o != nil && o.PaymentSchedule != nil {
+	if o != nil && !IsNil(o.PaymentSchedule) {
 		return true
 	}
 
@@ -229,7 +236,7 @@ func (o *MandateDetailsResponse) SetPaymentSchedule(v PaymentSchedule) {
 
 // GetTransactionLimits returns the TransactionLimits field value if set, zero value otherwise.
 func (o *MandateDetailsResponse) GetTransactionLimits() TransactionLimits {
-	if o == nil || o.TransactionLimits == nil {
+	if o == nil || IsNil(o.TransactionLimits) {
 		var ret TransactionLimits
 		return ret
 	}
@@ -239,7 +246,7 @@ func (o *MandateDetailsResponse) GetTransactionLimits() TransactionLimits {
 // GetTransactionLimitsOk returns a tuple with the TransactionLimits field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateDetailsResponse) GetTransactionLimitsOk() (*TransactionLimits, bool) {
-	if o == nil || o.TransactionLimits == nil {
+	if o == nil || IsNil(o.TransactionLimits) {
 		return nil, false
 	}
 	return o.TransactionLimits, true
@@ -247,7 +254,7 @@ func (o *MandateDetailsResponse) GetTransactionLimitsOk() (*TransactionLimits, b
 
 // HasTransactionLimits returns a boolean if a field has been set.
 func (o *MandateDetailsResponse) HasTransactionLimits() bool {
-	if o != nil && o.TransactionLimits != nil {
+	if o != nil && !IsNil(o.TransactionLimits) {
 		return true
 	}
 
@@ -261,7 +268,7 @@ func (o *MandateDetailsResponse) SetTransactionLimits(v TransactionLimits) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *MandateDetailsResponse) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -271,7 +278,7 @@ func (o *MandateDetailsResponse) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateDetailsResponse) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -279,7 +286,7 @@ func (o *MandateDetailsResponse) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *MandateDetailsResponse) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -293,7 +300,7 @@ func (o *MandateDetailsResponse) SetDescription(v string) {
 
 // GetMandateBankReference returns the MandateBankReference field value if set, zero value otherwise.
 func (o *MandateDetailsResponse) GetMandateBankReference() string {
-	if o == nil || o.MandateBankReference == nil {
+	if o == nil || IsNil(o.MandateBankReference) {
 		var ret string
 		return ret
 	}
@@ -303,7 +310,7 @@ func (o *MandateDetailsResponse) GetMandateBankReference() string {
 // GetMandateBankReferenceOk returns a tuple with the MandateBankReference field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateDetailsResponse) GetMandateBankReferenceOk() (*string, bool) {
-	if o == nil || o.MandateBankReference == nil {
+	if o == nil || IsNil(o.MandateBankReference) {
 		return nil, false
 	}
 	return o.MandateBankReference, true
@@ -311,7 +318,7 @@ func (o *MandateDetailsResponse) GetMandateBankReferenceOk() (*string, bool) {
 
 // HasMandateBankReference returns a boolean if a field has been set.
 func (o *MandateDetailsResponse) HasMandateBankReference() bool {
-	if o != nil && o.MandateBankReference != nil {
+	if o != nil && !IsNil(o.MandateBankReference) {
 		return true
 	}
 
@@ -325,7 +332,7 @@ func (o *MandateDetailsResponse) SetMandateBankReference(v string) {
 
 // GetProcessorEntityName returns the ProcessorEntityName field value if set, zero value otherwise.
 func (o *MandateDetailsResponse) GetProcessorEntityName() string {
-	if o == nil || o.ProcessorEntityName == nil {
+	if o == nil || IsNil(o.ProcessorEntityName) {
 		var ret string
 		return ret
 	}
@@ -335,7 +342,7 @@ func (o *MandateDetailsResponse) GetProcessorEntityName() string {
 // GetProcessorEntityNameOk returns a tuple with the ProcessorEntityName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateDetailsResponse) GetProcessorEntityNameOk() (*string, bool) {
-	if o == nil || o.ProcessorEntityName == nil {
+	if o == nil || IsNil(o.ProcessorEntityName) {
 		return nil, false
 	}
 	return o.ProcessorEntityName, true
@@ -343,7 +350,7 @@ func (o *MandateDetailsResponse) GetProcessorEntityNameOk() (*string, bool) {
 
 // HasProcessorEntityName returns a boolean if a field has been set.
 func (o *MandateDetailsResponse) HasProcessorEntityName() bool {
-	if o != nil && o.ProcessorEntityName != nil {
+	if o != nil && !IsNil(o.ProcessorEntityName) {
 		return true
 	}
 
@@ -357,7 +364,7 @@ func (o *MandateDetailsResponse) SetProcessorEntityName(v string) {
 
 // GetCollectionEntityName returns the CollectionEntityName field value if set, zero value otherwise.
 func (o *MandateDetailsResponse) GetCollectionEntityName() string {
-	if o == nil || o.CollectionEntityName == nil {
+	if o == nil || IsNil(o.CollectionEntityName) {
 		var ret string
 		return ret
 	}
@@ -367,7 +374,7 @@ func (o *MandateDetailsResponse) GetCollectionEntityName() string {
 // GetCollectionEntityNameOk returns a tuple with the CollectionEntityName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateDetailsResponse) GetCollectionEntityNameOk() (*string, bool) {
-	if o == nil || o.CollectionEntityName == nil {
+	if o == nil || IsNil(o.CollectionEntityName) {
 		return nil, false
 	}
 	return o.CollectionEntityName, true
@@ -375,7 +382,7 @@ func (o *MandateDetailsResponse) GetCollectionEntityNameOk() (*string, bool) {
 
 // HasCollectionEntityName returns a boolean if a field has been set.
 func (o *MandateDetailsResponse) HasCollectionEntityName() bool {
-	if o != nil && o.CollectionEntityName != nil {
+	if o != nil && !IsNil(o.CollectionEntityName) {
 		return true
 	}
 
@@ -388,38 +395,81 @@ func (o *MandateDetailsResponse) SetCollectionEntityName(v string) {
 }
 
 func (o MandateDetailsResponse) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o MandateDetailsResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DdaReference != nil {
+	if !IsNil(o.DdaReference) {
 		toSerialize["dda_reference"] = o.DdaReference
 	}
-	if true {
-		toSerialize["currency"] = o.Currency
-	}
+	toSerialize["currency"] = o.Currency
 	if o.StartDate.IsSet() {
 		toSerialize["start_date"] = o.StartDate.Get()
 	}
 	if o.EndDate.IsSet() {
 		toSerialize["end_date"] = o.EndDate.Get()
 	}
-	if o.PaymentSchedule != nil {
+	if !IsNil(o.PaymentSchedule) {
 		toSerialize["payment_schedule"] = o.PaymentSchedule
 	}
-	if o.TransactionLimits != nil {
+	if !IsNil(o.TransactionLimits) {
 		toSerialize["transaction_limits"] = o.TransactionLimits
 	}
-	if o.Description != nil {
+	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if o.MandateBankReference != nil {
+	if !IsNil(o.MandateBankReference) {
 		toSerialize["mandate_bank_reference"] = o.MandateBankReference
 	}
-	if o.ProcessorEntityName != nil {
+	if !IsNil(o.ProcessorEntityName) {
 		toSerialize["processor_entity_name"] = o.ProcessorEntityName
 	}
-	if o.CollectionEntityName != nil {
+	if !IsNil(o.CollectionEntityName) {
 		toSerialize["collection_entity_name"] = o.CollectionEntityName
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
+}
+
+func (o *MandateDetailsResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"currency",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varMandateDetailsResponse := _MandateDetailsResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varMandateDetailsResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MandateDetailsResponse(varMandateDetailsResponse)
+
+	return err
 }
 
 type NullableMandateDetailsResponse struct {

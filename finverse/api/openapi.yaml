@@ -38,6 +38,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrBodyModel'
           description: Internal Server Error
+      security: []
       tags:
       - public
   /auth/customer/token:
@@ -76,6 +77,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/BadRequestModelV2'
           description: Internal Server Error
+      security: []
       tags:
       - public
       x-codegen-request-body-name: tokenRequest
@@ -251,11 +253,11 @@ paths:
       - login_identity
   /transactions/{accountId}:
     get:
-      description: Get a list of transactions for a particular account. The transactions
-        are returned in sorted order, with the most recent one appearing first.
+      description: "Get a list of transactions for a particular account. The transactions\
+        \ are returned in sorted order, with the most recent one appearing first."
       operationId: listTransactionsByAccountId
       parameters:
-      - description: The account id (ULID, example - 01EP4A1MZDHKETZFRPF0K62S6S)
+      - description: "The account id (ULID, example - 01EP4A1MZDHKETZFRPF0K62S6S)"
         in: path
         name: accountId
         required: true
@@ -268,7 +270,7 @@ paths:
           default: 0
           minimum: 0
           type: integer
-      - description: default is 500, max is 1000
+      - description: "default is 500, max is 1000"
         in: query
         name: limit
         schema:
@@ -276,8 +278,8 @@ paths:
           maximum: 1000
           minimum: 1
           type: integer
-      - description: when true, response will be enriched transactions; otherwise
-          it will be raw transactions
+      - description: "when true, response will be enriched transactions; otherwise\
+          \ it will be raw transactions"
         in: query
         name: enrichments
         schema:
@@ -309,8 +311,8 @@ paths:
       - login_identity
   /transactions:
     get:
-      description: Get a list of transactions for a login identity. The transactions
-        are returned in sorted order, with the most recent one appearing first.
+      description: "Get a list of transactions for a login identity. The transactions\
+        \ are returned in sorted order, with the most recent one appearing first."
       operationId: listTransactionsByLoginIdentityId
       parameters:
       - description: default is 0
@@ -320,7 +322,7 @@ paths:
           default: 0
           minimum: 0
           type: integer
-      - description: default is 500, max is 1000
+      - description: "default is 500, max is 1000"
         in: query
         name: limit
         schema:
@@ -328,8 +330,8 @@ paths:
           maximum: 1000
           minimum: 1
           type: integer
-      - description: when true, response will be enriched transactions; otherwise
-          it will be raw transactions
+      - description: "when true, response will be enriched transactions; otherwise\
+          \ it will be raw transactions"
         in: query
         name: enrichments
         schema:
@@ -502,7 +504,7 @@ paths:
         - institution:link
   /identity:
     get:
-      description: \[BETA] Get a list of identity data for a given login identity
+      description: "\\[BETA] Get a list of identity data for a given login identity"
       operationId: getIdentity
       responses:
         "200":
@@ -1135,6 +1137,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
           description: Internal Server Error
+      security: []
       tags:
       - public
   /auth/token:
@@ -1145,22 +1148,7 @@ paths:
         content:
           application/x-www-form-urlencoded:
             schema:
-              properties:
-                grant_type:
-                  enum:
-                  - authorization_code
-                  type: string
-                code:
-                  type: string
-                client_id:
-                  type: string
-                redirect_uri:
-                  type: string
-              required:
-              - client_id
-              - code
-              - grant_type
-              - redirect_uri
+              $ref: '#/components/schemas/token_request'
         required: true
       responses:
         "200":
@@ -1203,7 +1191,7 @@ paths:
             application/json:
               schema:
                 $ref: '#/components/schemas/AccessTokenResponse'
-          description: New refresh, access token
+          description: "New refresh, access token"
         "400":
           content:
             application/json:
@@ -1424,8 +1412,8 @@ paths:
         required: true
         schema:
           type: string
-      - description: when true, response will be http redirect; otherwise it will
-          be json response with the download link
+      - description: "when true, response will be http redirect; otherwise it will\
+          \ be json response with the download link"
         in: query
         name: redirect
         schema:
@@ -1463,8 +1451,8 @@ paths:
       description: Download composite statement
       operationId: getCompositeStatement
       parameters:
-      - description: when true, response will be http redirect; otherwise it will
-          be json response with the download link
+      - description: "when true, response will be http redirect; otherwise it will\
+          \ be json response with the download link"
         in: query
         name: redirect
         schema:
@@ -1514,6 +1502,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrBodyModelV2'
           description: Internal Server Error
+      security: []
       tags:
       - public
   /payment_users/{paymentUserId}/payment_methods:
@@ -1617,7 +1606,7 @@ paths:
         schema:
           format: date
           type: string
-      - description: The mandate statuses to filter for, comma separated
+      - description: "The mandate statuses to filter for, comma separated"
         explode: false
         in: query
         name: statuses
@@ -1659,7 +1648,7 @@ paths:
           default: 0
           minimum: 0
           type: integer
-      - description: default is 500, max is 1000
+      - description: "default is 500, max is 1000"
         in: query
         name: limit
         schema:
@@ -1699,9 +1688,9 @@ paths:
       description: CREATE Mandate
       operationId: createMandate
       parameters:
-      - description: A random key provided by the customer, per unique payment. The
-          purpose for the Idempotency key is to allow safe retrying without the operation
-          being performed multiple times.
+      - description: "A random key provided by the customer, per unique payment. The\
+          \ purpose for the Idempotency key is to allow safe retrying without the\
+          \ operation being performed multiple times."
         in: header
         name: Idempotency-Key
         schema:
@@ -1761,7 +1750,7 @@ paths:
         schema:
           format: date
           type: string
-      - description: The mandate statuses to filter for, comma separated
+      - description: "The mandate statuses to filter for, comma separated"
         explode: false
         in: query
         name: statuses
@@ -1803,7 +1792,7 @@ paths:
           default: 0
           minimum: 0
           type: integer
-      - description: default is 500, max is 1000
+      - description: "default is 500, max is 1000"
         in: query
         name: limit
         schema:
@@ -1969,9 +1958,9 @@ paths:
       description: Create mandate for an existing sender account
       operationId: createMandateForExistingSender
       parameters:
-      - description: A random key provided by the customer, per unique payment. The
-          purpose for the Idempotency key is to allow safe retrying without the operation
-          being performed multiple times.
+      - description: "A random key provided by the customer, per unique payment. The\
+          \ purpose for the Idempotency key is to allow safe retrying without the\
+          \ operation being performed multiple times."
         in: header
         name: Idempotency-Key
         required: true
@@ -2030,7 +2019,7 @@ paths:
         schema:
           format: date
           type: string
-      - description: The payment statuses to filter for, comma separated
+      - description: "The payment statuses to filter for, comma separated"
         explode: false
         in: query
         name: statuses
@@ -2113,7 +2102,7 @@ paths:
           default: 0
           minimum: 0
           type: integer
-      - description: default is 500, max is 1000
+      - description: "default is 500, max is 1000"
         in: query
         name: limit
         schema:
@@ -2153,9 +2142,9 @@ paths:
       description: Create new Payment
       operationId: createPayment
       parameters:
-      - description: A random key provided by the customer, per unique payment. The
-          purpose for the Idempotency key is to allow safe retrying without the operation
-          being performed multiple times.
+      - description: "A random key provided by the customer, per unique payment. The\
+          \ purpose for the Idempotency key is to allow safe retrying without the\
+          \ operation being performed multiple times."
         in: header
         name: Idempotency-Key
         schema:
@@ -2574,9 +2563,9 @@ paths:
       description: Create a scheduled payout
       operationId: createScheduledPayout
       parameters:
-      - description: A random key provided by the customer, per unique payment. The
-          purpose for the Idempotency key is to allow safe retrying without the operation
-          being performed multiple times.
+      - description: "A random key provided by the customer, per unique payment. The\
+          \ purpose for the Idempotency key is to allow safe retrying without the\
+          \ operation being performed multiple times."
         in: header
         name: Idempotency-Key
         required: true
@@ -3294,8 +3283,8 @@ components:
     Principal:
       properties:
         subject:
-          example: could be clientId/customerAppId/loginIdentityId depends on the
-            type of token, see also the explict claims for each of these ids
+          example: "could be clientId/customerAppId/loginIdentityId depends on the\
+            \ type of token, see also the explict claims for each of these ids"
           type: string
         token:
           example: algorithm.claims.hmac
@@ -3575,7 +3564,7 @@ components:
             bank_code: bank_code
           bank_shortname: testbank
           format: SWIFT
-          bank_address: 99 Stree, Building, City
+          bank_address: "99 Stree, Building, City"
           bank_country: Country
           bank_fullname: Finverse test bank
           bic: BKCHHKHHXXX
@@ -3583,7 +3572,7 @@ components:
             bank_code: bank_code
           bank_shortname: testbank
           format: SWIFT
-          bank_address: 99 Stree, Building, City
+          bank_address: "99 Stree, Building, City"
           bank_country: Country
           bank_fullname: Finverse test bank
           bic: BKCHHKHHXXX
@@ -3735,22 +3724,22 @@ components:
             account_ids:
             - account_ids
             - account_ids
-            mobile_phone: +12345678901
+            mobile_phone: "+12345678901"
             raw: +123 4567 8901
             masked_phone: +12345****01
             source: INTERNET_BANKING
-            other_phone: +12345678901
+            other_phone: "+12345678901"
           - source_ids:
             - source_ids
             - source_ids
             account_ids:
             - account_ids
             - account_ids
-            mobile_phone: +12345678901
+            mobile_phone: "+12345678901"
             raw: +123 4567 8901
             masked_phone: +12345****01
             source: INTERNET_BANKING
-            other_phone: +12345678901
+            other_phone: "+12345678901"
           addresses:
           - building_name: Building A
             street_address: 221B Baker Street
@@ -3759,9 +3748,9 @@ components:
             - account_ids
             - account_ids
             city: London
-            raw: 221B Baker Street, Westminster, London
+            raw: "221B Baker Street, Westminster, London"
             floor_number: "2"
-            full_address: 221B Baker Street, Westminster, London
+            full_address: "221B Baker Street, Westminster, London"
             ward: Sheung Wan
             source: INTERNET_BANKING
             street_name: Baker Street
@@ -3780,9 +3769,9 @@ components:
             - account_ids
             - account_ids
             city: London
-            raw: 221B Baker Street, Westminster, London
+            raw: "221B Baker Street, Westminster, London"
             floor_number: "2"
-            full_address: 221B Baker Street, Westminster, London
+            full_address: "221B Baker Street, Westminster, London"
             ward: Sheung Wan
             source: INTERNET_BANKING
             street_name: Baker Street
@@ -3882,22 +3871,22 @@ components:
           account_ids:
           - account_ids
           - account_ids
-          mobile_phone: +12345678901
+          mobile_phone: "+12345678901"
           raw: +123 4567 8901
           masked_phone: +12345****01
           source: INTERNET_BANKING
-          other_phone: +12345678901
+          other_phone: "+12345678901"
         - source_ids:
           - source_ids
           - source_ids
           account_ids:
           - account_ids
           - account_ids
-          mobile_phone: +12345678901
+          mobile_phone: "+12345678901"
           raw: +123 4567 8901
           masked_phone: +12345****01
           source: INTERNET_BANKING
-          other_phone: +12345678901
+          other_phone: "+12345678901"
         addresses:
         - building_name: Building A
           street_address: 221B Baker Street
@@ -3906,9 +3895,9 @@ components:
           - account_ids
           - account_ids
           city: London
-          raw: 221B Baker Street, Westminster, London
+          raw: "221B Baker Street, Westminster, London"
           floor_number: "2"
-          full_address: 221B Baker Street, Westminster, London
+          full_address: "221B Baker Street, Westminster, London"
           ward: Sheung Wan
           source: INTERNET_BANKING
           street_name: Baker Street
@@ -3927,9 +3916,9 @@ components:
           - account_ids
           - account_ids
           city: London
-          raw: 221B Baker Street, Westminster, London
+          raw: "221B Baker Street, Westminster, London"
           floor_number: "2"
-          full_address: 221B Baker Street, Westminster, London
+          full_address: "221B Baker Street, Westminster, London"
           ward: Sheung Wan
           source: INTERNET_BANKING
           street_name: Baker Street
@@ -4129,7 +4118,7 @@ components:
           example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           type: string
         group_id:
-          description: The SHA3-256 hash of the account number, salted with the loginIdentityId
+          description: "The SHA3-256 hash of the account number, salted with the loginIdentityId"
           example: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
           type: string
         account_holder_name:
@@ -4276,7 +4265,7 @@ components:
         description: Latte
         created_at: 2000-01-23T04:56:07.000+00:00
         transaction_type: OTHER
-        transaction_details: '{}'
+        transaction_details: "{}"
         account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
         category_id: OTHER
         updated_at: 2000-01-23T04:56:07.000+00:00
@@ -4296,7 +4285,7 @@ components:
           - TRANSFER
           source: TRANSACTION_RULES
           source_id: source_id
-        posted_date: 2020-10-10T00:00:00.000+0000
+        posted_date: 2020-10-10
         is_pending: false
         status: COMPLETED
       properties:
@@ -4337,7 +4326,7 @@ components:
           type: string
         posted_date:
           description: YYYY-MM-DD
-          example: 2020-10-10T00:00:00.000+0000
+          example: 2020-10-10
           type: string
         amount:
           $ref: '#/components/schemas/CurrencyAmount'
@@ -4470,7 +4459,7 @@ components:
           description: Latte
           created_at: 2000-01-23T04:56:07.000+00:00
           transaction_type: OTHER
-          transaction_details: '{}'
+          transaction_details: "{}"
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           category_id: OTHER
           updated_at: 2000-01-23T04:56:07.000+00:00
@@ -4490,7 +4479,7 @@ components:
             - TRANSFER
             source: TRANSACTION_RULES
             source_id: source_id
-          posted_date: 2020-10-10T00:00:00.000+0000
+          posted_date: 2020-10-10
           is_pending: false
           status: COMPLETED
         - transaction_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
@@ -4502,7 +4491,7 @@ components:
           description: Latte
           created_at: 2000-01-23T04:56:07.000+00:00
           transaction_type: OTHER
-          transaction_details: '{}'
+          transaction_details: "{}"
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           category_id: OTHER
           updated_at: 2000-01-23T04:56:07.000+00:00
@@ -4522,7 +4511,7 @@ components:
             - TRANSFER
             source: TRANSACTION_RULES
             source_id: source_id
-          posted_date: 2020-10-10T00:00:00.000+0000
+          posted_date: 2020-10-10
           is_pending: false
           status: COMPLETED
       properties:
@@ -4598,9 +4587,9 @@ components:
         - account_ids
         - account_ids
         city: London
-        raw: 221B Baker Street, Westminster, London
+        raw: "221B Baker Street, Westminster, London"
         floor_number: "2"
-        full_address: 221B Baker Street, Westminster, London
+        full_address: "221B Baker Street, Westminster, London"
         ward: Sheung Wan
         source: INTERNET_BANKING
         street_name: Baker Street
@@ -4614,10 +4603,10 @@ components:
         postal_code: NW1 6XE
       properties:
         raw:
-          example: 221B Baker Street, Westminster, London
+          example: "221B Baker Street, Westminster, London"
           type: string
         full_address:
-          example: 221B Baker Street, Westminster, London
+          example: "221B Baker Street, Westminster, London"
           type: string
         unit_number:
           example: 221B
@@ -4709,20 +4698,20 @@ components:
         account_ids:
         - account_ids
         - account_ids
-        mobile_phone: +12345678901
+        mobile_phone: "+12345678901"
         raw: +123 4567 8901
         masked_phone: +12345****01
         source: INTERNET_BANKING
-        other_phone: +12345678901
+        other_phone: "+12345678901"
       properties:
         raw:
           example: +123 4567 8901
           type: string
         mobile_phone:
-          example: +12345678901
+          example: "+12345678901"
           type: string
         other_phone:
-          example: +12345678901
+          example: "+12345678901"
           type: string
         masked_phone:
           example: +12345****01
@@ -4829,7 +4818,7 @@ components:
         countries:
         - HKG
         institution_name: Mock Bank
-        login_details: '{}'
+        login_details: "{}"
         institution_id: "123"
         tags:
         - real
@@ -5141,7 +5130,7 @@ components:
           example: Password
           type: string
         type:
-          description: could be password, text, number
+          description: "could be password, text, number"
           example: password
           type: string
       type: object
@@ -5214,7 +5203,7 @@ components:
         - PERSONAL
         grant_type: grant_type
         user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
-        scope: comma,separated,scopes
+        scope: "comma,separated,scopes"
         automatic_data_refresh: "ON"
         redirect_uri: https://example.com/callback
         state: user-state-passed
@@ -5241,8 +5230,8 @@ components:
           maxLength: 100
           type: string
         user_id:
-          description: required when creating new Link, ignored when updating existing
-            Link
+          description: "required when creating new Link, ignored when updating existing\
+            \ Link"
           example: 01BX5ZZKBKACTAV9WEVGEMMVRY
           maxLength: 100
           minLength: 4
@@ -5262,7 +5251,7 @@ components:
           maxLength: 100
           type: string
         scope:
-          example: comma,separated,scopes
+          example: "comma,separated,scopes"
           maxLength: 500
           type: string
         link_mode:
@@ -5271,8 +5260,8 @@ components:
           maxLength: 100
           type: string
         ui_mode:
-          description: The UI mode link is intended to be used in - "iframe", "auto_redirect",
-            "redirect" or "standalone"
+          description: "The UI mode link is intended to be used in - \"iframe\", \"\
+            auto_redirect\", \"redirect\" or \"standalone\""
           enum:
           - iframe
           - redirect
@@ -5281,8 +5270,8 @@ components:
           example: redirect
           type: string
         language:
-          description: ISO639-1 language code. Language to display when user open
-            the link, default to English (en) if not specified
+          description: "ISO639-1 language code. Language to display when user open\
+            \ the link, default to English (en) if not specified"
           enum:
           - en
           - vi
@@ -5728,52 +5717,52 @@ components:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
             identity:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
             income_estimation:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
             payments:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
             balance_history:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
             statements:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
             accounts:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
             account_numbers:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
             historical_transactions:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
             online_transactions:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
           created_at: 2000-01-23T04:56:07.000+00:00
           refresh:
             refresh_allowed: true
@@ -5796,7 +5785,7 @@ components:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
           first_success: 2000-01-23T04:56:07.000+00:00
           login_identity_id: login_identity_id
           session_status: COMPLETED
@@ -5830,52 +5819,52 @@ components:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
             identity:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
             income_estimation:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
             payments:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
             balance_history:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
             statements:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
             accounts:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
             account_numbers:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
             historical_transactions:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
             online_transactions:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
           created_at: 2000-01-23T04:56:07.000+00:00
           refresh:
             refresh_allowed: true
@@ -5898,7 +5887,7 @@ components:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
           first_success: 2000-01-23T04:56:07.000+00:00
           login_identity_id: login_identity_id
           session_status: COMPLETED
@@ -5986,52 +5975,52 @@ components:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
           identity:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
           income_estimation:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
           payments:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
           balance_history:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
           statements:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
           accounts:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
           account_numbers:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
           historical_transactions:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
           online_transactions:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
         created_at: 2000-01-23T04:56:07.000+00:00
         refresh:
           refresh_allowed: true
@@ -6054,7 +6043,7 @@ components:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
         first_success: 2000-01-23T04:56:07.000+00:00
         login_identity_id: login_identity_id
         session_status: COMPLETED
@@ -6309,52 +6298,52 @@ components:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
         identity:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
         income_estimation:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
         payments:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
         balance_history:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
         statements:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
         accounts:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
         account_numbers:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
         historical_transactions:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
         online_transactions:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
       properties:
         accounts:
           $ref: '#/components/schemas/ProductStatus'
@@ -6382,11 +6371,11 @@ components:
         last_successful_update: 2021-02-01T10:01:02.333Z
         last_update: 2021-02-01T10:01:02.333Z
         status_details: AUTHENTICATION_INITIALIZED
-        status: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+        status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
       properties:
         status:
           description: The current health of this product
-          example: IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR
+          example: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
           type: string
         status_details:
           description: The detailed event name
@@ -6701,7 +6690,7 @@ components:
           bank_code: bank_code
         bank_shortname: testbank
         format: SWIFT
-        bank_address: 99 Stree, Building, City
+        bank_address: "99 Stree, Building, City"
         bank_country: Country
         bank_fullname: Finverse test bank
         bic: BKCHHKHHXXX
@@ -6719,7 +6708,7 @@ components:
           example: testbank
           type: string
         bank_address:
-          example: 99 Stree, Building, City
+          example: "99 Stree, Building, City"
           type: string
         bank_country:
           example: Country
@@ -7098,7 +7087,7 @@ components:
           x5c:
           - x5c
           - x5c
-          n: "n"
+          "n": "n"
         - kty: kty
           e: e
           use: use
@@ -7106,7 +7095,7 @@ components:
           x5c:
           - x5c
           - x5c
-          n: "n"
+          "n": "n"
       properties:
         keys:
           items:
@@ -7122,11 +7111,11 @@ components:
         x5c:
         - x5c
         - x5c
-        n: "n"
+        "n": "n"
       properties:
         kty:
-          description: The "kty" (key type) parameter identifies the cryptographic
-            algorithm family used with the key, such as "RSA" or "EC".
+          description: "The \"kty\" (key type) parameter identifies the cryptographic\
+            \ algorithm family used with the key, such as \"RSA\" or \"EC\"."
           type: string
         kid:
           description: The "kid" (key ID) parameter is used to match a specific key
@@ -7138,7 +7127,7 @@ components:
         e:
           description: RSA key value "e"
           type: string
-        n:
+        "n":
           description: RSA key value "n"
           type: string
         x5c:
@@ -7435,8 +7424,8 @@ components:
           description: The placeholder for this field.
           type: string
         type:
-          description: The type of field. Currently it can only be SELECT, INPUT or
-            PASSWORD
+          description: "The type of field. Currently it can only be SELECT, INPUT\
+            \ or PASSWORD"
           example: SELECT
           type: string
         options:
@@ -7488,6 +7477,13 @@ components:
       - value
       type: object
     ErrBodyModelV2:
+      example:
+        error:
+          error_code: CREDENTIALS_INVALID
+          details: details
+          type: LINKING_ERROR
+          message: message
+          request_id: request_id
       properties:
         error:
           $ref: '#/components/schemas/FvErrorModelV2'
@@ -7552,6 +7548,14 @@ components:
       - type
       type: object
     ErrBodyModel:
+      example:
+        error:
+          code: CREDENTIALS_INVALID
+          error_code: CREDENTIALS_INVALID
+          details: details
+          type: LINKING_ERROR
+          message: message
+          request_id: request_id
       properties:
         error:
           $ref: '#/components/schemas/FvErrorModel'
@@ -7566,6 +7570,13 @@ components:
           $ref: '#/components/schemas/FvErrorModel'
       type: object
     FvErrorModel:
+      example:
+        code: CREDENTIALS_INVALID
+        error_code: CREDENTIALS_INVALID
+        details: details
+        type: LINKING_ERROR
+        message: message
+        request_id: request_id
       properties:
         type:
           description: The error type
@@ -7596,6 +7607,14 @@ components:
       - type
       type: object
     ErrorResponse:
+      example:
+        error_text: error_text
+        err: err
+        http_status_code: 0.8008281904610115
+        status_text: status_text
+        request_id: request_id
+        app_code: 6.027456183070403
+        error_category: error_category
       properties:
         err:
           type: string
@@ -7615,11 +7634,25 @@ components:
           type: string
       type: object
     BadRequestModel:
+      example:
+        error:
+          code: 40004.0
+          name: CREDENTIAL_NOT_STORED
+          link: link.finverse.com
+          message: Credential for this LoginIdentity is not stored. Please relink.
       properties:
         error:
           $ref: '#/components/schemas/BadRequestModel_error'
       type: object
     BadRequestModelV2:
+      example:
+        error:
+          code: 40004.0
+          error_code: CREDENTIALS_INVALID
+          details: details
+          type: LINKING_ERROR
+          message: message
+          request_id: request_id
       properties:
         error:
           $ref: '#/components/schemas/BadRequestModelV2_error'
@@ -7715,11 +7748,11 @@ components:
         currency: HKD
       properties:
         amount:
-          description: Amount to be paid, in currency's smallest unit or “minor unit”,
-            as defined in ISO 4217. For example, HKD 100.01 is represented as amount
-            = 10001 (minor unit = cents). For currencies without minor units (e.g.
-            VND, JPY), the amount is represented as is, without modification. For
-            example, VND 15101 is represented as amount = 15101.
+          description: "Amount to be paid, in currency's smallest unit or “minor unit”\
+            , as defined in ISO 4217. For example, HKD 100.01 is represented as amount\
+            \ = 10001 (minor unit = cents). For currencies without minor units (e.g.\
+            \ VND, JPY), the amount is represented as is, without modification. For\
+            \ example, VND 15101 is represented as amount = 15101."
           example: 100
           type: integer
         currency:
@@ -7756,15 +7789,15 @@ components:
         processor_entity_name: processor_entity_name
       properties:
         description:
-          description: The transaction description provided to banks, which banks
-            will show to their customers.
+          description: "The transaction description provided to banks, which banks\
+            \ will show to their customers."
           maxLength: 100
           type: string
         mandate_id:
           description: ID of the mandate this pament is referring to.
           type: string
         transaction_reference_id:
-          description: 'Deprecated: Customer''s ID for this transaction'
+          description: "Deprecated: Customer's ID for this transaction"
           type: string
         external_transaction_reference:
           description: Customer reference for this transaction
@@ -7884,11 +7917,11 @@ components:
           description: Finverse Payment ID
           type: string
         amount:
-          description: Amount to be paid, in currency's smallest unit or “minor unit”,
-            as defined in ISO 4217. For example, HKD 100.01 is represented as amount
-            = 10001 (minor unit = cents). For currencies without minor units (e.g.
-            VND, JPY), the amount is represented as is, without modification. For
-            example, VND 15101 is represented as amount = 15101.
+          description: "Amount to be paid, in currency's smallest unit or “minor unit”\
+            , as defined in ISO 4217. For example, HKD 100.01 is represented as amount\
+            \ = 10001 (minor unit = cents). For currencies without minor units (e.g.\
+            \ VND, JPY), the amount is represented as is, without modification. For\
+            \ example, VND 15101 is represented as amount = 15101."
           example: 100
           type: integer
         surcharge_amount:
@@ -7904,8 +7937,8 @@ components:
           example: HKD
           type: string
         type:
-          description: Indicates whether this is a mandate-based payment or one-off
-            direct payment to an account. Possible values - MANDATE, SINGLE
+          description: "Indicates whether this is a mandate-based payment or one-off\
+            \ direct payment to an account. Possible values - MANDATE, SINGLE"
           enum:
           - MANDATE
           - SINGLE
@@ -7917,8 +7950,8 @@ components:
           format: date-time
           type: string
         status:
-          description: Possible values - CREATED, AUTHORIZED, SUBMITTED, EXECUTED,
-            FAILED, REJECTED, CANCELLED.
+          description: "Possible values - CREATED, AUTHORIZED, SUBMITTED, EXECUTED,\
+            \ FAILED, REJECTED, CANCELLED."
           enum:
           - AUTHORIZATION_REQUIRED
           - AUTHORIZING
@@ -7952,9 +7985,9 @@ components:
         metadata:
           additionalProperties:
             type: string
-          description: 'Additional attributes of the payment in key:value format (e.g.
-            payment_internal_id: 1234). It supports up to 10 key:value pairs, whereas
-            the key and value supports up to 50 and 1000 characters respectively.'
+          description: "Additional attributes of the payment in key:value format (e.g.\
+            \ payment_internal_id: 1234). It supports up to 10 key:value pairs, whereas\
+            \ the key and value supports up to 50 and 1000 characters respectively."
           type: object
         error:
           $ref: '#/components/schemas/FvEmbeddedErrorModel'
@@ -8167,11 +8200,11 @@ components:
         currency: HKD
       properties:
         amount:
-          description: Amount to be paid, in currency's smallest unit or “minor unit”,
-            as defined in ISO 4217. For example, HKD 100.01 is represented as amount
-            = 10001 (minor unit = cents). For currencies without minor units (e.g.
-            VND, JPY), the amount is represented as is, without modification. For
-            example, VND 15101 is represented as amount = 15101.
+          description: "Amount to be paid, in currency's smallest unit or “minor unit”\
+            , as defined in ISO 4217. For example, HKD 100.01 is represented as amount\
+            \ = 10001 (minor unit = cents). For currencies without minor units (e.g.\
+            \ VND, JPY), the amount is represented as is, without modification. For\
+            \ example, VND 15101 is represented as amount = 15101."
           example: 100
           type: integer
         currency:
@@ -8344,8 +8377,8 @@ components:
             description on bank statements)
           type: string
         scheduled_date:
-          description: YYYY-MM-DD, date (in UTC) to execute the payment, must be 1
-            day later than current date
+          description: "YYYY-MM-DD, date (in UTC) to execute the payment, must be\
+            \ 1 day later than current date"
           format: date
           type: string
       required:
@@ -8362,14 +8395,14 @@ components:
     GetPaymentInstructionsResponse:
       example:
         payment_instruction:
-          end_date: 2000-01-23
+          end_date: 2022-11-30
           amount: 123.45
           reference_id: reference_id
           payment_instruction_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
           sender_name: Jane Doe
           recipient_account_id: Something
           type: DEBIT_AUTHORIZATION
-          frequency: DAILY, WEEKLY OR MONTHLY
+          frequency: "DAILY, WEEKLY OR MONTHLY"
           user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
           sender_account:
             raw: raw
@@ -8380,9 +8413,9 @@ components:
           login_identity_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
           recipient_name: John Wick
           remarks: This is regular payment to pay for loan
-          start_date: 2000-01-23
-          status: UNKNOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVAILABLE_FOR_INSTITUTION
-          info: '{}'
+          start_date: 2022-01-23
+          status: "UNKNOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVAILABLE_FOR_INSTITUTION"
+          info: "{}"
       properties:
         payment_instruction:
           $ref: '#/components/schemas/PaymentInstruction'
@@ -8399,7 +8432,7 @@ components:
       type: object
     CustomerPaymentInstruction:
       example:
-        end_date: 2000-01-23
+        end_date: 2022-11-30
         amount: 123.45
         user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
         sender_account_id: Something
@@ -8409,17 +8442,17 @@ components:
         type: DEBIT_AUTHORIZATION
         recipient_name: John Wick
         remarks: This is regular payment to pay for loan
-        start_date: 2000-01-23
-        frequency: DAILY, WEEKLY OR MONTHLY
+        start_date: 2022-01-23
+        frequency: "DAILY, WEEKLY OR MONTHLY"
       properties:
         user_id:
-          description: A id of the user of this payment, need to equal to userId when
-            creating link
+          description: "A id of the user of this payment, need to equal to userId\
+            \ when creating link"
           example: 01BX5ZZKBKACTAV9WEVGEMMVRY
           type: string
         type:
-          description: Type of payment is being created, please check Documentation
-            on which payment type is supported in each institution
+          description: "Type of payment is being created, please check Documentation\
+            \ on which payment type is supported in each institution"
           enum:
           - DEBIT_AUTHORIZATION
           type: string
@@ -8441,11 +8474,13 @@ components:
           type: string
         start_date:
           description: When the payment should start
+          example: 2022-01-23
           format: date
           nullable: true
           type: string
         end_date:
           description: When the payment should stop
+          example: 2022-11-30
           format: date
           nullable: true
           type: string
@@ -8459,7 +8494,7 @@ components:
           type: number
         frequency:
           description: How often the payment should be executed
-          example: DAILY, WEEKLY OR MONTHLY
+          example: "DAILY, WEEKLY OR MONTHLY"
           type: string
         remarks:
           description: Related remarks about this instruction
@@ -8471,14 +8506,14 @@ components:
       type: object
     PaymentInstruction:
       example:
-        end_date: 2000-01-23
+        end_date: 2022-11-30
         amount: 123.45
         reference_id: reference_id
         payment_instruction_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
         sender_name: Jane Doe
         recipient_account_id: Something
         type: DEBIT_AUTHORIZATION
-        frequency: DAILY, WEEKLY OR MONTHLY
+        frequency: "DAILY, WEEKLY OR MONTHLY"
         user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
         sender_account:
           raw: raw
@@ -8489,17 +8524,17 @@ components:
         login_identity_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
         recipient_name: John Wick
         remarks: This is regular payment to pay for loan
-        start_date: 2000-01-23
-        status: UNKNOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVAILABLE_FOR_INSTITUTION
-        info: '{}'
+        start_date: 2022-01-23
+        status: "UNKNOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVAILABLE_FOR_INSTITUTION"
+        info: "{}"
       properties:
         payment_instruction_id:
           description: An id of the this payment
           example: 01BX5ZZKBKACTAV9WEVGEMMVRY
           type: string
         user_id:
-          description: An id of the user of this payment, need to equal to userId
-            when creating link
+          description: "An id of the user of this payment, need to equal to userId\
+            \ when creating link"
           example: 01BX5ZZKBKACTAV9WEVGEMMVRY
           type: string
         login_identity_id:
@@ -8507,8 +8542,8 @@ components:
           example: 01BX5ZZKBKACTAV9WEVGEMMVRY
           type: string
         type:
-          description: Type of payment that was created, please check Documentation
-            on which payment type is supported in each institution
+          description: "Type of payment that was created, please check Documentation\
+            \ on which payment type is supported in each institution"
           enum:
           - DEBIT_AUTHORIZATION
           type: string
@@ -8532,11 +8567,13 @@ components:
           type: string
         start_date:
           description: When the payment should start
+          example: 2022-01-23
           format: date
           nullable: true
           type: string
         end_date:
           description: When the payment should stop
+          example: 2022-11-30
           format: date
           nullable: true
           type: string
@@ -8550,7 +8587,7 @@ components:
           type: number
         frequency:
           description: How often the payment should be executed
-          example: DAILY, WEEKLY OR MONTHLY
+          example: "DAILY, WEEKLY OR MONTHLY"
           type: string
         remarks:
           description: Related remarks about this instruction
@@ -8558,7 +8595,7 @@ components:
           type: string
         status:
           description: Status of the payment
-          example: UNKNOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVAILABLE_FOR_INSTITUTION
+          example: "UNKNOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVAILABLE_FOR_INSTITUTION"
           type: string
         reference_id:
           description: Reference identification returned by institution
@@ -8855,9 +8892,9 @@ components:
         metadata:
           additionalProperties:
             type: string
-          description: 'Additional attributes of the mandate in key:value format (e.g.
-            mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas
-            the key and value supports up to 50 and 1000 characters respectively.'
+          description: "Additional attributes of the mandate in key:value format (e.g.\
+            \ mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas\
+            \ the key and value supports up to 50 and 1000 characters respectively."
           type: object
         error:
           $ref: '#/components/schemas/FvEmbeddedErrorModel'
@@ -8919,8 +8956,8 @@ components:
           key: payment_metadata
       properties:
         amount:
-          description: The amount of the payment. Expressed in currency's smallest
-            unit or “minor unit”, as defined in ISO 4217.
+          description: "The amount of the payment. Expressed in currency's smallest\
+            \ unit or “minor unit”, as defined in ISO 4217."
           example: 100
           minimum: 1
           type: integer
@@ -8983,6 +9020,7 @@ components:
       - external_transaction_reference
       type: object
     UpdatePaymentRequest:
+      additionalProperties: true
       example:
         metadata:
           key: metadata
@@ -9003,8 +9041,8 @@ components:
           format: email
           type: string
         external_user_id:
-          description: Customer App's user ID, representing the end-user making the
-            payment.
+          description: "Customer App's user ID, representing the end-user making the\
+            \ payment."
           minLength: 1
           type: string
         name:
@@ -9038,8 +9076,8 @@ components:
           enrollment_prefill_value: "YES"
       properties:
         future_payments:
-          description: 'The type of future_payments that customer want to use. Possible
-            values: AUTOPAY or CLICK_TO_PAY'
+          description: "The type of future_payments that customer want to use. Possible\
+            \ values: AUTOPAY or CLICK_TO_PAY"
           enum:
           - AUTOPAY
           - CLICK_TO_PAY
@@ -9619,8 +9657,8 @@ components:
           description: Finverse Payment Link ID
           type: string
         amount:
-          description: The amount of the payment. Expressed in currency's smallest
-            unit or “minor unit”, as defined in ISO 4217.
+          description: "The amount of the payment. Expressed in currency's smallest\
+            \ unit or “minor unit”, as defined in ISO 4217."
           example: 100
           type: integer
         currency:
@@ -9645,9 +9683,9 @@ components:
         metadata:
           additionalProperties:
             type: string
-          description: 'Additional attributes of the payment link in key:value format
-            (e.g. payment_id: 1234). It supports up to 10 key:value pairs, whereas
-            the key and value supports up to 50 and 1000 characters respectively.'
+          description: "Additional attributes of the payment link in key:value format\
+            \ (e.g. payment_id: 1234). It supports up to 10 key:value pairs, whereas\
+            \ the key and value supports up to 50 and 1000 characters respectively."
           type: object
         payment_metadata:
           additionalProperties:
@@ -9708,8 +9746,8 @@ components:
           format: email
           type: string
         external_user_id:
-          description: Customer App's user ID, representing the end-user making the
-            payment.
+          description: "Customer App's user ID, representing the end-user making the\
+            \ payment."
           minLength: 1
           type: string
         name:
@@ -9816,8 +9854,8 @@ components:
         paid_by: RECIPIENT
       properties:
         amount:
-          description: The amount of fee for a single transaction. Expressed in currency's
-            smallest unit or “minor unit”, as defined in ISO 4217.
+          description: "The amount of fee for a single transaction. Expressed in currency's\
+            \ smallest unit or “minor unit”, as defined in ISO 4217."
           example: 100
           type: integer
         currency:
@@ -10089,9 +10127,9 @@ components:
         metadata:
           additionalProperties:
             type: string
-          description: 'Additional attributes of the mandate in key:value format (e.g.
-            mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas
-            the key and value supports up to 50 and 1000 characters respectively.'
+          description: "Additional attributes of the mandate in key:value format (e.g.\
+            \ mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas\
+            \ the key and value supports up to 50 and 1000 characters respectively."
           type: object
       required:
       - mandate_details
@@ -10377,12 +10415,12 @@ components:
         name:
           type: string
         external_user_id:
-          description: Customer App's user ID, representing the end-user making the
-            payment.
+          description: "Customer App's user ID, representing the end-user making the\
+            \ payment."
           type: string
         user_type:
-          description: Type of account held by the Sender at the Institution. Possible
-            values are INDIVIDUAL, BUSINESS
+          description: "Type of account held by the Sender at the Institution. Possible\
+            \ values are INDIVIDUAL, BUSINESS"
           enum:
           - INDIVIDUAL
           - BUSINESS
@@ -10422,12 +10460,12 @@ components:
         name:
           type: string
         external_user_id:
-          description: Customer App's user ID, representing the end-user making the
-            payment.
+          description: "Customer App's user ID, representing the end-user making the\
+            \ payment."
           type: string
         user_type:
-          description: Type of account held by the Sender at the Institution. Possible
-            values are INDIVIDUAL, BUSINESS
+          description: "Type of account held by the Sender at the Institution. Possible\
+            \ values are INDIVIDUAL, BUSINESS"
           enum:
           - INDIVIDUAL
           - BUSINESS
@@ -10462,20 +10500,20 @@ components:
         processor_entity_name: processor_entity_name
       properties:
         dda_reference:
-          description: The direct debit authorization reference, if empty this will
-            be omitted from response
+          description: "The direct debit authorization reference, if empty this will\
+            \ be omitted from response"
           type: string
         currency:
           description: ISO currency code
           type: string
         start_date:
-          description: YYYY-MM-DD, must be later than or the same as the date of creation.
-            If unspecified, default to the date of creation.
+          description: "YYYY-MM-DD, must be later than or the same as the date of\
+            \ creation. If unspecified, default to the date of creation."
           format: date
           nullable: true
           type: string
         end_date:
-          description: YYYY-MM-DD, must be later than the date of creation.
+          description: "YYYY-MM-DD, must be later than the date of creation."
           format: date
           nullable: true
           type: string
@@ -10484,11 +10522,11 @@ components:
         transaction_limits:
           $ref: '#/components/schemas/TransactionLimits'
         description:
-          description: End-user facing description of the mandate (used in notifications,
-            and in payments if no description is provided)
+          description: "End-user facing description of the mandate (used in notifications,\
+            \ and in payments if no description is provided)"
           type: string
         mandate_bank_reference:
-          description: A bank specific reference, what the end user may see
+          description: "A bank specific reference, what the end user may see"
           type: string
         processor_entity_name:
           type: string
@@ -10517,13 +10555,13 @@ components:
           description: ISO currency code
           type: string
         start_date:
-          description: YYYY-MM-DD, must be later than or the same as the date of creation.
-            If unspecified, default to the date of creation.
+          description: "YYYY-MM-DD, must be later than or the same as the date of\
+            \ creation. If unspecified, default to the date of creation."
           format: date
           nullable: true
           type: string
         end_date:
-          description: YYYY-MM-DD, must be later than the date of creation.
+          description: "YYYY-MM-DD, must be later than the date of creation."
           format: date
           nullable: true
           type: string
@@ -10532,11 +10570,11 @@ components:
         transaction_limits:
           $ref: '#/components/schemas/TransactionLimits'
         description:
-          description: End-user facing description of the mandate (used in notifications,
-            and in payments if no description is provided)
+          description: "End-user facing description of the mandate (used in notifications,\
+            \ and in payments if no description is provided)"
           type: string
         mandate_bank_reference:
-          description: A bank specific reference, what the end user may see
+          description: "A bank specific reference, what the end user may see"
           type: string
       required:
       - currency
@@ -10561,21 +10599,21 @@ components:
           description: ISO currency code
           type: string
         start_date:
-          description: YYYY-MM-DD, must be later than or the same as the date of creation.
-            If unspecified, default to the date of creation.
+          description: "YYYY-MM-DD, must be later than or the same as the date of\
+            \ creation. If unspecified, default to the date of creation."
           format: date
           nullable: true
           type: string
         end_date:
-          description: YYYY-MM-DD, must be later than the date of creation.
+          description: "YYYY-MM-DD, must be later than the date of creation."
           format: date
           nullable: true
           type: string
         transaction_limits:
           $ref: '#/components/schemas/TransactionLimits'
         description:
-          description: End-user facing description of the mandate (used in notifications,
-            and in payments if no description is provided)
+          description: "End-user facing description of the mandate (used in notifications,\
+            \ and in payments if no description is provided)"
           type: string
       required:
       - currency
@@ -10593,21 +10631,21 @@ components:
         start_date: 2000-01-23
       properties:
         start_date:
-          description: YYYY-MM-DD, must be later than or the same as the date of creation.
-            If unspecified, default to the date of creation.
+          description: "YYYY-MM-DD, must be later than or the same as the date of\
+            \ creation. If unspecified, default to the date of creation."
           format: date
           nullable: true
           type: string
         end_date:
-          description: YYYY-MM-DD, must be later than the date of creation.
+          description: "YYYY-MM-DD, must be later than the date of creation."
           format: date
           nullable: true
           type: string
         transaction_limits:
           $ref: '#/components/schemas/TransactionLimits'
         description:
-          description: End-user facing description of the mandate (used in notifications,
-            and in payments if no description is provided)
+          description: "End-user facing description of the mandate (used in notifications,\
+            \ and in payments if no description is provided)"
           type: string
       type: object
     SenderDetail:
@@ -10621,7 +10659,7 @@ components:
         details_type: HK_ID
       properties:
         details_type:
-          description: The type of the details. For e.g. HK_ID, PASSPORT etc
+          description: "The type of the details. For e.g. HK_ID, PASSPORT etc"
           enum:
           - HK_ID
           - PASSPORT
@@ -10641,16 +10679,16 @@ components:
         frequency: DAILY
       properties:
         amount:
-          description: Amount to be paid, in currency’s smallest unit or “minor unit”,
-            as defined in ISO 4217. For example, HKD 100.01 is represented as amount
-            = 10001 (minor unit = cents). For currencies without minor units (e.g.
-            VND, JPY), the amount is represented as is, without modification. For
-            example, VND 15101 is represented as amount = 15101.
+          description: "Amount to be paid, in currency’s smallest unit or “minor unit”\
+            , as defined in ISO 4217. For example, HKD 100.01 is represented as amount\
+            \ = 10001 (minor unit = cents). For currencies without minor units (e.g.\
+            \ VND, JPY), the amount is represented as is, without modification. For\
+            \ example, VND 15101 is represented as amount = 15101."
           example: 100
           type: integer
         frequency:
-          description: Frequency of the payment. Possible values (DAILY, WEEKLY, MONTHLY,
-            QUARTERLY, YEARLY)
+          description: "Frequency of the payment. Possible values (DAILY, WEEKLY,\
+            \ MONTHLY, QUARTERLY, YEARLY)"
           enum:
           - DAILY
           - WEEKLY
@@ -10670,9 +10708,9 @@ components:
         max_transaction_amount: 1
       properties:
         max_period_amount:
-          description: Maximum amount of money that can be paid during the reference
-            period (across any number of transactions). Expressed in currency's smallest
-            unit or “minor unit”, as defined in ISO 4217.
+          description: "Maximum amount of money that can be paid during the reference\
+            \ period (across any number of transactions). Expressed in currency's\
+            \ smallest unit or “minor unit”, as defined in ISO 4217."
           minimum: 1
           type: integer
         max_period_count:
@@ -10681,14 +10719,14 @@ components:
           minimum: 1
           type: integer
         max_transaction_amount:
-          description: The maximum amount of money that can be transferred in a single
-            transaction under this mandate. Expressed in currency's smallest unit
-            or “minor unit”, as defined in ISO 4217.
+          description: "The maximum amount of money that can be transferred in a single\
+            \ transaction under this mandate. Expressed in currency's smallest unit\
+            \ or “minor unit”, as defined in ISO 4217."
           minimum: 1
           type: integer
         period:
-          description: Reference calendar periods for the payment limits. Possible
-            values (DAILY, WEEKLY, MONTHLY, QUARTERLY, YEARLY)
+          description: "Reference calendar periods for the payment limits. Possible\
+            \ values (DAILY, WEEKLY, MONTHLY, QUARTERLY, YEARLY)"
           enum:
           - DAILY
           - WEEKLY
@@ -10763,8 +10801,8 @@ components:
         ui_mode: redirect
       properties:
         language:
-          description: ISO639-1 language code. Language to display when user open
-            the link, default to English (en) if not specified
+          description: "ISO639-1 language code. Language to display when user open\
+            \ the link, default to English (en) if not specified"
           enum:
           - en
           - vi
@@ -10772,8 +10810,8 @@ components:
           example: en
           type: string
         ui_mode:
-          description: The UI mode link is intended to be used in - "iframe", "auto_redirect",
-            "redirect" or "standalone"
+          description: "The UI mode link is intended to be used in - \"iframe\", \"\
+            auto_redirect\", \"redirect\" or \"standalone\""
           enum:
           - iframe
           - redirect
@@ -10820,8 +10858,8 @@ components:
           example: alpha beta supported
           type: string
         language:
-          description: ISO639-1 language code. Language to display when user open
-            the link, default to English (en) if not specified
+          description: "ISO639-1 language code. Language to display when user open\
+            \ the link, default to English (en) if not specified"
           enum:
           - en
           - vi
@@ -10833,8 +10871,8 @@ components:
           example: real
           type: string
         products_supported:
-          description: institution's supported product filter. For mandate authorization,
-            this field should contain ["MANDATE"]
+          description: "institution's supported product filter. For mandate authorization,\
+            \ this field should contain [\"MANDATE\"]"
           example:
           - ACCOUNTS
           - TRANSACTIONS
@@ -10843,8 +10881,8 @@ components:
             type: string
           type: array
         ui_mode:
-          description: The UI mode link is intended to be used in - "iframe", "auto_redirect",
-            "redirect" or "standalone"
+          description: "The UI mode link is intended to be used in - \"iframe\", \"\
+            auto_redirect\", \"redirect\" or \"standalone\""
           enum:
           - iframe
           - redirect
@@ -10946,8 +10984,8 @@ components:
             included in the request.
           type: string
         sender_type:
-          description: Type of account held by the Sender at the Institution. Possible
-            values are INDIVIDUAL, BUSINESS
+          description: "Type of account held by the Sender at the Institution. Possible\
+            \ values are INDIVIDUAL, BUSINESS"
           enum:
           - INDIVIDUAL
           - BUSINESS
@@ -11020,8 +11058,8 @@ components:
           description: Allows grouping similar checklist item types together
           type: string
         required:
-          description: Indicates whether authorization factor is known to be required
-            at this time.  Possible values are YES, NO, OPTIONAL
+          description: "Indicates whether authorization factor is known to be required\
+            \ at this time.  Possible values are YES, NO, OPTIONAL"
           enum:
           - "YES"
           - "NO"
@@ -11050,8 +11088,8 @@ components:
         redirect_url: redirect_url
       properties:
         name:
-          description: Name of authorization factor. Possible values are INSTITUTION_CREDENTIALS_LOGIN,
-            INSTITUTION_OAUTH_LOGIN,
+          description: "Name of authorization factor. Possible values are INSTITUTION_CREDENTIALS_LOGIN,\
+            \ INSTITUTION_OAUTH_LOGIN,"
           enum:
           - INSTITUTION_CREDENTIALS_LOGIN
           - INSTITUTION_OAUTH_LOGIN
@@ -11063,8 +11101,8 @@ components:
           nullable: true
           type: string
         submitted_by:
-          description: Indicates who submitted the authorization factor to Finverse.
-            Possible values are CUSTOMER_APP, FINVERSE_LINK
+          description: "Indicates who submitted the authorization factor to Finverse.\
+            \ Possible values are CUSTOMER_APP, FINVERSE_LINK"
           enum:
           - CUSTOMER_APP
           - FINVERSE_LINK
@@ -11264,7 +11302,7 @@ components:
         type: LOCAL
       properties:
         type:
-          description: 'Type of account number. Possible values: LOCAL, IBAN'
+          description: "Type of account number. Possible values: LOCAL, IBAN"
           enum:
           - LOCAL
           - IBAN
@@ -11344,9 +11382,9 @@ components:
         metadata:
           additionalProperties:
             type: string
-          description: 'Additional attributes of the sender account in key:value format
-            (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas
-            the key and value supports up to 50 and 1000 characters respectively.'
+          description: "Additional attributes of the sender account in key:value format\
+            \ (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas\
+            \ the key and value supports up to 50 and 1000 characters respectively."
           type: object
       type: object
     GetPaymentUserResponse:
@@ -11364,9 +11402,9 @@ components:
           description: The user's current autopay value
           type: boolean
         autopay_prefill:
-          description: This indicates the value that the user's pre-set selection
-            should be. If this is a new user, the value will be set to true by default,
-            else it will be the user's current autopay value.
+          description: "This indicates the value that the user's pre-set selection\
+            \ should be. If this is a new user, the value will be set to true by default,\
+            \ else it will be the user's current autopay value."
           type: boolean
       required:
       - autopay_consent
@@ -11558,9 +11596,9 @@ components:
         metadata:
           additionalProperties:
             type: string
-          description: 'Additional attributes of the sender account in key:value format
-            (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas
-            the key and value supports up to 50 and 1000 characters respectively.'
+          description: "Additional attributes of the sender account in key:value format\
+            \ (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas\
+            \ the key and value supports up to 50 and 1000 characters respectively."
           type: object
         created_at:
           description: Timestamp of when the payment link was created in ISO format
@@ -11699,6 +11737,7 @@ components:
       - name
       type: object
     UpdatePaymentUserRequest:
+      additionalProperties: true
       example:
         autopay_consent: true
         metadata:
@@ -12350,8 +12389,8 @@ components:
         ui_mode: redirect
       properties:
         language:
-          description: ISO639-1 language code. Language to display when user open
-            the link, default to English (en) if not specified
+          description: "ISO639-1 language code. Language to display when user open\
+            \ the link, default to English (en) if not specified"
           enum:
           - en
           - vi
@@ -12384,8 +12423,9 @@ components:
           ui_mode: redirect
       properties:
         user_present:
-          description: Indicate whether the user is present in this flow. If the user
-            is not present, only institutions that do not require 2fa can be refreshed
+          description: "Indicate whether the user is present in this flow. If the\
+            \ user is not present, only institutions that do not require 2fa can be\
+            \ refreshed"
           type: boolean
         link_customizations:
           $ref: '#/components/schemas/RefreshLoginIdentityLinkCustomizations'
@@ -12400,7 +12440,30 @@ components:
       required:
       - download_url
       type: object
+    token_request:
+      properties:
+        grant_type:
+          enum:
+          - authorization_code
+          type: string
+        code:
+          type: string
+        client_id:
+          type: string
+        redirect_uri:
+          type: string
+      required:
+      - client_id
+      - code
+      - grant_type
+      - redirect_uri
+      type: object
     BadRequestModel_error:
+      example:
+        code: 40004.0
+        name: CREDENTIAL_NOT_STORED
+        link: link.finverse.com
+        message: Credential for this LoginIdentity is not stored. Please relink.
       properties:
         code:
           example: 40004.0
@@ -12417,6 +12480,13 @@ components:
           type: string
       type: object
     BadRequestModelV2_error:
+      example:
+        code: 40004.0
+        error_code: CREDENTIALS_INVALID
+        details: details
+        type: LINKING_ERROR
+        message: message
+        request_id: request_id
       properties:
         type:
           description: The error type

@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the MandateFvLinkDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MandateFvLinkDetails{}
+
 // MandateFvLinkDetails struct for MandateFvLinkDetails
 type MandateFvLinkDetails struct {
 	CollectionEntityName *string `json:"collection_entity_name,omitempty"`
@@ -39,7 +42,7 @@ func NewMandateFvLinkDetailsWithDefaults() *MandateFvLinkDetails {
 
 // GetCollectionEntityName returns the CollectionEntityName field value if set, zero value otherwise.
 func (o *MandateFvLinkDetails) GetCollectionEntityName() string {
-	if o == nil || o.CollectionEntityName == nil {
+	if o == nil || IsNil(o.CollectionEntityName) {
 		var ret string
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *MandateFvLinkDetails) GetCollectionEntityName() string {
 // GetCollectionEntityNameOk returns a tuple with the CollectionEntityName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateFvLinkDetails) GetCollectionEntityNameOk() (*string, bool) {
-	if o == nil || o.CollectionEntityName == nil {
+	if o == nil || IsNil(o.CollectionEntityName) {
 		return nil, false
 	}
 	return o.CollectionEntityName, true
@@ -57,7 +60,7 @@ func (o *MandateFvLinkDetails) GetCollectionEntityNameOk() (*string, bool) {
 
 // HasCollectionEntityName returns a boolean if a field has been set.
 func (o *MandateFvLinkDetails) HasCollectionEntityName() bool {
-	if o != nil && o.CollectionEntityName != nil {
+	if o != nil && !IsNil(o.CollectionEntityName) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *MandateFvLinkDetails) SetCollectionEntityName(v string) {
 }
 
 func (o MandateFvLinkDetails) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.CollectionEntityName != nil {
-		toSerialize["collection_entity_name"] = o.CollectionEntityName
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o MandateFvLinkDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CollectionEntityName) {
+		toSerialize["collection_entity_name"] = o.CollectionEntityName
+	}
+	return toSerialize, nil
 }
 
 type NullableMandateFvLinkDetails struct {

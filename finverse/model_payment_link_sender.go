@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PaymentLinkSender type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaymentLinkSender{}
 
 // PaymentLinkSender struct for PaymentLinkSender
 type PaymentLinkSender struct {
@@ -23,6 +28,8 @@ type PaymentLinkSender struct {
 	// Accountholder name of the sender's account
 	Name string `json:"name"`
 }
+
+type _PaymentLinkSender PaymentLinkSender
 
 // NewPaymentLinkSender instantiates a new PaymentLinkSender object
 // This constructor will assign default values to properties that have it defined,
@@ -45,7 +52,7 @@ func NewPaymentLinkSenderWithDefaults() *PaymentLinkSender {
 
 // GetEmail returns the Email field value if set, zero value otherwise.
 func (o *PaymentLinkSender) GetEmail() string {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		var ret string
 		return ret
 	}
@@ -55,7 +62,7 @@ func (o *PaymentLinkSender) GetEmail() string {
 // GetEmailOk returns a tuple with the Email field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkSender) GetEmailOk() (*string, bool) {
-	if o == nil || o.Email == nil {
+	if o == nil || IsNil(o.Email) {
 		return nil, false
 	}
 	return o.Email, true
@@ -63,7 +70,7 @@ func (o *PaymentLinkSender) GetEmailOk() (*string, bool) {
 
 // HasEmail returns a boolean if a field has been set.
 func (o *PaymentLinkSender) HasEmail() bool {
-	if o != nil && o.Email != nil {
+	if o != nil && !IsNil(o.Email) {
 		return true
 	}
 
@@ -124,17 +131,59 @@ func (o *PaymentLinkSender) SetName(v string) {
 }
 
 func (o PaymentLinkSender) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Email != nil {
-		toSerialize["email"] = o.Email
-	}
-	if true {
-		toSerialize["external_user_id"] = o.ExternalUserId
-	}
-	if true {
-		toSerialize["name"] = o.Name
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PaymentLinkSender) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Email) {
+		toSerialize["email"] = o.Email
+	}
+	toSerialize["external_user_id"] = o.ExternalUserId
+	toSerialize["name"] = o.Name
+	return toSerialize, nil
+}
+
+func (o *PaymentLinkSender) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"external_user_id",
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPaymentLinkSender := _PaymentLinkSender{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPaymentLinkSender)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentLinkSender(varPaymentLinkSender)
+
+	return err
 }
 
 type NullablePaymentLinkSender struct {

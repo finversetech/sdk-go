@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PayoutDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PayoutDetails{}
 
 // PayoutDetails struct for PayoutDetails
 type PayoutDetails struct {
@@ -24,6 +29,8 @@ type PayoutDetails struct {
 	// YYYY-MM-DD, date (in UTC) to execute the payment, must be 1 day later than current date
 	ScheduledDate string `json:"scheduled_date"`
 }
+
+type _PayoutDetails PayoutDetails
 
 // NewPayoutDetails instantiates a new PayoutDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -70,7 +77,7 @@ func (o *PayoutDetails) SetMandateId(v string) {
 
 // GetDescription returns the Description field value if set, zero value otherwise.
 func (o *PayoutDetails) GetDescription() string {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
@@ -80,7 +87,7 @@ func (o *PayoutDetails) GetDescription() string {
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PayoutDetails) GetDescriptionOk() (*string, bool) {
-	if o == nil || o.Description == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
 	return o.Description, true
@@ -88,7 +95,7 @@ func (o *PayoutDetails) GetDescriptionOk() (*string, bool) {
 
 // HasDescription returns a boolean if a field has been set.
 func (o *PayoutDetails) HasDescription() bool {
-	if o != nil && o.Description != nil {
+	if o != nil && !IsNil(o.Description) {
 		return true
 	}
 
@@ -125,17 +132,59 @@ func (o *PayoutDetails) SetScheduledDate(v string) {
 }
 
 func (o PayoutDetails) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["mandate_id"] = o.MandateId
-	}
-	if o.Description != nil {
-		toSerialize["description"] = o.Description
-	}
-	if true {
-		toSerialize["scheduled_date"] = o.ScheduledDate
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PayoutDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["mandate_id"] = o.MandateId
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
+	toSerialize["scheduled_date"] = o.ScheduledDate
+	return toSerialize, nil
+}
+
+func (o *PayoutDetails) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"mandate_id",
+		"scheduled_date",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPayoutDetails := _PayoutDetails{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPayoutDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PayoutDetails(varPayoutDetails)
+
+	return err
 }
 
 type NullablePayoutDetails struct {

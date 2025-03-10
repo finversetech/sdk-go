@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the LinkRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LinkRequest{}
 
 // LinkRequest struct for LinkRequest
 type LinkRequest struct {
@@ -26,6 +31,8 @@ type LinkRequest struct {
 	// The identifier returned after creating payment instruction
 	PaymentInstructionId *string `json:"payment_instruction_id,omitempty"`
 }
+
+type _LinkRequest LinkRequest
 
 // NewLinkRequest instantiates a new LinkRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -96,7 +103,7 @@ func (o *LinkRequest) SetStoreCredential(v bool) {
 
 // GetConsent returns the Consent field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *LinkRequest) GetConsent() bool {
-	if o == nil || o.Consent.Get() == nil {
+	if o == nil || IsNil(o.Consent.Get()) {
 		var ret bool
 		return ret
 	}
@@ -139,7 +146,7 @@ func (o *LinkRequest) UnsetConsent() {
 
 // GetProductsRequested returns the ProductsRequested field value if set, zero value otherwise.
 func (o *LinkRequest) GetProductsRequested() []string {
-	if o == nil || o.ProductsRequested == nil {
+	if o == nil || IsNil(o.ProductsRequested) {
 		var ret []string
 		return ret
 	}
@@ -149,7 +156,7 @@ func (o *LinkRequest) GetProductsRequested() []string {
 // GetProductsRequestedOk returns a tuple with the ProductsRequested field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkRequest) GetProductsRequestedOk() ([]string, bool) {
-	if o == nil || o.ProductsRequested == nil {
+	if o == nil || IsNil(o.ProductsRequested) {
 		return nil, false
 	}
 	return o.ProductsRequested, true
@@ -157,7 +164,7 @@ func (o *LinkRequest) GetProductsRequestedOk() ([]string, bool) {
 
 // HasProductsRequested returns a boolean if a field has been set.
 func (o *LinkRequest) HasProductsRequested() bool {
-	if o != nil && o.ProductsRequested != nil {
+	if o != nil && !IsNil(o.ProductsRequested) {
 		return true
 	}
 
@@ -171,7 +178,7 @@ func (o *LinkRequest) SetProductsRequested(v []string) {
 
 // GetPaymentInstructionId returns the PaymentInstructionId field value if set, zero value otherwise.
 func (o *LinkRequest) GetPaymentInstructionId() string {
-	if o == nil || o.PaymentInstructionId == nil {
+	if o == nil || IsNil(o.PaymentInstructionId) {
 		var ret string
 		return ret
 	}
@@ -181,7 +188,7 @@ func (o *LinkRequest) GetPaymentInstructionId() string {
 // GetPaymentInstructionIdOk returns a tuple with the PaymentInstructionId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LinkRequest) GetPaymentInstructionIdOk() (*string, bool) {
-	if o == nil || o.PaymentInstructionId == nil {
+	if o == nil || IsNil(o.PaymentInstructionId) {
 		return nil, false
 	}
 	return o.PaymentInstructionId, true
@@ -189,7 +196,7 @@ func (o *LinkRequest) GetPaymentInstructionIdOk() (*string, bool) {
 
 // HasPaymentInstructionId returns a boolean if a field has been set.
 func (o *LinkRequest) HasPaymentInstructionId() bool {
-	if o != nil && o.PaymentInstructionId != nil {
+	if o != nil && !IsNil(o.PaymentInstructionId) {
 		return true
 	}
 
@@ -202,23 +209,65 @@ func (o *LinkRequest) SetPaymentInstructionId(v string) {
 }
 
 func (o LinkRequest) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o LinkRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["institution_id"] = o.InstitutionId
-	}
-	if true {
-		toSerialize["store_credential"] = o.StoreCredential
-	}
+	toSerialize["institution_id"] = o.InstitutionId
+	toSerialize["store_credential"] = o.StoreCredential
 	if o.Consent.IsSet() {
 		toSerialize["consent"] = o.Consent.Get()
 	}
-	if o.ProductsRequested != nil {
+	if !IsNil(o.ProductsRequested) {
 		toSerialize["products_requested"] = o.ProductsRequested
 	}
-	if o.PaymentInstructionId != nil {
+	if !IsNil(o.PaymentInstructionId) {
 		toSerialize["payment_instruction_id"] = o.PaymentInstructionId
 	}
-	return json.Marshal(toSerialize)
+	return toSerialize, nil
+}
+
+func (o *LinkRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"institution_id",
+		"store_credential",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varLinkRequest := _LinkRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varLinkRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LinkRequest(varLinkRequest)
+
+	return err
 }
 
 type NullableLinkRequest struct {

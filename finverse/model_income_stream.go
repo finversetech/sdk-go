@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the IncomeStream type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IncomeStream{}
 
 // IncomeStream struct for IncomeStream
 type IncomeStream struct {
@@ -24,6 +29,8 @@ type IncomeStream struct {
 	TransactionCount float32                 `json:"transaction_count"`
 	MonthlyHistory   []MonthlyIncomeEstimate `json:"monthly_history"`
 }
+
+type _IncomeStream IncomeStream
 
 // NewIncomeStream instantiates a new IncomeStream object
 // This constructor will assign default values to properties that have it defined,
@@ -71,7 +78,7 @@ func (o *IncomeStream) SetAccountId(v string) {
 
 // GetEstimatedMonthlyIncome returns the EstimatedMonthlyIncome field value if set, zero value otherwise.
 func (o *IncomeStream) GetEstimatedMonthlyIncome() IncomeEstimate {
-	if o == nil || o.EstimatedMonthlyIncome == nil {
+	if o == nil || IsNil(o.EstimatedMonthlyIncome) {
 		var ret IncomeEstimate
 		return ret
 	}
@@ -81,7 +88,7 @@ func (o *IncomeStream) GetEstimatedMonthlyIncome() IncomeEstimate {
 // GetEstimatedMonthlyIncomeOk returns a tuple with the EstimatedMonthlyIncome field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IncomeStream) GetEstimatedMonthlyIncomeOk() (*IncomeEstimate, bool) {
-	if o == nil || o.EstimatedMonthlyIncome == nil {
+	if o == nil || IsNil(o.EstimatedMonthlyIncome) {
 		return nil, false
 	}
 	return o.EstimatedMonthlyIncome, true
@@ -89,7 +96,7 @@ func (o *IncomeStream) GetEstimatedMonthlyIncomeOk() (*IncomeEstimate, bool) {
 
 // HasEstimatedMonthlyIncome returns a boolean if a field has been set.
 func (o *IncomeStream) HasEstimatedMonthlyIncome() bool {
-	if o != nil && o.EstimatedMonthlyIncome != nil {
+	if o != nil && !IsNil(o.EstimatedMonthlyIncome) {
 		return true
 	}
 
@@ -150,20 +157,61 @@ func (o *IncomeStream) SetMonthlyHistory(v []MonthlyIncomeEstimate) {
 }
 
 func (o IncomeStream) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["account_id"] = o.AccountId
-	}
-	if o.EstimatedMonthlyIncome != nil {
-		toSerialize["estimated_monthly_income"] = o.EstimatedMonthlyIncome
-	}
-	if true {
-		toSerialize["transaction_count"] = o.TransactionCount
-	}
-	if true {
-		toSerialize["monthly_history"] = o.MonthlyHistory
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o IncomeStream) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["account_id"] = o.AccountId
+	if !IsNil(o.EstimatedMonthlyIncome) {
+		toSerialize["estimated_monthly_income"] = o.EstimatedMonthlyIncome
+	}
+	toSerialize["transaction_count"] = o.TransactionCount
+	toSerialize["monthly_history"] = o.MonthlyHistory
+	return toSerialize, nil
+}
+
+func (o *IncomeStream) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"account_id",
+		"transaction_count",
+		"monthly_history",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varIncomeStream := _IncomeStream{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varIncomeStream)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IncomeStream(varIncomeStream)
+
+	return err
 }
 
 type NullableIncomeStream struct {

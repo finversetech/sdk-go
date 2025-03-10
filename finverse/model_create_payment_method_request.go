@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the CreatePaymentMethodRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CreatePaymentMethodRequest{}
 
 // CreatePaymentMethodRequest struct for CreatePaymentMethodRequest
 type CreatePaymentMethodRequest struct {
@@ -22,6 +27,8 @@ type CreatePaymentMethodRequest struct {
 	IntegrationMetadata *PaymentMethodIntegrationMetadata     `json:"integration_metadata,omitempty"`
 	PaymentMethodType   string                                `json:"payment_method_type"`
 }
+
+type _CreatePaymentMethodRequest CreatePaymentMethodRequest
 
 // NewCreatePaymentMethodRequest instantiates a new CreatePaymentMethodRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -43,7 +50,7 @@ func NewCreatePaymentMethodRequestWithDefaults() *CreatePaymentMethodRequest {
 
 // GetCard returns the Card field value if set, zero value otherwise.
 func (o *CreatePaymentMethodRequest) GetCard() CreateCardRequest {
-	if o == nil || o.Card == nil {
+	if o == nil || IsNil(o.Card) {
 		var ret CreateCardRequest
 		return ret
 	}
@@ -53,7 +60,7 @@ func (o *CreatePaymentMethodRequest) GetCard() CreateCardRequest {
 // GetCardOk returns a tuple with the Card field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentMethodRequest) GetCardOk() (*CreateCardRequest, bool) {
-	if o == nil || o.Card == nil {
+	if o == nil || IsNil(o.Card) {
 		return nil, false
 	}
 	return o.Card, true
@@ -61,7 +68,7 @@ func (o *CreatePaymentMethodRequest) GetCardOk() (*CreateCardRequest, bool) {
 
 // HasCard returns a boolean if a field has been set.
 func (o *CreatePaymentMethodRequest) HasCard() bool {
-	if o != nil && o.Card != nil {
+	if o != nil && !IsNil(o.Card) {
 		return true
 	}
 
@@ -75,7 +82,7 @@ func (o *CreatePaymentMethodRequest) SetCard(v CreateCardRequest) {
 
 // GetMandate returns the Mandate field value if set, zero value otherwise.
 func (o *CreatePaymentMethodRequest) GetMandate() CreateMandateRequestWithDdaReference {
-	if o == nil || o.Mandate == nil {
+	if o == nil || IsNil(o.Mandate) {
 		var ret CreateMandateRequestWithDdaReference
 		return ret
 	}
@@ -85,7 +92,7 @@ func (o *CreatePaymentMethodRequest) GetMandate() CreateMandateRequestWithDdaRef
 // GetMandateOk returns a tuple with the Mandate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentMethodRequest) GetMandateOk() (*CreateMandateRequestWithDdaReference, bool) {
-	if o == nil || o.Mandate == nil {
+	if o == nil || IsNil(o.Mandate) {
 		return nil, false
 	}
 	return o.Mandate, true
@@ -93,7 +100,7 @@ func (o *CreatePaymentMethodRequest) GetMandateOk() (*CreateMandateRequestWithDd
 
 // HasMandate returns a boolean if a field has been set.
 func (o *CreatePaymentMethodRequest) HasMandate() bool {
-	if o != nil && o.Mandate != nil {
+	if o != nil && !IsNil(o.Mandate) {
 		return true
 	}
 
@@ -107,7 +114,7 @@ func (o *CreatePaymentMethodRequest) SetMandate(v CreateMandateRequestWithDdaRef
 
 // GetIntegrationMetadata returns the IntegrationMetadata field value if set, zero value otherwise.
 func (o *CreatePaymentMethodRequest) GetIntegrationMetadata() PaymentMethodIntegrationMetadata {
-	if o == nil || o.IntegrationMetadata == nil {
+	if o == nil || IsNil(o.IntegrationMetadata) {
 		var ret PaymentMethodIntegrationMetadata
 		return ret
 	}
@@ -117,7 +124,7 @@ func (o *CreatePaymentMethodRequest) GetIntegrationMetadata() PaymentMethodInteg
 // GetIntegrationMetadataOk returns a tuple with the IntegrationMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentMethodRequest) GetIntegrationMetadataOk() (*PaymentMethodIntegrationMetadata, bool) {
-	if o == nil || o.IntegrationMetadata == nil {
+	if o == nil || IsNil(o.IntegrationMetadata) {
 		return nil, false
 	}
 	return o.IntegrationMetadata, true
@@ -125,7 +132,7 @@ func (o *CreatePaymentMethodRequest) GetIntegrationMetadataOk() (*PaymentMethodI
 
 // HasIntegrationMetadata returns a boolean if a field has been set.
 func (o *CreatePaymentMethodRequest) HasIntegrationMetadata() bool {
-	if o != nil && o.IntegrationMetadata != nil {
+	if o != nil && !IsNil(o.IntegrationMetadata) {
 		return true
 	}
 
@@ -162,20 +169,63 @@ func (o *CreatePaymentMethodRequest) SetPaymentMethodType(v string) {
 }
 
 func (o CreatePaymentMethodRequest) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Card != nil {
-		toSerialize["card"] = o.Card
-	}
-	if o.Mandate != nil {
-		toSerialize["mandate"] = o.Mandate
-	}
-	if o.IntegrationMetadata != nil {
-		toSerialize["integration_metadata"] = o.IntegrationMetadata
-	}
-	if true {
-		toSerialize["payment_method_type"] = o.PaymentMethodType
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CreatePaymentMethodRequest) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Card) {
+		toSerialize["card"] = o.Card
+	}
+	if !IsNil(o.Mandate) {
+		toSerialize["mandate"] = o.Mandate
+	}
+	if !IsNil(o.IntegrationMetadata) {
+		toSerialize["integration_metadata"] = o.IntegrationMetadata
+	}
+	toSerialize["payment_method_type"] = o.PaymentMethodType
+	return toSerialize, nil
+}
+
+func (o *CreatePaymentMethodRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"payment_method_type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varCreatePaymentMethodRequest := _CreatePaymentMethodRequest{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varCreatePaymentMethodRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreatePaymentMethodRequest(varCreatePaymentMethodRequest)
+
+	return err
 }
 
 type NullableCreatePaymentMethodRequest struct {

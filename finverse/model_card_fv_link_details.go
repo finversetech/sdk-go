@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the CardFvLinkDetails type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &CardFvLinkDetails{}
+
 // CardFvLinkDetails struct for CardFvLinkDetails
 type CardFvLinkDetails struct {
 	// The credit card brand
@@ -47,7 +50,7 @@ func NewCardFvLinkDetailsWithDefaults() *CardFvLinkDetails {
 
 // GetBrand returns the Brand field value if set, zero value otherwise.
 func (o *CardFvLinkDetails) GetBrand() string {
-	if o == nil || o.Brand == nil {
+	if o == nil || IsNil(o.Brand) {
 		var ret string
 		return ret
 	}
@@ -57,7 +60,7 @@ func (o *CardFvLinkDetails) GetBrand() string {
 // GetBrandOk returns a tuple with the Brand field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardFvLinkDetails) GetBrandOk() (*string, bool) {
-	if o == nil || o.Brand == nil {
+	if o == nil || IsNil(o.Brand) {
 		return nil, false
 	}
 	return o.Brand, true
@@ -65,7 +68,7 @@ func (o *CardFvLinkDetails) GetBrandOk() (*string, bool) {
 
 // HasBrand returns a boolean if a field has been set.
 func (o *CardFvLinkDetails) HasBrand() bool {
-	if o != nil && o.Brand != nil {
+	if o != nil && !IsNil(o.Brand) {
 		return true
 	}
 
@@ -79,7 +82,7 @@ func (o *CardFvLinkDetails) SetBrand(v string) {
 
 // GetLast4 returns the Last4 field value if set, zero value otherwise.
 func (o *CardFvLinkDetails) GetLast4() string {
-	if o == nil || o.Last4 == nil {
+	if o == nil || IsNil(o.Last4) {
 		var ret string
 		return ret
 	}
@@ -89,7 +92,7 @@ func (o *CardFvLinkDetails) GetLast4() string {
 // GetLast4Ok returns a tuple with the Last4 field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardFvLinkDetails) GetLast4Ok() (*string, bool) {
-	if o == nil || o.Last4 == nil {
+	if o == nil || IsNil(o.Last4) {
 		return nil, false
 	}
 	return o.Last4, true
@@ -97,7 +100,7 @@ func (o *CardFvLinkDetails) GetLast4Ok() (*string, bool) {
 
 // HasLast4 returns a boolean if a field has been set.
 func (o *CardFvLinkDetails) HasLast4() bool {
-	if o != nil && o.Last4 != nil {
+	if o != nil && !IsNil(o.Last4) {
 		return true
 	}
 
@@ -111,7 +114,7 @@ func (o *CardFvLinkDetails) SetLast4(v string) {
 
 // GetExpiryMonth returns the ExpiryMonth field value if set, zero value otherwise.
 func (o *CardFvLinkDetails) GetExpiryMonth() int32 {
-	if o == nil || o.ExpiryMonth == nil {
+	if o == nil || IsNil(o.ExpiryMonth) {
 		var ret int32
 		return ret
 	}
@@ -121,7 +124,7 @@ func (o *CardFvLinkDetails) GetExpiryMonth() int32 {
 // GetExpiryMonthOk returns a tuple with the ExpiryMonth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardFvLinkDetails) GetExpiryMonthOk() (*int32, bool) {
-	if o == nil || o.ExpiryMonth == nil {
+	if o == nil || IsNil(o.ExpiryMonth) {
 		return nil, false
 	}
 	return o.ExpiryMonth, true
@@ -129,7 +132,7 @@ func (o *CardFvLinkDetails) GetExpiryMonthOk() (*int32, bool) {
 
 // HasExpiryMonth returns a boolean if a field has been set.
 func (o *CardFvLinkDetails) HasExpiryMonth() bool {
-	if o != nil && o.ExpiryMonth != nil {
+	if o != nil && !IsNil(o.ExpiryMonth) {
 		return true
 	}
 
@@ -143,7 +146,7 @@ func (o *CardFvLinkDetails) SetExpiryMonth(v int32) {
 
 // GetExpiryYear returns the ExpiryYear field value if set, zero value otherwise.
 func (o *CardFvLinkDetails) GetExpiryYear() int32 {
-	if o == nil || o.ExpiryYear == nil {
+	if o == nil || IsNil(o.ExpiryYear) {
 		var ret int32
 		return ret
 	}
@@ -153,7 +156,7 @@ func (o *CardFvLinkDetails) GetExpiryYear() int32 {
 // GetExpiryYearOk returns a tuple with the ExpiryYear field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardFvLinkDetails) GetExpiryYearOk() (*int32, bool) {
-	if o == nil || o.ExpiryYear == nil {
+	if o == nil || IsNil(o.ExpiryYear) {
 		return nil, false
 	}
 	return o.ExpiryYear, true
@@ -161,7 +164,7 @@ func (o *CardFvLinkDetails) GetExpiryYearOk() (*int32, bool) {
 
 // HasExpiryYear returns a boolean if a field has been set.
 func (o *CardFvLinkDetails) HasExpiryYear() bool {
-	if o != nil && o.ExpiryYear != nil {
+	if o != nil && !IsNil(o.ExpiryYear) {
 		return true
 	}
 
@@ -175,7 +178,7 @@ func (o *CardFvLinkDetails) SetExpiryYear(v int32) {
 
 // GetCollectionEntityName returns the CollectionEntityName field value if set, zero value otherwise.
 func (o *CardFvLinkDetails) GetCollectionEntityName() string {
-	if o == nil || o.CollectionEntityName == nil {
+	if o == nil || IsNil(o.CollectionEntityName) {
 		var ret string
 		return ret
 	}
@@ -185,7 +188,7 @@ func (o *CardFvLinkDetails) GetCollectionEntityName() string {
 // GetCollectionEntityNameOk returns a tuple with the CollectionEntityName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CardFvLinkDetails) GetCollectionEntityNameOk() (*string, bool) {
-	if o == nil || o.CollectionEntityName == nil {
+	if o == nil || IsNil(o.CollectionEntityName) {
 		return nil, false
 	}
 	return o.CollectionEntityName, true
@@ -193,7 +196,7 @@ func (o *CardFvLinkDetails) GetCollectionEntityNameOk() (*string, bool) {
 
 // HasCollectionEntityName returns a boolean if a field has been set.
 func (o *CardFvLinkDetails) HasCollectionEntityName() bool {
-	if o != nil && o.CollectionEntityName != nil {
+	if o != nil && !IsNil(o.CollectionEntityName) {
 		return true
 	}
 
@@ -206,23 +209,31 @@ func (o *CardFvLinkDetails) SetCollectionEntityName(v string) {
 }
 
 func (o CardFvLinkDetails) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Brand != nil {
-		toSerialize["brand"] = o.Brand
-	}
-	if o.Last4 != nil {
-		toSerialize["last4"] = o.Last4
-	}
-	if o.ExpiryMonth != nil {
-		toSerialize["expiry_month"] = o.ExpiryMonth
-	}
-	if o.ExpiryYear != nil {
-		toSerialize["expiry_year"] = o.ExpiryYear
-	}
-	if o.CollectionEntityName != nil {
-		toSerialize["collection_entity_name"] = o.CollectionEntityName
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o CardFvLinkDetails) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Brand) {
+		toSerialize["brand"] = o.Brand
+	}
+	if !IsNil(o.Last4) {
+		toSerialize["last4"] = o.Last4
+	}
+	if !IsNil(o.ExpiryMonth) {
+		toSerialize["expiry_month"] = o.ExpiryMonth
+	}
+	if !IsNil(o.ExpiryYear) {
+		toSerialize["expiry_year"] = o.ExpiryYear
+	}
+	if !IsNil(o.CollectionEntityName) {
+		toSerialize["collection_entity_name"] = o.CollectionEntityName
+	}
+	return toSerialize, nil
 }
 
 type NullableCardFvLinkDetails struct {

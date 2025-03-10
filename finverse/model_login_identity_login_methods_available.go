@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the LoginIdentityLoginMethodsAvailable type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &LoginIdentityLoginMethodsAvailable{}
+
 // LoginIdentityLoginMethodsAvailable struct for LoginIdentityLoginMethodsAvailable
 type LoginIdentityLoginMethodsAvailable struct {
 	HavePassword *bool `json:"havePassword,omitempty"`
@@ -40,7 +43,7 @@ func NewLoginIdentityLoginMethodsAvailableWithDefaults() *LoginIdentityLoginMeth
 
 // GetHavePassword returns the HavePassword field value if set, zero value otherwise.
 func (o *LoginIdentityLoginMethodsAvailable) GetHavePassword() bool {
-	if o == nil || o.HavePassword == nil {
+	if o == nil || IsNil(o.HavePassword) {
 		var ret bool
 		return ret
 	}
@@ -50,7 +53,7 @@ func (o *LoginIdentityLoginMethodsAvailable) GetHavePassword() bool {
 // GetHavePasswordOk returns a tuple with the HavePassword field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LoginIdentityLoginMethodsAvailable) GetHavePasswordOk() (*bool, bool) {
-	if o == nil || o.HavePassword == nil {
+	if o == nil || IsNil(o.HavePassword) {
 		return nil, false
 	}
 	return o.HavePassword, true
@@ -58,7 +61,7 @@ func (o *LoginIdentityLoginMethodsAvailable) GetHavePasswordOk() (*bool, bool) {
 
 // HasHavePassword returns a boolean if a field has been set.
 func (o *LoginIdentityLoginMethodsAvailable) HasHavePassword() bool {
-	if o != nil && o.HavePassword != nil {
+	if o != nil && !IsNil(o.HavePassword) {
 		return true
 	}
 
@@ -72,7 +75,7 @@ func (o *LoginIdentityLoginMethodsAvailable) SetHavePassword(v bool) {
 
 // GetHaveSecret returns the HaveSecret field value if set, zero value otherwise.
 func (o *LoginIdentityLoginMethodsAvailable) GetHaveSecret() bool {
-	if o == nil || o.HaveSecret == nil {
+	if o == nil || IsNil(o.HaveSecret) {
 		var ret bool
 		return ret
 	}
@@ -82,7 +85,7 @@ func (o *LoginIdentityLoginMethodsAvailable) GetHaveSecret() bool {
 // GetHaveSecretOk returns a tuple with the HaveSecret field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *LoginIdentityLoginMethodsAvailable) GetHaveSecretOk() (*bool, bool) {
-	if o == nil || o.HaveSecret == nil {
+	if o == nil || IsNil(o.HaveSecret) {
 		return nil, false
 	}
 	return o.HaveSecret, true
@@ -90,7 +93,7 @@ func (o *LoginIdentityLoginMethodsAvailable) GetHaveSecretOk() (*bool, bool) {
 
 // HasHaveSecret returns a boolean if a field has been set.
 func (o *LoginIdentityLoginMethodsAvailable) HasHaveSecret() bool {
-	if o != nil && o.HaveSecret != nil {
+	if o != nil && !IsNil(o.HaveSecret) {
 		return true
 	}
 
@@ -103,14 +106,22 @@ func (o *LoginIdentityLoginMethodsAvailable) SetHaveSecret(v bool) {
 }
 
 func (o LoginIdentityLoginMethodsAvailable) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.HavePassword != nil {
-		toSerialize["havePassword"] = o.HavePassword
-	}
-	if o.HaveSecret != nil {
-		toSerialize["haveSecret"] = o.HaveSecret
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o LoginIdentityLoginMethodsAvailable) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.HavePassword) {
+		toSerialize["havePassword"] = o.HavePassword
+	}
+	if !IsNil(o.HaveSecret) {
+		toSerialize["haveSecret"] = o.HaveSecret
+	}
+	return toSerialize, nil
 }
 
 type NullableLoginIdentityLoginMethodsAvailable struct {

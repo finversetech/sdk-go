@@ -16,6 +16,9 @@ import (
 	"time"
 )
 
+// checks if the FVCard type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &FVCard{}
+
 // FVCard struct for FVCard
 type FVCard struct {
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
@@ -48,7 +51,7 @@ func NewFVCardWithDefaults() *FVCard {
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *FVCard) GetCreatedAt() time.Time {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -58,7 +61,7 @@ func (o *FVCard) GetCreatedAt() time.Time {
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FVCard) GetCreatedAtOk() (*time.Time, bool) {
-	if o == nil || o.CreatedAt == nil {
+	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
 	return o.CreatedAt, true
@@ -66,7 +69,7 @@ func (o *FVCard) GetCreatedAtOk() (*time.Time, bool) {
 
 // HasCreatedAt returns a boolean if a field has been set.
 func (o *FVCard) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt != nil {
+	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
 
@@ -80,7 +83,7 @@ func (o *FVCard) SetCreatedAt(v time.Time) {
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *FVCard) GetUpdatedAt() time.Time {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
 		return ret
 	}
@@ -90,7 +93,7 @@ func (o *FVCard) GetUpdatedAt() time.Time {
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FVCard) GetUpdatedAtOk() (*time.Time, bool) {
-	if o == nil || o.UpdatedAt == nil {
+	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
 	return o.UpdatedAt, true
@@ -98,7 +101,7 @@ func (o *FVCard) GetUpdatedAtOk() (*time.Time, bool) {
 
 // HasUpdatedAt returns a boolean if a field has been set.
 func (o *FVCard) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt != nil {
+	if o != nil && !IsNil(o.UpdatedAt) {
 		return true
 	}
 
@@ -112,7 +115,7 @@ func (o *FVCard) SetUpdatedAt(v time.Time) {
 
 // GetStatus returns the Status field value if set, zero value otherwise.
 func (o *FVCard) GetStatus() string {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		var ret string
 		return ret
 	}
@@ -122,7 +125,7 @@ func (o *FVCard) GetStatus() string {
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FVCard) GetStatusOk() (*string, bool) {
-	if o == nil || o.Status == nil {
+	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
 	return o.Status, true
@@ -130,7 +133,7 @@ func (o *FVCard) GetStatusOk() (*string, bool) {
 
 // HasStatus returns a boolean if a field has been set.
 func (o *FVCard) HasStatus() bool {
-	if o != nil && o.Status != nil {
+	if o != nil && !IsNil(o.Status) {
 		return true
 	}
 
@@ -144,7 +147,7 @@ func (o *FVCard) SetStatus(v string) {
 
 // GetError returns the Error field value if set, zero value otherwise.
 func (o *FVCard) GetError() FvEmbeddedErrorModel {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		var ret FvEmbeddedErrorModel
 		return ret
 	}
@@ -154,7 +157,7 @@ func (o *FVCard) GetError() FvEmbeddedErrorModel {
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FVCard) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
-	if o == nil || o.Error == nil {
+	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
 	return o.Error, true
@@ -162,7 +165,7 @@ func (o *FVCard) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
 
 // HasError returns a boolean if a field has been set.
 func (o *FVCard) HasError() bool {
-	if o != nil && o.Error != nil {
+	if o != nil && !IsNil(o.Error) {
 		return true
 	}
 
@@ -176,7 +179,7 @@ func (o *FVCard) SetError(v FvEmbeddedErrorModel) {
 
 // GetCardDetails returns the CardDetails field value if set, zero value otherwise.
 func (o *FVCard) GetCardDetails() FVCardDetails {
-	if o == nil || o.CardDetails == nil {
+	if o == nil || IsNil(o.CardDetails) {
 		var ret FVCardDetails
 		return ret
 	}
@@ -186,7 +189,7 @@ func (o *FVCard) GetCardDetails() FVCardDetails {
 // GetCardDetailsOk returns a tuple with the CardDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FVCard) GetCardDetailsOk() (*FVCardDetails, bool) {
-	if o == nil || o.CardDetails == nil {
+	if o == nil || IsNil(o.CardDetails) {
 		return nil, false
 	}
 	return o.CardDetails, true
@@ -194,7 +197,7 @@ func (o *FVCard) GetCardDetailsOk() (*FVCardDetails, bool) {
 
 // HasCardDetails returns a boolean if a field has been set.
 func (o *FVCard) HasCardDetails() bool {
-	if o != nil && o.CardDetails != nil {
+	if o != nil && !IsNil(o.CardDetails) {
 		return true
 	}
 
@@ -208,7 +211,7 @@ func (o *FVCard) SetCardDetails(v FVCardDetails) {
 
 // GetRecipientAccount returns the RecipientAccount field value if set, zero value otherwise.
 func (o *FVCard) GetRecipientAccount() MandateRecipientAccount {
-	if o == nil || o.RecipientAccount == nil {
+	if o == nil || IsNil(o.RecipientAccount) {
 		var ret MandateRecipientAccount
 		return ret
 	}
@@ -218,7 +221,7 @@ func (o *FVCard) GetRecipientAccount() MandateRecipientAccount {
 // GetRecipientAccountOk returns a tuple with the RecipientAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *FVCard) GetRecipientAccountOk() (*MandateRecipientAccount, bool) {
-	if o == nil || o.RecipientAccount == nil {
+	if o == nil || IsNil(o.RecipientAccount) {
 		return nil, false
 	}
 	return o.RecipientAccount, true
@@ -226,7 +229,7 @@ func (o *FVCard) GetRecipientAccountOk() (*MandateRecipientAccount, bool) {
 
 // HasRecipientAccount returns a boolean if a field has been set.
 func (o *FVCard) HasRecipientAccount() bool {
-	if o != nil && o.RecipientAccount != nil {
+	if o != nil && !IsNil(o.RecipientAccount) {
 		return true
 	}
 
@@ -239,26 +242,34 @@ func (o *FVCard) SetRecipientAccount(v MandateRecipientAccount) {
 }
 
 func (o FVCard) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.CreatedAt != nil {
-		toSerialize["created_at"] = o.CreatedAt
-	}
-	if o.UpdatedAt != nil {
-		toSerialize["updated_at"] = o.UpdatedAt
-	}
-	if o.Status != nil {
-		toSerialize["status"] = o.Status
-	}
-	if o.Error != nil {
-		toSerialize["error"] = o.Error
-	}
-	if o.CardDetails != nil {
-		toSerialize["card_details"] = o.CardDetails
-	}
-	if o.RecipientAccount != nil {
-		toSerialize["recipient_account"] = o.RecipientAccount
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o FVCard) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CreatedAt) {
+		toSerialize["created_at"] = o.CreatedAt
+	}
+	if !IsNil(o.UpdatedAt) {
+		toSerialize["updated_at"] = o.UpdatedAt
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
+	}
+	if !IsNil(o.Error) {
+		toSerialize["error"] = o.Error
+	}
+	if !IsNil(o.CardDetails) {
+		toSerialize["card_details"] = o.CardDetails
+	}
+	if !IsNil(o.RecipientAccount) {
+		toSerialize["recipient_account"] = o.RecipientAccount
+	}
+	return toSerialize, nil
 }
 
 type NullableFVCard struct {

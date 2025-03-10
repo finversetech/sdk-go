@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the IdentityDateOfBirth type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &IdentityDateOfBirth{}
+
 // IdentityDateOfBirth struct for IdentityDateOfBirth
 type IdentityDateOfBirth struct {
 	Raw               *string  `json:"raw,omitempty"`
@@ -44,7 +47,7 @@ func NewIdentityDateOfBirthWithDefaults() *IdentityDateOfBirth {
 
 // GetRaw returns the Raw field value if set, zero value otherwise.
 func (o *IdentityDateOfBirth) GetRaw() string {
-	if o == nil || o.Raw == nil {
+	if o == nil || IsNil(o.Raw) {
 		var ret string
 		return ret
 	}
@@ -54,7 +57,7 @@ func (o *IdentityDateOfBirth) GetRaw() string {
 // GetRawOk returns a tuple with the Raw field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityDateOfBirth) GetRawOk() (*string, bool) {
-	if o == nil || o.Raw == nil {
+	if o == nil || IsNil(o.Raw) {
 		return nil, false
 	}
 	return o.Raw, true
@@ -62,7 +65,7 @@ func (o *IdentityDateOfBirth) GetRawOk() (*string, bool) {
 
 // HasRaw returns a boolean if a field has been set.
 func (o *IdentityDateOfBirth) HasRaw() bool {
-	if o != nil && o.Raw != nil {
+	if o != nil && !IsNil(o.Raw) {
 		return true
 	}
 
@@ -76,7 +79,7 @@ func (o *IdentityDateOfBirth) SetRaw(v string) {
 
 // GetDateOfBirth returns the DateOfBirth field value if set, zero value otherwise.
 func (o *IdentityDateOfBirth) GetDateOfBirth() string {
-	if o == nil || o.DateOfBirth == nil {
+	if o == nil || IsNil(o.DateOfBirth) {
 		var ret string
 		return ret
 	}
@@ -86,7 +89,7 @@ func (o *IdentityDateOfBirth) GetDateOfBirth() string {
 // GetDateOfBirthOk returns a tuple with the DateOfBirth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityDateOfBirth) GetDateOfBirthOk() (*string, bool) {
-	if o == nil || o.DateOfBirth == nil {
+	if o == nil || IsNil(o.DateOfBirth) {
 		return nil, false
 	}
 	return o.DateOfBirth, true
@@ -94,7 +97,7 @@ func (o *IdentityDateOfBirth) GetDateOfBirthOk() (*string, bool) {
 
 // HasDateOfBirth returns a boolean if a field has been set.
 func (o *IdentityDateOfBirth) HasDateOfBirth() bool {
-	if o != nil && o.DateOfBirth != nil {
+	if o != nil && !IsNil(o.DateOfBirth) {
 		return true
 	}
 
@@ -108,7 +111,7 @@ func (o *IdentityDateOfBirth) SetDateOfBirth(v string) {
 
 // GetMaskedDateOfBirth returns the MaskedDateOfBirth field value if set, zero value otherwise.
 func (o *IdentityDateOfBirth) GetMaskedDateOfBirth() string {
-	if o == nil || o.MaskedDateOfBirth == nil {
+	if o == nil || IsNil(o.MaskedDateOfBirth) {
 		var ret string
 		return ret
 	}
@@ -118,7 +121,7 @@ func (o *IdentityDateOfBirth) GetMaskedDateOfBirth() string {
 // GetMaskedDateOfBirthOk returns a tuple with the MaskedDateOfBirth field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityDateOfBirth) GetMaskedDateOfBirthOk() (*string, bool) {
-	if o == nil || o.MaskedDateOfBirth == nil {
+	if o == nil || IsNil(o.MaskedDateOfBirth) {
 		return nil, false
 	}
 	return o.MaskedDateOfBirth, true
@@ -126,7 +129,7 @@ func (o *IdentityDateOfBirth) GetMaskedDateOfBirthOk() (*string, bool) {
 
 // HasMaskedDateOfBirth returns a boolean if a field has been set.
 func (o *IdentityDateOfBirth) HasMaskedDateOfBirth() bool {
-	if o != nil && o.MaskedDateOfBirth != nil {
+	if o != nil && !IsNil(o.MaskedDateOfBirth) {
 		return true
 	}
 
@@ -140,7 +143,7 @@ func (o *IdentityDateOfBirth) SetMaskedDateOfBirth(v string) {
 
 // GetSource returns the Source field value if set, zero value otherwise.
 func (o *IdentityDateOfBirth) GetSource() string {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		var ret string
 		return ret
 	}
@@ -150,7 +153,7 @@ func (o *IdentityDateOfBirth) GetSource() string {
 // GetSourceOk returns a tuple with the Source field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityDateOfBirth) GetSourceOk() (*string, bool) {
-	if o == nil || o.Source == nil {
+	if o == nil || IsNil(o.Source) {
 		return nil, false
 	}
 	return o.Source, true
@@ -158,7 +161,7 @@ func (o *IdentityDateOfBirth) GetSourceOk() (*string, bool) {
 
 // HasSource returns a boolean if a field has been set.
 func (o *IdentityDateOfBirth) HasSource() bool {
-	if o != nil && o.Source != nil {
+	if o != nil && !IsNil(o.Source) {
 		return true
 	}
 
@@ -172,7 +175,7 @@ func (o *IdentityDateOfBirth) SetSource(v string) {
 
 // GetSourceIds returns the SourceIds field value if set, zero value otherwise.
 func (o *IdentityDateOfBirth) GetSourceIds() []string {
-	if o == nil || o.SourceIds == nil {
+	if o == nil || IsNil(o.SourceIds) {
 		var ret []string
 		return ret
 	}
@@ -182,7 +185,7 @@ func (o *IdentityDateOfBirth) GetSourceIds() []string {
 // GetSourceIdsOk returns a tuple with the SourceIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityDateOfBirth) GetSourceIdsOk() ([]string, bool) {
-	if o == nil || o.SourceIds == nil {
+	if o == nil || IsNil(o.SourceIds) {
 		return nil, false
 	}
 	return o.SourceIds, true
@@ -190,7 +193,7 @@ func (o *IdentityDateOfBirth) GetSourceIdsOk() ([]string, bool) {
 
 // HasSourceIds returns a boolean if a field has been set.
 func (o *IdentityDateOfBirth) HasSourceIds() bool {
-	if o != nil && o.SourceIds != nil {
+	if o != nil && !IsNil(o.SourceIds) {
 		return true
 	}
 
@@ -204,7 +207,7 @@ func (o *IdentityDateOfBirth) SetSourceIds(v []string) {
 
 // GetAccountIds returns the AccountIds field value if set, zero value otherwise.
 func (o *IdentityDateOfBirth) GetAccountIds() []string {
-	if o == nil || o.AccountIds == nil {
+	if o == nil || IsNil(o.AccountIds) {
 		var ret []string
 		return ret
 	}
@@ -214,7 +217,7 @@ func (o *IdentityDateOfBirth) GetAccountIds() []string {
 // GetAccountIdsOk returns a tuple with the AccountIds field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *IdentityDateOfBirth) GetAccountIdsOk() ([]string, bool) {
-	if o == nil || o.AccountIds == nil {
+	if o == nil || IsNil(o.AccountIds) {
 		return nil, false
 	}
 	return o.AccountIds, true
@@ -222,7 +225,7 @@ func (o *IdentityDateOfBirth) GetAccountIdsOk() ([]string, bool) {
 
 // HasAccountIds returns a boolean if a field has been set.
 func (o *IdentityDateOfBirth) HasAccountIds() bool {
-	if o != nil && o.AccountIds != nil {
+	if o != nil && !IsNil(o.AccountIds) {
 		return true
 	}
 
@@ -235,26 +238,34 @@ func (o *IdentityDateOfBirth) SetAccountIds(v []string) {
 }
 
 func (o IdentityDateOfBirth) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Raw != nil {
-		toSerialize["raw"] = o.Raw
-	}
-	if o.DateOfBirth != nil {
-		toSerialize["date_of_birth"] = o.DateOfBirth
-	}
-	if o.MaskedDateOfBirth != nil {
-		toSerialize["masked_date_of_birth"] = o.MaskedDateOfBirth
-	}
-	if o.Source != nil {
-		toSerialize["source"] = o.Source
-	}
-	if o.SourceIds != nil {
-		toSerialize["source_ids"] = o.SourceIds
-	}
-	if o.AccountIds != nil {
-		toSerialize["account_ids"] = o.AccountIds
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o IdentityDateOfBirth) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Raw) {
+		toSerialize["raw"] = o.Raw
+	}
+	if !IsNil(o.DateOfBirth) {
+		toSerialize["date_of_birth"] = o.DateOfBirth
+	}
+	if !IsNil(o.MaskedDateOfBirth) {
+		toSerialize["masked_date_of_birth"] = o.MaskedDateOfBirth
+	}
+	if !IsNil(o.Source) {
+		toSerialize["source"] = o.Source
+	}
+	if !IsNil(o.SourceIds) {
+		toSerialize["source_ids"] = o.SourceIds
+	}
+	if !IsNil(o.AccountIds) {
+		toSerialize["account_ids"] = o.AccountIds
+	}
+	return toSerialize, nil
 }
 
 type NullableIdentityDateOfBirth struct {

@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the ListTransactionsResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &ListTransactionsResponse{}
 
 // ListTransactionsResponse struct for ListTransactionsResponse
 type ListTransactionsResponse struct {
@@ -23,6 +28,8 @@ type ListTransactionsResponse struct {
 	Institution       *InstitutionShort   `json:"institution,omitempty"`
 	TotalTransactions int32               `json:"total_transactions"`
 }
+
+type _ListTransactionsResponse ListTransactionsResponse
 
 // NewListTransactionsResponse instantiates a new ListTransactionsResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -44,7 +51,7 @@ func NewListTransactionsResponseWithDefaults() *ListTransactionsResponse {
 
 // GetAccounts returns the Accounts field value if set, zero value otherwise.
 func (o *ListTransactionsResponse) GetAccounts() []Account {
-	if o == nil || o.Accounts == nil {
+	if o == nil || IsNil(o.Accounts) {
 		var ret []Account
 		return ret
 	}
@@ -54,7 +61,7 @@ func (o *ListTransactionsResponse) GetAccounts() []Account {
 // GetAccountsOk returns a tuple with the Accounts field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ListTransactionsResponse) GetAccountsOk() ([]Account, bool) {
-	if o == nil || o.Accounts == nil {
+	if o == nil || IsNil(o.Accounts) {
 		return nil, false
 	}
 	return o.Accounts, true
@@ -62,7 +69,7 @@ func (o *ListTransactionsResponse) GetAccountsOk() ([]Account, bool) {
 
 // HasAccounts returns a boolean if a field has been set.
 func (o *ListTransactionsResponse) HasAccounts() bool {
-	if o != nil && o.Accounts != nil {
+	if o != nil && !IsNil(o.Accounts) {
 		return true
 	}
 
@@ -76,7 +83,7 @@ func (o *ListTransactionsResponse) SetAccounts(v []Account) {
 
 // GetTransactions returns the Transactions field value if set, zero value otherwise.
 func (o *ListTransactionsResponse) GetTransactions() []Transaction {
-	if o == nil || o.Transactions == nil {
+	if o == nil || IsNil(o.Transactions) {
 		var ret []Transaction
 		return ret
 	}
@@ -86,7 +93,7 @@ func (o *ListTransactionsResponse) GetTransactions() []Transaction {
 // GetTransactionsOk returns a tuple with the Transactions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ListTransactionsResponse) GetTransactionsOk() ([]Transaction, bool) {
-	if o == nil || o.Transactions == nil {
+	if o == nil || IsNil(o.Transactions) {
 		return nil, false
 	}
 	return o.Transactions, true
@@ -94,7 +101,7 @@ func (o *ListTransactionsResponse) GetTransactionsOk() ([]Transaction, bool) {
 
 // HasTransactions returns a boolean if a field has been set.
 func (o *ListTransactionsResponse) HasTransactions() bool {
-	if o != nil && o.Transactions != nil {
+	if o != nil && !IsNil(o.Transactions) {
 		return true
 	}
 
@@ -108,7 +115,7 @@ func (o *ListTransactionsResponse) SetTransactions(v []Transaction) {
 
 // GetLoginIdentity returns the LoginIdentity field value if set, zero value otherwise.
 func (o *ListTransactionsResponse) GetLoginIdentity() LoginIdentityShort {
-	if o == nil || o.LoginIdentity == nil {
+	if o == nil || IsNil(o.LoginIdentity) {
 		var ret LoginIdentityShort
 		return ret
 	}
@@ -118,7 +125,7 @@ func (o *ListTransactionsResponse) GetLoginIdentity() LoginIdentityShort {
 // GetLoginIdentityOk returns a tuple with the LoginIdentity field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ListTransactionsResponse) GetLoginIdentityOk() (*LoginIdentityShort, bool) {
-	if o == nil || o.LoginIdentity == nil {
+	if o == nil || IsNil(o.LoginIdentity) {
 		return nil, false
 	}
 	return o.LoginIdentity, true
@@ -126,7 +133,7 @@ func (o *ListTransactionsResponse) GetLoginIdentityOk() (*LoginIdentityShort, bo
 
 // HasLoginIdentity returns a boolean if a field has been set.
 func (o *ListTransactionsResponse) HasLoginIdentity() bool {
-	if o != nil && o.LoginIdentity != nil {
+	if o != nil && !IsNil(o.LoginIdentity) {
 		return true
 	}
 
@@ -140,7 +147,7 @@ func (o *ListTransactionsResponse) SetLoginIdentity(v LoginIdentityShort) {
 
 // GetInstitution returns the Institution field value if set, zero value otherwise.
 func (o *ListTransactionsResponse) GetInstitution() InstitutionShort {
-	if o == nil || o.Institution == nil {
+	if o == nil || IsNil(o.Institution) {
 		var ret InstitutionShort
 		return ret
 	}
@@ -150,7 +157,7 @@ func (o *ListTransactionsResponse) GetInstitution() InstitutionShort {
 // GetInstitutionOk returns a tuple with the Institution field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *ListTransactionsResponse) GetInstitutionOk() (*InstitutionShort, bool) {
-	if o == nil || o.Institution == nil {
+	if o == nil || IsNil(o.Institution) {
 		return nil, false
 	}
 	return o.Institution, true
@@ -158,7 +165,7 @@ func (o *ListTransactionsResponse) GetInstitutionOk() (*InstitutionShort, bool) 
 
 // HasInstitution returns a boolean if a field has been set.
 func (o *ListTransactionsResponse) HasInstitution() bool {
-	if o != nil && o.Institution != nil {
+	if o != nil && !IsNil(o.Institution) {
 		return true
 	}
 
@@ -195,23 +202,66 @@ func (o *ListTransactionsResponse) SetTotalTransactions(v int32) {
 }
 
 func (o ListTransactionsResponse) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.Accounts != nil {
-		toSerialize["accounts"] = o.Accounts
-	}
-	if o.Transactions != nil {
-		toSerialize["transactions"] = o.Transactions
-	}
-	if o.LoginIdentity != nil {
-		toSerialize["login_identity"] = o.LoginIdentity
-	}
-	if o.Institution != nil {
-		toSerialize["institution"] = o.Institution
-	}
-	if true {
-		toSerialize["total_transactions"] = o.TotalTransactions
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o ListTransactionsResponse) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.Accounts) {
+		toSerialize["accounts"] = o.Accounts
+	}
+	if !IsNil(o.Transactions) {
+		toSerialize["transactions"] = o.Transactions
+	}
+	if !IsNil(o.LoginIdentity) {
+		toSerialize["login_identity"] = o.LoginIdentity
+	}
+	if !IsNil(o.Institution) {
+		toSerialize["institution"] = o.Institution
+	}
+	toSerialize["total_transactions"] = o.TotalTransactions
+	return toSerialize, nil
+}
+
+func (o *ListTransactionsResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"total_transactions",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varListTransactionsResponse := _ListTransactionsResponse{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varListTransactionsResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ListTransactionsResponse(varListTransactionsResponse)
+
+	return err
 }
 
 type NullableListTransactionsResponse struct {

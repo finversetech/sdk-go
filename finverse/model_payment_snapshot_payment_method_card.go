@@ -15,6 +15,9 @@ import (
 	"encoding/json"
 )
 
+// checks if the PaymentSnapshotPaymentMethodCard type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaymentSnapshotPaymentMethodCard{}
+
 // PaymentSnapshotPaymentMethodCard struct for PaymentSnapshotPaymentMethodCard
 type PaymentSnapshotPaymentMethodCard struct {
 	CardDetails *FVCardDetails `json:"card_details,omitempty"`
@@ -39,7 +42,7 @@ func NewPaymentSnapshotPaymentMethodCardWithDefaults() *PaymentSnapshotPaymentMe
 
 // GetCardDetails returns the CardDetails field value if set, zero value otherwise.
 func (o *PaymentSnapshotPaymentMethodCard) GetCardDetails() FVCardDetails {
-	if o == nil || o.CardDetails == nil {
+	if o == nil || IsNil(o.CardDetails) {
 		var ret FVCardDetails
 		return ret
 	}
@@ -49,7 +52,7 @@ func (o *PaymentSnapshotPaymentMethodCard) GetCardDetails() FVCardDetails {
 // GetCardDetailsOk returns a tuple with the CardDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentSnapshotPaymentMethodCard) GetCardDetailsOk() (*FVCardDetails, bool) {
-	if o == nil || o.CardDetails == nil {
+	if o == nil || IsNil(o.CardDetails) {
 		return nil, false
 	}
 	return o.CardDetails, true
@@ -57,7 +60,7 @@ func (o *PaymentSnapshotPaymentMethodCard) GetCardDetailsOk() (*FVCardDetails, b
 
 // HasCardDetails returns a boolean if a field has been set.
 func (o *PaymentSnapshotPaymentMethodCard) HasCardDetails() bool {
-	if o != nil && o.CardDetails != nil {
+	if o != nil && !IsNil(o.CardDetails) {
 		return true
 	}
 
@@ -70,11 +73,19 @@ func (o *PaymentSnapshotPaymentMethodCard) SetCardDetails(v FVCardDetails) {
 }
 
 func (o PaymentSnapshotPaymentMethodCard) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if o.CardDetails != nil {
-		toSerialize["card_details"] = o.CardDetails
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PaymentSnapshotPaymentMethodCard) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	if !IsNil(o.CardDetails) {
+		toSerialize["card_details"] = o.CardDetails
+	}
+	return toSerialize, nil
 }
 
 type NullablePaymentSnapshotPaymentMethodCard struct {

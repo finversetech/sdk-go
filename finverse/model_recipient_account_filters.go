@@ -12,13 +12,20 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the RecipientAccountFilters type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &RecipientAccountFilters{}
 
 // RecipientAccountFilters struct for RecipientAccountFilters
 type RecipientAccountFilters struct {
 	BusinessUnit string `json:"business_unit"`
 }
+
+type _RecipientAccountFilters RecipientAccountFilters
 
 // NewRecipientAccountFilters instantiates a new RecipientAccountFilters object
 // This constructor will assign default values to properties that have it defined,
@@ -63,11 +70,54 @@ func (o *RecipientAccountFilters) SetBusinessUnit(v string) {
 }
 
 func (o RecipientAccountFilters) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["business_unit"] = o.BusinessUnit
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o RecipientAccountFilters) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["business_unit"] = o.BusinessUnit
+	return toSerialize, nil
+}
+
+func (o *RecipientAccountFilters) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"business_unit",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varRecipientAccountFilters := _RecipientAccountFilters{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varRecipientAccountFilters)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RecipientAccountFilters(varRecipientAccountFilters)
+
+	return err
 }
 
 type NullableRecipientAccountFilters struct {

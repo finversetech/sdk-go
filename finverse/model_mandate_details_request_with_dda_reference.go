@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the MandateDetailsRequestWithDdaReference type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MandateDetailsRequestWithDdaReference{}
 
 // MandateDetailsRequestWithDdaReference struct for MandateDetailsRequestWithDdaReference
 type MandateDetailsRequestWithDdaReference struct {
@@ -29,6 +34,8 @@ type MandateDetailsRequestWithDdaReference struct {
 	// End-user facing description of the mandate (used in notifications, and in payments if no description is provided)
 	Description string `json:"description"`
 }
+
+type _MandateDetailsRequestWithDdaReference MandateDetailsRequestWithDdaReference
 
 // NewMandateDetailsRequestWithDdaReference instantiates a new MandateDetailsRequestWithDdaReference object
 // This constructor will assign default values to properties that have it defined,
@@ -51,7 +58,7 @@ func NewMandateDetailsRequestWithDdaReferenceWithDefaults() *MandateDetailsReque
 
 // GetDdaReference returns the DdaReference field value if set, zero value otherwise.
 func (o *MandateDetailsRequestWithDdaReference) GetDdaReference() string {
-	if o == nil || o.DdaReference == nil {
+	if o == nil || IsNil(o.DdaReference) {
 		var ret string
 		return ret
 	}
@@ -61,7 +68,7 @@ func (o *MandateDetailsRequestWithDdaReference) GetDdaReference() string {
 // GetDdaReferenceOk returns a tuple with the DdaReference field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateDetailsRequestWithDdaReference) GetDdaReferenceOk() (*string, bool) {
-	if o == nil || o.DdaReference == nil {
+	if o == nil || IsNil(o.DdaReference) {
 		return nil, false
 	}
 	return o.DdaReference, true
@@ -69,7 +76,7 @@ func (o *MandateDetailsRequestWithDdaReference) GetDdaReferenceOk() (*string, bo
 
 // HasDdaReference returns a boolean if a field has been set.
 func (o *MandateDetailsRequestWithDdaReference) HasDdaReference() bool {
-	if o != nil && o.DdaReference != nil {
+	if o != nil && !IsNil(o.DdaReference) {
 		return true
 	}
 
@@ -107,7 +114,7 @@ func (o *MandateDetailsRequestWithDdaReference) SetCurrency(v string) {
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MandateDetailsRequestWithDdaReference) GetStartDate() string {
-	if o == nil || o.StartDate.Get() == nil {
+	if o == nil || IsNil(o.StartDate.Get()) {
 		var ret string
 		return ret
 	}
@@ -150,7 +157,7 @@ func (o *MandateDetailsRequestWithDdaReference) UnsetStartDate() {
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *MandateDetailsRequestWithDdaReference) GetEndDate() string {
-	if o == nil || o.EndDate.Get() == nil {
+	if o == nil || IsNil(o.EndDate.Get()) {
 		var ret string
 		return ret
 	}
@@ -193,7 +200,7 @@ func (o *MandateDetailsRequestWithDdaReference) UnsetEndDate() {
 
 // GetTransactionLimits returns the TransactionLimits field value if set, zero value otherwise.
 func (o *MandateDetailsRequestWithDdaReference) GetTransactionLimits() TransactionLimits {
-	if o == nil || o.TransactionLimits == nil {
+	if o == nil || IsNil(o.TransactionLimits) {
 		var ret TransactionLimits
 		return ret
 	}
@@ -203,7 +210,7 @@ func (o *MandateDetailsRequestWithDdaReference) GetTransactionLimits() Transacti
 // GetTransactionLimitsOk returns a tuple with the TransactionLimits field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *MandateDetailsRequestWithDdaReference) GetTransactionLimitsOk() (*TransactionLimits, bool) {
-	if o == nil || o.TransactionLimits == nil {
+	if o == nil || IsNil(o.TransactionLimits) {
 		return nil, false
 	}
 	return o.TransactionLimits, true
@@ -211,7 +218,7 @@ func (o *MandateDetailsRequestWithDdaReference) GetTransactionLimitsOk() (*Trans
 
 // HasTransactionLimits returns a boolean if a field has been set.
 func (o *MandateDetailsRequestWithDdaReference) HasTransactionLimits() bool {
-	if o != nil && o.TransactionLimits != nil {
+	if o != nil && !IsNil(o.TransactionLimits) {
 		return true
 	}
 
@@ -248,26 +255,68 @@ func (o *MandateDetailsRequestWithDdaReference) SetDescription(v string) {
 }
 
 func (o MandateDetailsRequestWithDdaReference) MarshalJSON() ([]byte, error) {
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
+	}
+	return json.Marshal(toSerialize)
+}
+
+func (o MandateDetailsRequestWithDdaReference) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if o.DdaReference != nil {
+	if !IsNil(o.DdaReference) {
 		toSerialize["dda_reference"] = o.DdaReference
 	}
-	if true {
-		toSerialize["currency"] = o.Currency
-	}
+	toSerialize["currency"] = o.Currency
 	if o.StartDate.IsSet() {
 		toSerialize["start_date"] = o.StartDate.Get()
 	}
 	if o.EndDate.IsSet() {
 		toSerialize["end_date"] = o.EndDate.Get()
 	}
-	if o.TransactionLimits != nil {
+	if !IsNil(o.TransactionLimits) {
 		toSerialize["transaction_limits"] = o.TransactionLimits
 	}
-	if true {
-		toSerialize["description"] = o.Description
+	toSerialize["description"] = o.Description
+	return toSerialize, nil
+}
+
+func (o *MandateDetailsRequestWithDdaReference) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"currency",
+		"description",
 	}
-	return json.Marshal(toSerialize)
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varMandateDetailsRequestWithDdaReference := _MandateDetailsRequestWithDdaReference{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varMandateDetailsRequestWithDdaReference)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MandateDetailsRequestWithDdaReference(varMandateDetailsRequestWithDdaReference)
+
+	return err
 }
 
 type NullableMandateDetailsRequestWithDdaReference struct {

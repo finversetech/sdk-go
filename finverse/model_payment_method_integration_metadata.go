@@ -12,8 +12,13 @@ Contact: info@finverse.com
 package finverse
 
 import (
+	"bytes"
 	"encoding/json"
+	"fmt"
 )
+
+// checks if the PaymentMethodIntegrationMetadata type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaymentMethodIntegrationMetadata{}
 
 // PaymentMethodIntegrationMetadata struct for PaymentMethodIntegrationMetadata
 type PaymentMethodIntegrationMetadata struct {
@@ -21,6 +26,8 @@ type PaymentMethodIntegrationMetadata struct {
 	StripeMetadata      *PaymentMethodIntegrationMetadataStripeMetadata      `json:"stripe_metadata,omitempty"`
 	CybersourceMetadata *PaymentMethodIntegrationMetadataCybersourceMetadata `json:"cybersource_metadata,omitempty"`
 }
+
+type _PaymentMethodIntegrationMetadata PaymentMethodIntegrationMetadata
 
 // NewPaymentMethodIntegrationMetadata instantiates a new PaymentMethodIntegrationMetadata object
 // This constructor will assign default values to properties that have it defined,
@@ -66,7 +73,7 @@ func (o *PaymentMethodIntegrationMetadata) SetIntegrationId(v string) {
 
 // GetStripeMetadata returns the StripeMetadata field value if set, zero value otherwise.
 func (o *PaymentMethodIntegrationMetadata) GetStripeMetadata() PaymentMethodIntegrationMetadataStripeMetadata {
-	if o == nil || o.StripeMetadata == nil {
+	if o == nil || IsNil(o.StripeMetadata) {
 		var ret PaymentMethodIntegrationMetadataStripeMetadata
 		return ret
 	}
@@ -76,7 +83,7 @@ func (o *PaymentMethodIntegrationMetadata) GetStripeMetadata() PaymentMethodInte
 // GetStripeMetadataOk returns a tuple with the StripeMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentMethodIntegrationMetadata) GetStripeMetadataOk() (*PaymentMethodIntegrationMetadataStripeMetadata, bool) {
-	if o == nil || o.StripeMetadata == nil {
+	if o == nil || IsNil(o.StripeMetadata) {
 		return nil, false
 	}
 	return o.StripeMetadata, true
@@ -84,7 +91,7 @@ func (o *PaymentMethodIntegrationMetadata) GetStripeMetadataOk() (*PaymentMethod
 
 // HasStripeMetadata returns a boolean if a field has been set.
 func (o *PaymentMethodIntegrationMetadata) HasStripeMetadata() bool {
-	if o != nil && o.StripeMetadata != nil {
+	if o != nil && !IsNil(o.StripeMetadata) {
 		return true
 	}
 
@@ -98,7 +105,7 @@ func (o *PaymentMethodIntegrationMetadata) SetStripeMetadata(v PaymentMethodInte
 
 // GetCybersourceMetadata returns the CybersourceMetadata field value if set, zero value otherwise.
 func (o *PaymentMethodIntegrationMetadata) GetCybersourceMetadata() PaymentMethodIntegrationMetadataCybersourceMetadata {
-	if o == nil || o.CybersourceMetadata == nil {
+	if o == nil || IsNil(o.CybersourceMetadata) {
 		var ret PaymentMethodIntegrationMetadataCybersourceMetadata
 		return ret
 	}
@@ -108,7 +115,7 @@ func (o *PaymentMethodIntegrationMetadata) GetCybersourceMetadata() PaymentMetho
 // GetCybersourceMetadataOk returns a tuple with the CybersourceMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *PaymentMethodIntegrationMetadata) GetCybersourceMetadataOk() (*PaymentMethodIntegrationMetadataCybersourceMetadata, bool) {
-	if o == nil || o.CybersourceMetadata == nil {
+	if o == nil || IsNil(o.CybersourceMetadata) {
 		return nil, false
 	}
 	return o.CybersourceMetadata, true
@@ -116,7 +123,7 @@ func (o *PaymentMethodIntegrationMetadata) GetCybersourceMetadataOk() (*PaymentM
 
 // HasCybersourceMetadata returns a boolean if a field has been set.
 func (o *PaymentMethodIntegrationMetadata) HasCybersourceMetadata() bool {
-	if o != nil && o.CybersourceMetadata != nil {
+	if o != nil && !IsNil(o.CybersourceMetadata) {
 		return true
 	}
 
@@ -129,17 +136,60 @@ func (o *PaymentMethodIntegrationMetadata) SetCybersourceMetadata(v PaymentMetho
 }
 
 func (o PaymentMethodIntegrationMetadata) MarshalJSON() ([]byte, error) {
-	toSerialize := map[string]interface{}{}
-	if true {
-		toSerialize["integration_id"] = o.IntegrationId
-	}
-	if o.StripeMetadata != nil {
-		toSerialize["stripe_metadata"] = o.StripeMetadata
-	}
-	if o.CybersourceMetadata != nil {
-		toSerialize["cybersource_metadata"] = o.CybersourceMetadata
+	toSerialize, err := o.ToMap()
+	if err != nil {
+		return []byte{}, err
 	}
 	return json.Marshal(toSerialize)
+}
+
+func (o PaymentMethodIntegrationMetadata) ToMap() (map[string]interface{}, error) {
+	toSerialize := map[string]interface{}{}
+	toSerialize["integration_id"] = o.IntegrationId
+	if !IsNil(o.StripeMetadata) {
+		toSerialize["stripe_metadata"] = o.StripeMetadata
+	}
+	if !IsNil(o.CybersourceMetadata) {
+		toSerialize["cybersource_metadata"] = o.CybersourceMetadata
+	}
+	return toSerialize, nil
+}
+
+func (o *PaymentMethodIntegrationMetadata) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"integration_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
+	varPaymentMethodIntegrationMetadata := _PaymentMethodIntegrationMetadata{}
+
+	decoder := json.NewDecoder(bytes.NewReader(data))
+	decoder.DisallowUnknownFields()
+	err = decoder.Decode(&varPaymentMethodIntegrationMetadata)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentMethodIntegrationMetadata(varPaymentMethodIntegrationMetadata)
+
+	return err
 }
 
 type NullablePaymentMethodIntegrationMetadata struct {
