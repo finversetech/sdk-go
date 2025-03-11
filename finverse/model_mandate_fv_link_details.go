@@ -21,7 +21,10 @@ var _ MappedNullable = &MandateFvLinkDetails{}
 // MandateFvLinkDetails struct for MandateFvLinkDetails
 type MandateFvLinkDetails struct {
 	CollectionEntityName *string `json:"collection_entity_name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _MandateFvLinkDetails MandateFvLinkDetails
 
 // NewMandateFvLinkDetails instantiates a new MandateFvLinkDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o MandateFvLinkDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CollectionEntityName) {
 		toSerialize["collection_entity_name"] = o.CollectionEntityName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *MandateFvLinkDetails) UnmarshalJSON(data []byte) (err error) {
+	varMandateFvLinkDetails := _MandateFvLinkDetails{}
+
+	err = json.Unmarshal(data, &varMandateFvLinkDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MandateFvLinkDetails(varMandateFvLinkDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "collection_entity_name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableMandateFvLinkDetails struct {

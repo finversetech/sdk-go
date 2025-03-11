@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,8 +21,9 @@ var _ MappedNullable = &IntegrationMetadataRequest{}
 
 // IntegrationMetadataRequest struct for IntegrationMetadataRequest
 type IntegrationMetadataRequest struct {
-	IntegrationId     string                    `json:"integration_id"`
-	RapidstorMetadata *RapidstorMetadataRequest `json:"rapidstor_metadata,omitempty"`
+	IntegrationId        string                    `json:"integration_id"`
+	RapidstorMetadata    *RapidstorMetadataRequest `json:"rapidstor_metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _IntegrationMetadataRequest IntegrationMetadataRequest
@@ -116,6 +116,11 @@ func (o IntegrationMetadataRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RapidstorMetadata) {
 		toSerialize["rapidstor_metadata"] = o.RapidstorMetadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -143,15 +148,21 @@ func (o *IntegrationMetadataRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varIntegrationMetadataRequest := _IntegrationMetadataRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varIntegrationMetadataRequest)
+	err = json.Unmarshal(data, &varIntegrationMetadataRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = IntegrationMetadataRequest(varIntegrationMetadataRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "integration_id")
+		delete(additionalProperties, "rapidstor_metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

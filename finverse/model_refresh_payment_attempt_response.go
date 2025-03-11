@@ -20,8 +20,11 @@ var _ MappedNullable = &RefreshPaymentAttemptResponse{}
 
 // RefreshPaymentAttemptResponse struct for RefreshPaymentAttemptResponse
 type RefreshPaymentAttemptResponse struct {
-	RedirectUrl *string `json:"redirect_url,omitempty"`
+	RedirectUrl          *string `json:"redirect_url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RefreshPaymentAttemptResponse RefreshPaymentAttemptResponse
 
 // NewRefreshPaymentAttemptResponse instantiates a new RefreshPaymentAttemptResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o RefreshPaymentAttemptResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RedirectUrl) {
 		toSerialize["redirect_url"] = o.RedirectUrl
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RefreshPaymentAttemptResponse) UnmarshalJSON(data []byte) (err error) {
+	varRefreshPaymentAttemptResponse := _RefreshPaymentAttemptResponse{}
+
+	err = json.Unmarshal(data, &varRefreshPaymentAttemptResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RefreshPaymentAttemptResponse(varRefreshPaymentAttemptResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "redirect_url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRefreshPaymentAttemptResponse struct {

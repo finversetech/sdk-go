@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,7 +21,8 @@ var _ MappedNullable = &CreatePaymentLinkMandateResponse{}
 
 // CreatePaymentLinkMandateResponse struct for CreatePaymentLinkMandateResponse
 type CreatePaymentLinkMandateResponse struct {
-	MandateLinkToken PaymentLinkTokenResponse `json:"mandate_link_token"`
+	MandateLinkToken     PaymentLinkTokenResponse `json:"mandate_link_token"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreatePaymentLinkMandateResponse CreatePaymentLinkMandateResponse
@@ -80,6 +80,11 @@ func (o CreatePaymentLinkMandateResponse) MarshalJSON() ([]byte, error) {
 func (o CreatePaymentLinkMandateResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["mandate_link_token"] = o.MandateLinkToken
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -107,15 +112,20 @@ func (o *CreatePaymentLinkMandateResponse) UnmarshalJSON(data []byte) (err error
 
 	varCreatePaymentLinkMandateResponse := _CreatePaymentLinkMandateResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreatePaymentLinkMandateResponse)
+	err = json.Unmarshal(data, &varCreatePaymentLinkMandateResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreatePaymentLinkMandateResponse(varCreatePaymentLinkMandateResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "mandate_link_token")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

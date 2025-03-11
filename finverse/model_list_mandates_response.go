@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,8 +21,9 @@ var _ MappedNullable = &ListMandatesResponse{}
 
 // ListMandatesResponse struct for ListMandatesResponse
 type ListMandatesResponse struct {
-	Mandates      []GetMandateResponse `json:"mandates,omitempty"`
-	TotalMandates int32                `json:"total_mandates"`
+	Mandates             []GetMandateResponse `json:"mandates,omitempty"`
+	TotalMandates        int32                `json:"total_mandates"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ListMandatesResponse ListMandatesResponse
@@ -116,6 +116,11 @@ func (o ListMandatesResponse) ToMap() (map[string]interface{}, error) {
 		toSerialize["mandates"] = o.Mandates
 	}
 	toSerialize["total_mandates"] = o.TotalMandates
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -143,15 +148,21 @@ func (o *ListMandatesResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varListMandatesResponse := _ListMandatesResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varListMandatesResponse)
+	err = json.Unmarshal(data, &varListMandatesResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ListMandatesResponse(varListMandatesResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "mandates")
+		delete(additionalProperties, "total_mandates")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

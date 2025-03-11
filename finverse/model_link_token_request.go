@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -59,8 +58,9 @@ type LinkTokenRequest struct {
 	// Controls the behavior of the automatic data refresh checkbox
 	AutomaticDataRefresh *string `json:"automatic_data_refresh,omitempty"`
 	// institution's status filter
-	InstitutionStatus *string               `json:"institution_status,omitempty"`
-	UserConfigs       *LinkTokenUserConfigs `json:"user_configs,omitempty"`
+	InstitutionStatus    *string               `json:"institution_status,omitempty"`
+	UserConfigs          *LinkTokenUserConfigs `json:"user_configs,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _LinkTokenRequest LinkTokenRequest
@@ -887,6 +887,11 @@ func (o LinkTokenRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserConfigs) {
 		toSerialize["user_configs"] = o.UserConfigs
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -918,15 +923,43 @@ func (o *LinkTokenRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varLinkTokenRequest := _LinkTokenRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varLinkTokenRequest)
+	err = json.Unmarshal(data, &varLinkTokenRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = LinkTokenRequest(varLinkTokenRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "grant_type")
+		delete(additionalProperties, "response_type")
+		delete(additionalProperties, "response_mode")
+		delete(additionalProperties, "user_id")
+		delete(additionalProperties, "client_id")
+		delete(additionalProperties, "redirect_uri")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "scope")
+		delete(additionalProperties, "link_mode")
+		delete(additionalProperties, "ui_mode")
+		delete(additionalProperties, "language")
+		delete(additionalProperties, "code_challenge")
+		delete(additionalProperties, "code_challenge_method")
+		delete(additionalProperties, "login_identity_id")
+		delete(additionalProperties, "customization_id")
+		delete(additionalProperties, "institution_id")
+		delete(additionalProperties, "countries")
+		delete(additionalProperties, "user_type")
+		delete(additionalProperties, "products_supported")
+		delete(additionalProperties, "products_requested")
+		delete(additionalProperties, "payment_instruction_id")
+		delete(additionalProperties, "automatic_data_refresh")
+		delete(additionalProperties, "institution_status")
+		delete(additionalProperties, "user_configs")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

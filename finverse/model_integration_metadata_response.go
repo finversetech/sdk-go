@@ -20,9 +20,12 @@ var _ MappedNullable = &IntegrationMetadataResponse{}
 
 // IntegrationMetadataResponse struct for IntegrationMetadataResponse
 type IntegrationMetadataResponse struct {
-	IntegrationId     *string                    `json:"integration_id,omitempty"`
-	RapidstorMetadata *RapidstorMetadataResponse `json:"rapidstor_metadata,omitempty"`
+	IntegrationId        *string                    `json:"integration_id,omitempty"`
+	RapidstorMetadata    *RapidstorMetadataResponse `json:"rapidstor_metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IntegrationMetadataResponse IntegrationMetadataResponse
 
 // NewIntegrationMetadataResponse instantiates a new IntegrationMetadataResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o IntegrationMetadataResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RapidstorMetadata) {
 		toSerialize["rapidstor_metadata"] = o.RapidstorMetadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IntegrationMetadataResponse) UnmarshalJSON(data []byte) (err error) {
+	varIntegrationMetadataResponse := _IntegrationMetadataResponse{}
+
+	err = json.Unmarshal(data, &varIntegrationMetadataResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IntegrationMetadataResponse(varIntegrationMetadataResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "integration_id")
+		delete(additionalProperties, "rapidstor_metadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIntegrationMetadataResponse struct {

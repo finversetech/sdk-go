@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -31,7 +30,8 @@ type AuthChecklistFactor struct {
 	// Helper text that applies to a specific checklist item
 	HelperText *string `json:"helper_text,omitempty"`
 	// Array of the options accepted for a specific authorization factor
-	Options []AuthChecklistOptions `json:"options"`
+	Options              []AuthChecklistOptions `json:"options"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AuthChecklistFactor AuthChecklistFactor
@@ -202,6 +202,11 @@ func (o AuthChecklistFactor) ToMap() (map[string]interface{}, error) {
 		toSerialize["helper_text"] = o.HelperText
 	}
 	toSerialize["options"] = o.Options
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -232,15 +237,24 @@ func (o *AuthChecklistFactor) UnmarshalJSON(data []byte) (err error) {
 
 	varAuthChecklistFactor := _AuthChecklistFactor{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAuthChecklistFactor)
+	err = json.Unmarshal(data, &varAuthChecklistFactor)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AuthChecklistFactor(varAuthChecklistFactor)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "group_id")
+		delete(additionalProperties, "required")
+		delete(additionalProperties, "helper_text")
+		delete(additionalProperties, "options")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

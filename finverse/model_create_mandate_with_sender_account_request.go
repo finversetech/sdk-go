@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,10 +21,11 @@ var _ MappedNullable = &CreateMandateWithSenderAccountRequest{}
 
 // CreateMandateWithSenderAccountRequest struct for CreateMandateWithSenderAccountRequest
 type CreateMandateWithSenderAccountRequest struct {
-	RecipientAccount MandateRecipientRequest     `json:"recipient_account"`
-	SenderAccount    MandateSenderAccountRequest `json:"sender_account"`
-	MandateDetails   MandateDetailsRequest       `json:"mandate_details"`
-	Metadata         *map[string]string          `json:"metadata,omitempty"`
+	RecipientAccount     MandateRecipientRequest     `json:"recipient_account"`
+	SenderAccount        MandateSenderAccountRequest `json:"sender_account"`
+	MandateDetails       MandateDetailsRequest       `json:"mandate_details"`
+	Metadata             *map[string]string          `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateMandateWithSenderAccountRequest CreateMandateWithSenderAccountRequest
@@ -170,6 +170,11 @@ func (o CreateMandateWithSenderAccountRequest) ToMap() (map[string]interface{}, 
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -199,15 +204,23 @@ func (o *CreateMandateWithSenderAccountRequest) UnmarshalJSON(data []byte) (err 
 
 	varCreateMandateWithSenderAccountRequest := _CreateMandateWithSenderAccountRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateMandateWithSenderAccountRequest)
+	err = json.Unmarshal(data, &varCreateMandateWithSenderAccountRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateMandateWithSenderAccountRequest(varCreateMandateWithSenderAccountRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "recipient_account")
+		delete(additionalProperties, "sender_account")
+		delete(additionalProperties, "mandate_details")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

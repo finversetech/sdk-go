@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,7 +26,8 @@ type PayoutDetails struct {
 	// A description for the payment (that will appear as the transaction description on bank statements)
 	Description *string `json:"description,omitempty"`
 	// YYYY-MM-DD, date (in UTC) to execute the payment, must be 1 day later than current date
-	ScheduledDate string `json:"scheduled_date"`
+	ScheduledDate        string `json:"scheduled_date"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PayoutDetails PayoutDetails
@@ -146,6 +146,11 @@ func (o PayoutDetails) ToMap() (map[string]interface{}, error) {
 		toSerialize["description"] = o.Description
 	}
 	toSerialize["scheduled_date"] = o.ScheduledDate
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -174,15 +179,22 @@ func (o *PayoutDetails) UnmarshalJSON(data []byte) (err error) {
 
 	varPayoutDetails := _PayoutDetails{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPayoutDetails)
+	err = json.Unmarshal(data, &varPayoutDetails)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PayoutDetails(varPayoutDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "mandate_id")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "scheduled_date")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

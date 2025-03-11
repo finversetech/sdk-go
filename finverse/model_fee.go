@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,7 +26,8 @@ type Fee struct {
 	Currency *string `json:"currency,omitempty"`
 	PaidBy   *string `json:"paid_by,omitempty"`
 	// The payment account Id
-	PaidByAccountId *string `json:"paid_by_account_id,omitempty"`
+	PaidByAccountId      *string `json:"paid_by_account_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Fee Fee
@@ -190,6 +190,11 @@ func (o Fee) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaidByAccountId) {
 		toSerialize["paid_by_account_id"] = o.PaidByAccountId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -217,15 +222,23 @@ func (o *Fee) UnmarshalJSON(data []byte) (err error) {
 
 	varFee := _Fee{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varFee)
+	err = json.Unmarshal(data, &varFee)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Fee(varFee)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "paid_by")
+		delete(additionalProperties, "paid_by_account_id")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

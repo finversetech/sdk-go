@@ -26,7 +26,10 @@ type RapidstorMetadataResponse struct {
 	IAnnivDays            *float32 `json:"i_anniv_days,omitempty"`
 	TenantDefaultCurrency *string  `json:"tenant_default_currency,omitempty"`
 	AccountToken          *string  `json:"account_token,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
+
+type _RapidstorMetadataResponse RapidstorMetadataResponse
 
 // NewRapidstorMetadataResponse instantiates a new RapidstorMetadataResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -265,7 +268,38 @@ func (o RapidstorMetadataResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AccountToken) {
 		toSerialize["account_token"] = o.AccountToken
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RapidstorMetadataResponse) UnmarshalJSON(data []byte) (err error) {
+	varRapidstorMetadataResponse := _RapidstorMetadataResponse{}
+
+	err = json.Unmarshal(data, &varRapidstorMetadataResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RapidstorMetadataResponse(varRapidstorMetadataResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "corp_code")
+		delete(additionalProperties, "s_location_code")
+		delete(additionalProperties, "tenant_id")
+		delete(additionalProperties, "i_anniv_days")
+		delete(additionalProperties, "tenant_default_currency")
+		delete(additionalProperties, "account_token")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRapidstorMetadataResponse struct {

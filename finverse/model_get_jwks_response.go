@@ -20,8 +20,11 @@ var _ MappedNullable = &GetJWKSResponse{}
 
 // GetJWKSResponse struct for GetJWKSResponse
 type GetJWKSResponse struct {
-	Keys []JWKSKey `json:"keys,omitempty"`
+	Keys                 []JWKSKey `json:"keys,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _GetJWKSResponse GetJWKSResponse
 
 // NewGetJWKSResponse instantiates a new GetJWKSResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o GetJWKSResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Keys) {
 		toSerialize["keys"] = o.Keys
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *GetJWKSResponse) UnmarshalJSON(data []byte) (err error) {
+	varGetJWKSResponse := _GetJWKSResponse{}
+
+	err = json.Unmarshal(data, &varGetJWKSResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetJWKSResponse(varGetJWKSResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "keys")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGetJWKSResponse struct {

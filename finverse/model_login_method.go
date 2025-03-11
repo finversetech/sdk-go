@@ -20,12 +20,15 @@ var _ MappedNullable = &LoginMethod{}
 
 // LoginMethod struct for LoginMethod
 type LoginMethod struct {
-	Id              *string      `json:"id,omitempty"`
-	Name            *string      `json:"name,omitempty"`
-	IsDefaultMethod NullableBool `json:"is_default_method,omitempty"`
-	Status          *string      `json:"status,omitempty"`
-	LoginFields     []LoginField `json:"login_fields,omitempty"`
+	Id                   *string      `json:"id,omitempty"`
+	Name                 *string      `json:"name,omitempty"`
+	IsDefaultMethod      NullableBool `json:"is_default_method,omitempty"`
+	Status               *string      `json:"status,omitempty"`
+	LoginFields          []LoginField `json:"login_fields,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LoginMethod LoginMethod
 
 // NewLoginMethod instantiates a new LoginMethod object
 // This constructor will assign default values to properties that have it defined,
@@ -240,7 +243,37 @@ func (o LoginMethod) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LoginFields) {
 		toSerialize["login_fields"] = o.LoginFields
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LoginMethod) UnmarshalJSON(data []byte) (err error) {
+	varLoginMethod := _LoginMethod{}
+
+	err = json.Unmarshal(data, &varLoginMethod)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LoginMethod(varLoginMethod)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "is_default_method")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "login_fields")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLoginMethod struct {

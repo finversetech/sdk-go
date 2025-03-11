@@ -20,8 +20,11 @@ var _ MappedNullable = &GetLineItemsForDisplayResponse{}
 
 // GetLineItemsForDisplayResponse struct for GetLineItemsForDisplayResponse
 type GetLineItemsForDisplayResponse struct {
-	LineItems []LineItem `json:"line_items,omitempty"`
+	LineItems            []LineItem `json:"line_items,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _GetLineItemsForDisplayResponse GetLineItemsForDisplayResponse
 
 // NewGetLineItemsForDisplayResponse instantiates a new GetLineItemsForDisplayResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o GetLineItemsForDisplayResponse) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.LineItems) {
 		toSerialize["line_items"] = o.LineItems
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *GetLineItemsForDisplayResponse) UnmarshalJSON(data []byte) (err error) {
+	varGetLineItemsForDisplayResponse := _GetLineItemsForDisplayResponse{}
+
+	err = json.Unmarshal(data, &varGetLineItemsForDisplayResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetLineItemsForDisplayResponse(varGetLineItemsForDisplayResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "line_items")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGetLineItemsForDisplayResponse struct {

@@ -20,14 +20,17 @@ var _ MappedNullable = &ErrorResponse{}
 
 // ErrorResponse struct for ErrorResponse
 type ErrorResponse struct {
-	Err            *string  `json:"err,omitempty"`
-	HttpStatusCode *float32 `json:"http_status_code,omitempty"`
-	StatusText     *string  `json:"status_text,omitempty"`
-	AppCode        *float32 `json:"app_code,omitempty"`
-	ErrorCategory  *string  `json:"error_category,omitempty"`
-	ErrorText      *string  `json:"error_text,omitempty"`
-	RequestId      *string  `json:"request_id,omitempty"`
+	Err                  *string  `json:"err,omitempty"`
+	HttpStatusCode       *float32 `json:"http_status_code,omitempty"`
+	StatusText           *string  `json:"status_text,omitempty"`
+	AppCode              *float32 `json:"app_code,omitempty"`
+	ErrorCategory        *string  `json:"error_category,omitempty"`
+	ErrorText            *string  `json:"error_text,omitempty"`
+	RequestId            *string  `json:"request_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ErrorResponse ErrorResponse
 
 // NewErrorResponse instantiates a new ErrorResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -301,7 +304,39 @@ func (o ErrorResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RequestId) {
 		toSerialize["request_id"] = o.RequestId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ErrorResponse) UnmarshalJSON(data []byte) (err error) {
+	varErrorResponse := _ErrorResponse{}
+
+	err = json.Unmarshal(data, &varErrorResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ErrorResponse(varErrorResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "err")
+		delete(additionalProperties, "http_status_code")
+		delete(additionalProperties, "status_text")
+		delete(additionalProperties, "app_code")
+		delete(additionalProperties, "error_category")
+		delete(additionalProperties, "error_text")
+		delete(additionalProperties, "request_id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableErrorResponse struct {

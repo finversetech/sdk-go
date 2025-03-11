@@ -23,8 +23,11 @@ type LoginField struct {
 	Key  *string `json:"key,omitempty"`
 	Name *string `json:"name,omitempty"`
 	// could be password, text, number
-	Type *string `json:"type,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LoginField LoginField
 
 // NewLoginField instantiates a new LoginField object
 // This constructor will assign default values to properties that have it defined,
@@ -158,7 +161,35 @@ func (o LoginField) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LoginField) UnmarshalJSON(data []byte) (err error) {
+	varLoginField := _LoginField{}
+
+	err = json.Unmarshal(data, &varLoginField)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LoginField(varLoginField)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "key")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLoginField struct {

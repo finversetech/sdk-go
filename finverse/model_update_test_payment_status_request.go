@@ -21,8 +21,11 @@ var _ MappedNullable = &UpdateTestPaymentStatusRequest{}
 // UpdateTestPaymentStatusRequest struct for UpdateTestPaymentStatusRequest
 type UpdateTestPaymentStatusRequest struct {
 	// The payment status
-	Status *string `json:"status,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _UpdateTestPaymentStatusRequest UpdateTestPaymentStatusRequest
 
 // NewUpdateTestPaymentStatusRequest instantiates a new UpdateTestPaymentStatusRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o UpdateTestPaymentStatusRequest) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *UpdateTestPaymentStatusRequest) UnmarshalJSON(data []byte) (err error) {
+	varUpdateTestPaymentStatusRequest := _UpdateTestPaymentStatusRequest{}
+
+	err = json.Unmarshal(data, &varUpdateTestPaymentStatusRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = UpdateTestPaymentStatusRequest(varUpdateTestPaymentStatusRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableUpdateTestPaymentStatusRequest struct {

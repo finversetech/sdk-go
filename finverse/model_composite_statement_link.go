@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -26,7 +25,8 @@ type CompositeStatementLink struct {
 	// signedURL to download statement
 	Url string `json:"url"`
 	// expiry of the signedURL
-	Expiry time.Time `json:"expiry"`
+	Expiry               time.Time `json:"expiry"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CompositeStatementLink CompositeStatementLink
@@ -110,6 +110,11 @@ func (o CompositeStatementLink) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["url"] = o.Url
 	toSerialize["expiry"] = o.Expiry
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -138,15 +143,21 @@ func (o *CompositeStatementLink) UnmarshalJSON(data []byte) (err error) {
 
 	varCompositeStatementLink := _CompositeStatementLink{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCompositeStatementLink)
+	err = json.Unmarshal(data, &varCompositeStatementLink)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CompositeStatementLink(varCompositeStatementLink)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "expiry")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

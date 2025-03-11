@@ -20,9 +20,12 @@ var _ MappedNullable = &LoginIdentityLoginMethodsAvailable{}
 
 // LoginIdentityLoginMethodsAvailable struct for LoginIdentityLoginMethodsAvailable
 type LoginIdentityLoginMethodsAvailable struct {
-	HavePassword *bool `json:"havePassword,omitempty"`
-	HaveSecret   *bool `json:"haveSecret,omitempty"`
+	HavePassword         *bool `json:"havePassword,omitempty"`
+	HaveSecret           *bool `json:"haveSecret,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LoginIdentityLoginMethodsAvailable LoginIdentityLoginMethodsAvailable
 
 // NewLoginIdentityLoginMethodsAvailable instantiates a new LoginIdentityLoginMethodsAvailable object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o LoginIdentityLoginMethodsAvailable) ToMap() (map[string]interface{}, err
 	if !IsNil(o.HaveSecret) {
 		toSerialize["haveSecret"] = o.HaveSecret
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LoginIdentityLoginMethodsAvailable) UnmarshalJSON(data []byte) (err error) {
+	varLoginIdentityLoginMethodsAvailable := _LoginIdentityLoginMethodsAvailable{}
+
+	err = json.Unmarshal(data, &varLoginIdentityLoginMethodsAvailable)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LoginIdentityLoginMethodsAvailable(varLoginIdentityLoginMethodsAvailable)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "havePassword")
+		delete(additionalProperties, "haveSecret")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLoginIdentityLoginMethodsAvailable struct {

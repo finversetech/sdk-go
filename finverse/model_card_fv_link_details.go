@@ -29,7 +29,10 @@ type CardFvLinkDetails struct {
 	// The credit card expiry year
 	ExpiryYear           *int32  `json:"expiry_year,omitempty"`
 	CollectionEntityName *string `json:"collection_entity_name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CardFvLinkDetails CardFvLinkDetails
 
 // NewCardFvLinkDetails instantiates a new CardFvLinkDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -233,7 +236,37 @@ func (o CardFvLinkDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CollectionEntityName) {
 		toSerialize["collection_entity_name"] = o.CollectionEntityName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CardFvLinkDetails) UnmarshalJSON(data []byte) (err error) {
+	varCardFvLinkDetails := _CardFvLinkDetails{}
+
+	err = json.Unmarshal(data, &varCardFvLinkDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CardFvLinkDetails(varCardFvLinkDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "brand")
+		delete(additionalProperties, "last4")
+		delete(additionalProperties, "expiry_month")
+		delete(additionalProperties, "expiry_year")
+		delete(additionalProperties, "collection_entity_name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCardFvLinkDetails struct {

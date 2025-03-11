@@ -20,10 +20,13 @@ var _ MappedNullable = &NonSensitiveLinkStatusSuccessModel{}
 
 // NonSensitiveLinkStatusSuccessModel struct for NonSensitiveLinkStatusSuccessModel
 type NonSensitiveLinkStatusSuccessModel struct {
-	Code            *string `json:"code,omitempty"`
-	State           *string `json:"state,omitempty"`
-	LoginIdentityId *string `json:"login_identity_id,omitempty"`
+	Code                 *string `json:"code,omitempty"`
+	State                *string `json:"state,omitempty"`
+	LoginIdentityId      *string `json:"login_identity_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NonSensitiveLinkStatusSuccessModel NonSensitiveLinkStatusSuccessModel
 
 // NewNonSensitiveLinkStatusSuccessModel instantiates a new NonSensitiveLinkStatusSuccessModel object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o NonSensitiveLinkStatusSuccessModel) ToMap() (map[string]interface{}, err
 	if !IsNil(o.LoginIdentityId) {
 		toSerialize["login_identity_id"] = o.LoginIdentityId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NonSensitiveLinkStatusSuccessModel) UnmarshalJSON(data []byte) (err error) {
+	varNonSensitiveLinkStatusSuccessModel := _NonSensitiveLinkStatusSuccessModel{}
+
+	err = json.Unmarshal(data, &varNonSensitiveLinkStatusSuccessModel)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NonSensitiveLinkStatusSuccessModel(varNonSensitiveLinkStatusSuccessModel)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "code")
+		delete(additionalProperties, "state")
+		delete(additionalProperties, "login_identity_id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNonSensitiveLinkStatusSuccessModel struct {

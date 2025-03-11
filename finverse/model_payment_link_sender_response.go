@@ -26,8 +26,11 @@ type PaymentLinkSenderResponse struct {
 	// Accountholder name of the sender's account
 	Name *string `json:"name,omitempty"`
 	// A unique identifier generated after creating sender
-	UserId *string `json:"user_id,omitempty"`
+	UserId               *string `json:"user_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PaymentLinkSenderResponse PaymentLinkSenderResponse
 
 // NewPaymentLinkSenderResponse instantiates a new PaymentLinkSenderResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o PaymentLinkSenderResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserId) {
 		toSerialize["user_id"] = o.UserId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PaymentLinkSenderResponse) UnmarshalJSON(data []byte) (err error) {
+	varPaymentLinkSenderResponse := _PaymentLinkSenderResponse{}
+
+	err = json.Unmarshal(data, &varPaymentLinkSenderResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentLinkSenderResponse(varPaymentLinkSenderResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "external_user_id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "user_id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePaymentLinkSenderResponse struct {

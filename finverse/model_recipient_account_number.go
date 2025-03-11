@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,7 +26,8 @@ type RecipientAccountNumber struct {
 	// Account number value
 	Number string `json:"number"`
 	// Account number value
-	NumberPlaintext NullableString `json:"number_plaintext,omitempty"`
+	NumberPlaintext      NullableString `json:"number_plaintext,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RecipientAccountNumber RecipientAccountNumber
@@ -157,6 +157,11 @@ func (o RecipientAccountNumber) ToMap() (map[string]interface{}, error) {
 	if o.NumberPlaintext.IsSet() {
 		toSerialize["number_plaintext"] = o.NumberPlaintext.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -185,15 +190,22 @@ func (o *RecipientAccountNumber) UnmarshalJSON(data []byte) (err error) {
 
 	varRecipientAccountNumber := _RecipientAccountNumber{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRecipientAccountNumber)
+	err = json.Unmarshal(data, &varRecipientAccountNumber)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RecipientAccountNumber(varRecipientAccountNumber)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "number")
+		delete(additionalProperties, "number_plaintext")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

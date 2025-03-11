@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,9 +21,10 @@ var _ MappedNullable = &IncomeResponse{}
 
 // IncomeResponse struct for IncomeResponse
 type IncomeResponse struct {
-	Income        []SingleSourceIncome `json:"income"`
-	LoginIdentity LoginIdentityShort   `json:"login_identity"`
-	Institution   InstitutionShort     `json:"institution"`
+	Income               []SingleSourceIncome `json:"income"`
+	LoginIdentity        LoginIdentityShort   `json:"login_identity"`
+	Institution          InstitutionShort     `json:"institution"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _IncomeResponse IncomeResponse
@@ -134,6 +134,11 @@ func (o IncomeResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["income"] = o.Income
 	toSerialize["login_identity"] = o.LoginIdentity
 	toSerialize["institution"] = o.Institution
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -163,15 +168,22 @@ func (o *IncomeResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varIncomeResponse := _IncomeResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varIncomeResponse)
+	err = json.Unmarshal(data, &varIncomeResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = IncomeResponse(varIncomeResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "income")
+		delete(additionalProperties, "login_identity")
+		delete(additionalProperties, "institution")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

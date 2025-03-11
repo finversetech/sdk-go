@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -32,7 +31,8 @@ type MandateDetailsRequestWithDdaReference struct {
 	EndDate           NullableString     `json:"end_date,omitempty"`
 	TransactionLimits *TransactionLimits `json:"transaction_limits,omitempty"`
 	// End-user facing description of the mandate (used in notifications, and in payments if no description is provided)
-	Description string `json:"description"`
+	Description          string `json:"description"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MandateDetailsRequestWithDdaReference MandateDetailsRequestWithDdaReference
@@ -278,6 +278,11 @@ func (o MandateDetailsRequestWithDdaReference) ToMap() (map[string]interface{}, 
 		toSerialize["transaction_limits"] = o.TransactionLimits
 	}
 	toSerialize["description"] = o.Description
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -306,15 +311,25 @@ func (o *MandateDetailsRequestWithDdaReference) UnmarshalJSON(data []byte) (err 
 
 	varMandateDetailsRequestWithDdaReference := _MandateDetailsRequestWithDdaReference{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMandateDetailsRequestWithDdaReference)
+	err = json.Unmarshal(data, &varMandateDetailsRequestWithDdaReference)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MandateDetailsRequestWithDdaReference(varMandateDetailsRequestWithDdaReference)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "dda_reference")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "start_date")
+		delete(additionalProperties, "end_date")
+		delete(additionalProperties, "transaction_limits")
+		delete(additionalProperties, "description")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

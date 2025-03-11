@@ -21,9 +21,12 @@ var _ MappedNullable = &RefreshLoginIdentityRequest{}
 // RefreshLoginIdentityRequest struct for RefreshLoginIdentityRequest
 type RefreshLoginIdentityRequest struct {
 	// Indicate whether the user is present in this flow. If the user is not present, only institutions that do not require 2fa can be refreshed
-	UserPresent        *bool                                   `json:"user_present,omitempty"`
-	LinkCustomizations *RefreshLoginIdentityLinkCustomizations `json:"link_customizations,omitempty"`
+	UserPresent          *bool                                   `json:"user_present,omitempty"`
+	LinkCustomizations   *RefreshLoginIdentityLinkCustomizations `json:"link_customizations,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RefreshLoginIdentityRequest RefreshLoginIdentityRequest
 
 // NewRefreshLoginIdentityRequest instantiates a new RefreshLoginIdentityRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o RefreshLoginIdentityRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LinkCustomizations) {
 		toSerialize["link_customizations"] = o.LinkCustomizations
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RefreshLoginIdentityRequest) UnmarshalJSON(data []byte) (err error) {
+	varRefreshLoginIdentityRequest := _RefreshLoginIdentityRequest{}
+
+	err = json.Unmarshal(data, &varRefreshLoginIdentityRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RefreshLoginIdentityRequest(varRefreshLoginIdentityRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "user_present")
+		delete(additionalProperties, "link_customizations")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRefreshLoginIdentityRequest struct {

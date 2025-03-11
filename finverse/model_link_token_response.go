@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -26,9 +25,10 @@ type LinkTokenResponse struct {
 	AccessToken string `json:"access_token"`
 	TokenType   string `json:"token_type"`
 	// seconds
-	ExpiresIn float32   `json:"expires_in"`
-	IssuedAt  time.Time `json:"issued_at"`
-	LinkUrl   string    `json:"link_url"`
+	ExpiresIn            float32   `json:"expires_in"`
+	IssuedAt             time.Time `json:"issued_at"`
+	LinkUrl              string    `json:"link_url"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _LinkTokenResponse LinkTokenResponse
@@ -190,6 +190,11 @@ func (o LinkTokenResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["expires_in"] = o.ExpiresIn
 	toSerialize["issued_at"] = o.IssuedAt
 	toSerialize["link_url"] = o.LinkUrl
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -221,15 +226,24 @@ func (o *LinkTokenResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varLinkTokenResponse := _LinkTokenResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varLinkTokenResponse)
+	err = json.Unmarshal(data, &varLinkTokenResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = LinkTokenResponse(varLinkTokenResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "access_token")
+		delete(additionalProperties, "token_type")
+		delete(additionalProperties, "expires_in")
+		delete(additionalProperties, "issued_at")
+		delete(additionalProperties, "link_url")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

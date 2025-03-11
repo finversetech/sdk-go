@@ -20,8 +20,11 @@ var _ MappedNullable = &ErrBodyModel{}
 
 // ErrBodyModel struct for ErrBodyModel
 type ErrBodyModel struct {
-	Error *FvErrorModel `json:"error,omitempty"`
+	Error                *FvErrorModel `json:"error,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ErrBodyModel ErrBodyModel
 
 // NewErrBodyModel instantiates a new ErrBodyModel object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o ErrBodyModel) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ErrBodyModel) UnmarshalJSON(data []byte) (err error) {
+	varErrBodyModel := _ErrBodyModel{}
+
+	err = json.Unmarshal(data, &varErrBodyModel)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ErrBodyModel(varErrBodyModel)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "error")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableErrBodyModel struct {

@@ -20,8 +20,11 @@ var _ MappedNullable = &ChangePaymentMethodFvLinkResponse{}
 
 // ChangePaymentMethodFvLinkResponse struct for ChangePaymentMethodFvLinkResponse
 type ChangePaymentMethodFvLinkResponse struct {
-	RedirectUrl *string `json:"redirect_url,omitempty"`
+	RedirectUrl          *string `json:"redirect_url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ChangePaymentMethodFvLinkResponse ChangePaymentMethodFvLinkResponse
 
 // NewChangePaymentMethodFvLinkResponse instantiates a new ChangePaymentMethodFvLinkResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o ChangePaymentMethodFvLinkResponse) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.RedirectUrl) {
 		toSerialize["redirect_url"] = o.RedirectUrl
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ChangePaymentMethodFvLinkResponse) UnmarshalJSON(data []byte) (err error) {
+	varChangePaymentMethodFvLinkResponse := _ChangePaymentMethodFvLinkResponse{}
+
+	err = json.Unmarshal(data, &varChangePaymentMethodFvLinkResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ChangePaymentMethodFvLinkResponse(varChangePaymentMethodFvLinkResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "redirect_url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableChangePaymentMethodFvLinkResponse struct {

@@ -20,11 +20,14 @@ var _ MappedNullable = &InstitutionShort{}
 
 // InstitutionShort struct for InstitutionShort
 type InstitutionShort struct {
-	InstitutionId   *string  `json:"institution_id,omitempty"`
-	Countries       []string `json:"countries,omitempty"`
-	InstitutionName *string  `json:"institution_name,omitempty"`
-	PortalName      *string  `json:"portal_name,omitempty"`
+	InstitutionId        *string  `json:"institution_id,omitempty"`
+	Countries            []string `json:"countries,omitempty"`
+	InstitutionName      *string  `json:"institution_name,omitempty"`
+	PortalName           *string  `json:"portal_name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _InstitutionShort InstitutionShort
 
 // NewInstitutionShort instantiates a new InstitutionShort object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o InstitutionShort) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PortalName) {
 		toSerialize["portal_name"] = o.PortalName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *InstitutionShort) UnmarshalJSON(data []byte) (err error) {
+	varInstitutionShort := _InstitutionShort{}
+
+	err = json.Unmarshal(data, &varInstitutionShort)
+
+	if err != nil {
+		return err
+	}
+
+	*o = InstitutionShort(varInstitutionShort)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "institution_id")
+		delete(additionalProperties, "countries")
+		delete(additionalProperties, "institution_name")
+		delete(additionalProperties, "portal_name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableInstitutionShort struct {

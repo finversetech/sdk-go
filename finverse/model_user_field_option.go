@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type UserFieldOption struct {
 	// The value displayed in the select element.
 	Label string `json:"label"`
 	// The value that will be submitted if this option was selected.
-	Value string `json:"value"`
+	Value                string `json:"value"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _UserFieldOption UserFieldOption
@@ -109,6 +109,11 @@ func (o UserFieldOption) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["label"] = o.Label
 	toSerialize["value"] = o.Value
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *UserFieldOption) UnmarshalJSON(data []byte) (err error) {
 
 	varUserFieldOption := _UserFieldOption{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUserFieldOption)
+	err = json.Unmarshal(data, &varUserFieldOption)
 
 	if err != nil {
 		return err
 	}
 
 	*o = UserFieldOption(varUserFieldOption)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "label")
+		delete(additionalProperties, "value")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

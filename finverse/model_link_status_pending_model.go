@@ -20,10 +20,13 @@ var _ MappedNullable = &LinkStatusPendingModel{}
 
 // LinkStatusPendingModel struct for LinkStatusPendingModel
 type LinkStatusPendingModel struct {
-	Code    *string `json:"code,omitempty"`
-	Message *string `json:"message,omitempty"`
-	Details *string `json:"details,omitempty"`
+	Code                 *string `json:"code,omitempty"`
+	Message              *string `json:"message,omitempty"`
+	Details              *string `json:"details,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LinkStatusPendingModel LinkStatusPendingModel
 
 // NewLinkStatusPendingModel instantiates a new LinkStatusPendingModel object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o LinkStatusPendingModel) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Details) {
 		toSerialize["details"] = o.Details
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LinkStatusPendingModel) UnmarshalJSON(data []byte) (err error) {
+	varLinkStatusPendingModel := _LinkStatusPendingModel{}
+
+	err = json.Unmarshal(data, &varLinkStatusPendingModel)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LinkStatusPendingModel(varLinkStatusPendingModel)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "code")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "details")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLinkStatusPendingModel struct {

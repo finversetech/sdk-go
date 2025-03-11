@@ -20,9 +20,12 @@ var _ MappedNullable = &ManualPaymentConfirmationResponse{}
 
 // ManualPaymentConfirmationResponse struct for ManualPaymentConfirmationResponse
 type ManualPaymentConfirmationResponse struct {
-	PaymentId *string `json:"payment_id,omitempty"`
-	Status    *string `json:"status,omitempty"`
+	PaymentId            *string `json:"payment_id,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ManualPaymentConfirmationResponse ManualPaymentConfirmationResponse
 
 // NewManualPaymentConfirmationResponse instantiates a new ManualPaymentConfirmationResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o ManualPaymentConfirmationResponse) ToMap() (map[string]interface{}, erro
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ManualPaymentConfirmationResponse) UnmarshalJSON(data []byte) (err error) {
+	varManualPaymentConfirmationResponse := _ManualPaymentConfirmationResponse{}
+
+	err = json.Unmarshal(data, &varManualPaymentConfirmationResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ManualPaymentConfirmationResponse(varManualPaymentConfirmationResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "payment_id")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableManualPaymentConfirmationResponse struct {

@@ -20,8 +20,11 @@ var _ MappedNullable = &PaymentSnapshotPaymentMethod{}
 
 // PaymentSnapshotPaymentMethod struct for PaymentSnapshotPaymentMethod
 type PaymentSnapshotPaymentMethod struct {
-	Card *PaymentSnapshotPaymentMethodCard `json:"card,omitempty"`
+	Card                 *PaymentSnapshotPaymentMethodCard `json:"card,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PaymentSnapshotPaymentMethod PaymentSnapshotPaymentMethod
 
 // NewPaymentSnapshotPaymentMethod instantiates a new PaymentSnapshotPaymentMethod object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o PaymentSnapshotPaymentMethod) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Card) {
 		toSerialize["card"] = o.Card
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PaymentSnapshotPaymentMethod) UnmarshalJSON(data []byte) (err error) {
+	varPaymentSnapshotPaymentMethod := _PaymentSnapshotPaymentMethod{}
+
+	err = json.Unmarshal(data, &varPaymentSnapshotPaymentMethod)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentSnapshotPaymentMethod(varPaymentSnapshotPaymentMethod)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "card")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePaymentSnapshotPaymentMethod struct {

@@ -27,7 +27,10 @@ type ProductStatus struct {
 	StatusDetails        *string      `json:"status_details,omitempty"`
 	LastUpdate           NullableTime `json:"last_update,omitempty"`
 	LastSuccessfulUpdate NullableTime `json:"last_successful_update,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ProductStatus ProductStatus
 
 // NewProductStatus instantiates a new ProductStatus object
 // This constructor will assign default values to properties that have it defined,
@@ -218,7 +221,36 @@ func (o ProductStatus) ToMap() (map[string]interface{}, error) {
 	if o.LastSuccessfulUpdate.IsSet() {
 		toSerialize["last_successful_update"] = o.LastSuccessfulUpdate.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ProductStatus) UnmarshalJSON(data []byte) (err error) {
+	varProductStatus := _ProductStatus{}
+
+	err = json.Unmarshal(data, &varProductStatus)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ProductStatus(varProductStatus)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "status_details")
+		delete(additionalProperties, "last_update")
+		delete(additionalProperties, "last_successful_update")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableProductStatus struct {

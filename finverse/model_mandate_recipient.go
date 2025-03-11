@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -23,7 +22,8 @@ var _ MappedNullable = &MandateRecipient{}
 // MandateRecipient struct for MandateRecipient
 type MandateRecipient struct {
 	// Merchant account name
-	Name string `json:"name"`
+	Name                 string `json:"name"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MandateRecipient MandateRecipient
@@ -81,6 +81,11 @@ func (o MandateRecipient) MarshalJSON() ([]byte, error) {
 func (o MandateRecipient) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["name"] = o.Name
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -108,15 +113,20 @@ func (o *MandateRecipient) UnmarshalJSON(data []byte) (err error) {
 
 	varMandateRecipient := _MandateRecipient{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMandateRecipient)
+	err = json.Unmarshal(data, &varMandateRecipient)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MandateRecipient(varMandateRecipient)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

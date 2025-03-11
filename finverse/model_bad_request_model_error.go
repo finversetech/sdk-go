@@ -24,8 +24,11 @@ type BadRequestModelError struct {
 	Name    *string  `json:"name,omitempty"`
 	Message *string  `json:"message,omitempty"`
 	// A link to visit for further action
-	Link *string `json:"link,omitempty"`
+	Link                 *string `json:"link,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _BadRequestModelError BadRequestModelError
 
 // NewBadRequestModelError instantiates a new BadRequestModelError object
 // This constructor will assign default values to properties that have it defined,
@@ -194,7 +197,36 @@ func (o BadRequestModelError) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Link) {
 		toSerialize["link"] = o.Link
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *BadRequestModelError) UnmarshalJSON(data []byte) (err error) {
+	varBadRequestModelError := _BadRequestModelError{}
+
+	err = json.Unmarshal(data, &varBadRequestModelError)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BadRequestModelError(varBadRequestModelError)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "code")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "link")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableBadRequestModelError struct {

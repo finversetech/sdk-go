@@ -26,8 +26,11 @@ type CreateMandateSender struct {
 	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
 	UserType *string `json:"user_type,omitempty"`
 	// Sender details which will be used for fraud checking.
-	UserDetails []SenderDetail `json:"user_details,omitempty"`
+	UserDetails          []SenderDetail `json:"user_details,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CreateMandateSender CreateMandateSender
 
 // NewCreateMandateSender instantiates a new CreateMandateSender object
 // This constructor will assign default values to properties that have it defined,
@@ -196,7 +199,36 @@ func (o CreateMandateSender) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserDetails) {
 		toSerialize["user_details"] = o.UserDetails
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CreateMandateSender) UnmarshalJSON(data []byte) (err error) {
+	varCreateMandateSender := _CreateMandateSender{}
+
+	err = json.Unmarshal(data, &varCreateMandateSender)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreateMandateSender(varCreateMandateSender)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "external_user_id")
+		delete(additionalProperties, "user_type")
+		delete(additionalProperties, "user_details")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCreateMandateSender struct {

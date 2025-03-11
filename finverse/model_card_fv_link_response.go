@@ -20,11 +20,14 @@ var _ MappedNullable = &CardFvLinkResponse{}
 
 // CardFvLinkResponse struct for CardFvLinkResponse
 type CardFvLinkResponse struct {
-	Status      *string               `json:"status,omitempty"`
-	CardDetails *CardFvLinkDetails    `json:"card_details,omitempty"`
-	Recipient   *CardRecipient        `json:"recipient,omitempty"`
-	Error       *FvEmbeddedErrorModel `json:"error,omitempty"`
+	Status               *string               `json:"status,omitempty"`
+	CardDetails          *CardFvLinkDetails    `json:"card_details,omitempty"`
+	Recipient            *CardRecipient        `json:"recipient,omitempty"`
+	Error                *FvEmbeddedErrorModel `json:"error,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CardFvLinkResponse CardFvLinkResponse
 
 // NewCardFvLinkResponse instantiates a new CardFvLinkResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o CardFvLinkResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CardFvLinkResponse) UnmarshalJSON(data []byte) (err error) {
+	varCardFvLinkResponse := _CardFvLinkResponse{}
+
+	err = json.Unmarshal(data, &varCardFvLinkResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CardFvLinkResponse(varCardFvLinkResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "card_details")
+		delete(additionalProperties, "recipient")
+		delete(additionalProperties, "error")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCardFvLinkResponse struct {

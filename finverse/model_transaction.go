@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -50,6 +49,7 @@ type Transaction struct {
 	// Transaction reference provided by the bank
 	TransactionReference *string               `json:"transaction_reference,omitempty"`
 	CategoryPredictions  []CategoryPredictions `json:"category_predictions,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Transaction Transaction
@@ -783,6 +783,11 @@ func (o Transaction) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CategoryPredictions) {
 		toSerialize["category_predictions"] = o.CategoryPredictions
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -810,15 +815,39 @@ func (o *Transaction) UnmarshalJSON(data []byte) (err error) {
 
 	varTransaction := _Transaction{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTransaction)
+	err = json.Unmarshal(data, &varTransaction)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Transaction(varTransaction)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "transaction_id")
+		delete(additionalProperties, "account_id")
+		delete(additionalProperties, "transaction_state")
+		delete(additionalProperties, "transaction_type")
+		delete(additionalProperties, "category")
+		delete(additionalProperties, "category_id")
+		delete(additionalProperties, "merchant_name")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "location")
+		delete(additionalProperties, "is_pending")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "posted_date")
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "transaction_details")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "updated_at")
+		delete(additionalProperties, "categories")
+		delete(additionalProperties, "transaction_time")
+		delete(additionalProperties, "transaction_reference")
+		delete(additionalProperties, "category_predictions")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

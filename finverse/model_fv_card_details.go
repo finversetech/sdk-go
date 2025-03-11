@@ -30,7 +30,10 @@ type FVCardDetails struct {
 	ExpiryYear           *int32  `json:"expiry_year,omitempty"`
 	ProcessorEntityName  *string `json:"processor_entity_name,omitempty"`
 	CollectionEntityName *string `json:"collection_entity_name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _FVCardDetails FVCardDetails
 
 // NewFVCardDetails instantiates a new FVCardDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -269,7 +272,38 @@ func (o FVCardDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CollectionEntityName) {
 		toSerialize["collection_entity_name"] = o.CollectionEntityName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *FVCardDetails) UnmarshalJSON(data []byte) (err error) {
+	varFVCardDetails := _FVCardDetails{}
+
+	err = json.Unmarshal(data, &varFVCardDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FVCardDetails(varFVCardDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "brand")
+		delete(additionalProperties, "last4")
+		delete(additionalProperties, "expiry_month")
+		delete(additionalProperties, "expiry_year")
+		delete(additionalProperties, "processor_entity_name")
+		delete(additionalProperties, "collection_entity_name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFVCardDetails struct {

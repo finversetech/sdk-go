@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -34,6 +33,7 @@ type MandateDetailsRequest struct {
 	Description *string `json:"description,omitempty"`
 	// A bank specific reference, what the end user may see
 	MandateBankReference *string `json:"mandate_bank_reference,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MandateDetailsRequest MandateDetailsRequest
@@ -323,6 +323,11 @@ func (o MandateDetailsRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MandateBankReference) {
 		toSerialize["mandate_bank_reference"] = o.MandateBankReference
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -350,15 +355,26 @@ func (o *MandateDetailsRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varMandateDetailsRequest := _MandateDetailsRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMandateDetailsRequest)
+	err = json.Unmarshal(data, &varMandateDetailsRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MandateDetailsRequest(varMandateDetailsRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "start_date")
+		delete(additionalProperties, "end_date")
+		delete(additionalProperties, "payment_schedule")
+		delete(additionalProperties, "transaction_limits")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "mandate_bank_reference")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

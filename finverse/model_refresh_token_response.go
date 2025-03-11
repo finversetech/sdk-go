@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -26,10 +25,11 @@ type RefreshTokenResponse struct {
 	AccessToken string `json:"access_token"`
 	TokenType   string `json:"token_type"`
 	// seconds
-	ExpiresIn       float32   `json:"expires_in"`
-	IssuedAt        time.Time `json:"issued_at"`
-	LinkUrl         string    `json:"link_url"`
-	LoginIdentityId string    `json:"login_identity_id"`
+	ExpiresIn            float32   `json:"expires_in"`
+	IssuedAt             time.Time `json:"issued_at"`
+	LinkUrl              string    `json:"link_url"`
+	LoginIdentityId      string    `json:"login_identity_id"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RefreshTokenResponse RefreshTokenResponse
@@ -217,6 +217,11 @@ func (o RefreshTokenResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["issued_at"] = o.IssuedAt
 	toSerialize["link_url"] = o.LinkUrl
 	toSerialize["login_identity_id"] = o.LoginIdentityId
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -249,15 +254,25 @@ func (o *RefreshTokenResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varRefreshTokenResponse := _RefreshTokenResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRefreshTokenResponse)
+	err = json.Unmarshal(data, &varRefreshTokenResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RefreshTokenResponse(varRefreshTokenResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "access_token")
+		delete(additionalProperties, "token_type")
+		delete(additionalProperties, "expires_in")
+		delete(additionalProperties, "issued_at")
+		delete(additionalProperties, "link_url")
+		delete(additionalProperties, "login_identity_id")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

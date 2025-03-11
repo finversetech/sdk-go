@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,7 +26,8 @@ type SingleSourceIncome struct {
 	// Where the income estimate was sourced from
 	Source string `json:"source"`
 	// Unknown
-	SourceId string `json:"source_id"`
+	SourceId             string `json:"source_id"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SingleSourceIncome SingleSourceIncome
@@ -163,6 +163,11 @@ func (o SingleSourceIncome) ToMap() (map[string]interface{}, error) {
 	toSerialize["income_total"] = o.IncomeTotal
 	toSerialize["source"] = o.Source
 	toSerialize["source_id"] = o.SourceId
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -193,15 +198,23 @@ func (o *SingleSourceIncome) UnmarshalJSON(data []byte) (err error) {
 
 	varSingleSourceIncome := _SingleSourceIncome{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSingleSourceIncome)
+	err = json.Unmarshal(data, &varSingleSourceIncome)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SingleSourceIncome(varSingleSourceIncome)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "income_streams")
+		delete(additionalProperties, "income_total")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "source_id")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

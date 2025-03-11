@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -24,7 +23,8 @@ var _ MappedNullable = &ActionRequest{}
 type ActionRequest struct {
 	EncryptedCredentials EncryptedPayload `json:"encrypted_credentials"`
 	// The action id
-	ActionId string `json:"action_id"`
+	ActionId             string `json:"action_id"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ActionRequest ActionRequest
@@ -108,6 +108,11 @@ func (o ActionRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["encrypted_credentials"] = o.EncryptedCredentials
 	toSerialize["action_id"] = o.ActionId
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -136,15 +141,21 @@ func (o *ActionRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varActionRequest := _ActionRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varActionRequest)
+	err = json.Unmarshal(data, &varActionRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ActionRequest(varActionRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "encrypted_credentials")
+		delete(additionalProperties, "action_id")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

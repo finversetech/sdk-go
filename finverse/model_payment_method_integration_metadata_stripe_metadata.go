@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,8 +21,9 @@ var _ MappedNullable = &PaymentMethodIntegrationMetadataStripeMetadata{}
 
 // PaymentMethodIntegrationMetadataStripeMetadata struct for PaymentMethodIntegrationMetadataStripeMetadata
 type PaymentMethodIntegrationMetadataStripeMetadata struct {
-	Customer      PaymentMethodIntegrationMetadataStripeMetadataCustomer `json:"customer"`
-	PaymentMethod PaymentMethodIntegrationMetadataStripeMetadataCustomer `json:"payment_method"`
+	Customer             PaymentMethodIntegrationMetadataStripeMetadataCustomer `json:"customer"`
+	PaymentMethod        PaymentMethodIntegrationMetadataStripeMetadataCustomer `json:"payment_method"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PaymentMethodIntegrationMetadataStripeMetadata PaymentMethodIntegrationMetadataStripeMetadata
@@ -107,6 +107,11 @@ func (o PaymentMethodIntegrationMetadataStripeMetadata) ToMap() (map[string]inte
 	toSerialize := map[string]interface{}{}
 	toSerialize["customer"] = o.Customer
 	toSerialize["payment_method"] = o.PaymentMethod
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -135,15 +140,21 @@ func (o *PaymentMethodIntegrationMetadataStripeMetadata) UnmarshalJSON(data []by
 
 	varPaymentMethodIntegrationMetadataStripeMetadata := _PaymentMethodIntegrationMetadataStripeMetadata{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPaymentMethodIntegrationMetadataStripeMetadata)
+	err = json.Unmarshal(data, &varPaymentMethodIntegrationMetadataStripeMetadata)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PaymentMethodIntegrationMetadataStripeMetadata(varPaymentMethodIntegrationMetadataStripeMetadata)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "customer")
+		delete(additionalProperties, "payment_method")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

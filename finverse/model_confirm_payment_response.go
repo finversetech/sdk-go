@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,7 +21,8 @@ var _ MappedNullable = &ConfirmPaymentResponse{}
 
 // ConfirmPaymentResponse struct for ConfirmPaymentResponse
 type ConfirmPaymentResponse struct {
-	Success bool `json:"success"`
+	Success              bool `json:"success"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ConfirmPaymentResponse ConfirmPaymentResponse
@@ -80,6 +80,11 @@ func (o ConfirmPaymentResponse) MarshalJSON() ([]byte, error) {
 func (o ConfirmPaymentResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["success"] = o.Success
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -107,15 +112,20 @@ func (o *ConfirmPaymentResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varConfirmPaymentResponse := _ConfirmPaymentResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varConfirmPaymentResponse)
+	err = json.Unmarshal(data, &varConfirmPaymentResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ConfirmPaymentResponse(varConfirmPaymentResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "success")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

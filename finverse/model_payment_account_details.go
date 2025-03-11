@@ -49,8 +49,11 @@ type PaymentAccountDetails struct {
 	// Timestamp of when the payment link was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp of when the payment link was last updated in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
+	UpdatedAt            *time.Time `json:"updated_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PaymentAccountDetails PaymentAccountDetails
 
 // NewPaymentAccountDetails instantiates a new PaymentAccountDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -604,7 +607,47 @@ func (o PaymentAccountDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PaymentAccountDetails) UnmarshalJSON(data []byte) (err error) {
+	varPaymentAccountDetails := _PaymentAccountDetails{}
+
+	err = json.Unmarshal(data, &varPaymentAccountDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentAccountDetails(varPaymentAccountDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "account_id")
+		delete(additionalProperties, "account_number")
+		delete(additionalProperties, "account_number_masked")
+		delete(additionalProperties, "account_type")
+		delete(additionalProperties, "accountholder_name")
+		delete(additionalProperties, "institution_id")
+		delete(additionalProperties, "institution_name")
+		delete(additionalProperties, "user_id")
+		delete(additionalProperties, "bank_code")
+		delete(additionalProperties, "branch_code")
+		delete(additionalProperties, "currencies")
+		delete(additionalProperties, "business_units")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "updated_at")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePaymentAccountDetails struct {

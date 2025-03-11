@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -41,6 +40,7 @@ type Institution struct {
 	Color                 *string                `json:"color,omitempty"`
 	UpdatedAt             *time.Time             `json:"updated_at,omitempty"`
 	LoginActions          []LoginAction          `json:"login_actions,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
 
 type _Institution Institution
@@ -630,6 +630,11 @@ func (o Institution) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LoginActions) {
 		toSerialize["login_actions"] = o.LoginActions
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -664,15 +669,37 @@ func (o *Institution) UnmarshalJSON(data []byte) (err error) {
 
 	varInstitution := _Institution{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varInstitution)
+	err = json.Unmarshal(data, &varInstitution)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Institution(varInstitution)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "institution_id")
+		delete(additionalProperties, "countries")
+		delete(additionalProperties, "tags")
+		delete(additionalProperties, "institution_type")
+		delete(additionalProperties, "products_supported")
+		delete(additionalProperties, "parent_institution_name")
+		delete(additionalProperties, "institution_name")
+		delete(additionalProperties, "portal_name")
+		delete(additionalProperties, "user_type")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "status_details")
+		delete(additionalProperties, "login_url")
+		delete(additionalProperties, "login_details")
+		delete(additionalProperties, "login_methods")
+		delete(additionalProperties, "payment_info")
+		delete(additionalProperties, "color")
+		delete(additionalProperties, "updated_at")
+		delete(additionalProperties, "login_actions")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

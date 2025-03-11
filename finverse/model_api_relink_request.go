@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,6 +24,7 @@ type ApiRelinkRequest struct {
 	StoreCredential      *bool            `json:"store_credential,omitempty"`
 	Consent              bool             `json:"consent"`
 	EncryptedCredentials EncryptedPayload `json:"encrypted_credentials"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ApiRelinkRequest ApiRelinkRequest
@@ -143,6 +143,11 @@ func (o ApiRelinkRequest) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["consent"] = o.Consent
 	toSerialize["encrypted_credentials"] = o.EncryptedCredentials
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -171,15 +176,22 @@ func (o *ApiRelinkRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varApiRelinkRequest := _ApiRelinkRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varApiRelinkRequest)
+	err = json.Unmarshal(data, &varApiRelinkRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ApiRelinkRequest(varApiRelinkRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "store_credential")
+		delete(additionalProperties, "consent")
+		delete(additionalProperties, "encrypted_credentials")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

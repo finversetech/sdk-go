@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,9 +21,10 @@ var _ MappedNullable = &CurrencyAmount{}
 
 // CurrencyAmount struct for CurrencyAmount
 type CurrencyAmount struct {
-	Currency *string `json:"currency,omitempty"`
-	Value    float32 `json:"value"`
-	Raw      *string `json:"raw,omitempty"`
+	Currency             *string `json:"currency,omitempty"`
+	Value                float32 `json:"value"`
+	Raw                  *string `json:"raw,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CurrencyAmount CurrencyAmount
@@ -152,6 +152,11 @@ func (o CurrencyAmount) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Raw) {
 		toSerialize["raw"] = o.Raw
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -179,15 +184,22 @@ func (o *CurrencyAmount) UnmarshalJSON(data []byte) (err error) {
 
 	varCurrencyAmount := _CurrencyAmount{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCurrencyAmount)
+	err = json.Unmarshal(data, &varCurrencyAmount)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CurrencyAmount(varCurrencyAmount)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "raw")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -30,7 +29,8 @@ type CreateRecipientAccount struct {
 	// List of currencies supported by the recipient account
 	Currencies []string `json:"currencies"`
 	// Finverse Institution ID for the recipient’s institution.
-	InstitutionId string `json:"institution_id"`
+	InstitutionId        string `json:"institution_id"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateRecipientAccount CreateRecipientAccount
@@ -192,6 +192,11 @@ func (o CreateRecipientAccount) ToMap() (map[string]interface{}, error) {
 	toSerialize["account_type"] = o.AccountType
 	toSerialize["currencies"] = o.Currencies
 	toSerialize["institution_id"] = o.InstitutionId
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -223,15 +228,24 @@ func (o *CreateRecipientAccount) UnmarshalJSON(data []byte) (err error) {
 
 	varCreateRecipientAccount := _CreateRecipientAccount{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateRecipientAccount)
+	err = json.Unmarshal(data, &varCreateRecipientAccount)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateRecipientAccount(varCreateRecipientAccount)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "accountholder_name")
+		delete(additionalProperties, "account_number")
+		delete(additionalProperties, "account_type")
+		delete(additionalProperties, "currencies")
+		delete(additionalProperties, "institution_id")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

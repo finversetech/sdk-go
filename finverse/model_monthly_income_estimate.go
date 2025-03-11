@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -26,7 +25,8 @@ type MonthlyIncomeEstimate struct {
 	// The numeric month
 	Month float32 `json:"month"`
 	// The year
-	Year float32 `json:"year"`
+	Year                 float32 `json:"year"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MonthlyIncomeEstimate MonthlyIncomeEstimate
@@ -136,6 +136,11 @@ func (o MonthlyIncomeEstimate) ToMap() (map[string]interface{}, error) {
 	toSerialize["estimated_income"] = o.EstimatedIncome
 	toSerialize["month"] = o.Month
 	toSerialize["year"] = o.Year
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -165,15 +170,22 @@ func (o *MonthlyIncomeEstimate) UnmarshalJSON(data []byte) (err error) {
 
 	varMonthlyIncomeEstimate := _MonthlyIncomeEstimate{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMonthlyIncomeEstimate)
+	err = json.Unmarshal(data, &varMonthlyIncomeEstimate)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MonthlyIncomeEstimate(varMonthlyIncomeEstimate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "estimated_income")
+		delete(additionalProperties, "month")
+		delete(additionalProperties, "year")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

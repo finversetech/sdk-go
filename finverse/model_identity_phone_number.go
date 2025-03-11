@@ -20,14 +20,17 @@ var _ MappedNullable = &IdentityPhoneNumber{}
 
 // IdentityPhoneNumber struct for IdentityPhoneNumber
 type IdentityPhoneNumber struct {
-	Raw         *string  `json:"raw,omitempty"`
-	MobilePhone *string  `json:"mobile_phone,omitempty"`
-	OtherPhone  *string  `json:"other_phone,omitempty"`
-	MaskedPhone *string  `json:"masked_phone,omitempty"`
-	Source      *string  `json:"source,omitempty"`
-	SourceIds   []string `json:"source_ids,omitempty"`
-	AccountIds  []string `json:"account_ids,omitempty"`
+	Raw                  *string  `json:"raw,omitempty"`
+	MobilePhone          *string  `json:"mobile_phone,omitempty"`
+	OtherPhone           *string  `json:"other_phone,omitempty"`
+	MaskedPhone          *string  `json:"masked_phone,omitempty"`
+	Source               *string  `json:"source,omitempty"`
+	SourceIds            []string `json:"source_ids,omitempty"`
+	AccountIds           []string `json:"account_ids,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IdentityPhoneNumber IdentityPhoneNumber
 
 // NewIdentityPhoneNumber instantiates a new IdentityPhoneNumber object
 // This constructor will assign default values to properties that have it defined,
@@ -301,7 +304,39 @@ func (o IdentityPhoneNumber) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AccountIds) {
 		toSerialize["account_ids"] = o.AccountIds
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IdentityPhoneNumber) UnmarshalJSON(data []byte) (err error) {
+	varIdentityPhoneNumber := _IdentityPhoneNumber{}
+
+	err = json.Unmarshal(data, &varIdentityPhoneNumber)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IdentityPhoneNumber(varIdentityPhoneNumber)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "raw")
+		delete(additionalProperties, "mobile_phone")
+		delete(additionalProperties, "other_phone")
+		delete(additionalProperties, "masked_phone")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "source_ids")
+		delete(additionalProperties, "account_ids")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIdentityPhoneNumber struct {

@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -24,8 +23,9 @@ var _ MappedNullable = &IncomeTotal{}
 type IncomeTotal struct {
 	EstimatedMonthlyIncome *IncomeEstimate `json:"estimated_monthly_income,omitempty"`
 	// Number of transactions counted towards income
-	TransactionCount float32                 `json:"transaction_count"`
-	MonthlyHistory   []MonthlyIncomeEstimate `json:"monthly_history"`
+	TransactionCount     float32                 `json:"transaction_count"`
+	MonthlyHistory       []MonthlyIncomeEstimate `json:"monthly_history"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _IncomeTotal IncomeTotal
@@ -144,6 +144,11 @@ func (o IncomeTotal) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["transaction_count"] = o.TransactionCount
 	toSerialize["monthly_history"] = o.MonthlyHistory
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -172,15 +177,22 @@ func (o *IncomeTotal) UnmarshalJSON(data []byte) (err error) {
 
 	varIncomeTotal := _IncomeTotal{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varIncomeTotal)
+	err = json.Unmarshal(data, &varIncomeTotal)
 
 	if err != nil {
 		return err
 	}
 
 	*o = IncomeTotal(varIncomeTotal)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "estimated_monthly_income")
+		delete(additionalProperties, "transaction_count")
+		delete(additionalProperties, "monthly_history")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

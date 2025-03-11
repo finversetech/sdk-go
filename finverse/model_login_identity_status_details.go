@@ -21,9 +21,12 @@ var _ MappedNullable = &LoginIdentityStatusDetails{}
 
 // LoginIdentityStatusDetails struct for LoginIdentityStatusDetails
 type LoginIdentityStatusDetails struct {
-	EventDate *time.Time `json:"event_date,omitempty"`
-	EventName *string    `json:"event_name,omitempty"`
+	EventDate            *time.Time `json:"event_date,omitempty"`
+	EventName            *string    `json:"event_name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LoginIdentityStatusDetails LoginIdentityStatusDetails
 
 // NewLoginIdentityStatusDetails instantiates a new LoginIdentityStatusDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -122,7 +125,34 @@ func (o LoginIdentityStatusDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.EventName) {
 		toSerialize["event_name"] = o.EventName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LoginIdentityStatusDetails) UnmarshalJSON(data []byte) (err error) {
+	varLoginIdentityStatusDetails := _LoginIdentityStatusDetails{}
+
+	err = json.Unmarshal(data, &varLoginIdentityStatusDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LoginIdentityStatusDetails(varLoginIdentityStatusDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "event_date")
+		delete(additionalProperties, "event_name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLoginIdentityStatusDetails struct {

@@ -20,8 +20,11 @@ var _ MappedNullable = &ListPaymentAccountsResponse{}
 
 // ListPaymentAccountsResponse struct for ListPaymentAccountsResponse
 type ListPaymentAccountsResponse struct {
-	PaymentAccounts []PaymentAccountDetails `json:"payment_accounts,omitempty"`
+	PaymentAccounts      []PaymentAccountDetails `json:"payment_accounts,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ListPaymentAccountsResponse ListPaymentAccountsResponse
 
 // NewListPaymentAccountsResponse instantiates a new ListPaymentAccountsResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o ListPaymentAccountsResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaymentAccounts) {
 		toSerialize["payment_accounts"] = o.PaymentAccounts
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ListPaymentAccountsResponse) UnmarshalJSON(data []byte) (err error) {
+	varListPaymentAccountsResponse := _ListPaymentAccountsResponse{}
+
+	err = json.Unmarshal(data, &varListPaymentAccountsResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ListPaymentAccountsResponse(varListPaymentAccountsResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "payment_accounts")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableListPaymentAccountsResponse struct {

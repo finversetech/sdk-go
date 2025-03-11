@@ -20,8 +20,11 @@ var _ MappedNullable = &GetStatementLinkResponse{}
 
 // GetStatementLinkResponse struct for GetStatementLinkResponse
 type GetStatementLinkResponse struct {
-	StatementLinks []StatementLink `json:"statement_links,omitempty"`
+	StatementLinks       []StatementLink `json:"statement_links,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _GetStatementLinkResponse GetStatementLinkResponse
 
 // NewGetStatementLinkResponse instantiates a new GetStatementLinkResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o GetStatementLinkResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StatementLinks) {
 		toSerialize["statement_links"] = o.StatementLinks
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *GetStatementLinkResponse) UnmarshalJSON(data []byte) (err error) {
+	varGetStatementLinkResponse := _GetStatementLinkResponse{}
+
+	err = json.Unmarshal(data, &varGetStatementLinkResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetStatementLinkResponse(varGetStatementLinkResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "statement_links")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGetStatementLinkResponse struct {

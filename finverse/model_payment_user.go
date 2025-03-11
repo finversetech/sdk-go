@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -34,8 +33,9 @@ type PaymentUser struct {
 	UserId         *string            `json:"user_id,omitempty"`
 	UserType       *string            `json:"user_type,omitempty"`
 	// Whether the user has given consent for autopay
-	AutopayConsent      bool                         `json:"autopay_consent"`
-	IntegrationMetadata *IntegrationMetadataResponse `json:"integration_metadata,omitempty"`
+	AutopayConsent       bool                         `json:"autopay_consent"`
+	IntegrationMetadata  *IntegrationMetadataResponse `json:"integration_metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PaymentUser PaymentUser
@@ -489,6 +489,11 @@ func (o PaymentUser) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IntegrationMetadata) {
 		toSerialize["integration_metadata"] = o.IntegrationMetadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -516,15 +521,31 @@ func (o *PaymentUser) UnmarshalJSON(data []byte) (err error) {
 
 	varPaymentUser := _PaymentUser{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPaymentUser)
+	err = json.Unmarshal(data, &varPaymentUser)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PaymentUser(varPaymentUser)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "external_user_id")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "user_details")
+		delete(additionalProperties, "updated_at")
+		delete(additionalProperties, "next_bill_update")
+		delete(additionalProperties, "user_id")
+		delete(additionalProperties, "user_type")
+		delete(additionalProperties, "autopay_consent")
+		delete(additionalProperties, "integration_metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

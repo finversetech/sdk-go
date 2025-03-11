@@ -20,8 +20,11 @@ var _ MappedNullable = &OtherInfo{}
 
 // OtherInfo struct for OtherInfo
 type OtherInfo struct {
-	BankCode *string `json:"bank_code,omitempty"`
+	BankCode             *string `json:"bank_code,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _OtherInfo OtherInfo
 
 // NewOtherInfo instantiates a new OtherInfo object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o OtherInfo) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.BankCode) {
 		toSerialize["bank_code"] = o.BankCode
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *OtherInfo) UnmarshalJSON(data []byte) (err error) {
+	varOtherInfo := _OtherInfo{}
+
+	err = json.Unmarshal(data, &varOtherInfo)
+
+	if err != nil {
+		return err
+	}
+
+	*o = OtherInfo(varOtherInfo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "bank_code")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableOtherInfo struct {

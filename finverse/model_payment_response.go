@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -50,9 +49,10 @@ type PaymentResponse struct {
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Additional attributes of the payment in key:value format (e.g. payment_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 1000 characters respectively.
-	Metadata      *map[string]string            `json:"metadata,omitempty"`
-	Error         *FvEmbeddedErrorModel         `json:"error,omitempty"`
-	PaymentMethod *PaymentSnapshotPaymentMethod `json:"payment_method,omitempty"`
+	Metadata             *map[string]string            `json:"metadata,omitempty"`
+	Error                *FvEmbeddedErrorModel         `json:"error,omitempty"`
+	PaymentMethod        *PaymentSnapshotPaymentMethod `json:"payment_method,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PaymentResponse PaymentResponse
@@ -722,6 +722,11 @@ func (o PaymentResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaymentMethod) {
 		toSerialize["payment_method"] = o.PaymentMethod
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -751,15 +756,38 @@ func (o *PaymentResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varPaymentResponse := _PaymentResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPaymentResponse)
+	err = json.Unmarshal(data, &varPaymentResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PaymentResponse(varPaymentResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "payment_id")
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "surcharge_amount")
+		delete(additionalProperties, "amount_total_with_surcharge")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "updated_at")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "payment_method_id")
+		delete(additionalProperties, "payment_details")
+		delete(additionalProperties, "recipient")
+		delete(additionalProperties, "recipient_account")
+		delete(additionalProperties, "sender")
+		delete(additionalProperties, "sender_account")
+		delete(additionalProperties, "fees")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "error")
+		delete(additionalProperties, "payment_method")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

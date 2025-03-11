@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -23,7 +22,8 @@ var _ MappedNullable = &AuthorizeMandateRequest{}
 // AuthorizeMandateRequest struct for AuthorizeMandateRequest
 type AuthorizeMandateRequest struct {
 	// Whether a consent was provided by the enduser to authorize a mandate
-	EnduserConsent bool `json:"enduser_consent"`
+	EnduserConsent       bool `json:"enduser_consent"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AuthorizeMandateRequest AuthorizeMandateRequest
@@ -81,6 +81,11 @@ func (o AuthorizeMandateRequest) MarshalJSON() ([]byte, error) {
 func (o AuthorizeMandateRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["enduser_consent"] = o.EnduserConsent
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -108,15 +113,20 @@ func (o *AuthorizeMandateRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varAuthorizeMandateRequest := _AuthorizeMandateRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAuthorizeMandateRequest)
+	err = json.Unmarshal(data, &varAuthorizeMandateRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AuthorizeMandateRequest(varAuthorizeMandateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "enduser_consent")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,7 +21,8 @@ var _ MappedNullable = &RefreshRequest{}
 
 // RefreshRequest struct for RefreshRequest
 type RefreshRequest struct {
-	RefreshToken string `json:"refresh_token"`
+	RefreshToken         string `json:"refresh_token"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RefreshRequest RefreshRequest
@@ -80,6 +80,11 @@ func (o RefreshRequest) MarshalJSON() ([]byte, error) {
 func (o RefreshRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["refresh_token"] = o.RefreshToken
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -107,15 +112,20 @@ func (o *RefreshRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varRefreshRequest := _RefreshRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRefreshRequest)
+	err = json.Unmarshal(data, &varRefreshRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RefreshRequest(varRefreshRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "refresh_token")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

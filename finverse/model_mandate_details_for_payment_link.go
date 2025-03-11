@@ -26,8 +26,11 @@ type MandateDetailsForPaymentLink struct {
 	EndDate           NullableString     `json:"end_date,omitempty"`
 	TransactionLimits *TransactionLimits `json:"transaction_limits,omitempty"`
 	// End-user facing description of the mandate (used in notifications, and in payments if no description is provided)
-	Description *string `json:"description,omitempty"`
+	Description          *string `json:"description,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _MandateDetailsForPaymentLink MandateDetailsForPaymentLink
 
 // NewMandateDetailsForPaymentLink instantiates a new MandateDetailsForPaymentLink object
 // This constructor will assign default values to properties that have it defined,
@@ -218,7 +221,36 @@ func (o MandateDetailsForPaymentLink) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *MandateDetailsForPaymentLink) UnmarshalJSON(data []byte) (err error) {
+	varMandateDetailsForPaymentLink := _MandateDetailsForPaymentLink{}
+
+	err = json.Unmarshal(data, &varMandateDetailsForPaymentLink)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MandateDetailsForPaymentLink(varMandateDetailsForPaymentLink)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "start_date")
+		delete(additionalProperties, "end_date")
+		delete(additionalProperties, "transaction_limits")
+		delete(additionalProperties, "description")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableMandateDetailsForPaymentLink struct {

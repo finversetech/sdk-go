@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -32,8 +31,9 @@ type CreatePaymentAccountRequest struct {
 	// Finverse Institution ID for the payment institution.
 	InstitutionId string `json:"institution_id"`
 	// A unique identifier generated after creating user (Finverse Payment User ID)
-	UserId   string             `json:"user_id"`
-	Metadata *map[string]string `json:"metadata,omitempty"`
+	UserId               string             `json:"user_id"`
+	Metadata             *map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreatePaymentAccountRequest CreatePaymentAccountRequest
@@ -265,6 +265,11 @@ func (o CreatePaymentAccountRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -296,15 +301,26 @@ func (o *CreatePaymentAccountRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreatePaymentAccountRequest := _CreatePaymentAccountRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreatePaymentAccountRequest)
+	err = json.Unmarshal(data, &varCreatePaymentAccountRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreatePaymentAccountRequest(varCreatePaymentAccountRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "account_number")
+		delete(additionalProperties, "account_type")
+		delete(additionalProperties, "accountholder_name")
+		delete(additionalProperties, "currencies")
+		delete(additionalProperties, "institution_id")
+		delete(additionalProperties, "user_id")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

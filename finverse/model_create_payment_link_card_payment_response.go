@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type CreatePaymentLinkCardPaymentResponse struct {
 	// URL to redirect to for making the card payment (e.g. Stripe)
 	CardProcessorRedirectUri string `json:"card_processor_redirect_uri"`
 	// Finverse Payment ID
-	PaymentId *string `json:"payment_id,omitempty"`
+	PaymentId            *string `json:"payment_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreatePaymentLinkCardPaymentResponse CreatePaymentLinkCardPaymentResponse
@@ -118,6 +118,11 @@ func (o CreatePaymentLinkCardPaymentResponse) ToMap() (map[string]interface{}, e
 	if !IsNil(o.PaymentId) {
 		toSerialize["payment_id"] = o.PaymentId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -145,15 +150,21 @@ func (o *CreatePaymentLinkCardPaymentResponse) UnmarshalJSON(data []byte) (err e
 
 	varCreatePaymentLinkCardPaymentResponse := _CreatePaymentLinkCardPaymentResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreatePaymentLinkCardPaymentResponse)
+	err = json.Unmarshal(data, &varCreatePaymentLinkCardPaymentResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreatePaymentLinkCardPaymentResponse(varCreatePaymentLinkCardPaymentResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "card_processor_redirect_uri")
+		delete(additionalProperties, "payment_id")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

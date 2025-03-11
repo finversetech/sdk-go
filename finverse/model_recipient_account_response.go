@@ -36,8 +36,11 @@ type RecipientAccountResponse struct {
 	// 3-digit code associated with bank
 	BankCode *string `json:"bank_code,omitempty"`
 	// 3-digit code used to identify specific bank branch
-	BranchCode *string `json:"branch_code,omitempty"`
+	BranchCode           *string `json:"branch_code,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RecipientAccountResponse RecipientAccountResponse
 
 // NewRecipientAccountResponse instantiates a new RecipientAccountResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -381,7 +384,41 @@ func (o RecipientAccountResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.BranchCode) {
 		toSerialize["branch_code"] = o.BranchCode
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RecipientAccountResponse) UnmarshalJSON(data []byte) (err error) {
+	varRecipientAccountResponse := _RecipientAccountResponse{}
+
+	err = json.Unmarshal(data, &varRecipientAccountResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RecipientAccountResponse(varRecipientAccountResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "recipient_account_id")
+		delete(additionalProperties, "accountholder_name")
+		delete(additionalProperties, "account_number")
+		delete(additionalProperties, "account_type")
+		delete(additionalProperties, "currencies")
+		delete(additionalProperties, "institution_id")
+		delete(additionalProperties, "institution_name")
+		delete(additionalProperties, "bank_code")
+		delete(additionalProperties, "branch_code")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRecipientAccountResponse struct {

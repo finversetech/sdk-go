@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,7 +21,8 @@ var _ MappedNullable = &CreateFpsTokenResponse{}
 
 // CreateFpsTokenResponse struct for CreateFpsTokenResponse
 type CreateFpsTokenResponse struct {
-	FpsToken PaymentLinkTokenResponse `json:"fps_token"`
+	FpsToken             PaymentLinkTokenResponse `json:"fps_token"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateFpsTokenResponse CreateFpsTokenResponse
@@ -80,6 +80,11 @@ func (o CreateFpsTokenResponse) MarshalJSON() ([]byte, error) {
 func (o CreateFpsTokenResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["fps_token"] = o.FpsToken
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -107,15 +112,20 @@ func (o *CreateFpsTokenResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varCreateFpsTokenResponse := _CreateFpsTokenResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateFpsTokenResponse)
+	err = json.Unmarshal(data, &varCreateFpsTokenResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateFpsTokenResponse(varCreateFpsTokenResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "fps_token")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

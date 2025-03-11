@@ -20,15 +20,18 @@ var _ MappedNullable = &IdentityName{}
 
 // IdentityName struct for IdentityName
 type IdentityName struct {
-	Raw        *string  `json:"raw,omitempty"`
-	FullName   *string  `json:"full_name,omitempty"`
-	FirstName  *string  `json:"first_name,omitempty"`
-	LastName   *string  `json:"last_name,omitempty"`
-	OtherName  *string  `json:"other_name,omitempty"`
-	Source     *string  `json:"source,omitempty"`
-	SourceIds  []string `json:"source_ids,omitempty"`
-	AccountIds []string `json:"account_ids,omitempty"`
+	Raw                  *string  `json:"raw,omitempty"`
+	FullName             *string  `json:"full_name,omitempty"`
+	FirstName            *string  `json:"first_name,omitempty"`
+	LastName             *string  `json:"last_name,omitempty"`
+	OtherName            *string  `json:"other_name,omitempty"`
+	Source               *string  `json:"source,omitempty"`
+	SourceIds            []string `json:"source_ids,omitempty"`
+	AccountIds           []string `json:"account_ids,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IdentityName IdentityName
 
 // NewIdentityName instantiates a new IdentityName object
 // This constructor will assign default values to properties that have it defined,
@@ -337,7 +340,40 @@ func (o IdentityName) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AccountIds) {
 		toSerialize["account_ids"] = o.AccountIds
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IdentityName) UnmarshalJSON(data []byte) (err error) {
+	varIdentityName := _IdentityName{}
+
+	err = json.Unmarshal(data, &varIdentityName)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IdentityName(varIdentityName)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "raw")
+		delete(additionalProperties, "full_name")
+		delete(additionalProperties, "first_name")
+		delete(additionalProperties, "last_name")
+		delete(additionalProperties, "other_name")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "source_ids")
+		delete(additionalProperties, "account_ids")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIdentityName struct {

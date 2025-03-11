@@ -20,11 +20,14 @@ var _ MappedNullable = &NonSensitiveLinkStatusResponse{}
 
 // NonSensitiveLinkStatusResponse struct for NonSensitiveLinkStatusResponse
 type NonSensitiveLinkStatusResponse struct {
-	Action      *LinkStatusActionModel              `json:"action,omitempty"`
-	RedirectUri *string                             `json:"redirect_uri,omitempty"`
-	Success     *NonSensitiveLinkStatusSuccessModel `json:"success,omitempty"`
-	Error       *FvErrorModelV2                     `json:"error,omitempty"`
+	Action               *LinkStatusActionModel              `json:"action,omitempty"`
+	RedirectUri          *string                             `json:"redirect_uri,omitempty"`
+	Success              *NonSensitiveLinkStatusSuccessModel `json:"success,omitempty"`
+	Error                *FvErrorModelV2                     `json:"error,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _NonSensitiveLinkStatusResponse NonSensitiveLinkStatusResponse
 
 // NewNonSensitiveLinkStatusResponse instantiates a new NonSensitiveLinkStatusResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o NonSensitiveLinkStatusResponse) ToMap() (map[string]interface{}, error) 
 	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *NonSensitiveLinkStatusResponse) UnmarshalJSON(data []byte) (err error) {
+	varNonSensitiveLinkStatusResponse := _NonSensitiveLinkStatusResponse{}
+
+	err = json.Unmarshal(data, &varNonSensitiveLinkStatusResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = NonSensitiveLinkStatusResponse(varNonSensitiveLinkStatusResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "action")
+		delete(additionalProperties, "redirect_uri")
+		delete(additionalProperties, "success")
+		delete(additionalProperties, "error")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableNonSensitiveLinkStatusResponse struct {

@@ -26,7 +26,10 @@ type PaymentSetupOptions struct {
 	PaymentMethodTypes             []string                        `json:"payment_method_types,omitempty"`
 	RecipientAccountFilters        *RecipientAccountFilters        `json:"recipient_account_filters,omitempty"`
 	AutopayEnrollmentConfiguration *AutopayEnrollmentConfiguration `json:"autopay_enrollment_configuration,omitempty"`
+	AdditionalProperties           map[string]interface{}
 }
+
+type _PaymentSetupOptions PaymentSetupOptions
 
 // NewPaymentSetupOptions instantiates a new PaymentSetupOptions object
 // This constructor will assign default values to properties that have it defined,
@@ -230,7 +233,37 @@ func (o PaymentSetupOptions) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AutopayEnrollmentConfiguration) {
 		toSerialize["autopay_enrollment_configuration"] = o.AutopayEnrollmentConfiguration
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PaymentSetupOptions) UnmarshalJSON(data []byte) (err error) {
+	varPaymentSetupOptions := _PaymentSetupOptions{}
+
+	err = json.Unmarshal(data, &varPaymentSetupOptions)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentSetupOptions(varPaymentSetupOptions)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "future_payments")
+		delete(additionalProperties, "mandate_details")
+		delete(additionalProperties, "payment_method_types")
+		delete(additionalProperties, "recipient_account_filters")
+		delete(additionalProperties, "autopay_enrollment_configuration")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePaymentSetupOptions struct {

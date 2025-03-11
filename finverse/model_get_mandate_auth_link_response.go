@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,8 +26,9 @@ type GetMandateAuthLinkResponse struct {
 	// Access token validity duration (in seconds)
 	ExpiresIn int32 `json:"expires_in"`
 	// URL to launch Finverse Link to authorize the mandate
-	LinkUrl   string `json:"link_url"`
-	TokenType string `json:"token_type"`
+	LinkUrl              string `json:"link_url"`
+	TokenType            string `json:"token_type"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GetMandateAuthLinkResponse GetMandateAuthLinkResponse
@@ -164,6 +164,11 @@ func (o GetMandateAuthLinkResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["expires_in"] = o.ExpiresIn
 	toSerialize["link_url"] = o.LinkUrl
 	toSerialize["token_type"] = o.TokenType
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -194,15 +199,23 @@ func (o *GetMandateAuthLinkResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varGetMandateAuthLinkResponse := _GetMandateAuthLinkResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetMandateAuthLinkResponse)
+	err = json.Unmarshal(data, &varGetMandateAuthLinkResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GetMandateAuthLinkResponse(varGetMandateAuthLinkResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "access_token")
+		delete(additionalProperties, "expires_in")
+		delete(additionalProperties, "link_url")
+		delete(additionalProperties, "token_type")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

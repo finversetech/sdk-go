@@ -20,8 +20,11 @@ var _ MappedNullable = &DeleteLoginIdentityResponse{}
 
 // DeleteLoginIdentityResponse struct for DeleteLoginIdentityResponse
 type DeleteLoginIdentityResponse struct {
-	Success *bool `json:"success,omitempty"`
+	Success              *bool `json:"success,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _DeleteLoginIdentityResponse DeleteLoginIdentityResponse
 
 // NewDeleteLoginIdentityResponse instantiates a new DeleteLoginIdentityResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o DeleteLoginIdentityResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Success) {
 		toSerialize["success"] = o.Success
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *DeleteLoginIdentityResponse) UnmarshalJSON(data []byte) (err error) {
+	varDeleteLoginIdentityResponse := _DeleteLoginIdentityResponse{}
+
+	err = json.Unmarshal(data, &varDeleteLoginIdentityResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = DeleteLoginIdentityResponse(varDeleteLoginIdentityResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "success")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableDeleteLoginIdentityResponse struct {

@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -38,6 +37,7 @@ type MandateDetailsResponse struct {
 	MandateBankReference *string `json:"mandate_bank_reference,omitempty"`
 	ProcessorEntityName  *string `json:"processor_entity_name,omitempty"`
 	CollectionEntityName *string `json:"collection_entity_name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MandateDetailsResponse MandateDetailsResponse
@@ -432,6 +432,11 @@ func (o MandateDetailsResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CollectionEntityName) {
 		toSerialize["collection_entity_name"] = o.CollectionEntityName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -459,15 +464,29 @@ func (o *MandateDetailsResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varMandateDetailsResponse := _MandateDetailsResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMandateDetailsResponse)
+	err = json.Unmarshal(data, &varMandateDetailsResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MandateDetailsResponse(varMandateDetailsResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "dda_reference")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "start_date")
+		delete(additionalProperties, "end_date")
+		delete(additionalProperties, "payment_schedule")
+		delete(additionalProperties, "transaction_limits")
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "mandate_bank_reference")
+		delete(additionalProperties, "processor_entity_name")
+		delete(additionalProperties, "collection_entity_name")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

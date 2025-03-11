@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -41,7 +40,8 @@ type GetMandateResponse struct {
 	Fees             []Fee                    `json:"fees,omitempty"`
 	Error            *FvEmbeddedErrorModel    `json:"error,omitempty"`
 	// Additional attributes of the mandate in key:value format (e.g. mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 1000 characters respectively.
-	Metadata *map[string]string `json:"metadata,omitempty"`
+	Metadata             *map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GetMandateResponse GetMandateResponse
@@ -474,6 +474,11 @@ func (o GetMandateResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -506,15 +511,32 @@ func (o *GetMandateResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varGetMandateResponse := _GetMandateResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetMandateResponse)
+	err = json.Unmarshal(data, &varGetMandateResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GetMandateResponse(varGetMandateResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "updated_at")
+		delete(additionalProperties, "mandate_id")
+		delete(additionalProperties, "payment_method_id")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "recipient")
+		delete(additionalProperties, "recipient_account")
+		delete(additionalProperties, "sender")
+		delete(additionalProperties, "sender_account")
+		delete(additionalProperties, "mandate_details")
+		delete(additionalProperties, "fees")
+		delete(additionalProperties, "error")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

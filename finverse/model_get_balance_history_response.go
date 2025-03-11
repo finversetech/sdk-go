@@ -20,12 +20,15 @@ var _ MappedNullable = &GetBalanceHistoryResponse{}
 
 // GetBalanceHistoryResponse struct for GetBalanceHistoryResponse
 type GetBalanceHistoryResponse struct {
-	Account        *Account            `json:"account,omitempty"`
-	LoginIdentity  *LoginIdentityShort `json:"login_identity,omitempty"`
-	Institution    *InstitutionShort   `json:"institution,omitempty"`
-	BalanceHistory []BalanceHistory    `json:"balance_history,omitempty"`
-	Source         *string             `json:"source,omitempty"`
+	Account              *Account            `json:"account,omitempty"`
+	LoginIdentity        *LoginIdentityShort `json:"login_identity,omitempty"`
+	Institution          *InstitutionShort   `json:"institution,omitempty"`
+	BalanceHistory       []BalanceHistory    `json:"balance_history,omitempty"`
+	Source               *string             `json:"source,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _GetBalanceHistoryResponse GetBalanceHistoryResponse
 
 // NewGetBalanceHistoryResponse instantiates a new GetBalanceHistoryResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -229,7 +232,37 @@ func (o GetBalanceHistoryResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Source) {
 		toSerialize["source"] = o.Source
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *GetBalanceHistoryResponse) UnmarshalJSON(data []byte) (err error) {
+	varGetBalanceHistoryResponse := _GetBalanceHistoryResponse{}
+
+	err = json.Unmarshal(data, &varGetBalanceHistoryResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetBalanceHistoryResponse(varGetBalanceHistoryResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "account")
+		delete(additionalProperties, "login_identity")
+		delete(additionalProperties, "institution")
+		delete(additionalProperties, "balance_history")
+		delete(additionalProperties, "source")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGetBalanceHistoryResponse struct {

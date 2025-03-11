@@ -20,13 +20,16 @@ var _ MappedNullable = &IdentityDateOfBirth{}
 
 // IdentityDateOfBirth struct for IdentityDateOfBirth
 type IdentityDateOfBirth struct {
-	Raw               *string  `json:"raw,omitempty"`
-	DateOfBirth       *string  `json:"date_of_birth,omitempty"`
-	MaskedDateOfBirth *string  `json:"masked_date_of_birth,omitempty"`
-	Source            *string  `json:"source,omitempty"`
-	SourceIds         []string `json:"source_ids,omitempty"`
-	AccountIds        []string `json:"account_ids,omitempty"`
+	Raw                  *string  `json:"raw,omitempty"`
+	DateOfBirth          *string  `json:"date_of_birth,omitempty"`
+	MaskedDateOfBirth    *string  `json:"masked_date_of_birth,omitempty"`
+	Source               *string  `json:"source,omitempty"`
+	SourceIds            []string `json:"source_ids,omitempty"`
+	AccountIds           []string `json:"account_ids,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IdentityDateOfBirth IdentityDateOfBirth
 
 // NewIdentityDateOfBirth instantiates a new IdentityDateOfBirth object
 // This constructor will assign default values to properties that have it defined,
@@ -265,7 +268,38 @@ func (o IdentityDateOfBirth) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AccountIds) {
 		toSerialize["account_ids"] = o.AccountIds
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IdentityDateOfBirth) UnmarshalJSON(data []byte) (err error) {
+	varIdentityDateOfBirth := _IdentityDateOfBirth{}
+
+	err = json.Unmarshal(data, &varIdentityDateOfBirth)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IdentityDateOfBirth(varIdentityDateOfBirth)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "raw")
+		delete(additionalProperties, "date_of_birth")
+		delete(additionalProperties, "masked_date_of_birth")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "source_ids")
+		delete(additionalProperties, "account_ids")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIdentityDateOfBirth struct {

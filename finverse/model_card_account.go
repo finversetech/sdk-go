@@ -44,7 +44,10 @@ type CardAccount struct {
 	MinimumPaymentDue    *CurrencyAmount `json:"minimum_payment_due,omitempty"`
 	RewardsBalances      []GenericAmount `json:"rewards_balances,omitempty"`
 	UpdatedAt            *time.Time      `json:"updated_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CardAccount CardAccount
 
 // NewCardAccount instantiates a new CardAccount object
 // This constructor will assign default values to properties that have it defined,
@@ -668,7 +671,49 @@ func (o CardAccount) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CardAccount) UnmarshalJSON(data []byte) (err error) {
+	varCardAccount := _CardAccount{}
+
+	err = json.Unmarshal(data, &varCardAccount)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CardAccount(varCardAccount)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "account_id")
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "account_number_masked")
+		delete(additionalProperties, "account_type")
+		delete(additionalProperties, "statement_payment_due_date")
+		delete(additionalProperties, "next_payment_due_date")
+		delete(additionalProperties, "statement_date")
+		delete(additionalProperties, "last_payment_date")
+		delete(additionalProperties, "last_payment_amount")
+		delete(additionalProperties, "current_balance")
+		delete(additionalProperties, "payment_due_amount")
+		delete(additionalProperties, "statement_due_amount")
+		delete(additionalProperties, "total_credit_limit")
+		delete(additionalProperties, "available_credit_limit")
+		delete(additionalProperties, "minimum_payment_due")
+		delete(additionalProperties, "rewards_balances")
+		delete(additionalProperties, "updated_at")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCardAccount struct {

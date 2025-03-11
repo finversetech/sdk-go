@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -31,7 +30,8 @@ type SubmitAuthChecklistRequest struct {
 	// The authentication code is used to authenticate the origin of the message
 	MessageAuthenticationCode string `json:"message_authentication_code"`
 	// The encrypted payload that contains auth checklist items
-	Ciphertext string `json:"ciphertext"`
+	Ciphertext           string `json:"ciphertext"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SubmitAuthChecklistRequest SubmitAuthChecklistRequest
@@ -193,6 +193,11 @@ func (o SubmitAuthChecklistRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["initialization_vector"] = o.InitializationVector
 	toSerialize["message_authentication_code"] = o.MessageAuthenticationCode
 	toSerialize["ciphertext"] = o.Ciphertext
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -224,15 +229,24 @@ func (o *SubmitAuthChecklistRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varSubmitAuthChecklistRequest := _SubmitAuthChecklistRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSubmitAuthChecklistRequest)
+	err = json.Unmarshal(data, &varSubmitAuthChecklistRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SubmitAuthChecklistRequest(varSubmitAuthChecklistRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "key_id")
+		delete(additionalProperties, "envelope_encryption_key")
+		delete(additionalProperties, "initialization_vector")
+		delete(additionalProperties, "message_authentication_code")
+		delete(additionalProperties, "ciphertext")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

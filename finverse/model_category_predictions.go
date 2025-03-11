@@ -20,10 +20,13 @@ var _ MappedNullable = &CategoryPredictions{}
 
 // CategoryPredictions struct for CategoryPredictions
 type CategoryPredictions struct {
-	Categories []string `json:"categories,omitempty"`
-	Source     *string  `json:"source,omitempty"`
-	SourceId   *string  `json:"source_id,omitempty"`
+	Categories           []string `json:"categories,omitempty"`
+	Source               *string  `json:"source,omitempty"`
+	SourceId             *string  `json:"source_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CategoryPredictions CategoryPredictions
 
 // NewCategoryPredictions instantiates a new CategoryPredictions object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o CategoryPredictions) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SourceId) {
 		toSerialize["source_id"] = o.SourceId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CategoryPredictions) UnmarshalJSON(data []byte) (err error) {
+	varCategoryPredictions := _CategoryPredictions{}
+
+	err = json.Unmarshal(data, &varCategoryPredictions)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CategoryPredictions(varCategoryPredictions)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "categories")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "source_id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCategoryPredictions struct {

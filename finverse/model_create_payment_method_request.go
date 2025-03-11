@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,10 +21,11 @@ var _ MappedNullable = &CreatePaymentMethodRequest{}
 
 // CreatePaymentMethodRequest struct for CreatePaymentMethodRequest
 type CreatePaymentMethodRequest struct {
-	Card                *CreateCardRequest                    `json:"card,omitempty"`
-	Mandate             *CreateMandateRequestWithDdaReference `json:"mandate,omitempty"`
-	IntegrationMetadata *PaymentMethodIntegrationMetadata     `json:"integration_metadata,omitempty"`
-	PaymentMethodType   string                                `json:"payment_method_type"`
+	Card                 *CreateCardRequest                    `json:"card,omitempty"`
+	Mandate              *CreateMandateRequestWithDdaReference `json:"mandate,omitempty"`
+	IntegrationMetadata  *PaymentMethodIntegrationMetadata     `json:"integration_metadata,omitempty"`
+	PaymentMethodType    string                                `json:"payment_method_type"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreatePaymentMethodRequest CreatePaymentMethodRequest
@@ -188,6 +188,11 @@ func (o CreatePaymentMethodRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["integration_metadata"] = o.IntegrationMetadata
 	}
 	toSerialize["payment_method_type"] = o.PaymentMethodType
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -215,15 +220,23 @@ func (o *CreatePaymentMethodRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreatePaymentMethodRequest := _CreatePaymentMethodRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreatePaymentMethodRequest)
+	err = json.Unmarshal(data, &varCreatePaymentMethodRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreatePaymentMethodRequest(varCreatePaymentMethodRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "card")
+		delete(additionalProperties, "mandate")
+		delete(additionalProperties, "integration_metadata")
+		delete(additionalProperties, "payment_method_type")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

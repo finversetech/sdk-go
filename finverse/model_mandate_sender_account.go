@@ -39,8 +39,11 @@ type MandateSenderAccount struct {
 	UserId   *string `json:"user_id,omitempty"`
 	BankCode *string `json:"bank_code,omitempty"`
 	// Additional attributes of the sender account in key:value format (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 1000 characters respectively.
-	Metadata *map[string]string `json:"metadata,omitempty"`
+	Metadata             *map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _MandateSenderAccount MandateSenderAccount
 
 // NewMandateSenderAccount instantiates a new MandateSenderAccount object
 // This constructor will assign default values to properties that have it defined,
@@ -465,7 +468,43 @@ func (o MandateSenderAccount) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *MandateSenderAccount) UnmarshalJSON(data []byte) (err error) {
+	varMandateSenderAccount := _MandateSenderAccount{}
+
+	err = json.Unmarshal(data, &varMandateSenderAccount)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MandateSenderAccount(varMandateSenderAccount)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "account_id")
+		delete(additionalProperties, "accountholder_name")
+		delete(additionalProperties, "accountholder_name_plaintext")
+		delete(additionalProperties, "account_number")
+		delete(additionalProperties, "account_number_masked")
+		delete(additionalProperties, "account_type")
+		delete(additionalProperties, "institution_id")
+		delete(additionalProperties, "institution_name")
+		delete(additionalProperties, "user_id")
+		delete(additionalProperties, "bank_code")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableMandateSenderAccount struct {

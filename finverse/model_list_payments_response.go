@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,8 +21,9 @@ var _ MappedNullable = &ListPaymentsResponse{}
 
 // ListPaymentsResponse struct for ListPaymentsResponse
 type ListPaymentsResponse struct {
-	Payments      []PaymentResponse `json:"payments,omitempty"`
-	TotalPayments int32             `json:"total_payments"`
+	Payments             []PaymentResponse `json:"payments,omitempty"`
+	TotalPayments        int32             `json:"total_payments"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ListPaymentsResponse ListPaymentsResponse
@@ -116,6 +116,11 @@ func (o ListPaymentsResponse) ToMap() (map[string]interface{}, error) {
 		toSerialize["payments"] = o.Payments
 	}
 	toSerialize["total_payments"] = o.TotalPayments
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -143,15 +148,21 @@ func (o *ListPaymentsResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varListPaymentsResponse := _ListPaymentsResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varListPaymentsResponse)
+	err = json.Unmarshal(data, &varListPaymentsResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ListPaymentsResponse(varListPaymentsResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "payments")
+		delete(additionalProperties, "total_payments")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

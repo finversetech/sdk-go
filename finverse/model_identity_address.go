@@ -20,24 +20,27 @@ var _ MappedNullable = &IdentityAddress{}
 
 // IdentityAddress struct for IdentityAddress
 type IdentityAddress struct {
-	Raw           *string  `json:"raw,omitempty"`
-	FullAddress   *string  `json:"full_address,omitempty"`
-	UnitNumber    *string  `json:"unit_number,omitempty"`
-	FloorNumber   *string  `json:"floor_number,omitempty"`
-	BuildingName  *string  `json:"building_name,omitempty"`
-	StreetNumber  *string  `json:"street_number,omitempty"`
-	StreetName    *string  `json:"street_name,omitempty"`
-	City          *string  `json:"city,omitempty"`
-	District      *string  `json:"district,omitempty"`
-	Ward          *string  `json:"ward,omitempty"`
-	StreetAddress *string  `json:"street_address,omitempty"`
-	Province      *string  `json:"province,omitempty"`
-	Country       *string  `json:"country,omitempty"`
-	PostalCode    *string  `json:"postal_code,omitempty"`
-	Source        *string  `json:"source,omitempty"`
-	SourceIds     []string `json:"source_ids,omitempty"`
-	AccountIds    []string `json:"account_ids,omitempty"`
+	Raw                  *string  `json:"raw,omitempty"`
+	FullAddress          *string  `json:"full_address,omitempty"`
+	UnitNumber           *string  `json:"unit_number,omitempty"`
+	FloorNumber          *string  `json:"floor_number,omitempty"`
+	BuildingName         *string  `json:"building_name,omitempty"`
+	StreetNumber         *string  `json:"street_number,omitempty"`
+	StreetName           *string  `json:"street_name,omitempty"`
+	City                 *string  `json:"city,omitempty"`
+	District             *string  `json:"district,omitempty"`
+	Ward                 *string  `json:"ward,omitempty"`
+	StreetAddress        *string  `json:"street_address,omitempty"`
+	Province             *string  `json:"province,omitempty"`
+	Country              *string  `json:"country,omitempty"`
+	PostalCode           *string  `json:"postal_code,omitempty"`
+	Source               *string  `json:"source,omitempty"`
+	SourceIds            []string `json:"source_ids,omitempty"`
+	AccountIds           []string `json:"account_ids,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IdentityAddress IdentityAddress
 
 // NewIdentityAddress instantiates a new IdentityAddress object
 // This constructor will assign default values to properties that have it defined,
@@ -661,7 +664,49 @@ func (o IdentityAddress) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AccountIds) {
 		toSerialize["account_ids"] = o.AccountIds
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IdentityAddress) UnmarshalJSON(data []byte) (err error) {
+	varIdentityAddress := _IdentityAddress{}
+
+	err = json.Unmarshal(data, &varIdentityAddress)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IdentityAddress(varIdentityAddress)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "raw")
+		delete(additionalProperties, "full_address")
+		delete(additionalProperties, "unit_number")
+		delete(additionalProperties, "floor_number")
+		delete(additionalProperties, "building_name")
+		delete(additionalProperties, "street_number")
+		delete(additionalProperties, "street_name")
+		delete(additionalProperties, "city")
+		delete(additionalProperties, "district")
+		delete(additionalProperties, "ward")
+		delete(additionalProperties, "street_address")
+		delete(additionalProperties, "province")
+		delete(additionalProperties, "country")
+		delete(additionalProperties, "postal_code")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "source_ids")
+		delete(additionalProperties, "account_ids")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIdentityAddress struct {

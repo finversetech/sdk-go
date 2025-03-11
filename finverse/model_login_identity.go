@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -46,9 +45,10 @@ type LoginIdentity struct {
 	// a login attempt id which is unique per login_identity
 	LinkingAttemptId *string `json:"linking_attempt_id,omitempty"`
 	// a successful login attempt id which is unique per login_identity
-	AuthenticationId *string      `json:"authentication_id,omitempty"`
-	LastSessionId    *string      `json:"last_session_id,omitempty"`
-	Refresh          *RefreshData `json:"refresh,omitempty"`
+	AuthenticationId     *string      `json:"authentication_id,omitempty"`
+	LastSessionId        *string      `json:"last_session_id,omitempty"`
+	Refresh              *RefreshData `json:"refresh,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _LoginIdentity LoginIdentity
@@ -893,6 +893,11 @@ func (o LoginIdentity) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Refresh) {
 		toSerialize["refresh"] = o.Refresh
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -922,15 +927,43 @@ func (o *LoginIdentity) UnmarshalJSON(data []byte) (err error) {
 
 	varLoginIdentity := _LoginIdentity{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varLoginIdentity)
+	err = json.Unmarshal(data, &varLoginIdentity)
 
 	if err != nil {
 		return err
 	}
 
 	*o = LoginIdentity(varLoginIdentity)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "login_identity_id")
+		delete(additionalProperties, "customer_app_id")
+		delete(additionalProperties, "user_id")
+		delete(additionalProperties, "login_methods_available")
+		delete(additionalProperties, "permissions_grant_date")
+		delete(additionalProperties, "permissions_expiry_date")
+		delete(additionalProperties, "permissions")
+		delete(additionalProperties, "billing_details")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "status_details")
+		delete(additionalProperties, "product_status")
+		delete(additionalProperties, "authentication_status")
+		delete(additionalProperties, "error")
+		delete(additionalProperties, "last_success")
+		delete(additionalProperties, "first_success")
+		delete(additionalProperties, "webhook")
+		delete(additionalProperties, "session_status")
+		delete(additionalProperties, "institution_id")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "updated_at")
+		delete(additionalProperties, "linking_attempt_id")
+		delete(additionalProperties, "authentication_id")
+		delete(additionalProperties, "last_session_id")
+		delete(additionalProperties, "refresh")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

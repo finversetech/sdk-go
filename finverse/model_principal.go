@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -46,6 +45,7 @@ type Principal struct {
 	// The qrCode text to be used to generate the image
 	QrCodeText            *string `json:"qr_code_text,omitempty"`
 	ManualPaymentProvider *string `json:"manual_payment_provider,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
 
 type _Principal Principal
@@ -846,6 +846,11 @@ func (o Principal) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ManualPaymentProvider) {
 		toSerialize["manual_payment_provider"] = o.ManualPaymentProvider
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -876,15 +881,42 @@ func (o *Principal) UnmarshalJSON(data []byte) (err error) {
 
 	varPrincipal := _Principal{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPrincipal)
+	err = json.Unmarshal(data, &varPrincipal)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Principal(varPrincipal)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "subject")
+		delete(additionalProperties, "token")
+		delete(additionalProperties, "client_id")
+		delete(additionalProperties, "customer_app_id")
+		delete(additionalProperties, "login_identity_id")
+		delete(additionalProperties, "customization_id")
+		delete(additionalProperties, "mandate_id")
+		delete(additionalProperties, "expires_in")
+		delete(additionalProperties, "payment_attempt_id")
+		delete(additionalProperties, "product_flow")
+		delete(additionalProperties, "scopes")
+		delete(additionalProperties, "link_token_request")
+		delete(additionalProperties, "get_mandate_auth_link_request")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "redirect_uri")
+		delete(additionalProperties, "payment_link_id")
+		delete(additionalProperties, "unique_reference_id")
+		delete(additionalProperties, "payment_method_id")
+		delete(additionalProperties, "tpp_name")
+		delete(additionalProperties, "retry_url")
+		delete(additionalProperties, "onboarding_flow")
+		delete(additionalProperties, "qr_code_text")
+		delete(additionalProperties, "manual_payment_provider")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

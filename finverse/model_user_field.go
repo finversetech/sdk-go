@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -31,7 +30,8 @@ type UserField struct {
 	// The type of field. Currently it can only be SELECT, INPUT or PASSWORD
 	Type string `json:"type"`
 	// This is only applicable when the field type is SELECT
-	Options []UserFieldOption `json:"options,omitempty"`
+	Options              []UserFieldOption `json:"options,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _UserField UserField
@@ -220,6 +220,11 @@ func (o UserField) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Options) {
 		toSerialize["options"] = o.Options
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -248,15 +253,24 @@ func (o *UserField) UnmarshalJSON(data []byte) (err error) {
 
 	varUserField := _UserField{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varUserField)
+	err = json.Unmarshal(data, &varUserField)
 
 	if err != nil {
 		return err
 	}
 
 	*o = UserField(varUserField)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "label")
+		delete(additionalProperties, "placeholder")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "options")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -23,10 +23,13 @@ var _ MappedNullable = &Statement{}
 type Statement struct {
 	Id *string `json:"id,omitempty"`
 	// YYYY-MM-DD
-	Date      *string    `json:"date,omitempty"`
-	Name      *string    `json:"name,omitempty"`
-	CreatedAt *time.Time `json:"created_at,omitempty"`
+	Date                 *string    `json:"date,omitempty"`
+	Name                 *string    `json:"name,omitempty"`
+	CreatedAt            *time.Time `json:"created_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Statement Statement
 
 // NewStatement instantiates a new Statement object
 // This constructor will assign default values to properties that have it defined,
@@ -195,7 +198,36 @@ func (o Statement) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Statement) UnmarshalJSON(data []byte) (err error) {
+	varStatement := _Statement{}
+
+	err = json.Unmarshal(data, &varStatement)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Statement(varStatement)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "id")
+		delete(additionalProperties, "date")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "created_at")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableStatement struct {

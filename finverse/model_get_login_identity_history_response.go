@@ -20,9 +20,12 @@ var _ MappedNullable = &GetLoginIdentityHistoryResponse{}
 
 // GetLoginIdentityHistoryResponse struct for GetLoginIdentityHistoryResponse
 type GetLoginIdentityHistoryResponse struct {
-	LoginIdentity *LoginIdentity               `json:"login_identity,omitempty"`
-	StatusHistory []LoginIdentityStatusDetails `json:"status_history,omitempty"`
+	LoginIdentity        *LoginIdentity               `json:"login_identity,omitempty"`
+	StatusHistory        []LoginIdentityStatusDetails `json:"status_history,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _GetLoginIdentityHistoryResponse GetLoginIdentityHistoryResponse
 
 // NewGetLoginIdentityHistoryResponse instantiates a new GetLoginIdentityHistoryResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o GetLoginIdentityHistoryResponse) ToMap() (map[string]interface{}, error)
 	if !IsNil(o.StatusHistory) {
 		toSerialize["status_history"] = o.StatusHistory
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *GetLoginIdentityHistoryResponse) UnmarshalJSON(data []byte) (err error) {
+	varGetLoginIdentityHistoryResponse := _GetLoginIdentityHistoryResponse{}
+
+	err = json.Unmarshal(data, &varGetLoginIdentityHistoryResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetLoginIdentityHistoryResponse(varGetLoginIdentityHistoryResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "login_identity")
+		delete(additionalProperties, "status_history")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGetLoginIdentityHistoryResponse struct {

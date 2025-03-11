@@ -25,7 +25,10 @@ type PayoutSnapshotDetails struct {
 	TransactionReferenceId *string    `json:"transaction_reference_id,omitempty"`
 	MandateId              *string    `json:"mandate_id,omitempty"`
 	ScheduledDate          *time.Time `json:"scheduled_date,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
+
+type _PayoutSnapshotDetails PayoutSnapshotDetails
 
 // NewPayoutSnapshotDetails instantiates a new PayoutSnapshotDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -194,7 +197,36 @@ func (o PayoutSnapshotDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ScheduledDate) {
 		toSerialize["scheduled_date"] = o.ScheduledDate
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PayoutSnapshotDetails) UnmarshalJSON(data []byte) (err error) {
+	varPayoutSnapshotDetails := _PayoutSnapshotDetails{}
+
+	err = json.Unmarshal(data, &varPayoutSnapshotDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PayoutSnapshotDetails(varPayoutSnapshotDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "transaction_reference_id")
+		delete(additionalProperties, "mandate_id")
+		delete(additionalProperties, "scheduled_date")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePayoutSnapshotDetails struct {

@@ -20,13 +20,16 @@ var _ MappedNullable = &IdentityEmail{}
 
 // IdentityEmail struct for IdentityEmail
 type IdentityEmail struct {
-	Raw         *string  `json:"raw,omitempty"`
-	Email       *string  `json:"email,omitempty"`
-	MaskedEmail *string  `json:"masked_email,omitempty"`
-	Source      *string  `json:"source,omitempty"`
-	SourceIds   []string `json:"source_ids,omitempty"`
-	AccountIds  []string `json:"account_ids,omitempty"`
+	Raw                  *string  `json:"raw,omitempty"`
+	Email                *string  `json:"email,omitempty"`
+	MaskedEmail          *string  `json:"masked_email,omitempty"`
+	Source               *string  `json:"source,omitempty"`
+	SourceIds            []string `json:"source_ids,omitempty"`
+	AccountIds           []string `json:"account_ids,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _IdentityEmail IdentityEmail
 
 // NewIdentityEmail instantiates a new IdentityEmail object
 // This constructor will assign default values to properties that have it defined,
@@ -265,7 +268,38 @@ func (o IdentityEmail) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AccountIds) {
 		toSerialize["account_ids"] = o.AccountIds
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *IdentityEmail) UnmarshalJSON(data []byte) (err error) {
+	varIdentityEmail := _IdentityEmail{}
+
+	err = json.Unmarshal(data, &varIdentityEmail)
+
+	if err != nil {
+		return err
+	}
+
+	*o = IdentityEmail(varIdentityEmail)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "raw")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "masked_email")
+		delete(additionalProperties, "source")
+		delete(additionalProperties, "source_ids")
+		delete(additionalProperties, "account_ids")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIdentityEmail struct {

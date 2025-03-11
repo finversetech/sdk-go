@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -29,7 +28,8 @@ type TransactionLimits struct {
 	// The maximum amount of money that can be transferred in a single transaction under this mandate. Expressed in currency's smallest unit or “minor unit”, as defined in ISO 4217.
 	MaxTransactionAmount int32 `json:"max_transaction_amount"`
 	// Reference calendar periods for the payment limits. Possible values (DAILY, WEEKLY, MONTHLY, QUARTERLY, YEARLY)
-	Period NullableString `json:"period,omitempty"`
+	Period               NullableString `json:"period,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _TransactionLimits TransactionLimits
@@ -203,6 +203,11 @@ func (o TransactionLimits) ToMap() (map[string]interface{}, error) {
 	if o.Period.IsSet() {
 		toSerialize["period"] = o.Period.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -230,15 +235,23 @@ func (o *TransactionLimits) UnmarshalJSON(data []byte) (err error) {
 
 	varTransactionLimits := _TransactionLimits{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTransactionLimits)
+	err = json.Unmarshal(data, &varTransactionLimits)
 
 	if err != nil {
 		return err
 	}
 
 	*o = TransactionLimits(varTransactionLimits)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "max_period_amount")
+		delete(additionalProperties, "max_period_count")
+		delete(additionalProperties, "max_transaction_amount")
+		delete(additionalProperties, "period")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

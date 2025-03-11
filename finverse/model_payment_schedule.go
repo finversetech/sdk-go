@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type PaymentSchedule struct {
 	// Amount to be paid, in currency’s smallest unit or “minor unit”, as defined in ISO 4217. For example, HKD 100.01 is represented as amount = 10001 (minor unit = cents). For currencies without minor units (e.g. VND, JPY), the amount is represented as is, without modification. For example, VND 15101 is represented as amount = 15101.
 	Amount int32 `json:"amount"`
 	// Frequency of the payment. Possible values (DAILY, WEEKLY, MONTHLY, QUARTERLY, YEARLY)
-	Frequency string `json:"frequency"`
+	Frequency            string `json:"frequency"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PaymentSchedule PaymentSchedule
@@ -109,6 +109,11 @@ func (o PaymentSchedule) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["amount"] = o.Amount
 	toSerialize["frequency"] = o.Frequency
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *PaymentSchedule) UnmarshalJSON(data []byte) (err error) {
 
 	varPaymentSchedule := _PaymentSchedule{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPaymentSchedule)
+	err = json.Unmarshal(data, &varPaymentSchedule)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PaymentSchedule(varPaymentSchedule)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "frequency")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

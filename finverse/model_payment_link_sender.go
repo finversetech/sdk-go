@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -26,7 +25,8 @@ type PaymentLinkSender struct {
 	// Customer App's user ID, representing the end-user making the payment.
 	ExternalUserId string `json:"external_user_id"`
 	// Accountholder name of the sender's account
-	Name string `json:"name"`
+	Name                 string `json:"name"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PaymentLinkSender PaymentLinkSender
@@ -145,6 +145,11 @@ func (o PaymentLinkSender) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["external_user_id"] = o.ExternalUserId
 	toSerialize["name"] = o.Name
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -173,15 +178,22 @@ func (o *PaymentLinkSender) UnmarshalJSON(data []byte) (err error) {
 
 	varPaymentLinkSender := _PaymentLinkSender{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPaymentLinkSender)
+	err = json.Unmarshal(data, &varPaymentLinkSender)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PaymentLinkSender(varPaymentLinkSender)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "external_user_id")
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

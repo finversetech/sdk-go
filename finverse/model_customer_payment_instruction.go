@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -45,7 +44,8 @@ type CustomerPaymentInstruction struct {
 	// How often the payment should be executed
 	Frequency *string `json:"frequency,omitempty"`
 	// Related remarks about this instruction
-	Remarks *string `json:"remarks,omitempty"`
+	Remarks              *string `json:"remarks,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CustomerPaymentInstruction CustomerPaymentInstruction
@@ -501,6 +501,11 @@ func (o CustomerPaymentInstruction) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Remarks) {
 		toSerialize["remarks"] = o.Remarks
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -529,15 +534,31 @@ func (o *CustomerPaymentInstruction) UnmarshalJSON(data []byte) (err error) {
 
 	varCustomerPaymentInstruction := _CustomerPaymentInstruction{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCustomerPaymentInstruction)
+	err = json.Unmarshal(data, &varCustomerPaymentInstruction)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CustomerPaymentInstruction(varCustomerPaymentInstruction)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "user_id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "recipient_name")
+		delete(additionalProperties, "recipient_account_id")
+		delete(additionalProperties, "sender_name")
+		delete(additionalProperties, "sender_account_id")
+		delete(additionalProperties, "start_date")
+		delete(additionalProperties, "end_date")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "frequency")
+		delete(additionalProperties, "remarks")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,8 +21,9 @@ var _ MappedNullable = &MandateAuthEncryptionInfo{}
 
 // MandateAuthEncryptionInfo struct for MandateAuthEncryptionInfo
 type MandateAuthEncryptionInfo struct {
-	JwksUrl string `json:"jwks_url"`
-	KeyId   string `json:"key_id"`
+	JwksUrl              string `json:"jwks_url"`
+	KeyId                string `json:"key_id"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MandateAuthEncryptionInfo MandateAuthEncryptionInfo
@@ -107,6 +107,11 @@ func (o MandateAuthEncryptionInfo) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["jwks_url"] = o.JwksUrl
 	toSerialize["key_id"] = o.KeyId
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -135,15 +140,21 @@ func (o *MandateAuthEncryptionInfo) UnmarshalJSON(data []byte) (err error) {
 
 	varMandateAuthEncryptionInfo := _MandateAuthEncryptionInfo{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMandateAuthEncryptionInfo)
+	err = json.Unmarshal(data, &varMandateAuthEncryptionInfo)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MandateAuthEncryptionInfo(varMandateAuthEncryptionInfo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "jwks_url")
+		delete(additionalProperties, "key_id")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

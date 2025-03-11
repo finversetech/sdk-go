@@ -20,10 +20,13 @@ var _ MappedNullable = &SenderAccountFvLinkResponse{}
 
 // SenderAccountFvLinkResponse struct for SenderAccountFvLinkResponse
 type SenderAccountFvLinkResponse struct {
-	AccountNumberMasked *string `json:"account_number_masked,omitempty"`
-	InstitutionId       *string `json:"institution_id,omitempty"`
-	InstitutionName     *string `json:"institution_name,omitempty"`
+	AccountNumberMasked  *string `json:"account_number_masked,omitempty"`
+	InstitutionId        *string `json:"institution_id,omitempty"`
+	InstitutionName      *string `json:"institution_name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SenderAccountFvLinkResponse SenderAccountFvLinkResponse
 
 // NewSenderAccountFvLinkResponse instantiates a new SenderAccountFvLinkResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o SenderAccountFvLinkResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.InstitutionName) {
 		toSerialize["institution_name"] = o.InstitutionName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SenderAccountFvLinkResponse) UnmarshalJSON(data []byte) (err error) {
+	varSenderAccountFvLinkResponse := _SenderAccountFvLinkResponse{}
+
+	err = json.Unmarshal(data, &varSenderAccountFvLinkResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SenderAccountFvLinkResponse(varSenderAccountFvLinkResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "account_number_masked")
+		delete(additionalProperties, "institution_id")
+		delete(additionalProperties, "institution_name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSenderAccountFvLinkResponse struct {

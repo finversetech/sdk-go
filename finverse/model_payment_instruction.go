@@ -56,8 +56,11 @@ type PaymentInstruction struct {
 	ReferenceId *string    `json:"reference_id,omitempty"`
 	LastUpdate  *time.Time `json:"last_update,omitempty"`
 	// Extra information collected for this payment instruction
-	Info map[string]interface{} `json:"info,omitempty"`
+	Info                 map[string]interface{} `json:"info,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PaymentInstruction PaymentInstruction
 
 // NewPaymentInstruction instantiates a new PaymentInstruction object
 // This constructor will assign default values to properties that have it defined,
@@ -773,7 +776,51 @@ func (o PaymentInstruction) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Info) {
 		toSerialize["info"] = o.Info
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PaymentInstruction) UnmarshalJSON(data []byte) (err error) {
+	varPaymentInstruction := _PaymentInstruction{}
+
+	err = json.Unmarshal(data, &varPaymentInstruction)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentInstruction(varPaymentInstruction)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "payment_instruction_id")
+		delete(additionalProperties, "user_id")
+		delete(additionalProperties, "login_identity_id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "recipient_name")
+		delete(additionalProperties, "recipient_account_id")
+		delete(additionalProperties, "sender_name")
+		delete(additionalProperties, "sender_account")
+		delete(additionalProperties, "sender_account_id")
+		delete(additionalProperties, "start_date")
+		delete(additionalProperties, "end_date")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "frequency")
+		delete(additionalProperties, "remarks")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "reference_id")
+		delete(additionalProperties, "last_update")
+		delete(additionalProperties, "info")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePaymentInstruction struct {

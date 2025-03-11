@@ -20,10 +20,13 @@ var _ MappedNullable = &LoginIdentityShort{}
 
 // LoginIdentityShort struct for LoginIdentityShort
 type LoginIdentityShort struct {
-	LoginIdentityId *string `json:"login_identity_id,omitempty"`
-	Status          *string `json:"status,omitempty"`
-	LastSessionId   *string `json:"last_session_id,omitempty"`
+	LoginIdentityId      *string `json:"login_identity_id,omitempty"`
+	Status               *string `json:"status,omitempty"`
+	LastSessionId        *string `json:"last_session_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LoginIdentityShort LoginIdentityShort
 
 // NewLoginIdentityShort instantiates a new LoginIdentityShort object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o LoginIdentityShort) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastSessionId) {
 		toSerialize["last_session_id"] = o.LastSessionId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LoginIdentityShort) UnmarshalJSON(data []byte) (err error) {
+	varLoginIdentityShort := _LoginIdentityShort{}
+
+	err = json.Unmarshal(data, &varLoginIdentityShort)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LoginIdentityShort(varLoginIdentityShort)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "login_identity_id")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "last_session_id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLoginIdentityShort struct {

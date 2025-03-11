@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -24,7 +23,8 @@ var _ MappedNullable = &CreatePaymentLinkMandateRequest{}
 type CreatePaymentLinkMandateRequest struct {
 	PaymentAttemptId string `json:"payment_attempt_id"`
 	// The sender type of the mandate
-	SenderType string `json:"sender_type"`
+	SenderType           string `json:"sender_type"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreatePaymentLinkMandateRequest CreatePaymentLinkMandateRequest
@@ -108,6 +108,11 @@ func (o CreatePaymentLinkMandateRequest) ToMap() (map[string]interface{}, error)
 	toSerialize := map[string]interface{}{}
 	toSerialize["payment_attempt_id"] = o.PaymentAttemptId
 	toSerialize["sender_type"] = o.SenderType
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -136,15 +141,21 @@ func (o *CreatePaymentLinkMandateRequest) UnmarshalJSON(data []byte) (err error)
 
 	varCreatePaymentLinkMandateRequest := _CreatePaymentLinkMandateRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreatePaymentLinkMandateRequest)
+	err = json.Unmarshal(data, &varCreatePaymentLinkMandateRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreatePaymentLinkMandateRequest(varCreatePaymentLinkMandateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "payment_attempt_id")
+		delete(additionalProperties, "sender_type")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

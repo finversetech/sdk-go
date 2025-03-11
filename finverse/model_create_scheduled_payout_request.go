@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,10 +24,11 @@ type CreateScheduledPayoutRequest struct {
 	// Amount to be paid, in currency's smallest unit or “minor unit”, as defined in ISO 4217. For example, HKD 100.01 is represented as amount = 10001 (minor unit = cents). For currencies without minor units (e.g. VND, JPY), the amount is represented as is, without modification. For example, VND 15101 is represented as amount = 15101.
 	Amount int32 `json:"amount"`
 	// The currency code as defined in ISO 4217.
-	Currency         string                  `json:"currency"`
-	PaymentDetails   PayoutDetails           `json:"payment_details"`
-	RecipientAccount MandateRecipientRequest `json:"recipient_account"`
-	Metadata         *map[string]string      `json:"metadata,omitempty"`
+	Currency             string                  `json:"currency"`
+	PaymentDetails       PayoutDetails           `json:"payment_details"`
+	RecipientAccount     MandateRecipientRequest `json:"recipient_account"`
+	Metadata             *map[string]string      `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateScheduledPayoutRequest CreateScheduledPayoutRequest
@@ -199,6 +199,11 @@ func (o CreateScheduledPayoutRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -229,15 +234,24 @@ func (o *CreateScheduledPayoutRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreateScheduledPayoutRequest := _CreateScheduledPayoutRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateScheduledPayoutRequest)
+	err = json.Unmarshal(data, &varCreateScheduledPayoutRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateScheduledPayoutRequest(varCreateScheduledPayoutRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "payment_details")
+		delete(additionalProperties, "recipient_account")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

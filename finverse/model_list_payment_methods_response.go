@@ -20,9 +20,12 @@ var _ MappedNullable = &ListPaymentMethodsResponse{}
 
 // ListPaymentMethodsResponse struct for ListPaymentMethodsResponse
 type ListPaymentMethodsResponse struct {
-	PaymentMethods []PaymentMethodResponse  `json:"payment_methods,omitempty"`
-	Sender         *PaymentUserWithoutEmail `json:"sender,omitempty"`
+	PaymentMethods       []PaymentMethodResponse  `json:"payment_methods,omitempty"`
+	Sender               *PaymentUserWithoutEmail `json:"sender,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ListPaymentMethodsResponse ListPaymentMethodsResponse
 
 // NewListPaymentMethodsResponse instantiates a new ListPaymentMethodsResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o ListPaymentMethodsResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Sender) {
 		toSerialize["sender"] = o.Sender
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ListPaymentMethodsResponse) UnmarshalJSON(data []byte) (err error) {
+	varListPaymentMethodsResponse := _ListPaymentMethodsResponse{}
+
+	err = json.Unmarshal(data, &varListPaymentMethodsResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ListPaymentMethodsResponse(varListPaymentMethodsResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "payment_methods")
+		delete(additionalProperties, "sender")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableListPaymentMethodsResponse struct {

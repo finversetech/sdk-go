@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,7 +21,8 @@ var _ MappedNullable = &PaymentMethodIntegrationMetadataCybersourceMetadata{}
 
 // PaymentMethodIntegrationMetadataCybersourceMetadata struct for PaymentMethodIntegrationMetadataCybersourceMetadata
 type PaymentMethodIntegrationMetadataCybersourceMetadata struct {
-	PaymentToken string `json:"payment_token"`
+	PaymentToken         string `json:"payment_token"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PaymentMethodIntegrationMetadataCybersourceMetadata PaymentMethodIntegrationMetadataCybersourceMetadata
@@ -80,6 +80,11 @@ func (o PaymentMethodIntegrationMetadataCybersourceMetadata) MarshalJSON() ([]by
 func (o PaymentMethodIntegrationMetadataCybersourceMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["payment_token"] = o.PaymentToken
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -107,15 +112,20 @@ func (o *PaymentMethodIntegrationMetadataCybersourceMetadata) UnmarshalJSON(data
 
 	varPaymentMethodIntegrationMetadataCybersourceMetadata := _PaymentMethodIntegrationMetadataCybersourceMetadata{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPaymentMethodIntegrationMetadataCybersourceMetadata)
+	err = json.Unmarshal(data, &varPaymentMethodIntegrationMetadataCybersourceMetadata)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PaymentMethodIntegrationMetadataCybersourceMetadata(varPaymentMethodIntegrationMetadataCybersourceMetadata)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "payment_token")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

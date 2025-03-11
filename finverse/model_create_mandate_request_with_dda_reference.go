@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,7 +26,8 @@ type CreateMandateRequestWithDdaReference struct {
 	MandateDetails   MandateDetailsRequestWithDdaReference `json:"mandate_details"`
 	Metadata         *map[string]string                    `json:"metadata,omitempty"`
 	// The mandate status
-	Status string `json:"status"`
+	Status               string `json:"status"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateMandateRequestWithDdaReference CreateMandateRequestWithDdaReference
@@ -198,6 +198,11 @@ func (o CreateMandateRequestWithDdaReference) ToMap() (map[string]interface{}, e
 		toSerialize["metadata"] = o.Metadata
 	}
 	toSerialize["status"] = o.Status
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -228,15 +233,24 @@ func (o *CreateMandateRequestWithDdaReference) UnmarshalJSON(data []byte) (err e
 
 	varCreateMandateRequestWithDdaReference := _CreateMandateRequestWithDdaReference{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateMandateRequestWithDdaReference)
+	err = json.Unmarshal(data, &varCreateMandateRequestWithDdaReference)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateMandateRequestWithDdaReference(varCreateMandateRequestWithDdaReference)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "recipient_account")
+		delete(additionalProperties, "sender_account")
+		delete(additionalProperties, "mandate_details")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

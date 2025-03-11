@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -39,8 +38,9 @@ type PayoutSnapshotResponse struct {
 	RecipientAccount *MandateSenderAccount    `json:"recipient_account,omitempty"`
 	Fees             []Fee                    `json:"fees,omitempty"`
 	// Whether this payout is live or not
-	Live  bool                  `json:"live"`
-	Error *FvEmbeddedErrorModel `json:"error,omitempty"`
+	Live                 bool                  `json:"live"`
+	Error                *FvEmbeddedErrorModel `json:"error,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PayoutSnapshotResponse PayoutSnapshotResponse
@@ -658,6 +658,11 @@ func (o PayoutSnapshotResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -685,15 +690,36 @@ func (o *PayoutSnapshotResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varPayoutSnapshotResponse := _PayoutSnapshotResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPayoutSnapshotResponse)
+	err = json.Unmarshal(data, &varPayoutSnapshotResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PayoutSnapshotResponse(varPayoutSnapshotResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "payout_id")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "updated_at")
+		delete(additionalProperties, "transaction_date")
+		delete(additionalProperties, "payment_details")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "sender")
+		delete(additionalProperties, "sender_account")
+		delete(additionalProperties, "recipient")
+		delete(additionalProperties, "recipient_account")
+		delete(additionalProperties, "fees")
+		delete(additionalProperties, "live")
+		delete(additionalProperties, "error")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

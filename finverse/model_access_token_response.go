@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -27,9 +26,10 @@ type AccessTokenResponse struct {
 	LoginIdentityId string `json:"login_identity_id"`
 	TokenType       string `json:"token_type"`
 	// seconds
-	ExpiresIn    float32   `json:"expires_in"`
-	RefreshToken string    `json:"refresh_token"`
-	IssuedAt     time.Time `json:"issued_at"`
+	ExpiresIn            float32   `json:"expires_in"`
+	RefreshToken         string    `json:"refresh_token"`
+	IssuedAt             time.Time `json:"issued_at"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AccessTokenResponse AccessTokenResponse
@@ -217,6 +217,11 @@ func (o AccessTokenResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["expires_in"] = o.ExpiresIn
 	toSerialize["refresh_token"] = o.RefreshToken
 	toSerialize["issued_at"] = o.IssuedAt
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -249,15 +254,25 @@ func (o *AccessTokenResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varAccessTokenResponse := _AccessTokenResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAccessTokenResponse)
+	err = json.Unmarshal(data, &varAccessTokenResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AccessTokenResponse(varAccessTokenResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "access_token")
+		delete(additionalProperties, "login_identity_id")
+		delete(additionalProperties, "token_type")
+		delete(additionalProperties, "expires_in")
+		delete(additionalProperties, "refresh_token")
+		delete(additionalProperties, "issued_at")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

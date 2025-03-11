@@ -20,12 +20,15 @@ var _ MappedNullable = &Identity{}
 
 // Identity struct for Identity
 type Identity struct {
-	Names        []IdentityName        `json:"names,omitempty"`
-	Addresses    []IdentityAddress     `json:"addresses,omitempty"`
-	Emails       []IdentityEmail       `json:"emails,omitempty"`
-	PhoneNumbers []IdentityPhoneNumber `json:"phone_numbers,omitempty"`
-	DateOfBirths []IdentityDateOfBirth `json:"date_of_births,omitempty"`
+	Names                []IdentityName        `json:"names,omitempty"`
+	Addresses            []IdentityAddress     `json:"addresses,omitempty"`
+	Emails               []IdentityEmail       `json:"emails,omitempty"`
+	PhoneNumbers         []IdentityPhoneNumber `json:"phone_numbers,omitempty"`
+	DateOfBirths         []IdentityDateOfBirth `json:"date_of_births,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _Identity Identity
 
 // NewIdentity instantiates a new Identity object
 // This constructor will assign default values to properties that have it defined,
@@ -229,7 +232,37 @@ func (o Identity) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DateOfBirths) {
 		toSerialize["date_of_births"] = o.DateOfBirths
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *Identity) UnmarshalJSON(data []byte) (err error) {
+	varIdentity := _Identity{}
+
+	err = json.Unmarshal(data, &varIdentity)
+
+	if err != nil {
+		return err
+	}
+
+	*o = Identity(varIdentity)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "names")
+		delete(additionalProperties, "addresses")
+		delete(additionalProperties, "emails")
+		delete(additionalProperties, "phone_numbers")
+		delete(additionalProperties, "date_of_births")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableIdentity struct {

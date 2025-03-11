@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,7 +21,8 @@ var _ MappedNullable = &RecipientAccountFilters{}
 
 // RecipientAccountFilters struct for RecipientAccountFilters
 type RecipientAccountFilters struct {
-	BusinessUnit string `json:"business_unit"`
+	BusinessUnit         string `json:"business_unit"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RecipientAccountFilters RecipientAccountFilters
@@ -80,6 +80,11 @@ func (o RecipientAccountFilters) MarshalJSON() ([]byte, error) {
 func (o RecipientAccountFilters) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["business_unit"] = o.BusinessUnit
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -107,15 +112,20 @@ func (o *RecipientAccountFilters) UnmarshalJSON(data []byte) (err error) {
 
 	varRecipientAccountFilters := _RecipientAccountFilters{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRecipientAccountFilters)
+	err = json.Unmarshal(data, &varRecipientAccountFilters)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RecipientAccountFilters(varRecipientAccountFilters)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "business_unit")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

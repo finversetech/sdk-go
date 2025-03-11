@@ -24,9 +24,12 @@ type StatementLink struct {
 	// signedURL to download statement
 	Url *string `json:"url,omitempty"`
 	// expiry of the signedURL
-	Expiry      *time.Time `json:"expiry,omitempty"`
-	StatementId *string    `json:"statement_id,omitempty"`
+	Expiry               *time.Time `json:"expiry,omitempty"`
+	StatementId          *string    `json:"statement_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _StatementLink StatementLink
 
 // NewStatementLink instantiates a new StatementLink object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +163,35 @@ func (o StatementLink) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StatementId) {
 		toSerialize["statement_id"] = o.StatementId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *StatementLink) UnmarshalJSON(data []byte) (err error) {
+	varStatementLink := _StatementLink{}
+
+	err = json.Unmarshal(data, &varStatementLink)
+
+	if err != nil {
+		return err
+	}
+
+	*o = StatementLink(varStatementLink)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "expiry")
+		delete(additionalProperties, "statement_id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableStatementLink struct {

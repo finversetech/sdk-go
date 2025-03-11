@@ -21,8 +21,11 @@ var _ MappedNullable = &CardRecipient{}
 // CardRecipient struct for CardRecipient
 type CardRecipient struct {
 	// Merchant account name
-	Name *string `json:"name,omitempty"`
+	Name                 *string `json:"name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CardRecipient CardRecipient
 
 // NewCardRecipient instantiates a new CardRecipient object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o CardRecipient) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CardRecipient) UnmarshalJSON(data []byte) (err error) {
+	varCardRecipient := _CardRecipient{}
+
+	err = json.Unmarshal(data, &varCardRecipient)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CardRecipient(varCardRecipient)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCardRecipient struct {

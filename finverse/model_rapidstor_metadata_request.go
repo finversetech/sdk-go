@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,11 +21,12 @@ var _ MappedNullable = &RapidstorMetadataRequest{}
 
 // RapidstorMetadataRequest struct for RapidstorMetadataRequest
 type RapidstorMetadataRequest struct {
-	CorpCode      string   `json:"corp_code"`
-	SLocationCode string   `json:"s_location_code"`
-	TenantId      string   `json:"tenant_id"`
-	IAnnivDays    *float32 `json:"i_anniv_days,omitempty"`
-	AccountToken  string   `json:"account_token"`
+	CorpCode             string   `json:"corp_code"`
+	SLocationCode        string   `json:"s_location_code"`
+	TenantId             string   `json:"tenant_id"`
+	IAnnivDays           *float32 `json:"i_anniv_days,omitempty"`
+	AccountToken         string   `json:"account_token"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RapidstorMetadataRequest RapidstorMetadataRequest
@@ -197,6 +197,11 @@ func (o RapidstorMetadataRequest) ToMap() (map[string]interface{}, error) {
 		toSerialize["i_anniv_days"] = o.IAnnivDays
 	}
 	toSerialize["account_token"] = o.AccountToken
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -227,15 +232,24 @@ func (o *RapidstorMetadataRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varRapidstorMetadataRequest := _RapidstorMetadataRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRapidstorMetadataRequest)
+	err = json.Unmarshal(data, &varRapidstorMetadataRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RapidstorMetadataRequest(varRapidstorMetadataRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "corp_code")
+		delete(additionalProperties, "s_location_code")
+		delete(additionalProperties, "tenant_id")
+		delete(additionalProperties, "i_anniv_days")
+		delete(additionalProperties, "account_token")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

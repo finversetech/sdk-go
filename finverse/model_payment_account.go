@@ -23,8 +23,11 @@ type PaymentAccount struct {
 	// The raw value for the account the user selected when making payment request
 	Raw *string `json:"raw,omitempty"`
 	// Finverse Institution ID. Only returned if institution_id was included in the request.
-	InstitutionId *string `json:"institution_id,omitempty"`
+	InstitutionId        *string `json:"institution_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PaymentAccount PaymentAccount
 
 // NewPaymentAccount instantiates a new PaymentAccount object
 // This constructor will assign default values to properties that have it defined,
@@ -123,7 +126,34 @@ func (o PaymentAccount) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.InstitutionId) {
 		toSerialize["institution_id"] = o.InstitutionId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PaymentAccount) UnmarshalJSON(data []byte) (err error) {
+	varPaymentAccount := _PaymentAccount{}
+
+	err = json.Unmarshal(data, &varPaymentAccount)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentAccount(varPaymentAccount)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "raw")
+		delete(additionalProperties, "institution_id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePaymentAccount struct {

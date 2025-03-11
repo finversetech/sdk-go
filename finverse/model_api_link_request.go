@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -32,6 +31,7 @@ type ApiLinkRequest struct {
 	StoreCredentials     bool             `json:"store_credentials"`
 	EncryptedCredentials EncryptedPayload `json:"encrypted_credentials"`
 	PaymentInstructionId *string          `json:"payment_instruction_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ApiLinkRequest ApiLinkRequest
@@ -256,6 +256,11 @@ func (o ApiLinkRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaymentInstructionId) {
 		toSerialize["payment_instruction_id"] = o.PaymentInstructionId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -288,15 +293,26 @@ func (o *ApiLinkRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varApiLinkRequest := _ApiLinkRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varApiLinkRequest)
+	err = json.Unmarshal(data, &varApiLinkRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ApiLinkRequest(varApiLinkRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "institution_id")
+		delete(additionalProperties, "user_id")
+		delete(additionalProperties, "consent")
+		delete(additionalProperties, "products_requested")
+		delete(additionalProperties, "store_credentials")
+		delete(additionalProperties, "encrypted_credentials")
+		delete(additionalProperties, "payment_instruction_id")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

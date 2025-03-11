@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,9 +21,10 @@ var _ MappedNullable = &GenericAmount{}
 
 // GenericAmount struct for GenericAmount
 type GenericAmount struct {
-	Unit  *string `json:"unit,omitempty"`
-	Value float32 `json:"value"`
-	Raw   *string `json:"raw,omitempty"`
+	Unit                 *string `json:"unit,omitempty"`
+	Value                float32 `json:"value"`
+	Raw                  *string `json:"raw,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GenericAmount GenericAmount
@@ -152,6 +152,11 @@ func (o GenericAmount) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Raw) {
 		toSerialize["raw"] = o.Raw
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -179,15 +184,22 @@ func (o *GenericAmount) UnmarshalJSON(data []byte) (err error) {
 
 	varGenericAmount := _GenericAmount{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGenericAmount)
+	err = json.Unmarshal(data, &varGenericAmount)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GenericAmount(varGenericAmount)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "unit")
+		delete(additionalProperties, "value")
+		delete(additionalProperties, "raw")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

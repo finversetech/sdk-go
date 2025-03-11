@@ -23,8 +23,11 @@ type SenderDetail struct {
 	// The type of the details. For e.g. HK_ID, PASSPORT etc
 	DetailsType *string `json:"details_type,omitempty"`
 	// The possible values of the detail. For e.g. A123456 for HK_ID
-	Values []string `json:"values,omitempty"`
+	Values               []string `json:"values,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SenderDetail SenderDetail
 
 // NewSenderDetail instantiates a new SenderDetail object
 // This constructor will assign default values to properties that have it defined,
@@ -123,7 +126,34 @@ func (o SenderDetail) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Values) {
 		toSerialize["values"] = o.Values
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SenderDetail) UnmarshalJSON(data []byte) (err error) {
+	varSenderDetail := _SenderDetail{}
+
+	err = json.Unmarshal(data, &varSenderDetail)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SenderDetail(varSenderDetail)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "details_type")
+		delete(additionalProperties, "values")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSenderDetail struct {

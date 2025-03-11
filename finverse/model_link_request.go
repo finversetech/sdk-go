@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -30,6 +29,7 @@ type LinkRequest struct {
 	ProductsRequested []string `json:"products_requested,omitempty"`
 	// The identifier returned after creating payment instruction
 	PaymentInstructionId *string `json:"payment_instruction_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _LinkRequest LinkRequest
@@ -229,6 +229,11 @@ func (o LinkRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaymentInstructionId) {
 		toSerialize["payment_instruction_id"] = o.PaymentInstructionId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -257,15 +262,24 @@ func (o *LinkRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varLinkRequest := _LinkRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varLinkRequest)
+	err = json.Unmarshal(data, &varLinkRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = LinkRequest(varLinkRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "institution_id")
+		delete(additionalProperties, "store_credential")
+		delete(additionalProperties, "consent")
+		delete(additionalProperties, "products_requested")
+		delete(additionalProperties, "payment_instruction_id")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

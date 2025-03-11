@@ -20,9 +20,12 @@ var _ MappedNullable = &CardDetails{}
 
 // CardDetails struct for CardDetails
 type CardDetails struct {
-	CardAccounts []CardAccount `json:"card_accounts,omitempty"`
-	CardTotal    *CardTotal    `json:"card_total,omitempty"`
+	CardAccounts         []CardAccount `json:"card_accounts,omitempty"`
+	CardTotal            *CardTotal    `json:"card_total,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CardDetails CardDetails
 
 // NewCardDetails instantiates a new CardDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o CardDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CardTotal) {
 		toSerialize["card_total"] = o.CardTotal
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CardDetails) UnmarshalJSON(data []byte) (err error) {
+	varCardDetails := _CardDetails{}
+
+	err = json.Unmarshal(data, &varCardDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CardDetails(varCardDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "card_accounts")
+		delete(additionalProperties, "card_total")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCardDetails struct {

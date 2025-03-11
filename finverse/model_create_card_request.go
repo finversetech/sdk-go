@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,9 +21,10 @@ var _ MappedNullable = &CreateCardRequest{}
 
 // CreateCardRequest struct for CreateCardRequest
 type CreateCardRequest struct {
-	CardDetails      CreateCardRequestCardDetails `json:"card_details"`
-	RecipientAccount MandateRecipientRequest      `json:"recipient_account"`
-	Status           string                       `json:"status"`
+	CardDetails          CreateCardRequestCardDetails `json:"card_details"`
+	RecipientAccount     MandateRecipientRequest      `json:"recipient_account"`
+	Status               string                       `json:"status"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateCardRequest CreateCardRequest
@@ -134,6 +134,11 @@ func (o CreateCardRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["card_details"] = o.CardDetails
 	toSerialize["recipient_account"] = o.RecipientAccount
 	toSerialize["status"] = o.Status
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -163,15 +168,22 @@ func (o *CreateCardRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreateCardRequest := _CreateCardRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateCardRequest)
+	err = json.Unmarshal(data, &varCreateCardRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateCardRequest(varCreateCardRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "card_details")
+		delete(additionalProperties, "recipient_account")
+		delete(additionalProperties, "status")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

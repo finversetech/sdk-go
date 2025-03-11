@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -23,7 +22,8 @@ var _ MappedNullable = &DownloadBalanceStatementResponse{}
 // DownloadBalanceStatementResponse struct for DownloadBalanceStatementResponse
 type DownloadBalanceStatementResponse struct {
 	// Signed URL to download the CSV from
-	DownloadUrl string `json:"download_url"`
+	DownloadUrl          string `json:"download_url"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _DownloadBalanceStatementResponse DownloadBalanceStatementResponse
@@ -81,6 +81,11 @@ func (o DownloadBalanceStatementResponse) MarshalJSON() ([]byte, error) {
 func (o DownloadBalanceStatementResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["download_url"] = o.DownloadUrl
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -108,15 +113,20 @@ func (o *DownloadBalanceStatementResponse) UnmarshalJSON(data []byte) (err error
 
 	varDownloadBalanceStatementResponse := _DownloadBalanceStatementResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varDownloadBalanceStatementResponse)
+	err = json.Unmarshal(data, &varDownloadBalanceStatementResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = DownloadBalanceStatementResponse(varDownloadBalanceStatementResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "download_url")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

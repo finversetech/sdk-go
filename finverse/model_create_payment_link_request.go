@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -31,11 +30,12 @@ type CreatePaymentLinkRequest struct {
 	PaymentDetails *PaymentLinkDetails `json:"payment_details,omitempty"`
 	Sender         PaymentLinkSender   `json:"sender"`
 	// Unique reference id to identifying the payment to be collected.
-	UniqueReferenceId   string                      `json:"unique_reference_id"`
-	PaymentSetupOptions *PaymentSetupOptions        `json:"payment_setup_options,omitempty"`
-	Metadata            *map[string]string          `json:"metadata,omitempty"`
-	PaymentMetadata     *map[string]string          `json:"payment_metadata,omitempty"`
-	IntegrationMetadata *IntegrationMetadataRequest `json:"integration_metadata,omitempty"`
+	UniqueReferenceId    string                      `json:"unique_reference_id"`
+	PaymentSetupOptions  *PaymentSetupOptions        `json:"payment_setup_options,omitempty"`
+	Metadata             *map[string]string          `json:"metadata,omitempty"`
+	PaymentMetadata      *map[string]string          `json:"payment_metadata,omitempty"`
+	IntegrationMetadata  *IntegrationMetadataRequest `json:"integration_metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreatePaymentLinkRequest CreatePaymentLinkRequest
@@ -416,6 +416,11 @@ func (o CreatePaymentLinkRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IntegrationMetadata) {
 		toSerialize["integration_metadata"] = o.IntegrationMetadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -446,15 +451,30 @@ func (o *CreatePaymentLinkRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreatePaymentLinkRequest := _CreatePaymentLinkRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreatePaymentLinkRequest)
+	err = json.Unmarshal(data, &varCreatePaymentLinkRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreatePaymentLinkRequest(varCreatePaymentLinkRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "link_customizations")
+		delete(additionalProperties, "mode")
+		delete(additionalProperties, "payment_details")
+		delete(additionalProperties, "sender")
+		delete(additionalProperties, "unique_reference_id")
+		delete(additionalProperties, "payment_setup_options")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "payment_metadata")
+		delete(additionalProperties, "integration_metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -21,8 +21,11 @@ var _ MappedNullable = &ManualPaymentConfirmationRequest{}
 // ManualPaymentConfirmationRequest struct for ManualPaymentConfirmationRequest
 type ManualPaymentConfirmationRequest struct {
 	// Required if manual payment provider is HK_FPS. Not required for SG_PAYNOW
-	AccountholderName *string `json:"accountholder_name,omitempty"`
+	AccountholderName    *string `json:"accountholder_name,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _ManualPaymentConfirmationRequest ManualPaymentConfirmationRequest
 
 // NewManualPaymentConfirmationRequest instantiates a new ManualPaymentConfirmationRequest object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o ManualPaymentConfirmationRequest) ToMap() (map[string]interface{}, error
 	if !IsNil(o.AccountholderName) {
 		toSerialize["accountholder_name"] = o.AccountholderName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *ManualPaymentConfirmationRequest) UnmarshalJSON(data []byte) (err error) {
+	varManualPaymentConfirmationRequest := _ManualPaymentConfirmationRequest{}
+
+	err = json.Unmarshal(data, &varManualPaymentConfirmationRequest)
+
+	if err != nil {
+		return err
+	}
+
+	*o = ManualPaymentConfirmationRequest(varManualPaymentConfirmationRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "accountholder_name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableManualPaymentConfirmationRequest struct {

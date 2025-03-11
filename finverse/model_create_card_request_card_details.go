@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,11 +21,12 @@ var _ MappedNullable = &CreateCardRequestCardDetails{}
 
 // CreateCardRequestCardDetails struct for CreateCardRequestCardDetails
 type CreateCardRequestCardDetails struct {
-	Brand       string `json:"brand"`
-	Last4       string `json:"last4"`
-	Currency    string `json:"currency"`
-	ExpiryMonth *int32 `json:"expiry_month,omitempty"`
-	ExpiryYear  *int32 `json:"expiry_year,omitempty"`
+	Brand                string `json:"brand"`
+	Last4                string `json:"last4"`
+	Currency             string `json:"currency"`
+	ExpiryMonth          *int32 `json:"expiry_month,omitempty"`
+	ExpiryYear           *int32 `json:"expiry_year,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateCardRequestCardDetails CreateCardRequestCardDetails
@@ -206,6 +206,11 @@ func (o CreateCardRequestCardDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ExpiryYear) {
 		toSerialize["expiry_year"] = o.ExpiryYear
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -235,15 +240,24 @@ func (o *CreateCardRequestCardDetails) UnmarshalJSON(data []byte) (err error) {
 
 	varCreateCardRequestCardDetails := _CreateCardRequestCardDetails{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateCardRequestCardDetails)
+	err = json.Unmarshal(data, &varCreateCardRequestCardDetails)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateCardRequestCardDetails(varCreateCardRequestCardDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "brand")
+		delete(additionalProperties, "last4")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "expiry_month")
+		delete(additionalProperties, "expiry_year")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -40,8 +39,9 @@ type CreateMandateResponse struct {
 	MandateDetails   MandateDetailsResponse   `json:"mandate_details"`
 	Fees             []Fee                    `json:"fees,omitempty"`
 	// Additional attributes of the mandate in key:value format (e.g. mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 1000 characters respectively.
-	Metadata *map[string]string    `json:"metadata,omitempty"`
-	Error    *FvEmbeddedErrorModel `json:"error,omitempty"`
+	Metadata             *map[string]string    `json:"metadata,omitempty"`
+	Error                *FvEmbeddedErrorModel `json:"error,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateMandateResponse CreateMandateResponse
@@ -474,6 +474,11 @@ func (o CreateMandateResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -506,15 +511,32 @@ func (o *CreateMandateResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varCreateMandateResponse := _CreateMandateResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateMandateResponse)
+	err = json.Unmarshal(data, &varCreateMandateResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateMandateResponse(varCreateMandateResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "updated_at")
+		delete(additionalProperties, "mandate_id")
+		delete(additionalProperties, "payment_method_id")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "recipient")
+		delete(additionalProperties, "recipient_account")
+		delete(additionalProperties, "sender")
+		delete(additionalProperties, "sender_account")
+		delete(additionalProperties, "mandate_details")
+		delete(additionalProperties, "fees")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "error")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

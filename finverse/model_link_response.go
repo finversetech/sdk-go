@@ -20,8 +20,11 @@ var _ MappedNullable = &LinkResponse{}
 
 // LinkResponse struct for LinkResponse
 type LinkResponse struct {
-	AuthUrl *string `json:"auth_url,omitempty"`
+	AuthUrl              *string `json:"auth_url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LinkResponse LinkResponse
 
 // NewLinkResponse instantiates a new LinkResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o LinkResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AuthUrl) {
 		toSerialize["auth_url"] = o.AuthUrl
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LinkResponse) UnmarshalJSON(data []byte) (err error) {
+	varLinkResponse := _LinkResponse{}
+
+	err = json.Unmarshal(data, &varLinkResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LinkResponse(varLinkResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "auth_url")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLinkResponse struct {

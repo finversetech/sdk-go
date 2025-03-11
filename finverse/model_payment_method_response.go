@@ -20,12 +20,15 @@ var _ MappedNullable = &PaymentMethodResponse{}
 
 // PaymentMethodResponse struct for PaymentMethodResponse
 type PaymentMethodResponse struct {
-	PaymentMethodId     *string                           `json:"payment_method_id,omitempty"`
-	PaymentMethodType   *string                           `json:"payment_method_type,omitempty"`
-	Mandate             *GetMandateResponse               `json:"mandate,omitempty"`
-	Card                *FVCard                           `json:"card,omitempty"`
-	IntegrationMetadata *PaymentMethodIntegrationMetadata `json:"integration_metadata,omitempty"`
+	PaymentMethodId      *string                           `json:"payment_method_id,omitempty"`
+	PaymentMethodType    *string                           `json:"payment_method_type,omitempty"`
+	Mandate              *GetMandateResponse               `json:"mandate,omitempty"`
+	Card                 *FVCard                           `json:"card,omitempty"`
+	IntegrationMetadata  *PaymentMethodIntegrationMetadata `json:"integration_metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PaymentMethodResponse PaymentMethodResponse
 
 // NewPaymentMethodResponse instantiates a new PaymentMethodResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -229,7 +232,37 @@ func (o PaymentMethodResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IntegrationMetadata) {
 		toSerialize["integration_metadata"] = o.IntegrationMetadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PaymentMethodResponse) UnmarshalJSON(data []byte) (err error) {
+	varPaymentMethodResponse := _PaymentMethodResponse{}
+
+	err = json.Unmarshal(data, &varPaymentMethodResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentMethodResponse(varPaymentMethodResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "payment_method_id")
+		delete(additionalProperties, "payment_method_type")
+		delete(additionalProperties, "mandate")
+		delete(additionalProperties, "card")
+		delete(additionalProperties, "integration_metadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePaymentMethodResponse struct {

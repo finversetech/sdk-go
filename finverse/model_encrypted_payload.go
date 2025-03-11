@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -31,7 +30,8 @@ type EncryptedPayload struct {
 	// The AES key encrypted with an RSA pubkey (base64)
 	EnvelopeEncryptionKey string `json:"envelopeEncryptionKey"`
 	// The identifier of the public key used to encrypt the AES key
-	KeyId string `json:"keyId"`
+	KeyId                string `json:"keyId"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _EncryptedPayload EncryptedPayload
@@ -193,6 +193,11 @@ func (o EncryptedPayload) ToMap() (map[string]interface{}, error) {
 	toSerialize["messageAuthenticationCode"] = o.MessageAuthenticationCode
 	toSerialize["envelopeEncryptionKey"] = o.EnvelopeEncryptionKey
 	toSerialize["keyId"] = o.KeyId
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -224,15 +229,24 @@ func (o *EncryptedPayload) UnmarshalJSON(data []byte) (err error) {
 
 	varEncryptedPayload := _EncryptedPayload{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varEncryptedPayload)
+	err = json.Unmarshal(data, &varEncryptedPayload)
 
 	if err != nil {
 		return err
 	}
 
 	*o = EncryptedPayload(varEncryptedPayload)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "ciphertext")
+		delete(additionalProperties, "initializationVector")
+		delete(additionalProperties, "messageAuthenticationCode")
+		delete(additionalProperties, "envelopeEncryptionKey")
+		delete(additionalProperties, "keyId")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

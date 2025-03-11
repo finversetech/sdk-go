@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -23,7 +22,8 @@ var _ MappedNullable = &FpsQrCodeResponse{}
 // FpsQrCodeResponse struct for FpsQrCodeResponse
 type FpsQrCodeResponse struct {
 	// The FPS QR code in base64
-	QrCode string `json:"qr_code"`
+	QrCode               string `json:"qr_code"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _FpsQrCodeResponse FpsQrCodeResponse
@@ -81,6 +81,11 @@ func (o FpsQrCodeResponse) MarshalJSON() ([]byte, error) {
 func (o FpsQrCodeResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["qr_code"] = o.QrCode
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -108,15 +113,20 @@ func (o *FpsQrCodeResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varFpsQrCodeResponse := _FpsQrCodeResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varFpsQrCodeResponse)
+	err = json.Unmarshal(data, &varFpsQrCodeResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = FpsQrCodeResponse(varFpsQrCodeResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "qr_code")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

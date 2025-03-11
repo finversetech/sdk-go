@@ -48,12 +48,15 @@ type PaymentLinkResponse struct {
 	// Timestamp of when the payment link was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp of when the payment link was last updated in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	UpdatedAt           *time.Time                   `json:"updated_at,omitempty"`
-	Payment             *PaymentResponse             `json:"payment,omitempty"`
-	Sender              *PaymentLinkSenderResponse   `json:"sender,omitempty"`
-	PaymentMethod       *PaymentMethodResponse       `json:"payment_method,omitempty"`
-	IntegrationMetadata *IntegrationMetadataResponse `json:"integration_metadata,omitempty"`
+	UpdatedAt            *time.Time                   `json:"updated_at,omitempty"`
+	Payment              *PaymentResponse             `json:"payment,omitempty"`
+	Sender               *PaymentLinkSenderResponse   `json:"sender,omitempty"`
+	PaymentMethod        *PaymentMethodResponse       `json:"payment_method,omitempty"`
+	IntegrationMetadata  *IntegrationMetadataResponse `json:"integration_metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PaymentLinkResponse PaymentLinkResponse
 
 // NewPaymentLinkResponse instantiates a new PaymentLinkResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -782,7 +785,52 @@ func (o PaymentLinkResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IntegrationMetadata) {
 		toSerialize["integration_metadata"] = o.IntegrationMetadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PaymentLinkResponse) UnmarshalJSON(data []byte) (err error) {
+	varPaymentLinkResponse := _PaymentLinkResponse{}
+
+	err = json.Unmarshal(data, &varPaymentLinkResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentLinkResponse(varPaymentLinkResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "payment_link_id")
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "link_customizations")
+		delete(additionalProperties, "mode")
+		delete(additionalProperties, "payment_details")
+		delete(additionalProperties, "unique_reference_id")
+		delete(additionalProperties, "payment_setup_options")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "payment_metadata")
+		delete(additionalProperties, "url")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "session_status")
+		delete(additionalProperties, "expires_at")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "updated_at")
+		delete(additionalProperties, "payment")
+		delete(additionalProperties, "sender")
+		delete(additionalProperties, "payment_method")
+		delete(additionalProperties, "integration_metadata")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePaymentLinkResponse struct {

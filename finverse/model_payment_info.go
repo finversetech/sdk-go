@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,9 +21,10 @@ var _ MappedNullable = &PaymentInfo{}
 
 // PaymentInfo struct for PaymentInfo
 type PaymentInfo struct {
-	CurrenciesSupported []string   `json:"currencies_supported,omitempty"`
-	PaymentsSupported   []string   `json:"payments_supported"`
-	OtherInfo           *OtherInfo `json:"other_info,omitempty"`
+	CurrenciesSupported  []string   `json:"currencies_supported,omitempty"`
+	PaymentsSupported    []string   `json:"payments_supported"`
+	OtherInfo            *OtherInfo `json:"other_info,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PaymentInfo PaymentInfo
@@ -152,6 +152,11 @@ func (o PaymentInfo) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OtherInfo) {
 		toSerialize["other_info"] = o.OtherInfo
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -179,15 +184,22 @@ func (o *PaymentInfo) UnmarshalJSON(data []byte) (err error) {
 
 	varPaymentInfo := _PaymentInfo{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPaymentInfo)
+	err = json.Unmarshal(data, &varPaymentInfo)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PaymentInfo(varPaymentInfo)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "currencies_supported")
+		delete(additionalProperties, "payments_supported")
+		delete(additionalProperties, "other_info")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

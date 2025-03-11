@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,14 +21,15 @@ var _ MappedNullable = &CreatePaymentUserRequest{}
 
 // CreatePaymentUserRequest struct for CreatePaymentUserRequest
 type CreatePaymentUserRequest struct {
-	Name                string                      `json:"name"`
-	ExternalUserId      string                      `json:"external_user_id"`
-	UserType            *string                     `json:"user_type,omitempty"`
-	Email               *string                     `json:"email,omitempty"`
-	UserDetails         []SenderDetail              `json:"user_details,omitempty"`
-	Metadata            *map[string]string          `json:"metadata,omitempty"`
-	AutopayConsent      *bool                       `json:"autopay_consent,omitempty"`
-	IntegrationMetadata *IntegrationMetadataRequest `json:"integration_metadata,omitempty"`
+	Name                 string                      `json:"name"`
+	ExternalUserId       string                      `json:"external_user_id"`
+	UserType             *string                     `json:"user_type,omitempty"`
+	Email                *string                     `json:"email,omitempty"`
+	UserDetails          []SenderDetail              `json:"user_details,omitempty"`
+	Metadata             *map[string]string          `json:"metadata,omitempty"`
+	AutopayConsent       *bool                       `json:"autopay_consent,omitempty"`
+	IntegrationMetadata  *IntegrationMetadataRequest `json:"integration_metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreatePaymentUserRequest CreatePaymentUserRequest
@@ -323,6 +323,11 @@ func (o CreatePaymentUserRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.IntegrationMetadata) {
 		toSerialize["integration_metadata"] = o.IntegrationMetadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -351,15 +356,27 @@ func (o *CreatePaymentUserRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreatePaymentUserRequest := _CreatePaymentUserRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreatePaymentUserRequest)
+	err = json.Unmarshal(data, &varCreatePaymentUserRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreatePaymentUserRequest(varCreatePaymentUserRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "external_user_id")
+		delete(additionalProperties, "user_type")
+		delete(additionalProperties, "email")
+		delete(additionalProperties, "user_details")
+		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "autopay_consent")
+		delete(additionalProperties, "integration_metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

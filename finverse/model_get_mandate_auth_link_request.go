@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -23,8 +22,9 @@ var _ MappedNullable = &GetMandateAuthLinkRequest{}
 // GetMandateAuthLinkRequest struct for GetMandateAuthLinkRequest
 type GetMandateAuthLinkRequest struct {
 	// Mandate ID
-	MandateId          string                        `json:"mandate_id"`
-	LinkCustomizations MandateAuthLinkCustomizations `json:"link_customizations"`
+	MandateId            string                        `json:"mandate_id"`
+	LinkCustomizations   MandateAuthLinkCustomizations `json:"link_customizations"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GetMandateAuthLinkRequest GetMandateAuthLinkRequest
@@ -108,6 +108,11 @@ func (o GetMandateAuthLinkRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["mandate_id"] = o.MandateId
 	toSerialize["link_customizations"] = o.LinkCustomizations
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -136,15 +141,21 @@ func (o *GetMandateAuthLinkRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varGetMandateAuthLinkRequest := _GetMandateAuthLinkRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetMandateAuthLinkRequest)
+	err = json.Unmarshal(data, &varGetMandateAuthLinkRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GetMandateAuthLinkRequest(varGetMandateAuthLinkRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "mandate_id")
+		delete(additionalProperties, "link_customizations")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

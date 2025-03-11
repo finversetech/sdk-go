@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -30,7 +29,8 @@ type AuthChecklistOptions struct {
 	// Indicates who submitted the authorization factor to Finverse. Possible values are CUSTOMER_APP, FINVERSE_LINK
 	SubmittedBy *string `json:"submitted_by,omitempty"`
 	// Redirect to bank for authentication
-	RedirectUrl *string `json:"redirect_url,omitempty"`
+	RedirectUrl          *string `json:"redirect_url,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AuthChecklistOptions AuthChecklistOptions
@@ -204,6 +204,11 @@ func (o AuthChecklistOptions) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RedirectUrl) {
 		toSerialize["redirect_url"] = o.RedirectUrl
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -231,15 +236,23 @@ func (o *AuthChecklistOptions) UnmarshalJSON(data []byte) (err error) {
 
 	varAuthChecklistOptions := _AuthChecklistOptions{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAuthChecklistOptions)
+	err = json.Unmarshal(data, &varAuthChecklistOptions)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AuthChecklistOptions(varAuthChecklistOptions)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "submitted_at")
+		delete(additionalProperties, "submitted_by")
+		delete(additionalProperties, "redirect_url")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

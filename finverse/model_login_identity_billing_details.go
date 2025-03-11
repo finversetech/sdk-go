@@ -20,8 +20,11 @@ var _ MappedNullable = &LoginIdentityBillingDetails{}
 
 // LoginIdentityBillingDetails struct for LoginIdentityBillingDetails
 type LoginIdentityBillingDetails struct {
-	BilledProducts []string `json:"billed_products,omitempty"`
+	BilledProducts       []string `json:"billed_products,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LoginIdentityBillingDetails LoginIdentityBillingDetails
 
 // NewLoginIdentityBillingDetails instantiates a new LoginIdentityBillingDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o LoginIdentityBillingDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.BilledProducts) {
 		toSerialize["billed_products"] = o.BilledProducts
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LoginIdentityBillingDetails) UnmarshalJSON(data []byte) (err error) {
+	varLoginIdentityBillingDetails := _LoginIdentityBillingDetails{}
+
+	err = json.Unmarshal(data, &varLoginIdentityBillingDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LoginIdentityBillingDetails(varLoginIdentityBillingDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "billed_products")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLoginIdentityBillingDetails struct {

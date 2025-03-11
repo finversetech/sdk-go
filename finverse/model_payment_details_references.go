@@ -23,7 +23,10 @@ type PaymentDetailsReferences struct {
 	FinverseTransactionReference *string `json:"finverse_transaction_reference,omitempty"`
 	DdaReference                 *string `json:"dda_reference,omitempty"`
 	BankTransactionReference     *string `json:"bank_transaction_reference,omitempty"`
+	AdditionalProperties         map[string]interface{}
 }
+
+type _PaymentDetailsReferences PaymentDetailsReferences
 
 // NewPaymentDetailsReferences instantiates a new PaymentDetailsReferences object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o PaymentDetailsReferences) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.BankTransactionReference) {
 		toSerialize["bank_transaction_reference"] = o.BankTransactionReference
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PaymentDetailsReferences) UnmarshalJSON(data []byte) (err error) {
+	varPaymentDetailsReferences := _PaymentDetailsReferences{}
+
+	err = json.Unmarshal(data, &varPaymentDetailsReferences)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentDetailsReferences(varPaymentDetailsReferences)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "finverse_transaction_reference")
+		delete(additionalProperties, "dda_reference")
+		delete(additionalProperties, "bank_transaction_reference")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePaymentDetailsReferences struct {

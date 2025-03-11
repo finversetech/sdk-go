@@ -20,14 +20,17 @@ var _ MappedNullable = &PaymentDetails{}
 
 // PaymentDetails struct for PaymentDetails
 type PaymentDetails struct {
-	Format        *string    `json:"format,omitempty"`
-	Bic           *string    `json:"bic,omitempty"`
-	BankFullname  *string    `json:"bank_fullname,omitempty"`
-	BankShortname *string    `json:"bank_shortname,omitempty"`
-	BankAddress   *string    `json:"bank_address,omitempty"`
-	BankCountry   *string    `json:"bank_country,omitempty"`
-	OtherInfo     *OtherInfo `json:"other_info,omitempty"`
+	Format               *string    `json:"format,omitempty"`
+	Bic                  *string    `json:"bic,omitempty"`
+	BankFullname         *string    `json:"bank_fullname,omitempty"`
+	BankShortname        *string    `json:"bank_shortname,omitempty"`
+	BankAddress          *string    `json:"bank_address,omitempty"`
+	BankCountry          *string    `json:"bank_country,omitempty"`
+	OtherInfo            *OtherInfo `json:"other_info,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PaymentDetails PaymentDetails
 
 // NewPaymentDetails instantiates a new PaymentDetails object
 // This constructor will assign default values to properties that have it defined,
@@ -301,7 +304,39 @@ func (o PaymentDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.OtherInfo) {
 		toSerialize["other_info"] = o.OtherInfo
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PaymentDetails) UnmarshalJSON(data []byte) (err error) {
+	varPaymentDetails := _PaymentDetails{}
+
+	err = json.Unmarshal(data, &varPaymentDetails)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentDetails(varPaymentDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "format")
+		delete(additionalProperties, "bic")
+		delete(additionalProperties, "bank_fullname")
+		delete(additionalProperties, "bank_shortname")
+		delete(additionalProperties, "bank_address")
+		delete(additionalProperties, "bank_country")
+		delete(additionalProperties, "other_info")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePaymentDetails struct {

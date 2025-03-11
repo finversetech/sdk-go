@@ -20,10 +20,13 @@ var _ MappedNullable = &SwaggerErrBodyModel{}
 
 // SwaggerErrBodyModel struct for SwaggerErrBodyModel
 type SwaggerErrBodyModel struct {
-	Code    *int32        `json:"code,omitempty"`
-	Message *string       `json:"message,omitempty"`
-	Error   *FvErrorModel `json:"error,omitempty"`
+	Code                 *int32        `json:"code,omitempty"`
+	Message              *string       `json:"message,omitempty"`
+	Error                *FvErrorModel `json:"error,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _SwaggerErrBodyModel SwaggerErrBodyModel
 
 // NewSwaggerErrBodyModel instantiates a new SwaggerErrBodyModel object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o SwaggerErrBodyModel) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *SwaggerErrBodyModel) UnmarshalJSON(data []byte) (err error) {
+	varSwaggerErrBodyModel := _SwaggerErrBodyModel{}
+
+	err = json.Unmarshal(data, &varSwaggerErrBodyModel)
+
+	if err != nil {
+		return err
+	}
+
+	*o = SwaggerErrBodyModel(varSwaggerErrBodyModel)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "code")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "error")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableSwaggerErrBodyModel struct {

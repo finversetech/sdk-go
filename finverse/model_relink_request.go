@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -24,7 +23,8 @@ var _ MappedNullable = &RelinkRequest{}
 type RelinkRequest struct {
 	StoreCredential bool `json:"store_credential"`
 	// this is a mandatory field
-	Consent NullableBool `json:"consent,omitempty"`
+	Consent              NullableBool `json:"consent,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RelinkRequest RelinkRequest
@@ -128,6 +128,11 @@ func (o RelinkRequest) ToMap() (map[string]interface{}, error) {
 	if o.Consent.IsSet() {
 		toSerialize["consent"] = o.Consent.Get()
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -155,15 +160,21 @@ func (o *RelinkRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varRelinkRequest := _RelinkRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRelinkRequest)
+	err = json.Unmarshal(data, &varRelinkRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RelinkRequest(varRelinkRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "store_credential")
+		delete(additionalProperties, "consent")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

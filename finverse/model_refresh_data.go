@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,8 +21,9 @@ var _ MappedNullable = &RefreshData{}
 
 // RefreshData struct for RefreshData
 type RefreshData struct {
-	CredentialsStored bool `json:"credentials_stored"`
-	RefreshAllowed    bool `json:"refresh_allowed"`
+	CredentialsStored    bool `json:"credentials_stored"`
+	RefreshAllowed       bool `json:"refresh_allowed"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _RefreshData RefreshData
@@ -107,6 +107,11 @@ func (o RefreshData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["credentials_stored"] = o.CredentialsStored
 	toSerialize["refresh_allowed"] = o.RefreshAllowed
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -135,15 +140,21 @@ func (o *RefreshData) UnmarshalJSON(data []byte) (err error) {
 
 	varRefreshData := _RefreshData{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varRefreshData)
+	err = json.Unmarshal(data, &varRefreshData)
 
 	if err != nil {
 		return err
 	}
 
 	*o = RefreshData(varRefreshData)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "credentials_stored")
+		delete(additionalProperties, "refresh_allowed")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -29,7 +28,8 @@ type FvErrorModel struct {
 	Message   string `json:"message"`
 	Details   string `json:"details"`
 	// The request_id provided in the request header
-	RequestId string `json:"request_id"`
+	RequestId            string `json:"request_id"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _FvErrorModel FvErrorModel
@@ -217,6 +217,11 @@ func (o FvErrorModel) ToMap() (map[string]interface{}, error) {
 	toSerialize["message"] = o.Message
 	toSerialize["details"] = o.Details
 	toSerialize["request_id"] = o.RequestId
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -249,15 +254,25 @@ func (o *FvErrorModel) UnmarshalJSON(data []byte) (err error) {
 
 	varFvErrorModel := _FvErrorModel{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varFvErrorModel)
+	err = json.Unmarshal(data, &varFvErrorModel)
 
 	if err != nil {
 		return err
 	}
 
 	*o = FvErrorModel(varFvErrorModel)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "error_code")
+		delete(additionalProperties, "code")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "details")
+		delete(additionalProperties, "request_id")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

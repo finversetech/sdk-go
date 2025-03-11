@@ -20,9 +20,12 @@ var _ MappedNullable = &GetLoginIdentityByIdResponse{}
 
 // GetLoginIdentityByIdResponse struct for GetLoginIdentityByIdResponse
 type GetLoginIdentityByIdResponse struct {
-	LoginIdentity *LoginIdentity    `json:"login_identity,omitempty"`
-	Institution   *InstitutionShort `json:"institution,omitempty"`
+	LoginIdentity        *LoginIdentity    `json:"login_identity,omitempty"`
+	Institution          *InstitutionShort `json:"institution,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _GetLoginIdentityByIdResponse GetLoginIdentityByIdResponse
 
 // NewGetLoginIdentityByIdResponse instantiates a new GetLoginIdentityByIdResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o GetLoginIdentityByIdResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Institution) {
 		toSerialize["institution"] = o.Institution
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *GetLoginIdentityByIdResponse) UnmarshalJSON(data []byte) (err error) {
+	varGetLoginIdentityByIdResponse := _GetLoginIdentityByIdResponse{}
+
+	err = json.Unmarshal(data, &varGetLoginIdentityByIdResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetLoginIdentityByIdResponse(varGetLoginIdentityByIdResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "login_identity")
+		delete(additionalProperties, "institution")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGetLoginIdentityByIdResponse struct {

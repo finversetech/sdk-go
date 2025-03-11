@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,7 +26,8 @@ type BalanceHistory struct {
 	// The end of day balance for this account on this specific date
 	Amount float32 `json:"amount"`
 	// The currency the balance
-	Currency string `json:"currency"`
+	Currency             string `json:"currency"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _BalanceHistory BalanceHistory
@@ -137,6 +137,11 @@ func (o BalanceHistory) ToMap() (map[string]interface{}, error) {
 	toSerialize["date"] = o.Date
 	toSerialize["amount"] = o.Amount
 	toSerialize["currency"] = o.Currency
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -166,15 +171,22 @@ func (o *BalanceHistory) UnmarshalJSON(data []byte) (err error) {
 
 	varBalanceHistory := _BalanceHistory{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varBalanceHistory)
+	err = json.Unmarshal(data, &varBalanceHistory)
 
 	if err != nil {
 		return err
 	}
 
 	*o = BalanceHistory(varBalanceHistory)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "date")
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "currency")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

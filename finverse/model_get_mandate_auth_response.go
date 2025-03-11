@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -37,10 +36,11 @@ type GetMandateAuthResponse struct {
 	AuthChecklist  []AuthChecklistFactor     `json:"auth_checklist"`
 	EncryptionInfo MandateAuthEncryptionInfo `json:"encryption_info"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	LastUpdate     time.Time               `json:"last_update"`
-	Error          *FvEmbeddedErrorModel   `json:"error,omitempty"`
-	MandateDetails *MandateDetailsResponse `json:"mandate_details,omitempty"`
-	Recipient      *MandateRecipient       `json:"recipient,omitempty"`
+	LastUpdate           time.Time               `json:"last_update"`
+	Error                *FvEmbeddedErrorModel   `json:"error,omitempty"`
+	MandateDetails       *MandateDetailsResponse `json:"mandate_details,omitempty"`
+	Recipient            *MandateRecipient       `json:"recipient,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GetMandateAuthResponse GetMandateAuthResponse
@@ -394,6 +394,11 @@ func (o GetMandateAuthResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Recipient) {
 		toSerialize["recipient"] = o.Recipient
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -427,15 +432,30 @@ func (o *GetMandateAuthResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varGetMandateAuthResponse := _GetMandateAuthResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetMandateAuthResponse)
+	err = json.Unmarshal(data, &varGetMandateAuthResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GetMandateAuthResponse(varGetMandateAuthResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "mandate_id")
+		delete(additionalProperties, "mandate_status")
+		delete(additionalProperties, "recipient_account_id")
+		delete(additionalProperties, "institution_id")
+		delete(additionalProperties, "sender_type")
+		delete(additionalProperties, "auth_checklist")
+		delete(additionalProperties, "encryption_info")
+		delete(additionalProperties, "last_update")
+		delete(additionalProperties, "error")
+		delete(additionalProperties, "mandate_details")
+		delete(additionalProperties, "recipient")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

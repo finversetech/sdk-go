@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -30,7 +29,8 @@ type GetMandateSender struct {
 	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
 	UserType string `json:"user_type"`
 	// Sender details which will be used for fraud checking.
-	UserDetails []SenderDetail `json:"user_details,omitempty"`
+	UserDetails          []SenderDetail `json:"user_details,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GetMandateSender GetMandateSender
@@ -210,6 +210,11 @@ func (o GetMandateSender) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserDetails) {
 		toSerialize["user_details"] = o.UserDetails
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -239,15 +244,24 @@ func (o *GetMandateSender) UnmarshalJSON(data []byte) (err error) {
 
 	varGetMandateSender := _GetMandateSender{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetMandateSender)
+	err = json.Unmarshal(data, &varGetMandateSender)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GetMandateSender(varGetMandateSender)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "user_id")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "external_user_id")
+		delete(additionalProperties, "user_type")
+		delete(additionalProperties, "user_details")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

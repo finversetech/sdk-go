@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,7 +21,8 @@ var _ MappedNullable = &SetAutopayConsentRequest{}
 
 // SetAutopayConsentRequest struct for SetAutopayConsentRequest
 type SetAutopayConsentRequest struct {
-	AutopayConsent bool `json:"autopay_consent"`
+	AutopayConsent       bool `json:"autopay_consent"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SetAutopayConsentRequest SetAutopayConsentRequest
@@ -80,6 +80,11 @@ func (o SetAutopayConsentRequest) MarshalJSON() ([]byte, error) {
 func (o SetAutopayConsentRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["autopay_consent"] = o.AutopayConsent
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -107,15 +112,20 @@ func (o *SetAutopayConsentRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varSetAutopayConsentRequest := _SetAutopayConsentRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSetAutopayConsentRequest)
+	err = json.Unmarshal(data, &varSetAutopayConsentRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SetAutopayConsentRequest(varSetAutopayConsentRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "autopay_consent")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

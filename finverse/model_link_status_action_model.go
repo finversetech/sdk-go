@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,10 +26,11 @@ type LinkStatusActionModel struct {
 	// The type of user screen the UI is to render
 	Type string `json:"type"`
 	// The name of the user screen the UI is to render
-	Name     string        `json:"name"`
-	Messages []UserMessage `json:"messages"`
-	Fields   []UserField   `json:"fields"`
-	Buttons  []UserButton  `json:"buttons,omitempty"`
+	Name                 string        `json:"name"`
+	Messages             []UserMessage `json:"messages"`
+	Fields               []UserField   `json:"fields"`
+	Buttons              []UserButton  `json:"buttons,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _LinkStatusActionModel LinkStatusActionModel
@@ -227,6 +227,11 @@ func (o LinkStatusActionModel) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Buttons) {
 		toSerialize["buttons"] = o.Buttons
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -258,15 +263,25 @@ func (o *LinkStatusActionModel) UnmarshalJSON(data []byte) (err error) {
 
 	varLinkStatusActionModel := _LinkStatusActionModel{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varLinkStatusActionModel)
+	err = json.Unmarshal(data, &varLinkStatusActionModel)
 
 	if err != nil {
 		return err
 	}
 
 	*o = LinkStatusActionModel(varLinkStatusActionModel)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "action_id")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "messages")
+		delete(additionalProperties, "fields")
+		delete(additionalProperties, "buttons")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

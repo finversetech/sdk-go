@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -25,23 +24,24 @@ var _ MappedNullable = &Account{}
 type Account struct {
 	AccountId string `json:"account_id"`
 	// The SHA3-256 hash of the account number, salted with the loginIdentityId
-	GroupId             string            `json:"group_id"`
-	AccountHolderName   *string           `json:"account_holder_name,omitempty"`
-	AccountName         string            `json:"account_name"`
-	AccountNickname     *string           `json:"account_nickname,omitempty"`
-	AccountSubType      *string           `json:"account_sub_type,omitempty"`
-	AccountNumberMasked *string           `json:"account_number_masked,omitempty"`
-	Country             *string           `json:"country,omitempty"`
-	CreatedAt           *time.Time        `json:"created_at,omitempty"`
-	UpdatedAt           *time.Time        `json:"updated_at,omitempty"`
-	AccountCurrency     *string           `json:"account_currency,omitempty"`
-	Balance             *CurrencyAmount   `json:"balance,omitempty"`
-	StatementBalance    *CurrencyAmount   `json:"statement_balance,omitempty"`
-	IsParent            bool              `json:"is_parent"`
-	IsClosed            bool              `json:"is_closed"`
-	IsExcluded          bool              `json:"is_excluded"`
-	AccountType         *AccountType      `json:"account_type,omitempty"`
-	Metadata            map[string]string `json:"metadata"`
+	GroupId              string            `json:"group_id"`
+	AccountHolderName    *string           `json:"account_holder_name,omitempty"`
+	AccountName          string            `json:"account_name"`
+	AccountNickname      *string           `json:"account_nickname,omitempty"`
+	AccountSubType       *string           `json:"account_sub_type,omitempty"`
+	AccountNumberMasked  *string           `json:"account_number_masked,omitempty"`
+	Country              *string           `json:"country,omitempty"`
+	CreatedAt            *time.Time        `json:"created_at,omitempty"`
+	UpdatedAt            *time.Time        `json:"updated_at,omitempty"`
+	AccountCurrency      *string           `json:"account_currency,omitempty"`
+	Balance              *CurrencyAmount   `json:"balance,omitempty"`
+	StatementBalance     *CurrencyAmount   `json:"statement_balance,omitempty"`
+	IsParent             bool              `json:"is_parent"`
+	IsClosed             bool              `json:"is_closed"`
+	IsExcluded           bool              `json:"is_excluded"`
+	AccountType          *AccountType      `json:"account_type,omitempty"`
+	Metadata             map[string]string `json:"metadata"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _Account Account
@@ -640,6 +640,11 @@ func (o Account) ToMap() (map[string]interface{}, error) {
 		toSerialize["account_type"] = o.AccountType
 	}
 	toSerialize["metadata"] = o.Metadata
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -673,15 +678,37 @@ func (o *Account) UnmarshalJSON(data []byte) (err error) {
 
 	varAccount := _Account{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAccount)
+	err = json.Unmarshal(data, &varAccount)
 
 	if err != nil {
 		return err
 	}
 
 	*o = Account(varAccount)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "account_id")
+		delete(additionalProperties, "group_id")
+		delete(additionalProperties, "account_holder_name")
+		delete(additionalProperties, "account_name")
+		delete(additionalProperties, "account_nickname")
+		delete(additionalProperties, "account_sub_type")
+		delete(additionalProperties, "account_number_masked")
+		delete(additionalProperties, "country")
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "updated_at")
+		delete(additionalProperties, "account_currency")
+		delete(additionalProperties, "balance")
+		delete(additionalProperties, "statement_balance")
+		delete(additionalProperties, "is_parent")
+		delete(additionalProperties, "is_closed")
+		delete(additionalProperties, "is_excluded")
+		delete(additionalProperties, "account_type")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

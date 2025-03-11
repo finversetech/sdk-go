@@ -20,8 +20,11 @@ var _ MappedNullable = &RedirectUriResponse{}
 
 // RedirectUriResponse struct for RedirectUriResponse
 type RedirectUriResponse struct {
-	RedirectUri *string `json:"redirect_uri,omitempty"`
+	RedirectUri          *string `json:"redirect_uri,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RedirectUriResponse RedirectUriResponse
 
 // NewRedirectUriResponse instantiates a new RedirectUriResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o RedirectUriResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RedirectUri) {
 		toSerialize["redirect_uri"] = o.RedirectUri
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RedirectUriResponse) UnmarshalJSON(data []byte) (err error) {
+	varRedirectUriResponse := _RedirectUriResponse{}
+
+	err = json.Unmarshal(data, &varRedirectUriResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RedirectUriResponse(varRedirectUriResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "redirect_uri")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRedirectUriResponse struct {

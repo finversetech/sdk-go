@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,10 +21,11 @@ var _ MappedNullable = &CreateMandateRequest{}
 
 // CreateMandateRequest struct for CreateMandateRequest
 type CreateMandateRequest struct {
-	RecipientAccount MandateRecipientRequest `json:"recipient_account"`
-	Sender           CreateMandateSender     `json:"sender"`
-	MandateDetails   MandateDetailsRequest   `json:"mandate_details"`
-	Metadata         *map[string]string      `json:"metadata,omitempty"`
+	RecipientAccount     MandateRecipientRequest `json:"recipient_account"`
+	Sender               CreateMandateSender     `json:"sender"`
+	MandateDetails       MandateDetailsRequest   `json:"mandate_details"`
+	Metadata             *map[string]string      `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreateMandateRequest CreateMandateRequest
@@ -170,6 +170,11 @@ func (o CreateMandateRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -199,15 +204,23 @@ func (o *CreateMandateRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreateMandateRequest := _CreateMandateRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreateMandateRequest)
+	err = json.Unmarshal(data, &varCreateMandateRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreateMandateRequest(varCreateMandateRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "recipient_account")
+		delete(additionalProperties, "sender")
+		delete(additionalProperties, "mandate_details")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

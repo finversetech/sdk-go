@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,9 +21,10 @@ var _ MappedNullable = &PaymentMethodIntegrationMetadata{}
 
 // PaymentMethodIntegrationMetadata struct for PaymentMethodIntegrationMetadata
 type PaymentMethodIntegrationMetadata struct {
-	IntegrationId       string                                               `json:"integration_id"`
-	StripeMetadata      *PaymentMethodIntegrationMetadataStripeMetadata      `json:"stripe_metadata,omitempty"`
-	CybersourceMetadata *PaymentMethodIntegrationMetadataCybersourceMetadata `json:"cybersource_metadata,omitempty"`
+	IntegrationId        string                                               `json:"integration_id"`
+	StripeMetadata       *PaymentMethodIntegrationMetadataStripeMetadata      `json:"stripe_metadata,omitempty"`
+	CybersourceMetadata  *PaymentMethodIntegrationMetadataCybersourceMetadata `json:"cybersource_metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PaymentMethodIntegrationMetadata PaymentMethodIntegrationMetadata
@@ -152,6 +152,11 @@ func (o PaymentMethodIntegrationMetadata) ToMap() (map[string]interface{}, error
 	if !IsNil(o.CybersourceMetadata) {
 		toSerialize["cybersource_metadata"] = o.CybersourceMetadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -179,15 +184,22 @@ func (o *PaymentMethodIntegrationMetadata) UnmarshalJSON(data []byte) (err error
 
 	varPaymentMethodIntegrationMetadata := _PaymentMethodIntegrationMetadata{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPaymentMethodIntegrationMetadata)
+	err = json.Unmarshal(data, &varPaymentMethodIntegrationMetadata)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PaymentMethodIntegrationMetadata(varPaymentMethodIntegrationMetadata)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "integration_id")
+		delete(additionalProperties, "stripe_metadata")
+		delete(additionalProperties, "cybersource_metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

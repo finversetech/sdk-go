@@ -30,7 +30,10 @@ type AllProductStatus struct {
 	Payments               *ProductStatus `json:"payments,omitempty"`
 	IncomeEstimation       *ProductStatus `json:"income_estimation,omitempty"`
 	CardDetails            *ProductStatus `json:"card_details,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
+
+type _AllProductStatus AllProductStatus
 
 // NewAllProductStatus instantiates a new AllProductStatus object
 // This constructor will assign default values to properties that have it defined,
@@ -409,7 +412,42 @@ func (o AllProductStatus) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CardDetails) {
 		toSerialize["card_details"] = o.CardDetails
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AllProductStatus) UnmarshalJSON(data []byte) (err error) {
+	varAllProductStatus := _AllProductStatus{}
+
+	err = json.Unmarshal(data, &varAllProductStatus)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AllProductStatus(varAllProductStatus)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "accounts")
+		delete(additionalProperties, "online_transactions")
+		delete(additionalProperties, "statements")
+		delete(additionalProperties, "historical_transactions")
+		delete(additionalProperties, "account_numbers")
+		delete(additionalProperties, "identity")
+		delete(additionalProperties, "balance_history")
+		delete(additionalProperties, "payments")
+		delete(additionalProperties, "income_estimation")
+		delete(additionalProperties, "card_details")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAllProductStatus struct {

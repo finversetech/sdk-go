@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type MandateRecipientAccount struct {
 	// Merchant account ID assigned by Finverse
 	AccountId string `json:"account_id"`
 	// Type of recipient account.
-	AccountType string `json:"account_type"`
+	AccountType          string `json:"account_type"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MandateRecipientAccount MandateRecipientAccount
@@ -109,6 +109,11 @@ func (o MandateRecipientAccount) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["account_id"] = o.AccountId
 	toSerialize["account_type"] = o.AccountType
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *MandateRecipientAccount) UnmarshalJSON(data []byte) (err error) {
 
 	varMandateRecipientAccount := _MandateRecipientAccount{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varMandateRecipientAccount)
+	err = json.Unmarshal(data, &varMandateRecipientAccount)
 
 	if err != nil {
 		return err
 	}
 
 	*o = MandateRecipientAccount(varMandateRecipientAccount)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "account_id")
+		delete(additionalProperties, "account_type")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

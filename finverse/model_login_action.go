@@ -20,12 +20,15 @@ var _ MappedNullable = &LoginAction{}
 
 // LoginAction struct for LoginAction
 type LoginAction struct {
-	Type     *string       `json:"type,omitempty"`
-	Name     *string       `json:"name,omitempty"`
-	Messages []UserMessage `json:"messages,omitempty"`
-	Fields   []UserField   `json:"fields,omitempty"`
-	Buttons  []UserButton  `json:"buttons,omitempty"`
+	Type                 *string       `json:"type,omitempty"`
+	Name                 *string       `json:"name,omitempty"`
+	Messages             []UserMessage `json:"messages,omitempty"`
+	Fields               []UserField   `json:"fields,omitempty"`
+	Buttons              []UserButton  `json:"buttons,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LoginAction LoginAction
 
 // NewLoginAction instantiates a new LoginAction object
 // This constructor will assign default values to properties that have it defined,
@@ -229,7 +232,37 @@ func (o LoginAction) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Buttons) {
 		toSerialize["buttons"] = o.Buttons
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LoginAction) UnmarshalJSON(data []byte) (err error) {
+	varLoginAction := _LoginAction{}
+
+	err = json.Unmarshal(data, &varLoginAction)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LoginAction(varLoginAction)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "name")
+		delete(additionalProperties, "messages")
+		delete(additionalProperties, "fields")
+		delete(additionalProperties, "buttons")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLoginAction struct {

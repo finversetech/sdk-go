@@ -20,9 +20,12 @@ var _ MappedNullable = &AccountType{}
 
 // AccountType struct for AccountType
 type AccountType struct {
-	Type    *string `json:"type,omitempty"`
-	Subtype *string `json:"subtype,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	Subtype              *string `json:"subtype,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _AccountType AccountType
 
 // NewAccountType instantiates a new AccountType object
 // This constructor will assign default values to properties that have it defined,
@@ -121,7 +124,34 @@ func (o AccountType) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Subtype) {
 		toSerialize["subtype"] = o.Subtype
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *AccountType) UnmarshalJSON(data []byte) (err error) {
+	varAccountType := _AccountType{}
+
+	err = json.Unmarshal(data, &varAccountType)
+
+	if err != nil {
+		return err
+	}
+
+	*o = AccountType(varAccountType)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "subtype")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableAccountType struct {

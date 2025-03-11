@@ -37,8 +37,11 @@ type MandateAuthLinkCustomizations struct {
 	// The URI to redirect to. Required if ui_mode is \"redirect\" or \"auto_redirect\"
 	RedirectUri *string `json:"redirect_uri,omitempty"`
 	// institution's supported user_type filter
-	UserType []string `json:"user_type,omitempty"`
+	UserType             []string `json:"user_type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _MandateAuthLinkCustomizations MandateAuthLinkCustomizations
 
 // NewMandateAuthLinkCustomizations instantiates a new MandateAuthLinkCustomizations object
 // This constructor will assign default values to properties that have it defined,
@@ -382,7 +385,41 @@ func (o MandateAuthLinkCustomizations) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserType) {
 		toSerialize["user_type"] = o.UserType
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *MandateAuthLinkCustomizations) UnmarshalJSON(data []byte) (err error) {
+	varMandateAuthLinkCustomizations := _MandateAuthLinkCustomizations{}
+
+	err = json.Unmarshal(data, &varMandateAuthLinkCustomizations)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MandateAuthLinkCustomizations(varMandateAuthLinkCustomizations)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "countries")
+		delete(additionalProperties, "institution_id")
+		delete(additionalProperties, "institution_status")
+		delete(additionalProperties, "language")
+		delete(additionalProperties, "link_mode")
+		delete(additionalProperties, "products_supported")
+		delete(additionalProperties, "ui_mode")
+		delete(additionalProperties, "redirect_uri")
+		delete(additionalProperties, "user_type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableMandateAuthLinkCustomizations struct {

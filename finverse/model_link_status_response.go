@@ -20,10 +20,13 @@ var _ MappedNullable = &LinkStatusResponse{}
 
 // LinkStatusResponse struct for LinkStatusResponse
 type LinkStatusResponse struct {
-	Success *AccessTokenResponse    `json:"success,omitempty"`
-	Pending *LinkStatusPendingModel `json:"pending,omitempty"`
-	Action  *LinkStatusActionModel  `json:"action,omitempty"`
+	Success              *AccessTokenResponse    `json:"success,omitempty"`
+	Pending              *LinkStatusPendingModel `json:"pending,omitempty"`
+	Action               *LinkStatusActionModel  `json:"action,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LinkStatusResponse LinkStatusResponse
 
 // NewLinkStatusResponse instantiates a new LinkStatusResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -157,7 +160,35 @@ func (o LinkStatusResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Action) {
 		toSerialize["action"] = o.Action
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LinkStatusResponse) UnmarshalJSON(data []byte) (err error) {
+	varLinkStatusResponse := _LinkStatusResponse{}
+
+	err = json.Unmarshal(data, &varLinkStatusResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LinkStatusResponse(varLinkStatusResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "success")
+		delete(additionalProperties, "pending")
+		delete(additionalProperties, "action")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLinkStatusResponse struct {

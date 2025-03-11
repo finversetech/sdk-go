@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -26,6 +25,7 @@ type AutopayEnrollmentConfiguration struct {
 	DisplayEnrollmentScreen bool `json:"display_enrollment_screen"`
 	// Indicate what value should be prefilled on the autopay enrollment screen
 	EnrollmentPrefillValue string `json:"enrollment_prefill_value"`
+	AdditionalProperties   map[string]interface{}
 }
 
 type _AutopayEnrollmentConfiguration AutopayEnrollmentConfiguration
@@ -109,6 +109,11 @@ func (o AutopayEnrollmentConfiguration) ToMap() (map[string]interface{}, error) 
 	toSerialize := map[string]interface{}{}
 	toSerialize["display_enrollment_screen"] = o.DisplayEnrollmentScreen
 	toSerialize["enrollment_prefill_value"] = o.EnrollmentPrefillValue
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *AutopayEnrollmentConfiguration) UnmarshalJSON(data []byte) (err error) 
 
 	varAutopayEnrollmentConfiguration := _AutopayEnrollmentConfiguration{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAutopayEnrollmentConfiguration)
+	err = json.Unmarshal(data, &varAutopayEnrollmentConfiguration)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AutopayEnrollmentConfiguration(varAutopayEnrollmentConfiguration)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "display_enrollment_screen")
+		delete(additionalProperties, "enrollment_prefill_value")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

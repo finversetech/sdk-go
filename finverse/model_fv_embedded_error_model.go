@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -23,10 +22,11 @@ var _ MappedNullable = &FvEmbeddedErrorModel{}
 // FvEmbeddedErrorModel struct for FvEmbeddedErrorModel
 type FvEmbeddedErrorModel struct {
 	// The error type
-	Type      string `json:"type"`
-	ErrorCode string `json:"error_code"`
-	Message   string `json:"message"`
-	Details   string `json:"details"`
+	Type                 string `json:"type"`
+	ErrorCode            string `json:"error_code"`
+	Message              string `json:"message"`
+	Details              string `json:"details"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _FvEmbeddedErrorModel FvEmbeddedErrorModel
@@ -162,6 +162,11 @@ func (o FvEmbeddedErrorModel) ToMap() (map[string]interface{}, error) {
 	toSerialize["error_code"] = o.ErrorCode
 	toSerialize["message"] = o.Message
 	toSerialize["details"] = o.Details
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -192,15 +197,23 @@ func (o *FvEmbeddedErrorModel) UnmarshalJSON(data []byte) (err error) {
 
 	varFvEmbeddedErrorModel := _FvEmbeddedErrorModel{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varFvEmbeddedErrorModel)
+	err = json.Unmarshal(data, &varFvEmbeddedErrorModel)
 
 	if err != nil {
 		return err
 	}
 
 	*o = FvEmbeddedErrorModel(varFvEmbeddedErrorModel)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "error_code")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "details")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,11 +21,12 @@ var _ MappedNullable = &ListTransactionsResponse{}
 
 // ListTransactionsResponse struct for ListTransactionsResponse
 type ListTransactionsResponse struct {
-	Accounts          []Account           `json:"accounts,omitempty"`
-	Transactions      []Transaction       `json:"transactions,omitempty"`
-	LoginIdentity     *LoginIdentityShort `json:"login_identity,omitempty"`
-	Institution       *InstitutionShort   `json:"institution,omitempty"`
-	TotalTransactions int32               `json:"total_transactions"`
+	Accounts             []Account           `json:"accounts,omitempty"`
+	Transactions         []Transaction       `json:"transactions,omitempty"`
+	LoginIdentity        *LoginIdentityShort `json:"login_identity,omitempty"`
+	Institution          *InstitutionShort   `json:"institution,omitempty"`
+	TotalTransactions    int32               `json:"total_transactions"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _ListTransactionsResponse ListTransactionsResponse
@@ -224,6 +224,11 @@ func (o ListTransactionsResponse) ToMap() (map[string]interface{}, error) {
 		toSerialize["institution"] = o.Institution
 	}
 	toSerialize["total_transactions"] = o.TotalTransactions
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -251,15 +256,24 @@ func (o *ListTransactionsResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varListTransactionsResponse := _ListTransactionsResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varListTransactionsResponse)
+	err = json.Unmarshal(data, &varListTransactionsResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = ListTransactionsResponse(varListTransactionsResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "accounts")
+		delete(additionalProperties, "transactions")
+		delete(additionalProperties, "login_identity")
+		delete(additionalProperties, "institution")
+		delete(additionalProperties, "total_transactions")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type IncomeEstimate struct {
 	// Income amount
 	Amount float32 `json:"amount"`
 	// Currency
-	Currency string `json:"currency"`
+	Currency             string `json:"currency"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _IncomeEstimate IncomeEstimate
@@ -109,6 +109,11 @@ func (o IncomeEstimate) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["amount"] = o.Amount
 	toSerialize["currency"] = o.Currency
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -137,15 +142,21 @@ func (o *IncomeEstimate) UnmarshalJSON(data []byte) (err error) {
 
 	varIncomeEstimate := _IncomeEstimate{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varIncomeEstimate)
+	err = json.Unmarshal(data, &varIncomeEstimate)
 
 	if err != nil {
 		return err
 	}
 
 	*o = IncomeEstimate(varIncomeEstimate)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "currency")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

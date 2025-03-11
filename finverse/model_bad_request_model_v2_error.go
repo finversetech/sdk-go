@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -29,7 +28,8 @@ type BadRequestModelV2Error struct {
 	Message   string  `json:"message"`
 	Details   *string `json:"details,omitempty"`
 	// The request_id provided in the request header
-	RequestId string `json:"request_id"`
+	RequestId            string `json:"request_id"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _BadRequestModelV2Error BadRequestModelV2Error
@@ -226,6 +226,11 @@ func (o BadRequestModelV2Error) ToMap() (map[string]interface{}, error) {
 		toSerialize["details"] = o.Details
 	}
 	toSerialize["request_id"] = o.RequestId
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -257,15 +262,25 @@ func (o *BadRequestModelV2Error) UnmarshalJSON(data []byte) (err error) {
 
 	varBadRequestModelV2Error := _BadRequestModelV2Error{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varBadRequestModelV2Error)
+	err = json.Unmarshal(data, &varBadRequestModelV2Error)
 
 	if err != nil {
 		return err
 	}
 
 	*o = BadRequestModelV2Error(varBadRequestModelV2Error)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "error_code")
+		delete(additionalProperties, "code")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "details")
+		delete(additionalProperties, "request_id")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

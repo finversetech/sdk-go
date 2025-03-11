@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,9 +26,10 @@ type CreatePaymentRequest struct {
 	// The currency code as defined in ISO 4217.
 	Currency string `json:"currency"`
 	// ID of the payment method this pament is referring to.
-	PaymentMethodId *string            `json:"payment_method_id,omitempty"`
-	PaymentDetails  PaymentDetails2    `json:"payment_details"`
-	Metadata        *map[string]string `json:"metadata,omitempty"`
+	PaymentMethodId      *string            `json:"payment_method_id,omitempty"`
+	PaymentDetails       PaymentDetails2    `json:"payment_details"`
+	Metadata             *map[string]string `json:"metadata,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _CreatePaymentRequest CreatePaymentRequest
@@ -209,6 +209,11 @@ func (o CreatePaymentRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -238,15 +243,24 @@ func (o *CreatePaymentRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varCreatePaymentRequest := _CreatePaymentRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varCreatePaymentRequest)
+	err = json.Unmarshal(data, &varCreatePaymentRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = CreatePaymentRequest(varCreatePaymentRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "payment_method_id")
+		delete(additionalProperties, "payment_details")
+		delete(additionalProperties, "metadata")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

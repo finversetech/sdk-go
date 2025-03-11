@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,7 +24,8 @@ type TokenRequest struct {
 	ClientId     string `json:"client_id"`
 	ClientSecret string `json:"client_secret"`
 	// support only client_credentials
-	GrantType string `json:"grant_type"`
+	GrantType            string `json:"grant_type"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _TokenRequest TokenRequest
@@ -135,6 +135,11 @@ func (o TokenRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["client_id"] = o.ClientId
 	toSerialize["client_secret"] = o.ClientSecret
 	toSerialize["grant_type"] = o.GrantType
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -164,15 +169,22 @@ func (o *TokenRequest) UnmarshalJSON(data []byte) (err error) {
 
 	varTokenRequest := _TokenRequest{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varTokenRequest)
+	err = json.Unmarshal(data, &varTokenRequest)
 
 	if err != nil {
 		return err
 	}
 
 	*o = TokenRequest(varTokenRequest)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "client_id")
+		delete(additionalProperties, "client_secret")
+		delete(additionalProperties, "grant_type")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

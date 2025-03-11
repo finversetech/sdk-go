@@ -20,14 +20,17 @@ var _ MappedNullable = &MandateFvLinkResponse{}
 
 // MandateFvLinkResponse struct for MandateFvLinkResponse
 type MandateFvLinkResponse struct {
-	MandateId      *string                      `json:"mandate_id,omitempty"`
-	InstitutionId  *string                      `json:"institution_id,omitempty"`
-	MandateStatus  *string                      `json:"mandate_status,omitempty"`
-	Recipient      *MandateRecipient            `json:"recipient,omitempty"`
-	SenderAccount  *SenderAccountFvLinkResponse `json:"sender_account,omitempty"`
-	Error          *FvEmbeddedErrorModel        `json:"error,omitempty"`
-	MandateDetails *MandateFvLinkDetails        `json:"mandate_details,omitempty"`
+	MandateId            *string                      `json:"mandate_id,omitempty"`
+	InstitutionId        *string                      `json:"institution_id,omitempty"`
+	MandateStatus        *string                      `json:"mandate_status,omitempty"`
+	Recipient            *MandateRecipient            `json:"recipient,omitempty"`
+	SenderAccount        *SenderAccountFvLinkResponse `json:"sender_account,omitempty"`
+	Error                *FvEmbeddedErrorModel        `json:"error,omitempty"`
+	MandateDetails       *MandateFvLinkDetails        `json:"mandate_details,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _MandateFvLinkResponse MandateFvLinkResponse
 
 // NewMandateFvLinkResponse instantiates a new MandateFvLinkResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -301,7 +304,39 @@ func (o MandateFvLinkResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MandateDetails) {
 		toSerialize["mandate_details"] = o.MandateDetails
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *MandateFvLinkResponse) UnmarshalJSON(data []byte) (err error) {
+	varMandateFvLinkResponse := _MandateFvLinkResponse{}
+
+	err = json.Unmarshal(data, &varMandateFvLinkResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = MandateFvLinkResponse(varMandateFvLinkResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "mandate_id")
+		delete(additionalProperties, "institution_id")
+		delete(additionalProperties, "mandate_status")
+		delete(additionalProperties, "recipient")
+		delete(additionalProperties, "sender_account")
+		delete(additionalProperties, "error")
+		delete(additionalProperties, "mandate_details")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableMandateFvLinkResponse struct {

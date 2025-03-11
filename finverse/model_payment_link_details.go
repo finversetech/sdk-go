@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -25,6 +24,7 @@ type PaymentLinkDetails struct {
 	Description string `json:"description"`
 	// For external invoice/transaction reference
 	ExternalTransactionReference string `json:"external_transaction_reference"`
+	AdditionalProperties         map[string]interface{}
 }
 
 type _PaymentLinkDetails PaymentLinkDetails
@@ -108,6 +108,11 @@ func (o PaymentLinkDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["description"] = o.Description
 	toSerialize["external_transaction_reference"] = o.ExternalTransactionReference
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -136,15 +141,21 @@ func (o *PaymentLinkDetails) UnmarshalJSON(data []byte) (err error) {
 
 	varPaymentLinkDetails := _PaymentLinkDetails{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varPaymentLinkDetails)
+	err = json.Unmarshal(data, &varPaymentLinkDetails)
 
 	if err != nil {
 		return err
 	}
 
 	*o = PaymentLinkDetails(varPaymentLinkDetails)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "external_transaction_reference")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

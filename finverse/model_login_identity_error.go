@@ -20,11 +20,14 @@ var _ MappedNullable = &LoginIdentityError{}
 
 // LoginIdentityError struct for LoginIdentityError
 type LoginIdentityError struct {
-	Code    *int32  `json:"code,omitempty"`
-	Type    *string `json:"type,omitempty"`
-	Message *string `json:"message,omitempty"`
-	Details *string `json:"details,omitempty"`
+	Code                 *int32  `json:"code,omitempty"`
+	Type                 *string `json:"type,omitempty"`
+	Message              *string `json:"message,omitempty"`
+	Details              *string `json:"details,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LoginIdentityError LoginIdentityError
 
 // NewLoginIdentityError instantiates a new LoginIdentityError object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o LoginIdentityError) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Details) {
 		toSerialize["details"] = o.Details
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LoginIdentityError) UnmarshalJSON(data []byte) (err error) {
+	varLoginIdentityError := _LoginIdentityError{}
+
+	err = json.Unmarshal(data, &varLoginIdentityError)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LoginIdentityError(varLoginIdentityError)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "code")
+		delete(additionalProperties, "type")
+		delete(additionalProperties, "message")
+		delete(additionalProperties, "details")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLoginIdentityError struct {

@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -30,7 +29,8 @@ type SubmitAuthChecklistResponse struct {
 	// Mandate status
 	MandateStatus string `json:"mandate_status"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	LastUpdate time.Time `json:"last_update"`
+	LastUpdate           time.Time `json:"last_update"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _SubmitAuthChecklistResponse SubmitAuthChecklistResponse
@@ -166,6 +166,11 @@ func (o SubmitAuthChecklistResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["auth_checklist"] = o.AuthChecklist
 	toSerialize["mandate_status"] = o.MandateStatus
 	toSerialize["last_update"] = o.LastUpdate
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -196,15 +201,23 @@ func (o *SubmitAuthChecklistResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varSubmitAuthChecklistResponse := _SubmitAuthChecklistResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varSubmitAuthChecklistResponse)
+	err = json.Unmarshal(data, &varSubmitAuthChecklistResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = SubmitAuthChecklistResponse(varSubmitAuthChecklistResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "mandate_id")
+		delete(additionalProperties, "auth_checklist")
+		delete(additionalProperties, "mandate_status")
+		delete(additionalProperties, "last_update")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

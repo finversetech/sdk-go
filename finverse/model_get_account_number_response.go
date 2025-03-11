@@ -20,12 +20,15 @@ var _ MappedNullable = &GetAccountNumberResponse{}
 
 // GetAccountNumberResponse struct for GetAccountNumberResponse
 type GetAccountNumberResponse struct {
-	AccountNumber  *AccountNumber      `json:"account_number,omitempty"`
-	Account        *Account            `json:"account,omitempty"`
-	LoginIdentity  *LoginIdentityShort `json:"login_identity,omitempty"`
-	Institution    *InstitutionShort   `json:"institution,omitempty"`
-	PaymentDetails []PaymentDetails    `json:"payment_details,omitempty"`
+	AccountNumber        *AccountNumber      `json:"account_number,omitempty"`
+	Account              *Account            `json:"account,omitempty"`
+	LoginIdentity        *LoginIdentityShort `json:"login_identity,omitempty"`
+	Institution          *InstitutionShort   `json:"institution,omitempty"`
+	PaymentDetails       []PaymentDetails    `json:"payment_details,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _GetAccountNumberResponse GetAccountNumberResponse
 
 // NewGetAccountNumberResponse instantiates a new GetAccountNumberResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -229,7 +232,37 @@ func (o GetAccountNumberResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaymentDetails) {
 		toSerialize["payment_details"] = o.PaymentDetails
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *GetAccountNumberResponse) UnmarshalJSON(data []byte) (err error) {
+	varGetAccountNumberResponse := _GetAccountNumberResponse{}
+
+	err = json.Unmarshal(data, &varGetAccountNumberResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = GetAccountNumberResponse(varGetAccountNumberResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "account_number")
+		delete(additionalProperties, "account")
+		delete(additionalProperties, "login_identity")
+		delete(additionalProperties, "institution")
+		delete(additionalProperties, "payment_details")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableGetAccountNumberResponse struct {

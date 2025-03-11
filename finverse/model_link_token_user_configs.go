@@ -21,8 +21,11 @@ var _ MappedNullable = &LinkTokenUserConfigs{}
 // LinkTokenUserConfigs struct for LinkTokenUserConfigs
 type LinkTokenUserConfigs struct {
 	// Account Number to use for ADA setup
-	AdaAccountNumber *string `json:"ada_account_number,omitempty"`
+	AdaAccountNumber     *string `json:"ada_account_number,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LinkTokenUserConfigs LinkTokenUserConfigs
 
 // NewLinkTokenUserConfigs instantiates a new LinkTokenUserConfigs object
 // This constructor will assign default values to properties that have it defined,
@@ -86,7 +89,33 @@ func (o LinkTokenUserConfigs) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AdaAccountNumber) {
 		toSerialize["ada_account_number"] = o.AdaAccountNumber
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LinkTokenUserConfigs) UnmarshalJSON(data []byte) (err error) {
+	varLinkTokenUserConfigs := _LinkTokenUserConfigs{}
+
+	err = json.Unmarshal(data, &varLinkTokenUserConfigs)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LinkTokenUserConfigs(varLinkTokenUserConfigs)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "ada_account_number")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLinkTokenUserConfigs struct {

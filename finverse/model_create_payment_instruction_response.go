@@ -21,7 +21,10 @@ var _ MappedNullable = &CreatePaymentInstructionResponse{}
 // CreatePaymentInstructionResponse struct for CreatePaymentInstructionResponse
 type CreatePaymentInstructionResponse struct {
 	PaymentInstructionId *string `json:"payment_instruction_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CreatePaymentInstructionResponse CreatePaymentInstructionResponse
 
 // NewCreatePaymentInstructionResponse instantiates a new CreatePaymentInstructionResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o CreatePaymentInstructionResponse) ToMap() (map[string]interface{}, error
 	if !IsNil(o.PaymentInstructionId) {
 		toSerialize["payment_instruction_id"] = o.PaymentInstructionId
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CreatePaymentInstructionResponse) UnmarshalJSON(data []byte) (err error) {
+	varCreatePaymentInstructionResponse := _CreatePaymentInstructionResponse{}
+
+	err = json.Unmarshal(data, &varCreatePaymentInstructionResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CreatePaymentInstructionResponse(varCreatePaymentInstructionResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "payment_instruction_id")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCreatePaymentInstructionResponse struct {

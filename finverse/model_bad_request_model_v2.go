@@ -20,8 +20,11 @@ var _ MappedNullable = &BadRequestModelV2{}
 
 // BadRequestModelV2 struct for BadRequestModelV2
 type BadRequestModelV2 struct {
-	Error *BadRequestModelV2Error `json:"error,omitempty"`
+	Error                *BadRequestModelV2Error `json:"error,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _BadRequestModelV2 BadRequestModelV2
 
 // NewBadRequestModelV2 instantiates a new BadRequestModelV2 object
 // This constructor will assign default values to properties that have it defined,
@@ -85,7 +88,33 @@ func (o BadRequestModelV2) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *BadRequestModelV2) UnmarshalJSON(data []byte) (err error) {
+	varBadRequestModelV2 := _BadRequestModelV2{}
+
+	err = json.Unmarshal(data, &varBadRequestModelV2)
+
+	if err != nil {
+		return err
+	}
+
+	*o = BadRequestModelV2(varBadRequestModelV2)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "error")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableBadRequestModelV2 struct {

@@ -20,11 +20,14 @@ var _ MappedNullable = &PaymentFvLinkResponse{}
 
 // PaymentFvLinkResponse struct for PaymentFvLinkResponse
 type PaymentFvLinkResponse struct {
-	PaymentId      *string               `json:"payment_id,omitempty"`
-	Status         *string               `json:"status,omitempty"`
-	PaymentDetails *PaymentFvLinkDetails `json:"payment_details,omitempty"`
-	Error          *FvEmbeddedErrorModel `json:"error,omitempty"`
+	PaymentId            *string               `json:"payment_id,omitempty"`
+	Status               *string               `json:"status,omitempty"`
+	PaymentDetails       *PaymentFvLinkDetails `json:"payment_details,omitempty"`
+	Error                *FvEmbeddedErrorModel `json:"error,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PaymentFvLinkResponse PaymentFvLinkResponse
 
 // NewPaymentFvLinkResponse instantiates a new PaymentFvLinkResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -193,7 +196,36 @@ func (o PaymentFvLinkResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PaymentFvLinkResponse) UnmarshalJSON(data []byte) (err error) {
+	varPaymentFvLinkResponse := _PaymentFvLinkResponse{}
+
+	err = json.Unmarshal(data, &varPaymentFvLinkResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentFvLinkResponse(varPaymentFvLinkResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "payment_id")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "payment_details")
+		delete(additionalProperties, "error")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePaymentFvLinkResponse struct {

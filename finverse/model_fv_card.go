@@ -26,11 +26,14 @@ type FVCard struct {
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	UpdatedAt *time.Time `json:"updated_at,omitempty"`
 	// Card Status
-	Status           *string                  `json:"status,omitempty"`
-	Error            *FvEmbeddedErrorModel    `json:"error,omitempty"`
-	CardDetails      *FVCardDetails           `json:"card_details,omitempty"`
-	RecipientAccount *MandateRecipientAccount `json:"recipient_account,omitempty"`
+	Status               *string                  `json:"status,omitempty"`
+	Error                *FvEmbeddedErrorModel    `json:"error,omitempty"`
+	CardDetails          *FVCardDetails           `json:"card_details,omitempty"`
+	RecipientAccount     *MandateRecipientAccount `json:"recipient_account,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _FVCard FVCard
 
 // NewFVCard instantiates a new FVCard object
 // This constructor will assign default values to properties that have it defined,
@@ -269,7 +272,38 @@ func (o FVCard) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RecipientAccount) {
 		toSerialize["recipient_account"] = o.RecipientAccount
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *FVCard) UnmarshalJSON(data []byte) (err error) {
+	varFVCard := _FVCard{}
+
+	err = json.Unmarshal(data, &varFVCard)
+
+	if err != nil {
+		return err
+	}
+
+	*o = FVCard(varFVCard)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "created_at")
+		delete(additionalProperties, "updated_at")
+		delete(additionalProperties, "status")
+		delete(additionalProperties, "error")
+		delete(additionalProperties, "card_details")
+		delete(additionalProperties, "recipient_account")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableFVCard struct {

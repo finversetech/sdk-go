@@ -20,12 +20,15 @@ var _ MappedNullable = &PaymentMethodFvLinkResponse{}
 
 // PaymentMethodFvLinkResponse struct for PaymentMethodFvLinkResponse
 type PaymentMethodFvLinkResponse struct {
-	PaymentMethodId     *string                `json:"payment_method_id,omitempty"`
-	PaymentMethodType   *string                `json:"payment_method_type,omitempty"`
-	RecipientEntityName *string                `json:"recipient_entity_name,omitempty"`
-	Mandate             *MandateFvLinkResponse `json:"mandate,omitempty"`
-	Card                *CardFvLinkResponse    `json:"card,omitempty"`
+	PaymentMethodId      *string                `json:"payment_method_id,omitempty"`
+	PaymentMethodType    *string                `json:"payment_method_type,omitempty"`
+	RecipientEntityName  *string                `json:"recipient_entity_name,omitempty"`
+	Mandate              *MandateFvLinkResponse `json:"mandate,omitempty"`
+	Card                 *CardFvLinkResponse    `json:"card,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PaymentMethodFvLinkResponse PaymentMethodFvLinkResponse
 
 // NewPaymentMethodFvLinkResponse instantiates a new PaymentMethodFvLinkResponse object
 // This constructor will assign default values to properties that have it defined,
@@ -229,7 +232,37 @@ func (o PaymentMethodFvLinkResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Card) {
 		toSerialize["card"] = o.Card
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PaymentMethodFvLinkResponse) UnmarshalJSON(data []byte) (err error) {
+	varPaymentMethodFvLinkResponse := _PaymentMethodFvLinkResponse{}
+
+	err = json.Unmarshal(data, &varPaymentMethodFvLinkResponse)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentMethodFvLinkResponse(varPaymentMethodFvLinkResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "payment_method_id")
+		delete(additionalProperties, "payment_method_type")
+		delete(additionalProperties, "recipient_entity_name")
+		delete(additionalProperties, "mandate")
+		delete(additionalProperties, "card")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePaymentMethodFvLinkResponse struct {

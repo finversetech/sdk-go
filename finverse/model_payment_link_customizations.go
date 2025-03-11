@@ -25,8 +25,11 @@ type PaymentLinkCustomizations struct {
 	// The UI mode link is intended to be used in - \"iframe\", \"auto_redirect\", \"redirect\" or \"standalone\"
 	UiMode *string `json:"ui_mode,omitempty"`
 	// URI to redirect to. Only needed if ui_mode = redirect
-	RedirectUri *string `json:"redirect_uri,omitempty"`
+	RedirectUri          *string `json:"redirect_uri,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _PaymentLinkCustomizations PaymentLinkCustomizations
 
 // NewPaymentLinkCustomizations instantiates a new PaymentLinkCustomizations object
 // This constructor will assign default values to properties that have it defined,
@@ -160,7 +163,35 @@ func (o PaymentLinkCustomizations) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RedirectUri) {
 		toSerialize["redirect_uri"] = o.RedirectUri
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PaymentLinkCustomizations) UnmarshalJSON(data []byte) (err error) {
+	varPaymentLinkCustomizations := _PaymentLinkCustomizations{}
+
+	err = json.Unmarshal(data, &varPaymentLinkCustomizations)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentLinkCustomizations(varPaymentLinkCustomizations)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "language")
+		delete(additionalProperties, "ui_mode")
+		delete(additionalProperties, "redirect_uri")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePaymentLinkCustomizations struct {

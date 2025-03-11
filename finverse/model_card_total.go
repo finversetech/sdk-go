@@ -29,7 +29,10 @@ type CardTotal struct {
 	MinimumPaymentDue    *CurrencyAmount `json:"minimum_payment_due,omitempty"`
 	RewardsBalances      []GenericAmount `json:"rewards_balances,omitempty"`
 	UpdatedAt            *time.Time      `json:"updated_at,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _CardTotal CardTotal
 
 // NewCardTotal instantiates a new CardTotal object
 // This constructor will assign default values to properties that have it defined,
@@ -338,7 +341,40 @@ func (o CardTotal) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *CardTotal) UnmarshalJSON(data []byte) (err error) {
+	varCardTotal := _CardTotal{}
+
+	err = json.Unmarshal(data, &varCardTotal)
+
+	if err != nil {
+		return err
+	}
+
+	*o = CardTotal(varCardTotal)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "current_balance")
+		delete(additionalProperties, "payment_due_amount")
+		delete(additionalProperties, "statement_due_amount")
+		delete(additionalProperties, "total_credit_limit")
+		delete(additionalProperties, "available_credit_limit")
+		delete(additionalProperties, "minimum_payment_due")
+		delete(additionalProperties, "rewards_balances")
+		delete(additionalProperties, "updated_at")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableCardTotal struct {

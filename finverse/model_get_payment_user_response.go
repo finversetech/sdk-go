@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -27,7 +26,8 @@ type GetPaymentUserResponse struct {
 	// The user's current autopay value
 	AutopayConsent bool `json:"autopay_consent"`
 	// This indicates the value that the user's pre-set selection should be. If this is a new user, the value will be set to true by default, else it will be the user's current autopay value.
-	AutopayPrefill bool `json:"autopay_prefill"`
+	AutopayPrefill       bool `json:"autopay_prefill"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _GetPaymentUserResponse GetPaymentUserResponse
@@ -163,6 +163,11 @@ func (o GetPaymentUserResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize["customer_app_id"] = o.CustomerAppId
 	toSerialize["autopay_consent"] = o.AutopayConsent
 	toSerialize["autopay_prefill"] = o.AutopayPrefill
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -193,15 +198,23 @@ func (o *GetPaymentUserResponse) UnmarshalJSON(data []byte) (err error) {
 
 	varGetPaymentUserResponse := _GetPaymentUserResponse{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varGetPaymentUserResponse)
+	err = json.Unmarshal(data, &varGetPaymentUserResponse)
 
 	if err != nil {
 		return err
 	}
 
 	*o = GetPaymentUserResponse(varGetPaymentUserResponse)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "payment_user_id")
+		delete(additionalProperties, "customer_app_id")
+		delete(additionalProperties, "autopay_consent")
+		delete(additionalProperties, "autopay_prefill")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

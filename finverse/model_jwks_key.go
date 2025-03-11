@@ -31,8 +31,11 @@ type JWKSKey struct {
 	// RSA key value \"n\"
 	N *string `json:"n,omitempty"`
 	// The \"x5c\" (X.509 certificate chain) parameter contains a chain of one or more PKIX certificates
-	X5c []string `json:"x5c,omitempty"`
+	X5c                  []string `json:"x5c,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _JWKSKey JWKSKey
 
 // NewJWKSKey instantiates a new JWKSKey object
 // This constructor will assign default values to properties that have it defined,
@@ -271,7 +274,38 @@ func (o JWKSKey) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.X5c) {
 		toSerialize["x5c"] = o.X5c
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *JWKSKey) UnmarshalJSON(data []byte) (err error) {
+	varJWKSKey := _JWKSKey{}
+
+	err = json.Unmarshal(data, &varJWKSKey)
+
+	if err != nil {
+		return err
+	}
+
+	*o = JWKSKey(varJWKSKey)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "kty")
+		delete(additionalProperties, "kid")
+		delete(additionalProperties, "use")
+		delete(additionalProperties, "e")
+		delete(additionalProperties, "n")
+		delete(additionalProperties, "x5c")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableJWKSKey struct {

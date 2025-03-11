@@ -12,7 +12,6 @@ Contact: info@finverse.com
 package finverse
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 )
@@ -22,9 +21,10 @@ var _ MappedNullable = &AccountNumber{}
 
 // AccountNumber struct for AccountNumber
 type AccountNumber struct {
-	AccountId string  `json:"account_id"`
-	Number    *string `json:"number,omitempty"`
-	Raw       string  `json:"raw"`
+	AccountId            string  `json:"account_id"`
+	Number               *string `json:"number,omitempty"`
+	Raw                  string  `json:"raw"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AccountNumber AccountNumber
@@ -143,6 +143,11 @@ func (o AccountNumber) ToMap() (map[string]interface{}, error) {
 		toSerialize["number"] = o.Number
 	}
 	toSerialize["raw"] = o.Raw
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
 }
 
@@ -171,15 +176,22 @@ func (o *AccountNumber) UnmarshalJSON(data []byte) (err error) {
 
 	varAccountNumber := _AccountNumber{}
 
-	decoder := json.NewDecoder(bytes.NewReader(data))
-	decoder.DisallowUnknownFields()
-	err = decoder.Decode(&varAccountNumber)
+	err = json.Unmarshal(data, &varAccountNumber)
 
 	if err != nil {
 		return err
 	}
 
 	*o = AccountNumber(varAccountNumber)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "account_id")
+		delete(additionalProperties, "number")
+		delete(additionalProperties, "raw")
+		o.AdditionalProperties = additionalProperties
+	}
 
 	return err
 }

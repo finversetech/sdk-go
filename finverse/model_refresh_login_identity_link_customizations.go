@@ -24,9 +24,12 @@ type RefreshLoginIdentityLinkCustomizations struct {
 	Language *string `json:"language,omitempty"`
 	UiMode   *string `json:"ui_mode,omitempty"`
 	// Required if ui_mode is redirect or auto_redirect
-	RedirectUri *string `json:"redirect_uri,omitempty"`
-	State       *string `json:"state,omitempty"`
+	RedirectUri          *string `json:"redirect_uri,omitempty"`
+	State                *string `json:"state,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _RefreshLoginIdentityLinkCustomizations RefreshLoginIdentityLinkCustomizations
 
 // NewRefreshLoginIdentityLinkCustomizations instantiates a new RefreshLoginIdentityLinkCustomizations object
 // This constructor will assign default values to properties that have it defined,
@@ -195,7 +198,36 @@ func (o RefreshLoginIdentityLinkCustomizations) ToMap() (map[string]interface{},
 	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *RefreshLoginIdentityLinkCustomizations) UnmarshalJSON(data []byte) (err error) {
+	varRefreshLoginIdentityLinkCustomizations := _RefreshLoginIdentityLinkCustomizations{}
+
+	err = json.Unmarshal(data, &varRefreshLoginIdentityLinkCustomizations)
+
+	if err != nil {
+		return err
+	}
+
+	*o = RefreshLoginIdentityLinkCustomizations(varRefreshLoginIdentityLinkCustomizations)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "language")
+		delete(additionalProperties, "ui_mode")
+		delete(additionalProperties, "redirect_uri")
+		delete(additionalProperties, "state")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableRefreshLoginIdentityLinkCustomizations struct {

@@ -22,9 +22,12 @@ var _ MappedNullable = &LineItem{}
 type LineItem struct {
 	Currency *string `json:"currency,omitempty"`
 	// The amount in decimal
-	Amount   *string `json:"amount,omitempty"`
-	ItemType *string `json:"item_type,omitempty"`
+	Amount               *string `json:"amount,omitempty"`
+	ItemType             *string `json:"item_type,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
+
+type _LineItem LineItem
 
 // NewLineItem instantiates a new LineItem object
 // This constructor will assign default values to properties that have it defined,
@@ -158,7 +161,35 @@ func (o LineItem) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ItemType) {
 		toSerialize["item_type"] = o.ItemType
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *LineItem) UnmarshalJSON(data []byte) (err error) {
+	varLineItem := _LineItem{}
+
+	err = json.Unmarshal(data, &varLineItem)
+
+	if err != nil {
+		return err
+	}
+
+	*o = LineItem(varLineItem)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "currency")
+		delete(additionalProperties, "amount")
+		delete(additionalProperties, "item_type")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullableLineItem struct {

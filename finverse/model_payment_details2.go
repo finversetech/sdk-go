@@ -31,7 +31,10 @@ type PaymentDetails2 struct {
 	References                   *PaymentDetailsReferences `json:"references,omitempty"`
 	ProcessorEntityName          *string                   `json:"processor_entity_name,omitempty"`
 	CollectionEntityName         *string                   `json:"collection_entity_name,omitempty"`
+	AdditionalProperties         map[string]interface{}
 }
+
+type _PaymentDetails2 PaymentDetails2
 
 // NewPaymentDetails2 instantiates a new PaymentDetails2 object
 // This constructor will assign default values to properties that have it defined,
@@ -305,7 +308,39 @@ func (o PaymentDetails2) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CollectionEntityName) {
 		toSerialize["collection_entity_name"] = o.CollectionEntityName
 	}
+
+	for key, value := range o.AdditionalProperties {
+		toSerialize[key] = value
+	}
+
 	return toSerialize, nil
+}
+
+func (o *PaymentDetails2) UnmarshalJSON(data []byte) (err error) {
+	varPaymentDetails2 := _PaymentDetails2{}
+
+	err = json.Unmarshal(data, &varPaymentDetails2)
+
+	if err != nil {
+		return err
+	}
+
+	*o = PaymentDetails2(varPaymentDetails2)
+
+	additionalProperties := make(map[string]interface{})
+
+	if err = json.Unmarshal(data, &additionalProperties); err == nil {
+		delete(additionalProperties, "description")
+		delete(additionalProperties, "mandate_id")
+		delete(additionalProperties, "transaction_reference_id")
+		delete(additionalProperties, "external_transaction_reference")
+		delete(additionalProperties, "references")
+		delete(additionalProperties, "processor_entity_name")
+		delete(additionalProperties, "collection_entity_name")
+		o.AdditionalProperties = additionalProperties
+	}
+
+	return err
 }
 
 type NullablePaymentDetails2 struct {
