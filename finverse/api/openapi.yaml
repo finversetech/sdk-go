@@ -2639,6 +2639,111 @@ paths:
       security:
       - Oauth2:
         - payout:get
+  /payouts:
+    get:
+      description: List payouts
+      operationId: listPayouts
+      parameters:
+      - description: ISO format (YYYY-MM-DD)
+        in: query
+        name: date_from
+        schema:
+          format: date
+          type: string
+      - description: ISO format (YYYY-MM-DD)
+        in: query
+        name: date_to
+        schema:
+          format: date
+          type: string
+      - description: "The payout statuses to filter for, comma separated"
+        explode: false
+        in: query
+        name: statuses
+        schema:
+          items:
+            enum:
+            - EXECUTED
+            - CREATED
+            - PROCESSING
+            - PROCESSING_FUNDS
+            - CANCELLED
+            - FAILED
+            - FUNDED
+            - SUBMITTED
+            type: string
+          type: array
+        style: form
+      - explode: false
+        in: query
+        name: currencies
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - explode: false
+        in: query
+        name: payout_types
+        schema:
+          items:
+            enum:
+            - MANUAL
+            - SCHEDULED
+            type: string
+          type: array
+        style: form
+      - in: query
+        name: mandate_id
+        schema:
+          type: string
+      - in: query
+        name: sender_account_id
+        schema:
+          type: string
+      - in: query
+        name: recipient_account_id
+        schema:
+          type: string
+      - in: query
+        name: recipient_user_id
+        schema:
+          type: string
+      - in: query
+        name: recipient_external_user_id
+        schema:
+          type: string
+      - description: Default is 0
+        in: query
+        name: offset
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+      - description: "default is 500, max is 1000"
+        in: query
+        name: limit
+        schema:
+          default: 500
+          maximum: 1000
+          minimum: 1
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPayoutsResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+      security:
+      - Oauth2:
+        - payout:list
   /payouts/{payoutId}/cancel:
     post:
       description: Cancel Payout by payout_id
@@ -8263,7 +8368,7 @@ components:
           institution_name: HSBC
           institution_id: hsbc-hk
         created_at: 2000-01-23T04:56:07.000+00:00
-        type: type
+        type: MANUAL
         error:
           error_code: CREDENTIALS_INVALID
           details: details
@@ -8298,13 +8403,25 @@ components:
           external_user_id: external_user_id
         currency: currency
         live: true
-        status: status
+        status: EXECUTED
       properties:
         payout_id:
           type: string
         status:
+          enum:
+          - EXECUTED
+          - CREATED
+          - PROCESSING
+          - PROCESSING_FUNDS
+          - CANCELLED
+          - FAILED
+          - FUNDED
+          - SUBMITTED
           type: string
         type:
+          enum:
+          - MANUAL
+          - SCHEDULED
           type: string
         created_at:
           format: date-time
@@ -8343,6 +8460,159 @@ components:
           $ref: '#/components/schemas/FvEmbeddedErrorModel'
       required:
       - live
+      type: object
+    ListPayoutsResponse:
+      example:
+        payouts:
+        - transaction_date: transaction_date
+          metadata:
+            key: metadata
+          amount: 0
+          fees:
+          - paid_by_account_id: The payment account ID
+            amount: 100
+            currency: HKD
+            paid_by: RECIPIENT
+          - paid_by_account_id: The payment account ID
+            amount: 100
+            currency: HKD
+            paid_by: RECIPIENT
+          payment_details:
+            transaction_reference_id: transaction_reference_id
+            description: description
+            mandate_id: mandate_id
+            scheduled_date: 2000-01-23T04:56:07.000+00:00
+          recipient_account:
+            accountholder_name_plaintext: Chan Li Pak
+            account_number:
+              number: number
+              number_plaintext: number_plaintext
+              type: LOCAL
+            bank_code: bank_code
+            account_type: EXTERNAL_ACCOUNT
+            metadata:
+              key: metadata
+            account_id: sender_account_id
+            user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+            account_number_masked: account_number_masked
+            accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
+            institution_name: HSBC
+            institution_id: hsbc-hk
+          created_at: 2000-01-23T04:56:07.000+00:00
+          type: MANUAL
+          error:
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+          payout_id: payout_id
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          sender:
+            name: name
+          sender_account:
+            account_type: SETTLEMENT_ACCOUNT
+            account_id: account_id
+          recipient:
+            user_type: INDIVIDUAL
+            user_id: user_id
+            user_details:
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            name: name
+            external_user_id: external_user_id
+          currency: currency
+          live: true
+          status: EXECUTED
+        - transaction_date: transaction_date
+          metadata:
+            key: metadata
+          amount: 0
+          fees:
+          - paid_by_account_id: The payment account ID
+            amount: 100
+            currency: HKD
+            paid_by: RECIPIENT
+          - paid_by_account_id: The payment account ID
+            amount: 100
+            currency: HKD
+            paid_by: RECIPIENT
+          payment_details:
+            transaction_reference_id: transaction_reference_id
+            description: description
+            mandate_id: mandate_id
+            scheduled_date: 2000-01-23T04:56:07.000+00:00
+          recipient_account:
+            accountholder_name_plaintext: Chan Li Pak
+            account_number:
+              number: number
+              number_plaintext: number_plaintext
+              type: LOCAL
+            bank_code: bank_code
+            account_type: EXTERNAL_ACCOUNT
+            metadata:
+              key: metadata
+            account_id: sender_account_id
+            user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+            account_number_masked: account_number_masked
+            accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
+            institution_name: HSBC
+            institution_id: hsbc-hk
+          created_at: 2000-01-23T04:56:07.000+00:00
+          type: MANUAL
+          error:
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+          payout_id: payout_id
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          sender:
+            name: name
+          sender_account:
+            account_type: SETTLEMENT_ACCOUNT
+            account_id: account_id
+          recipient:
+            user_type: INDIVIDUAL
+            user_id: user_id
+            user_details:
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            name: name
+            external_user_id: external_user_id
+          currency: currency
+          live: true
+          status: EXECUTED
+      properties:
+        payouts:
+          items:
+            $ref: '#/components/schemas/PayoutSnapshotResponse'
+          type: array
+      required:
+      - payouts
       type: object
     PayoutSnapshotDetails:
       example:

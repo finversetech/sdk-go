@@ -380,6 +380,20 @@ type DefaultAPI interface {
 	ListPaymentsExecute(r DefaultAPIListPaymentsRequest) (*ListPaymentsResponse, *http.Response, error)
 
 	/*
+		ListPayouts Method for ListPayouts
+
+		List payouts
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return DefaultAPIListPayoutsRequest
+	*/
+	ListPayouts(ctx context.Context) DefaultAPIListPayoutsRequest
+
+	// ListPayoutsExecute executes the request
+	//  @return ListPayoutsResponse
+	ListPayoutsExecute(r DefaultAPIListPayoutsRequest) (*ListPayoutsResponse, *http.Response, error)
+
+	/*
 		RefreshPaymentAttempt Method for RefreshPaymentAttempt
 
 		Refresh payment attempt from payment link front-end
@@ -4206,6 +4220,241 @@ func (a *DefaultAPIService) ListPaymentsExecute(r DefaultAPIListPaymentsRequest)
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type DefaultAPIListPayoutsRequest struct {
+	ctx                     context.Context
+	ApiService              DefaultAPI
+	dateFrom                *string
+	dateTo                  *string
+	statuses                *[]string
+	currencies              *[]string
+	payoutTypes             *[]string
+	mandateId               *string
+	senderAccountId         *string
+	recipientAccountId      *string
+	recipientUserId         *string
+	recipientExternalUserId *string
+	offset                  *int32
+	limit                   *int32
+}
+
+// ISO format (YYYY-MM-DD)
+func (r DefaultAPIListPayoutsRequest) DateFrom(dateFrom string) DefaultAPIListPayoutsRequest {
+	r.dateFrom = &dateFrom
+	return r
+}
+
+// ISO format (YYYY-MM-DD)
+func (r DefaultAPIListPayoutsRequest) DateTo(dateTo string) DefaultAPIListPayoutsRequest {
+	r.dateTo = &dateTo
+	return r
+}
+
+// The payout statuses to filter for, comma separated
+func (r DefaultAPIListPayoutsRequest) Statuses(statuses []string) DefaultAPIListPayoutsRequest {
+	r.statuses = &statuses
+	return r
+}
+
+func (r DefaultAPIListPayoutsRequest) Currencies(currencies []string) DefaultAPIListPayoutsRequest {
+	r.currencies = &currencies
+	return r
+}
+
+func (r DefaultAPIListPayoutsRequest) PayoutTypes(payoutTypes []string) DefaultAPIListPayoutsRequest {
+	r.payoutTypes = &payoutTypes
+	return r
+}
+
+func (r DefaultAPIListPayoutsRequest) MandateId(mandateId string) DefaultAPIListPayoutsRequest {
+	r.mandateId = &mandateId
+	return r
+}
+
+func (r DefaultAPIListPayoutsRequest) SenderAccountId(senderAccountId string) DefaultAPIListPayoutsRequest {
+	r.senderAccountId = &senderAccountId
+	return r
+}
+
+func (r DefaultAPIListPayoutsRequest) RecipientAccountId(recipientAccountId string) DefaultAPIListPayoutsRequest {
+	r.recipientAccountId = &recipientAccountId
+	return r
+}
+
+func (r DefaultAPIListPayoutsRequest) RecipientUserId(recipientUserId string) DefaultAPIListPayoutsRequest {
+	r.recipientUserId = &recipientUserId
+	return r
+}
+
+func (r DefaultAPIListPayoutsRequest) RecipientExternalUserId(recipientExternalUserId string) DefaultAPIListPayoutsRequest {
+	r.recipientExternalUserId = &recipientExternalUserId
+	return r
+}
+
+// Default is 0
+func (r DefaultAPIListPayoutsRequest) Offset(offset int32) DefaultAPIListPayoutsRequest {
+	r.offset = &offset
+	return r
+}
+
+// default is 500, max is 1000
+func (r DefaultAPIListPayoutsRequest) Limit(limit int32) DefaultAPIListPayoutsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r DefaultAPIListPayoutsRequest) Execute() (*ListPayoutsResponse, *http.Response, error) {
+	return r.ApiService.ListPayoutsExecute(r)
+}
+
+/*
+ListPayouts Method for ListPayouts
+
+List payouts
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return DefaultAPIListPayoutsRequest
+*/
+func (a *DefaultAPIService) ListPayouts(ctx context.Context) DefaultAPIListPayoutsRequest {
+	return DefaultAPIListPayoutsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return ListPayoutsResponse
+func (a *DefaultAPIService) ListPayoutsExecute(r DefaultAPIListPayoutsRequest) (*ListPayoutsResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ListPayoutsResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "DefaultAPIService.ListPayouts")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/payouts"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.dateFrom != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "date_from", r.dateFrom, "", "")
+	}
+	if r.dateTo != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "date_to", r.dateTo, "", "")
+	}
+	if r.statuses != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "statuses", r.statuses, "form", "csv")
+	}
+	if r.currencies != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "currencies", r.currencies, "form", "csv")
+	}
+	if r.payoutTypes != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "payout_types", r.payoutTypes, "form", "csv")
+	}
+	if r.mandateId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "mandate_id", r.mandateId, "", "")
+	}
+	if r.senderAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "sender_account_id", r.senderAccountId, "", "")
+	}
+	if r.recipientAccountId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "recipient_account_id", r.recipientAccountId, "", "")
+	}
+	if r.recipientUserId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "recipient_user_id", r.recipientUserId, "", "")
+	}
+	if r.recipientExternalUserId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "recipient_external_user_id", r.recipientExternalUserId, "", "")
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "", "")
+	} else {
+		var defaultValue int32 = 0
+		r.offset = &defaultValue
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "", "")
+	} else {
+		var defaultValue int32 = 500
+		r.limit = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
 			var v ErrBodyModelV2
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {

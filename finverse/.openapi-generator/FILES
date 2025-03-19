@@ -116,6 +116,7 @@ model_list_mandates_response.go
 model_list_payment_accounts_response.go
 model_list_payment_methods_response.go
 model_list_payments_response.go
+model_list_payouts_response.go
 model_list_transactions_response.go
 model_login_action.go
 model_login_field.go
