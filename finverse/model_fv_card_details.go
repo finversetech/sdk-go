@@ -30,6 +30,9 @@ type FVCardDetails struct {
 	ExpiryYear           *int32  `json:"expiry_year,omitempty"`
 	ProcessorEntityName  *string `json:"processor_entity_name,omitempty"`
 	CollectionEntityName *string `json:"collection_entity_name,omitempty"`
+	Country              *string `json:"country,omitempty"`
+	Fingerprint          *string `json:"fingerprint,omitempty"`
+	Funding              *string `json:"funding,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -244,6 +247,102 @@ func (o *FVCardDetails) SetCollectionEntityName(v string) {
 	o.CollectionEntityName = &v
 }
 
+// GetCountry returns the Country field value if set, zero value otherwise.
+func (o *FVCardDetails) GetCountry() string {
+	if o == nil || IsNil(o.Country) {
+		var ret string
+		return ret
+	}
+	return *o.Country
+}
+
+// GetCountryOk returns a tuple with the Country field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FVCardDetails) GetCountryOk() (*string, bool) {
+	if o == nil || IsNil(o.Country) {
+		return nil, false
+	}
+	return o.Country, true
+}
+
+// HasCountry returns a boolean if a field has been set.
+func (o *FVCardDetails) HasCountry() bool {
+	if o != nil && !IsNil(o.Country) {
+		return true
+	}
+
+	return false
+}
+
+// SetCountry gets a reference to the given string and assigns it to the Country field.
+func (o *FVCardDetails) SetCountry(v string) {
+	o.Country = &v
+}
+
+// GetFingerprint returns the Fingerprint field value if set, zero value otherwise.
+func (o *FVCardDetails) GetFingerprint() string {
+	if o == nil || IsNil(o.Fingerprint) {
+		var ret string
+		return ret
+	}
+	return *o.Fingerprint
+}
+
+// GetFingerprintOk returns a tuple with the Fingerprint field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FVCardDetails) GetFingerprintOk() (*string, bool) {
+	if o == nil || IsNil(o.Fingerprint) {
+		return nil, false
+	}
+	return o.Fingerprint, true
+}
+
+// HasFingerprint returns a boolean if a field has been set.
+func (o *FVCardDetails) HasFingerprint() bool {
+	if o != nil && !IsNil(o.Fingerprint) {
+		return true
+	}
+
+	return false
+}
+
+// SetFingerprint gets a reference to the given string and assigns it to the Fingerprint field.
+func (o *FVCardDetails) SetFingerprint(v string) {
+	o.Fingerprint = &v
+}
+
+// GetFunding returns the Funding field value if set, zero value otherwise.
+func (o *FVCardDetails) GetFunding() string {
+	if o == nil || IsNil(o.Funding) {
+		var ret string
+		return ret
+	}
+	return *o.Funding
+}
+
+// GetFundingOk returns a tuple with the Funding field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FVCardDetails) GetFundingOk() (*string, bool) {
+	if o == nil || IsNil(o.Funding) {
+		return nil, false
+	}
+	return o.Funding, true
+}
+
+// HasFunding returns a boolean if a field has been set.
+func (o *FVCardDetails) HasFunding() bool {
+	if o != nil && !IsNil(o.Funding) {
+		return true
+	}
+
+	return false
+}
+
+// SetFunding gets a reference to the given string and assigns it to the Funding field.
+func (o *FVCardDetails) SetFunding(v string) {
+	o.Funding = &v
+}
+
 func (o FVCardDetails) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -271,6 +370,15 @@ func (o FVCardDetails) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.CollectionEntityName) {
 		toSerialize["collection_entity_name"] = o.CollectionEntityName
+	}
+	if !IsNil(o.Country) {
+		toSerialize["country"] = o.Country
+	}
+	if !IsNil(o.Fingerprint) {
+		toSerialize["fingerprint"] = o.Fingerprint
+	}
+	if !IsNil(o.Funding) {
+		toSerialize["funding"] = o.Funding
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -300,6 +408,9 @@ func (o *FVCardDetails) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "expiry_year")
 		delete(additionalProperties, "processor_entity_name")
 		delete(additionalProperties, "collection_entity_name")
+		delete(additionalProperties, "country")
+		delete(additionalProperties, "fingerprint")
+		delete(additionalProperties, "funding")
 		o.AdditionalProperties = additionalProperties
 	}
 

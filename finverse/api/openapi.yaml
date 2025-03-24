@@ -8011,6 +8011,9 @@ components:
             card_details:
               last4: "1234"
               expiry_month: 7
+              country: country
+              funding: UNKNOWN
+              fingerprint: fingerprint
               collection_entity_name: collection_entity_name
               brand: VISA
               expiry_year: 2028
@@ -8187,6 +8190,9 @@ components:
               card_details:
                 last4: "1234"
                 expiry_month: 7
+                country: country
+                funding: UNKNOWN
+                fingerprint: fingerprint
                 collection_entity_name: collection_entity_name
                 brand: VISA
                 expiry_year: 2028
@@ -8274,6 +8280,9 @@ components:
               card_details:
                 last4: "1234"
                 expiry_month: 7
+                country: country
+                funding: UNKNOWN
+                fingerprint: fingerprint
                 collection_entity_name: collection_entity_name
                 brand: VISA
                 expiry_year: 2028
@@ -9496,6 +9505,9 @@ components:
             card_details:
               last4: "1234"
               expiry_month: 7
+              country: country
+              funding: UNKNOWN
+              fingerprint: fingerprint
               collection_entity_name: collection_entity_name
               brand: VISA
               expiry_year: 2028
@@ -9606,6 +9618,9 @@ components:
             card_details:
               last4: "1234"
               expiry_month: 7
+              country: country
+              funding: UNKNOWN
+              fingerprint: fingerprint
               collection_entity_name: collection_entity_name
               brand: VISA
               expiry_year: 2028
@@ -9803,6 +9818,9 @@ components:
               card_details:
                 last4: "1234"
                 expiry_month: 7
+                country: country
+                funding: UNKNOWN
+                fingerprint: fingerprint
                 collection_entity_name: collection_entity_name
                 brand: VISA
                 expiry_year: 2028
@@ -9905,6 +9923,9 @@ components:
             card_details:
               last4: "1234"
               expiry_month: 7
+              country: country
+              funding: UNKNOWN
+              fingerprint: fingerprint
               collection_entity_name: collection_entity_name
               brand: VISA
               expiry_year: 2028
@@ -10202,6 +10223,9 @@ components:
         card_details:
           last4: "1234"
           expiry_month: 7
+          country: country
+          funding: UNKNOWN
+          fingerprint: fingerprint
           collection_entity_name: collection_entity_name
           brand: VISA
           expiry_year: 2028
@@ -10244,6 +10268,9 @@ components:
       example:
         last4: "1234"
         expiry_month: 7
+        country: country
+        funding: UNKNOWN
+        fingerprint: fingerprint
         collection_entity_name: collection_entity_name
         brand: VISA
         expiry_year: 2028
@@ -10268,6 +10295,17 @@ components:
         processor_entity_name:
           type: string
         collection_entity_name:
+          type: string
+        country:
+          type: string
+        fingerprint:
+          type: string
+        funding:
+          enum:
+          - UNKNOWN
+          - CREDIT
+          - DEBIT
+          - PREPAID
           type: string
       type: object
     GetMandateResponse:
@@ -12374,6 +12412,9 @@ components:
           card_details:
             last4: "1234"
             expiry_month: 7
+            country: country
+            funding: UNKNOWN
+            fingerprint: fingerprint
             collection_entity_name: collection_entity_name
             brand: VISA
             expiry_year: 2028
@@ -12610,6 +12651,9 @@ components:
           card_details:
             last4: "1234"
             expiry_month: 7
+            country: country
+            funding: UNKNOWN
+            fingerprint: fingerprint
             collection_entity_name: collection_entity_name
             brand: VISA
             expiry_year: 2028
@@ -12822,6 +12866,9 @@ components:
         card_details:
           last4: "1234"
           expiry_month: 7
+          country: country
+          funding: UNKNOWN
+          fingerprint: fingerprint
           collection_entity_name: collection_entity_name
           brand: VISA
           expiry_year: 2028
