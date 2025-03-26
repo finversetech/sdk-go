@@ -2901,6 +2901,72 @@ paths:
       tags:
       - customer
   /payment_accounts:
+    get:
+      description: Get payment account for customer app
+      operationId: listPaymentAccountsWithEnrichedData
+      parameters:
+      - description: The account_type to filter for
+        in: query
+        name: account_type
+        schema:
+          enum:
+          - EXTERNAL_ACCOUNT
+          - SETTLEMENT_ACCOUNT
+          type: string
+      - description: The currencies to filter for
+        explode: false
+        in: query
+        name: currencies
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: default is 0
+        in: query
+        name: offset
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+      - description: "default is 500, max is 1000"
+        in: query
+        name: limit
+        schema:
+          default: 500
+          maximum: 1000
+          minimum: 1
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListPaymentAccountsWithEnrichedDataResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - paymentAccount:list
+      tags:
+      - customer
     post:
       description: create payment account
       operationId: createPaymentAccount
@@ -11789,6 +11855,7 @@ components:
           - business_units
           account_number_masked: account_number_masked
           accountholder_name: Chan Li Pak
+          legal_entity_name: legal_entity_name
           currencies:
           - HKD
           - SGD
@@ -11812,6 +11879,7 @@ components:
           - business_units
           account_number_masked: account_number_masked
           accountholder_name: Chan Li Pak
+          legal_entity_name: legal_entity_name
           currencies:
           - HKD
           - SGD
@@ -11821,6 +11889,129 @@ components:
             $ref: '#/components/schemas/PaymentAccountDetails'
           type: array
       type: object
+    ListPaymentAccountsWithEnrichedDataResponse:
+      example:
+        total: 0
+        payment_accounts:
+        - account_number:
+            number: number
+            number_plaintext: number_plaintext
+            type: LOCAL
+          bank_code: "004"
+          account_type: EXTERNAL_ACCOUNT
+          metadata:
+            key: metadata
+          created_at: 2000-01-23T04:56:07.000+00:00
+          institution_name: HSBC
+          institution_id: hsbc-hk
+          branch_code: "123"
+          account_id: account_id
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+          business_units:
+          - business_units
+          - business_units
+          account_number_masked: account_number_masked
+          accountholder_name: Chan Li Pak
+          legal_entity_name: legal_entity_name
+          payment_method_overview:
+            payment_method_type: payment_method_type
+            external_gateway: external_gateway
+            live_mode: true
+            payment_confirmation_speed: payment_confirmation_speed
+            payment_processor: payment_processor
+            payment_method_subtype: payment_method_subtype
+            supported_currencies:
+            - HKD
+            - CNY
+          currencies:
+          - HKD
+          - SGD
+        - account_number:
+            number: number
+            number_plaintext: number_plaintext
+            type: LOCAL
+          bank_code: "004"
+          account_type: EXTERNAL_ACCOUNT
+          metadata:
+            key: metadata
+          created_at: 2000-01-23T04:56:07.000+00:00
+          institution_name: HSBC
+          institution_id: hsbc-hk
+          branch_code: "123"
+          account_id: account_id
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+          business_units:
+          - business_units
+          - business_units
+          account_number_masked: account_number_masked
+          accountholder_name: Chan Li Pak
+          legal_entity_name: legal_entity_name
+          payment_method_overview:
+            payment_method_type: payment_method_type
+            external_gateway: external_gateway
+            live_mode: true
+            payment_confirmation_speed: payment_confirmation_speed
+            payment_processor: payment_processor
+            payment_method_subtype: payment_method_subtype
+            supported_currencies:
+            - HKD
+            - CNY
+          currencies:
+          - HKD
+          - SGD
+      properties:
+        payment_accounts:
+          items:
+            $ref: '#/components/schemas/PaymentAccountDetailsWithEnrichedData'
+          type: array
+        total:
+          description: Total number of matching payment accounts
+          type: integer
+      type: object
+    PaymentAccountDetailsWithEnrichedData:
+      allOf:
+      - $ref: '#/components/schemas/PaymentAccountDetails'
+      - properties:
+          payment_method_overview:
+            $ref: '#/components/schemas/PaymentMethodOverview'
+        type: object
+      example:
+        account_number:
+          number: number
+          number_plaintext: number_plaintext
+          type: LOCAL
+        bank_code: "004"
+        account_type: EXTERNAL_ACCOUNT
+        metadata:
+          key: metadata
+        created_at: 2000-01-23T04:56:07.000+00:00
+        institution_name: HSBC
+        institution_id: hsbc-hk
+        branch_code: "123"
+        account_id: account_id
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+        business_units:
+        - business_units
+        - business_units
+        account_number_masked: account_number_masked
+        accountholder_name: Chan Li Pak
+        legal_entity_name: legal_entity_name
+        payment_method_overview:
+          payment_method_type: payment_method_type
+          external_gateway: external_gateway
+          live_mode: true
+          payment_confirmation_speed: payment_confirmation_speed
+          payment_processor: payment_processor
+          payment_method_subtype: payment_method_subtype
+          supported_currencies:
+          - HKD
+          - CNY
+        currencies:
+        - HKD
+        - SGD
     PaymentAccountDetails:
       example:
         account_number:
@@ -11843,6 +12034,7 @@ components:
         - business_units
         account_number_masked: account_number_masked
         accountholder_name: Chan Li Pak
+        legal_entity_name: legal_entity_name
         currencies:
         - HKD
         - SGD
@@ -11895,11 +12087,15 @@ components:
           items:
             type: string
           type: array
+          x-omitempty: true
         business_units:
           description: The business units the payment account belongs to
           items:
             type: string
           type: array
+        legal_entity_name:
+          description: This field is only applicable to settlement account
+          type: string
         metadata:
           additionalProperties:
             type: string
@@ -11917,6 +12113,47 @@ components:
             format (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time
           type: string
+      type: object
+    PaymentMethodOverview:
+      example:
+        payment_method_type: payment_method_type
+        external_gateway: external_gateway
+        live_mode: true
+        payment_confirmation_speed: payment_confirmation_speed
+        payment_processor: payment_processor
+        payment_method_subtype: payment_method_subtype
+        supported_currencies:
+        - HKD
+        - CNY
+      properties:
+        external_gateway:
+          description: "STRIPE, CYBERSOURCE, UOB, DBS (only shown when payment flows\
+            \ funds via a 3rd party gateway direct to the customer)"
+          type: string
+        payment_confirmation_speed:
+          description: It can be either REALTIME or DELAYED
+          type: string
+        payment_method_type:
+          description: "The payment method type, possible values CARD, MANDATE and\
+            \ MANUAL"
+          type: string
+        payment_method_subtype:
+          description: The payment method subtype
+          type: string
+        payment_processor:
+          description: "Only shown if funds flow via Finverse, possible values FINVERSE"
+          type: string
+        live_mode:
+          description: Whether the payment method can move real money or not
+          type: boolean
+        supported_currencies:
+          description: Shows which currencies are supported
+          example:
+          - HKD
+          - CNY
+          items:
+            type: string
+          type: array
       type: object
     CreatePaymentAccountRequest:
       example:

@@ -313,6 +313,20 @@ type CustomerAPI interface {
 	ListPaymentAccountsExecute(r CustomerAPIListPaymentAccountsRequest) (*ListPaymentAccountsResponse, *http.Response, error)
 
 	/*
+		ListPaymentAccountsWithEnrichedData Method for ListPaymentAccountsWithEnrichedData
+
+		Get payment account for customer app
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return CustomerAPIListPaymentAccountsWithEnrichedDataRequest
+	*/
+	ListPaymentAccountsWithEnrichedData(ctx context.Context) CustomerAPIListPaymentAccountsWithEnrichedDataRequest
+
+	// ListPaymentAccountsWithEnrichedDataExecute executes the request
+	//  @return ListPaymentAccountsWithEnrichedDataResponse
+	ListPaymentAccountsWithEnrichedDataExecute(r CustomerAPIListPaymentAccountsWithEnrichedDataRequest) (*ListPaymentAccountsWithEnrichedDataResponse, *http.Response, error)
+
+	/*
 		RefreshToken Method for RefreshToken
 
 		Refresh an access token
@@ -3188,6 +3202,190 @@ func (a *CustomerAPIService) ListPaymentAccountsExecute(r CustomerAPIListPayment
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 401 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type CustomerAPIListPaymentAccountsWithEnrichedDataRequest struct {
+	ctx         context.Context
+	ApiService  CustomerAPI
+	accountType *string
+	currencies  *[]string
+	offset      *int32
+	limit       *int32
+}
+
+// The account_type to filter for
+func (r CustomerAPIListPaymentAccountsWithEnrichedDataRequest) AccountType(accountType string) CustomerAPIListPaymentAccountsWithEnrichedDataRequest {
+	r.accountType = &accountType
+	return r
+}
+
+// The currencies to filter for
+func (r CustomerAPIListPaymentAccountsWithEnrichedDataRequest) Currencies(currencies []string) CustomerAPIListPaymentAccountsWithEnrichedDataRequest {
+	r.currencies = &currencies
+	return r
+}
+
+// default is 0
+func (r CustomerAPIListPaymentAccountsWithEnrichedDataRequest) Offset(offset int32) CustomerAPIListPaymentAccountsWithEnrichedDataRequest {
+	r.offset = &offset
+	return r
+}
+
+// default is 500, max is 1000
+func (r CustomerAPIListPaymentAccountsWithEnrichedDataRequest) Limit(limit int32) CustomerAPIListPaymentAccountsWithEnrichedDataRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r CustomerAPIListPaymentAccountsWithEnrichedDataRequest) Execute() (*ListPaymentAccountsWithEnrichedDataResponse, *http.Response, error) {
+	return r.ApiService.ListPaymentAccountsWithEnrichedDataExecute(r)
+}
+
+/*
+ListPaymentAccountsWithEnrichedData Method for ListPaymentAccountsWithEnrichedData
+
+Get payment account for customer app
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return CustomerAPIListPaymentAccountsWithEnrichedDataRequest
+*/
+func (a *CustomerAPIService) ListPaymentAccountsWithEnrichedData(ctx context.Context) CustomerAPIListPaymentAccountsWithEnrichedDataRequest {
+	return CustomerAPIListPaymentAccountsWithEnrichedDataRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return ListPaymentAccountsWithEnrichedDataResponse
+func (a *CustomerAPIService) ListPaymentAccountsWithEnrichedDataExecute(r CustomerAPIListPaymentAccountsWithEnrichedDataRequest) (*ListPaymentAccountsWithEnrichedDataResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ListPaymentAccountsWithEnrichedDataResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "CustomerAPIService.ListPaymentAccountsWithEnrichedData")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/payment_accounts"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.accountType != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "account_type", r.accountType, "", "")
+	}
+	if r.currencies != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "currencies", r.currencies, "form", "csv")
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "", "")
+	} else {
+		var defaultValue int32 = 0
+		r.offset = &defaultValue
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "", "")
+	} else {
+		var defaultValue int32 = 500
+		r.limit = &defaultValue
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 

@@ -114,6 +114,7 @@ model_list_accounts_response.go
 model_list_cards_details_response.go
 model_list_mandates_response.go
 model_list_payment_accounts_response.go
+model_list_payment_accounts_with_enriched_data_response.go
 model_list_payment_methods_response.go
 model_list_payments_response.go
 model_list_payouts_response.go
@@ -148,6 +149,7 @@ model_non_sensitive_link_status_success_model.go
 model_other_info.go
 model_payment_account.go
 model_payment_account_details.go
+model_payment_account_details_with_enriched_data.go
 model_payment_details.go
 model_payment_details2.go
 model_payment_details_references.go
@@ -166,6 +168,7 @@ model_payment_method_integration_metadata.go
 model_payment_method_integration_metadata_cybersource_metadata.go
 model_payment_method_integration_metadata_stripe_metadata.go
 model_payment_method_integration_metadata_stripe_metadata_customer.go
+model_payment_method_overview.go
 model_payment_method_response.go
 model_payment_response.go
 model_payment_schedule.go
