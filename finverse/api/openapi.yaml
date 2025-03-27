@@ -3406,6 +3406,35 @@ paths:
       security:
       - Oauth2:
         - paymentLinks:payment:unlink
+  /payment_link/fvlink/payment_attempt/demote:
+    post:
+      description: Demote payment attempt
+      operationId: demotePaymentAttempt
+      responses:
+        "200":
+          content: {}
+          description: ok
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - paymentLinks:paymentAttempt:demote
   /ledger/statement:
     get:
       description: Download the balance statement for the ledger (CSV)
