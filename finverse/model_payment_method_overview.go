@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the PaymentMethodOverview type satisfies the MappedNullable interface at compile time
@@ -31,7 +32,7 @@ type PaymentMethodOverview struct {
 	// Only shown if funds flow via Finverse, possible values FINVERSE
 	PaymentProcessor *string `json:"payment_processor,omitempty"`
 	// Whether the payment method can move real money or not
-	LiveMode *bool `json:"live_mode,omitempty"`
+	LiveMode bool `json:"live_mode"`
 	// Shows which currencies are supported
 	SupportedCurrencies  []string `json:"supported_currencies,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -43,8 +44,9 @@ type _PaymentMethodOverview PaymentMethodOverview
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentMethodOverview() *PaymentMethodOverview {
+func NewPaymentMethodOverview(liveMode bool) *PaymentMethodOverview {
 	this := PaymentMethodOverview{}
+	this.LiveMode = liveMode
 	return &this
 }
 
@@ -216,36 +218,28 @@ func (o *PaymentMethodOverview) SetPaymentProcessor(v string) {
 	o.PaymentProcessor = &v
 }
 
-// GetLiveMode returns the LiveMode field value if set, zero value otherwise.
+// GetLiveMode returns the LiveMode field value
 func (o *PaymentMethodOverview) GetLiveMode() bool {
-	if o == nil || IsNil(o.LiveMode) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.LiveMode
+
+	return o.LiveMode
 }
 
-// GetLiveModeOk returns a tuple with the LiveMode field value if set, nil otherwise
+// GetLiveModeOk returns a tuple with the LiveMode field value
 // and a boolean to check if the value has been set.
 func (o *PaymentMethodOverview) GetLiveModeOk() (*bool, bool) {
-	if o == nil || IsNil(o.LiveMode) {
+	if o == nil {
 		return nil, false
 	}
-	return o.LiveMode, true
+	return &o.LiveMode, true
 }
 
-// HasLiveMode returns a boolean if a field has been set.
-func (o *PaymentMethodOverview) HasLiveMode() bool {
-	if o != nil && !IsNil(o.LiveMode) {
-		return true
-	}
-
-	return false
-}
-
-// SetLiveMode gets a reference to the given bool and assigns it to the LiveMode field.
+// SetLiveMode sets field value
 func (o *PaymentMethodOverview) SetLiveMode(v bool) {
-	o.LiveMode = &v
+	o.LiveMode = v
 }
 
 // GetSupportedCurrencies returns the SupportedCurrencies field value if set, zero value otherwise.
@@ -305,9 +299,7 @@ func (o PaymentMethodOverview) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaymentProcessor) {
 		toSerialize["payment_processor"] = o.PaymentProcessor
 	}
-	if !IsNil(o.LiveMode) {
-		toSerialize["live_mode"] = o.LiveMode
-	}
+	toSerialize["live_mode"] = o.LiveMode
 	if !IsNil(o.SupportedCurrencies) {
 		toSerialize["supported_currencies"] = o.SupportedCurrencies
 	}
@@ -320,6 +312,27 @@ func (o PaymentMethodOverview) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *PaymentMethodOverview) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"live_mode",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varPaymentMethodOverview := _PaymentMethodOverview{}
 
 	err = json.Unmarshal(data, &varPaymentMethodOverview)

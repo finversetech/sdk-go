@@ -50,7 +50,6 @@ type PaymentAccountDetails struct {
 	LegalEntityName *string `json:"legal_entity_name,omitempty"`
 	// Additional attributes of the sender account in key:value format (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 1000 characters respectively.
 	Metadata *map[string]string `json:"metadata,omitempty"`
-	FeeRules *FeeRules          `json:"fee_rules,omitempty"`
 	// Timestamp of when the payment link was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp of when the payment link was last updated in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
@@ -557,38 +556,6 @@ func (o *PaymentAccountDetails) SetMetadata(v map[string]string) {
 	o.Metadata = &v
 }
 
-// GetFeeRules returns the FeeRules field value if set, zero value otherwise.
-func (o *PaymentAccountDetails) GetFeeRules() FeeRules {
-	if o == nil || IsNil(o.FeeRules) {
-		var ret FeeRules
-		return ret
-	}
-	return *o.FeeRules
-}
-
-// GetFeeRulesOk returns a tuple with the FeeRules field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PaymentAccountDetails) GetFeeRulesOk() (*FeeRules, bool) {
-	if o == nil || IsNil(o.FeeRules) {
-		return nil, false
-	}
-	return o.FeeRules, true
-}
-
-// HasFeeRules returns a boolean if a field has been set.
-func (o *PaymentAccountDetails) HasFeeRules() bool {
-	if o != nil && !IsNil(o.FeeRules) {
-		return true
-	}
-
-	return false
-}
-
-// SetFeeRules gets a reference to the given FeeRules and assigns it to the FeeRules field.
-func (o *PaymentAccountDetails) SetFeeRules(v FeeRules) {
-	o.FeeRules = &v
-}
-
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *PaymentAccountDetails) GetCreatedAt() time.Time {
 	if o == nil || IsNil(o.CreatedAt) {
@@ -708,9 +675,6 @@ func (o PaymentAccountDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-	if !IsNil(o.FeeRules) {
-		toSerialize["fee_rules"] = o.FeeRules
-	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
@@ -754,7 +718,6 @@ func (o *PaymentAccountDetails) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "business_units")
 		delete(additionalProperties, "legal_entity_name")
 		delete(additionalProperties, "metadata")
-		delete(additionalProperties, "fee_rules")
 		delete(additionalProperties, "created_at")
 		delete(additionalProperties, "updated_at")
 		o.AdditionalProperties = additionalProperties
