@@ -8681,13 +8681,17 @@ components:
           currency: currency
           live: true
           status: EXECUTED
+        total_payouts: 0
       properties:
         payouts:
           items:
             $ref: '#/components/schemas/PayoutSnapshotResponse'
           type: array
+        total_payouts:
+          type: integer
       required:
       - payouts
+      - total_payouts
       type: object
     PayoutSnapshotDetails:
       example:

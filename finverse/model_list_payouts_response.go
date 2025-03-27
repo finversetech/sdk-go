@@ -22,6 +22,7 @@ var _ MappedNullable = &ListPayoutsResponse{}
 // ListPayoutsResponse struct for ListPayoutsResponse
 type ListPayoutsResponse struct {
 	Payouts              []PayoutSnapshotResponse `json:"payouts"`
+	TotalPayouts         int32                    `json:"total_payouts"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,9 +32,10 @@ type _ListPayoutsResponse ListPayoutsResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListPayoutsResponse(payouts []PayoutSnapshotResponse) *ListPayoutsResponse {
+func NewListPayoutsResponse(payouts []PayoutSnapshotResponse, totalPayouts int32) *ListPayoutsResponse {
 	this := ListPayoutsResponse{}
 	this.Payouts = payouts
+	this.TotalPayouts = totalPayouts
 	return &this
 }
 
@@ -69,6 +71,30 @@ func (o *ListPayoutsResponse) SetPayouts(v []PayoutSnapshotResponse) {
 	o.Payouts = v
 }
 
+// GetTotalPayouts returns the TotalPayouts field value
+func (o *ListPayoutsResponse) GetTotalPayouts() int32 {
+	if o == nil {
+		var ret int32
+		return ret
+	}
+
+	return o.TotalPayouts
+}
+
+// GetTotalPayoutsOk returns a tuple with the TotalPayouts field value
+// and a boolean to check if the value has been set.
+func (o *ListPayoutsResponse) GetTotalPayoutsOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.TotalPayouts, true
+}
+
+// SetTotalPayouts sets field value
+func (o *ListPayoutsResponse) SetTotalPayouts(v int32) {
+	o.TotalPayouts = v
+}
+
 func (o ListPayoutsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -80,6 +106,7 @@ func (o ListPayoutsResponse) MarshalJSON() ([]byte, error) {
 func (o ListPayoutsResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["payouts"] = o.Payouts
+	toSerialize["total_payouts"] = o.TotalPayouts
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -94,6 +121,7 @@ func (o *ListPayoutsResponse) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"payouts",
+		"total_payouts",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -124,6 +152,7 @@ func (o *ListPayoutsResponse) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "payouts")
+		delete(additionalProperties, "total_payouts")
 		o.AdditionalProperties = additionalProperties
 	}
 
