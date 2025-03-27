@@ -62,6 +62,8 @@ model_err_body_model.go
 model_err_body_model_v2.go
 model_error_response.go
 model_fee.go
+model_fee_rule.go
+model_fee_rules.go
 model_fps_qr_code_response.go
 model_fv_card.go
 model_fv_card_details.go

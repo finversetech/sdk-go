@@ -10230,6 +10230,43 @@ components:
       required:
       - amount
       type: object
+    FeeRule:
+      example:
+        fee_fixed: 5
+        min_amount: 0
+        max_amount: 6
+        currency: currency
+        fee_bps: 1
+        fee_paid_by: SENDER
+      properties:
+        min_amount:
+          description: Minimum fee amount that will be charged. Actual amount multiplied
+            by 1000
+          type: integer
+        max_amount:
+          description: Maximum fee amount that will be charged. Actual amount multiplied
+            by 1000
+          type: integer
+        fee_bps:
+          description: The BPS amount that will be used to calculate the fee.
+          type: integer
+        currency:
+          description: The currency the fee is charged in
+          type: string
+        fee_fixed:
+          description: The fixed fee amount that will be charged on top of the calculated
+            fee
+          type: integer
+        fee_paid_by:
+          description: Whether the fee is paid by the RECIPIENT or SENDER
+          enum:
+          - SENDER
+          - RECIPIENT
+          type: string
+      required:
+      - currency
+      - fee_paid_by
+      type: object
     GetLineItemsForDisplayResponse:
       example:
         line_items:
@@ -11839,6 +11876,7 @@ components:
             number: number
             number_plaintext: number_plaintext
             type: LOCAL
+          customer_app_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           bank_code: "004"
           account_type: EXTERNAL_ACCOUNT
           metadata:
@@ -11853,6 +11891,46 @@ components:
           business_units:
           - business_units
           - business_units
+          fee_rules:
+            mandate_rules:
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
+            payment_rules:
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
+            payout_rules:
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
           account_number_masked: account_number_masked
           accountholder_name: Chan Li Pak
           legal_entity_name: legal_entity_name
@@ -11863,6 +11941,7 @@ components:
             number: number
             number_plaintext: number_plaintext
             type: LOCAL
+          customer_app_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           bank_code: "004"
           account_type: EXTERNAL_ACCOUNT
           metadata:
@@ -11877,6 +11956,46 @@ components:
           business_units:
           - business_units
           - business_units
+          fee_rules:
+            mandate_rules:
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
+            payment_rules:
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
+            payout_rules:
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
           account_number_masked: account_number_masked
           accountholder_name: Chan Li Pak
           legal_entity_name: legal_entity_name
@@ -11897,6 +12016,7 @@ components:
             number: number
             number_plaintext: number_plaintext
             type: LOCAL
+          customer_app_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           bank_code: "004"
           account_type: EXTERNAL_ACCOUNT
           metadata:
@@ -11911,6 +12031,46 @@ components:
           business_units:
           - business_units
           - business_units
+          fee_rules:
+            mandate_rules:
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
+            payment_rules:
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
+            payout_rules:
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
           account_number_masked: account_number_masked
           accountholder_name: Chan Li Pak
           legal_entity_name: legal_entity_name
@@ -11931,6 +12091,7 @@ components:
             number: number
             number_plaintext: number_plaintext
             type: LOCAL
+          customer_app_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           bank_code: "004"
           account_type: EXTERNAL_ACCOUNT
           metadata:
@@ -11945,6 +12106,46 @@ components:
           business_units:
           - business_units
           - business_units
+          fee_rules:
+            mandate_rules:
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
+            payment_rules:
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
+            payout_rules:
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
+            - fee_fixed: 5
+              min_amount: 0
+              max_amount: 6
+              currency: currency
+              fee_bps: 1
+              fee_paid_by: SENDER
           account_number_masked: account_number_masked
           accountholder_name: Chan Li Pak
           legal_entity_name: legal_entity_name
@@ -11982,6 +12183,7 @@ components:
           number: number
           number_plaintext: number_plaintext
           type: LOCAL
+        customer_app_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
         bank_code: "004"
         account_type: EXTERNAL_ACCOUNT
         metadata:
@@ -11996,6 +12198,46 @@ components:
         business_units:
         - business_units
         - business_units
+        fee_rules:
+          mandate_rules:
+          - fee_fixed: 5
+            min_amount: 0
+            max_amount: 6
+            currency: currency
+            fee_bps: 1
+            fee_paid_by: SENDER
+          - fee_fixed: 5
+            min_amount: 0
+            max_amount: 6
+            currency: currency
+            fee_bps: 1
+            fee_paid_by: SENDER
+          payment_rules:
+          - fee_fixed: 5
+            min_amount: 0
+            max_amount: 6
+            currency: currency
+            fee_bps: 1
+            fee_paid_by: SENDER
+          - fee_fixed: 5
+            min_amount: 0
+            max_amount: 6
+            currency: currency
+            fee_bps: 1
+            fee_paid_by: SENDER
+          payout_rules:
+          - fee_fixed: 5
+            min_amount: 0
+            max_amount: 6
+            currency: currency
+            fee_bps: 1
+            fee_paid_by: SENDER
+          - fee_fixed: 5
+            min_amount: 0
+            max_amount: 6
+            currency: currency
+            fee_bps: 1
+            fee_paid_by: SENDER
         account_number_masked: account_number_masked
         accountholder_name: Chan Li Pak
         legal_entity_name: legal_entity_name
@@ -12012,12 +12254,76 @@ components:
         currencies:
         - HKD
         - SGD
+    FeeRules:
+      description: Fee rule applicable to this payment account
+      example:
+        mandate_rules:
+        - fee_fixed: 5
+          min_amount: 0
+          max_amount: 6
+          currency: currency
+          fee_bps: 1
+          fee_paid_by: SENDER
+        - fee_fixed: 5
+          min_amount: 0
+          max_amount: 6
+          currency: currency
+          fee_bps: 1
+          fee_paid_by: SENDER
+        payment_rules:
+        - fee_fixed: 5
+          min_amount: 0
+          max_amount: 6
+          currency: currency
+          fee_bps: 1
+          fee_paid_by: SENDER
+        - fee_fixed: 5
+          min_amount: 0
+          max_amount: 6
+          currency: currency
+          fee_bps: 1
+          fee_paid_by: SENDER
+        payout_rules:
+        - fee_fixed: 5
+          min_amount: 0
+          max_amount: 6
+          currency: currency
+          fee_bps: 1
+          fee_paid_by: SENDER
+        - fee_fixed: 5
+          min_amount: 0
+          max_amount: 6
+          currency: currency
+          fee_bps: 1
+          fee_paid_by: SENDER
+      properties:
+        mandate_rules:
+          description: Fee rule applicable to mandate
+          items:
+            $ref: '#/components/schemas/FeeRule'
+          type: array
+        payment_rules:
+          description: Fee rule applicable to payment
+          items:
+            $ref: '#/components/schemas/FeeRule'
+          type: array
+        payout_rules:
+          description: Fee rule applicable to payouts
+          items:
+            $ref: '#/components/schemas/FeeRule'
+          type: array
+      required:
+      - mandate_rules
+      - payment_rules
+      - payout_rules
+      type: object
     PaymentAccountDetails:
       example:
         account_number:
           number: number
           number_plaintext: number_plaintext
           type: LOCAL
+        customer_app_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
         bank_code: "004"
         account_type: EXTERNAL_ACCOUNT
         metadata:
@@ -12032,6 +12338,46 @@ components:
         business_units:
         - business_units
         - business_units
+        fee_rules:
+          mandate_rules:
+          - fee_fixed: 5
+            min_amount: 0
+            max_amount: 6
+            currency: currency
+            fee_bps: 1
+            fee_paid_by: SENDER
+          - fee_fixed: 5
+            min_amount: 0
+            max_amount: 6
+            currency: currency
+            fee_bps: 1
+            fee_paid_by: SENDER
+          payment_rules:
+          - fee_fixed: 5
+            min_amount: 0
+            max_amount: 6
+            currency: currency
+            fee_bps: 1
+            fee_paid_by: SENDER
+          - fee_fixed: 5
+            min_amount: 0
+            max_amount: 6
+            currency: currency
+            fee_bps: 1
+            fee_paid_by: SENDER
+          payout_rules:
+          - fee_fixed: 5
+            min_amount: 0
+            max_amount: 6
+            currency: currency
+            fee_bps: 1
+            fee_paid_by: SENDER
+          - fee_fixed: 5
+            min_amount: 0
+            max_amount: 6
+            currency: currency
+            fee_bps: 1
+            fee_paid_by: SENDER
         account_number_masked: account_number_masked
         accountholder_name: Chan Li Pak
         legal_entity_name: legal_entity_name
@@ -12057,6 +12403,10 @@ components:
         accountholder_name:
           description: Accountholder name of the payment account
           example: Chan Li Pak
+          type: string
+        customer_app_id:
+          description: The customer app ID
+          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           type: string
         institution_id:
           description: Finverse Institution ID for the payment institution.
@@ -12103,6 +12453,8 @@ components:
             \ (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas\
             \ the key and value supports up to 50 and 1000 characters respectively."
           type: object
+        fee_rules:
+          $ref: '#/components/schemas/FeeRules'
         created_at:
           description: Timestamp of when the payment link was created in ISO format
             (YYYY-MM-DDTHH:MM:SS.SSSZ)

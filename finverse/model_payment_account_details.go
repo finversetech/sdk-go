@@ -30,6 +30,8 @@ type PaymentAccountDetails struct {
 	AccountType *string `json:"account_type,omitempty"`
 	// Accountholder name of the payment account
 	AccountholderName *string `json:"accountholder_name,omitempty"`
+	// The customer app ID
+	CustomerAppId *string `json:"customer_app_id,omitempty"`
 	// Finverse Institution ID for the payment institution.
 	InstitutionId *string `json:"institution_id,omitempty"`
 	// Institution Name for the sender’s institution.
@@ -48,6 +50,7 @@ type PaymentAccountDetails struct {
 	LegalEntityName *string `json:"legal_entity_name,omitempty"`
 	// Additional attributes of the sender account in key:value format (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 1000 characters respectively.
 	Metadata *map[string]string `json:"metadata,omitempty"`
+	FeeRules *FeeRules          `json:"fee_rules,omitempty"`
 	// Timestamp of when the payment link was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp of when the payment link was last updated in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
@@ -232,6 +235,38 @@ func (o *PaymentAccountDetails) HasAccountholderName() bool {
 // SetAccountholderName gets a reference to the given string and assigns it to the AccountholderName field.
 func (o *PaymentAccountDetails) SetAccountholderName(v string) {
 	o.AccountholderName = &v
+}
+
+// GetCustomerAppId returns the CustomerAppId field value if set, zero value otherwise.
+func (o *PaymentAccountDetails) GetCustomerAppId() string {
+	if o == nil || IsNil(o.CustomerAppId) {
+		var ret string
+		return ret
+	}
+	return *o.CustomerAppId
+}
+
+// GetCustomerAppIdOk returns a tuple with the CustomerAppId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentAccountDetails) GetCustomerAppIdOk() (*string, bool) {
+	if o == nil || IsNil(o.CustomerAppId) {
+		return nil, false
+	}
+	return o.CustomerAppId, true
+}
+
+// HasCustomerAppId returns a boolean if a field has been set.
+func (o *PaymentAccountDetails) HasCustomerAppId() bool {
+	if o != nil && !IsNil(o.CustomerAppId) {
+		return true
+	}
+
+	return false
+}
+
+// SetCustomerAppId gets a reference to the given string and assigns it to the CustomerAppId field.
+func (o *PaymentAccountDetails) SetCustomerAppId(v string) {
+	o.CustomerAppId = &v
 }
 
 // GetInstitutionId returns the InstitutionId field value if set, zero value otherwise.
@@ -522,6 +557,38 @@ func (o *PaymentAccountDetails) SetMetadata(v map[string]string) {
 	o.Metadata = &v
 }
 
+// GetFeeRules returns the FeeRules field value if set, zero value otherwise.
+func (o *PaymentAccountDetails) GetFeeRules() FeeRules {
+	if o == nil || IsNil(o.FeeRules) {
+		var ret FeeRules
+		return ret
+	}
+	return *o.FeeRules
+}
+
+// GetFeeRulesOk returns a tuple with the FeeRules field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentAccountDetails) GetFeeRulesOk() (*FeeRules, bool) {
+	if o == nil || IsNil(o.FeeRules) {
+		return nil, false
+	}
+	return o.FeeRules, true
+}
+
+// HasFeeRules returns a boolean if a field has been set.
+func (o *PaymentAccountDetails) HasFeeRules() bool {
+	if o != nil && !IsNil(o.FeeRules) {
+		return true
+	}
+
+	return false
+}
+
+// SetFeeRules gets a reference to the given FeeRules and assigns it to the FeeRules field.
+func (o *PaymentAccountDetails) SetFeeRules(v FeeRules) {
+	o.FeeRules = &v
+}
+
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *PaymentAccountDetails) GetCreatedAt() time.Time {
 	if o == nil || IsNil(o.CreatedAt) {
@@ -611,6 +678,9 @@ func (o PaymentAccountDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AccountholderName) {
 		toSerialize["accountholder_name"] = o.AccountholderName
 	}
+	if !IsNil(o.CustomerAppId) {
+		toSerialize["customer_app_id"] = o.CustomerAppId
+	}
 	if !IsNil(o.InstitutionId) {
 		toSerialize["institution_id"] = o.InstitutionId
 	}
@@ -637,6 +707,9 @@ func (o PaymentAccountDetails) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
+	}
+	if !IsNil(o.FeeRules) {
+		toSerialize["fee_rules"] = o.FeeRules
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
@@ -671,6 +744,7 @@ func (o *PaymentAccountDetails) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "account_number_masked")
 		delete(additionalProperties, "account_type")
 		delete(additionalProperties, "accountholder_name")
+		delete(additionalProperties, "customer_app_id")
 		delete(additionalProperties, "institution_id")
 		delete(additionalProperties, "institution_name")
 		delete(additionalProperties, "user_id")
@@ -680,6 +754,7 @@ func (o *PaymentAccountDetails) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "business_units")
 		delete(additionalProperties, "legal_entity_name")
 		delete(additionalProperties, "metadata")
+		delete(additionalProperties, "fee_rules")
 		delete(additionalProperties, "created_at")
 		delete(additionalProperties, "updated_at")
 		o.AdditionalProperties = additionalProperties
