@@ -1619,6 +1619,9 @@ paths:
             - SUCCEEDED
             - FAILED
             - REVOKED
+            - READY_TO_SUBMIT
+            - CLOSED
+            - CANCELLED
             type: string
           type: array
         style: form
@@ -1763,6 +1766,9 @@ paths:
             - SUCCEEDED
             - FAILED
             - REVOKED
+            - READY_TO_SUBMIT
+            - CLOSED
+            - CANCELLED
             type: string
           type: array
         style: form
@@ -2032,6 +2038,8 @@ paths:
             - EXECUTED
             - FAILED
             - REVOKED
+            - CANCELLED
+            - CREATED
             type: string
           type: array
         style: form
@@ -8162,6 +8170,8 @@ components:
           - EXECUTED
           - FAILED
           - REVOKED
+          - CANCELLED
+          - CREATED
           type: string
         payment_method_id:
           description: ID of the payment method this pament is referring to.
@@ -9251,6 +9261,9 @@ components:
           - SUCCEEDED
           - FAILED
           - REVOKED
+          - READY_TO_SUBMIT
+          - CLOSED
+          - CANCELLED
           type: string
         recipient:
           $ref: '#/components/schemas/MandateRecipient'
@@ -10355,6 +10368,8 @@ components:
           - UNKNOWN
           - PROCESSING
           - SUCCEEDED
+          - CANCELLED
+          - FAILED
           type: string
         error:
           $ref: '#/components/schemas/FvEmbeddedErrorModel'
@@ -11863,6 +11878,8 @@ components:
           - EXECUTED
           - FAILED
           - REVOKED
+          - CANCELLED
+          - CREATED
           type: string
       type: object
     ListPaymentAccountsResponse:
@@ -12796,6 +12813,8 @@ components:
           - EXECUTED
           - FAILED
           - REVOKED
+          - CANCELLED
+          - CREATED
           type: string
         payment_details:
           $ref: '#/components/schemas/PaymentFvLinkDetails'
@@ -12872,6 +12891,8 @@ components:
           - UNKNOWN
           - PROCESSING
           - SUCCEEDED
+          - CANCELLED
+          - FAILED
           type: string
         card_details:
           $ref: '#/components/schemas/CardFvLinkDetails'
