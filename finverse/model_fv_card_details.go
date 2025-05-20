@@ -27,13 +27,14 @@ type FVCardDetails struct {
 	// The credit card expiry month
 	ExpiryMonth *int32 `json:"expiry_month,omitempty"`
 	// The credit card expiry year
-	ExpiryYear           *int32  `json:"expiry_year,omitempty"`
-	ProcessorEntityName  *string `json:"processor_entity_name,omitempty"`
-	CollectionEntityName *string `json:"collection_entity_name,omitempty"`
-	Country              *string `json:"country,omitempty"`
-	Fingerprint          *string `json:"fingerprint,omitempty"`
-	Funding              *string `json:"funding,omitempty"`
-	AdditionalProperties map[string]interface{}
+	ExpiryYear                     *int32  `json:"expiry_year,omitempty"`
+	ProcessorEntityName            *string `json:"processor_entity_name,omitempty"`
+	CollectionEntityName           *string `json:"collection_entity_name,omitempty"`
+	Country                        *string `json:"country,omitempty"`
+	Fingerprint                    *string `json:"fingerprint,omitempty"`
+	Funding                        *string `json:"funding,omitempty"`
+	FinverseAuthorizationReference *string `json:"finverse_authorization_reference,omitempty"`
+	AdditionalProperties           map[string]interface{}
 }
 
 type _FVCardDetails FVCardDetails
@@ -343,6 +344,38 @@ func (o *FVCardDetails) SetFunding(v string) {
 	o.Funding = &v
 }
 
+// GetFinverseAuthorizationReference returns the FinverseAuthorizationReference field value if set, zero value otherwise.
+func (o *FVCardDetails) GetFinverseAuthorizationReference() string {
+	if o == nil || IsNil(o.FinverseAuthorizationReference) {
+		var ret string
+		return ret
+	}
+	return *o.FinverseAuthorizationReference
+}
+
+// GetFinverseAuthorizationReferenceOk returns a tuple with the FinverseAuthorizationReference field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FVCardDetails) GetFinverseAuthorizationReferenceOk() (*string, bool) {
+	if o == nil || IsNil(o.FinverseAuthorizationReference) {
+		return nil, false
+	}
+	return o.FinverseAuthorizationReference, true
+}
+
+// HasFinverseAuthorizationReference returns a boolean if a field has been set.
+func (o *FVCardDetails) HasFinverseAuthorizationReference() bool {
+	if o != nil && !IsNil(o.FinverseAuthorizationReference) {
+		return true
+	}
+
+	return false
+}
+
+// SetFinverseAuthorizationReference gets a reference to the given string and assigns it to the FinverseAuthorizationReference field.
+func (o *FVCardDetails) SetFinverseAuthorizationReference(v string) {
+	o.FinverseAuthorizationReference = &v
+}
+
 func (o FVCardDetails) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -380,6 +413,9 @@ func (o FVCardDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Funding) {
 		toSerialize["funding"] = o.Funding
 	}
+	if !IsNil(o.FinverseAuthorizationReference) {
+		toSerialize["finverse_authorization_reference"] = o.FinverseAuthorizationReference
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -411,6 +447,7 @@ func (o *FVCardDetails) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "country")
 		delete(additionalProperties, "fingerprint")
 		delete(additionalProperties, "funding")
+		delete(additionalProperties, "finverse_authorization_reference")
 		o.AdditionalProperties = additionalProperties
 	}
 

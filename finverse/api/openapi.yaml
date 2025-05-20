@@ -8087,6 +8087,7 @@ components:
               expiry_month: 7
               country: country
               funding: UNKNOWN
+              finverse_authorization_reference: finverse_authorization_reference
               fingerprint: fingerprint
               collection_entity_name: collection_entity_name
               brand: VISA
@@ -8268,6 +8269,7 @@ components:
                 expiry_month: 7
                 country: country
                 funding: UNKNOWN
+                finverse_authorization_reference: finverse_authorization_reference
                 fingerprint: fingerprint
                 collection_entity_name: collection_entity_name
                 brand: VISA
@@ -8358,6 +8360,7 @@ components:
                 expiry_month: 7
                 country: country
                 funding: UNKNOWN
+                finverse_authorization_reference: finverse_authorization_reference
                 fingerprint: fingerprint
                 collection_entity_name: collection_entity_name
                 brand: VISA
@@ -9590,6 +9593,7 @@ components:
               expiry_month: 7
               country: country
               funding: UNKNOWN
+              finverse_authorization_reference: finverse_authorization_reference
               fingerprint: fingerprint
               collection_entity_name: collection_entity_name
               brand: VISA
@@ -9703,6 +9707,7 @@ components:
               expiry_month: 7
               country: country
               funding: UNKNOWN
+              finverse_authorization_reference: finverse_authorization_reference
               fingerprint: fingerprint
               collection_entity_name: collection_entity_name
               brand: VISA
@@ -9903,6 +9908,7 @@ components:
                 expiry_month: 7
                 country: country
                 funding: UNKNOWN
+                finverse_authorization_reference: finverse_authorization_reference
                 fingerprint: fingerprint
                 collection_entity_name: collection_entity_name
                 brand: VISA
@@ -10008,6 +10014,7 @@ components:
               expiry_month: 7
               country: country
               funding: UNKNOWN
+              finverse_authorization_reference: finverse_authorization_reference
               fingerprint: fingerprint
               collection_entity_name: collection_entity_name
               brand: VISA
@@ -10308,6 +10315,7 @@ components:
           expiry_month: 7
           country: country
           funding: UNKNOWN
+          finverse_authorization_reference: finverse_authorization_reference
           fingerprint: fingerprint
           collection_entity_name: collection_entity_name
           brand: VISA
@@ -10355,6 +10363,7 @@ components:
         expiry_month: 7
         country: country
         funding: UNKNOWN
+        finverse_authorization_reference: finverse_authorization_reference
         fingerprint: fingerprint
         collection_entity_name: collection_entity_name
         brand: VISA
@@ -10391,6 +10400,8 @@ components:
           - CREDIT
           - DEBIT
           - PREPAID
+          type: string
+        finverse_authorization_reference:
           type: string
       type: object
     GetMandateResponse:
@@ -12684,6 +12695,7 @@ components:
             expiry_month: 7
             country: country
             funding: UNKNOWN
+            finverse_authorization_reference: finverse_authorization_reference
             fingerprint: fingerprint
             collection_entity_name: collection_entity_name
             brand: VISA
@@ -12927,6 +12939,7 @@ components:
             expiry_month: 7
             country: country
             funding: UNKNOWN
+            finverse_authorization_reference: finverse_authorization_reference
             fingerprint: fingerprint
             collection_entity_name: collection_entity_name
             brand: VISA
@@ -13142,6 +13155,7 @@ components:
           expiry_month: 7
           country: country
           funding: UNKNOWN
+          finverse_authorization_reference: finverse_authorization_reference
           fingerprint: fingerprint
           collection_entity_name: collection_entity_name
           brand: VISA
