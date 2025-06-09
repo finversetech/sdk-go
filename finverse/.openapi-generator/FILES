@@ -171,6 +171,8 @@ model_payment_method_integration_metadata_stripe_metadata.go
 model_payment_method_integration_metadata_stripe_metadata_customer.go
 model_payment_method_overview.go
 model_payment_method_response.go
+model_payment_processor_details.go
+model_payment_processor_result.go
 model_payment_response.go
 model_payment_schedule.go
 model_payment_setup_options.go

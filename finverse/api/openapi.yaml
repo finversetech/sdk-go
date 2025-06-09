@@ -7919,6 +7919,15 @@ components:
             finverse_transaction_reference: finverse_transaction_reference
             dda_reference: dda_reference
           external_transaction_reference: external_transaction_reference
+          recurring_payment_mode: recurring_payment_mode
+          processor_details:
+            result:
+              decline_code: decline_code
+              result_code: result_code
+              decline_reason: decline_reason
+            processor_reference: processor_reference
+            processor_id: processor_id
+            auth_code: auth_code
           description: description
           mandate_id: mandate_id
           collection_entity_name: collection_entity_name
@@ -7961,6 +7970,15 @@ components:
           finverse_transaction_reference: finverse_transaction_reference
           dda_reference: dda_reference
         external_transaction_reference: external_transaction_reference
+        recurring_payment_mode: recurring_payment_mode
+        processor_details:
+          result:
+            decline_code: decline_code
+            result_code: result_code
+            decline_reason: decline_reason
+          processor_reference: processor_reference
+          processor_id: processor_id
+          auth_code: auth_code
         description: description
         mandate_id: mandate_id
         collection_entity_name: collection_entity_name
@@ -7987,6 +8005,11 @@ components:
           type: string
         collection_entity_name:
           type: string
+        processor_details:
+          $ref: '#/components/schemas/PaymentProcessorDetails'
+        recurring_payment_mode:
+          description: The recurring payment mode
+          type: string
       type: object
     PaymentDetailsReferences:
       example:
@@ -7999,6 +8022,42 @@ components:
         dda_reference:
           type: string
         bank_transaction_reference:
+          type: string
+      type: object
+    PaymentProcessorDetails:
+      example:
+        result:
+          decline_code: decline_code
+          result_code: result_code
+          decline_reason: decline_reason
+        processor_reference: processor_reference
+        processor_id: processor_id
+        auth_code: auth_code
+      properties:
+        auth_code:
+          type: string
+        processor_id:
+          type: string
+        processor_reference:
+          type: string
+        result:
+          $ref: '#/components/schemas/PaymentProcessorResult'
+      type: object
+    PaymentProcessorResult:
+      example:
+        decline_code: decline_code
+        result_code: result_code
+        decline_reason: decline_reason
+      properties:
+        decline_code:
+          description: Payment processor's decline code (e.g. "2")
+          type: string
+        decline_reason:
+          description: Payment processor's decline explanation (e.g. "Blocked card")
+          type: string
+        result_code:
+          description: "Payment processor's result code (e.g. \"Authorized\", \"Refused\"\
+            )."
           type: string
       type: object
     PaymentResponse:
@@ -8022,6 +8081,15 @@ components:
             finverse_transaction_reference: finverse_transaction_reference
             dda_reference: dda_reference
           external_transaction_reference: external_transaction_reference
+          recurring_payment_mode: recurring_payment_mode
+          processor_details:
+            result:
+              decline_code: decline_code
+              result_code: result_code
+              decline_reason: decline_reason
+            processor_reference: processor_reference
+            processor_id: processor_id
+            auth_code: auth_code
           description: description
           mandate_id: mandate_id
           collection_entity_name: collection_entity_name
@@ -8210,6 +8278,15 @@ components:
               finverse_transaction_reference: finverse_transaction_reference
               dda_reference: dda_reference
             external_transaction_reference: external_transaction_reference
+            recurring_payment_mode: recurring_payment_mode
+            processor_details:
+              result:
+                decline_code: decline_code
+                result_code: result_code
+                decline_reason: decline_reason
+              processor_reference: processor_reference
+              processor_id: processor_id
+              auth_code: auth_code
             description: description
             mandate_id: mandate_id
             collection_entity_name: collection_entity_name
@@ -8307,6 +8384,15 @@ components:
               finverse_transaction_reference: finverse_transaction_reference
               dda_reference: dda_reference
             external_transaction_reference: external_transaction_reference
+            recurring_payment_mode: recurring_payment_mode
+            processor_details:
+              result:
+                decline_code: decline_code
+                result_code: result_code
+                decline_reason: decline_reason
+              processor_reference: processor_reference
+              processor_id: processor_id
+              auth_code: auth_code
             description: description
             mandate_id: mandate_id
             collection_entity_name: collection_entity_name
@@ -9873,6 +9959,15 @@ components:
               finverse_transaction_reference: finverse_transaction_reference
               dda_reference: dda_reference
             external_transaction_reference: external_transaction_reference
+            recurring_payment_mode: recurring_payment_mode
+            processor_details:
+              result:
+                decline_code: decline_code
+                result_code: result_code
+                decline_reason: decline_reason
+              processor_reference: processor_reference
+              processor_id: processor_id
+              auth_code: auth_code
             description: description
             mandate_id: mandate_id
             collection_entity_name: collection_entity_name

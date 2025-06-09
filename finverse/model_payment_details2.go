@@ -31,7 +31,10 @@ type PaymentDetails2 struct {
 	References                   *PaymentDetailsReferences `json:"references,omitempty"`
 	ProcessorEntityName          *string                   `json:"processor_entity_name,omitempty"`
 	CollectionEntityName         *string                   `json:"collection_entity_name,omitempty"`
-	AdditionalProperties         map[string]interface{}
+	ProcessorDetails             *PaymentProcessorDetails  `json:"processor_details,omitempty"`
+	// The recurring payment mode
+	RecurringPaymentMode *string `json:"recurring_payment_mode,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PaymentDetails2 PaymentDetails2
@@ -277,6 +280,70 @@ func (o *PaymentDetails2) SetCollectionEntityName(v string) {
 	o.CollectionEntityName = &v
 }
 
+// GetProcessorDetails returns the ProcessorDetails field value if set, zero value otherwise.
+func (o *PaymentDetails2) GetProcessorDetails() PaymentProcessorDetails {
+	if o == nil || IsNil(o.ProcessorDetails) {
+		var ret PaymentProcessorDetails
+		return ret
+	}
+	return *o.ProcessorDetails
+}
+
+// GetProcessorDetailsOk returns a tuple with the ProcessorDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentDetails2) GetProcessorDetailsOk() (*PaymentProcessorDetails, bool) {
+	if o == nil || IsNil(o.ProcessorDetails) {
+		return nil, false
+	}
+	return o.ProcessorDetails, true
+}
+
+// HasProcessorDetails returns a boolean if a field has been set.
+func (o *PaymentDetails2) HasProcessorDetails() bool {
+	if o != nil && !IsNil(o.ProcessorDetails) {
+		return true
+	}
+
+	return false
+}
+
+// SetProcessorDetails gets a reference to the given PaymentProcessorDetails and assigns it to the ProcessorDetails field.
+func (o *PaymentDetails2) SetProcessorDetails(v PaymentProcessorDetails) {
+	o.ProcessorDetails = &v
+}
+
+// GetRecurringPaymentMode returns the RecurringPaymentMode field value if set, zero value otherwise.
+func (o *PaymentDetails2) GetRecurringPaymentMode() string {
+	if o == nil || IsNil(o.RecurringPaymentMode) {
+		var ret string
+		return ret
+	}
+	return *o.RecurringPaymentMode
+}
+
+// GetRecurringPaymentModeOk returns a tuple with the RecurringPaymentMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentDetails2) GetRecurringPaymentModeOk() (*string, bool) {
+	if o == nil || IsNil(o.RecurringPaymentMode) {
+		return nil, false
+	}
+	return o.RecurringPaymentMode, true
+}
+
+// HasRecurringPaymentMode returns a boolean if a field has been set.
+func (o *PaymentDetails2) HasRecurringPaymentMode() bool {
+	if o != nil && !IsNil(o.RecurringPaymentMode) {
+		return true
+	}
+
+	return false
+}
+
+// SetRecurringPaymentMode gets a reference to the given string and assigns it to the RecurringPaymentMode field.
+func (o *PaymentDetails2) SetRecurringPaymentMode(v string) {
+	o.RecurringPaymentMode = &v
+}
+
 func (o PaymentDetails2) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -308,6 +375,12 @@ func (o PaymentDetails2) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CollectionEntityName) {
 		toSerialize["collection_entity_name"] = o.CollectionEntityName
 	}
+	if !IsNil(o.ProcessorDetails) {
+		toSerialize["processor_details"] = o.ProcessorDetails
+	}
+	if !IsNil(o.RecurringPaymentMode) {
+		toSerialize["recurring_payment_mode"] = o.RecurringPaymentMode
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -337,6 +410,8 @@ func (o *PaymentDetails2) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "references")
 		delete(additionalProperties, "processor_entity_name")
 		delete(additionalProperties, "collection_entity_name")
+		delete(additionalProperties, "processor_details")
+		delete(additionalProperties, "recurring_payment_mode")
 		o.AdditionalProperties = additionalProperties
 	}
 
