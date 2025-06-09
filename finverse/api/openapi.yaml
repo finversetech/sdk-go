@@ -8088,6 +8088,12 @@ components:
               country: country
               funding: UNKNOWN
               finverse_authorization_reference: finverse_authorization_reference
+              recurring_payment_mode: recurring_payment_mode
+              processor_details:
+                processor_reference: processor_reference
+                token_id: token_id
+                processor_id: processor_id
+                auth_code: auth_code
               fingerprint: fingerprint
               collection_entity_name: collection_entity_name
               brand: VISA
@@ -8270,6 +8276,12 @@ components:
                 country: country
                 funding: UNKNOWN
                 finverse_authorization_reference: finverse_authorization_reference
+                recurring_payment_mode: recurring_payment_mode
+                processor_details:
+                  processor_reference: processor_reference
+                  token_id: token_id
+                  processor_id: processor_id
+                  auth_code: auth_code
                 fingerprint: fingerprint
                 collection_entity_name: collection_entity_name
                 brand: VISA
@@ -8361,6 +8373,12 @@ components:
                 country: country
                 funding: UNKNOWN
                 finverse_authorization_reference: finverse_authorization_reference
+                recurring_payment_mode: recurring_payment_mode
+                processor_details:
+                  processor_reference: processor_reference
+                  token_id: token_id
+                  processor_id: processor_id
+                  auth_code: auth_code
                 fingerprint: fingerprint
                 collection_entity_name: collection_entity_name
                 brand: VISA
@@ -9594,6 +9612,12 @@ components:
               country: country
               funding: UNKNOWN
               finverse_authorization_reference: finverse_authorization_reference
+              recurring_payment_mode: recurring_payment_mode
+              processor_details:
+                processor_reference: processor_reference
+                token_id: token_id
+                processor_id: processor_id
+                auth_code: auth_code
               fingerprint: fingerprint
               collection_entity_name: collection_entity_name
               brand: VISA
@@ -9708,6 +9732,12 @@ components:
               country: country
               funding: UNKNOWN
               finverse_authorization_reference: finverse_authorization_reference
+              recurring_payment_mode: recurring_payment_mode
+              processor_details:
+                processor_reference: processor_reference
+                token_id: token_id
+                processor_id: processor_id
+                auth_code: auth_code
               fingerprint: fingerprint
               collection_entity_name: collection_entity_name
               brand: VISA
@@ -9909,6 +9939,12 @@ components:
                 country: country
                 funding: UNKNOWN
                 finverse_authorization_reference: finverse_authorization_reference
+                recurring_payment_mode: recurring_payment_mode
+                processor_details:
+                  processor_reference: processor_reference
+                  token_id: token_id
+                  processor_id: processor_id
+                  auth_code: auth_code
                 fingerprint: fingerprint
                 collection_entity_name: collection_entity_name
                 brand: VISA
@@ -10015,6 +10051,12 @@ components:
               country: country
               funding: UNKNOWN
               finverse_authorization_reference: finverse_authorization_reference
+              recurring_payment_mode: recurring_payment_mode
+              processor_details:
+                processor_reference: processor_reference
+                token_id: token_id
+                processor_id: processor_id
+                auth_code: auth_code
               fingerprint: fingerprint
               collection_entity_name: collection_entity_name
               brand: VISA
@@ -10316,6 +10358,12 @@ components:
           country: country
           funding: UNKNOWN
           finverse_authorization_reference: finverse_authorization_reference
+          recurring_payment_mode: recurring_payment_mode
+          processor_details:
+            processor_reference: processor_reference
+            token_id: token_id
+            processor_id: processor_id
+            auth_code: auth_code
           fingerprint: fingerprint
           collection_entity_name: collection_entity_name
           brand: VISA
@@ -10364,6 +10412,12 @@ components:
         country: country
         funding: UNKNOWN
         finverse_authorization_reference: finverse_authorization_reference
+        recurring_payment_mode: recurring_payment_mode
+        processor_details:
+          processor_reference: processor_reference
+          token_id: token_id
+          processor_id: processor_id
+          auth_code: auth_code
         fingerprint: fingerprint
         collection_entity_name: collection_entity_name
         brand: VISA
@@ -10402,6 +10456,27 @@ components:
           - PREPAID
           type: string
         finverse_authorization_reference:
+          type: string
+        processor_details:
+          $ref: '#/components/schemas/FVCardProcessorDetails'
+        recurring_payment_mode:
+          description: The recurring payment mode
+          type: string
+      type: object
+    FVCardProcessorDetails:
+      example:
+        processor_reference: processor_reference
+        token_id: token_id
+        processor_id: processor_id
+        auth_code: auth_code
+      properties:
+        auth_code:
+          type: string
+        processor_id:
+          type: string
+        processor_reference:
+          type: string
+        token_id:
           type: string
       type: object
     GetMandateResponse:
@@ -12696,6 +12771,12 @@ components:
             country: country
             funding: UNKNOWN
             finverse_authorization_reference: finverse_authorization_reference
+            recurring_payment_mode: recurring_payment_mode
+            processor_details:
+              processor_reference: processor_reference
+              token_id: token_id
+              processor_id: processor_id
+              auth_code: auth_code
             fingerprint: fingerprint
             collection_entity_name: collection_entity_name
             brand: VISA
@@ -12940,6 +13021,12 @@ components:
             country: country
             funding: UNKNOWN
             finverse_authorization_reference: finverse_authorization_reference
+            recurring_payment_mode: recurring_payment_mode
+            processor_details:
+              processor_reference: processor_reference
+              token_id: token_id
+              processor_id: processor_id
+              auth_code: auth_code
             fingerprint: fingerprint
             collection_entity_name: collection_entity_name
             brand: VISA
@@ -13156,6 +13243,12 @@ components:
           country: country
           funding: UNKNOWN
           finverse_authorization_reference: finverse_authorization_reference
+          recurring_payment_mode: recurring_payment_mode
+          processor_details:
+            processor_reference: processor_reference
+            token_id: token_id
+            processor_id: processor_id
+            auth_code: auth_code
           fingerprint: fingerprint
           collection_entity_name: collection_entity_name
           brand: VISA

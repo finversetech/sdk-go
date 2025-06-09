@@ -27,14 +27,17 @@ type FVCardDetails struct {
 	// The credit card expiry month
 	ExpiryMonth *int32 `json:"expiry_month,omitempty"`
 	// The credit card expiry year
-	ExpiryYear                     *int32  `json:"expiry_year,omitempty"`
-	ProcessorEntityName            *string `json:"processor_entity_name,omitempty"`
-	CollectionEntityName           *string `json:"collection_entity_name,omitempty"`
-	Country                        *string `json:"country,omitempty"`
-	Fingerprint                    *string `json:"fingerprint,omitempty"`
-	Funding                        *string `json:"funding,omitempty"`
-	FinverseAuthorizationReference *string `json:"finverse_authorization_reference,omitempty"`
-	AdditionalProperties           map[string]interface{}
+	ExpiryYear                     *int32                  `json:"expiry_year,omitempty"`
+	ProcessorEntityName            *string                 `json:"processor_entity_name,omitempty"`
+	CollectionEntityName           *string                 `json:"collection_entity_name,omitempty"`
+	Country                        *string                 `json:"country,omitempty"`
+	Fingerprint                    *string                 `json:"fingerprint,omitempty"`
+	Funding                        *string                 `json:"funding,omitempty"`
+	FinverseAuthorizationReference *string                 `json:"finverse_authorization_reference,omitempty"`
+	ProcessorDetails               *FVCardProcessorDetails `json:"processor_details,omitempty"`
+	// The recurring payment mode
+	RecurringPaymentMode *string `json:"recurring_payment_mode,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _FVCardDetails FVCardDetails
@@ -376,6 +379,70 @@ func (o *FVCardDetails) SetFinverseAuthorizationReference(v string) {
 	o.FinverseAuthorizationReference = &v
 }
 
+// GetProcessorDetails returns the ProcessorDetails field value if set, zero value otherwise.
+func (o *FVCardDetails) GetProcessorDetails() FVCardProcessorDetails {
+	if o == nil || IsNil(o.ProcessorDetails) {
+		var ret FVCardProcessorDetails
+		return ret
+	}
+	return *o.ProcessorDetails
+}
+
+// GetProcessorDetailsOk returns a tuple with the ProcessorDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FVCardDetails) GetProcessorDetailsOk() (*FVCardProcessorDetails, bool) {
+	if o == nil || IsNil(o.ProcessorDetails) {
+		return nil, false
+	}
+	return o.ProcessorDetails, true
+}
+
+// HasProcessorDetails returns a boolean if a field has been set.
+func (o *FVCardDetails) HasProcessorDetails() bool {
+	if o != nil && !IsNil(o.ProcessorDetails) {
+		return true
+	}
+
+	return false
+}
+
+// SetProcessorDetails gets a reference to the given FVCardProcessorDetails and assigns it to the ProcessorDetails field.
+func (o *FVCardDetails) SetProcessorDetails(v FVCardProcessorDetails) {
+	o.ProcessorDetails = &v
+}
+
+// GetRecurringPaymentMode returns the RecurringPaymentMode field value if set, zero value otherwise.
+func (o *FVCardDetails) GetRecurringPaymentMode() string {
+	if o == nil || IsNil(o.RecurringPaymentMode) {
+		var ret string
+		return ret
+	}
+	return *o.RecurringPaymentMode
+}
+
+// GetRecurringPaymentModeOk returns a tuple with the RecurringPaymentMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FVCardDetails) GetRecurringPaymentModeOk() (*string, bool) {
+	if o == nil || IsNil(o.RecurringPaymentMode) {
+		return nil, false
+	}
+	return o.RecurringPaymentMode, true
+}
+
+// HasRecurringPaymentMode returns a boolean if a field has been set.
+func (o *FVCardDetails) HasRecurringPaymentMode() bool {
+	if o != nil && !IsNil(o.RecurringPaymentMode) {
+		return true
+	}
+
+	return false
+}
+
+// SetRecurringPaymentMode gets a reference to the given string and assigns it to the RecurringPaymentMode field.
+func (o *FVCardDetails) SetRecurringPaymentMode(v string) {
+	o.RecurringPaymentMode = &v
+}
+
 func (o FVCardDetails) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -416,6 +483,12 @@ func (o FVCardDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.FinverseAuthorizationReference) {
 		toSerialize["finverse_authorization_reference"] = o.FinverseAuthorizationReference
 	}
+	if !IsNil(o.ProcessorDetails) {
+		toSerialize["processor_details"] = o.ProcessorDetails
+	}
+	if !IsNil(o.RecurringPaymentMode) {
+		toSerialize["recurring_payment_mode"] = o.RecurringPaymentMode
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -448,6 +521,8 @@ func (o *FVCardDetails) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "fingerprint")
 		delete(additionalProperties, "funding")
 		delete(additionalProperties, "finverse_authorization_reference")
+		delete(additionalProperties, "processor_details")
+		delete(additionalProperties, "recurring_payment_mode")
 		o.AdditionalProperties = additionalProperties
 	}
 
