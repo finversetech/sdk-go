@@ -3456,6 +3456,76 @@ paths:
       security:
       - Oauth2:
         - ledger:statement
+  /disputes:
+    get:
+      description: List Disputes
+      operationId: listDisputes
+      parameters:
+      - description: ISO format (YYYY-MM-DD)
+        in: query
+        name: date_from
+        schema:
+          format: date
+          type: string
+      - description: ISO format (YYYY-MM-DD)
+        in: query
+        name: date_to
+        schema:
+          format: date
+          type: string
+      - description: "The dispute statuses to filter for, comma separated"
+        explode: false
+        in: query
+        name: statuses
+        schema:
+          items:
+            enum:
+            - UNDEFENDED
+            - ACTION_REQUIRED
+            - PROCESSING
+            - ACCEPTED
+            - LOST
+            - WON
+            type: string
+          type: array
+        style: form
+      - description: "The currencies to filter for, comma separated"
+        explode: false
+        in: query
+        name: currencies
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListDisputesResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - dispute:list
 components:
   schemas:
     Principal:
@@ -13222,6 +13292,173 @@ components:
       required:
       - download_url
       type: object
+    DisputeResponse:
+      example:
+        card_details:
+          brand: visa
+        issuer_comments:
+          key: issuer_comments
+        last_event_name: last_event_name
+        created_at: 2000-01-23T04:56:07.000+00:00
+        payment_processor_dispute_reference: payment_processor_dispute_reference
+        payment_reference: payment_reference
+        dispute_id: dispute_id
+        dispute_status: UNDEFENDED
+        is_defendable: true
+        payment_processor_account_id: payment_processor_account_id
+        is_auto_defended: true
+        payment_processor_payment_reference: payment_processor_payment_reference
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        payment_processor_dispute_status: payment_processor_dispute_status
+        disputed_amount: 0
+        currency: HKD
+        payment_processor_dispute_code: payment_processor_dispute_code
+        payment_processor: ADYEN
+        arn: arn
+        defense_period_deadline: 2000-01-23T04:56:07.000+00:00
+        payment_processor_dispute_reason: payment_processor_dispute_reason
+      properties:
+        dispute_id:
+          description: The dispute id
+          type: string
+        disputed_amount:
+          description: "Amount to be disputed, in currency's smallest unit or “minor\
+            \ unit”, as defined in ISO 4217. For example, HKD 100.01 is represented\
+            \ as amount = 10001 (minor unit = cents). For currencies without minor\
+            \ units (e.g. VND, JPY), the amount is represented as is, without modification.\
+            \ For example, VND 15101 is represented as amount = 15101."
+          type: integer
+        currency:
+          description: The currency of the balance
+          example: HKD
+          type: string
+        last_event_name:
+          description: The name of the last event for this dispute
+          type: string
+        payment_processor:
+          description: The payment processor handling the dispute
+          example: ADYEN
+          type: string
+        payment_processor_account_id:
+          description: The account ID at the payment processor
+          type: string
+        payment_reference:
+          description: The payment reference for the disputed transaction
+          type: string
+        payment_processor_payment_reference:
+          description: The payment processor's payment reference
+          type: string
+        card_details:
+          $ref: '#/components/schemas/DisputeResponse_card_details'
+        payment_processor_dispute_reference:
+          description: The payment processor's dispute reference
+          type: string
+        payment_processor_dispute_reason:
+          description: The reason for the dispute as provided by the payment processor
+          type: string
+        arn:
+          description: Acquirer Reference Number
+          type: string
+        payment_processor_dispute_code:
+          description: The dispute code from the payment processor
+          type: string
+        is_defendable:
+          description: Whether the dispute is defendable
+          type: boolean
+        dispute_status:
+          description: The status of the dispute
+          enum:
+          - UNDEFENDED
+          - ACTION_REQUIRED
+          - PROCESSING
+          - ACCEPTED
+          - LOST
+          - WON
+          type: string
+        payment_processor_dispute_status:
+          description: The status of the dispute at the payment processor
+          type: string
+        is_auto_defended:
+          description: Whether the dispute was automatically defended
+          type: boolean
+        defense_period_deadline:
+          description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+          format: date-time
+          type: string
+        issuer_comments:
+          additionalProperties:
+            type: string
+          type: object
+        created_at:
+          description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+          format: date-time
+          type: string
+        updated_at:
+          description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+          format: date-time
+          type: string
+      type: object
+    ListDisputesResponse:
+      example:
+        total_disputes: 6
+        disputes:
+        - card_details:
+            brand: visa
+          issuer_comments:
+            key: issuer_comments
+          last_event_name: last_event_name
+          created_at: 2000-01-23T04:56:07.000+00:00
+          payment_processor_dispute_reference: payment_processor_dispute_reference
+          payment_reference: payment_reference
+          dispute_id: dispute_id
+          dispute_status: UNDEFENDED
+          is_defendable: true
+          payment_processor_account_id: payment_processor_account_id
+          is_auto_defended: true
+          payment_processor_payment_reference: payment_processor_payment_reference
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          payment_processor_dispute_status: payment_processor_dispute_status
+          disputed_amount: 0
+          currency: HKD
+          payment_processor_dispute_code: payment_processor_dispute_code
+          payment_processor: ADYEN
+          arn: arn
+          defense_period_deadline: 2000-01-23T04:56:07.000+00:00
+          payment_processor_dispute_reason: payment_processor_dispute_reason
+        - card_details:
+            brand: visa
+          issuer_comments:
+            key: issuer_comments
+          last_event_name: last_event_name
+          created_at: 2000-01-23T04:56:07.000+00:00
+          payment_processor_dispute_reference: payment_processor_dispute_reference
+          payment_reference: payment_reference
+          dispute_id: dispute_id
+          dispute_status: UNDEFENDED
+          is_defendable: true
+          payment_processor_account_id: payment_processor_account_id
+          is_auto_defended: true
+          payment_processor_payment_reference: payment_processor_payment_reference
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          payment_processor_dispute_status: payment_processor_dispute_status
+          disputed_amount: 0
+          currency: HKD
+          payment_processor_dispute_code: payment_processor_dispute_code
+          payment_processor: ADYEN
+          arn: arn
+          defense_period_deadline: 2000-01-23T04:56:07.000+00:00
+          payment_processor_dispute_reason: payment_processor_dispute_reason
+      properties:
+        disputes:
+          items:
+            $ref: '#/components/schemas/DisputeResponse'
+          type: array
+        total_disputes:
+          type: integer
+      required:
+      - disputes
+      - total_disputes
+      type: object
     token_request:
       properties:
         grant_type:
@@ -13375,6 +13612,14 @@ components:
       - brand
       - currency
       - last4
+      type: object
+    DisputeResponse_card_details:
+      example:
+        brand: visa
+      properties:
+        brand:
+          example: visa
+          type: string
       type: object
   securitySchemes:
     Oauth2:

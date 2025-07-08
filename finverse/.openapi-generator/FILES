@@ -56,6 +56,8 @@ model_create_scheduled_payout_request.go
 model_currency_amount.go
 model_customer_payment_instruction.go
 model_delete_login_identity_response.go
+model_dispute_response.go
+model_dispute_response_card_details.go
 model_download_balance_statement_response.go
 model_encrypted_payload.go
 model_err_body_model.go
@@ -113,6 +115,7 @@ model_link_token_response.go
 model_link_token_user_configs.go
 model_list_accounts_response.go
 model_list_cards_details_response.go
+model_list_disputes_response.go
 model_list_mandates_response.go
 model_list_payment_accounts_response.go
 model_list_payment_accounts_with_enriched_data_response.go
