@@ -13296,6 +13296,7 @@ components:
       example:
         card_details:
           brand: visa
+        amount: 0
         issuer_comments:
           key: issuer_comments
         last_event_name: last_event_name
@@ -13309,8 +13310,8 @@ components:
         is_auto_defended: true
         payment_processor_payment_reference: payment_processor_payment_reference
         updated_at: 2000-01-23T04:56:07.000+00:00
+        payment_id: payment_id
         payment_processor_dispute_status: payment_processor_dispute_status
-        disputed_amount: 0
         currency: HKD
         payment_processor_dispute_code: payment_processor_dispute_code
         payment_processor: ADYEN
@@ -13321,7 +13322,7 @@ components:
         dispute_id:
           description: The dispute id
           type: string
-        disputed_amount:
+        amount:
           description: "Amount to be disputed, in currency's smallest unit or “minor\
             \ unit”, as defined in ISO 4217. For example, HKD 100.01 is represented\
             \ as amount = 10001 (minor unit = cents). For currencies without minor\
@@ -13334,6 +13335,9 @@ components:
           type: string
         last_event_name:
           description: The name of the last event for this dispute
+          type: string
+        payment_id:
+          description: The payment id
           type: string
         payment_processor:
           description: The payment processor handling the dispute
@@ -13404,6 +13408,7 @@ components:
         disputes:
         - card_details:
             brand: visa
+          amount: 0
           issuer_comments:
             key: issuer_comments
           last_event_name: last_event_name
@@ -13417,8 +13422,8 @@ components:
           is_auto_defended: true
           payment_processor_payment_reference: payment_processor_payment_reference
           updated_at: 2000-01-23T04:56:07.000+00:00
+          payment_id: payment_id
           payment_processor_dispute_status: payment_processor_dispute_status
-          disputed_amount: 0
           currency: HKD
           payment_processor_dispute_code: payment_processor_dispute_code
           payment_processor: ADYEN
@@ -13427,6 +13432,7 @@ components:
           payment_processor_dispute_reason: payment_processor_dispute_reason
         - card_details:
             brand: visa
+          amount: 0
           issuer_comments:
             key: issuer_comments
           last_event_name: last_event_name
@@ -13440,8 +13446,8 @@ components:
           is_auto_defended: true
           payment_processor_payment_reference: payment_processor_payment_reference
           updated_at: 2000-01-23T04:56:07.000+00:00
+          payment_id: payment_id
           payment_processor_dispute_status: payment_processor_dispute_status
-          disputed_amount: 0
           currency: HKD
           payment_processor_dispute_code: payment_processor_dispute_code
           payment_processor: ADYEN

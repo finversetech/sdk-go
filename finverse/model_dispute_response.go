@@ -24,11 +24,13 @@ type DisputeResponse struct {
 	// The dispute id
 	DisputeId *string `json:"dispute_id,omitempty"`
 	// Amount to be disputed, in currency's smallest unit or “minor unit”, as defined in ISO 4217. For example, HKD 100.01 is represented as amount = 10001 (minor unit = cents). For currencies without minor units (e.g. VND, JPY), the amount is represented as is, without modification. For example, VND 15101 is represented as amount = 15101.
-	DisputedAmount *int32 `json:"disputed_amount,omitempty"`
+	Amount *int32 `json:"amount,omitempty"`
 	// The currency of the balance
 	Currency *string `json:"currency,omitempty"`
 	// The name of the last event for this dispute
 	LastEventName *string `json:"last_event_name,omitempty"`
+	// The payment id
+	PaymentId *string `json:"payment_id,omitempty"`
 	// The payment processor handling the dispute
 	PaymentProcessor *string `json:"payment_processor,omitempty"`
 	// The account ID at the payment processor
@@ -115,36 +117,36 @@ func (o *DisputeResponse) SetDisputeId(v string) {
 	o.DisputeId = &v
 }
 
-// GetDisputedAmount returns the DisputedAmount field value if set, zero value otherwise.
-func (o *DisputeResponse) GetDisputedAmount() int32 {
-	if o == nil || IsNil(o.DisputedAmount) {
+// GetAmount returns the Amount field value if set, zero value otherwise.
+func (o *DisputeResponse) GetAmount() int32 {
+	if o == nil || IsNil(o.Amount) {
 		var ret int32
 		return ret
 	}
-	return *o.DisputedAmount
+	return *o.Amount
 }
 
-// GetDisputedAmountOk returns a tuple with the DisputedAmount field value if set, nil otherwise
+// GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DisputeResponse) GetDisputedAmountOk() (*int32, bool) {
-	if o == nil || IsNil(o.DisputedAmount) {
+func (o *DisputeResponse) GetAmountOk() (*int32, bool) {
+	if o == nil || IsNil(o.Amount) {
 		return nil, false
 	}
-	return o.DisputedAmount, true
+	return o.Amount, true
 }
 
-// HasDisputedAmount returns a boolean if a field has been set.
-func (o *DisputeResponse) HasDisputedAmount() bool {
-	if o != nil && !IsNil(o.DisputedAmount) {
+// HasAmount returns a boolean if a field has been set.
+func (o *DisputeResponse) HasAmount() bool {
+	if o != nil && !IsNil(o.Amount) {
 		return true
 	}
 
 	return false
 }
 
-// SetDisputedAmount gets a reference to the given int32 and assigns it to the DisputedAmount field.
-func (o *DisputeResponse) SetDisputedAmount(v int32) {
-	o.DisputedAmount = &v
+// SetAmount gets a reference to the given int32 and assigns it to the Amount field.
+func (o *DisputeResponse) SetAmount(v int32) {
+	o.Amount = &v
 }
 
 // GetCurrency returns the Currency field value if set, zero value otherwise.
@@ -209,6 +211,38 @@ func (o *DisputeResponse) HasLastEventName() bool {
 // SetLastEventName gets a reference to the given string and assigns it to the LastEventName field.
 func (o *DisputeResponse) SetLastEventName(v string) {
 	o.LastEventName = &v
+}
+
+// GetPaymentId returns the PaymentId field value if set, zero value otherwise.
+func (o *DisputeResponse) GetPaymentId() string {
+	if o == nil || IsNil(o.PaymentId) {
+		var ret string
+		return ret
+	}
+	return *o.PaymentId
+}
+
+// GetPaymentIdOk returns a tuple with the PaymentId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *DisputeResponse) GetPaymentIdOk() (*string, bool) {
+	if o == nil || IsNil(o.PaymentId) {
+		return nil, false
+	}
+	return o.PaymentId, true
+}
+
+// HasPaymentId returns a boolean if a field has been set.
+func (o *DisputeResponse) HasPaymentId() bool {
+	if o != nil && !IsNil(o.PaymentId) {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentId gets a reference to the given string and assigns it to the PaymentId field.
+func (o *DisputeResponse) SetPaymentId(v string) {
+	o.PaymentId = &v
 }
 
 // GetPaymentProcessor returns the PaymentProcessor field value if set, zero value otherwise.
@@ -768,14 +802,17 @@ func (o DisputeResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.DisputeId) {
 		toSerialize["dispute_id"] = o.DisputeId
 	}
-	if !IsNil(o.DisputedAmount) {
-		toSerialize["disputed_amount"] = o.DisputedAmount
+	if !IsNil(o.Amount) {
+		toSerialize["amount"] = o.Amount
 	}
 	if !IsNil(o.Currency) {
 		toSerialize["currency"] = o.Currency
 	}
 	if !IsNil(o.LastEventName) {
 		toSerialize["last_event_name"] = o.LastEventName
+	}
+	if !IsNil(o.PaymentId) {
+		toSerialize["payment_id"] = o.PaymentId
 	}
 	if !IsNil(o.PaymentProcessor) {
 		toSerialize["payment_processor"] = o.PaymentProcessor
@@ -851,9 +888,10 @@ func (o *DisputeResponse) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "dispute_id")
-		delete(additionalProperties, "disputed_amount")
+		delete(additionalProperties, "amount")
 		delete(additionalProperties, "currency")
 		delete(additionalProperties, "last_event_name")
+		delete(additionalProperties, "payment_id")
 		delete(additionalProperties, "payment_processor")
 		delete(additionalProperties, "payment_processor_account_id")
 		delete(additionalProperties, "payment_reference")
