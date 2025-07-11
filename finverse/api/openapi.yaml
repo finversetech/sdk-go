@@ -3480,6 +3480,7 @@ paths:
         schema:
           items:
             enum:
+            - UNKNOWN
             - UNDEFENDED
             - ACTION_REQUIRED
             - PROCESSING
@@ -13295,7 +13296,7 @@ components:
         payment_processor_dispute_reference: payment_processor_dispute_reference
         payment_reference: payment_reference
         dispute_id: dispute_id
-        dispute_status: UNDEFENDED
+        dispute_status: UNKNOWN
         is_defendable: true
         payment_processor_account_id: payment_processor_account_id
         is_auto_defended: true
@@ -13363,6 +13364,7 @@ components:
         dispute_status:
           description: The status of the dispute
           enum:
+          - UNKNOWN
           - UNDEFENDED
           - ACTION_REQUIRED
           - PROCESSING
@@ -13407,7 +13409,7 @@ components:
           payment_processor_dispute_reference: payment_processor_dispute_reference
           payment_reference: payment_reference
           dispute_id: dispute_id
-          dispute_status: UNDEFENDED
+          dispute_status: UNKNOWN
           is_defendable: true
           payment_processor_account_id: payment_processor_account_id
           is_auto_defended: true
@@ -13431,7 +13433,7 @@ components:
           payment_processor_dispute_reference: payment_processor_dispute_reference
           payment_reference: payment_reference
           dispute_id: dispute_id
-          dispute_status: UNDEFENDED
+          dispute_status: UNKNOWN
           is_defendable: true
           payment_processor_account_id: payment_processor_account_id
           is_auto_defended: true
