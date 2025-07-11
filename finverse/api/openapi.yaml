@@ -3489,15 +3489,6 @@ paths:
             type: string
           type: array
         style: form
-      - description: "The currencies to filter for, comma separated"
-        explode: false
-        in: query
-        name: currencies
-        schema:
-          items:
-            type: string
-          type: array
-        style: form
       responses:
         "200":
           content:

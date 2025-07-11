@@ -3753,7 +3753,6 @@ type DefaultAPIListDisputesRequest struct {
 	dateFrom   *string
 	dateTo     *string
 	statuses   *[]string
-	currencies *[]string
 }
 
 // ISO format (YYYY-MM-DD)
@@ -3771,12 +3770,6 @@ func (r DefaultAPIListDisputesRequest) DateTo(dateTo string) DefaultAPIListDispu
 // The dispute statuses to filter for, comma separated
 func (r DefaultAPIListDisputesRequest) Statuses(statuses []string) DefaultAPIListDisputesRequest {
 	r.statuses = &statuses
-	return r
-}
-
-// The currencies to filter for, comma separated
-func (r DefaultAPIListDisputesRequest) Currencies(currencies []string) DefaultAPIListDisputesRequest {
-	r.currencies = &currencies
 	return r
 }
 
@@ -3828,9 +3821,6 @@ func (a *DefaultAPIService) ListDisputesExecute(r DefaultAPIListDisputesRequest)
 	}
 	if r.statuses != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "statuses", r.statuses, "form", "csv")
-	}
-	if r.currencies != nil {
-		parameterAddToHeaderOrQuery(localVarQueryParams, "currencies", r.currencies, "form", "csv")
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
