@@ -32,9 +32,8 @@ type DisputeResponse struct {
 	// The payment id
 	PaymentId *string `json:"payment_id,omitempty"`
 	// The payment processor handling the dispute
-	PaymentProcessor *string `json:"payment_processor,omitempty"`
-	// The account ID at the payment processor
-	PaymentProcessorAccountId *string `json:"payment_processor_account_id,omitempty"`
+	PaymentProcessor                  *string `json:"payment_processor,omitempty"`
+	PaymentProcessorMerchantReference *string `json:"payment_processor_merchant_reference,omitempty"`
 	// The payment reference for the disputed transaction
 	PaymentReference *string `json:"payment_reference,omitempty"`
 	// The payment processor's payment reference
@@ -277,36 +276,36 @@ func (o *DisputeResponse) SetPaymentProcessor(v string) {
 	o.PaymentProcessor = &v
 }
 
-// GetPaymentProcessorAccountId returns the PaymentProcessorAccountId field value if set, zero value otherwise.
-func (o *DisputeResponse) GetPaymentProcessorAccountId() string {
-	if o == nil || IsNil(o.PaymentProcessorAccountId) {
+// GetPaymentProcessorMerchantReference returns the PaymentProcessorMerchantReference field value if set, zero value otherwise.
+func (o *DisputeResponse) GetPaymentProcessorMerchantReference() string {
+	if o == nil || IsNil(o.PaymentProcessorMerchantReference) {
 		var ret string
 		return ret
 	}
-	return *o.PaymentProcessorAccountId
+	return *o.PaymentProcessorMerchantReference
 }
 
-// GetPaymentProcessorAccountIdOk returns a tuple with the PaymentProcessorAccountId field value if set, nil otherwise
+// GetPaymentProcessorMerchantReferenceOk returns a tuple with the PaymentProcessorMerchantReference field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DisputeResponse) GetPaymentProcessorAccountIdOk() (*string, bool) {
-	if o == nil || IsNil(o.PaymentProcessorAccountId) {
+func (o *DisputeResponse) GetPaymentProcessorMerchantReferenceOk() (*string, bool) {
+	if o == nil || IsNil(o.PaymentProcessorMerchantReference) {
 		return nil, false
 	}
-	return o.PaymentProcessorAccountId, true
+	return o.PaymentProcessorMerchantReference, true
 }
 
-// HasPaymentProcessorAccountId returns a boolean if a field has been set.
-func (o *DisputeResponse) HasPaymentProcessorAccountId() bool {
-	if o != nil && !IsNil(o.PaymentProcessorAccountId) {
+// HasPaymentProcessorMerchantReference returns a boolean if a field has been set.
+func (o *DisputeResponse) HasPaymentProcessorMerchantReference() bool {
+	if o != nil && !IsNil(o.PaymentProcessorMerchantReference) {
 		return true
 	}
 
 	return false
 }
 
-// SetPaymentProcessorAccountId gets a reference to the given string and assigns it to the PaymentProcessorAccountId field.
-func (o *DisputeResponse) SetPaymentProcessorAccountId(v string) {
-	o.PaymentProcessorAccountId = &v
+// SetPaymentProcessorMerchantReference gets a reference to the given string and assigns it to the PaymentProcessorMerchantReference field.
+func (o *DisputeResponse) SetPaymentProcessorMerchantReference(v string) {
+	o.PaymentProcessorMerchantReference = &v
 }
 
 // GetPaymentReference returns the PaymentReference field value if set, zero value otherwise.
@@ -817,8 +816,8 @@ func (o DisputeResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaymentProcessor) {
 		toSerialize["payment_processor"] = o.PaymentProcessor
 	}
-	if !IsNil(o.PaymentProcessorAccountId) {
-		toSerialize["payment_processor_account_id"] = o.PaymentProcessorAccountId
+	if !IsNil(o.PaymentProcessorMerchantReference) {
+		toSerialize["payment_processor_merchant_reference"] = o.PaymentProcessorMerchantReference
 	}
 	if !IsNil(o.PaymentReference) {
 		toSerialize["payment_reference"] = o.PaymentReference
@@ -893,7 +892,7 @@ func (o *DisputeResponse) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "last_event_name")
 		delete(additionalProperties, "payment_id")
 		delete(additionalProperties, "payment_processor")
-		delete(additionalProperties, "payment_processor_account_id")
+		delete(additionalProperties, "payment_processor_merchant_reference")
 		delete(additionalProperties, "payment_reference")
 		delete(additionalProperties, "payment_processor_payment_reference")
 		delete(additionalProperties, "card_details")
