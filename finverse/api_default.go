@@ -3753,6 +3753,8 @@ type DefaultAPIListDisputesRequest struct {
 	dateFrom   *string
 	dateTo     *string
 	statuses   *[]string
+	offset     *int32
+	limit      *int32
 }
 
 // ISO format (YYYY-MM-DD)
@@ -3770,6 +3772,18 @@ func (r DefaultAPIListDisputesRequest) DateTo(dateTo string) DefaultAPIListDispu
 // The dispute statuses to filter for, comma separated
 func (r DefaultAPIListDisputesRequest) Statuses(statuses []string) DefaultAPIListDisputesRequest {
 	r.statuses = &statuses
+	return r
+}
+
+// default is 0
+func (r DefaultAPIListDisputesRequest) Offset(offset int32) DefaultAPIListDisputesRequest {
+	r.offset = &offset
+	return r
+}
+
+// default is 500, max is 1000
+func (r DefaultAPIListDisputesRequest) Limit(limit int32) DefaultAPIListDisputesRequest {
+	r.limit = &limit
 	return r
 }
 
@@ -3821,6 +3835,18 @@ func (a *DefaultAPIService) ListDisputesExecute(r DefaultAPIListDisputesRequest)
 	}
 	if r.statuses != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "statuses", r.statuses, "form", "csv")
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "", "")
+	} else {
+		var defaultValue int32 = 0
+		r.offset = &defaultValue
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "", "")
+	} else {
+		var defaultValue int32 = 500
+		r.limit = &defaultValue
 	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
