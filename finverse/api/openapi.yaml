@@ -13408,6 +13408,9 @@ components:
           description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time
           type: string
+      required:
+      - is_auto_defended
+      - is_defendable
       type: object
     ListDisputesResponse:
       example:

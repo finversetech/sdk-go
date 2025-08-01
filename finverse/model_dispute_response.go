@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -48,13 +49,13 @@ type DisputeResponse struct {
 	// The dispute code from the payment processor
 	PaymentProcessorDisputeCode *string `json:"payment_processor_dispute_code,omitempty"`
 	// Whether the dispute is defendable
-	IsDefendable *bool `json:"is_defendable,omitempty"`
+	IsDefendable bool `json:"is_defendable"`
 	// The status of the dispute
 	DisputeStatus *string `json:"dispute_status,omitempty"`
 	// The status of the dispute at the payment processor
 	PaymentProcessorDisputeStatus *string `json:"payment_processor_dispute_status,omitempty"`
 	// Whether the dispute was automatically defended
-	IsAutoDefended *bool `json:"is_auto_defended,omitempty"`
+	IsAutoDefended bool `json:"is_auto_defended"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	DefensePeriodDeadline *time.Time         `json:"defense_period_deadline,omitempty"`
 	IssuerComments        *map[string]string `json:"issuer_comments,omitempty"`
@@ -71,8 +72,10 @@ type _DisputeResponse DisputeResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDisputeResponse() *DisputeResponse {
+func NewDisputeResponse(isDefendable bool, isAutoDefended bool) *DisputeResponse {
 	this := DisputeResponse{}
+	this.IsDefendable = isDefendable
+	this.IsAutoDefended = isAutoDefended
 	return &this
 }
 
@@ -532,36 +535,28 @@ func (o *DisputeResponse) SetPaymentProcessorDisputeCode(v string) {
 	o.PaymentProcessorDisputeCode = &v
 }
 
-// GetIsDefendable returns the IsDefendable field value if set, zero value otherwise.
+// GetIsDefendable returns the IsDefendable field value
 func (o *DisputeResponse) GetIsDefendable() bool {
-	if o == nil || IsNil(o.IsDefendable) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.IsDefendable
+
+	return o.IsDefendable
 }
 
-// GetIsDefendableOk returns a tuple with the IsDefendable field value if set, nil otherwise
+// GetIsDefendableOk returns a tuple with the IsDefendable field value
 // and a boolean to check if the value has been set.
 func (o *DisputeResponse) GetIsDefendableOk() (*bool, bool) {
-	if o == nil || IsNil(o.IsDefendable) {
+	if o == nil {
 		return nil, false
 	}
-	return o.IsDefendable, true
+	return &o.IsDefendable, true
 }
 
-// HasIsDefendable returns a boolean if a field has been set.
-func (o *DisputeResponse) HasIsDefendable() bool {
-	if o != nil && !IsNil(o.IsDefendable) {
-		return true
-	}
-
-	return false
-}
-
-// SetIsDefendable gets a reference to the given bool and assigns it to the IsDefendable field.
+// SetIsDefendable sets field value
 func (o *DisputeResponse) SetIsDefendable(v bool) {
-	o.IsDefendable = &v
+	o.IsDefendable = v
 }
 
 // GetDisputeStatus returns the DisputeStatus field value if set, zero value otherwise.
@@ -628,36 +623,28 @@ func (o *DisputeResponse) SetPaymentProcessorDisputeStatus(v string) {
 	o.PaymentProcessorDisputeStatus = &v
 }
 
-// GetIsAutoDefended returns the IsAutoDefended field value if set, zero value otherwise.
+// GetIsAutoDefended returns the IsAutoDefended field value
 func (o *DisputeResponse) GetIsAutoDefended() bool {
-	if o == nil || IsNil(o.IsAutoDefended) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.IsAutoDefended
+
+	return o.IsAutoDefended
 }
 
-// GetIsAutoDefendedOk returns a tuple with the IsAutoDefended field value if set, nil otherwise
+// GetIsAutoDefendedOk returns a tuple with the IsAutoDefended field value
 // and a boolean to check if the value has been set.
 func (o *DisputeResponse) GetIsAutoDefendedOk() (*bool, bool) {
-	if o == nil || IsNil(o.IsAutoDefended) {
+	if o == nil {
 		return nil, false
 	}
-	return o.IsAutoDefended, true
+	return &o.IsAutoDefended, true
 }
 
-// HasIsAutoDefended returns a boolean if a field has been set.
-func (o *DisputeResponse) HasIsAutoDefended() bool {
-	if o != nil && !IsNil(o.IsAutoDefended) {
-		return true
-	}
-
-	return false
-}
-
-// SetIsAutoDefended gets a reference to the given bool and assigns it to the IsAutoDefended field.
+// SetIsAutoDefended sets field value
 func (o *DisputeResponse) SetIsAutoDefended(v bool) {
-	o.IsAutoDefended = &v
+	o.IsAutoDefended = v
 }
 
 // GetDefensePeriodDeadline returns the DefensePeriodDeadline field value if set, zero value otherwise.
@@ -840,18 +827,14 @@ func (o DisputeResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaymentProcessorDisputeCode) {
 		toSerialize["payment_processor_dispute_code"] = o.PaymentProcessorDisputeCode
 	}
-	if !IsNil(o.IsDefendable) {
-		toSerialize["is_defendable"] = o.IsDefendable
-	}
+	toSerialize["is_defendable"] = o.IsDefendable
 	if !IsNil(o.DisputeStatus) {
 		toSerialize["dispute_status"] = o.DisputeStatus
 	}
 	if !IsNil(o.PaymentProcessorDisputeStatus) {
 		toSerialize["payment_processor_dispute_status"] = o.PaymentProcessorDisputeStatus
 	}
-	if !IsNil(o.IsAutoDefended) {
-		toSerialize["is_auto_defended"] = o.IsAutoDefended
-	}
+	toSerialize["is_auto_defended"] = o.IsAutoDefended
 	if !IsNil(o.DefensePeriodDeadline) {
 		toSerialize["defense_period_deadline"] = o.DefensePeriodDeadline
 	}
@@ -873,6 +856,28 @@ func (o DisputeResponse) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *DisputeResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"is_defendable",
+		"is_auto_defended",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varDisputeResponse := _DisputeResponse{}
 
 	err = json.Unmarshal(data, &varDisputeResponse)
