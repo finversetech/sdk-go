@@ -10,7 +10,7 @@ info:
   title: Finverse Public
   version: 0.0.1
 servers:
-- url: https://api.sandbox.finverse.net/
+- url: https://api.prod.finverse.net/
 security:
 - Oauth2:
   - test
