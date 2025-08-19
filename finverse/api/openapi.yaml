@@ -13374,6 +13374,7 @@ components:
           type: string
         is_defendable:
           description: Whether the dispute is defendable
+          nullable: true
           type: boolean
         dispute_status:
           description: The status of the dispute
@@ -13391,10 +13392,12 @@ components:
           type: string
         is_auto_defended:
           description: Whether the dispute was automatically defended
+          nullable: true
           type: boolean
         defense_period_deadline:
           description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time
+          nullable: true
           type: string
         issuer_comments:
           additionalProperties:
@@ -13408,9 +13411,6 @@ components:
           description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time
           type: string
-      required:
-      - is_auto_defended
-      - is_defendable
       type: object
     ListDisputesResponse:
       example:

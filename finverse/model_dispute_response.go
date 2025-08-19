@@ -13,7 +13,6 @@ package finverse
 
 import (
 	"encoding/json"
-	"fmt"
 	"time"
 )
 
@@ -49,15 +48,15 @@ type DisputeResponse struct {
 	// The dispute code from the payment processor
 	PaymentProcessorDisputeCode *string `json:"payment_processor_dispute_code,omitempty"`
 	// Whether the dispute is defendable
-	IsDefendable bool `json:"is_defendable"`
+	IsDefendable NullableBool `json:"is_defendable,omitempty"`
 	// The status of the dispute
 	DisputeStatus *string `json:"dispute_status,omitempty"`
 	// The status of the dispute at the payment processor
 	PaymentProcessorDisputeStatus *string `json:"payment_processor_dispute_status,omitempty"`
 	// Whether the dispute was automatically defended
-	IsAutoDefended bool `json:"is_auto_defended"`
+	IsAutoDefended NullableBool `json:"is_auto_defended,omitempty"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	DefensePeriodDeadline *time.Time         `json:"defense_period_deadline,omitempty"`
+	DefensePeriodDeadline NullableTime       `json:"defense_period_deadline,omitempty"`
 	IssuerComments        *map[string]string `json:"issuer_comments,omitempty"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
@@ -72,10 +71,8 @@ type _DisputeResponse DisputeResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDisputeResponse(isDefendable bool, isAutoDefended bool) *DisputeResponse {
+func NewDisputeResponse() *DisputeResponse {
 	this := DisputeResponse{}
-	this.IsDefendable = isDefendable
-	this.IsAutoDefended = isAutoDefended
 	return &this
 }
 
@@ -535,28 +532,47 @@ func (o *DisputeResponse) SetPaymentProcessorDisputeCode(v string) {
 	o.PaymentProcessorDisputeCode = &v
 }
 
-// GetIsDefendable returns the IsDefendable field value
+// GetIsDefendable returns the IsDefendable field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *DisputeResponse) GetIsDefendable() bool {
-	if o == nil {
+	if o == nil || IsNil(o.IsDefendable.Get()) {
 		var ret bool
 		return ret
 	}
-
-	return o.IsDefendable
+	return *o.IsDefendable.Get()
 }
 
-// GetIsDefendableOk returns a tuple with the IsDefendable field value
+// GetIsDefendableOk returns a tuple with the IsDefendable field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DisputeResponse) GetIsDefendableOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.IsDefendable, true
+	return o.IsDefendable.Get(), o.IsDefendable.IsSet()
 }
 
-// SetIsDefendable sets field value
+// HasIsDefendable returns a boolean if a field has been set.
+func (o *DisputeResponse) HasIsDefendable() bool {
+	if o != nil && o.IsDefendable.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetIsDefendable gets a reference to the given NullableBool and assigns it to the IsDefendable field.
 func (o *DisputeResponse) SetIsDefendable(v bool) {
-	o.IsDefendable = v
+	o.IsDefendable.Set(&v)
+}
+
+// SetIsDefendableNil sets the value for IsDefendable to be an explicit nil
+func (o *DisputeResponse) SetIsDefendableNil() {
+	o.IsDefendable.Set(nil)
+}
+
+// UnsetIsDefendable ensures that no value is present for IsDefendable, not even an explicit nil
+func (o *DisputeResponse) UnsetIsDefendable() {
+	o.IsDefendable.Unset()
 }
 
 // GetDisputeStatus returns the DisputeStatus field value if set, zero value otherwise.
@@ -623,60 +639,90 @@ func (o *DisputeResponse) SetPaymentProcessorDisputeStatus(v string) {
 	o.PaymentProcessorDisputeStatus = &v
 }
 
-// GetIsAutoDefended returns the IsAutoDefended field value
+// GetIsAutoDefended returns the IsAutoDefended field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *DisputeResponse) GetIsAutoDefended() bool {
-	if o == nil {
+	if o == nil || IsNil(o.IsAutoDefended.Get()) {
 		var ret bool
 		return ret
 	}
-
-	return o.IsAutoDefended
+	return *o.IsAutoDefended.Get()
 }
 
-// GetIsAutoDefendedOk returns a tuple with the IsAutoDefended field value
+// GetIsAutoDefendedOk returns a tuple with the IsAutoDefended field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *DisputeResponse) GetIsAutoDefendedOk() (*bool, bool) {
 	if o == nil {
 		return nil, false
 	}
-	return &o.IsAutoDefended, true
+	return o.IsAutoDefended.Get(), o.IsAutoDefended.IsSet()
 }
 
-// SetIsAutoDefended sets field value
-func (o *DisputeResponse) SetIsAutoDefended(v bool) {
-	o.IsAutoDefended = v
-}
-
-// GetDefensePeriodDeadline returns the DefensePeriodDeadline field value if set, zero value otherwise.
-func (o *DisputeResponse) GetDefensePeriodDeadline() time.Time {
-	if o == nil || IsNil(o.DefensePeriodDeadline) {
-		var ret time.Time
-		return ret
-	}
-	return *o.DefensePeriodDeadline
-}
-
-// GetDefensePeriodDeadlineOk returns a tuple with the DefensePeriodDeadline field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *DisputeResponse) GetDefensePeriodDeadlineOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.DefensePeriodDeadline) {
-		return nil, false
-	}
-	return o.DefensePeriodDeadline, true
-}
-
-// HasDefensePeriodDeadline returns a boolean if a field has been set.
-func (o *DisputeResponse) HasDefensePeriodDeadline() bool {
-	if o != nil && !IsNil(o.DefensePeriodDeadline) {
+// HasIsAutoDefended returns a boolean if a field has been set.
+func (o *DisputeResponse) HasIsAutoDefended() bool {
+	if o != nil && o.IsAutoDefended.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetDefensePeriodDeadline gets a reference to the given time.Time and assigns it to the DefensePeriodDeadline field.
+// SetIsAutoDefended gets a reference to the given NullableBool and assigns it to the IsAutoDefended field.
+func (o *DisputeResponse) SetIsAutoDefended(v bool) {
+	o.IsAutoDefended.Set(&v)
+}
+
+// SetIsAutoDefendedNil sets the value for IsAutoDefended to be an explicit nil
+func (o *DisputeResponse) SetIsAutoDefendedNil() {
+	o.IsAutoDefended.Set(nil)
+}
+
+// UnsetIsAutoDefended ensures that no value is present for IsAutoDefended, not even an explicit nil
+func (o *DisputeResponse) UnsetIsAutoDefended() {
+	o.IsAutoDefended.Unset()
+}
+
+// GetDefensePeriodDeadline returns the DefensePeriodDeadline field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *DisputeResponse) GetDefensePeriodDeadline() time.Time {
+	if o == nil || IsNil(o.DefensePeriodDeadline.Get()) {
+		var ret time.Time
+		return ret
+	}
+	return *o.DefensePeriodDeadline.Get()
+}
+
+// GetDefensePeriodDeadlineOk returns a tuple with the DefensePeriodDeadline field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *DisputeResponse) GetDefensePeriodDeadlineOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.DefensePeriodDeadline.Get(), o.DefensePeriodDeadline.IsSet()
+}
+
+// HasDefensePeriodDeadline returns a boolean if a field has been set.
+func (o *DisputeResponse) HasDefensePeriodDeadline() bool {
+	if o != nil && o.DefensePeriodDeadline.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetDefensePeriodDeadline gets a reference to the given NullableTime and assigns it to the DefensePeriodDeadline field.
 func (o *DisputeResponse) SetDefensePeriodDeadline(v time.Time) {
-	o.DefensePeriodDeadline = &v
+	o.DefensePeriodDeadline.Set(&v)
+}
+
+// SetDefensePeriodDeadlineNil sets the value for DefensePeriodDeadline to be an explicit nil
+func (o *DisputeResponse) SetDefensePeriodDeadlineNil() {
+	o.DefensePeriodDeadline.Set(nil)
+}
+
+// UnsetDefensePeriodDeadline ensures that no value is present for DefensePeriodDeadline, not even an explicit nil
+func (o *DisputeResponse) UnsetDefensePeriodDeadline() {
+	o.DefensePeriodDeadline.Unset()
 }
 
 // GetIssuerComments returns the IssuerComments field value if set, zero value otherwise.
@@ -827,16 +873,20 @@ func (o DisputeResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaymentProcessorDisputeCode) {
 		toSerialize["payment_processor_dispute_code"] = o.PaymentProcessorDisputeCode
 	}
-	toSerialize["is_defendable"] = o.IsDefendable
+	if o.IsDefendable.IsSet() {
+		toSerialize["is_defendable"] = o.IsDefendable.Get()
+	}
 	if !IsNil(o.DisputeStatus) {
 		toSerialize["dispute_status"] = o.DisputeStatus
 	}
 	if !IsNil(o.PaymentProcessorDisputeStatus) {
 		toSerialize["payment_processor_dispute_status"] = o.PaymentProcessorDisputeStatus
 	}
-	toSerialize["is_auto_defended"] = o.IsAutoDefended
-	if !IsNil(o.DefensePeriodDeadline) {
-		toSerialize["defense_period_deadline"] = o.DefensePeriodDeadline
+	if o.IsAutoDefended.IsSet() {
+		toSerialize["is_auto_defended"] = o.IsAutoDefended.Get()
+	}
+	if o.DefensePeriodDeadline.IsSet() {
+		toSerialize["defense_period_deadline"] = o.DefensePeriodDeadline.Get()
 	}
 	if !IsNil(o.IssuerComments) {
 		toSerialize["issuer_comments"] = o.IssuerComments
@@ -856,28 +906,6 @@ func (o DisputeResponse) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *DisputeResponse) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"is_defendable",
-		"is_auto_defended",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varDisputeResponse := _DisputeResponse{}
 
 	err = json.Unmarshal(data, &varDisputeResponse)
