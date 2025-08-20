@@ -8617,6 +8617,10 @@ components:
           paid_by: RECIPIENT
         payment_details:
           transaction_reference_id: transaction_reference_id
+          references:
+            recipient_reference: recipient_reference
+          processor_details:
+            processor_id: processor_id
           description: description
           mandate_id: mandate_id
           scheduled_date: 2000-01-23T04:56:07.000+00:00
@@ -8748,6 +8752,10 @@ components:
             paid_by: RECIPIENT
           payment_details:
             transaction_reference_id: transaction_reference_id
+            references:
+              recipient_reference: recipient_reference
+            processor_details:
+              processor_id: processor_id
             description: description
             mandate_id: mandate_id
             scheduled_date: 2000-01-23T04:56:07.000+00:00
@@ -8819,6 +8827,10 @@ components:
             paid_by: RECIPIENT
           payment_details:
             transaction_reference_id: transaction_reference_id
+            references:
+              recipient_reference: recipient_reference
+            processor_details:
+              processor_id: processor_id
             description: description
             mandate_id: mandate_id
             scheduled_date: 2000-01-23T04:56:07.000+00:00
@@ -8890,6 +8902,10 @@ components:
     PayoutSnapshotDetails:
       example:
         transaction_reference_id: transaction_reference_id
+        references:
+          recipient_reference: recipient_reference
+        processor_details:
+          processor_id: processor_id
         description: description
         mandate_id: mandate_id
         scheduled_date: 2000-01-23T04:56:07.000+00:00
@@ -8902,6 +8918,24 @@ components:
           type: string
         scheduled_date:
           format: date-time
+          type: string
+        processor_details:
+          $ref: '#/components/schemas/PayoutProcessorDetails'
+        references:
+          $ref: '#/components/schemas/PayoutReferences'
+      type: object
+    PayoutProcessorDetails:
+      example:
+        processor_id: processor_id
+      properties:
+        processor_id:
+          type: string
+      type: object
+    PayoutReferences:
+      example:
+        recipient_reference: recipient_reference
+      properties:
+        recipient_reference:
           type: string
       type: object
     PayoutDetails:

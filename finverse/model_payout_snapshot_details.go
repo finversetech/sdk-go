@@ -21,10 +21,12 @@ var _ MappedNullable = &PayoutSnapshotDetails{}
 
 // PayoutSnapshotDetails struct for PayoutSnapshotDetails
 type PayoutSnapshotDetails struct {
-	Description            *string    `json:"description,omitempty"`
-	TransactionReferenceId *string    `json:"transaction_reference_id,omitempty"`
-	MandateId              *string    `json:"mandate_id,omitempty"`
-	ScheduledDate          *time.Time `json:"scheduled_date,omitempty"`
+	Description            *string                 `json:"description,omitempty"`
+	TransactionReferenceId *string                 `json:"transaction_reference_id,omitempty"`
+	MandateId              *string                 `json:"mandate_id,omitempty"`
+	ScheduledDate          *time.Time              `json:"scheduled_date,omitempty"`
+	ProcessorDetails       *PayoutProcessorDetails `json:"processor_details,omitempty"`
+	References             *PayoutReferences       `json:"references,omitempty"`
 	AdditionalProperties   map[string]interface{}
 }
 
@@ -175,6 +177,70 @@ func (o *PayoutSnapshotDetails) SetScheduledDate(v time.Time) {
 	o.ScheduledDate = &v
 }
 
+// GetProcessorDetails returns the ProcessorDetails field value if set, zero value otherwise.
+func (o *PayoutSnapshotDetails) GetProcessorDetails() PayoutProcessorDetails {
+	if o == nil || IsNil(o.ProcessorDetails) {
+		var ret PayoutProcessorDetails
+		return ret
+	}
+	return *o.ProcessorDetails
+}
+
+// GetProcessorDetailsOk returns a tuple with the ProcessorDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayoutSnapshotDetails) GetProcessorDetailsOk() (*PayoutProcessorDetails, bool) {
+	if o == nil || IsNil(o.ProcessorDetails) {
+		return nil, false
+	}
+	return o.ProcessorDetails, true
+}
+
+// HasProcessorDetails returns a boolean if a field has been set.
+func (o *PayoutSnapshotDetails) HasProcessorDetails() bool {
+	if o != nil && !IsNil(o.ProcessorDetails) {
+		return true
+	}
+
+	return false
+}
+
+// SetProcessorDetails gets a reference to the given PayoutProcessorDetails and assigns it to the ProcessorDetails field.
+func (o *PayoutSnapshotDetails) SetProcessorDetails(v PayoutProcessorDetails) {
+	o.ProcessorDetails = &v
+}
+
+// GetReferences returns the References field value if set, zero value otherwise.
+func (o *PayoutSnapshotDetails) GetReferences() PayoutReferences {
+	if o == nil || IsNil(o.References) {
+		var ret PayoutReferences
+		return ret
+	}
+	return *o.References
+}
+
+// GetReferencesOk returns a tuple with the References field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayoutSnapshotDetails) GetReferencesOk() (*PayoutReferences, bool) {
+	if o == nil || IsNil(o.References) {
+		return nil, false
+	}
+	return o.References, true
+}
+
+// HasReferences returns a boolean if a field has been set.
+func (o *PayoutSnapshotDetails) HasReferences() bool {
+	if o != nil && !IsNil(o.References) {
+		return true
+	}
+
+	return false
+}
+
+// SetReferences gets a reference to the given PayoutReferences and assigns it to the References field.
+func (o *PayoutSnapshotDetails) SetReferences(v PayoutReferences) {
+	o.References = &v
+}
+
 func (o PayoutSnapshotDetails) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -196,6 +262,12 @@ func (o PayoutSnapshotDetails) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ScheduledDate) {
 		toSerialize["scheduled_date"] = o.ScheduledDate
+	}
+	if !IsNil(o.ProcessorDetails) {
+		toSerialize["processor_details"] = o.ProcessorDetails
+	}
+	if !IsNil(o.References) {
+		toSerialize["references"] = o.References
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -223,6 +295,8 @@ func (o *PayoutSnapshotDetails) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "transaction_reference_id")
 		delete(additionalProperties, "mandate_id")
 		delete(additionalProperties, "scheduled_date")
+		delete(additionalProperties, "processor_details")
+		delete(additionalProperties, "references")
 		o.AdditionalProperties = additionalProperties
 	}
 

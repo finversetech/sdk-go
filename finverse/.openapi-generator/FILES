@@ -184,6 +184,8 @@ model_payment_snapshot_payment_method_card.go
 model_payment_user.go
 model_payment_user_without_email.go
 model_payout_details.go
+model_payout_processor_details.go
+model_payout_references.go
 model_payout_snapshot_details.go
 model_payout_snapshot_response.go
 model_principal.go
