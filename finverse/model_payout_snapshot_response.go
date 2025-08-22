@@ -28,6 +28,7 @@ type PayoutSnapshotResponse struct {
 	CreatedAt        *time.Time               `json:"created_at,omitempty"`
 	UpdatedAt        *time.Time               `json:"updated_at,omitempty"`
 	TransactionDate  *string                  `json:"transaction_date,omitempty"`
+	TransactionTime  NullableTime             `json:"transaction_time,omitempty"`
 	PaymentDetails   *PayoutSnapshotDetails   `json:"payment_details,omitempty"`
 	Metadata         *map[string]string       `json:"metadata,omitempty"`
 	Amount           *int32                   `json:"amount,omitempty"`
@@ -253,6 +254,49 @@ func (o *PayoutSnapshotResponse) HasTransactionDate() bool {
 // SetTransactionDate gets a reference to the given string and assigns it to the TransactionDate field.
 func (o *PayoutSnapshotResponse) SetTransactionDate(v string) {
 	o.TransactionDate = &v
+}
+
+// GetTransactionTime returns the TransactionTime field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PayoutSnapshotResponse) GetTransactionTime() time.Time {
+	if o == nil || IsNil(o.TransactionTime.Get()) {
+		var ret time.Time
+		return ret
+	}
+	return *o.TransactionTime.Get()
+}
+
+// GetTransactionTimeOk returns a tuple with the TransactionTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PayoutSnapshotResponse) GetTransactionTimeOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.TransactionTime.Get(), o.TransactionTime.IsSet()
+}
+
+// HasTransactionTime returns a boolean if a field has been set.
+func (o *PayoutSnapshotResponse) HasTransactionTime() bool {
+	if o != nil && o.TransactionTime.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetTransactionTime gets a reference to the given NullableTime and assigns it to the TransactionTime field.
+func (o *PayoutSnapshotResponse) SetTransactionTime(v time.Time) {
+	o.TransactionTime.Set(&v)
+}
+
+// SetTransactionTimeNil sets the value for TransactionTime to be an explicit nil
+func (o *PayoutSnapshotResponse) SetTransactionTimeNil() {
+	o.TransactionTime.Set(nil)
+}
+
+// UnsetTransactionTime ensures that no value is present for TransactionTime, not even an explicit nil
+func (o *PayoutSnapshotResponse) UnsetTransactionTime() {
+	o.TransactionTime.Unset()
 }
 
 // GetPaymentDetails returns the PaymentDetails field value if set, zero value otherwise.
@@ -627,6 +671,9 @@ func (o PayoutSnapshotResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TransactionDate) {
 		toSerialize["transaction_date"] = o.TransactionDate
 	}
+	if o.TransactionTime.IsSet() {
+		toSerialize["transaction_time"] = o.TransactionTime.Get()
+	}
 	if !IsNil(o.PaymentDetails) {
 		toSerialize["payment_details"] = o.PaymentDetails
 	}
@@ -707,6 +754,7 @@ func (o *PayoutSnapshotResponse) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "created_at")
 		delete(additionalProperties, "updated_at")
 		delete(additionalProperties, "transaction_date")
+		delete(additionalProperties, "transaction_time")
 		delete(additionalProperties, "payment_details")
 		delete(additionalProperties, "metadata")
 		delete(additionalProperties, "amount")

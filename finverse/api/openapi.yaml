@@ -8674,6 +8674,7 @@ components:
             details_type: HK_ID
           name: name
           external_user_id: external_user_id
+        transaction_time: 2025-08-22T12:00:00Z
         currency: currency
         live: true
         status: EXECUTED
@@ -8703,6 +8704,11 @@ components:
           format: date-time
           type: string
         transaction_date:
+          type: string
+        transaction_time:
+          example: 2025-08-22T12:00:00Z
+          format: date-time
+          nullable: true
           type: string
         payment_details:
           $ref: '#/components/schemas/PayoutSnapshotDetails'
@@ -8809,6 +8815,7 @@ components:
               details_type: HK_ID
             name: name
             external_user_id: external_user_id
+          transaction_time: 2025-08-22T12:00:00Z
           currency: currency
           live: true
           status: EXECUTED
@@ -8884,6 +8891,7 @@ components:
               details_type: HK_ID
             name: name
             external_user_id: external_user_id
+          transaction_time: 2025-08-22T12:00:00Z
           currency: currency
           live: true
           status: EXECUTED
