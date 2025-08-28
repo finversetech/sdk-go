@@ -8616,10 +8616,12 @@ components:
           currency: HKD
           paid_by: RECIPIENT
         payment_details:
+          estimated_arrival_time: 2025-08-22T12:00:00Z
           transaction_reference_id: transaction_reference_id
           references:
             recipient_reference: recipient_reference
           processor_details:
+            processor_reference: processor_reference
             processor_id: processor_id
           description: description
           mandate_id: mandate_id
@@ -8757,10 +8759,12 @@ components:
             currency: HKD
             paid_by: RECIPIENT
           payment_details:
+            estimated_arrival_time: 2025-08-22T12:00:00Z
             transaction_reference_id: transaction_reference_id
             references:
               recipient_reference: recipient_reference
             processor_details:
+              processor_reference: processor_reference
               processor_id: processor_id
             description: description
             mandate_id: mandate_id
@@ -8833,10 +8837,12 @@ components:
             currency: HKD
             paid_by: RECIPIENT
           payment_details:
+            estimated_arrival_time: 2025-08-22T12:00:00Z
             transaction_reference_id: transaction_reference_id
             references:
               recipient_reference: recipient_reference
             processor_details:
+              processor_reference: processor_reference
               processor_id: processor_id
             description: description
             mandate_id: mandate_id
@@ -8909,10 +8915,12 @@ components:
       type: object
     PayoutSnapshotDetails:
       example:
+        estimated_arrival_time: 2025-08-22T12:00:00Z
         transaction_reference_id: transaction_reference_id
         references:
           recipient_reference: recipient_reference
         processor_details:
+          processor_reference: processor_reference
           processor_id: processor_id
         description: description
         mandate_id: mandate_id
@@ -8927,6 +8935,11 @@ components:
         scheduled_date:
           format: date-time
           type: string
+        estimated_arrival_time:
+          example: 2025-08-22T12:00:00Z
+          format: date-time
+          nullable: true
+          type: string
         processor_details:
           $ref: '#/components/schemas/PayoutProcessorDetails'
         references:
@@ -8934,9 +8947,12 @@ components:
       type: object
     PayoutProcessorDetails:
       example:
+        processor_reference: processor_reference
         processor_id: processor_id
       properties:
         processor_id:
+          type: string
+        processor_reference:
           type: string
       type: object
     PayoutReferences:

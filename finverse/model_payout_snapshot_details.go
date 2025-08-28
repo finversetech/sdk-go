@@ -25,6 +25,7 @@ type PayoutSnapshotDetails struct {
 	TransactionReferenceId *string                 `json:"transaction_reference_id,omitempty"`
 	MandateId              *string                 `json:"mandate_id,omitempty"`
 	ScheduledDate          *time.Time              `json:"scheduled_date,omitempty"`
+	EstimatedArrivalTime   NullableTime            `json:"estimated_arrival_time,omitempty"`
 	ProcessorDetails       *PayoutProcessorDetails `json:"processor_details,omitempty"`
 	References             *PayoutReferences       `json:"references,omitempty"`
 	AdditionalProperties   map[string]interface{}
@@ -177,6 +178,49 @@ func (o *PayoutSnapshotDetails) SetScheduledDate(v time.Time) {
 	o.ScheduledDate = &v
 }
 
+// GetEstimatedArrivalTime returns the EstimatedArrivalTime field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PayoutSnapshotDetails) GetEstimatedArrivalTime() time.Time {
+	if o == nil || IsNil(o.EstimatedArrivalTime.Get()) {
+		var ret time.Time
+		return ret
+	}
+	return *o.EstimatedArrivalTime.Get()
+}
+
+// GetEstimatedArrivalTimeOk returns a tuple with the EstimatedArrivalTime field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PayoutSnapshotDetails) GetEstimatedArrivalTimeOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.EstimatedArrivalTime.Get(), o.EstimatedArrivalTime.IsSet()
+}
+
+// HasEstimatedArrivalTime returns a boolean if a field has been set.
+func (o *PayoutSnapshotDetails) HasEstimatedArrivalTime() bool {
+	if o != nil && o.EstimatedArrivalTime.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetEstimatedArrivalTime gets a reference to the given NullableTime and assigns it to the EstimatedArrivalTime field.
+func (o *PayoutSnapshotDetails) SetEstimatedArrivalTime(v time.Time) {
+	o.EstimatedArrivalTime.Set(&v)
+}
+
+// SetEstimatedArrivalTimeNil sets the value for EstimatedArrivalTime to be an explicit nil
+func (o *PayoutSnapshotDetails) SetEstimatedArrivalTimeNil() {
+	o.EstimatedArrivalTime.Set(nil)
+}
+
+// UnsetEstimatedArrivalTime ensures that no value is present for EstimatedArrivalTime, not even an explicit nil
+func (o *PayoutSnapshotDetails) UnsetEstimatedArrivalTime() {
+	o.EstimatedArrivalTime.Unset()
+}
+
 // GetProcessorDetails returns the ProcessorDetails field value if set, zero value otherwise.
 func (o *PayoutSnapshotDetails) GetProcessorDetails() PayoutProcessorDetails {
 	if o == nil || IsNil(o.ProcessorDetails) {
@@ -263,6 +307,9 @@ func (o PayoutSnapshotDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ScheduledDate) {
 		toSerialize["scheduled_date"] = o.ScheduledDate
 	}
+	if o.EstimatedArrivalTime.IsSet() {
+		toSerialize["estimated_arrival_time"] = o.EstimatedArrivalTime.Get()
+	}
 	if !IsNil(o.ProcessorDetails) {
 		toSerialize["processor_details"] = o.ProcessorDetails
 	}
@@ -295,6 +342,7 @@ func (o *PayoutSnapshotDetails) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "transaction_reference_id")
 		delete(additionalProperties, "mandate_id")
 		delete(additionalProperties, "scheduled_date")
+		delete(additionalProperties, "estimated_arrival_time")
 		delete(additionalProperties, "processor_details")
 		delete(additionalProperties, "references")
 		o.AdditionalProperties = additionalProperties

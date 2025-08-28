@@ -21,6 +21,7 @@ var _ MappedNullable = &PayoutProcessorDetails{}
 // PayoutProcessorDetails struct for PayoutProcessorDetails
 type PayoutProcessorDetails struct {
 	ProcessorId          *string `json:"processor_id,omitempty"`
+	ProcessorReference   *string `json:"processor_reference,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -75,6 +76,38 @@ func (o *PayoutProcessorDetails) SetProcessorId(v string) {
 	o.ProcessorId = &v
 }
 
+// GetProcessorReference returns the ProcessorReference field value if set, zero value otherwise.
+func (o *PayoutProcessorDetails) GetProcessorReference() string {
+	if o == nil || IsNil(o.ProcessorReference) {
+		var ret string
+		return ret
+	}
+	return *o.ProcessorReference
+}
+
+// GetProcessorReferenceOk returns a tuple with the ProcessorReference field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayoutProcessorDetails) GetProcessorReferenceOk() (*string, bool) {
+	if o == nil || IsNil(o.ProcessorReference) {
+		return nil, false
+	}
+	return o.ProcessorReference, true
+}
+
+// HasProcessorReference returns a boolean if a field has been set.
+func (o *PayoutProcessorDetails) HasProcessorReference() bool {
+	if o != nil && !IsNil(o.ProcessorReference) {
+		return true
+	}
+
+	return false
+}
+
+// SetProcessorReference gets a reference to the given string and assigns it to the ProcessorReference field.
+func (o *PayoutProcessorDetails) SetProcessorReference(v string) {
+	o.ProcessorReference = &v
+}
+
 func (o PayoutProcessorDetails) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -87,6 +120,9 @@ func (o PayoutProcessorDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.ProcessorId) {
 		toSerialize["processor_id"] = o.ProcessorId
+	}
+	if !IsNil(o.ProcessorReference) {
+		toSerialize["processor_reference"] = o.ProcessorReference
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -111,6 +147,7 @@ func (o *PayoutProcessorDetails) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "processor_id")
+		delete(additionalProperties, "processor_reference")
 		o.AdditionalProperties = additionalProperties
 	}
 
