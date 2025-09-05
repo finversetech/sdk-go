@@ -9549,6 +9549,7 @@ components:
             start_date: 2000-01-23
           recipient_account_filters:
             business_unit: business_unit
+          recurring_payment_mode: recurring_payment_mode
           payment_method_types:
           - MANDATE
           - MANDATE
@@ -9672,6 +9673,7 @@ components:
           start_date: 2000-01-23
         recipient_account_filters:
           business_unit: business_unit
+        recurring_payment_mode: recurring_payment_mode
         payment_method_types:
         - MANDATE
         - MANDATE
@@ -9702,6 +9704,9 @@ components:
           $ref: '#/components/schemas/RecipientAccountFilters'
         autopay_enrollment_configuration:
           $ref: '#/components/schemas/AutopayEnrollmentConfiguration'
+        recurring_payment_mode:
+          description: The recurring payment mode
+          type: string
       type: object
     AutopayEnrollmentConfiguration:
       example:
@@ -10071,6 +10076,7 @@ components:
             start_date: 2000-01-23
           recipient_account_filters:
             business_unit: business_unit
+          recurring_payment_mode: recurring_payment_mode
           payment_method_types:
           - MANDATE
           - MANDATE

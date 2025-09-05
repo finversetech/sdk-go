@@ -26,7 +26,9 @@ type PaymentSetupOptions struct {
 	PaymentMethodTypes             []string                        `json:"payment_method_types,omitempty"`
 	RecipientAccountFilters        *RecipientAccountFilters        `json:"recipient_account_filters,omitempty"`
 	AutopayEnrollmentConfiguration *AutopayEnrollmentConfiguration `json:"autopay_enrollment_configuration,omitempty"`
-	AdditionalProperties           map[string]interface{}
+	// The recurring payment mode
+	RecurringPaymentMode *string `json:"recurring_payment_mode,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PaymentSetupOptions PaymentSetupOptions
@@ -208,6 +210,38 @@ func (o *PaymentSetupOptions) SetAutopayEnrollmentConfiguration(v AutopayEnrollm
 	o.AutopayEnrollmentConfiguration = &v
 }
 
+// GetRecurringPaymentMode returns the RecurringPaymentMode field value if set, zero value otherwise.
+func (o *PaymentSetupOptions) GetRecurringPaymentMode() string {
+	if o == nil || IsNil(o.RecurringPaymentMode) {
+		var ret string
+		return ret
+	}
+	return *o.RecurringPaymentMode
+}
+
+// GetRecurringPaymentModeOk returns a tuple with the RecurringPaymentMode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentSetupOptions) GetRecurringPaymentModeOk() (*string, bool) {
+	if o == nil || IsNil(o.RecurringPaymentMode) {
+		return nil, false
+	}
+	return o.RecurringPaymentMode, true
+}
+
+// HasRecurringPaymentMode returns a boolean if a field has been set.
+func (o *PaymentSetupOptions) HasRecurringPaymentMode() bool {
+	if o != nil && !IsNil(o.RecurringPaymentMode) {
+		return true
+	}
+
+	return false
+}
+
+// SetRecurringPaymentMode gets a reference to the given string and assigns it to the RecurringPaymentMode field.
+func (o *PaymentSetupOptions) SetRecurringPaymentMode(v string) {
+	o.RecurringPaymentMode = &v
+}
+
 func (o PaymentSetupOptions) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -232,6 +266,9 @@ func (o PaymentSetupOptions) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.AutopayEnrollmentConfiguration) {
 		toSerialize["autopay_enrollment_configuration"] = o.AutopayEnrollmentConfiguration
+	}
+	if !IsNil(o.RecurringPaymentMode) {
+		toSerialize["recurring_payment_mode"] = o.RecurringPaymentMode
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -260,6 +297,7 @@ func (o *PaymentSetupOptions) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "payment_method_types")
 		delete(additionalProperties, "recipient_account_filters")
 		delete(additionalProperties, "autopay_enrollment_configuration")
+		delete(additionalProperties, "recurring_payment_mode")
 		o.AdditionalProperties = additionalProperties
 	}
 
