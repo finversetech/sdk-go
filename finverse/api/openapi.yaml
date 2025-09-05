@@ -9519,6 +9519,7 @@ components:
             corp_code: corp_code
             i_anniv_days: 3.4024845713830345
             account_token: account_token
+            unit_type_id: unit_type_id
             s_location_code: s_location_code
         amount: 100
         metadata:
@@ -9984,6 +9985,7 @@ components:
               corp_code: corp_code
               i_anniv_days: 5.962133916683182
               account_token: account_token
+              unit_type_id: unit_type_id
               s_location_code: s_location_code
           metadata:
             key: metadata
@@ -10042,6 +10044,7 @@ components:
             corp_code: corp_code
             i_anniv_days: 5.962133916683182
             account_token: account_token
+            unit_type_id: unit_type_id
             s_location_code: s_location_code
         link_customizations:
           language: en
@@ -10417,6 +10420,7 @@ components:
         corp_code: corp_code
         i_anniv_days: 3.4024845713830345
         account_token: account_token
+        unit_type_id: unit_type_id
         s_location_code: s_location_code
       properties:
         corp_code:
@@ -10432,6 +10436,8 @@ components:
           type: number
         account_token:
           type: string
+        unit_type_id:
+          type: string
       required:
       - account_token
       - corp_code
@@ -10445,6 +10451,7 @@ components:
         corp_code: corp_code
         i_anniv_days: 5.962133916683182
         account_token: account_token
+        unit_type_id: unit_type_id
         s_location_code: s_location_code
       properties:
         corp_code:
@@ -10460,6 +10467,8 @@ components:
           type: string
         account_token:
           type: string
+        unit_type_id:
+          type: string
       type: object
     IntegrationMetadataRequest:
       example:
@@ -10469,6 +10478,7 @@ components:
           corp_code: corp_code
           i_anniv_days: 3.4024845713830345
           account_token: account_token
+          unit_type_id: unit_type_id
           s_location_code: s_location_code
       properties:
         integration_id:
@@ -10489,6 +10499,7 @@ components:
           corp_code: corp_code
           i_anniv_days: 5.962133916683182
           account_token: account_token
+          unit_type_id: unit_type_id
           s_location_code: s_location_code
       properties:
         integration_id:
@@ -12574,6 +12585,7 @@ components:
             corp_code: corp_code
             i_anniv_days: 3.4024845713830345
             account_token: account_token
+            unit_type_id: unit_type_id
             s_location_code: s_location_code
         metadata:
           key: metadata
@@ -12676,6 +12688,7 @@ components:
             corp_code: corp_code
             i_anniv_days: 5.962133916683182
             account_token: account_token
+            unit_type_id: unit_type_id
             s_location_code: s_location_code
         metadata:
           key: metadata
@@ -12754,6 +12767,7 @@ components:
             corp_code: corp_code
             i_anniv_days: 5.962133916683182
             account_token: account_token
+            unit_type_id: unit_type_id
             s_location_code: s_location_code
         metadata:
           key: metadata

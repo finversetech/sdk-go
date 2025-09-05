@@ -26,6 +26,7 @@ type RapidstorMetadataResponse struct {
 	IAnnivDays            *float32 `json:"i_anniv_days,omitempty"`
 	TenantDefaultCurrency *string  `json:"tenant_default_currency,omitempty"`
 	AccountToken          *string  `json:"account_token,omitempty"`
+	UnitTypeId            *string  `json:"unit_type_id,omitempty"`
 	AdditionalProperties  map[string]interface{}
 }
 
@@ -240,6 +241,38 @@ func (o *RapidstorMetadataResponse) SetAccountToken(v string) {
 	o.AccountToken = &v
 }
 
+// GetUnitTypeId returns the UnitTypeId field value if set, zero value otherwise.
+func (o *RapidstorMetadataResponse) GetUnitTypeId() string {
+	if o == nil || IsNil(o.UnitTypeId) {
+		var ret string
+		return ret
+	}
+	return *o.UnitTypeId
+}
+
+// GetUnitTypeIdOk returns a tuple with the UnitTypeId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RapidstorMetadataResponse) GetUnitTypeIdOk() (*string, bool) {
+	if o == nil || IsNil(o.UnitTypeId) {
+		return nil, false
+	}
+	return o.UnitTypeId, true
+}
+
+// HasUnitTypeId returns a boolean if a field has been set.
+func (o *RapidstorMetadataResponse) HasUnitTypeId() bool {
+	if o != nil && !IsNil(o.UnitTypeId) {
+		return true
+	}
+
+	return false
+}
+
+// SetUnitTypeId gets a reference to the given string and assigns it to the UnitTypeId field.
+func (o *RapidstorMetadataResponse) SetUnitTypeId(v string) {
+	o.UnitTypeId = &v
+}
+
 func (o RapidstorMetadataResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -267,6 +300,9 @@ func (o RapidstorMetadataResponse) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.AccountToken) {
 		toSerialize["account_token"] = o.AccountToken
+	}
+	if !IsNil(o.UnitTypeId) {
+		toSerialize["unit_type_id"] = o.UnitTypeId
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -296,6 +332,7 @@ func (o *RapidstorMetadataResponse) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "i_anniv_days")
 		delete(additionalProperties, "tenant_default_currency")
 		delete(additionalProperties, "account_token")
+		delete(additionalProperties, "unit_type_id")
 		o.AdditionalProperties = additionalProperties
 	}
 
