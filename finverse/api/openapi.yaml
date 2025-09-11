@@ -2698,6 +2698,7 @@ paths:
             enum:
             - MANUAL
             - SCHEDULED
+            - SETTLEMENT
             type: string
           type: array
         style: form
@@ -8698,6 +8699,7 @@ components:
           enum:
           - MANUAL
           - SCHEDULED
+          - SETTLEMENT
           type: string
         created_at:
           format: date-time
