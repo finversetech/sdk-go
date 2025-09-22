@@ -135,6 +135,7 @@ model_login_method.go
 model_mandate_auth_encryption_info.go
 model_mandate_auth_link_customizations.go
 model_mandate_details_for_payment_link.go
+model_mandate_details_for_payment_link_request.go
 model_mandate_details_request.go
 model_mandate_details_request_with_dda_reference.go
 model_mandate_details_response.go
@@ -179,6 +180,7 @@ model_payment_processor_result.go
 model_payment_response.go
 model_payment_schedule.go
 model_payment_setup_options.go
+model_payment_setup_options_request.go
 model_payment_snapshot_payment_method.go
 model_payment_snapshot_payment_method_card.go
 model_payment_user.go
@@ -217,7 +219,8 @@ model_swagger_err_body_model.go
 model_token_request.go
 model_token_response.go
 model_transaction.go
-model_transaction_limits.go
+model_transaction_limits_request.go
+model_transaction_limits_response.go
 model_update_payment_request.go
 model_update_payment_user_request.go
 model_update_test_payment_status_request.go

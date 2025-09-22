@@ -15,42 +15,42 @@ import (
 	"encoding/json"
 )
 
-// checks if the MandateDetailsForPaymentLink type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &MandateDetailsForPaymentLink{}
+// checks if the MandateDetailsForPaymentLinkRequest type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MandateDetailsForPaymentLinkRequest{}
 
-// MandateDetailsForPaymentLink struct for MandateDetailsForPaymentLink
-type MandateDetailsForPaymentLink struct {
+// MandateDetailsForPaymentLinkRequest struct for MandateDetailsForPaymentLinkRequest
+type MandateDetailsForPaymentLinkRequest struct {
 	// YYYY-MM-DD, must be later than or the same as the date of creation. If unspecified, default to the date of creation.
 	StartDate NullableString `json:"start_date,omitempty"`
 	// YYYY-MM-DD, must be later than the date of creation.
-	EndDate           NullableString             `json:"end_date,omitempty"`
-	TransactionLimits *TransactionLimitsResponse `json:"transaction_limits,omitempty"`
+	EndDate           NullableString            `json:"end_date,omitempty"`
+	TransactionLimits *TransactionLimitsRequest `json:"transaction_limits,omitempty"`
 	// End-user facing description of the mandate (used in notifications, and in payments if no description is provided)
 	Description          *string `json:"description,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _MandateDetailsForPaymentLink MandateDetailsForPaymentLink
+type _MandateDetailsForPaymentLinkRequest MandateDetailsForPaymentLinkRequest
 
-// NewMandateDetailsForPaymentLink instantiates a new MandateDetailsForPaymentLink object
+// NewMandateDetailsForPaymentLinkRequest instantiates a new MandateDetailsForPaymentLinkRequest object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMandateDetailsForPaymentLink() *MandateDetailsForPaymentLink {
-	this := MandateDetailsForPaymentLink{}
+func NewMandateDetailsForPaymentLinkRequest() *MandateDetailsForPaymentLinkRequest {
+	this := MandateDetailsForPaymentLinkRequest{}
 	return &this
 }
 
-// NewMandateDetailsForPaymentLinkWithDefaults instantiates a new MandateDetailsForPaymentLink object
+// NewMandateDetailsForPaymentLinkRequestWithDefaults instantiates a new MandateDetailsForPaymentLinkRequest object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewMandateDetailsForPaymentLinkWithDefaults() *MandateDetailsForPaymentLink {
-	this := MandateDetailsForPaymentLink{}
+func NewMandateDetailsForPaymentLinkRequestWithDefaults() *MandateDetailsForPaymentLinkRequest {
+	this := MandateDetailsForPaymentLinkRequest{}
 	return &this
 }
 
 // GetStartDate returns the StartDate field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *MandateDetailsForPaymentLink) GetStartDate() string {
+func (o *MandateDetailsForPaymentLinkRequest) GetStartDate() string {
 	if o == nil || IsNil(o.StartDate.Get()) {
 		var ret string
 		return ret
@@ -61,7 +61,7 @@ func (o *MandateDetailsForPaymentLink) GetStartDate() string {
 // GetStartDateOk returns a tuple with the StartDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *MandateDetailsForPaymentLink) GetStartDateOk() (*string, bool) {
+func (o *MandateDetailsForPaymentLinkRequest) GetStartDateOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -69,7 +69,7 @@ func (o *MandateDetailsForPaymentLink) GetStartDateOk() (*string, bool) {
 }
 
 // HasStartDate returns a boolean if a field has been set.
-func (o *MandateDetailsForPaymentLink) HasStartDate() bool {
+func (o *MandateDetailsForPaymentLinkRequest) HasStartDate() bool {
 	if o != nil && o.StartDate.IsSet() {
 		return true
 	}
@@ -78,22 +78,22 @@ func (o *MandateDetailsForPaymentLink) HasStartDate() bool {
 }
 
 // SetStartDate gets a reference to the given NullableString and assigns it to the StartDate field.
-func (o *MandateDetailsForPaymentLink) SetStartDate(v string) {
+func (o *MandateDetailsForPaymentLinkRequest) SetStartDate(v string) {
 	o.StartDate.Set(&v)
 }
 
 // SetStartDateNil sets the value for StartDate to be an explicit nil
-func (o *MandateDetailsForPaymentLink) SetStartDateNil() {
+func (o *MandateDetailsForPaymentLinkRequest) SetStartDateNil() {
 	o.StartDate.Set(nil)
 }
 
 // UnsetStartDate ensures that no value is present for StartDate, not even an explicit nil
-func (o *MandateDetailsForPaymentLink) UnsetStartDate() {
+func (o *MandateDetailsForPaymentLinkRequest) UnsetStartDate() {
 	o.StartDate.Unset()
 }
 
 // GetEndDate returns the EndDate field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *MandateDetailsForPaymentLink) GetEndDate() string {
+func (o *MandateDetailsForPaymentLinkRequest) GetEndDate() string {
 	if o == nil || IsNil(o.EndDate.Get()) {
 		var ret string
 		return ret
@@ -104,7 +104,7 @@ func (o *MandateDetailsForPaymentLink) GetEndDate() string {
 // GetEndDateOk returns a tuple with the EndDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *MandateDetailsForPaymentLink) GetEndDateOk() (*string, bool) {
+func (o *MandateDetailsForPaymentLinkRequest) GetEndDateOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -112,7 +112,7 @@ func (o *MandateDetailsForPaymentLink) GetEndDateOk() (*string, bool) {
 }
 
 // HasEndDate returns a boolean if a field has been set.
-func (o *MandateDetailsForPaymentLink) HasEndDate() bool {
+func (o *MandateDetailsForPaymentLinkRequest) HasEndDate() bool {
 	if o != nil && o.EndDate.IsSet() {
 		return true
 	}
@@ -121,24 +121,24 @@ func (o *MandateDetailsForPaymentLink) HasEndDate() bool {
 }
 
 // SetEndDate gets a reference to the given NullableString and assigns it to the EndDate field.
-func (o *MandateDetailsForPaymentLink) SetEndDate(v string) {
+func (o *MandateDetailsForPaymentLinkRequest) SetEndDate(v string) {
 	o.EndDate.Set(&v)
 }
 
 // SetEndDateNil sets the value for EndDate to be an explicit nil
-func (o *MandateDetailsForPaymentLink) SetEndDateNil() {
+func (o *MandateDetailsForPaymentLinkRequest) SetEndDateNil() {
 	o.EndDate.Set(nil)
 }
 
 // UnsetEndDate ensures that no value is present for EndDate, not even an explicit nil
-func (o *MandateDetailsForPaymentLink) UnsetEndDate() {
+func (o *MandateDetailsForPaymentLinkRequest) UnsetEndDate() {
 	o.EndDate.Unset()
 }
 
 // GetTransactionLimits returns the TransactionLimits field value if set, zero value otherwise.
-func (o *MandateDetailsForPaymentLink) GetTransactionLimits() TransactionLimitsResponse {
+func (o *MandateDetailsForPaymentLinkRequest) GetTransactionLimits() TransactionLimitsRequest {
 	if o == nil || IsNil(o.TransactionLimits) {
-		var ret TransactionLimitsResponse
+		var ret TransactionLimitsRequest
 		return ret
 	}
 	return *o.TransactionLimits
@@ -146,7 +146,7 @@ func (o *MandateDetailsForPaymentLink) GetTransactionLimits() TransactionLimitsR
 
 // GetTransactionLimitsOk returns a tuple with the TransactionLimits field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MandateDetailsForPaymentLink) GetTransactionLimitsOk() (*TransactionLimitsResponse, bool) {
+func (o *MandateDetailsForPaymentLinkRequest) GetTransactionLimitsOk() (*TransactionLimitsRequest, bool) {
 	if o == nil || IsNil(o.TransactionLimits) {
 		return nil, false
 	}
@@ -154,7 +154,7 @@ func (o *MandateDetailsForPaymentLink) GetTransactionLimitsOk() (*TransactionLim
 }
 
 // HasTransactionLimits returns a boolean if a field has been set.
-func (o *MandateDetailsForPaymentLink) HasTransactionLimits() bool {
+func (o *MandateDetailsForPaymentLinkRequest) HasTransactionLimits() bool {
 	if o != nil && !IsNil(o.TransactionLimits) {
 		return true
 	}
@@ -162,13 +162,13 @@ func (o *MandateDetailsForPaymentLink) HasTransactionLimits() bool {
 	return false
 }
 
-// SetTransactionLimits gets a reference to the given TransactionLimitsResponse and assigns it to the TransactionLimits field.
-func (o *MandateDetailsForPaymentLink) SetTransactionLimits(v TransactionLimitsResponse) {
+// SetTransactionLimits gets a reference to the given TransactionLimitsRequest and assigns it to the TransactionLimits field.
+func (o *MandateDetailsForPaymentLinkRequest) SetTransactionLimits(v TransactionLimitsRequest) {
 	o.TransactionLimits = &v
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
-func (o *MandateDetailsForPaymentLink) GetDescription() string {
+func (o *MandateDetailsForPaymentLinkRequest) GetDescription() string {
 	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
@@ -178,7 +178,7 @@ func (o *MandateDetailsForPaymentLink) GetDescription() string {
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MandateDetailsForPaymentLink) GetDescriptionOk() (*string, bool) {
+func (o *MandateDetailsForPaymentLinkRequest) GetDescriptionOk() (*string, bool) {
 	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
@@ -186,7 +186,7 @@ func (o *MandateDetailsForPaymentLink) GetDescriptionOk() (*string, bool) {
 }
 
 // HasDescription returns a boolean if a field has been set.
-func (o *MandateDetailsForPaymentLink) HasDescription() bool {
+func (o *MandateDetailsForPaymentLinkRequest) HasDescription() bool {
 	if o != nil && !IsNil(o.Description) {
 		return true
 	}
@@ -195,11 +195,11 @@ func (o *MandateDetailsForPaymentLink) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *MandateDetailsForPaymentLink) SetDescription(v string) {
+func (o *MandateDetailsForPaymentLinkRequest) SetDescription(v string) {
 	o.Description = &v
 }
 
-func (o MandateDetailsForPaymentLink) MarshalJSON() ([]byte, error) {
+func (o MandateDetailsForPaymentLinkRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -207,7 +207,7 @@ func (o MandateDetailsForPaymentLink) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o MandateDetailsForPaymentLink) ToMap() (map[string]interface{}, error) {
+func (o MandateDetailsForPaymentLinkRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if o.StartDate.IsSet() {
 		toSerialize["start_date"] = o.StartDate.Get()
@@ -229,16 +229,16 @@ func (o MandateDetailsForPaymentLink) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *MandateDetailsForPaymentLink) UnmarshalJSON(data []byte) (err error) {
-	varMandateDetailsForPaymentLink := _MandateDetailsForPaymentLink{}
+func (o *MandateDetailsForPaymentLinkRequest) UnmarshalJSON(data []byte) (err error) {
+	varMandateDetailsForPaymentLinkRequest := _MandateDetailsForPaymentLinkRequest{}
 
-	err = json.Unmarshal(data, &varMandateDetailsForPaymentLink)
+	err = json.Unmarshal(data, &varMandateDetailsForPaymentLinkRequest)
 
 	if err != nil {
 		return err
 	}
 
-	*o = MandateDetailsForPaymentLink(varMandateDetailsForPaymentLink)
+	*o = MandateDetailsForPaymentLinkRequest(varMandateDetailsForPaymentLinkRequest)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -253,38 +253,38 @@ func (o *MandateDetailsForPaymentLink) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableMandateDetailsForPaymentLink struct {
-	value *MandateDetailsForPaymentLink
+type NullableMandateDetailsForPaymentLinkRequest struct {
+	value *MandateDetailsForPaymentLinkRequest
 	isSet bool
 }
 
-func (v NullableMandateDetailsForPaymentLink) Get() *MandateDetailsForPaymentLink {
+func (v NullableMandateDetailsForPaymentLinkRequest) Get() *MandateDetailsForPaymentLinkRequest {
 	return v.value
 }
 
-func (v *NullableMandateDetailsForPaymentLink) Set(val *MandateDetailsForPaymentLink) {
+func (v *NullableMandateDetailsForPaymentLinkRequest) Set(val *MandateDetailsForPaymentLinkRequest) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableMandateDetailsForPaymentLink) IsSet() bool {
+func (v NullableMandateDetailsForPaymentLinkRequest) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableMandateDetailsForPaymentLink) Unset() {
+func (v *NullableMandateDetailsForPaymentLinkRequest) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableMandateDetailsForPaymentLink(val *MandateDetailsForPaymentLink) *NullableMandateDetailsForPaymentLink {
-	return &NullableMandateDetailsForPaymentLink{value: val, isSet: true}
+func NewNullableMandateDetailsForPaymentLinkRequest(val *MandateDetailsForPaymentLinkRequest) *NullableMandateDetailsForPaymentLinkRequest {
+	return &NullableMandateDetailsForPaymentLinkRequest{value: val, isSet: true}
 }
 
-func (v NullableMandateDetailsForPaymentLink) MarshalJSON() ([]byte, error) {
+func (v NullableMandateDetailsForPaymentLinkRequest) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableMandateDetailsForPaymentLink) UnmarshalJSON(src []byte) error {
+func (v *NullableMandateDetailsForPaymentLinkRequest) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

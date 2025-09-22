@@ -31,7 +31,7 @@ type CreatePaymentLinkRequest struct {
 	Sender         PaymentLinkSender   `json:"sender"`
 	// Unique reference id to identifying the payment to be collected.
 	UniqueReferenceId    string                      `json:"unique_reference_id"`
-	PaymentSetupOptions  *PaymentSetupOptions        `json:"payment_setup_options,omitempty"`
+	PaymentSetupOptions  *PaymentSetupOptionsRequest `json:"payment_setup_options,omitempty"`
 	Metadata             *map[string]string          `json:"metadata,omitempty"`
 	PaymentMetadata      *map[string]string          `json:"payment_metadata,omitempty"`
 	IntegrationMetadata  *IntegrationMetadataRequest `json:"integration_metadata,omitempty"`
@@ -254,9 +254,9 @@ func (o *CreatePaymentLinkRequest) SetUniqueReferenceId(v string) {
 }
 
 // GetPaymentSetupOptions returns the PaymentSetupOptions field value if set, zero value otherwise.
-func (o *CreatePaymentLinkRequest) GetPaymentSetupOptions() PaymentSetupOptions {
+func (o *CreatePaymentLinkRequest) GetPaymentSetupOptions() PaymentSetupOptionsRequest {
 	if o == nil || IsNil(o.PaymentSetupOptions) {
-		var ret PaymentSetupOptions
+		var ret PaymentSetupOptionsRequest
 		return ret
 	}
 	return *o.PaymentSetupOptions
@@ -264,7 +264,7 @@ func (o *CreatePaymentLinkRequest) GetPaymentSetupOptions() PaymentSetupOptions 
 
 // GetPaymentSetupOptionsOk returns a tuple with the PaymentSetupOptions field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreatePaymentLinkRequest) GetPaymentSetupOptionsOk() (*PaymentSetupOptions, bool) {
+func (o *CreatePaymentLinkRequest) GetPaymentSetupOptionsOk() (*PaymentSetupOptionsRequest, bool) {
 	if o == nil || IsNil(o.PaymentSetupOptions) {
 		return nil, false
 	}
@@ -280,8 +280,8 @@ func (o *CreatePaymentLinkRequest) HasPaymentSetupOptions() bool {
 	return false
 }
 
-// SetPaymentSetupOptions gets a reference to the given PaymentSetupOptions and assigns it to the PaymentSetupOptions field.
-func (o *CreatePaymentLinkRequest) SetPaymentSetupOptions(v PaymentSetupOptions) {
+// SetPaymentSetupOptions gets a reference to the given PaymentSetupOptionsRequest and assigns it to the PaymentSetupOptions field.
+func (o *CreatePaymentLinkRequest) SetPaymentSetupOptions(v PaymentSetupOptionsRequest) {
 	o.PaymentSetupOptions = &v
 }
 

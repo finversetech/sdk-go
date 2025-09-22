@@ -26,9 +26,9 @@ type MandateDetailsRequest struct {
 	// YYYY-MM-DD, must be later than or the same as the date of creation. If unspecified, default to the date of creation.
 	StartDate NullableString `json:"start_date,omitempty"`
 	// YYYY-MM-DD, must be later than the date of creation.
-	EndDate           NullableString     `json:"end_date,omitempty"`
-	PaymentSchedule   *PaymentSchedule   `json:"payment_schedule,omitempty"`
-	TransactionLimits *TransactionLimits `json:"transaction_limits,omitempty"`
+	EndDate           NullableString            `json:"end_date,omitempty"`
+	PaymentSchedule   *PaymentSchedule          `json:"payment_schedule,omitempty"`
+	TransactionLimits *TransactionLimitsRequest `json:"transaction_limits,omitempty"`
 	// End-user facing description of the mandate (used in notifications, and in payments if no description is provided)
 	Description *string `json:"description,omitempty"`
 	// A bank specific reference, what the end user may see
@@ -199,9 +199,9 @@ func (o *MandateDetailsRequest) SetPaymentSchedule(v PaymentSchedule) {
 }
 
 // GetTransactionLimits returns the TransactionLimits field value if set, zero value otherwise.
-func (o *MandateDetailsRequest) GetTransactionLimits() TransactionLimits {
+func (o *MandateDetailsRequest) GetTransactionLimits() TransactionLimitsRequest {
 	if o == nil || IsNil(o.TransactionLimits) {
-		var ret TransactionLimits
+		var ret TransactionLimitsRequest
 		return ret
 	}
 	return *o.TransactionLimits
@@ -209,7 +209,7 @@ func (o *MandateDetailsRequest) GetTransactionLimits() TransactionLimits {
 
 // GetTransactionLimitsOk returns a tuple with the TransactionLimits field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MandateDetailsRequest) GetTransactionLimitsOk() (*TransactionLimits, bool) {
+func (o *MandateDetailsRequest) GetTransactionLimitsOk() (*TransactionLimitsRequest, bool) {
 	if o == nil || IsNil(o.TransactionLimits) {
 		return nil, false
 	}
@@ -225,8 +225,8 @@ func (o *MandateDetailsRequest) HasTransactionLimits() bool {
 	return false
 }
 
-// SetTransactionLimits gets a reference to the given TransactionLimits and assigns it to the TransactionLimits field.
-func (o *MandateDetailsRequest) SetTransactionLimits(v TransactionLimits) {
+// SetTransactionLimits gets a reference to the given TransactionLimitsRequest and assigns it to the TransactionLimits field.
+func (o *MandateDetailsRequest) SetTransactionLimits(v TransactionLimitsRequest) {
 	o.TransactionLimits = &v
 }
 

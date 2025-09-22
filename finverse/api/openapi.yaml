@@ -9423,6 +9423,7 @@ components:
           transaction_limits:
             period: DAILY
             max_period_amount: 1
+            max_transaction_amount_set_by_payer_initial: 5
             max_period_count: 1
             max_transaction_amount: 1
           mandate_bank_reference: mandate_bank_reference
@@ -9519,7 +9520,7 @@ components:
           rapidstor_metadata:
             tenant_id: tenant_id
             corp_code: corp_code
-            i_anniv_days: 3.4024845713830345
+            i_anniv_days: 18.886401750049547
             account_token: account_token
             unit_type_id: unit_type_id
             s_location_code: s_location_code
@@ -9591,7 +9592,7 @@ components:
           minLength: 1
           type: string
         payment_setup_options:
-          $ref: '#/components/schemas/PaymentSetupOptions'
+          $ref: '#/components/schemas/PaymentSetupOptionsRequest'
         metadata:
           additionalProperties:
             maxLength: 1000
@@ -9669,6 +9670,7 @@ components:
           transaction_limits:
             period: DAILY
             max_period_amount: 1
+            max_transaction_amount_set_by_payer_initial: 5
             max_period_count: 1
             max_transaction_amount: 1
           description: description
@@ -9692,6 +9694,55 @@ components:
           type: string
         mandate_details:
           $ref: '#/components/schemas/MandateDetailsForPaymentLink'
+        payment_method_types:
+          items:
+            enum:
+            - MANDATE
+            - SINGLE
+            - CARD
+            - MANUAL
+            type: string
+          type: array
+          x-omitempty: true
+        recipient_account_filters:
+          $ref: '#/components/schemas/RecipientAccountFilters'
+        autopay_enrollment_configuration:
+          $ref: '#/components/schemas/AutopayEnrollmentConfiguration'
+        recurring_payment_mode:
+          description: The recurring payment mode
+          type: string
+      type: object
+    PaymentSetupOptionsRequest:
+      example:
+        future_payments: AUTOPAY
+        mandate_details:
+          end_date: 2000-01-23
+          transaction_limits:
+            period: DAILY
+            max_period_amount: 1
+            max_period_count: 1
+            max_transaction_amount: 1
+          description: description
+          start_date: 2000-01-23
+        recipient_account_filters:
+          business_unit: business_unit
+        recurring_payment_mode: recurring_payment_mode
+        payment_method_types:
+        - MANDATE
+        - MANDATE
+        autopay_enrollment_configuration:
+          display_enrollment_screen: true
+          enrollment_prefill_value: "YES"
+      properties:
+        future_payments:
+          description: "The type of future_payments that customer want to use. Possible\
+            \ values: AUTOPAY or CLICK_TO_PAY"
+          enum:
+          - AUTOPAY
+          - CLICK_TO_PAY
+          type: string
+        mandate_details:
+          $ref: '#/components/schemas/MandateDetailsForPaymentLinkRequest'
         payment_method_types:
           items:
             enum:
@@ -9806,6 +9857,7 @@ components:
               transaction_limits:
                 period: DAILY
                 max_period_amount: 1
+                max_transaction_amount_set_by_payer_initial: 5
                 max_period_count: 1
                 max_transaction_amount: 1
               mandate_bank_reference: mandate_bank_reference
@@ -9926,6 +9978,7 @@ components:
               transaction_limits:
                 period: DAILY
                 max_period_amount: 1
+                max_transaction_amount_set_by_payer_initial: 5
                 max_period_count: 1
                 max_transaction_amount: 1
               mandate_bank_reference: mandate_bank_reference
@@ -9990,7 +10043,7 @@ components:
               tenant_id: tenant_id
               tenant_default_currency: tenant_default_currency
               corp_code: corp_code
-              i_anniv_days: 5.962133916683182
+              i_anniv_days: 5.637376656633329
               account_token: account_token
               unit_type_id: unit_type_id
               s_location_code: s_location_code
@@ -10049,7 +10102,7 @@ components:
             tenant_id: tenant_id
             tenant_default_currency: tenant_default_currency
             corp_code: corp_code
-            i_anniv_days: 5.962133916683182
+            i_anniv_days: 5.637376656633329
             account_token: account_token
             unit_type_id: unit_type_id
             s_location_code: s_location_code
@@ -10072,6 +10125,7 @@ components:
             transaction_limits:
               period: DAILY
               max_period_amount: 1
+              max_transaction_amount_set_by_payer_initial: 5
               max_period_count: 1
               max_transaction_amount: 1
             description: description
@@ -10257,6 +10311,7 @@ components:
               transaction_limits:
                 period: DAILY
                 max_period_amount: 1
+                max_transaction_amount_set_by_payer_initial: 5
                 max_period_count: 1
                 max_transaction_amount: 1
               mandate_bank_reference: mandate_bank_reference
@@ -10426,7 +10481,7 @@ components:
       example:
         tenant_id: tenant_id
         corp_code: corp_code
-        i_anniv_days: 3.4024845713830345
+        i_anniv_days: 18.886401750049547
         account_token: account_token
         unit_type_id: unit_type_id
         s_location_code: s_location_code
@@ -10457,7 +10512,7 @@ components:
         tenant_id: tenant_id
         tenant_default_currency: tenant_default_currency
         corp_code: corp_code
-        i_anniv_days: 5.962133916683182
+        i_anniv_days: 5.637376656633329
         account_token: account_token
         unit_type_id: unit_type_id
         s_location_code: s_location_code
@@ -10484,7 +10539,7 @@ components:
         rapidstor_metadata:
           tenant_id: tenant_id
           corp_code: corp_code
-          i_anniv_days: 3.4024845713830345
+          i_anniv_days: 18.886401750049547
           account_token: account_token
           unit_type_id: unit_type_id
           s_location_code: s_location_code
@@ -10505,7 +10560,7 @@ components:
           tenant_id: tenant_id
           tenant_default_currency: tenant_default_currency
           corp_code: corp_code
-          i_anniv_days: 5.962133916683182
+          i_anniv_days: 5.637376656633329
           account_token: account_token
           unit_type_id: unit_type_id
           s_location_code: s_location_code
@@ -10781,6 +10836,7 @@ components:
           transaction_limits:
             period: DAILY
             max_period_amount: 1
+            max_transaction_amount_set_by_payer_initial: 5
             max_period_count: 1
             max_transaction_amount: 1
           mandate_bank_reference: mandate_bank_reference
@@ -10921,6 +10977,7 @@ components:
             transaction_limits:
               period: DAILY
               max_period_amount: 1
+              max_transaction_amount_set_by_payer_initial: 5
               max_period_count: 1
               max_transaction_amount: 1
             mandate_bank_reference: mandate_bank_reference
@@ -11000,6 +11057,7 @@ components:
             transaction_limits:
               period: DAILY
               max_period_amount: 1
+              max_transaction_amount_set_by_payer_initial: 5
               max_period_count: 1
               max_transaction_amount: 1
             mandate_bank_reference: mandate_bank_reference
@@ -11216,6 +11274,7 @@ components:
         transaction_limits:
           period: DAILY
           max_period_amount: 1
+          max_transaction_amount_set_by_payer_initial: 5
           max_period_count: 1
           max_transaction_amount: 1
         mandate_bank_reference: mandate_bank_reference
@@ -11247,7 +11306,7 @@ components:
         payment_schedule:
           $ref: '#/components/schemas/PaymentSchedule'
         transaction_limits:
-          $ref: '#/components/schemas/TransactionLimits'
+          $ref: '#/components/schemas/TransactionLimitsResponse'
         description:
           description: "End-user facing description of the mandate (used in notifications,\
             \ and in payments if no description is provided)"
@@ -11295,7 +11354,7 @@ components:
         payment_schedule:
           $ref: '#/components/schemas/PaymentSchedule'
         transaction_limits:
-          $ref: '#/components/schemas/TransactionLimits'
+          $ref: '#/components/schemas/TransactionLimitsRequest'
         description:
           description: "End-user facing description of the mandate (used in notifications,\
             \ and in payments if no description is provided)"
@@ -11337,7 +11396,7 @@ components:
           nullable: true
           type: string
         transaction_limits:
-          $ref: '#/components/schemas/TransactionLimits'
+          $ref: '#/components/schemas/TransactionLimitsRequest'
         description:
           description: "End-user facing description of the mandate (used in notifications,\
             \ and in payments if no description is provided)"
@@ -11347,6 +11406,36 @@ components:
       - description
       type: object
     MandateDetailsForPaymentLink:
+      example:
+        end_date: 2000-01-23
+        transaction_limits:
+          period: DAILY
+          max_period_amount: 1
+          max_transaction_amount_set_by_payer_initial: 5
+          max_period_count: 1
+          max_transaction_amount: 1
+        description: description
+        start_date: 2000-01-23
+      properties:
+        start_date:
+          description: "YYYY-MM-DD, must be later than or the same as the date of\
+            \ creation. If unspecified, default to the date of creation."
+          format: date
+          nullable: true
+          type: string
+        end_date:
+          description: "YYYY-MM-DD, must be later than the date of creation."
+          format: date
+          nullable: true
+          type: string
+        transaction_limits:
+          $ref: '#/components/schemas/TransactionLimitsResponse'
+        description:
+          description: "End-user facing description of the mandate (used in notifications,\
+            \ and in payments if no description is provided)"
+          type: string
+      type: object
+    MandateDetailsForPaymentLinkRequest:
       example:
         end_date: 2000-01-23
         transaction_limits:
@@ -11369,7 +11458,7 @@ components:
           nullable: true
           type: string
         transaction_limits:
-          $ref: '#/components/schemas/TransactionLimits'
+          $ref: '#/components/schemas/TransactionLimitsRequest'
         description:
           description: "End-user facing description of the mandate (used in notifications,\
             \ and in payments if no description is provided)"
@@ -11427,7 +11516,7 @@ components:
       - amount
       - frequency
       type: object
-    TransactionLimits:
+    TransactionLimitsRequest:
       example:
         period: DAILY
         max_period_amount: 1
@@ -11450,6 +11539,51 @@ components:
             \ transaction under this mandate. Expressed in currency's smallest unit\
             \ or “minor unit”, as defined in ISO 4217."
           minimum: 1
+          type: integer
+        period:
+          description: "Reference calendar periods for the payment limits. Possible\
+            \ values (DAILY, WEEKLY, MONTHLY, QUARTERLY, YEARLY)"
+          enum:
+          - DAILY
+          - WEEKLY
+          - MONTHLY
+          - QUARTERLY
+          - YEARLY
+          nullable: true
+          type: string
+      required:
+      - max_transaction_amount
+      type: object
+    TransactionLimitsResponse:
+      example:
+        period: DAILY
+        max_period_amount: 1
+        max_transaction_amount_set_by_payer_initial: 5
+        max_period_count: 1
+        max_transaction_amount: 1
+      properties:
+        max_period_amount:
+          description: "Maximum amount of money that can be paid during the reference\
+            \ period (across any number of transactions). Expressed in currency's\
+            \ smallest unit or “minor unit”, as defined in ISO 4217."
+          minimum: 1
+          type: integer
+        max_period_count:
+          description: Maximum number of transactions (of any amount) that can be
+            executed during the reference period.
+          minimum: 1
+          type: integer
+        max_transaction_amount:
+          description: "The maximum amount of money that can be transferred in a single\
+            \ transaction under this mandate. Expressed in currency's smallest unit\
+            \ or “minor unit”, as defined in ISO 4217."
+          minimum: 1
+          type: integer
+        max_transaction_amount_set_by_payer_initial:
+          description: "The maximum amount of money that can be transferred in a single\
+            \ transaction under this mandate set by the payer. Expressed in currency's\
+            \ smallest unit or “minor unit”, as defined in ISO 4217."
+          nullable: true
           type: integer
         period:
           description: "Reference calendar periods for the payment limits. Possible\
@@ -11640,6 +11774,7 @@ components:
           transaction_limits:
             period: DAILY
             max_period_amount: 1
+            max_transaction_amount_set_by_payer_initial: 5
             max_period_count: 1
             max_transaction_amount: 1
           mandate_bank_reference: mandate_bank_reference
@@ -12591,7 +12726,7 @@ components:
           rapidstor_metadata:
             tenant_id: tenant_id
             corp_code: corp_code
-            i_anniv_days: 3.4024845713830345
+            i_anniv_days: 18.886401750049547
             account_token: account_token
             unit_type_id: unit_type_id
             s_location_code: s_location_code
@@ -12694,7 +12829,7 @@ components:
             tenant_id: tenant_id
             tenant_default_currency: tenant_default_currency
             corp_code: corp_code
-            i_anniv_days: 5.962133916683182
+            i_anniv_days: 5.637376656633329
             account_token: account_token
             unit_type_id: unit_type_id
             s_location_code: s_location_code
@@ -12773,7 +12908,7 @@ components:
             tenant_id: tenant_id
             tenant_default_currency: tenant_default_currency
             corp_code: corp_code
-            i_anniv_days: 5.962133916683182
+            i_anniv_days: 5.637376656633329
             account_token: account_token
             unit_type_id: unit_type_id
             s_location_code: s_location_code
@@ -12988,6 +13123,7 @@ components:
             transaction_limits:
               period: DAILY
               max_period_amount: 1
+              max_transaction_amount_set_by_payer_initial: 5
               max_period_count: 1
               max_transaction_amount: 1
             mandate_bank_reference: mandate_bank_reference
