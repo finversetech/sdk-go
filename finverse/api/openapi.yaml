@@ -5532,6 +5532,7 @@ components:
           - en
           - vi
           - zh
+          - ko
           example: en
           maxLength: 3
           type: string
@@ -11666,6 +11667,7 @@ components:
           - en
           - vi
           - zh
+          - ko
           example: en
           type: string
         ui_mode:
@@ -11723,6 +11725,7 @@ components:
           - en
           - vi
           - zh
+          - ko
           example: en
           type: string
         link_mode:
@@ -13468,6 +13471,7 @@ components:
           - en
           - vi
           - zh
+          - ko
           example: en
           type: string
         ui_mode:
