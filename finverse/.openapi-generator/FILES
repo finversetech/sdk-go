@@ -32,6 +32,8 @@ model_card_recipient.go
 model_card_total.go
 model_category_predictions.go
 model_change_payment_method_fv_link_response.go
+model_complete_kcp_payment_request.go
+model_complete_kcp_payment_response.go
 model_composite_statement_link.go
 model_confirm_payment_response.go
 model_create_card_request.go

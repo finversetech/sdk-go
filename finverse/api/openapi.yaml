@@ -761,6 +761,40 @@ paths:
       security:
       - Oauth2:
         - paymentlink:cancel
+  /payment_links/kcp/payment:
+    post:
+      description: Complete a KCP payment
+      operationId: completeKcpPayment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CompleteKcpPaymentRequest'
+        description: Parameters from the KCP SDK callback to complete the payment
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CompleteKcpPaymentResponse'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Bad Request
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - kcp:completePayment
+      x-codegen-request-body-name: completeKcpPaymentRequest
   /link:
     post:
       description: Create a new link and submit credentials
@@ -13692,6 +13726,90 @@ components:
       required:
       - disputes
       - total_disputes
+      type: object
+    CompleteKcpPaymentRequest:
+      example:
+        res_msg: res_msg
+        card_point_use: "Y"
+        trace_no: trace_no
+        res_cd: res_cd
+        buyr_mail: buyr_mail
+        tran_cd: tran_cd
+        ret_pay_method: ret_pay_method
+        use_pay_method: use_pay_method
+        kcp_select_card_code: CCXB
+        enc_data: enc_data
+        enc_info: enc_info
+        card_pay_method: card_pay_method
+        ordr_chk: ordr_chk
+        lang: lang
+        ordr_idxx: ordr_idxx
+      properties:
+        lang:
+          type: string
+        res_cd:
+          description: "Result code, \"0000\" if the payment is successful"
+          type: string
+        res_msg:
+          description: Result message
+          type: string
+        buyr_mail:
+          description: Buyer's mail
+          type: string
+        tran_cd:
+          description: Transaction code
+          type: string
+        trace_no:
+          description: Trace number
+          type: string
+        ret_pay_method:
+          type: string
+        use_pay_method:
+          type: string
+        enc_data:
+          type: string
+        enc_info:
+          type: string
+        ordr_idxx:
+          description: FV Payment ID
+          type: string
+        card_pay_method:
+          description: Card payment method
+          type: string
+        card_point_use:
+          description: If card point is used
+          enum:
+          - "Y"
+          - "N"
+          type: string
+        kcp_select_card_code:
+          description: KCP select card code
+          example: CCXB
+          type: string
+        ordr_chk:
+          description: "In the format of \"[FV Payment ID] | [Amount]\""
+          type: string
+      required:
+      - buyr_mail
+      - card_pay_method
+      - card_point_use
+      - enc_data
+      - enc_info
+      - kcp_select_card_code
+      - ordr_chk
+      - ordr_idxx
+      - trace_no
+      - tran_cd
+      type: object
+    CompleteKcpPaymentResponse:
+      example:
+        redirect: redirect
+      properties:
+        redirect:
+          description: retryUrl from the token's claims
+          type: string
+      required:
+      - redirect
       type: object
     token_request:
       properties:
