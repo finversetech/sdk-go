@@ -13787,7 +13787,7 @@ components:
           example: CCXB
           type: string
         ordr_chk:
-          description: "In the format of \"[FV Payment ID] | [Amount]\""
+          description: "In the format of \"[FV Payment ID]|[Amount]\""
           type: string
       required:
       - buyr_mail

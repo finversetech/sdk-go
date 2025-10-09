@@ -44,7 +44,7 @@ type CompleteKcpPaymentRequest struct {
 	CardPointUse string `json:"card_point_use"`
 	// KCP select card code
 	KcpSelectCardCode string `json:"kcp_select_card_code"`
-	// In the format of \"[FV Payment ID] | [Amount]\"
+	// In the format of \"[FV Payment ID]|[Amount]\"
 	OrdrChk              string `json:"ordr_chk"`
 	AdditionalProperties map[string]interface{}
 }
