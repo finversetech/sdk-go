@@ -13793,15 +13793,9 @@ components:
           description: "In the format of \"[FV Payment ID]|[Amount]\""
           type: string
       required:
-      - buyr_mail
-      - card_pay_method
-      - card_point_use
       - enc_data
       - enc_info
-      - kcp_select_card_code
-      - ordr_chk
       - ordr_idxx
-      - trace_no
       - tran_cd
       type: object
     CompleteKcpPaymentResponse:

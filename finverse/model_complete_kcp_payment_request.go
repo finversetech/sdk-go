@@ -27,11 +27,11 @@ type CompleteKcpPaymentRequest struct {
 	// Result message
 	ResMsg *string `json:"res_msg,omitempty"`
 	// Buyer's mail
-	BuyrMail string `json:"buyr_mail"`
+	BuyrMail *string `json:"buyr_mail,omitempty"`
 	// Transaction code
 	TranCd string `json:"tran_cd"`
 	// Trace number
-	TraceNo      string  `json:"trace_no"`
+	TraceNo      *string `json:"trace_no,omitempty"`
 	RetPayMethod *string `json:"ret_pay_method,omitempty"`
 	UsePayMethod *string `json:"use_pay_method,omitempty"`
 	EncData      string  `json:"enc_data"`
@@ -39,13 +39,13 @@ type CompleteKcpPaymentRequest struct {
 	// FV Payment ID
 	OrdrIdxx string `json:"ordr_idxx"`
 	// Card payment method
-	CardPayMethod string `json:"card_pay_method"`
+	CardPayMethod *string `json:"card_pay_method,omitempty"`
 	// If card point is used
-	CardPointUse string `json:"card_point_use"`
+	CardPointUse *string `json:"card_point_use,omitempty"`
 	// KCP select card code
-	KcpSelectCardCode string `json:"kcp_select_card_code"`
+	KcpSelectCardCode *string `json:"kcp_select_card_code,omitempty"`
 	// In the format of \"[FV Payment ID]|[Amount]\"
-	OrdrChk              string `json:"ordr_chk"`
+	OrdrChk              *string `json:"ordr_chk,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -55,18 +55,12 @@ type _CompleteKcpPaymentRequest CompleteKcpPaymentRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCompleteKcpPaymentRequest(buyrMail string, tranCd string, traceNo string, encData string, encInfo string, ordrIdxx string, cardPayMethod string, cardPointUse string, kcpSelectCardCode string, ordrChk string) *CompleteKcpPaymentRequest {
+func NewCompleteKcpPaymentRequest(tranCd string, encData string, encInfo string, ordrIdxx string) *CompleteKcpPaymentRequest {
 	this := CompleteKcpPaymentRequest{}
-	this.BuyrMail = buyrMail
 	this.TranCd = tranCd
-	this.TraceNo = traceNo
 	this.EncData = encData
 	this.EncInfo = encInfo
 	this.OrdrIdxx = ordrIdxx
-	this.CardPayMethod = cardPayMethod
-	this.CardPointUse = cardPointUse
-	this.KcpSelectCardCode = kcpSelectCardCode
-	this.OrdrChk = ordrChk
 	return &this
 }
 
@@ -174,28 +168,36 @@ func (o *CompleteKcpPaymentRequest) SetResMsg(v string) {
 	o.ResMsg = &v
 }
 
-// GetBuyrMail returns the BuyrMail field value
+// GetBuyrMail returns the BuyrMail field value if set, zero value otherwise.
 func (o *CompleteKcpPaymentRequest) GetBuyrMail() string {
-	if o == nil {
+	if o == nil || IsNil(o.BuyrMail) {
 		var ret string
 		return ret
 	}
-
-	return o.BuyrMail
+	return *o.BuyrMail
 }
 
-// GetBuyrMailOk returns a tuple with the BuyrMail field value
+// GetBuyrMailOk returns a tuple with the BuyrMail field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CompleteKcpPaymentRequest) GetBuyrMailOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.BuyrMail) {
 		return nil, false
 	}
-	return &o.BuyrMail, true
+	return o.BuyrMail, true
 }
 
-// SetBuyrMail sets field value
+// HasBuyrMail returns a boolean if a field has been set.
+func (o *CompleteKcpPaymentRequest) HasBuyrMail() bool {
+	if o != nil && !IsNil(o.BuyrMail) {
+		return true
+	}
+
+	return false
+}
+
+// SetBuyrMail gets a reference to the given string and assigns it to the BuyrMail field.
 func (o *CompleteKcpPaymentRequest) SetBuyrMail(v string) {
-	o.BuyrMail = v
+	o.BuyrMail = &v
 }
 
 // GetTranCd returns the TranCd field value
@@ -222,28 +224,36 @@ func (o *CompleteKcpPaymentRequest) SetTranCd(v string) {
 	o.TranCd = v
 }
 
-// GetTraceNo returns the TraceNo field value
+// GetTraceNo returns the TraceNo field value if set, zero value otherwise.
 func (o *CompleteKcpPaymentRequest) GetTraceNo() string {
-	if o == nil {
+	if o == nil || IsNil(o.TraceNo) {
 		var ret string
 		return ret
 	}
-
-	return o.TraceNo
+	return *o.TraceNo
 }
 
-// GetTraceNoOk returns a tuple with the TraceNo field value
+// GetTraceNoOk returns a tuple with the TraceNo field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CompleteKcpPaymentRequest) GetTraceNoOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.TraceNo) {
 		return nil, false
 	}
-	return &o.TraceNo, true
+	return o.TraceNo, true
 }
 
-// SetTraceNo sets field value
+// HasTraceNo returns a boolean if a field has been set.
+func (o *CompleteKcpPaymentRequest) HasTraceNo() bool {
+	if o != nil && !IsNil(o.TraceNo) {
+		return true
+	}
+
+	return false
+}
+
+// SetTraceNo gets a reference to the given string and assigns it to the TraceNo field.
 func (o *CompleteKcpPaymentRequest) SetTraceNo(v string) {
-	o.TraceNo = v
+	o.TraceNo = &v
 }
 
 // GetRetPayMethod returns the RetPayMethod field value if set, zero value otherwise.
@@ -382,100 +392,132 @@ func (o *CompleteKcpPaymentRequest) SetOrdrIdxx(v string) {
 	o.OrdrIdxx = v
 }
 
-// GetCardPayMethod returns the CardPayMethod field value
+// GetCardPayMethod returns the CardPayMethod field value if set, zero value otherwise.
 func (o *CompleteKcpPaymentRequest) GetCardPayMethod() string {
-	if o == nil {
+	if o == nil || IsNil(o.CardPayMethod) {
 		var ret string
 		return ret
 	}
-
-	return o.CardPayMethod
+	return *o.CardPayMethod
 }
 
-// GetCardPayMethodOk returns a tuple with the CardPayMethod field value
+// GetCardPayMethodOk returns a tuple with the CardPayMethod field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CompleteKcpPaymentRequest) GetCardPayMethodOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CardPayMethod) {
 		return nil, false
 	}
-	return &o.CardPayMethod, true
+	return o.CardPayMethod, true
 }
 
-// SetCardPayMethod sets field value
+// HasCardPayMethod returns a boolean if a field has been set.
+func (o *CompleteKcpPaymentRequest) HasCardPayMethod() bool {
+	if o != nil && !IsNil(o.CardPayMethod) {
+		return true
+	}
+
+	return false
+}
+
+// SetCardPayMethod gets a reference to the given string and assigns it to the CardPayMethod field.
 func (o *CompleteKcpPaymentRequest) SetCardPayMethod(v string) {
-	o.CardPayMethod = v
+	o.CardPayMethod = &v
 }
 
-// GetCardPointUse returns the CardPointUse field value
+// GetCardPointUse returns the CardPointUse field value if set, zero value otherwise.
 func (o *CompleteKcpPaymentRequest) GetCardPointUse() string {
-	if o == nil {
+	if o == nil || IsNil(o.CardPointUse) {
 		var ret string
 		return ret
 	}
-
-	return o.CardPointUse
+	return *o.CardPointUse
 }
 
-// GetCardPointUseOk returns a tuple with the CardPointUse field value
+// GetCardPointUseOk returns a tuple with the CardPointUse field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CompleteKcpPaymentRequest) GetCardPointUseOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.CardPointUse) {
 		return nil, false
 	}
-	return &o.CardPointUse, true
+	return o.CardPointUse, true
 }
 
-// SetCardPointUse sets field value
+// HasCardPointUse returns a boolean if a field has been set.
+func (o *CompleteKcpPaymentRequest) HasCardPointUse() bool {
+	if o != nil && !IsNil(o.CardPointUse) {
+		return true
+	}
+
+	return false
+}
+
+// SetCardPointUse gets a reference to the given string and assigns it to the CardPointUse field.
 func (o *CompleteKcpPaymentRequest) SetCardPointUse(v string) {
-	o.CardPointUse = v
+	o.CardPointUse = &v
 }
 
-// GetKcpSelectCardCode returns the KcpSelectCardCode field value
+// GetKcpSelectCardCode returns the KcpSelectCardCode field value if set, zero value otherwise.
 func (o *CompleteKcpPaymentRequest) GetKcpSelectCardCode() string {
-	if o == nil {
+	if o == nil || IsNil(o.KcpSelectCardCode) {
 		var ret string
 		return ret
 	}
-
-	return o.KcpSelectCardCode
+	return *o.KcpSelectCardCode
 }
 
-// GetKcpSelectCardCodeOk returns a tuple with the KcpSelectCardCode field value
+// GetKcpSelectCardCodeOk returns a tuple with the KcpSelectCardCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CompleteKcpPaymentRequest) GetKcpSelectCardCodeOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.KcpSelectCardCode) {
 		return nil, false
 	}
-	return &o.KcpSelectCardCode, true
+	return o.KcpSelectCardCode, true
 }
 
-// SetKcpSelectCardCode sets field value
+// HasKcpSelectCardCode returns a boolean if a field has been set.
+func (o *CompleteKcpPaymentRequest) HasKcpSelectCardCode() bool {
+	if o != nil && !IsNil(o.KcpSelectCardCode) {
+		return true
+	}
+
+	return false
+}
+
+// SetKcpSelectCardCode gets a reference to the given string and assigns it to the KcpSelectCardCode field.
 func (o *CompleteKcpPaymentRequest) SetKcpSelectCardCode(v string) {
-	o.KcpSelectCardCode = v
+	o.KcpSelectCardCode = &v
 }
 
-// GetOrdrChk returns the OrdrChk field value
+// GetOrdrChk returns the OrdrChk field value if set, zero value otherwise.
 func (o *CompleteKcpPaymentRequest) GetOrdrChk() string {
-	if o == nil {
+	if o == nil || IsNil(o.OrdrChk) {
 		var ret string
 		return ret
 	}
-
-	return o.OrdrChk
+	return *o.OrdrChk
 }
 
-// GetOrdrChkOk returns a tuple with the OrdrChk field value
+// GetOrdrChkOk returns a tuple with the OrdrChk field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CompleteKcpPaymentRequest) GetOrdrChkOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.OrdrChk) {
 		return nil, false
 	}
-	return &o.OrdrChk, true
+	return o.OrdrChk, true
 }
 
-// SetOrdrChk sets field value
+// HasOrdrChk returns a boolean if a field has been set.
+func (o *CompleteKcpPaymentRequest) HasOrdrChk() bool {
+	if o != nil && !IsNil(o.OrdrChk) {
+		return true
+	}
+
+	return false
+}
+
+// SetOrdrChk gets a reference to the given string and assigns it to the OrdrChk field.
 func (o *CompleteKcpPaymentRequest) SetOrdrChk(v string) {
-	o.OrdrChk = v
+	o.OrdrChk = &v
 }
 
 func (o CompleteKcpPaymentRequest) MarshalJSON() ([]byte, error) {
@@ -497,9 +539,13 @@ func (o CompleteKcpPaymentRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ResMsg) {
 		toSerialize["res_msg"] = o.ResMsg
 	}
-	toSerialize["buyr_mail"] = o.BuyrMail
+	if !IsNil(o.BuyrMail) {
+		toSerialize["buyr_mail"] = o.BuyrMail
+	}
 	toSerialize["tran_cd"] = o.TranCd
-	toSerialize["trace_no"] = o.TraceNo
+	if !IsNil(o.TraceNo) {
+		toSerialize["trace_no"] = o.TraceNo
+	}
 	if !IsNil(o.RetPayMethod) {
 		toSerialize["ret_pay_method"] = o.RetPayMethod
 	}
@@ -509,10 +555,18 @@ func (o CompleteKcpPaymentRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize["enc_data"] = o.EncData
 	toSerialize["enc_info"] = o.EncInfo
 	toSerialize["ordr_idxx"] = o.OrdrIdxx
-	toSerialize["card_pay_method"] = o.CardPayMethod
-	toSerialize["card_point_use"] = o.CardPointUse
-	toSerialize["kcp_select_card_code"] = o.KcpSelectCardCode
-	toSerialize["ordr_chk"] = o.OrdrChk
+	if !IsNil(o.CardPayMethod) {
+		toSerialize["card_pay_method"] = o.CardPayMethod
+	}
+	if !IsNil(o.CardPointUse) {
+		toSerialize["card_point_use"] = o.CardPointUse
+	}
+	if !IsNil(o.KcpSelectCardCode) {
+		toSerialize["kcp_select_card_code"] = o.KcpSelectCardCode
+	}
+	if !IsNil(o.OrdrChk) {
+		toSerialize["ordr_chk"] = o.OrdrChk
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -526,16 +580,10 @@ func (o *CompleteKcpPaymentRequest) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"buyr_mail",
 		"tran_cd",
-		"trace_no",
 		"enc_data",
 		"enc_info",
 		"ordr_idxx",
-		"card_pay_method",
-		"card_point_use",
-		"kcp_select_card_code",
-		"ordr_chk",
 	}
 
 	allProperties := make(map[string]interface{})
