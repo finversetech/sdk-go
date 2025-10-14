@@ -1738,8 +1738,15 @@ func (a *DefaultAPIService) CreatePaymentLinkExecute(r DefaultAPICreatePaymentLi
 }
 
 type DefaultAPICreatePaymentLinkCardPaymentRequest struct {
-	ctx        context.Context
-	ApiService DefaultAPI
+	ctx                                 context.Context
+	ApiService                          DefaultAPI
+	createPaymentLinkCardPaymentRequest *CreatePaymentLinkCardPaymentRequest
+}
+
+// request body for initiating card payment for a payment link
+func (r DefaultAPICreatePaymentLinkCardPaymentRequest) CreatePaymentLinkCardPaymentRequest(createPaymentLinkCardPaymentRequest CreatePaymentLinkCardPaymentRequest) DefaultAPICreatePaymentLinkCardPaymentRequest {
+	r.createPaymentLinkCardPaymentRequest = &createPaymentLinkCardPaymentRequest
+	return r
 }
 
 func (r DefaultAPICreatePaymentLinkCardPaymentRequest) Execute() (*CreatePaymentLinkCardPaymentResponse, *http.Response, error) {
@@ -1783,7 +1790,7 @@ func (a *DefaultAPIService) CreatePaymentLinkCardPaymentExecute(r DefaultAPICrea
 	localVarFormParams := url.Values{}
 
 	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{}
+	localVarHTTPContentTypes := []string{"application/json"}
 
 	// set Content-Type header
 	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
@@ -1799,6 +1806,8 @@ func (a *DefaultAPIService) CreatePaymentLinkCardPaymentExecute(r DefaultAPICrea
 	if localVarHTTPHeaderAccept != "" {
 		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
 	}
+	// body params
+	localVarPostBody = r.createPaymentLinkCardPaymentRequest
 	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
 	if err != nil {
 		return localVarReturnValue, nil, err

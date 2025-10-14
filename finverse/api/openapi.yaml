@@ -599,6 +599,13 @@ paths:
     post:
       description: Initiate Card Payment for a Payment Link
       operationId: createPaymentLinkCardPayment
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePaymentLinkCardPaymentRequest'
+        description: request body for initiating card payment for a payment link
+        required: false
       responses:
         "200":
           content:
@@ -627,6 +634,7 @@ paths:
       security:
       - Oauth2:
         - paymentlink:cc:create
+      x-codegen-request-body-name: createPaymentLinkCardPaymentRequest
   /payment_links/fps/token:
     post:
       description: Create token for fps flow
@@ -5814,6 +5822,14 @@ components:
           $ref: '#/components/schemas/PaymentLinkTokenResponse'
       required:
       - mandate_link_token
+      type: object
+    CreatePaymentLinkCardPaymentRequest:
+      example:
+        is_mobile: true
+      properties:
+        is_mobile:
+          description: Whether the request is from a mobile device
+          type: boolean
       type: object
     CreatePaymentLinkCardPaymentResponse:
       example:
