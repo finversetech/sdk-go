@@ -13307,6 +13307,7 @@ components:
         payment_details:
           collection_entity_name: collection_entity_name
         payment_id: payment_id
+        type: MANDATE
         error:
           error_code: CREDENTIALS_INVALID
           details: details
@@ -13327,6 +13328,13 @@ components:
           - REVOKED
           - CANCELLED
           - CREATED
+          type: string
+        type:
+          enum:
+          - MANDATE
+          - SINGLE
+          - CARD
+          - MANUAL
           type: string
         payment_details:
           $ref: '#/components/schemas/PaymentFvLinkDetails'

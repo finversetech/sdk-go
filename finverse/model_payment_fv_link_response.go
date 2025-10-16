@@ -22,6 +22,7 @@ var _ MappedNullable = &PaymentFvLinkResponse{}
 type PaymentFvLinkResponse struct {
 	PaymentId            *string               `json:"payment_id,omitempty"`
 	Status               *string               `json:"status,omitempty"`
+	Type                 *string               `json:"type,omitempty"`
 	PaymentDetails       *PaymentFvLinkDetails `json:"payment_details,omitempty"`
 	Error                *FvEmbeddedErrorModel `json:"error,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -110,6 +111,38 @@ func (o *PaymentFvLinkResponse) SetStatus(v string) {
 	o.Status = &v
 }
 
+// GetType returns the Type field value if set, zero value otherwise.
+func (o *PaymentFvLinkResponse) GetType() string {
+	if o == nil || IsNil(o.Type) {
+		var ret string
+		return ret
+	}
+	return *o.Type
+}
+
+// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentFvLinkResponse) GetTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.Type) {
+		return nil, false
+	}
+	return o.Type, true
+}
+
+// HasType returns a boolean if a field has been set.
+func (o *PaymentFvLinkResponse) HasType() bool {
+	if o != nil && !IsNil(o.Type) {
+		return true
+	}
+
+	return false
+}
+
+// SetType gets a reference to the given string and assigns it to the Type field.
+func (o *PaymentFvLinkResponse) SetType(v string) {
+	o.Type = &v
+}
+
 // GetPaymentDetails returns the PaymentDetails field value if set, zero value otherwise.
 func (o *PaymentFvLinkResponse) GetPaymentDetails() PaymentFvLinkDetails {
 	if o == nil || IsNil(o.PaymentDetails) {
@@ -190,6 +223,9 @@ func (o PaymentFvLinkResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
 	}
+	if !IsNil(o.Type) {
+		toSerialize["type"] = o.Type
+	}
 	if !IsNil(o.PaymentDetails) {
 		toSerialize["payment_details"] = o.PaymentDetails
 	}
@@ -220,6 +256,7 @@ func (o *PaymentFvLinkResponse) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "payment_id")
 		delete(additionalProperties, "status")
+		delete(additionalProperties, "type")
 		delete(additionalProperties, "payment_details")
 		delete(additionalProperties, "error")
 		o.AdditionalProperties = additionalProperties
