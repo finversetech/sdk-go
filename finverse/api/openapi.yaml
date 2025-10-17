@@ -605,7 +605,7 @@ paths:
             schema:
               $ref: '#/components/schemas/CreatePaymentLinkCardPaymentRequest'
         description: request body for initiating card payment for a payment link
-        required: false
+        required: true
       responses:
         "200":
           content:
@@ -5836,6 +5836,8 @@ components:
         is_mobile:
           description: Whether the request is from a mobile device
           type: boolean
+      required:
+      - is_mobile
       type: object
     CreatePaymentLinkCardPaymentResponse:
       example:

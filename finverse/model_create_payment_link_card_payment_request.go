@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the CreatePaymentLinkCardPaymentRequest type satisfies the MappedNullable interface at compile time
@@ -21,7 +22,7 @@ var _ MappedNullable = &CreatePaymentLinkCardPaymentRequest{}
 // CreatePaymentLinkCardPaymentRequest struct for CreatePaymentLinkCardPaymentRequest
 type CreatePaymentLinkCardPaymentRequest struct {
 	// Whether the request is from a mobile device
-	IsMobile             *bool `json:"is_mobile,omitempty"`
+	IsMobile             bool `json:"is_mobile"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -31,8 +32,9 @@ type _CreatePaymentLinkCardPaymentRequest CreatePaymentLinkCardPaymentRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentLinkCardPaymentRequest() *CreatePaymentLinkCardPaymentRequest {
+func NewCreatePaymentLinkCardPaymentRequest(isMobile bool) *CreatePaymentLinkCardPaymentRequest {
 	this := CreatePaymentLinkCardPaymentRequest{}
+	this.IsMobile = isMobile
 	return &this
 }
 
@@ -44,36 +46,28 @@ func NewCreatePaymentLinkCardPaymentRequestWithDefaults() *CreatePaymentLinkCard
 	return &this
 }
 
-// GetIsMobile returns the IsMobile field value if set, zero value otherwise.
+// GetIsMobile returns the IsMobile field value
 func (o *CreatePaymentLinkCardPaymentRequest) GetIsMobile() bool {
-	if o == nil || IsNil(o.IsMobile) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.IsMobile
+
+	return o.IsMobile
 }
 
-// GetIsMobileOk returns a tuple with the IsMobile field value if set, nil otherwise
+// GetIsMobileOk returns a tuple with the IsMobile field value
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentLinkCardPaymentRequest) GetIsMobileOk() (*bool, bool) {
-	if o == nil || IsNil(o.IsMobile) {
+	if o == nil {
 		return nil, false
 	}
-	return o.IsMobile, true
+	return &o.IsMobile, true
 }
 
-// HasIsMobile returns a boolean if a field has been set.
-func (o *CreatePaymentLinkCardPaymentRequest) HasIsMobile() bool {
-	if o != nil && !IsNil(o.IsMobile) {
-		return true
-	}
-
-	return false
-}
-
-// SetIsMobile gets a reference to the given bool and assigns it to the IsMobile field.
+// SetIsMobile sets field value
 func (o *CreatePaymentLinkCardPaymentRequest) SetIsMobile(v bool) {
-	o.IsMobile = &v
+	o.IsMobile = v
 }
 
 func (o CreatePaymentLinkCardPaymentRequest) MarshalJSON() ([]byte, error) {
@@ -86,9 +80,7 @@ func (o CreatePaymentLinkCardPaymentRequest) MarshalJSON() ([]byte, error) {
 
 func (o CreatePaymentLinkCardPaymentRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.IsMobile) {
-		toSerialize["is_mobile"] = o.IsMobile
-	}
+	toSerialize["is_mobile"] = o.IsMobile
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -98,6 +90,27 @@ func (o CreatePaymentLinkCardPaymentRequest) ToMap() (map[string]interface{}, er
 }
 
 func (o *CreatePaymentLinkCardPaymentRequest) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"is_mobile",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varCreatePaymentLinkCardPaymentRequest := _CreatePaymentLinkCardPaymentRequest{}
 
 	err = json.Unmarshal(data, &varCreatePaymentLinkCardPaymentRequest)
