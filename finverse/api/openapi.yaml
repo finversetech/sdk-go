@@ -9864,6 +9864,12 @@ components:
               customer:
                 id: id
             integration_id: STRIPE
+            adyen_metadata:
+              payment_method_id: payment_method_id
+              psp_reference: psp_reference
+              network_transaction_reference: network_transaction_reference
+              recurring_processing_model: CardOnFile
+              auth_code: auth_code
             cybersource_metadata:
               payment_token: payment_token
           payment_method_id: payment_method_id
@@ -9985,6 +9991,12 @@ components:
               customer:
                 id: id
             integration_id: STRIPE
+            adyen_metadata:
+              payment_method_id: payment_method_id
+              psp_reference: psp_reference
+              network_transaction_reference: network_transaction_reference
+              recurring_processing_model: CardOnFile
+              auth_code: auth_code
             cybersource_metadata:
               payment_token: payment_token
           payment_method_id: payment_method_id
@@ -10318,6 +10330,12 @@ components:
               customer:
                 id: id
             integration_id: STRIPE
+            adyen_metadata:
+              payment_method_id: payment_method_id
+              psp_reference: psp_reference
+              network_transaction_reference: network_transaction_reference
+              recurring_processing_model: CardOnFile
+              auth_code: auth_code
             cybersource_metadata:
               payment_token: payment_token
           payment_method_id: payment_method_id
@@ -13051,6 +13069,12 @@ components:
             customer:
               id: id
           integration_id: STRIPE
+          adyen_metadata:
+            payment_method_id: payment_method_id
+            psp_reference: psp_reference
+            network_transaction_reference: network_transaction_reference
+            recurring_processing_model: CardOnFile
+            auth_code: auth_code
           cybersource_metadata:
             payment_token: payment_token
         mandate:
@@ -13105,6 +13129,12 @@ components:
           customer:
             id: id
         integration_id: STRIPE
+        adyen_metadata:
+          payment_method_id: payment_method_id
+          psp_reference: psp_reference
+          network_transaction_reference: network_transaction_reference
+          recurring_processing_model: CardOnFile
+          auth_code: auth_code
         cybersource_metadata:
           payment_token: payment_token
       properties:
@@ -13112,11 +13142,14 @@ components:
           enum:
           - STRIPE
           - CYBERSOURCE
+          - ADYEN
           type: string
         stripe_metadata:
           $ref: '#/components/schemas/PaymentMethodIntegrationMetadata_stripe_metadata'
         cybersource_metadata:
           $ref: '#/components/schemas/PaymentMethodIntegrationMetadata_cybersource_metadata'
+        adyen_metadata:
+          $ref: '#/components/schemas/PaymentMethodIntegrationMetadata_adyen_metadata'
       required:
       - integration_id
       type: object
@@ -13130,6 +13163,12 @@ components:
             customer:
               id: id
           integration_id: STRIPE
+          adyen_metadata:
+            payment_method_id: payment_method_id
+            psp_reference: psp_reference
+            network_transaction_reference: network_transaction_reference
+            recurring_processing_model: CardOnFile
+            auth_code: auth_code
           cybersource_metadata:
             payment_token: payment_token
         payment_method_id: payment_method_id
@@ -13947,6 +13986,31 @@ components:
           type: string
       required:
       - payment_token
+      type: object
+    PaymentMethodIntegrationMetadata_adyen_metadata:
+      example:
+        payment_method_id: payment_method_id
+        psp_reference: psp_reference
+        network_transaction_reference: network_transaction_reference
+        recurring_processing_model: CardOnFile
+        auth_code: auth_code
+      properties:
+        payment_method_id:
+          type: string
+        auth_code:
+          type: string
+        psp_reference:
+          type: string
+        recurring_processing_model:
+          enum:
+          - CardOnFile
+          - UnscheduledCardOnFile
+          - Subscription
+          type: string
+        network_transaction_reference:
+          type: string
+      required:
+      - payment_method_id
       type: object
     PaymentSnapshotPaymentMethod_card:
       example:

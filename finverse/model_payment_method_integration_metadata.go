@@ -24,6 +24,7 @@ type PaymentMethodIntegrationMetadata struct {
 	IntegrationId        string                                               `json:"integration_id"`
 	StripeMetadata       *PaymentMethodIntegrationMetadataStripeMetadata      `json:"stripe_metadata,omitempty"`
 	CybersourceMetadata  *PaymentMethodIntegrationMetadataCybersourceMetadata `json:"cybersource_metadata,omitempty"`
+	AdyenMetadata        *PaymentMethodIntegrationMetadataAdyenMetadata       `json:"adyen_metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -135,6 +136,38 @@ func (o *PaymentMethodIntegrationMetadata) SetCybersourceMetadata(v PaymentMetho
 	o.CybersourceMetadata = &v
 }
 
+// GetAdyenMetadata returns the AdyenMetadata field value if set, zero value otherwise.
+func (o *PaymentMethodIntegrationMetadata) GetAdyenMetadata() PaymentMethodIntegrationMetadataAdyenMetadata {
+	if o == nil || IsNil(o.AdyenMetadata) {
+		var ret PaymentMethodIntegrationMetadataAdyenMetadata
+		return ret
+	}
+	return *o.AdyenMetadata
+}
+
+// GetAdyenMetadataOk returns a tuple with the AdyenMetadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentMethodIntegrationMetadata) GetAdyenMetadataOk() (*PaymentMethodIntegrationMetadataAdyenMetadata, bool) {
+	if o == nil || IsNil(o.AdyenMetadata) {
+		return nil, false
+	}
+	return o.AdyenMetadata, true
+}
+
+// HasAdyenMetadata returns a boolean if a field has been set.
+func (o *PaymentMethodIntegrationMetadata) HasAdyenMetadata() bool {
+	if o != nil && !IsNil(o.AdyenMetadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetAdyenMetadata gets a reference to the given PaymentMethodIntegrationMetadataAdyenMetadata and assigns it to the AdyenMetadata field.
+func (o *PaymentMethodIntegrationMetadata) SetAdyenMetadata(v PaymentMethodIntegrationMetadataAdyenMetadata) {
+	o.AdyenMetadata = &v
+}
+
 func (o PaymentMethodIntegrationMetadata) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -151,6 +184,9 @@ func (o PaymentMethodIntegrationMetadata) ToMap() (map[string]interface{}, error
 	}
 	if !IsNil(o.CybersourceMetadata) {
 		toSerialize["cybersource_metadata"] = o.CybersourceMetadata
+	}
+	if !IsNil(o.AdyenMetadata) {
+		toSerialize["adyen_metadata"] = o.AdyenMetadata
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -198,6 +234,7 @@ func (o *PaymentMethodIntegrationMetadata) UnmarshalJSON(data []byte) (err error
 		delete(additionalProperties, "integration_id")
 		delete(additionalProperties, "stripe_metadata")
 		delete(additionalProperties, "cybersource_metadata")
+		delete(additionalProperties, "adyen_metadata")
 		o.AdditionalProperties = additionalProperties
 	}
 
