@@ -20,11 +20,13 @@ var _ MappedNullable = &FVCardProcessorDetails{}
 
 // FVCardProcessorDetails struct for FVCardProcessorDetails
 type FVCardProcessorDetails struct {
-	AuthCode             *string `json:"auth_code,omitempty"`
-	ProcessorId          *string `json:"processor_id,omitempty"`
-	ProcessorReference   *string `json:"processor_reference,omitempty"`
-	TokenId              *string `json:"token_id,omitempty"`
-	AdditionalProperties map[string]interface{}
+	AuthCode           *string `json:"auth_code,omitempty"`
+	ProcessorId        *string `json:"processor_id,omitempty"`
+	ProcessorReference *string `json:"processor_reference,omitempty"`
+	TokenId            *string `json:"token_id,omitempty"`
+	// The network transaction reference
+	NetworkTransactionReference *string `json:"network_transaction_reference,omitempty"`
+	AdditionalProperties        map[string]interface{}
 }
 
 type _FVCardProcessorDetails FVCardProcessorDetails
@@ -174,6 +176,38 @@ func (o *FVCardProcessorDetails) SetTokenId(v string) {
 	o.TokenId = &v
 }
 
+// GetNetworkTransactionReference returns the NetworkTransactionReference field value if set, zero value otherwise.
+func (o *FVCardProcessorDetails) GetNetworkTransactionReference() string {
+	if o == nil || IsNil(o.NetworkTransactionReference) {
+		var ret string
+		return ret
+	}
+	return *o.NetworkTransactionReference
+}
+
+// GetNetworkTransactionReferenceOk returns a tuple with the NetworkTransactionReference field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FVCardProcessorDetails) GetNetworkTransactionReferenceOk() (*string, bool) {
+	if o == nil || IsNil(o.NetworkTransactionReference) {
+		return nil, false
+	}
+	return o.NetworkTransactionReference, true
+}
+
+// HasNetworkTransactionReference returns a boolean if a field has been set.
+func (o *FVCardProcessorDetails) HasNetworkTransactionReference() bool {
+	if o != nil && !IsNil(o.NetworkTransactionReference) {
+		return true
+	}
+
+	return false
+}
+
+// SetNetworkTransactionReference gets a reference to the given string and assigns it to the NetworkTransactionReference field.
+func (o *FVCardProcessorDetails) SetNetworkTransactionReference(v string) {
+	o.NetworkTransactionReference = &v
+}
+
 func (o FVCardProcessorDetails) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -195,6 +229,9 @@ func (o FVCardProcessorDetails) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.TokenId) {
 		toSerialize["token_id"] = o.TokenId
+	}
+	if !IsNil(o.NetworkTransactionReference) {
+		toSerialize["network_transaction_reference"] = o.NetworkTransactionReference
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -222,6 +259,7 @@ func (o *FVCardProcessorDetails) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "processor_id")
 		delete(additionalProperties, "processor_reference")
 		delete(additionalProperties, "token_id")
+		delete(additionalProperties, "network_transaction_reference")
 		o.AdditionalProperties = additionalProperties
 	}
 

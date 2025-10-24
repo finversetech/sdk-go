@@ -8300,6 +8300,7 @@ components:
               processor_details:
                 processor_reference: processor_reference
                 token_id: token_id
+                network_transaction_reference: network_transaction_reference
                 processor_id: processor_id
                 auth_code: auth_code
               fingerprint: fingerprint
@@ -8497,6 +8498,7 @@ components:
                 processor_details:
                   processor_reference: processor_reference
                   token_id: token_id
+                  network_transaction_reference: network_transaction_reference
                   processor_id: processor_id
                   auth_code: auth_code
                 fingerprint: fingerprint
@@ -8603,6 +8605,7 @@ components:
                 processor_details:
                   processor_reference: processor_reference
                   token_id: token_id
+                  network_transaction_reference: network_transaction_reference
                   processor_id: processor_id
                   auth_code: auth_code
                 fingerprint: fingerprint
@@ -9965,6 +9968,7 @@ components:
               processor_details:
                 processor_reference: processor_reference
                 token_id: token_id
+                network_transaction_reference: network_transaction_reference
                 processor_id: processor_id
                 auth_code: auth_code
               fingerprint: fingerprint
@@ -10092,6 +10096,7 @@ components:
               processor_details:
                 processor_reference: processor_reference
                 token_id: token_id
+                network_transaction_reference: network_transaction_reference
                 processor_id: processor_id
                 auth_code: auth_code
               fingerprint: fingerprint
@@ -10312,6 +10317,7 @@ components:
                 processor_details:
                   processor_reference: processor_reference
                   token_id: token_id
+                  network_transaction_reference: network_transaction_reference
                   processor_id: processor_id
                   auth_code: auth_code
                 fingerprint: fingerprint
@@ -10431,6 +10437,7 @@ components:
               processor_details:
                 processor_reference: processor_reference
                 token_id: token_id
+                network_transaction_reference: network_transaction_reference
                 processor_id: processor_id
                 auth_code: auth_code
               fingerprint: fingerprint
@@ -10746,6 +10753,7 @@ components:
           processor_details:
             processor_reference: processor_reference
             token_id: token_id
+            network_transaction_reference: network_transaction_reference
             processor_id: processor_id
             auth_code: auth_code
           fingerprint: fingerprint
@@ -10800,6 +10808,7 @@ components:
         processor_details:
           processor_reference: processor_reference
           token_id: token_id
+          network_transaction_reference: network_transaction_reference
           processor_id: processor_id
           auth_code: auth_code
         fingerprint: fingerprint
@@ -10851,6 +10860,7 @@ components:
       example:
         processor_reference: processor_reference
         token_id: token_id
+        network_transaction_reference: network_transaction_reference
         processor_id: processor_id
         auth_code: auth_code
       properties:
@@ -10861,6 +10871,9 @@ components:
         processor_reference:
           type: string
         token_id:
+          type: string
+        network_transaction_reference:
+          description: The network transaction reference
           type: string
       type: object
     GetMandateResponse:
@@ -13264,6 +13277,7 @@ components:
             processor_details:
               processor_reference: processor_reference
               token_id: token_id
+              network_transaction_reference: network_transaction_reference
               processor_id: processor_id
               auth_code: auth_code
             fingerprint: fingerprint
@@ -13522,6 +13536,7 @@ components:
             processor_details:
               processor_reference: processor_reference
               token_id: token_id
+              network_transaction_reference: network_transaction_reference
               processor_id: processor_id
               auth_code: auth_code
             fingerprint: fingerprint
@@ -14024,6 +14039,7 @@ components:
           processor_details:
             processor_reference: processor_reference
             token_id: token_id
+            network_transaction_reference: network_transaction_reference
             processor_id: processor_id
             auth_code: auth_code
           fingerprint: fingerprint
