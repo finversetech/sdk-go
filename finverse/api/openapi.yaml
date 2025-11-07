@@ -3463,6 +3463,38 @@ paths:
       security:
       - Oauth2:
         - paymentLinks:paymentAttempt:demote
+  /payment_link/fvlink/available_payment_methods:
+    get:
+      description: List available payment methods
+      operationId: listAvailablePaymentMethodsPaymentLink
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AvailablePaymentMethodsFvLinkResponse'
+          description: ok
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - paymentLinks:availablePaymentMethod:list
   /ledger/statement:
     get:
       description: Download the balance statement for the ledger (CSV)
@@ -13356,6 +13388,57 @@ components:
           $ref: '#/components/schemas/MandateFvLinkResponse'
         card:
           $ref: '#/components/schemas/CardFvLinkResponse'
+      type: object
+    AvailablePaymentMethodsFvLinkResponse:
+      example:
+        available_payment_methods:
+        - payment_account_id: payment_account_id
+          payment_method_type: payment_method_type
+          recurring: true
+          fee: fee
+          description: description
+          title: title
+          payment_method_subtype: payment_method_subtype
+        - payment_account_id: payment_account_id
+          payment_method_type: payment_method_type
+          recurring: true
+          fee: fee
+          description: description
+          title: title
+          payment_method_subtype: payment_method_subtype
+      properties:
+        available_payment_methods:
+          items:
+            $ref: '#/components/schemas/AvailablePaymentMethod'
+          type: array
+      type: object
+    AvailablePaymentMethod:
+      example:
+        payment_account_id: payment_account_id
+        payment_method_type: payment_method_type
+        recurring: true
+        fee: fee
+        description: description
+        title: title
+        payment_method_subtype: payment_method_subtype
+      properties:
+        payment_account_id:
+          type: string
+        title:
+          type: string
+        description:
+          type: string
+        payment_method_type:
+          description: "The payment method type, possible values CARD, MANDATE and\
+            \ MANUAL"
+          type: string
+        payment_method_subtype:
+          description: The payment method subtype
+          type: string
+        recurring:
+          type: boolean
+        fee:
+          type: string
       type: object
     PaymentFvLinkResponse:
       example:
