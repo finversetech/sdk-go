@@ -24,12 +24,12 @@ type AvailablePaymentMethod struct {
 	Title            *string `json:"title,omitempty"`
 	Description      *string `json:"description,omitempty"`
 	// The payment method type, possible values CARD, MANDATE and MANUAL
-	PaymentMethodType *string `json:"payment_method_type,omitempty"`
-	// The payment method subtype
-	PaymentMethodSubtype *string `json:"payment_method_subtype,omitempty"`
-	Recurring            *bool   `json:"recurring,omitempty"`
-	Fee                  *string `json:"fee,omitempty"`
-	AdditionalProperties map[string]interface{}
+	PaymentMethodType     *string `json:"payment_method_type,omitempty"`
+	Recurring             *bool   `json:"recurring,omitempty"`
+	Fee                   *string `json:"fee,omitempty"`
+	PaymentMethodProvider *string `json:"payment_method_provider,omitempty"`
+	PaymentRailId         *string `json:"payment_rail_id,omitempty"`
+	AdditionalProperties  map[string]interface{}
 }
 
 type _AvailablePaymentMethod AvailablePaymentMethod
@@ -179,38 +179,6 @@ func (o *AvailablePaymentMethod) SetPaymentMethodType(v string) {
 	o.PaymentMethodType = &v
 }
 
-// GetPaymentMethodSubtype returns the PaymentMethodSubtype field value if set, zero value otherwise.
-func (o *AvailablePaymentMethod) GetPaymentMethodSubtype() string {
-	if o == nil || IsNil(o.PaymentMethodSubtype) {
-		var ret string
-		return ret
-	}
-	return *o.PaymentMethodSubtype
-}
-
-// GetPaymentMethodSubtypeOk returns a tuple with the PaymentMethodSubtype field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AvailablePaymentMethod) GetPaymentMethodSubtypeOk() (*string, bool) {
-	if o == nil || IsNil(o.PaymentMethodSubtype) {
-		return nil, false
-	}
-	return o.PaymentMethodSubtype, true
-}
-
-// HasPaymentMethodSubtype returns a boolean if a field has been set.
-func (o *AvailablePaymentMethod) HasPaymentMethodSubtype() bool {
-	if o != nil && !IsNil(o.PaymentMethodSubtype) {
-		return true
-	}
-
-	return false
-}
-
-// SetPaymentMethodSubtype gets a reference to the given string and assigns it to the PaymentMethodSubtype field.
-func (o *AvailablePaymentMethod) SetPaymentMethodSubtype(v string) {
-	o.PaymentMethodSubtype = &v
-}
-
 // GetRecurring returns the Recurring field value if set, zero value otherwise.
 func (o *AvailablePaymentMethod) GetRecurring() bool {
 	if o == nil || IsNil(o.Recurring) {
@@ -275,6 +243,70 @@ func (o *AvailablePaymentMethod) SetFee(v string) {
 	o.Fee = &v
 }
 
+// GetPaymentMethodProvider returns the PaymentMethodProvider field value if set, zero value otherwise.
+func (o *AvailablePaymentMethod) GetPaymentMethodProvider() string {
+	if o == nil || IsNil(o.PaymentMethodProvider) {
+		var ret string
+		return ret
+	}
+	return *o.PaymentMethodProvider
+}
+
+// GetPaymentMethodProviderOk returns a tuple with the PaymentMethodProvider field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AvailablePaymentMethod) GetPaymentMethodProviderOk() (*string, bool) {
+	if o == nil || IsNil(o.PaymentMethodProvider) {
+		return nil, false
+	}
+	return o.PaymentMethodProvider, true
+}
+
+// HasPaymentMethodProvider returns a boolean if a field has been set.
+func (o *AvailablePaymentMethod) HasPaymentMethodProvider() bool {
+	if o != nil && !IsNil(o.PaymentMethodProvider) {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentMethodProvider gets a reference to the given string and assigns it to the PaymentMethodProvider field.
+func (o *AvailablePaymentMethod) SetPaymentMethodProvider(v string) {
+	o.PaymentMethodProvider = &v
+}
+
+// GetPaymentRailId returns the PaymentRailId field value if set, zero value otherwise.
+func (o *AvailablePaymentMethod) GetPaymentRailId() string {
+	if o == nil || IsNil(o.PaymentRailId) {
+		var ret string
+		return ret
+	}
+	return *o.PaymentRailId
+}
+
+// GetPaymentRailIdOk returns a tuple with the PaymentRailId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AvailablePaymentMethod) GetPaymentRailIdOk() (*string, bool) {
+	if o == nil || IsNil(o.PaymentRailId) {
+		return nil, false
+	}
+	return o.PaymentRailId, true
+}
+
+// HasPaymentRailId returns a boolean if a field has been set.
+func (o *AvailablePaymentMethod) HasPaymentRailId() bool {
+	if o != nil && !IsNil(o.PaymentRailId) {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentRailId gets a reference to the given string and assigns it to the PaymentRailId field.
+func (o *AvailablePaymentMethod) SetPaymentRailId(v string) {
+	o.PaymentRailId = &v
+}
+
 func (o AvailablePaymentMethod) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -297,14 +329,17 @@ func (o AvailablePaymentMethod) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaymentMethodType) {
 		toSerialize["payment_method_type"] = o.PaymentMethodType
 	}
-	if !IsNil(o.PaymentMethodSubtype) {
-		toSerialize["payment_method_subtype"] = o.PaymentMethodSubtype
-	}
 	if !IsNil(o.Recurring) {
 		toSerialize["recurring"] = o.Recurring
 	}
 	if !IsNil(o.Fee) {
 		toSerialize["fee"] = o.Fee
+	}
+	if !IsNil(o.PaymentMethodProvider) {
+		toSerialize["payment_method_provider"] = o.PaymentMethodProvider
+	}
+	if !IsNil(o.PaymentRailId) {
+		toSerialize["payment_rail_id"] = o.PaymentRailId
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -332,9 +367,10 @@ func (o *AvailablePaymentMethod) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "title")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "payment_method_type")
-		delete(additionalProperties, "payment_method_subtype")
 		delete(additionalProperties, "recurring")
 		delete(additionalProperties, "fee")
+		delete(additionalProperties, "payment_method_provider")
+		delete(additionalProperties, "payment_rail_id")
 		o.AdditionalProperties = additionalProperties
 	}
 

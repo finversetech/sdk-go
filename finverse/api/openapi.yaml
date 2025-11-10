@@ -13394,18 +13394,20 @@ components:
         available_payment_methods:
         - payment_account_id: payment_account_id
           payment_method_type: payment_method_type
+          payment_rail_id: payment_rail_id
           recurring: true
           fee: fee
+          payment_method_provider: payment_method_provider
           description: description
           title: title
-          payment_method_subtype: payment_method_subtype
         - payment_account_id: payment_account_id
           payment_method_type: payment_method_type
+          payment_rail_id: payment_rail_id
           recurring: true
           fee: fee
+          payment_method_provider: payment_method_provider
           description: description
           title: title
-          payment_method_subtype: payment_method_subtype
       properties:
         available_payment_methods:
           items:
@@ -13416,11 +13418,12 @@ components:
       example:
         payment_account_id: payment_account_id
         payment_method_type: payment_method_type
+        payment_rail_id: payment_rail_id
         recurring: true
         fee: fee
+        payment_method_provider: payment_method_provider
         description: description
         title: title
-        payment_method_subtype: payment_method_subtype
       properties:
         payment_account_id:
           type: string
@@ -13432,12 +13435,13 @@ components:
           description: "The payment method type, possible values CARD, MANDATE and\
             \ MANUAL"
           type: string
-        payment_method_subtype:
-          description: The payment method subtype
-          type: string
         recurring:
           type: boolean
         fee:
+          type: string
+        payment_method_provider:
+          type: string
+        payment_rail_id:
           type: string
       type: object
     PaymentFvLinkResponse:
