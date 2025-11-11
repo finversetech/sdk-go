@@ -3495,6 +3495,46 @@ paths:
       security:
       - Oauth2:
         - paymentLink:availablePaymentMethod:list
+  /payment_links/fvlink/select_payment_method:
+    post:
+      description: Select a payment method for payment link
+      operationId: selectPaymentMethodPaymentLink
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SelectPaymentMethodRequest'
+        description: request body for selecting a payment method
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SelectPaymentMethodResponse'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Bad Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - paymentLinks:paymentMethod:select
+      x-codegen-request-body-name: selectPaymentMethodRequest
   /ledger/statement:
     get:
       description: Download the balance statement for the ledger (CSV)
@@ -3691,6 +3731,18 @@ components:
       - login_identity_id
       - subject
       type: object
+    PaymentMethodProvider:
+      description: The payment method provider.
+      enum:
+      - HK_EDDA
+      - SG_EGIRO
+      - STRIPE
+      - CYBERSOURCE
+      - ADYEN
+      - KCP
+      - HK_FPS
+      - SG_PAYNOW
+      type: string
     GetAccountResponse:
       example:
         institution:
@@ -13965,6 +14017,44 @@ components:
           type: string
       required:
       - redirect
+      type: object
+    SelectPaymentMethodRequest:
+      example:
+        payment_account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+        user_type: INDIVIDUAL
+        is_mobile: false
+        payment_method_provider: HK_EDDA
+      properties:
+        payment_account_id:
+          description: The payment account ID of the selected payment method
+          example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          type: string
+        payment_method_provider:
+          $ref: '#/components/schemas/PaymentMethodProvider'
+        user_type:
+          enum:
+          - INDIVIDUAL
+          - BUSINESS
+          type: string
+        is_mobile:
+          default: false
+          description: Whether the user is on mobile device (only makes a difference
+            if payment_method_provider is KCP)
+          type: boolean
+      required:
+      - payment_account_id
+      type: object
+    SelectPaymentMethodResponse:
+      example:
+        card_processor_redirect_uri: card_processor_redirect_uri
+        token: token
+      properties:
+        token:
+          description: Token for the selected payment method
+          type: string
+        card_processor_redirect_uri:
+          description: URL to redirect to for making the card payment
+          type: string
       type: object
     token_request:
       properties:

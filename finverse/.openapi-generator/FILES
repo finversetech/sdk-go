@@ -180,6 +180,7 @@ model_payment_method_integration_metadata_cybersource_metadata.go
 model_payment_method_integration_metadata_stripe_metadata.go
 model_payment_method_integration_metadata_stripe_metadata_customer.go
 model_payment_method_overview.go
+model_payment_method_provider.go
 model_payment_method_response.go
 model_payment_processor_details.go
 model_payment_processor_result.go
@@ -211,6 +212,8 @@ model_refresh_payment_attempt_response.go
 model_refresh_request.go
 model_refresh_token_response.go
 model_relink_request.go
+model_select_payment_method_request.go
+model_select_payment_method_response.go
 model_sender_account_fv_link_response.go
 model_sender_detail.go
 model_set_autopay_consent_request.go
