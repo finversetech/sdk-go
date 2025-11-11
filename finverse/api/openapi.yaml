@@ -3494,7 +3494,7 @@ paths:
           description: Internal Server Error
       security:
       - Oauth2:
-        - paymentLinks:availablePaymentMethod:list
+        - paymentLink:availablePaymentMethod:list
   /ledger/statement:
     get:
       description: Download the balance statement for the ledger (CSV)
