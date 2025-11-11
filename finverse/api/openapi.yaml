@@ -13394,20 +13394,14 @@ components:
         available_payment_methods:
         - payment_account_id: payment_account_id
           payment_method_type: payment_method_type
-          payment_rail_id: payment_rail_id
           recurring: true
           fee: fee
           payment_method_provider: payment_method_provider
-          description: description
-          title: title
         - payment_account_id: payment_account_id
           payment_method_type: payment_method_type
-          payment_rail_id: payment_rail_id
           recurring: true
           fee: fee
           payment_method_provider: payment_method_provider
-          description: description
-          title: title
       properties:
         available_payment_methods:
           items:
@@ -13418,18 +13412,11 @@ components:
       example:
         payment_account_id: payment_account_id
         payment_method_type: payment_method_type
-        payment_rail_id: payment_rail_id
         recurring: true
         fee: fee
         payment_method_provider: payment_method_provider
-        description: description
-        title: title
       properties:
         payment_account_id:
-          type: string
-        title:
-          type: string
-        description:
           type: string
         payment_method_type:
           description: "The payment method type, possible values CARD, MANDATE and\
@@ -13440,8 +13427,6 @@ components:
         fee:
           type: string
         payment_method_provider:
-          type: string
-        payment_rail_id:
           type: string
       type: object
     PaymentFvLinkResponse:

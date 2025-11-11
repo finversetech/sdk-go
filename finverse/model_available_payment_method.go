@@ -21,14 +21,11 @@ var _ MappedNullable = &AvailablePaymentMethod{}
 // AvailablePaymentMethod struct for AvailablePaymentMethod
 type AvailablePaymentMethod struct {
 	PaymentAccountId *string `json:"payment_account_id,omitempty"`
-	Title            *string `json:"title,omitempty"`
-	Description      *string `json:"description,omitempty"`
 	// The payment method type, possible values CARD, MANDATE and MANUAL
 	PaymentMethodType     *string `json:"payment_method_type,omitempty"`
 	Recurring             *bool   `json:"recurring,omitempty"`
 	Fee                   *string `json:"fee,omitempty"`
 	PaymentMethodProvider *string `json:"payment_method_provider,omitempty"`
-	PaymentRailId         *string `json:"payment_rail_id,omitempty"`
 	AdditionalProperties  map[string]interface{}
 }
 
@@ -81,70 +78,6 @@ func (o *AvailablePaymentMethod) HasPaymentAccountId() bool {
 // SetPaymentAccountId gets a reference to the given string and assigns it to the PaymentAccountId field.
 func (o *AvailablePaymentMethod) SetPaymentAccountId(v string) {
 	o.PaymentAccountId = &v
-}
-
-// GetTitle returns the Title field value if set, zero value otherwise.
-func (o *AvailablePaymentMethod) GetTitle() string {
-	if o == nil || IsNil(o.Title) {
-		var ret string
-		return ret
-	}
-	return *o.Title
-}
-
-// GetTitleOk returns a tuple with the Title field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AvailablePaymentMethod) GetTitleOk() (*string, bool) {
-	if o == nil || IsNil(o.Title) {
-		return nil, false
-	}
-	return o.Title, true
-}
-
-// HasTitle returns a boolean if a field has been set.
-func (o *AvailablePaymentMethod) HasTitle() bool {
-	if o != nil && !IsNil(o.Title) {
-		return true
-	}
-
-	return false
-}
-
-// SetTitle gets a reference to the given string and assigns it to the Title field.
-func (o *AvailablePaymentMethod) SetTitle(v string) {
-	o.Title = &v
-}
-
-// GetDescription returns the Description field value if set, zero value otherwise.
-func (o *AvailablePaymentMethod) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
-		var ret string
-		return ret
-	}
-	return *o.Description
-}
-
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AvailablePaymentMethod) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
-		return nil, false
-	}
-	return o.Description, true
-}
-
-// HasDescription returns a boolean if a field has been set.
-func (o *AvailablePaymentMethod) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *AvailablePaymentMethod) SetDescription(v string) {
-	o.Description = &v
 }
 
 // GetPaymentMethodType returns the PaymentMethodType field value if set, zero value otherwise.
@@ -275,38 +208,6 @@ func (o *AvailablePaymentMethod) SetPaymentMethodProvider(v string) {
 	o.PaymentMethodProvider = &v
 }
 
-// GetPaymentRailId returns the PaymentRailId field value if set, zero value otherwise.
-func (o *AvailablePaymentMethod) GetPaymentRailId() string {
-	if o == nil || IsNil(o.PaymentRailId) {
-		var ret string
-		return ret
-	}
-	return *o.PaymentRailId
-}
-
-// GetPaymentRailIdOk returns a tuple with the PaymentRailId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *AvailablePaymentMethod) GetPaymentRailIdOk() (*string, bool) {
-	if o == nil || IsNil(o.PaymentRailId) {
-		return nil, false
-	}
-	return o.PaymentRailId, true
-}
-
-// HasPaymentRailId returns a boolean if a field has been set.
-func (o *AvailablePaymentMethod) HasPaymentRailId() bool {
-	if o != nil && !IsNil(o.PaymentRailId) {
-		return true
-	}
-
-	return false
-}
-
-// SetPaymentRailId gets a reference to the given string and assigns it to the PaymentRailId field.
-func (o *AvailablePaymentMethod) SetPaymentRailId(v string) {
-	o.PaymentRailId = &v
-}
-
 func (o AvailablePaymentMethod) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -320,12 +221,6 @@ func (o AvailablePaymentMethod) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaymentAccountId) {
 		toSerialize["payment_account_id"] = o.PaymentAccountId
 	}
-	if !IsNil(o.Title) {
-		toSerialize["title"] = o.Title
-	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
 	if !IsNil(o.PaymentMethodType) {
 		toSerialize["payment_method_type"] = o.PaymentMethodType
 	}
@@ -337,9 +232,6 @@ func (o AvailablePaymentMethod) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.PaymentMethodProvider) {
 		toSerialize["payment_method_provider"] = o.PaymentMethodProvider
-	}
-	if !IsNil(o.PaymentRailId) {
-		toSerialize["payment_rail_id"] = o.PaymentRailId
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -364,13 +256,10 @@ func (o *AvailablePaymentMethod) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "payment_account_id")
-		delete(additionalProperties, "title")
-		delete(additionalProperties, "description")
 		delete(additionalProperties, "payment_method_type")
 		delete(additionalProperties, "recurring")
 		delete(additionalProperties, "fee")
 		delete(additionalProperties, "payment_method_provider")
-		delete(additionalProperties, "payment_rail_id")
 		o.AdditionalProperties = additionalProperties
 	}
 
