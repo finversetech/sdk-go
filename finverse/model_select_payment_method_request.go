@@ -22,7 +22,9 @@ var _ MappedNullable = &SelectPaymentMethodRequest{}
 // SelectPaymentMethodRequest struct for SelectPaymentMethodRequest
 type SelectPaymentMethodRequest struct {
 	// The payment account ID of the selected payment method
-	PaymentAccountId      string                 `json:"payment_account_id"`
+	PaymentAccountId string `json:"payment_account_id"`
+	// The type of payment method to select
+	PaymentMethodType     string                 `json:"payment_method_type"`
 	PaymentMethodProvider *PaymentMethodProvider `json:"payment_method_provider,omitempty"`
 	UserType              *string                `json:"user_type,omitempty"`
 	// Whether the user is on mobile device (only makes a difference if payment_method_provider is KCP)
@@ -36,9 +38,10 @@ type _SelectPaymentMethodRequest SelectPaymentMethodRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSelectPaymentMethodRequest(paymentAccountId string) *SelectPaymentMethodRequest {
+func NewSelectPaymentMethodRequest(paymentAccountId string, paymentMethodType string) *SelectPaymentMethodRequest {
 	this := SelectPaymentMethodRequest{}
 	this.PaymentAccountId = paymentAccountId
+	this.PaymentMethodType = paymentMethodType
 	var isMobile bool = false
 	this.IsMobile = &isMobile
 	return &this
@@ -76,6 +79,30 @@ func (o *SelectPaymentMethodRequest) GetPaymentAccountIdOk() (*string, bool) {
 // SetPaymentAccountId sets field value
 func (o *SelectPaymentMethodRequest) SetPaymentAccountId(v string) {
 	o.PaymentAccountId = v
+}
+
+// GetPaymentMethodType returns the PaymentMethodType field value
+func (o *SelectPaymentMethodRequest) GetPaymentMethodType() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.PaymentMethodType
+}
+
+// GetPaymentMethodTypeOk returns a tuple with the PaymentMethodType field value
+// and a boolean to check if the value has been set.
+func (o *SelectPaymentMethodRequest) GetPaymentMethodTypeOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.PaymentMethodType, true
+}
+
+// SetPaymentMethodType sets field value
+func (o *SelectPaymentMethodRequest) SetPaymentMethodType(v string) {
+	o.PaymentMethodType = v
 }
 
 // GetPaymentMethodProvider returns the PaymentMethodProvider field value if set, zero value otherwise.
@@ -185,6 +212,7 @@ func (o SelectPaymentMethodRequest) MarshalJSON() ([]byte, error) {
 func (o SelectPaymentMethodRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["payment_account_id"] = o.PaymentAccountId
+	toSerialize["payment_method_type"] = o.PaymentMethodType
 	if !IsNil(o.PaymentMethodProvider) {
 		toSerialize["payment_method_provider"] = o.PaymentMethodProvider
 	}
@@ -208,6 +236,7 @@ func (o *SelectPaymentMethodRequest) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"payment_account_id",
+		"payment_method_type",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -238,6 +267,7 @@ func (o *SelectPaymentMethodRequest) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "payment_account_id")
+		delete(additionalProperties, "payment_method_type")
 		delete(additionalProperties, "payment_method_provider")
 		delete(additionalProperties, "user_type")
 		delete(additionalProperties, "is_mobile")

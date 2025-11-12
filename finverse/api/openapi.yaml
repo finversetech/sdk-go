@@ -3533,7 +3533,7 @@ paths:
           description: Internal Server Error
       security:
       - Oauth2:
-        - paymentLinks:paymentMethod:select
+        - paymentLink:paymentMethod:select
       x-codegen-request-body-name: selectPaymentMethodRequest
   /ledger/statement:
     get:
@@ -14021,6 +14021,7 @@ components:
     SelectPaymentMethodRequest:
       example:
         payment_account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+        payment_method_type: MANDATE
         user_type: INDIVIDUAL
         is_mobile: false
         payment_method_provider: HK_EDDA
@@ -14028,6 +14029,14 @@ components:
         payment_account_id:
           description: The payment account ID of the selected payment method
           example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
+          type: string
+        payment_method_type:
+          description: The type of payment method to select
+          enum:
+          - MANDATE
+          - SINGLE
+          - CARD
+          - MANUAL
           type: string
         payment_method_provider:
           $ref: '#/components/schemas/PaymentMethodProvider'
@@ -14043,6 +14052,7 @@ components:
           type: boolean
       required:
       - payment_account_id
+      - payment_method_type
       type: object
     SelectPaymentMethodResponse:
       example:
