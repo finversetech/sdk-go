@@ -20,8 +20,7 @@ var _ MappedNullable = &SelectPaymentMethodResponse{}
 
 // SelectPaymentMethodResponse struct for SelectPaymentMethodResponse
 type SelectPaymentMethodResponse struct {
-	// Token for the selected payment method
-	Token *string `json:"token,omitempty"`
+	Token *PaymentLinkTokenResponse `json:"token,omitempty"`
 	// URL to redirect to for making the card payment
 	CardProcessorRedirectUri *string `json:"card_processor_redirect_uri,omitempty"`
 	AdditionalProperties     map[string]interface{}
@@ -47,9 +46,9 @@ func NewSelectPaymentMethodResponseWithDefaults() *SelectPaymentMethodResponse {
 }
 
 // GetToken returns the Token field value if set, zero value otherwise.
-func (o *SelectPaymentMethodResponse) GetToken() string {
+func (o *SelectPaymentMethodResponse) GetToken() PaymentLinkTokenResponse {
 	if o == nil || IsNil(o.Token) {
-		var ret string
+		var ret PaymentLinkTokenResponse
 		return ret
 	}
 	return *o.Token
@@ -57,7 +56,7 @@ func (o *SelectPaymentMethodResponse) GetToken() string {
 
 // GetTokenOk returns a tuple with the Token field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SelectPaymentMethodResponse) GetTokenOk() (*string, bool) {
+func (o *SelectPaymentMethodResponse) GetTokenOk() (*PaymentLinkTokenResponse, bool) {
 	if o == nil || IsNil(o.Token) {
 		return nil, false
 	}
@@ -73,8 +72,8 @@ func (o *SelectPaymentMethodResponse) HasToken() bool {
 	return false
 }
 
-// SetToken gets a reference to the given string and assigns it to the Token field.
-func (o *SelectPaymentMethodResponse) SetToken(v string) {
+// SetToken gets a reference to the given PaymentLinkTokenResponse and assigns it to the Token field.
+func (o *SelectPaymentMethodResponse) SetToken(v PaymentLinkTokenResponse) {
 	o.Token = &v
 }
 

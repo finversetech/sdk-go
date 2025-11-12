@@ -26,7 +26,7 @@ type SelectPaymentMethodRequest struct {
 	// The type of payment method to select
 	PaymentMethodType     string                 `json:"payment_method_type"`
 	PaymentMethodProvider *PaymentMethodProvider `json:"payment_method_provider,omitempty"`
-	UserType              *string                `json:"user_type,omitempty"`
+	SenderType            *string                `json:"sender_type,omitempty"`
 	// Whether the user is on mobile device (only makes a difference if payment_method_provider is KCP)
 	IsMobile             *bool `json:"is_mobile,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -137,36 +137,36 @@ func (o *SelectPaymentMethodRequest) SetPaymentMethodProvider(v PaymentMethodPro
 	o.PaymentMethodProvider = &v
 }
 
-// GetUserType returns the UserType field value if set, zero value otherwise.
-func (o *SelectPaymentMethodRequest) GetUserType() string {
-	if o == nil || IsNil(o.UserType) {
+// GetSenderType returns the SenderType field value if set, zero value otherwise.
+func (o *SelectPaymentMethodRequest) GetSenderType() string {
+	if o == nil || IsNil(o.SenderType) {
 		var ret string
 		return ret
 	}
-	return *o.UserType
+	return *o.SenderType
 }
 
-// GetUserTypeOk returns a tuple with the UserType field value if set, nil otherwise
+// GetSenderTypeOk returns a tuple with the SenderType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SelectPaymentMethodRequest) GetUserTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.UserType) {
+func (o *SelectPaymentMethodRequest) GetSenderTypeOk() (*string, bool) {
+	if o == nil || IsNil(o.SenderType) {
 		return nil, false
 	}
-	return o.UserType, true
+	return o.SenderType, true
 }
 
-// HasUserType returns a boolean if a field has been set.
-func (o *SelectPaymentMethodRequest) HasUserType() bool {
-	if o != nil && !IsNil(o.UserType) {
+// HasSenderType returns a boolean if a field has been set.
+func (o *SelectPaymentMethodRequest) HasSenderType() bool {
+	if o != nil && !IsNil(o.SenderType) {
 		return true
 	}
 
 	return false
 }
 
-// SetUserType gets a reference to the given string and assigns it to the UserType field.
-func (o *SelectPaymentMethodRequest) SetUserType(v string) {
-	o.UserType = &v
+// SetSenderType gets a reference to the given string and assigns it to the SenderType field.
+func (o *SelectPaymentMethodRequest) SetSenderType(v string) {
+	o.SenderType = &v
 }
 
 // GetIsMobile returns the IsMobile field value if set, zero value otherwise.
@@ -216,8 +216,8 @@ func (o SelectPaymentMethodRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaymentMethodProvider) {
 		toSerialize["payment_method_provider"] = o.PaymentMethodProvider
 	}
-	if !IsNil(o.UserType) {
-		toSerialize["user_type"] = o.UserType
+	if !IsNil(o.SenderType) {
+		toSerialize["sender_type"] = o.SenderType
 	}
 	if !IsNil(o.IsMobile) {
 		toSerialize["is_mobile"] = o.IsMobile
@@ -269,7 +269,7 @@ func (o *SelectPaymentMethodRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "payment_account_id")
 		delete(additionalProperties, "payment_method_type")
 		delete(additionalProperties, "payment_method_provider")
-		delete(additionalProperties, "user_type")
+		delete(additionalProperties, "sender_type")
 		delete(additionalProperties, "is_mobile")
 		o.AdditionalProperties = additionalProperties
 	}

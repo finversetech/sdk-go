@@ -14022,8 +14022,8 @@ components:
       example:
         payment_account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
         payment_method_type: MANDATE
-        user_type: INDIVIDUAL
         is_mobile: false
+        sender_type: INDIVIDUAL
         payment_method_provider: HK_EDDA
       properties:
         payment_account_id:
@@ -14040,7 +14040,7 @@ components:
           type: string
         payment_method_provider:
           $ref: '#/components/schemas/PaymentMethodProvider'
-        user_type:
+        sender_type:
           enum:
           - INDIVIDUAL
           - BUSINESS
@@ -14057,11 +14057,14 @@ components:
     SelectPaymentMethodResponse:
       example:
         card_processor_redirect_uri: card_processor_redirect_uri
-        token: token
+        token:
+          access_token: access_token
+          link_url: link_url
+          token_type: Bearer
+          expires_in: 0
       properties:
         token:
-          description: Token for the selected payment method
-          type: string
+          $ref: '#/components/schemas/PaymentLinkTokenResponse'
         card_processor_redirect_uri:
           description: URL to redirect to for making the card payment
           type: string
