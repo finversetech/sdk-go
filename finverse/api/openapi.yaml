@@ -12593,7 +12593,6 @@ components:
             live_mode: true
             payment_confirmation_speed: payment_confirmation_speed
             payment_processor: payment_processor
-            payment_method_subtype: payment_method_subtype
             supported_currencies:
             - HKD
             - CNY
@@ -12628,7 +12627,6 @@ components:
             live_mode: true
             payment_confirmation_speed: payment_confirmation_speed
             payment_processor: payment_processor
-            payment_method_subtype: payment_method_subtype
             supported_currencies:
             - HKD
             - CNY
@@ -12680,7 +12678,6 @@ components:
           live_mode: true
           payment_confirmation_speed: payment_confirmation_speed
           payment_processor: payment_processor
-          payment_method_subtype: payment_method_subtype
           supported_currencies:
           - HKD
           - CNY
@@ -12801,7 +12798,6 @@ components:
         live_mode: true
         payment_confirmation_speed: payment_confirmation_speed
         payment_processor: payment_processor
-        payment_method_subtype: payment_method_subtype
         supported_currencies:
         - HKD
         - CNY
@@ -12816,9 +12812,6 @@ components:
         payment_method_type:
           description: "The payment method type, possible values CARD, MANDATE and\
             \ MANUAL"
-          type: string
-        payment_method_subtype:
-          description: The payment method subtype
           type: string
         payment_processor:
           description: "Only shown if funds flow via Finverse, possible values FINVERSE"
