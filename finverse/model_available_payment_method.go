@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the AvailablePaymentMethod type satisfies the MappedNullable interface at compile time
@@ -23,7 +24,7 @@ type AvailablePaymentMethod struct {
 	PaymentAccountId *string `json:"payment_account_id,omitempty"`
 	// The payment method type, possible values CARD, MANDATE and MANUAL
 	PaymentMethodType     *string `json:"payment_method_type,omitempty"`
-	Recurring             *bool   `json:"recurring,omitempty"`
+	Recurring             bool    `json:"recurring"`
 	Fee                   *string `json:"fee,omitempty"`
 	PaymentMethodProvider *string `json:"payment_method_provider,omitempty"`
 	AdditionalProperties  map[string]interface{}
@@ -35,8 +36,9 @@ type _AvailablePaymentMethod AvailablePaymentMethod
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAvailablePaymentMethod() *AvailablePaymentMethod {
+func NewAvailablePaymentMethod(recurring bool) *AvailablePaymentMethod {
 	this := AvailablePaymentMethod{}
+	this.Recurring = recurring
 	return &this
 }
 
@@ -112,36 +114,28 @@ func (o *AvailablePaymentMethod) SetPaymentMethodType(v string) {
 	o.PaymentMethodType = &v
 }
 
-// GetRecurring returns the Recurring field value if set, zero value otherwise.
+// GetRecurring returns the Recurring field value
 func (o *AvailablePaymentMethod) GetRecurring() bool {
-	if o == nil || IsNil(o.Recurring) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.Recurring
+
+	return o.Recurring
 }
 
-// GetRecurringOk returns a tuple with the Recurring field value if set, nil otherwise
+// GetRecurringOk returns a tuple with the Recurring field value
 // and a boolean to check if the value has been set.
 func (o *AvailablePaymentMethod) GetRecurringOk() (*bool, bool) {
-	if o == nil || IsNil(o.Recurring) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Recurring, true
+	return &o.Recurring, true
 }
 
-// HasRecurring returns a boolean if a field has been set.
-func (o *AvailablePaymentMethod) HasRecurring() bool {
-	if o != nil && !IsNil(o.Recurring) {
-		return true
-	}
-
-	return false
-}
-
-// SetRecurring gets a reference to the given bool and assigns it to the Recurring field.
+// SetRecurring sets field value
 func (o *AvailablePaymentMethod) SetRecurring(v bool) {
-	o.Recurring = &v
+	o.Recurring = v
 }
 
 // GetFee returns the Fee field value if set, zero value otherwise.
@@ -224,9 +218,7 @@ func (o AvailablePaymentMethod) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaymentMethodType) {
 		toSerialize["payment_method_type"] = o.PaymentMethodType
 	}
-	if !IsNil(o.Recurring) {
-		toSerialize["recurring"] = o.Recurring
-	}
+	toSerialize["recurring"] = o.Recurring
 	if !IsNil(o.Fee) {
 		toSerialize["fee"] = o.Fee
 	}
@@ -242,6 +234,27 @@ func (o AvailablePaymentMethod) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *AvailablePaymentMethod) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"recurring",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varAvailablePaymentMethod := _AvailablePaymentMethod{}
 
 	err = json.Unmarshal(data, &varAvailablePaymentMethod)

@@ -24,9 +24,8 @@ type SelectPaymentMethodRequest struct {
 	// The payment account ID of the selected payment method
 	PaymentAccountId string `json:"payment_account_id"`
 	// The type of payment method to select
-	PaymentMethodType     string                 `json:"payment_method_type"`
-	PaymentMethodProvider *PaymentMethodProvider `json:"payment_method_provider,omitempty"`
-	SenderType            *string                `json:"sender_type,omitempty"`
+	PaymentMethodType string  `json:"payment_method_type"`
+	SenderType        *string `json:"sender_type,omitempty"`
 	// Whether the user is on mobile device (only makes a difference if payment_method_provider is KCP)
 	IsMobile             *bool `json:"is_mobile,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -105,38 +104,6 @@ func (o *SelectPaymentMethodRequest) SetPaymentMethodType(v string) {
 	o.PaymentMethodType = v
 }
 
-// GetPaymentMethodProvider returns the PaymentMethodProvider field value if set, zero value otherwise.
-func (o *SelectPaymentMethodRequest) GetPaymentMethodProvider() PaymentMethodProvider {
-	if o == nil || IsNil(o.PaymentMethodProvider) {
-		var ret PaymentMethodProvider
-		return ret
-	}
-	return *o.PaymentMethodProvider
-}
-
-// GetPaymentMethodProviderOk returns a tuple with the PaymentMethodProvider field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *SelectPaymentMethodRequest) GetPaymentMethodProviderOk() (*PaymentMethodProvider, bool) {
-	if o == nil || IsNil(o.PaymentMethodProvider) {
-		return nil, false
-	}
-	return o.PaymentMethodProvider, true
-}
-
-// HasPaymentMethodProvider returns a boolean if a field has been set.
-func (o *SelectPaymentMethodRequest) HasPaymentMethodProvider() bool {
-	if o != nil && !IsNil(o.PaymentMethodProvider) {
-		return true
-	}
-
-	return false
-}
-
-// SetPaymentMethodProvider gets a reference to the given PaymentMethodProvider and assigns it to the PaymentMethodProvider field.
-func (o *SelectPaymentMethodRequest) SetPaymentMethodProvider(v PaymentMethodProvider) {
-	o.PaymentMethodProvider = &v
-}
-
 // GetSenderType returns the SenderType field value if set, zero value otherwise.
 func (o *SelectPaymentMethodRequest) GetSenderType() string {
 	if o == nil || IsNil(o.SenderType) {
@@ -213,9 +180,6 @@ func (o SelectPaymentMethodRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["payment_account_id"] = o.PaymentAccountId
 	toSerialize["payment_method_type"] = o.PaymentMethodType
-	if !IsNil(o.PaymentMethodProvider) {
-		toSerialize["payment_method_provider"] = o.PaymentMethodProvider
-	}
 	if !IsNil(o.SenderType) {
 		toSerialize["sender_type"] = o.SenderType
 	}
@@ -268,7 +232,6 @@ func (o *SelectPaymentMethodRequest) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "payment_account_id")
 		delete(additionalProperties, "payment_method_type")
-		delete(additionalProperties, "payment_method_provider")
 		delete(additionalProperties, "sender_type")
 		delete(additionalProperties, "is_mobile")
 		o.AdditionalProperties = additionalProperties

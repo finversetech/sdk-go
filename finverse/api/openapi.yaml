@@ -3731,18 +3731,6 @@ components:
       - login_identity_id
       - subject
       type: object
-    PaymentMethodProvider:
-      description: The payment method provider.
-      enum:
-      - HK_EDDA
-      - SG_EGIRO
-      - STRIPE
-      - CYBERSOURCE
-      - ADYEN
-      - KCP
-      - HK_FPS
-      - SG_PAYNOW
-      type: string
     GetAccountResponse:
       example:
         institution:
@@ -13480,6 +13468,8 @@ components:
           type: string
         payment_method_provider:
           type: string
+      required:
+      - recurring
       type: object
     PaymentFvLinkResponse:
       example:
@@ -14024,7 +14014,6 @@ components:
         payment_method_type: MANDATE
         is_mobile: false
         sender_type: INDIVIDUAL
-        payment_method_provider: HK_EDDA
       properties:
         payment_account_id:
           description: The payment account ID of the selected payment method
@@ -14038,8 +14027,6 @@ components:
           - CARD
           - MANUAL
           type: string
-        payment_method_provider:
-          $ref: '#/components/schemas/PaymentMethodProvider'
         sender_type:
           enum:
           - INDIVIDUAL
