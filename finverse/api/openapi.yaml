@@ -4644,6 +4644,10 @@ components:
         description: Latte
         created_at: 2000-01-23T04:56:07.000+00:00
         transaction_type: OTHER
+        running_balance:
+          raw: "69.00"
+          currency: HKD
+          value: 69.0
         transaction_details: "{}"
         account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
         category_id: OTHER
@@ -4708,6 +4712,8 @@ components:
           example: 2020-10-10
           type: string
         amount:
+          $ref: '#/components/schemas/CurrencyAmount'
+        running_balance:
           $ref: '#/components/schemas/CurrencyAmount'
         transaction_details:
           description: Transaction Details
@@ -4838,6 +4844,10 @@ components:
           description: Latte
           created_at: 2000-01-23T04:56:07.000+00:00
           transaction_type: OTHER
+          running_balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
           transaction_details: "{}"
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           category_id: OTHER
@@ -4870,6 +4880,10 @@ components:
           description: Latte
           created_at: 2000-01-23T04:56:07.000+00:00
           transaction_type: OTHER
+          running_balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
           transaction_details: "{}"
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           category_id: OTHER

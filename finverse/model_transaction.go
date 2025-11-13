@@ -36,8 +36,9 @@ type Transaction struct {
 	IsPending    bool    `json:"is_pending"`
 	Status       *string `json:"status,omitempty"`
 	// YYYY-MM-DD
-	PostedDate *string         `json:"posted_date,omitempty"`
-	Amount     *CurrencyAmount `json:"amount,omitempty"`
+	PostedDate     *string         `json:"posted_date,omitempty"`
+	Amount         *CurrencyAmount `json:"amount,omitempty"`
+	RunningBalance *CurrencyAmount `json:"running_balance,omitempty"`
 	// Transaction Details
 	TransactionDetails map[string]interface{} `json:"transaction_details,omitempty"`
 	CreatedAt          *time.Time             `json:"created_at,omitempty"`
@@ -480,6 +481,38 @@ func (o *Transaction) SetAmount(v CurrencyAmount) {
 	o.Amount = &v
 }
 
+// GetRunningBalance returns the RunningBalance field value if set, zero value otherwise.
+func (o *Transaction) GetRunningBalance() CurrencyAmount {
+	if o == nil || IsNil(o.RunningBalance) {
+		var ret CurrencyAmount
+		return ret
+	}
+	return *o.RunningBalance
+}
+
+// GetRunningBalanceOk returns a tuple with the RunningBalance field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Transaction) GetRunningBalanceOk() (*CurrencyAmount, bool) {
+	if o == nil || IsNil(o.RunningBalance) {
+		return nil, false
+	}
+	return o.RunningBalance, true
+}
+
+// HasRunningBalance returns a boolean if a field has been set.
+func (o *Transaction) HasRunningBalance() bool {
+	if o != nil && !IsNil(o.RunningBalance) {
+		return true
+	}
+
+	return false
+}
+
+// SetRunningBalance gets a reference to the given CurrencyAmount and assigns it to the RunningBalance field.
+func (o *Transaction) SetRunningBalance(v CurrencyAmount) {
+	o.RunningBalance = &v
+}
+
 // GetTransactionDetails returns the TransactionDetails field value if set, zero value otherwise.
 func (o *Transaction) GetTransactionDetails() map[string]interface{} {
 	if o == nil || IsNil(o.TransactionDetails) {
@@ -762,6 +795,9 @@ func (o Transaction) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Amount) {
 		toSerialize["amount"] = o.Amount
 	}
+	if !IsNil(o.RunningBalance) {
+		toSerialize["running_balance"] = o.RunningBalance
+	}
 	if !IsNil(o.TransactionDetails) {
 		toSerialize["transaction_details"] = o.TransactionDetails
 	}
@@ -839,6 +875,7 @@ func (o *Transaction) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "posted_date")
 		delete(additionalProperties, "amount")
+		delete(additionalProperties, "running_balance")
 		delete(additionalProperties, "transaction_details")
 		delete(additionalProperties, "created_at")
 		delete(additionalProperties, "updated_at")
