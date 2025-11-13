@@ -12593,6 +12593,7 @@ components:
             live_mode: true
             payment_confirmation_speed: payment_confirmation_speed
             payment_processor: payment_processor
+            payment_method_subtype: payment_method_subtype
             supported_currencies:
             - HKD
             - CNY
@@ -12627,6 +12628,7 @@ components:
             live_mode: true
             payment_confirmation_speed: payment_confirmation_speed
             payment_processor: payment_processor
+            payment_method_subtype: payment_method_subtype
             supported_currencies:
             - HKD
             - CNY
@@ -12678,6 +12680,7 @@ components:
           live_mode: true
           payment_confirmation_speed: payment_confirmation_speed
           payment_processor: payment_processor
+          payment_method_subtype: payment_method_subtype
           supported_currencies:
           - HKD
           - CNY
@@ -12798,6 +12801,7 @@ components:
         live_mode: true
         payment_confirmation_speed: payment_confirmation_speed
         payment_processor: payment_processor
+        payment_method_subtype: payment_method_subtype
         supported_currencies:
         - HKD
         - CNY
@@ -12812,6 +12816,9 @@ components:
         payment_method_type:
           description: "The payment method type, possible values CARD, MANDATE and\
             \ MANUAL"
+          type: string
+        payment_method_subtype:
+          description: "The payment method subtype, e.g., EDDA_HK, CARD_GENERIC etc"
           type: string
         payment_processor:
           description: "Only shown if funds flow via Finverse, possible values FINVERSE"
@@ -13444,11 +13451,13 @@ components:
           recurring: true
           fee: fee
           payment_method_provider: payment_method_provider
+          payment_method_subtype: payment_method_subtype
         - payment_account_id: payment_account_id
           payment_method_type: payment_method_type
           recurring: true
           fee: fee
           payment_method_provider: payment_method_provider
+          payment_method_subtype: payment_method_subtype
       properties:
         available_payment_methods:
           items:
@@ -13462,12 +13471,16 @@ components:
         recurring: true
         fee: fee
         payment_method_provider: payment_method_provider
+        payment_method_subtype: payment_method_subtype
       properties:
         payment_account_id:
           type: string
         payment_method_type:
           description: "The payment method type, possible values CARD, MANDATE and\
             \ MANUAL"
+          type: string
+        payment_method_subtype:
+          description: "The payment method subtype, e.g., EDDA_HK, CARD_GENERIC etc"
           type: string
         recurring:
           type: boolean

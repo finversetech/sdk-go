@@ -27,6 +27,8 @@ type PaymentMethodOverview struct {
 	PaymentConfirmationSpeed *string `json:"payment_confirmation_speed,omitempty"`
 	// The payment method type, possible values CARD, MANDATE and MANUAL
 	PaymentMethodType *string `json:"payment_method_type,omitempty"`
+	// The payment method subtype, e.g., EDDA_HK, CARD_GENERIC etc
+	PaymentMethodSubtype *string `json:"payment_method_subtype,omitempty"`
 	// Only shown if funds flow via Finverse, possible values FINVERSE
 	PaymentProcessor *string `json:"payment_processor,omitempty"`
 	// Whether the payment method can move real money or not
@@ -152,6 +154,38 @@ func (o *PaymentMethodOverview) SetPaymentMethodType(v string) {
 	o.PaymentMethodType = &v
 }
 
+// GetPaymentMethodSubtype returns the PaymentMethodSubtype field value if set, zero value otherwise.
+func (o *PaymentMethodOverview) GetPaymentMethodSubtype() string {
+	if o == nil || IsNil(o.PaymentMethodSubtype) {
+		var ret string
+		return ret
+	}
+	return *o.PaymentMethodSubtype
+}
+
+// GetPaymentMethodSubtypeOk returns a tuple with the PaymentMethodSubtype field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentMethodOverview) GetPaymentMethodSubtypeOk() (*string, bool) {
+	if o == nil || IsNil(o.PaymentMethodSubtype) {
+		return nil, false
+	}
+	return o.PaymentMethodSubtype, true
+}
+
+// HasPaymentMethodSubtype returns a boolean if a field has been set.
+func (o *PaymentMethodOverview) HasPaymentMethodSubtype() bool {
+	if o != nil && !IsNil(o.PaymentMethodSubtype) {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentMethodSubtype gets a reference to the given string and assigns it to the PaymentMethodSubtype field.
+func (o *PaymentMethodOverview) SetPaymentMethodSubtype(v string) {
+	o.PaymentMethodSubtype = &v
+}
+
 // GetPaymentProcessor returns the PaymentProcessor field value if set, zero value otherwise.
 func (o *PaymentMethodOverview) GetPaymentProcessor() string {
 	if o == nil || IsNil(o.PaymentProcessor) {
@@ -259,6 +293,9 @@ func (o PaymentMethodOverview) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaymentMethodType) {
 		toSerialize["payment_method_type"] = o.PaymentMethodType
 	}
+	if !IsNil(o.PaymentMethodSubtype) {
+		toSerialize["payment_method_subtype"] = o.PaymentMethodSubtype
+	}
 	if !IsNil(o.PaymentProcessor) {
 		toSerialize["payment_processor"] = o.PaymentProcessor
 	}
@@ -312,6 +349,7 @@ func (o *PaymentMethodOverview) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "external_gateway")
 		delete(additionalProperties, "payment_confirmation_speed")
 		delete(additionalProperties, "payment_method_type")
+		delete(additionalProperties, "payment_method_subtype")
 		delete(additionalProperties, "payment_processor")
 		delete(additionalProperties, "live_mode")
 		delete(additionalProperties, "supported_currencies")

@@ -23,7 +23,9 @@ var _ MappedNullable = &AvailablePaymentMethod{}
 type AvailablePaymentMethod struct {
 	PaymentAccountId *string `json:"payment_account_id,omitempty"`
 	// The payment method type, possible values CARD, MANDATE and MANUAL
-	PaymentMethodType     *string `json:"payment_method_type,omitempty"`
+	PaymentMethodType *string `json:"payment_method_type,omitempty"`
+	// The payment method subtype, e.g., EDDA_HK, CARD_GENERIC etc
+	PaymentMethodSubtype  *string `json:"payment_method_subtype,omitempty"`
 	Recurring             bool    `json:"recurring"`
 	Fee                   *string `json:"fee,omitempty"`
 	PaymentMethodProvider *string `json:"payment_method_provider,omitempty"`
@@ -112,6 +114,38 @@ func (o *AvailablePaymentMethod) HasPaymentMethodType() bool {
 // SetPaymentMethodType gets a reference to the given string and assigns it to the PaymentMethodType field.
 func (o *AvailablePaymentMethod) SetPaymentMethodType(v string) {
 	o.PaymentMethodType = &v
+}
+
+// GetPaymentMethodSubtype returns the PaymentMethodSubtype field value if set, zero value otherwise.
+func (o *AvailablePaymentMethod) GetPaymentMethodSubtype() string {
+	if o == nil || IsNil(o.PaymentMethodSubtype) {
+		var ret string
+		return ret
+	}
+	return *o.PaymentMethodSubtype
+}
+
+// GetPaymentMethodSubtypeOk returns a tuple with the PaymentMethodSubtype field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AvailablePaymentMethod) GetPaymentMethodSubtypeOk() (*string, bool) {
+	if o == nil || IsNil(o.PaymentMethodSubtype) {
+		return nil, false
+	}
+	return o.PaymentMethodSubtype, true
+}
+
+// HasPaymentMethodSubtype returns a boolean if a field has been set.
+func (o *AvailablePaymentMethod) HasPaymentMethodSubtype() bool {
+	if o != nil && !IsNil(o.PaymentMethodSubtype) {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentMethodSubtype gets a reference to the given string and assigns it to the PaymentMethodSubtype field.
+func (o *AvailablePaymentMethod) SetPaymentMethodSubtype(v string) {
+	o.PaymentMethodSubtype = &v
 }
 
 // GetRecurring returns the Recurring field value
@@ -218,6 +252,9 @@ func (o AvailablePaymentMethod) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaymentMethodType) {
 		toSerialize["payment_method_type"] = o.PaymentMethodType
 	}
+	if !IsNil(o.PaymentMethodSubtype) {
+		toSerialize["payment_method_subtype"] = o.PaymentMethodSubtype
+	}
 	toSerialize["recurring"] = o.Recurring
 	if !IsNil(o.Fee) {
 		toSerialize["fee"] = o.Fee
@@ -270,6 +307,7 @@ func (o *AvailablePaymentMethod) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "payment_account_id")
 		delete(additionalProperties, "payment_method_type")
+		delete(additionalProperties, "payment_method_subtype")
 		delete(additionalProperties, "recurring")
 		delete(additionalProperties, "fee")
 		delete(additionalProperties, "payment_method_provider")
