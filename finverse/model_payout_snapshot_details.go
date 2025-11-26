@@ -24,7 +24,7 @@ type PayoutSnapshotDetails struct {
 	Description            *string                 `json:"description,omitempty"`
 	TransactionReferenceId *string                 `json:"transaction_reference_id,omitempty"`
 	MandateId              *string                 `json:"mandate_id,omitempty"`
-	ScheduledDate          *time.Time              `json:"scheduled_date,omitempty"`
+	ScheduledDate          NullableTime            `json:"scheduled_date,omitempty"`
 	EstimatedArrivalTime   NullableTime            `json:"estimated_arrival_time,omitempty"`
 	ProcessorDetails       *PayoutProcessorDetails `json:"processor_details,omitempty"`
 	References             *PayoutReferences       `json:"references,omitempty"`
@@ -146,36 +146,47 @@ func (o *PayoutSnapshotDetails) SetMandateId(v string) {
 	o.MandateId = &v
 }
 
-// GetScheduledDate returns the ScheduledDate field value if set, zero value otherwise.
+// GetScheduledDate returns the ScheduledDate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PayoutSnapshotDetails) GetScheduledDate() time.Time {
-	if o == nil || IsNil(o.ScheduledDate) {
+	if o == nil || IsNil(o.ScheduledDate.Get()) {
 		var ret time.Time
 		return ret
 	}
-	return *o.ScheduledDate
+	return *o.ScheduledDate.Get()
 }
 
 // GetScheduledDateOk returns a tuple with the ScheduledDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PayoutSnapshotDetails) GetScheduledDateOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.ScheduledDate) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ScheduledDate, true
+	return o.ScheduledDate.Get(), o.ScheduledDate.IsSet()
 }
 
 // HasScheduledDate returns a boolean if a field has been set.
 func (o *PayoutSnapshotDetails) HasScheduledDate() bool {
-	if o != nil && !IsNil(o.ScheduledDate) {
+	if o != nil && o.ScheduledDate.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetScheduledDate gets a reference to the given time.Time and assigns it to the ScheduledDate field.
+// SetScheduledDate gets a reference to the given NullableTime and assigns it to the ScheduledDate field.
 func (o *PayoutSnapshotDetails) SetScheduledDate(v time.Time) {
-	o.ScheduledDate = &v
+	o.ScheduledDate.Set(&v)
+}
+
+// SetScheduledDateNil sets the value for ScheduledDate to be an explicit nil
+func (o *PayoutSnapshotDetails) SetScheduledDateNil() {
+	o.ScheduledDate.Set(nil)
+}
+
+// UnsetScheduledDate ensures that no value is present for ScheduledDate, not even an explicit nil
+func (o *PayoutSnapshotDetails) UnsetScheduledDate() {
+	o.ScheduledDate.Unset()
 }
 
 // GetEstimatedArrivalTime returns the EstimatedArrivalTime field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -304,8 +315,8 @@ func (o PayoutSnapshotDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MandateId) {
 		toSerialize["mandate_id"] = o.MandateId
 	}
-	if !IsNil(o.ScheduledDate) {
-		toSerialize["scheduled_date"] = o.ScheduledDate
+	if o.ScheduledDate.IsSet() {
+		toSerialize["scheduled_date"] = o.ScheduledDate.Get()
 	}
 	if o.EstimatedArrivalTime.IsSet() {
 		toSerialize["estimated_arrival_time"] = o.EstimatedArrivalTime.Get()

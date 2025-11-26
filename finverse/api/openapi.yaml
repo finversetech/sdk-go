@@ -8907,6 +8907,7 @@ components:
           type: string
         scheduled_date:
           format: date-time
+          nullable: true
           type: string
         estimated_arrival_time:
           example: 2025-08-22T12:00:00Z
