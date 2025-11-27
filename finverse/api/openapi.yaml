@@ -2799,6 +2799,40 @@ paths:
         - line_items:get
       tags:
       - customer
+  /calculate/line_items_v2:
+    get:
+      description: Get line items for display
+      operationId: getLineItemsForDisplayV2
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLineItemsForDisplayResponseV2'
+          description: Successful
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+        "401":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Unauthorized
+        "500":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Internal Server Error
+      security:
+      - Oauth2:
+        - line_items:get
+      tags:
+      - customer
   /payment_users/{paymentUserId}/payment_accounts:
     get:
       description: Get payment account by user id
@@ -10595,6 +10629,21 @@ components:
       - amount
       type: object
     GetLineItemsForDisplayResponse:
+      example:
+        line_items:
+        - amount: amount
+          item_type: AMOUNT_DUE
+          currency: currency
+        - amount: amount
+          item_type: AMOUNT_DUE
+          currency: currency
+      properties:
+        line_items:
+          items:
+            $ref: '#/components/schemas/LineItem'
+          type: array
+      type: object
+    GetLineItemsForDisplayResponseV2:
       example:
         line_items:
         - amount: amount
