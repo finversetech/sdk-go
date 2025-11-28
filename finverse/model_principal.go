@@ -31,6 +31,7 @@ type Principal struct {
 	ExpiresIn                 *float32                   `json:"expires_in,omitempty"`
 	PaymentAttemptId          *string                    `json:"payment_attempt_id,omitempty"`
 	PaymentId                 *string                    `json:"payment_id,omitempty"`
+	PaymentAccountId          *string                    `json:"payment_account_id,omitempty"`
 	ProductFlow               *string                    `json:"product_flow,omitempty"`
 	Scopes                    []string                   `json:"scopes,omitempty"`
 	LinkTokenRequest          *LinkTokenRequest          `json:"link_token_request,omitempty"`
@@ -358,6 +359,38 @@ func (o *Principal) HasPaymentId() bool {
 // SetPaymentId gets a reference to the given string and assigns it to the PaymentId field.
 func (o *Principal) SetPaymentId(v string) {
 	o.PaymentId = &v
+}
+
+// GetPaymentAccountId returns the PaymentAccountId field value if set, zero value otherwise.
+func (o *Principal) GetPaymentAccountId() string {
+	if o == nil || IsNil(o.PaymentAccountId) {
+		var ret string
+		return ret
+	}
+	return *o.PaymentAccountId
+}
+
+// GetPaymentAccountIdOk returns a tuple with the PaymentAccountId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Principal) GetPaymentAccountIdOk() (*string, bool) {
+	if o == nil || IsNil(o.PaymentAccountId) {
+		return nil, false
+	}
+	return o.PaymentAccountId, true
+}
+
+// HasPaymentAccountId returns a boolean if a field has been set.
+func (o *Principal) HasPaymentAccountId() bool {
+	if o != nil && !IsNil(o.PaymentAccountId) {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentAccountId gets a reference to the given string and assigns it to the PaymentAccountId field.
+func (o *Principal) SetPaymentAccountId(v string) {
+	o.PaymentAccountId = &v
 }
 
 // GetProductFlow returns the ProductFlow field value if set, zero value otherwise.
@@ -840,6 +873,9 @@ func (o Principal) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaymentId) {
 		toSerialize["payment_id"] = o.PaymentId
 	}
+	if !IsNil(o.PaymentAccountId) {
+		toSerialize["payment_account_id"] = o.PaymentAccountId
+	}
 	if !IsNil(o.ProductFlow) {
 		toSerialize["product_flow"] = o.ProductFlow
 	}
@@ -938,6 +974,7 @@ func (o *Principal) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "expires_in")
 		delete(additionalProperties, "payment_attempt_id")
 		delete(additionalProperties, "payment_id")
+		delete(additionalProperties, "payment_account_id")
 		delete(additionalProperties, "product_flow")
 		delete(additionalProperties, "scopes")
 		delete(additionalProperties, "link_token_request")
