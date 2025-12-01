@@ -9262,6 +9262,7 @@ components:
             - values
             details_type: HK_ID
           name: name
+          email: email
           external_user_id: external_user_id
         mandate_details:
           end_date: 2000-01-23
@@ -11247,9 +11248,13 @@ components:
           - values
           details_type: HK_ID
         name: name
+        email: email
         external_user_id: external_user_id
       properties:
         name:
+          type: string
+        email:
+          format: email
           type: string
         external_user_id:
           description: "Customer App's user ID, representing the end-user making the\
@@ -11268,6 +11273,8 @@ components:
             $ref: '#/components/schemas/SenderDetail'
           maxItems: 10
           type: array
+      required:
+      - email
       type: object
     GetMandateSender:
       example:

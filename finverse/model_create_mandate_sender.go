@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the CreateMandateSender type satisfies the MappedNullable interface at compile time
@@ -20,7 +21,8 @@ var _ MappedNullable = &CreateMandateSender{}
 
 // CreateMandateSender struct for CreateMandateSender
 type CreateMandateSender struct {
-	Name *string `json:"name,omitempty"`
+	Name  *string `json:"name,omitempty"`
+	Email string  `json:"email"`
 	// Customer App's user ID, representing the end-user making the payment.
 	ExternalUserId *string `json:"external_user_id,omitempty"`
 	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
@@ -36,8 +38,9 @@ type _CreateMandateSender CreateMandateSender
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateMandateSender() *CreateMandateSender {
+func NewCreateMandateSender(email string) *CreateMandateSender {
 	this := CreateMandateSender{}
+	this.Email = email
 	return &this
 }
 
@@ -79,6 +82,30 @@ func (o *CreateMandateSender) HasName() bool {
 // SetName gets a reference to the given string and assigns it to the Name field.
 func (o *CreateMandateSender) SetName(v string) {
 	o.Name = &v
+}
+
+// GetEmail returns the Email field value
+func (o *CreateMandateSender) GetEmail() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.Email
+}
+
+// GetEmailOk returns a tuple with the Email field value
+// and a boolean to check if the value has been set.
+func (o *CreateMandateSender) GetEmailOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.Email, true
+}
+
+// SetEmail sets field value
+func (o *CreateMandateSender) SetEmail(v string) {
+	o.Email = v
 }
 
 // GetExternalUserId returns the ExternalUserId field value if set, zero value otherwise.
@@ -190,6 +217,7 @@ func (o CreateMandateSender) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
 	}
+	toSerialize["email"] = o.Email
 	if !IsNil(o.ExternalUserId) {
 		toSerialize["external_user_id"] = o.ExternalUserId
 	}
@@ -208,6 +236,27 @@ func (o CreateMandateSender) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *CreateMandateSender) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"email",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varCreateMandateSender := _CreateMandateSender{}
 
 	err = json.Unmarshal(data, &varCreateMandateSender)
@@ -222,6 +271,7 @@ func (o *CreateMandateSender) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "email")
 		delete(additionalProperties, "external_user_id")
 		delete(additionalProperties, "user_type")
 		delete(additionalProperties, "user_details")
