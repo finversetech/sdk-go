@@ -77,7 +77,6 @@ model_get_account_response.go
 model_get_balance_history_response.go
 model_get_identity_response.go
 model_get_jwks_response.go
-model_get_line_items_for_display_response.go
 model_get_line_items_for_display_response_v2.go
 model_get_login_identity_by_id_response.go
 model_get_login_identity_history_response.go

@@ -2754,51 +2754,6 @@ paths:
       security:
       - Oauth2:
         - qr_code:get
-  /calculate/line_items/{paymentType}:
-    get:
-      description: Get line items for display
-      operationId: getLineItemsForDisplay
-      parameters:
-      - description: The payment type
-        in: path
-        name: paymentType
-        required: true
-        schema:
-          enum:
-          - MANDATE
-          - MANUAL
-          - CARD
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetLineItemsForDisplayResponse'
-          description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Invalid Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - line_items:get
-      tags:
-      - customer
   /calculate/line_items_v2:
     get:
       description: Get line items for display
@@ -10631,21 +10586,6 @@ components:
           type: string
       required:
       - amount
-      type: object
-    GetLineItemsForDisplayResponse:
-      example:
-        line_items:
-        - amount: amount
-          item_type: AMOUNT_DUE
-          currency: currency
-        - amount: amount
-          item_type: AMOUNT_DUE
-          currency: currency
-      properties:
-        line_items:
-          items:
-            $ref: '#/components/schemas/LineItem'
-          type: array
       type: object
     GetLineItemsForDisplayResponseV2:
       example:
