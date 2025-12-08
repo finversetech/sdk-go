@@ -101,6 +101,7 @@ model_income_stream.go
 model_income_total.go
 model_institution.go
 model_institution_short.go
+model_integration_metadata_payment_user_request.go
 model_integration_metadata_request.go
 model_integration_metadata_response.go
 model_jwks_key.go
@@ -195,6 +196,7 @@ model_principal.go
 model_product_status.go
 model_rapidstor_metadata_request.go
 model_rapidstor_metadata_response.go
+model_rapidstor_payment_user_metadata_request.go
 model_recipient_account_filters.go
 model_recipient_account_number.go
 model_recipient_account_response.go

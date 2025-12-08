@@ -21,14 +21,14 @@ var _ MappedNullable = &CreatePaymentUserRequest{}
 
 // CreatePaymentUserRequest struct for CreatePaymentUserRequest
 type CreatePaymentUserRequest struct {
-	Name                 string                      `json:"name"`
-	ExternalUserId       string                      `json:"external_user_id"`
-	UserType             *string                     `json:"user_type,omitempty"`
-	Email                *string                     `json:"email,omitempty"`
-	UserDetails          []SenderDetail              `json:"user_details,omitempty"`
-	Metadata             *map[string]string          `json:"metadata,omitempty"`
-	AutopayConsent       *bool                       `json:"autopay_consent,omitempty"`
-	IntegrationMetadata  *IntegrationMetadataRequest `json:"integration_metadata,omitempty"`
+	Name                 string                                 `json:"name"`
+	ExternalUserId       string                                 `json:"external_user_id"`
+	UserType             *string                                `json:"user_type,omitempty"`
+	Email                *string                                `json:"email,omitempty"`
+	UserDetails          []SenderDetail                         `json:"user_details,omitempty"`
+	Metadata             *map[string]string                     `json:"metadata,omitempty"`
+	AutopayConsent       *bool                                  `json:"autopay_consent,omitempty"`
+	IntegrationMetadata  *IntegrationMetadataPaymentUserRequest `json:"integration_metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -262,9 +262,9 @@ func (o *CreatePaymentUserRequest) SetAutopayConsent(v bool) {
 }
 
 // GetIntegrationMetadata returns the IntegrationMetadata field value if set, zero value otherwise.
-func (o *CreatePaymentUserRequest) GetIntegrationMetadata() IntegrationMetadataRequest {
+func (o *CreatePaymentUserRequest) GetIntegrationMetadata() IntegrationMetadataPaymentUserRequest {
 	if o == nil || IsNil(o.IntegrationMetadata) {
-		var ret IntegrationMetadataRequest
+		var ret IntegrationMetadataPaymentUserRequest
 		return ret
 	}
 	return *o.IntegrationMetadata
@@ -272,7 +272,7 @@ func (o *CreatePaymentUserRequest) GetIntegrationMetadata() IntegrationMetadataR
 
 // GetIntegrationMetadataOk returns a tuple with the IntegrationMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreatePaymentUserRequest) GetIntegrationMetadataOk() (*IntegrationMetadataRequest, bool) {
+func (o *CreatePaymentUserRequest) GetIntegrationMetadataOk() (*IntegrationMetadataPaymentUserRequest, bool) {
 	if o == nil || IsNil(o.IntegrationMetadata) {
 		return nil, false
 	}
@@ -288,8 +288,8 @@ func (o *CreatePaymentUserRequest) HasIntegrationMetadata() bool {
 	return false
 }
 
-// SetIntegrationMetadata gets a reference to the given IntegrationMetadataRequest and assigns it to the IntegrationMetadata field.
-func (o *CreatePaymentUserRequest) SetIntegrationMetadata(v IntegrationMetadataRequest) {
+// SetIntegrationMetadata gets a reference to the given IntegrationMetadataPaymentUserRequest and assigns it to the IntegrationMetadata field.
+func (o *CreatePaymentUserRequest) SetIntegrationMetadata(v IntegrationMetadataPaymentUserRequest) {
 	o.IntegrationMetadata = &v
 }
 

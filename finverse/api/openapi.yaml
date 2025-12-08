@@ -10494,6 +10494,23 @@ components:
       - s_location_code
       - tenant_id
       type: object
+    RapidstorPaymentUserMetadataRequest:
+      allOf:
+      - $ref: '#/components/schemas/RapidstorMetadataRequest'
+      - properties:
+          tenant_default_currency:
+            type: string
+        required:
+        - tenant_default_currency
+        type: object
+      example:
+        tenant_id: tenant_id
+        tenant_default_currency: tenant_default_currency
+        corp_code: corp_code
+        i_anniv_days: 3.4024845713830345
+        account_token: account_token
+        unit_type_id: unit_type_id
+        s_location_code: s_location_code
     RapidstorMetadataResponse:
       example:
         tenant_id: tenant_id
@@ -10537,6 +10554,27 @@ components:
           type: string
         rapidstor_metadata:
           $ref: '#/components/schemas/RapidstorMetadataRequest'
+      required:
+      - integration_id
+      type: object
+    IntegrationMetadataPaymentUserRequest:
+      example:
+        integration_id: RAPIDSTOR
+        rapidstor_metadata:
+          tenant_id: tenant_id
+          tenant_default_currency: tenant_default_currency
+          corp_code: corp_code
+          i_anniv_days: 3.4024845713830345
+          account_token: account_token
+          unit_type_id: unit_type_id
+          s_location_code: s_location_code
+      properties:
+        integration_id:
+          enum:
+          - RAPIDSTOR
+          type: string
+        rapidstor_metadata:
+          $ref: '#/components/schemas/RapidstorPaymentUserMetadataRequest'
       required:
       - integration_id
       type: object
@@ -12724,8 +12762,9 @@ components:
           integration_id: RAPIDSTOR
           rapidstor_metadata:
             tenant_id: tenant_id
+            tenant_default_currency: tenant_default_currency
             corp_code: corp_code
-            i_anniv_days: 18.886401750049547
+            i_anniv_days: 3.4024845713830345
             account_token: account_token
             unit_type_id: unit_type_id
             s_location_code: s_location_code
@@ -12778,7 +12817,7 @@ components:
         autopay_consent:
           type: boolean
         integration_metadata:
-          $ref: '#/components/schemas/IntegrationMetadataRequest'
+          $ref: '#/components/schemas/IntegrationMetadataPaymentUserRequest'
       required:
       - external_user_id
       - name
