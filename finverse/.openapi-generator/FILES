@@ -208,6 +208,7 @@ model_refresh_payment_attempt_response.go
 model_refresh_request.go
 model_refresh_token_response.go
 model_relink_request.go
+model_risk_data.go
 model_select_payment_method_request.go
 model_select_payment_method_response.go
 model_sender_account_fv_link_response.go

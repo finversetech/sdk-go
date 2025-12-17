@@ -30,6 +30,7 @@ type FVCard struct {
 	Error                *FvEmbeddedErrorModel    `json:"error,omitempty"`
 	CardDetails          *FVCardDetails           `json:"card_details,omitempty"`
 	RecipientAccount     *MandateRecipientAccount `json:"recipient_account,omitempty"`
+	RiskData             *RiskData                `json:"risk_data,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -244,6 +245,38 @@ func (o *FVCard) SetRecipientAccount(v MandateRecipientAccount) {
 	o.RecipientAccount = &v
 }
 
+// GetRiskData returns the RiskData field value if set, zero value otherwise.
+func (o *FVCard) GetRiskData() RiskData {
+	if o == nil || IsNil(o.RiskData) {
+		var ret RiskData
+		return ret
+	}
+	return *o.RiskData
+}
+
+// GetRiskDataOk returns a tuple with the RiskData field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FVCard) GetRiskDataOk() (*RiskData, bool) {
+	if o == nil || IsNil(o.RiskData) {
+		return nil, false
+	}
+	return o.RiskData, true
+}
+
+// HasRiskData returns a boolean if a field has been set.
+func (o *FVCard) HasRiskData() bool {
+	if o != nil && !IsNil(o.RiskData) {
+		return true
+	}
+
+	return false
+}
+
+// SetRiskData gets a reference to the given RiskData and assigns it to the RiskData field.
+func (o *FVCard) SetRiskData(v RiskData) {
+	o.RiskData = &v
+}
+
 func (o FVCard) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -271,6 +304,9 @@ func (o FVCard) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.RecipientAccount) {
 		toSerialize["recipient_account"] = o.RecipientAccount
+	}
+	if !IsNil(o.RiskData) {
+		toSerialize["risk_data"] = o.RiskData
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -300,6 +336,7 @@ func (o *FVCard) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "error")
 		delete(additionalProperties, "card_details")
 		delete(additionalProperties, "recipient_account")
+		delete(additionalProperties, "risk_data")
 		o.AdditionalProperties = additionalProperties
 	}
 

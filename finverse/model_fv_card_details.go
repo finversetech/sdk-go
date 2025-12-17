@@ -27,16 +27,26 @@ type FVCardDetails struct {
 	// The credit card expiry month
 	ExpiryMonth *int32 `json:"expiry_month,omitempty"`
 	// The credit card expiry year
-	ExpiryYear                     *int32                  `json:"expiry_year,omitempty"`
-	ProcessorEntityName            *string                 `json:"processor_entity_name,omitempty"`
-	CollectionEntityName           *string                 `json:"collection_entity_name,omitempty"`
-	Country                        *string                 `json:"country,omitempty"`
-	Fingerprint                    *string                 `json:"fingerprint,omitempty"`
+	ExpiryYear           *int32  `json:"expiry_year,omitempty"`
+	ProcessorEntityName  *string `json:"processor_entity_name,omitempty"`
+	CollectionEntityName *string `json:"collection_entity_name,omitempty"`
+	// The issuer country
+	Country     *string `json:"country,omitempty"`
+	Fingerprint *string `json:"fingerprint,omitempty"`
+	// The funding source of the card
 	Funding                        *string                 `json:"funding,omitempty"`
 	FinverseAuthorizationReference *string                 `json:"finverse_authorization_reference,omitempty"`
 	ProcessorDetails               *FVCardProcessorDetails `json:"processor_details,omitempty"`
 	// The recurring payment mode
 	RecurringPaymentMode *string `json:"recurring_payment_mode,omitempty"`
+	// The acquirer authorization reference
+	AcquirerAuthorizationReference *string `json:"acquirer_authorization_reference,omitempty"`
+	// The brand product name
+	BrandProductName *string `json:"brand_product_name,omitempty"`
+	// The card number alias
+	CardNumberAlias *string `json:"card_number_alias,omitempty"`
+	// Whether the card is a commercial card
+	IsCommercial         NullableBool `json:"is_commercial,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -443,6 +453,145 @@ func (o *FVCardDetails) SetRecurringPaymentMode(v string) {
 	o.RecurringPaymentMode = &v
 }
 
+// GetAcquirerAuthorizationReference returns the AcquirerAuthorizationReference field value if set, zero value otherwise.
+func (o *FVCardDetails) GetAcquirerAuthorizationReference() string {
+	if o == nil || IsNil(o.AcquirerAuthorizationReference) {
+		var ret string
+		return ret
+	}
+	return *o.AcquirerAuthorizationReference
+}
+
+// GetAcquirerAuthorizationReferenceOk returns a tuple with the AcquirerAuthorizationReference field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FVCardDetails) GetAcquirerAuthorizationReferenceOk() (*string, bool) {
+	if o == nil || IsNil(o.AcquirerAuthorizationReference) {
+		return nil, false
+	}
+	return o.AcquirerAuthorizationReference, true
+}
+
+// HasAcquirerAuthorizationReference returns a boolean if a field has been set.
+func (o *FVCardDetails) HasAcquirerAuthorizationReference() bool {
+	if o != nil && !IsNil(o.AcquirerAuthorizationReference) {
+		return true
+	}
+
+	return false
+}
+
+// SetAcquirerAuthorizationReference gets a reference to the given string and assigns it to the AcquirerAuthorizationReference field.
+func (o *FVCardDetails) SetAcquirerAuthorizationReference(v string) {
+	o.AcquirerAuthorizationReference = &v
+}
+
+// GetBrandProductName returns the BrandProductName field value if set, zero value otherwise.
+func (o *FVCardDetails) GetBrandProductName() string {
+	if o == nil || IsNil(o.BrandProductName) {
+		var ret string
+		return ret
+	}
+	return *o.BrandProductName
+}
+
+// GetBrandProductNameOk returns a tuple with the BrandProductName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FVCardDetails) GetBrandProductNameOk() (*string, bool) {
+	if o == nil || IsNil(o.BrandProductName) {
+		return nil, false
+	}
+	return o.BrandProductName, true
+}
+
+// HasBrandProductName returns a boolean if a field has been set.
+func (o *FVCardDetails) HasBrandProductName() bool {
+	if o != nil && !IsNil(o.BrandProductName) {
+		return true
+	}
+
+	return false
+}
+
+// SetBrandProductName gets a reference to the given string and assigns it to the BrandProductName field.
+func (o *FVCardDetails) SetBrandProductName(v string) {
+	o.BrandProductName = &v
+}
+
+// GetCardNumberAlias returns the CardNumberAlias field value if set, zero value otherwise.
+func (o *FVCardDetails) GetCardNumberAlias() string {
+	if o == nil || IsNil(o.CardNumberAlias) {
+		var ret string
+		return ret
+	}
+	return *o.CardNumberAlias
+}
+
+// GetCardNumberAliasOk returns a tuple with the CardNumberAlias field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FVCardDetails) GetCardNumberAliasOk() (*string, bool) {
+	if o == nil || IsNil(o.CardNumberAlias) {
+		return nil, false
+	}
+	return o.CardNumberAlias, true
+}
+
+// HasCardNumberAlias returns a boolean if a field has been set.
+func (o *FVCardDetails) HasCardNumberAlias() bool {
+	if o != nil && !IsNil(o.CardNumberAlias) {
+		return true
+	}
+
+	return false
+}
+
+// SetCardNumberAlias gets a reference to the given string and assigns it to the CardNumberAlias field.
+func (o *FVCardDetails) SetCardNumberAlias(v string) {
+	o.CardNumberAlias = &v
+}
+
+// GetIsCommercial returns the IsCommercial field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *FVCardDetails) GetIsCommercial() bool {
+	if o == nil || IsNil(o.IsCommercial.Get()) {
+		var ret bool
+		return ret
+	}
+	return *o.IsCommercial.Get()
+}
+
+// GetIsCommercialOk returns a tuple with the IsCommercial field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *FVCardDetails) GetIsCommercialOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.IsCommercial.Get(), o.IsCommercial.IsSet()
+}
+
+// HasIsCommercial returns a boolean if a field has been set.
+func (o *FVCardDetails) HasIsCommercial() bool {
+	if o != nil && o.IsCommercial.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetIsCommercial gets a reference to the given NullableBool and assigns it to the IsCommercial field.
+func (o *FVCardDetails) SetIsCommercial(v bool) {
+	o.IsCommercial.Set(&v)
+}
+
+// SetIsCommercialNil sets the value for IsCommercial to be an explicit nil
+func (o *FVCardDetails) SetIsCommercialNil() {
+	o.IsCommercial.Set(nil)
+}
+
+// UnsetIsCommercial ensures that no value is present for IsCommercial, not even an explicit nil
+func (o *FVCardDetails) UnsetIsCommercial() {
+	o.IsCommercial.Unset()
+}
+
 func (o FVCardDetails) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -489,6 +638,18 @@ func (o FVCardDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.RecurringPaymentMode) {
 		toSerialize["recurring_payment_mode"] = o.RecurringPaymentMode
 	}
+	if !IsNil(o.AcquirerAuthorizationReference) {
+		toSerialize["acquirer_authorization_reference"] = o.AcquirerAuthorizationReference
+	}
+	if !IsNil(o.BrandProductName) {
+		toSerialize["brand_product_name"] = o.BrandProductName
+	}
+	if !IsNil(o.CardNumberAlias) {
+		toSerialize["card_number_alias"] = o.CardNumberAlias
+	}
+	if o.IsCommercial.IsSet() {
+		toSerialize["is_commercial"] = o.IsCommercial.Get()
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -523,6 +684,10 @@ func (o *FVCardDetails) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "finverse_authorization_reference")
 		delete(additionalProperties, "processor_details")
 		delete(additionalProperties, "recurring_payment_mode")
+		delete(additionalProperties, "acquirer_authorization_reference")
+		delete(additionalProperties, "brand_product_name")
+		delete(additionalProperties, "card_number_alias")
+		delete(additionalProperties, "is_commercial")
 		o.AdditionalProperties = additionalProperties
 	}
 

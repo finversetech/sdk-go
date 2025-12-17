@@ -8190,10 +8190,16 @@ components:
           card:
             card_details:
               last4: "1234"
-              expiry_month: 7
-              country: country
+              country: HK
               funding: UNKNOWN
               finverse_authorization_reference: finverse_authorization_reference
+              collection_entity_name: collection_entity_name
+              card_number_alias: F046886807590403
+              is_commercial: true
+              expiry_year: 2028
+              processor_entity_name: processor_entity_name
+              expiry_month: 7
+              brand_product_name: visacommercialpremiumcredit
               recurring_payment_mode: recurring_payment_mode
               processor_details:
                 processor_reference: processor_reference
@@ -8201,11 +8207,9 @@ components:
                 network_transaction_reference: network_transaction_reference
                 processor_id: processor_id
                 auth_code: auth_code
-              fingerprint: fingerprint
-              collection_entity_name: collection_entity_name
+              fingerprint: V0010013822052427221044754993
+              acquirer_authorization_reference: "524506894419"
               brand: VISA
-              expiry_year: 2028
-              processor_entity_name: processor_entity_name
         status: AUTHORIZATION_REQUIRED
       properties:
         payment_id:
@@ -8388,10 +8392,16 @@ components:
             card:
               card_details:
                 last4: "1234"
-                expiry_month: 7
-                country: country
+                country: HK
                 funding: UNKNOWN
                 finverse_authorization_reference: finverse_authorization_reference
+                collection_entity_name: collection_entity_name
+                card_number_alias: F046886807590403
+                is_commercial: true
+                expiry_year: 2028
+                processor_entity_name: processor_entity_name
+                expiry_month: 7
+                brand_product_name: visacommercialpremiumcredit
                 recurring_payment_mode: recurring_payment_mode
                 processor_details:
                   processor_reference: processor_reference
@@ -8399,11 +8409,9 @@ components:
                   network_transaction_reference: network_transaction_reference
                   processor_id: processor_id
                   auth_code: auth_code
-                fingerprint: fingerprint
-                collection_entity_name: collection_entity_name
+                fingerprint: V0010013822052427221044754993
+                acquirer_authorization_reference: "524506894419"
                 brand: VISA
-                expiry_year: 2028
-                processor_entity_name: processor_entity_name
           status: AUTHORIZATION_REQUIRED
         - amount: 100
           fees:
@@ -8495,10 +8503,16 @@ components:
             card:
               card_details:
                 last4: "1234"
-                expiry_month: 7
-                country: country
+                country: HK
                 funding: UNKNOWN
                 finverse_authorization_reference: finverse_authorization_reference
+                collection_entity_name: collection_entity_name
+                card_number_alias: F046886807590403
+                is_commercial: true
+                expiry_year: 2028
+                processor_entity_name: processor_entity_name
+                expiry_month: 7
+                brand_product_name: visacommercialpremiumcredit
                 recurring_payment_mode: recurring_payment_mode
                 processor_details:
                   processor_reference: processor_reference
@@ -8506,11 +8520,9 @@ components:
                   network_transaction_reference: network_transaction_reference
                   processor_id: processor_id
                   auth_code: auth_code
-                fingerprint: fingerprint
-                collection_entity_name: collection_entity_name
+                fingerprint: V0010013822052427221044754993
+                acquirer_authorization_reference: "524506894419"
                 brand: VISA
-                expiry_year: 2028
-                processor_entity_name: processor_entity_name
           status: AUTHORIZATION_REQUIRED
         total_payments: 0
       properties:
@@ -9860,10 +9872,16 @@ components:
           card:
             card_details:
               last4: "1234"
-              expiry_month: 7
-              country: country
+              country: HK
               funding: UNKNOWN
               finverse_authorization_reference: finverse_authorization_reference
+              collection_entity_name: collection_entity_name
+              card_number_alias: F046886807590403
+              is_commercial: true
+              expiry_year: 2028
+              processor_entity_name: processor_entity_name
+              expiry_month: 7
+              brand_product_name: visacommercialpremiumcredit
               recurring_payment_mode: recurring_payment_mode
               processor_details:
                 processor_reference: processor_reference
@@ -9871,16 +9889,20 @@ components:
                 network_transaction_reference: network_transaction_reference
                 processor_id: processor_id
                 auth_code: auth_code
-              fingerprint: fingerprint
-              collection_entity_name: collection_entity_name
+              fingerprint: V0010013822052427221044754993
+              acquirer_authorization_reference: "524506894419"
               brand: VISA
-              expiry_year: 2028
-              processor_entity_name: processor_entity_name
             updated_at: 2000-01-23T04:56:07.000+00:00
             recipient_account:
               account_type: SETTLEMENT_ACCOUNT
               account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
+            risk_data:
+              shopper_country: HK
+              shopper_ip: 127.0.0.1
+              browser_type: Chrome
+              device_type: Desktop
+              shopper_locale: en-HK
             error:
               error_code: CREDENTIALS_INVALID
               details: details
@@ -9988,10 +10010,16 @@ components:
           card:
             card_details:
               last4: "1234"
-              expiry_month: 7
-              country: country
+              country: HK
               funding: UNKNOWN
               finverse_authorization_reference: finverse_authorization_reference
+              collection_entity_name: collection_entity_name
+              card_number_alias: F046886807590403
+              is_commercial: true
+              expiry_year: 2028
+              processor_entity_name: processor_entity_name
+              expiry_month: 7
+              brand_product_name: visacommercialpremiumcredit
               recurring_payment_mode: recurring_payment_mode
               processor_details:
                 processor_reference: processor_reference
@@ -9999,16 +10027,20 @@ components:
                 network_transaction_reference: network_transaction_reference
                 processor_id: processor_id
                 auth_code: auth_code
-              fingerprint: fingerprint
-              collection_entity_name: collection_entity_name
+              fingerprint: V0010013822052427221044754993
+              acquirer_authorization_reference: "524506894419"
               brand: VISA
-              expiry_year: 2028
-              processor_entity_name: processor_entity_name
             updated_at: 2000-01-23T04:56:07.000+00:00
             recipient_account:
               account_type: SETTLEMENT_ACCOUNT
               account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
+            risk_data:
+              shopper_country: HK
+              shopper_ip: 127.0.0.1
+              browser_type: Chrome
+              device_type: Desktop
+              shopper_locale: en-HK
             error:
               error_code: CREDENTIALS_INVALID
               details: details
@@ -10209,10 +10241,16 @@ components:
             card:
               card_details:
                 last4: "1234"
-                expiry_month: 7
-                country: country
+                country: HK
                 funding: UNKNOWN
                 finverse_authorization_reference: finverse_authorization_reference
+                collection_entity_name: collection_entity_name
+                card_number_alias: F046886807590403
+                is_commercial: true
+                expiry_year: 2028
+                processor_entity_name: processor_entity_name
+                expiry_month: 7
+                brand_product_name: visacommercialpremiumcredit
                 recurring_payment_mode: recurring_payment_mode
                 processor_details:
                   processor_reference: processor_reference
@@ -10220,11 +10258,9 @@ components:
                   network_transaction_reference: network_transaction_reference
                   processor_id: processor_id
                   auth_code: auth_code
-                fingerprint: fingerprint
-                collection_entity_name: collection_entity_name
+                fingerprint: V0010013822052427221044754993
+                acquirer_authorization_reference: "524506894419"
                 brand: VISA
-                expiry_year: 2028
-                processor_entity_name: processor_entity_name
           status: AUTHORIZATION_REQUIRED
         session_status: OPEN
         payment_method:
@@ -10329,10 +10365,16 @@ components:
           card:
             card_details:
               last4: "1234"
-              expiry_month: 7
-              country: country
+              country: HK
               funding: UNKNOWN
               finverse_authorization_reference: finverse_authorization_reference
+              collection_entity_name: collection_entity_name
+              card_number_alias: F046886807590403
+              is_commercial: true
+              expiry_year: 2028
+              processor_entity_name: processor_entity_name
+              expiry_month: 7
+              brand_product_name: visacommercialpremiumcredit
               recurring_payment_mode: recurring_payment_mode
               processor_details:
                 processor_reference: processor_reference
@@ -10340,16 +10382,20 @@ components:
                 network_transaction_reference: network_transaction_reference
                 processor_id: processor_id
                 auth_code: auth_code
-              fingerprint: fingerprint
-              collection_entity_name: collection_entity_name
+              fingerprint: V0010013822052427221044754993
+              acquirer_authorization_reference: "524506894419"
               brand: VISA
-              expiry_year: 2028
-              processor_entity_name: processor_entity_name
             updated_at: 2000-01-23T04:56:07.000+00:00
             recipient_account:
               account_type: SETTLEMENT_ACCOUNT
               account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
+            risk_data:
+              shopper_country: HK
+              shopper_ip: 127.0.0.1
+              browser_type: Chrome
+              device_type: Desktop
+              shopper_locale: en-HK
             error:
               error_code: CREDENTIALS_INVALID
               details: details
@@ -10683,10 +10729,16 @@ components:
       example:
         card_details:
           last4: "1234"
-          expiry_month: 7
-          country: country
+          country: HK
           funding: UNKNOWN
           finverse_authorization_reference: finverse_authorization_reference
+          collection_entity_name: collection_entity_name
+          card_number_alias: F046886807590403
+          is_commercial: true
+          expiry_year: 2028
+          processor_entity_name: processor_entity_name
+          expiry_month: 7
+          brand_product_name: visacommercialpremiumcredit
           recurring_payment_mode: recurring_payment_mode
           processor_details:
             processor_reference: processor_reference
@@ -10694,16 +10746,20 @@ components:
             network_transaction_reference: network_transaction_reference
             processor_id: processor_id
             auth_code: auth_code
-          fingerprint: fingerprint
-          collection_entity_name: collection_entity_name
+          fingerprint: V0010013822052427221044754993
+          acquirer_authorization_reference: "524506894419"
           brand: VISA
-          expiry_year: 2028
-          processor_entity_name: processor_entity_name
         updated_at: 2000-01-23T04:56:07.000+00:00
         recipient_account:
           account_type: SETTLEMENT_ACCOUNT
           account_id: account_id
         created_at: 2000-01-23T04:56:07.000+00:00
+        risk_data:
+          shopper_country: HK
+          shopper_ip: 127.0.0.1
+          browser_type: Chrome
+          device_type: Desktop
+          shopper_locale: en-HK
         error:
           error_code: CREDENTIALS_INVALID
           details: details
@@ -10734,14 +10790,22 @@ components:
           $ref: '#/components/schemas/FVCardDetails'
         recipient_account:
           $ref: '#/components/schemas/MandateRecipientAccount'
+        risk_data:
+          $ref: '#/components/schemas/RiskData'
       type: object
     FVCardDetails:
       example:
         last4: "1234"
-        expiry_month: 7
-        country: country
+        country: HK
         funding: UNKNOWN
         finverse_authorization_reference: finverse_authorization_reference
+        collection_entity_name: collection_entity_name
+        card_number_alias: F046886807590403
+        is_commercial: true
+        expiry_year: 2028
+        processor_entity_name: processor_entity_name
+        expiry_month: 7
+        brand_product_name: visacommercialpremiumcredit
         recurring_payment_mode: recurring_payment_mode
         processor_details:
           processor_reference: processor_reference
@@ -10749,11 +10813,9 @@ components:
           network_transaction_reference: network_transaction_reference
           processor_id: processor_id
           auth_code: auth_code
-        fingerprint: fingerprint
-        collection_entity_name: collection_entity_name
+        fingerprint: V0010013822052427221044754993
+        acquirer_authorization_reference: "524506894419"
         brand: VISA
-        expiry_year: 2028
-        processor_entity_name: processor_entity_name
       properties:
         brand:
           description: The credit card brand
@@ -10776,10 +10838,14 @@ components:
         collection_entity_name:
           type: string
         country:
+          description: The issuer country
+          example: HK
           type: string
         fingerprint:
+          example: V0010013822052427221044754993
           type: string
         funding:
+          description: The funding source of the card
           enum:
           - UNKNOWN
           - CREDIT
@@ -10792,6 +10858,52 @@ components:
           $ref: '#/components/schemas/FVCardProcessorDetails'
         recurring_payment_mode:
           description: The recurring payment mode
+          type: string
+        acquirer_authorization_reference:
+          description: The acquirer authorization reference
+          example: "524506894419"
+          type: string
+        brand_product_name:
+          description: The brand product name
+          example: visacommercialpremiumcredit
+          type: string
+        card_number_alias:
+          description: The card number alias
+          example: F046886807590403
+          type: string
+        is_commercial:
+          description: Whether the card is a commercial card
+          example: true
+          nullable: true
+          type: boolean
+      type: object
+    RiskData:
+      example:
+        shopper_country: HK
+        shopper_ip: 127.0.0.1
+        browser_type: Chrome
+        device_type: Desktop
+        shopper_locale: en-HK
+      properties:
+        browser_type:
+          description: The browser type
+          example: Chrome
+          type: string
+        device_type:
+          description: The device type
+          example: Desktop
+          type: string
+        shopper_country:
+          description: The shopper country
+          example: HK
+          type: string
+        shopper_ip:
+          description: The shopper IP address
+          example: 127.0.0.1
+          type: string
+        shopper_locale:
+          description: The shopper locale
+          example: en-HK
           type: string
       type: object
     FVCardProcessorDetails:
@@ -13214,10 +13326,16 @@ components:
         card:
           card_details:
             last4: "1234"
-            expiry_month: 7
-            country: country
+            country: HK
             funding: UNKNOWN
             finverse_authorization_reference: finverse_authorization_reference
+            collection_entity_name: collection_entity_name
+            card_number_alias: F046886807590403
+            is_commercial: true
+            expiry_year: 2028
+            processor_entity_name: processor_entity_name
+            expiry_month: 7
+            brand_product_name: visacommercialpremiumcredit
             recurring_payment_mode: recurring_payment_mode
             processor_details:
               processor_reference: processor_reference
@@ -13225,16 +13343,20 @@ components:
               network_transaction_reference: network_transaction_reference
               processor_id: processor_id
               auth_code: auth_code
-            fingerprint: fingerprint
-            collection_entity_name: collection_entity_name
+            fingerprint: V0010013822052427221044754993
+            acquirer_authorization_reference: "524506894419"
             brand: VISA
-            expiry_year: 2028
-            processor_entity_name: processor_entity_name
           updated_at: 2000-01-23T04:56:07.000+00:00
           recipient_account:
             account_type: SETTLEMENT_ACCOUNT
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
+          risk_data:
+            shopper_country: HK
+            shopper_ip: 127.0.0.1
+            browser_type: Chrome
+            device_type: Desktop
+            shopper_locale: en-HK
           error:
             error_code: CREDENTIALS_INVALID
             details: details
@@ -13521,10 +13643,16 @@ components:
         card:
           card_details:
             last4: "1234"
-            expiry_month: 7
-            country: country
+            country: HK
             funding: UNKNOWN
             finverse_authorization_reference: finverse_authorization_reference
+            collection_entity_name: collection_entity_name
+            card_number_alias: F046886807590403
+            is_commercial: true
+            expiry_year: 2028
+            processor_entity_name: processor_entity_name
+            expiry_month: 7
+            brand_product_name: visacommercialpremiumcredit
             recurring_payment_mode: recurring_payment_mode
             processor_details:
               processor_reference: processor_reference
@@ -13532,11 +13660,9 @@ components:
               network_transaction_reference: network_transaction_reference
               processor_id: processor_id
               auth_code: auth_code
-            fingerprint: fingerprint
-            collection_entity_name: collection_entity_name
+            fingerprint: V0010013822052427221044754993
+            acquirer_authorization_reference: "524506894419"
             brand: VISA
-            expiry_year: 2028
-            processor_entity_name: processor_entity_name
       properties:
         card:
           $ref: '#/components/schemas/PaymentSnapshotPaymentMethod_card'
@@ -14072,10 +14198,16 @@ components:
       example:
         card_details:
           last4: "1234"
-          expiry_month: 7
-          country: country
+          country: HK
           funding: UNKNOWN
           finverse_authorization_reference: finverse_authorization_reference
+          collection_entity_name: collection_entity_name
+          card_number_alias: F046886807590403
+          is_commercial: true
+          expiry_year: 2028
+          processor_entity_name: processor_entity_name
+          expiry_month: 7
+          brand_product_name: visacommercialpremiumcredit
           recurring_payment_mode: recurring_payment_mode
           processor_details:
             processor_reference: processor_reference
@@ -14083,11 +14215,9 @@ components:
             network_transaction_reference: network_transaction_reference
             processor_id: processor_id
             auth_code: auth_code
-          fingerprint: fingerprint
-          collection_entity_name: collection_entity_name
+          fingerprint: V0010013822052427221044754993
+          acquirer_authorization_reference: "524506894419"
           brand: VISA
-          expiry_year: 2028
-          processor_entity_name: processor_entity_name
       properties:
         card_details:
           $ref: '#/components/schemas/FVCardDetails'
