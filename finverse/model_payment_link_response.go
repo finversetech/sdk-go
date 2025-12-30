@@ -43,8 +43,6 @@ type PaymentLinkResponse struct {
 	Status *string `json:"status,omitempty"`
 	// The session status of payment link
 	SessionStatus *string `json:"session_status,omitempty"`
-	// Timestamp of when the payment link was or will expired in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	ExpiresAt *time.Time `json:"expires_at,omitempty"`
 	// Timestamp of when the payment link was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp of when the payment link was last updated in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
@@ -491,38 +489,6 @@ func (o *PaymentLinkResponse) SetSessionStatus(v string) {
 	o.SessionStatus = &v
 }
 
-// GetExpiresAt returns the ExpiresAt field value if set, zero value otherwise.
-func (o *PaymentLinkResponse) GetExpiresAt() time.Time {
-	if o == nil || IsNil(o.ExpiresAt) {
-		var ret time.Time
-		return ret
-	}
-	return *o.ExpiresAt
-}
-
-// GetExpiresAtOk returns a tuple with the ExpiresAt field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PaymentLinkResponse) GetExpiresAtOk() (*time.Time, bool) {
-	if o == nil || IsNil(o.ExpiresAt) {
-		return nil, false
-	}
-	return o.ExpiresAt, true
-}
-
-// HasExpiresAt returns a boolean if a field has been set.
-func (o *PaymentLinkResponse) HasExpiresAt() bool {
-	if o != nil && !IsNil(o.ExpiresAt) {
-		return true
-	}
-
-	return false
-}
-
-// SetExpiresAt gets a reference to the given time.Time and assigns it to the ExpiresAt field.
-func (o *PaymentLinkResponse) SetExpiresAt(v time.Time) {
-	o.ExpiresAt = &v
-}
-
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *PaymentLinkResponse) GetCreatedAt() time.Time {
 	if o == nil || IsNil(o.CreatedAt) {
@@ -764,9 +730,6 @@ func (o PaymentLinkResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SessionStatus) {
 		toSerialize["session_status"] = o.SessionStatus
 	}
-	if !IsNil(o.ExpiresAt) {
-		toSerialize["expires_at"] = o.ExpiresAt
-	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
@@ -820,7 +783,6 @@ func (o *PaymentLinkResponse) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "url")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "session_status")
-		delete(additionalProperties, "expires_at")
 		delete(additionalProperties, "created_at")
 		delete(additionalProperties, "updated_at")
 		delete(additionalProperties, "payment")

@@ -10121,7 +10121,6 @@ components:
           language: en
           redirect_uri: redirect_uri
           ui_mode: redirect
-        expires_at: 2000-01-23T04:56:07.000+00:00
         updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
           user_id: user_id
@@ -10461,11 +10460,6 @@ components:
           - PROCESSING
           - COMPLETE
           - FAILED
-          type: string
-        expires_at:
-          description: Timestamp of when the payment link was or will expired in ISO
-            format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-          format: date-time
           type: string
         created_at:
           description: Timestamp of when the payment link was created in ISO format
