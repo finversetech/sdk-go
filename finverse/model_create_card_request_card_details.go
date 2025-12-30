@@ -21,11 +21,19 @@ var _ MappedNullable = &CreateCardRequestCardDetails{}
 
 // CreateCardRequestCardDetails struct for CreateCardRequestCardDetails
 type CreateCardRequestCardDetails struct {
-	Brand                string `json:"brand"`
-	Last4                string `json:"last4"`
-	Currency             string `json:"currency"`
-	ExpiryMonth          *int32 `json:"expiry_month,omitempty"`
-	ExpiryYear           *int32 `json:"expiry_year,omitempty"`
+	Brand       string `json:"brand"`
+	Last4       string `json:"last4"`
+	Currency    string `json:"currency"`
+	ExpiryMonth *int32 `json:"expiry_month,omitempty"`
+	ExpiryYear  *int32 `json:"expiry_year,omitempty"`
+	// First 6 digits of the credit card number
+	CardBin *string `json:"card_bin,omitempty"`
+	// The card number alias
+	CardNumberAlias *string `json:"card_number_alias,omitempty"`
+	// The issuer country
+	Country *string `json:"country,omitempty"`
+	// The funding source of the card
+	Funding              *string `json:"funding,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -187,6 +195,134 @@ func (o *CreateCardRequestCardDetails) SetExpiryYear(v int32) {
 	o.ExpiryYear = &v
 }
 
+// GetCardBin returns the CardBin field value if set, zero value otherwise.
+func (o *CreateCardRequestCardDetails) GetCardBin() string {
+	if o == nil || IsNil(o.CardBin) {
+		var ret string
+		return ret
+	}
+	return *o.CardBin
+}
+
+// GetCardBinOk returns a tuple with the CardBin field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCardRequestCardDetails) GetCardBinOk() (*string, bool) {
+	if o == nil || IsNil(o.CardBin) {
+		return nil, false
+	}
+	return o.CardBin, true
+}
+
+// HasCardBin returns a boolean if a field has been set.
+func (o *CreateCardRequestCardDetails) HasCardBin() bool {
+	if o != nil && !IsNil(o.CardBin) {
+		return true
+	}
+
+	return false
+}
+
+// SetCardBin gets a reference to the given string and assigns it to the CardBin field.
+func (o *CreateCardRequestCardDetails) SetCardBin(v string) {
+	o.CardBin = &v
+}
+
+// GetCardNumberAlias returns the CardNumberAlias field value if set, zero value otherwise.
+func (o *CreateCardRequestCardDetails) GetCardNumberAlias() string {
+	if o == nil || IsNil(o.CardNumberAlias) {
+		var ret string
+		return ret
+	}
+	return *o.CardNumberAlias
+}
+
+// GetCardNumberAliasOk returns a tuple with the CardNumberAlias field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCardRequestCardDetails) GetCardNumberAliasOk() (*string, bool) {
+	if o == nil || IsNil(o.CardNumberAlias) {
+		return nil, false
+	}
+	return o.CardNumberAlias, true
+}
+
+// HasCardNumberAlias returns a boolean if a field has been set.
+func (o *CreateCardRequestCardDetails) HasCardNumberAlias() bool {
+	if o != nil && !IsNil(o.CardNumberAlias) {
+		return true
+	}
+
+	return false
+}
+
+// SetCardNumberAlias gets a reference to the given string and assigns it to the CardNumberAlias field.
+func (o *CreateCardRequestCardDetails) SetCardNumberAlias(v string) {
+	o.CardNumberAlias = &v
+}
+
+// GetCountry returns the Country field value if set, zero value otherwise.
+func (o *CreateCardRequestCardDetails) GetCountry() string {
+	if o == nil || IsNil(o.Country) {
+		var ret string
+		return ret
+	}
+	return *o.Country
+}
+
+// GetCountryOk returns a tuple with the Country field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCardRequestCardDetails) GetCountryOk() (*string, bool) {
+	if o == nil || IsNil(o.Country) {
+		return nil, false
+	}
+	return o.Country, true
+}
+
+// HasCountry returns a boolean if a field has been set.
+func (o *CreateCardRequestCardDetails) HasCountry() bool {
+	if o != nil && !IsNil(o.Country) {
+		return true
+	}
+
+	return false
+}
+
+// SetCountry gets a reference to the given string and assigns it to the Country field.
+func (o *CreateCardRequestCardDetails) SetCountry(v string) {
+	o.Country = &v
+}
+
+// GetFunding returns the Funding field value if set, zero value otherwise.
+func (o *CreateCardRequestCardDetails) GetFunding() string {
+	if o == nil || IsNil(o.Funding) {
+		var ret string
+		return ret
+	}
+	return *o.Funding
+}
+
+// GetFundingOk returns a tuple with the Funding field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreateCardRequestCardDetails) GetFundingOk() (*string, bool) {
+	if o == nil || IsNil(o.Funding) {
+		return nil, false
+	}
+	return o.Funding, true
+}
+
+// HasFunding returns a boolean if a field has been set.
+func (o *CreateCardRequestCardDetails) HasFunding() bool {
+	if o != nil && !IsNil(o.Funding) {
+		return true
+	}
+
+	return false
+}
+
+// SetFunding gets a reference to the given string and assigns it to the Funding field.
+func (o *CreateCardRequestCardDetails) SetFunding(v string) {
+	o.Funding = &v
+}
+
 func (o CreateCardRequestCardDetails) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -205,6 +341,18 @@ func (o CreateCardRequestCardDetails) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ExpiryYear) {
 		toSerialize["expiry_year"] = o.ExpiryYear
+	}
+	if !IsNil(o.CardBin) {
+		toSerialize["card_bin"] = o.CardBin
+	}
+	if !IsNil(o.CardNumberAlias) {
+		toSerialize["card_number_alias"] = o.CardNumberAlias
+	}
+	if !IsNil(o.Country) {
+		toSerialize["country"] = o.Country
+	}
+	if !IsNil(o.Funding) {
+		toSerialize["funding"] = o.Funding
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -256,6 +404,10 @@ func (o *CreateCardRequestCardDetails) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "currency")
 		delete(additionalProperties, "expiry_month")
 		delete(additionalProperties, "expiry_year")
+		delete(additionalProperties, "card_bin")
+		delete(additionalProperties, "card_number_alias")
+		delete(additionalProperties, "country")
+		delete(additionalProperties, "funding")
 		o.AdditionalProperties = additionalProperties
 	}
 

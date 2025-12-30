@@ -13170,9 +13170,13 @@ components:
           card_details:
             last4: last4
             expiry_month: 0
+            country: HK
+            funding: UNKNOWN
             currency: currency
+            card_number_alias: F046886807590403
             brand: brand
             expiry_year: 6
+            card_bin: card_bin
           recipient_account:
             account_id: account_id
           status: SUCCEEDED
@@ -13679,9 +13683,13 @@ components:
         card_details:
           last4: last4
           expiry_month: 0
+          country: HK
+          funding: UNKNOWN
           currency: currency
+          card_number_alias: F046886807590403
           brand: brand
           expiry_year: 6
+          card_bin: card_bin
         recipient_account:
           account_id: account_id
         status: SUCCEEDED
@@ -14226,9 +14234,13 @@ components:
       example:
         last4: last4
         expiry_month: 0
+        country: HK
+        funding: UNKNOWN
         currency: currency
+        card_number_alias: F046886807590403
         brand: brand
         expiry_year: 6
+        card_bin: card_bin
       properties:
         brand:
           type: string
@@ -14240,6 +14252,25 @@ components:
           type: integer
         expiry_year:
           type: integer
+        card_bin:
+          description: First 6 digits of the credit card number
+          type: string
+        card_number_alias:
+          description: The card number alias
+          example: F046886807590403
+          type: string
+        country:
+          description: The issuer country
+          example: HK
+          type: string
+        funding:
+          description: The funding source of the card
+          enum:
+          - UNKNOWN
+          - CREDIT
+          - DEBIT
+          - PREPAID
+          type: string
       required:
       - brand
       - currency
