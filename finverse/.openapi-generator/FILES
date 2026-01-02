@@ -193,6 +193,7 @@ model_payout_references.go
 model_payout_snapshot_details.go
 model_payout_snapshot_response.go
 model_principal.go
+model_processor_risk_data.go
 model_product_status.go
 model_rapidstor_metadata_request.go
 model_rapidstor_metadata_response.go

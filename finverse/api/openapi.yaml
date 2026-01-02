@@ -9898,11 +9898,12 @@ components:
               account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
             risk_data:
-              shopper_country: HK
-              shopper_ip: 127.0.0.1
-              browser_type: Chrome
-              device_type: Desktop
-              shopper_locale: en-HK
+              processor_risk_data:
+                shopper_country: HK
+                shopper_ip: 127.0.0.1
+                browser_type: Chrome
+                device_type: Desktop
+                shopper_locale: en-HK
             error:
               error_code: CREDENTIALS_INVALID
               details: details
@@ -10036,11 +10037,12 @@ components:
               account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
             risk_data:
-              shopper_country: HK
-              shopper_ip: 127.0.0.1
-              browser_type: Chrome
-              device_type: Desktop
-              shopper_locale: en-HK
+              processor_risk_data:
+                shopper_country: HK
+                shopper_ip: 127.0.0.1
+                browser_type: Chrome
+                device_type: Desktop
+                shopper_locale: en-HK
             error:
               error_code: CREDENTIALS_INVALID
               details: details
@@ -10390,11 +10392,12 @@ components:
               account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
             risk_data:
-              shopper_country: HK
-              shopper_ip: 127.0.0.1
-              browser_type: Chrome
-              device_type: Desktop
-              shopper_locale: en-HK
+              processor_risk_data:
+                shopper_country: HK
+                shopper_ip: 127.0.0.1
+                browser_type: Chrome
+                device_type: Desktop
+                shopper_locale: en-HK
             error:
               error_code: CREDENTIALS_INVALID
               details: details
@@ -10749,11 +10752,12 @@ components:
           account_id: account_id
         created_at: 2000-01-23T04:56:07.000+00:00
         risk_data:
-          shopper_country: HK
-          shopper_ip: 127.0.0.1
-          browser_type: Chrome
-          device_type: Desktop
-          shopper_locale: en-HK
+          processor_risk_data:
+            shopper_country: HK
+            shopper_ip: 127.0.0.1
+            browser_type: Chrome
+            device_type: Desktop
+            shopper_locale: en-HK
         error:
           error_code: CREDENTIALS_INVALID
           details: details
@@ -10872,6 +10876,18 @@ components:
           type: boolean
       type: object
     RiskData:
+      example:
+        processor_risk_data:
+          shopper_country: HK
+          shopper_ip: 127.0.0.1
+          browser_type: Chrome
+          device_type: Desktop
+          shopper_locale: en-HK
+      properties:
+        processor_risk_data:
+          $ref: '#/components/schemas/ProcessorRiskData'
+      type: object
+    ProcessorRiskData:
       example:
         shopper_country: HK
         shopper_ip: 127.0.0.1
@@ -13350,11 +13366,12 @@ components:
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
           risk_data:
-            shopper_country: HK
-            shopper_ip: 127.0.0.1
-            browser_type: Chrome
-            device_type: Desktop
-            shopper_locale: en-HK
+            processor_risk_data:
+              shopper_country: HK
+              shopper_ip: 127.0.0.1
+              browser_type: Chrome
+              device_type: Desktop
+              shopper_locale: en-HK
           error:
             error_code: CREDENTIALS_INVALID
             details: details

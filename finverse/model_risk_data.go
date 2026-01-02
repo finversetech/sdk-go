@@ -20,16 +20,7 @@ var _ MappedNullable = &RiskData{}
 
 // RiskData struct for RiskData
 type RiskData struct {
-	// The browser type
-	BrowserType *string `json:"browser_type,omitempty"`
-	// The device type
-	DeviceType *string `json:"device_type,omitempty"`
-	// The shopper country
-	ShopperCountry *string `json:"shopper_country,omitempty"`
-	// The shopper IP address
-	ShopperIp *string `json:"shopper_ip,omitempty"`
-	// The shopper locale
-	ShopperLocale        *string `json:"shopper_locale,omitempty"`
+	ProcessorRiskData    *ProcessorRiskData `json:"processor_risk_data,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -52,164 +43,36 @@ func NewRiskDataWithDefaults() *RiskData {
 	return &this
 }
 
-// GetBrowserType returns the BrowserType field value if set, zero value otherwise.
-func (o *RiskData) GetBrowserType() string {
-	if o == nil || IsNil(o.BrowserType) {
-		var ret string
+// GetProcessorRiskData returns the ProcessorRiskData field value if set, zero value otherwise.
+func (o *RiskData) GetProcessorRiskData() ProcessorRiskData {
+	if o == nil || IsNil(o.ProcessorRiskData) {
+		var ret ProcessorRiskData
 		return ret
 	}
-	return *o.BrowserType
+	return *o.ProcessorRiskData
 }
 
-// GetBrowserTypeOk returns a tuple with the BrowserType field value if set, nil otherwise
+// GetProcessorRiskDataOk returns a tuple with the ProcessorRiskData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RiskData) GetBrowserTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.BrowserType) {
+func (o *RiskData) GetProcessorRiskDataOk() (*ProcessorRiskData, bool) {
+	if o == nil || IsNil(o.ProcessorRiskData) {
 		return nil, false
 	}
-	return o.BrowserType, true
+	return o.ProcessorRiskData, true
 }
 
-// HasBrowserType returns a boolean if a field has been set.
-func (o *RiskData) HasBrowserType() bool {
-	if o != nil && !IsNil(o.BrowserType) {
+// HasProcessorRiskData returns a boolean if a field has been set.
+func (o *RiskData) HasProcessorRiskData() bool {
+	if o != nil && !IsNil(o.ProcessorRiskData) {
 		return true
 	}
 
 	return false
 }
 
-// SetBrowserType gets a reference to the given string and assigns it to the BrowserType field.
-func (o *RiskData) SetBrowserType(v string) {
-	o.BrowserType = &v
-}
-
-// GetDeviceType returns the DeviceType field value if set, zero value otherwise.
-func (o *RiskData) GetDeviceType() string {
-	if o == nil || IsNil(o.DeviceType) {
-		var ret string
-		return ret
-	}
-	return *o.DeviceType
-}
-
-// GetDeviceTypeOk returns a tuple with the DeviceType field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RiskData) GetDeviceTypeOk() (*string, bool) {
-	if o == nil || IsNil(o.DeviceType) {
-		return nil, false
-	}
-	return o.DeviceType, true
-}
-
-// HasDeviceType returns a boolean if a field has been set.
-func (o *RiskData) HasDeviceType() bool {
-	if o != nil && !IsNil(o.DeviceType) {
-		return true
-	}
-
-	return false
-}
-
-// SetDeviceType gets a reference to the given string and assigns it to the DeviceType field.
-func (o *RiskData) SetDeviceType(v string) {
-	o.DeviceType = &v
-}
-
-// GetShopperCountry returns the ShopperCountry field value if set, zero value otherwise.
-func (o *RiskData) GetShopperCountry() string {
-	if o == nil || IsNil(o.ShopperCountry) {
-		var ret string
-		return ret
-	}
-	return *o.ShopperCountry
-}
-
-// GetShopperCountryOk returns a tuple with the ShopperCountry field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RiskData) GetShopperCountryOk() (*string, bool) {
-	if o == nil || IsNil(o.ShopperCountry) {
-		return nil, false
-	}
-	return o.ShopperCountry, true
-}
-
-// HasShopperCountry returns a boolean if a field has been set.
-func (o *RiskData) HasShopperCountry() bool {
-	if o != nil && !IsNil(o.ShopperCountry) {
-		return true
-	}
-
-	return false
-}
-
-// SetShopperCountry gets a reference to the given string and assigns it to the ShopperCountry field.
-func (o *RiskData) SetShopperCountry(v string) {
-	o.ShopperCountry = &v
-}
-
-// GetShopperIp returns the ShopperIp field value if set, zero value otherwise.
-func (o *RiskData) GetShopperIp() string {
-	if o == nil || IsNil(o.ShopperIp) {
-		var ret string
-		return ret
-	}
-	return *o.ShopperIp
-}
-
-// GetShopperIpOk returns a tuple with the ShopperIp field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RiskData) GetShopperIpOk() (*string, bool) {
-	if o == nil || IsNil(o.ShopperIp) {
-		return nil, false
-	}
-	return o.ShopperIp, true
-}
-
-// HasShopperIp returns a boolean if a field has been set.
-func (o *RiskData) HasShopperIp() bool {
-	if o != nil && !IsNil(o.ShopperIp) {
-		return true
-	}
-
-	return false
-}
-
-// SetShopperIp gets a reference to the given string and assigns it to the ShopperIp field.
-func (o *RiskData) SetShopperIp(v string) {
-	o.ShopperIp = &v
-}
-
-// GetShopperLocale returns the ShopperLocale field value if set, zero value otherwise.
-func (o *RiskData) GetShopperLocale() string {
-	if o == nil || IsNil(o.ShopperLocale) {
-		var ret string
-		return ret
-	}
-	return *o.ShopperLocale
-}
-
-// GetShopperLocaleOk returns a tuple with the ShopperLocale field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *RiskData) GetShopperLocaleOk() (*string, bool) {
-	if o == nil || IsNil(o.ShopperLocale) {
-		return nil, false
-	}
-	return o.ShopperLocale, true
-}
-
-// HasShopperLocale returns a boolean if a field has been set.
-func (o *RiskData) HasShopperLocale() bool {
-	if o != nil && !IsNil(o.ShopperLocale) {
-		return true
-	}
-
-	return false
-}
-
-// SetShopperLocale gets a reference to the given string and assigns it to the ShopperLocale field.
-func (o *RiskData) SetShopperLocale(v string) {
-	o.ShopperLocale = &v
+// SetProcessorRiskData gets a reference to the given ProcessorRiskData and assigns it to the ProcessorRiskData field.
+func (o *RiskData) SetProcessorRiskData(v ProcessorRiskData) {
+	o.ProcessorRiskData = &v
 }
 
 func (o RiskData) MarshalJSON() ([]byte, error) {
@@ -222,20 +85,8 @@ func (o RiskData) MarshalJSON() ([]byte, error) {
 
 func (o RiskData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.BrowserType) {
-		toSerialize["browser_type"] = o.BrowserType
-	}
-	if !IsNil(o.DeviceType) {
-		toSerialize["device_type"] = o.DeviceType
-	}
-	if !IsNil(o.ShopperCountry) {
-		toSerialize["shopper_country"] = o.ShopperCountry
-	}
-	if !IsNil(o.ShopperIp) {
-		toSerialize["shopper_ip"] = o.ShopperIp
-	}
-	if !IsNil(o.ShopperLocale) {
-		toSerialize["shopper_locale"] = o.ShopperLocale
+	if !IsNil(o.ProcessorRiskData) {
+		toSerialize["processor_risk_data"] = o.ProcessorRiskData
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -259,11 +110,7 @@ func (o *RiskData) UnmarshalJSON(data []byte) (err error) {
 	additionalProperties := make(map[string]interface{})
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
-		delete(additionalProperties, "browser_type")
-		delete(additionalProperties, "device_type")
-		delete(additionalProperties, "shopper_country")
-		delete(additionalProperties, "shopper_ip")
-		delete(additionalProperties, "shopper_locale")
+		delete(additionalProperties, "processor_risk_data")
 		o.AdditionalProperties = additionalProperties
 	}
 
