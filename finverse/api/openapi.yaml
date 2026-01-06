@@ -2000,6 +2000,7 @@ paths:
           - SINGLE
           - CARD
           - MANUAL
+          - WALLET
           type: string
       - explode: false
         in: query
@@ -2011,6 +2012,7 @@ paths:
             - SINGLE
             - CARD
             - MANUAL
+            - WALLET
             type: string
           type: array
         style: form
@@ -8243,6 +8245,7 @@ components:
           - SINGLE
           - CARD
           - MANUAL
+          - WALLET
           type: string
         updated_at:
           description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
@@ -9678,6 +9681,7 @@ components:
             - SINGLE
             - CARD
             - MANUAL
+            - WALLET
             type: string
           type: array
           x-omitempty: true
@@ -9727,6 +9731,7 @@ components:
             - SINGLE
             - CARD
             - MANUAL
+            - WALLET
             type: string
           type: array
           x-omitempty: true
@@ -13520,6 +13525,7 @@ components:
           - SINGLE
           - CARD
           - MANUAL
+          - WALLET
           type: string
         payment_details:
           $ref: '#/components/schemas/PaymentFvLinkDetails'
@@ -14050,6 +14056,7 @@ components:
           - SINGLE
           - CARD
           - MANUAL
+          - WALLET
           type: string
         sender_type:
           enum:
