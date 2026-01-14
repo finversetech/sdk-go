@@ -23,7 +23,9 @@ type SelectPaymentMethodResponse struct {
 	Token *PaymentLinkTokenResponse `json:"token,omitempty"`
 	// URL to redirect to for making the card payment
 	CardProcessorRedirectUri *string `json:"card_processor_redirect_uri,omitempty"`
-	AdditionalProperties     map[string]interface{}
+	// URL to redirect to for making the mandate payment (right now only for Gocardless)
+	MandateProcessorRedirectUri *string `json:"mandate_processor_redirect_uri,omitempty"`
+	AdditionalProperties        map[string]interface{}
 }
 
 type _SelectPaymentMethodResponse SelectPaymentMethodResponse
@@ -109,6 +111,38 @@ func (o *SelectPaymentMethodResponse) SetCardProcessorRedirectUri(v string) {
 	o.CardProcessorRedirectUri = &v
 }
 
+// GetMandateProcessorRedirectUri returns the MandateProcessorRedirectUri field value if set, zero value otherwise.
+func (o *SelectPaymentMethodResponse) GetMandateProcessorRedirectUri() string {
+	if o == nil || IsNil(o.MandateProcessorRedirectUri) {
+		var ret string
+		return ret
+	}
+	return *o.MandateProcessorRedirectUri
+}
+
+// GetMandateProcessorRedirectUriOk returns a tuple with the MandateProcessorRedirectUri field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SelectPaymentMethodResponse) GetMandateProcessorRedirectUriOk() (*string, bool) {
+	if o == nil || IsNil(o.MandateProcessorRedirectUri) {
+		return nil, false
+	}
+	return o.MandateProcessorRedirectUri, true
+}
+
+// HasMandateProcessorRedirectUri returns a boolean if a field has been set.
+func (o *SelectPaymentMethodResponse) HasMandateProcessorRedirectUri() bool {
+	if o != nil && !IsNil(o.MandateProcessorRedirectUri) {
+		return true
+	}
+
+	return false
+}
+
+// SetMandateProcessorRedirectUri gets a reference to the given string and assigns it to the MandateProcessorRedirectUri field.
+func (o *SelectPaymentMethodResponse) SetMandateProcessorRedirectUri(v string) {
+	o.MandateProcessorRedirectUri = &v
+}
+
 func (o SelectPaymentMethodResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -124,6 +158,9 @@ func (o SelectPaymentMethodResponse) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.CardProcessorRedirectUri) {
 		toSerialize["card_processor_redirect_uri"] = o.CardProcessorRedirectUri
+	}
+	if !IsNil(o.MandateProcessorRedirectUri) {
+		toSerialize["mandate_processor_redirect_uri"] = o.MandateProcessorRedirectUri
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -149,6 +186,7 @@ func (o *SelectPaymentMethodResponse) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "token")
 		delete(additionalProperties, "card_processor_redirect_uri")
+		delete(additionalProperties, "mandate_processor_redirect_uri")
 		o.AdditionalProperties = additionalProperties
 	}
 

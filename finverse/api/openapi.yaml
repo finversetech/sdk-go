@@ -14080,11 +14080,16 @@ components:
           link_url: link_url
           token_type: Bearer
           expires_in: 0
+        mandate_processor_redirect_uri: mandate_processor_redirect_uri
       properties:
         token:
           $ref: '#/components/schemas/PaymentLinkTokenResponse'
         card_processor_redirect_uri:
           description: URL to redirect to for making the card payment
+          type: string
+        mandate_processor_redirect_uri:
+          description: URL to redirect to for making the mandate payment (right now
+            only for Gocardless)
           type: string
       type: object
     token_request:
