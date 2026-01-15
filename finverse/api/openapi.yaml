@@ -8189,6 +8189,18 @@ components:
         currency: HKD
         surcharge_amount: 100
         payment_method:
+          wallet:
+            wallet_details:
+              brand_product_name: alipay_hk
+              country: HK
+              brand: Alipay
+            risk_data:
+              processor_risk_data:
+                shopper_country: HK
+                shopper_ip: 127.0.0.1
+                browser_type: Chrome
+                device_type: Desktop
+                shopper_locale: en-HK
           card:
             card_details:
               last4: "1234"
@@ -8392,6 +8404,18 @@ components:
           currency: HKD
           surcharge_amount: 100
           payment_method:
+            wallet:
+              wallet_details:
+                brand_product_name: alipay_hk
+                country: HK
+                brand: Alipay
+              risk_data:
+                processor_risk_data:
+                  shopper_country: HK
+                  shopper_ip: 127.0.0.1
+                  browser_type: Chrome
+                  device_type: Desktop
+                  shopper_locale: en-HK
             card:
               card_details:
                 last4: "1234"
@@ -8503,6 +8527,18 @@ components:
           currency: HKD
           surcharge_amount: 100
           payment_method:
+            wallet:
+              wallet_details:
+                brand_product_name: alipay_hk
+                country: HK
+                brand: Alipay
+              risk_data:
+                processor_risk_data:
+                  shopper_country: HK
+                  shopper_ip: 127.0.0.1
+                  browser_type: Chrome
+                  device_type: Desktop
+                  shopper_locale: en-HK
             card:
               card_details:
                 last4: "1234"
@@ -10244,6 +10280,18 @@ components:
           currency: HKD
           surcharge_amount: 100
           payment_method:
+            wallet:
+              wallet_details:
+                brand_product_name: alipay_hk
+                country: HK
+                brand: Alipay
+              risk_data:
+                processor_risk_data:
+                  shopper_country: HK
+                  shopper_ip: 127.0.0.1
+                  browser_type: Chrome
+                  device_type: Desktop
+                  shopper_locale: en-HK
             card:
               card_details:
                 last4: "1234"
@@ -10879,6 +10927,25 @@ components:
           example: true
           nullable: true
           type: boolean
+      type: object
+    FVWalletDetails:
+      example:
+        brand_product_name: alipay_hk
+        country: HK
+        brand: Alipay
+      properties:
+        brand:
+          description: The wallet brand
+          example: Alipay
+          type: string
+        brand_product_name:
+          description: The brand product name
+          example: alipay_hk
+          type: string
+        country:
+          description: The issuer country
+          example: HK
+          type: string
       type: object
     RiskData:
       example:
@@ -13661,6 +13728,18 @@ components:
       type: object
     PaymentSnapshotPaymentMethod:
       example:
+        wallet:
+          wallet_details:
+            brand_product_name: alipay_hk
+            country: HK
+            brand: Alipay
+          risk_data:
+            processor_risk_data:
+              shopper_country: HK
+              shopper_ip: 127.0.0.1
+              browser_type: Chrome
+              device_type: Desktop
+              shopper_locale: en-HK
         card:
           card_details:
             last4: "1234"
@@ -13687,6 +13766,8 @@ components:
       properties:
         card:
           $ref: '#/components/schemas/PaymentSnapshotPaymentMethod_card'
+        wallet:
+          $ref: '#/components/schemas/PaymentSnapshotPaymentMethod_wallet'
       type: object
     RefreshPaymentAttemptResponse:
       example:
@@ -14252,6 +14333,25 @@ components:
       properties:
         card_details:
           $ref: '#/components/schemas/FVCardDetails'
+      type: object
+    PaymentSnapshotPaymentMethod_wallet:
+      example:
+        wallet_details:
+          brand_product_name: alipay_hk
+          country: HK
+          brand: Alipay
+        risk_data:
+          processor_risk_data:
+            shopper_country: HK
+            shopper_ip: 127.0.0.1
+            browser_type: Chrome
+            device_type: Desktop
+            shopper_locale: en-HK
+      properties:
+        wallet_details:
+          $ref: '#/components/schemas/FVWalletDetails'
+        risk_data:
+          $ref: '#/components/schemas/RiskData'
       type: object
     CreateCardRequest_card_details:
       example:
