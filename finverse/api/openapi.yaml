@@ -9826,6 +9826,14 @@ components:
               network_transaction_reference: network_transaction_reference
               recurring_processing_model: CardOnFile
               auth_code: auth_code
+            gocardless_metadata:
+              reference: reference
+              scheme: scheme
+              payments_require_approval: true
+              next_possible_charge_date: 2000-01-23
+              mandate_id: mandate_id
+              funds_settlement: managed
+              status: active
             cybersource_metadata:
               payment_token: payment_token
           payment_method_id: payment_method_id
@@ -9965,6 +9973,14 @@ components:
               network_transaction_reference: network_transaction_reference
               recurring_processing_model: CardOnFile
               auth_code: auth_code
+            gocardless_metadata:
+              reference: reference
+              scheme: scheme
+              payments_require_approval: true
+              next_possible_charge_date: 2000-01-23
+              mandate_id: mandate_id
+              funds_settlement: managed
+              status: active
             cybersource_metadata:
               payment_token: payment_token
           payment_method_id: payment_method_id
@@ -10332,6 +10348,14 @@ components:
               network_transaction_reference: network_transaction_reference
               recurring_processing_model: CardOnFile
               auth_code: auth_code
+            gocardless_metadata:
+              reference: reference
+              scheme: scheme
+              payments_require_approval: true
+              next_possible_charge_date: 2000-01-23
+              mandate_id: mandate_id
+              funds_settlement: managed
+              status: active
             cybersource_metadata:
               payment_token: payment_token
           payment_method_id: payment_method_id
@@ -13227,6 +13251,14 @@ components:
             network_transaction_reference: network_transaction_reference
             recurring_processing_model: CardOnFile
             auth_code: auth_code
+          gocardless_metadata:
+            reference: reference
+            scheme: scheme
+            payments_require_approval: true
+            next_possible_charge_date: 2000-01-23
+            mandate_id: mandate_id
+            funds_settlement: managed
+            status: active
           cybersource_metadata:
             payment_token: payment_token
         mandate:
@@ -13291,6 +13323,14 @@ components:
           network_transaction_reference: network_transaction_reference
           recurring_processing_model: CardOnFile
           auth_code: auth_code
+        gocardless_metadata:
+          reference: reference
+          scheme: scheme
+          payments_require_approval: true
+          next_possible_charge_date: 2000-01-23
+          mandate_id: mandate_id
+          funds_settlement: managed
+          status: active
         cybersource_metadata:
           payment_token: payment_token
       properties:
@@ -13299,6 +13339,7 @@ components:
           - STRIPE
           - CYBERSOURCE
           - ADYEN
+          - GOCARDLESS
           type: string
         stripe_metadata:
           $ref: '#/components/schemas/PaymentMethodIntegrationMetadata_stripe_metadata'
@@ -13306,6 +13347,8 @@ components:
           $ref: '#/components/schemas/PaymentMethodIntegrationMetadata_cybersource_metadata'
         adyen_metadata:
           $ref: '#/components/schemas/PaymentMethodIntegrationMetadata_adyen_metadata'
+        gocardless_metadata:
+          $ref: '#/components/schemas/PaymentMethodIntegrationMetadata_gocardless_metadata'
       required:
       - integration_id
       type: object
@@ -13325,6 +13368,14 @@ components:
             network_transaction_reference: network_transaction_reference
             recurring_processing_model: CardOnFile
             auth_code: auth_code
+          gocardless_metadata:
+            reference: reference
+            scheme: scheme
+            payments_require_approval: true
+            next_possible_charge_date: 2000-01-23
+            mandate_id: mandate_id
+            funds_settlement: managed
+            status: active
           cybersource_metadata:
             payment_token: payment_token
         payment_method_id: payment_method_id
@@ -14305,6 +14356,46 @@ components:
           type: string
       required:
       - payment_method_id
+      type: object
+    PaymentMethodIntegrationMetadata_gocardless_metadata:
+      example:
+        reference: reference
+        scheme: scheme
+        payments_require_approval: true
+        next_possible_charge_date: 2000-01-23
+        mandate_id: mandate_id
+        funds_settlement: managed
+        status: active
+      properties:
+        mandate_id:
+          description: The GoCardless mandate ID
+          type: string
+        reference:
+          description: The GoCardless reference
+          type: string
+        status:
+          description: The GoCardless mandate status
+          enum:
+          - active
+          type: string
+        scheme:
+          description: The bank payment scheme
+          type: string
+        next_possible_charge_date:
+          description: "The next possible charge date, in ISO format (YYYY-MM-DD)"
+          format: date
+          type: string
+        payments_require_approval:
+          description: Whether payments require approval
+          type: boolean
+        funds_settlement:
+          description: How GoCardless handles funds settlement
+          enum:
+          - managed
+          - direct
+          type: string
+      required:
+      - mandate_id
       type: object
     PaymentSnapshotPaymentMethod_card:
       example:

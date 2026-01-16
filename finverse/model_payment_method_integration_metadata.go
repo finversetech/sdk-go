@@ -25,6 +25,7 @@ type PaymentMethodIntegrationMetadata struct {
 	StripeMetadata       *PaymentMethodIntegrationMetadataStripeMetadata      `json:"stripe_metadata,omitempty"`
 	CybersourceMetadata  *PaymentMethodIntegrationMetadataCybersourceMetadata `json:"cybersource_metadata,omitempty"`
 	AdyenMetadata        *PaymentMethodIntegrationMetadataAdyenMetadata       `json:"adyen_metadata,omitempty"`
+	GocardlessMetadata   *PaymentMethodIntegrationMetadataGocardlessMetadata  `json:"gocardless_metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -168,6 +169,38 @@ func (o *PaymentMethodIntegrationMetadata) SetAdyenMetadata(v PaymentMethodInteg
 	o.AdyenMetadata = &v
 }
 
+// GetGocardlessMetadata returns the GocardlessMetadata field value if set, zero value otherwise.
+func (o *PaymentMethodIntegrationMetadata) GetGocardlessMetadata() PaymentMethodIntegrationMetadataGocardlessMetadata {
+	if o == nil || IsNil(o.GocardlessMetadata) {
+		var ret PaymentMethodIntegrationMetadataGocardlessMetadata
+		return ret
+	}
+	return *o.GocardlessMetadata
+}
+
+// GetGocardlessMetadataOk returns a tuple with the GocardlessMetadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentMethodIntegrationMetadata) GetGocardlessMetadataOk() (*PaymentMethodIntegrationMetadataGocardlessMetadata, bool) {
+	if o == nil || IsNil(o.GocardlessMetadata) {
+		return nil, false
+	}
+	return o.GocardlessMetadata, true
+}
+
+// HasGocardlessMetadata returns a boolean if a field has been set.
+func (o *PaymentMethodIntegrationMetadata) HasGocardlessMetadata() bool {
+	if o != nil && !IsNil(o.GocardlessMetadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetGocardlessMetadata gets a reference to the given PaymentMethodIntegrationMetadataGocardlessMetadata and assigns it to the GocardlessMetadata field.
+func (o *PaymentMethodIntegrationMetadata) SetGocardlessMetadata(v PaymentMethodIntegrationMetadataGocardlessMetadata) {
+	o.GocardlessMetadata = &v
+}
+
 func (o PaymentMethodIntegrationMetadata) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -187,6 +220,9 @@ func (o PaymentMethodIntegrationMetadata) ToMap() (map[string]interface{}, error
 	}
 	if !IsNil(o.AdyenMetadata) {
 		toSerialize["adyen_metadata"] = o.AdyenMetadata
+	}
+	if !IsNil(o.GocardlessMetadata) {
+		toSerialize["gocardless_metadata"] = o.GocardlessMetadata
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -235,6 +271,7 @@ func (o *PaymentMethodIntegrationMetadata) UnmarshalJSON(data []byte) (err error
 		delete(additionalProperties, "stripe_metadata")
 		delete(additionalProperties, "cybersource_metadata")
 		delete(additionalProperties, "adyen_metadata")
+		delete(additionalProperties, "gocardless_metadata")
 		o.AdditionalProperties = additionalProperties
 	}
 
