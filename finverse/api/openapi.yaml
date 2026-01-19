@@ -12923,6 +12923,7 @@ components:
         metadata:
           key: metadata
         user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+        account_number_masked: account_number_masked
         accountholder_name: Chan Li Pak
         currencies:
         - HKD
@@ -12931,6 +12932,11 @@ components:
       properties:
         account_number:
           $ref: '#/components/schemas/RecipientAccountNumber'
+        account_number_masked:
+          description: Masked account number of the payment account. Optional for
+            EXTERNAL_ACCOUNT type. Can be provided when account_number is not available.
+            Only one of account_number or account_number_masked can be provided.
+          type: string
         account_type:
           description: Type of payment account. Currently only allow creating external
             account.
@@ -12968,7 +12974,6 @@ components:
             type: string
           type: object
       required:
-      - account_number
       - account_type
       - accountholder_name
       - institution_id

@@ -21,7 +21,9 @@ var _ MappedNullable = &CreatePaymentAccountRequest{}
 
 // CreatePaymentAccountRequest struct for CreatePaymentAccountRequest
 type CreatePaymentAccountRequest struct {
-	AccountNumber RecipientAccountNumber `json:"account_number"`
+	AccountNumber *RecipientAccountNumber `json:"account_number,omitempty"`
+	// Masked account number of the payment account. Optional for EXTERNAL_ACCOUNT type. Can be provided when account_number is not available. Only one of account_number or account_number_masked can be provided.
+	AccountNumberMasked *string `json:"account_number_masked,omitempty"`
 	// Type of payment account. Currently only allow creating external account.
 	AccountType string `json:"account_type"`
 	// Accountholder name of the payment account
@@ -42,9 +44,8 @@ type _CreatePaymentAccountRequest CreatePaymentAccountRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentAccountRequest(accountNumber RecipientAccountNumber, accountType string, accountholderName string, institutionId string, userId string) *CreatePaymentAccountRequest {
+func NewCreatePaymentAccountRequest(accountType string, accountholderName string, institutionId string, userId string) *CreatePaymentAccountRequest {
 	this := CreatePaymentAccountRequest{}
-	this.AccountNumber = accountNumber
 	this.AccountType = accountType
 	this.AccountholderName = accountholderName
 	this.InstitutionId = institutionId
@@ -60,28 +61,68 @@ func NewCreatePaymentAccountRequestWithDefaults() *CreatePaymentAccountRequest {
 	return &this
 }
 
-// GetAccountNumber returns the AccountNumber field value
+// GetAccountNumber returns the AccountNumber field value if set, zero value otherwise.
 func (o *CreatePaymentAccountRequest) GetAccountNumber() RecipientAccountNumber {
-	if o == nil {
+	if o == nil || IsNil(o.AccountNumber) {
 		var ret RecipientAccountNumber
 		return ret
 	}
-
-	return o.AccountNumber
+	return *o.AccountNumber
 }
 
-// GetAccountNumberOk returns a tuple with the AccountNumber field value
+// GetAccountNumberOk returns a tuple with the AccountNumber field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreatePaymentAccountRequest) GetAccountNumberOk() (*RecipientAccountNumber, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.AccountNumber) {
 		return nil, false
 	}
-	return &o.AccountNumber, true
+	return o.AccountNumber, true
 }
 
-// SetAccountNumber sets field value
+// HasAccountNumber returns a boolean if a field has been set.
+func (o *CreatePaymentAccountRequest) HasAccountNumber() bool {
+	if o != nil && !IsNil(o.AccountNumber) {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountNumber gets a reference to the given RecipientAccountNumber and assigns it to the AccountNumber field.
 func (o *CreatePaymentAccountRequest) SetAccountNumber(v RecipientAccountNumber) {
-	o.AccountNumber = v
+	o.AccountNumber = &v
+}
+
+// GetAccountNumberMasked returns the AccountNumberMasked field value if set, zero value otherwise.
+func (o *CreatePaymentAccountRequest) GetAccountNumberMasked() string {
+	if o == nil || IsNil(o.AccountNumberMasked) {
+		var ret string
+		return ret
+	}
+	return *o.AccountNumberMasked
+}
+
+// GetAccountNumberMaskedOk returns a tuple with the AccountNumberMasked field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *CreatePaymentAccountRequest) GetAccountNumberMaskedOk() (*string, bool) {
+	if o == nil || IsNil(o.AccountNumberMasked) {
+		return nil, false
+	}
+	return o.AccountNumberMasked, true
+}
+
+// HasAccountNumberMasked returns a boolean if a field has been set.
+func (o *CreatePaymentAccountRequest) HasAccountNumberMasked() bool {
+	if o != nil && !IsNil(o.AccountNumberMasked) {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountNumberMasked gets a reference to the given string and assigns it to the AccountNumberMasked field.
+func (o *CreatePaymentAccountRequest) SetAccountNumberMasked(v string) {
+	o.AccountNumberMasked = &v
 }
 
 // GetAccountType returns the AccountType field value
@@ -254,7 +295,12 @@ func (o CreatePaymentAccountRequest) MarshalJSON() ([]byte, error) {
 
 func (o CreatePaymentAccountRequest) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	toSerialize["account_number"] = o.AccountNumber
+	if !IsNil(o.AccountNumber) {
+		toSerialize["account_number"] = o.AccountNumber
+	}
+	if !IsNil(o.AccountNumberMasked) {
+		toSerialize["account_number_masked"] = o.AccountNumberMasked
+	}
 	toSerialize["account_type"] = o.AccountType
 	toSerialize["accountholder_name"] = o.AccountholderName
 	if !IsNil(o.Currencies) {
@@ -278,7 +324,6 @@ func (o *CreatePaymentAccountRequest) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
-		"account_number",
 		"account_type",
 		"accountholder_name",
 		"institution_id",
@@ -313,6 +358,7 @@ func (o *CreatePaymentAccountRequest) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "account_number")
+		delete(additionalProperties, "account_number_masked")
 		delete(additionalProperties, "account_type")
 		delete(additionalProperties, "accountholder_name")
 		delete(additionalProperties, "currencies")
