@@ -14,6 +14,7 @@ package finverse
 import (
 	"encoding/json"
 	"fmt"
+	"time"
 )
 
 // checks if the PaymentMethodIntegrationMetadataGocardlessMetadata type satisfies the MappedNullable interface at compile time
@@ -34,7 +35,9 @@ type PaymentMethodIntegrationMetadataGocardlessMetadata struct {
 	// Whether payments require approval
 	PaymentsRequireApproval *bool `json:"payments_require_approval,omitempty"`
 	// How GoCardless handles funds settlement
-	FundsSettlement      *string `json:"funds_settlement,omitempty"`
+	FundsSettlement *string `json:"funds_settlement,omitempty"`
+	// The timestamp when the mandate was verified, in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+	VerifiedAt           NullableTime `json:"verified_at,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -274,6 +277,49 @@ func (o *PaymentMethodIntegrationMetadataGocardlessMetadata) SetFundsSettlement(
 	o.FundsSettlement = &v
 }
 
+// GetVerifiedAt returns the VerifiedAt field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PaymentMethodIntegrationMetadataGocardlessMetadata) GetVerifiedAt() time.Time {
+	if o == nil || IsNil(o.VerifiedAt.Get()) {
+		var ret time.Time
+		return ret
+	}
+	return *o.VerifiedAt.Get()
+}
+
+// GetVerifiedAtOk returns a tuple with the VerifiedAt field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PaymentMethodIntegrationMetadataGocardlessMetadata) GetVerifiedAtOk() (*time.Time, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.VerifiedAt.Get(), o.VerifiedAt.IsSet()
+}
+
+// HasVerifiedAt returns a boolean if a field has been set.
+func (o *PaymentMethodIntegrationMetadataGocardlessMetadata) HasVerifiedAt() bool {
+	if o != nil && o.VerifiedAt.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetVerifiedAt gets a reference to the given NullableTime and assigns it to the VerifiedAt field.
+func (o *PaymentMethodIntegrationMetadataGocardlessMetadata) SetVerifiedAt(v time.Time) {
+	o.VerifiedAt.Set(&v)
+}
+
+// SetVerifiedAtNil sets the value for VerifiedAt to be an explicit nil
+func (o *PaymentMethodIntegrationMetadataGocardlessMetadata) SetVerifiedAtNil() {
+	o.VerifiedAt.Set(nil)
+}
+
+// UnsetVerifiedAt ensures that no value is present for VerifiedAt, not even an explicit nil
+func (o *PaymentMethodIntegrationMetadataGocardlessMetadata) UnsetVerifiedAt() {
+	o.VerifiedAt.Unset()
+}
+
 func (o PaymentMethodIntegrationMetadataGocardlessMetadata) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -302,6 +348,9 @@ func (o PaymentMethodIntegrationMetadataGocardlessMetadata) ToMap() (map[string]
 	}
 	if !IsNil(o.FundsSettlement) {
 		toSerialize["funds_settlement"] = o.FundsSettlement
+	}
+	if o.VerifiedAt.IsSet() {
+		toSerialize["verified_at"] = o.VerifiedAt.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -353,6 +402,7 @@ func (o *PaymentMethodIntegrationMetadataGocardlessMetadata) UnmarshalJSON(data 
 		delete(additionalProperties, "next_possible_charge_date")
 		delete(additionalProperties, "payments_require_approval")
 		delete(additionalProperties, "funds_settlement")
+		delete(additionalProperties, "verified_at")
 		o.AdditionalProperties = additionalProperties
 	}
 

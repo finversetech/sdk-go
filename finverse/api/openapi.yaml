@@ -9830,6 +9830,7 @@ components:
               reference: reference
               scheme: scheme
               payments_require_approval: true
+              verified_at: 2000-01-23T04:56:07.000+00:00
               next_possible_charge_date: 2000-01-23
               mandate_id: mandate_id
               funds_settlement: managed
@@ -9977,6 +9978,7 @@ components:
               reference: reference
               scheme: scheme
               payments_require_approval: true
+              verified_at: 2000-01-23T04:56:07.000+00:00
               next_possible_charge_date: 2000-01-23
               mandate_id: mandate_id
               funds_settlement: managed
@@ -10352,6 +10354,7 @@ components:
               reference: reference
               scheme: scheme
               payments_require_approval: true
+              verified_at: 2000-01-23T04:56:07.000+00:00
               next_possible_charge_date: 2000-01-23
               mandate_id: mandate_id
               funds_settlement: managed
@@ -13260,6 +13263,7 @@ components:
             reference: reference
             scheme: scheme
             payments_require_approval: true
+            verified_at: 2000-01-23T04:56:07.000+00:00
             next_possible_charge_date: 2000-01-23
             mandate_id: mandate_id
             funds_settlement: managed
@@ -13332,6 +13336,7 @@ components:
           reference: reference
           scheme: scheme
           payments_require_approval: true
+          verified_at: 2000-01-23T04:56:07.000+00:00
           next_possible_charge_date: 2000-01-23
           mandate_id: mandate_id
           funds_settlement: managed
@@ -13377,6 +13382,7 @@ components:
             reference: reference
             scheme: scheme
             payments_require_approval: true
+            verified_at: 2000-01-23T04:56:07.000+00:00
             next_possible_charge_date: 2000-01-23
             mandate_id: mandate_id
             funds_settlement: managed
@@ -14367,6 +14373,7 @@ components:
         reference: reference
         scheme: scheme
         payments_require_approval: true
+        verified_at: 2000-01-23T04:56:07.000+00:00
         next_possible_charge_date: 2000-01-23
         mandate_id: mandate_id
         funds_settlement: managed
@@ -14398,6 +14405,12 @@ components:
           enum:
           - managed
           - direct
+          type: string
+        verified_at:
+          description: "The timestamp when the mandate was verified, in ISO format\
+            \ (YYYY-MM-DDTHH:MM:SS.SSSZ)"
+          format: date-time
+          nullable: true
           type: string
       required:
       - mandate_id
