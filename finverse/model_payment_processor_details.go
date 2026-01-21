@@ -20,9 +20,11 @@ var _ MappedNullable = &PaymentProcessorDetails{}
 
 // PaymentProcessorDetails struct for PaymentProcessorDetails
 type PaymentProcessorDetails struct {
-	AuthCode             *string                 `json:"auth_code,omitempty"`
-	ProcessorId          *string                 `json:"processor_id,omitempty"`
-	ProcessorReference   *string                 `json:"processor_reference,omitempty"`
+	AuthCode           *string `json:"auth_code,omitempty"`
+	ProcessorId        *string `json:"processor_id,omitempty"`
+	ProcessorReference *string `json:"processor_reference,omitempty"`
+	// Scheme like becs, bacs, ach, etc. (applicable to Gocardless for now)
+	Scheme               *string                 `json:"scheme,omitempty"`
 	Result               *PaymentProcessorResult `json:"result,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -142,6 +144,38 @@ func (o *PaymentProcessorDetails) SetProcessorReference(v string) {
 	o.ProcessorReference = &v
 }
 
+// GetScheme returns the Scheme field value if set, zero value otherwise.
+func (o *PaymentProcessorDetails) GetScheme() string {
+	if o == nil || IsNil(o.Scheme) {
+		var ret string
+		return ret
+	}
+	return *o.Scheme
+}
+
+// GetSchemeOk returns a tuple with the Scheme field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentProcessorDetails) GetSchemeOk() (*string, bool) {
+	if o == nil || IsNil(o.Scheme) {
+		return nil, false
+	}
+	return o.Scheme, true
+}
+
+// HasScheme returns a boolean if a field has been set.
+func (o *PaymentProcessorDetails) HasScheme() bool {
+	if o != nil && !IsNil(o.Scheme) {
+		return true
+	}
+
+	return false
+}
+
+// SetScheme gets a reference to the given string and assigns it to the Scheme field.
+func (o *PaymentProcessorDetails) SetScheme(v string) {
+	o.Scheme = &v
+}
+
 // GetResult returns the Result field value if set, zero value otherwise.
 func (o *PaymentProcessorDetails) GetResult() PaymentProcessorResult {
 	if o == nil || IsNil(o.Result) {
@@ -193,6 +227,9 @@ func (o PaymentProcessorDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.ProcessorReference) {
 		toSerialize["processor_reference"] = o.ProcessorReference
 	}
+	if !IsNil(o.Scheme) {
+		toSerialize["scheme"] = o.Scheme
+	}
 	if !IsNil(o.Result) {
 		toSerialize["result"] = o.Result
 	}
@@ -221,6 +258,7 @@ func (o *PaymentProcessorDetails) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "auth_code")
 		delete(additionalProperties, "processor_id")
 		delete(additionalProperties, "processor_reference")
+		delete(additionalProperties, "scheme")
 		delete(additionalProperties, "result")
 		o.AdditionalProperties = additionalProperties
 	}

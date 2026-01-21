@@ -7965,7 +7965,10 @@ components:
               decline_code: decline_code
               result_code: result_code
               decline_reason: decline_reason
+              last_action: last_action
+              status: status
             processor_reference: processor_reference
+            scheme: scheme
             processor_id: processor_id
             auth_code: auth_code
           description: description
@@ -8016,7 +8019,10 @@ components:
             decline_code: decline_code
             result_code: result_code
             decline_reason: decline_reason
+            last_action: last_action
+            status: status
           processor_reference: processor_reference
+          scheme: scheme
           processor_id: processor_id
           auth_code: auth_code
         description: description
@@ -8070,7 +8076,10 @@ components:
           decline_code: decline_code
           result_code: result_code
           decline_reason: decline_reason
+          last_action: last_action
+          status: status
         processor_reference: processor_reference
+        scheme: scheme
         processor_id: processor_id
         auth_code: auth_code
       properties:
@@ -8080,6 +8089,10 @@ components:
           type: string
         processor_reference:
           type: string
+        scheme:
+          description: "Scheme like becs, bacs, ach, etc. (applicable to Gocardless\
+            \ for now)"
+          type: string
         result:
           $ref: '#/components/schemas/PaymentProcessorResult'
       type: object
@@ -8088,6 +8101,8 @@ components:
         decline_code: decline_code
         result_code: result_code
         decline_reason: decline_reason
+        last_action: last_action
+        status: status
       properties:
         decline_code:
           description: Payment processor's decline code (e.g. "2")
@@ -8098,6 +8113,14 @@ components:
         result_code:
           description: "Payment processor's result code (e.g. \"Authorized\", \"Refused\"\
             )."
+          type: string
+        last_action:
+          description: "Last action taken by the payment processor (e.g. \"created\"\
+            , \"captured\", \"failed\", etc.)"
+          type: string
+        status:
+          description: "Status of the payment reported by processor (e.g. \"authorized\"\
+            , \"captured\", \"failed\", etc.)"
           type: string
       type: object
     PaymentResponse:
@@ -8127,7 +8150,10 @@ components:
               decline_code: decline_code
               result_code: result_code
               decline_reason: decline_reason
+              last_action: last_action
+              status: status
             processor_reference: processor_reference
+            scheme: scheme
             processor_id: processor_id
             auth_code: auth_code
           description: description
@@ -8342,7 +8368,10 @@ components:
                 decline_code: decline_code
                 result_code: result_code
                 decline_reason: decline_reason
+                last_action: last_action
+                status: status
               processor_reference: processor_reference
+              scheme: scheme
               processor_id: processor_id
               auth_code: auth_code
             description: description
@@ -8465,7 +8494,10 @@ components:
                 decline_code: decline_code
                 result_code: result_code
                 decline_reason: decline_reason
+                last_action: last_action
+                status: status
               processor_reference: processor_reference
+              scheme: scheme
               processor_id: processor_id
               auth_code: auth_code
             description: description
@@ -10236,7 +10268,10 @@ components:
                 decline_code: decline_code
                 result_code: result_code
                 decline_reason: decline_reason
+                last_action: last_action
+                status: status
               processor_reference: processor_reference
+              scheme: scheme
               processor_id: processor_id
               auth_code: auth_code
             description: description

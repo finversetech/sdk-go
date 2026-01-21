@@ -25,7 +25,11 @@ type PaymentProcessorResult struct {
 	// Payment processor's decline explanation (e.g. \"Blocked card\")
 	DeclineReason *string `json:"decline_reason,omitempty"`
 	// Payment processor's result code (e.g. \"Authorized\", \"Refused\").
-	ResultCode           *string `json:"result_code,omitempty"`
+	ResultCode *string `json:"result_code,omitempty"`
+	// Last action taken by the payment processor (e.g. \"created\", \"captured\", \"failed\", etc.)
+	LastAction *string `json:"last_action,omitempty"`
+	// Status of the payment reported by processor (e.g. \"authorized\", \"captured\", \"failed\", etc.)
+	Status               *string `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -144,6 +148,70 @@ func (o *PaymentProcessorResult) SetResultCode(v string) {
 	o.ResultCode = &v
 }
 
+// GetLastAction returns the LastAction field value if set, zero value otherwise.
+func (o *PaymentProcessorResult) GetLastAction() string {
+	if o == nil || IsNil(o.LastAction) {
+		var ret string
+		return ret
+	}
+	return *o.LastAction
+}
+
+// GetLastActionOk returns a tuple with the LastAction field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentProcessorResult) GetLastActionOk() (*string, bool) {
+	if o == nil || IsNil(o.LastAction) {
+		return nil, false
+	}
+	return o.LastAction, true
+}
+
+// HasLastAction returns a boolean if a field has been set.
+func (o *PaymentProcessorResult) HasLastAction() bool {
+	if o != nil && !IsNil(o.LastAction) {
+		return true
+	}
+
+	return false
+}
+
+// SetLastAction gets a reference to the given string and assigns it to the LastAction field.
+func (o *PaymentProcessorResult) SetLastAction(v string) {
+	o.LastAction = &v
+}
+
+// GetStatus returns the Status field value if set, zero value otherwise.
+func (o *PaymentProcessorResult) GetStatus() string {
+	if o == nil || IsNil(o.Status) {
+		var ret string
+		return ret
+	}
+	return *o.Status
+}
+
+// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentProcessorResult) GetStatusOk() (*string, bool) {
+	if o == nil || IsNil(o.Status) {
+		return nil, false
+	}
+	return o.Status, true
+}
+
+// HasStatus returns a boolean if a field has been set.
+func (o *PaymentProcessorResult) HasStatus() bool {
+	if o != nil && !IsNil(o.Status) {
+		return true
+	}
+
+	return false
+}
+
+// SetStatus gets a reference to the given string and assigns it to the Status field.
+func (o *PaymentProcessorResult) SetStatus(v string) {
+	o.Status = &v
+}
+
 func (o PaymentProcessorResult) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -162,6 +230,12 @@ func (o PaymentProcessorResult) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.ResultCode) {
 		toSerialize["result_code"] = o.ResultCode
+	}
+	if !IsNil(o.LastAction) {
+		toSerialize["last_action"] = o.LastAction
+	}
+	if !IsNil(o.Status) {
+		toSerialize["status"] = o.Status
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -188,6 +262,8 @@ func (o *PaymentProcessorResult) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "decline_code")
 		delete(additionalProperties, "decline_reason")
 		delete(additionalProperties, "result_code")
+		delete(additionalProperties, "last_action")
+		delete(additionalProperties, "status")
 		o.AdditionalProperties = additionalProperties
 	}
 
