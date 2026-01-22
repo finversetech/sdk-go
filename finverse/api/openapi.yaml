@@ -12887,6 +12887,7 @@ components:
           items:
             type: string
           type: array
+          x-omitempty: true
         legal_entity_name:
           description: This field is only applicable to settlement account
           type: string
