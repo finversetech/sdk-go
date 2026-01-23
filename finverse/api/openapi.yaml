@@ -14432,6 +14432,7 @@ components:
         next_possible_charge_date:
           description: "The next possible charge date, in ISO format (YYYY-MM-DD)"
           format: date
+          nullable: true
           type: string
         payments_require_approval:
           description: Whether payments require approval

@@ -31,7 +31,7 @@ type PaymentMethodIntegrationMetadataGocardlessMetadata struct {
 	// The bank payment scheme
 	Scheme *string `json:"scheme,omitempty"`
 	// The next possible charge date, in ISO format (YYYY-MM-DD)
-	NextPossibleChargeDate *string `json:"next_possible_charge_date,omitempty"`
+	NextPossibleChargeDate NullableString `json:"next_possible_charge_date,omitempty"`
 	// Whether payments require approval
 	PaymentsRequireApproval *bool `json:"payments_require_approval,omitempty"`
 	// How GoCardless handles funds settlement
@@ -181,36 +181,47 @@ func (o *PaymentMethodIntegrationMetadataGocardlessMetadata) SetScheme(v string)
 	o.Scheme = &v
 }
 
-// GetNextPossibleChargeDate returns the NextPossibleChargeDate field value if set, zero value otherwise.
+// GetNextPossibleChargeDate returns the NextPossibleChargeDate field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PaymentMethodIntegrationMetadataGocardlessMetadata) GetNextPossibleChargeDate() string {
-	if o == nil || IsNil(o.NextPossibleChargeDate) {
+	if o == nil || IsNil(o.NextPossibleChargeDate.Get()) {
 		var ret string
 		return ret
 	}
-	return *o.NextPossibleChargeDate
+	return *o.NextPossibleChargeDate.Get()
 }
 
 // GetNextPossibleChargeDateOk returns a tuple with the NextPossibleChargeDate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PaymentMethodIntegrationMetadataGocardlessMetadata) GetNextPossibleChargeDateOk() (*string, bool) {
-	if o == nil || IsNil(o.NextPossibleChargeDate) {
+	if o == nil {
 		return nil, false
 	}
-	return o.NextPossibleChargeDate, true
+	return o.NextPossibleChargeDate.Get(), o.NextPossibleChargeDate.IsSet()
 }
 
 // HasNextPossibleChargeDate returns a boolean if a field has been set.
 func (o *PaymentMethodIntegrationMetadataGocardlessMetadata) HasNextPossibleChargeDate() bool {
-	if o != nil && !IsNil(o.NextPossibleChargeDate) {
+	if o != nil && o.NextPossibleChargeDate.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetNextPossibleChargeDate gets a reference to the given string and assigns it to the NextPossibleChargeDate field.
+// SetNextPossibleChargeDate gets a reference to the given NullableString and assigns it to the NextPossibleChargeDate field.
 func (o *PaymentMethodIntegrationMetadataGocardlessMetadata) SetNextPossibleChargeDate(v string) {
-	o.NextPossibleChargeDate = &v
+	o.NextPossibleChargeDate.Set(&v)
+}
+
+// SetNextPossibleChargeDateNil sets the value for NextPossibleChargeDate to be an explicit nil
+func (o *PaymentMethodIntegrationMetadataGocardlessMetadata) SetNextPossibleChargeDateNil() {
+	o.NextPossibleChargeDate.Set(nil)
+}
+
+// UnsetNextPossibleChargeDate ensures that no value is present for NextPossibleChargeDate, not even an explicit nil
+func (o *PaymentMethodIntegrationMetadataGocardlessMetadata) UnsetNextPossibleChargeDate() {
+	o.NextPossibleChargeDate.Unset()
 }
 
 // GetPaymentsRequireApproval returns the PaymentsRequireApproval field value if set, zero value otherwise.
@@ -340,8 +351,8 @@ func (o PaymentMethodIntegrationMetadataGocardlessMetadata) ToMap() (map[string]
 	if !IsNil(o.Scheme) {
 		toSerialize["scheme"] = o.Scheme
 	}
-	if !IsNil(o.NextPossibleChargeDate) {
-		toSerialize["next_possible_charge_date"] = o.NextPossibleChargeDate
+	if o.NextPossibleChargeDate.IsSet() {
+		toSerialize["next_possible_charge_date"] = o.NextPossibleChargeDate.Get()
 	}
 	if !IsNil(o.PaymentsRequireApproval) {
 		toSerialize["payments_require_approval"] = o.PaymentsRequireApproval
