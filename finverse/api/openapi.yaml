@@ -9851,12 +9851,12 @@ components:
                 id: id
               customer:
                 id: id
-            integration_id: STRIPE
+            integration_id: integration_id
             adyen_metadata:
               payment_method_id: payment_method_id
               psp_reference: psp_reference
               network_transaction_reference: network_transaction_reference
-              recurring_processing_model: CardOnFile
+              recurring_processing_model: recurring_processing_model
               auth_code: auth_code
             gocardless_metadata:
               reference: reference
@@ -9865,8 +9865,9 @@ components:
               verified_at: 2000-01-23T04:56:07.000+00:00
               next_possible_charge_date: 2000-01-23
               mandate_id: mandate_id
-              funds_settlement: managed
-              status: active
+              funds_settlement: funds_settlement
+              last_action: last_action
+              status: status
             cybersource_metadata:
               payment_token: payment_token
           payment_method_id: payment_method_id
@@ -9999,12 +10000,12 @@ components:
                 id: id
               customer:
                 id: id
-            integration_id: STRIPE
+            integration_id: integration_id
             adyen_metadata:
               payment_method_id: payment_method_id
               psp_reference: psp_reference
               network_transaction_reference: network_transaction_reference
-              recurring_processing_model: CardOnFile
+              recurring_processing_model: recurring_processing_model
               auth_code: auth_code
             gocardless_metadata:
               reference: reference
@@ -10013,8 +10014,9 @@ components:
               verified_at: 2000-01-23T04:56:07.000+00:00
               next_possible_charge_date: 2000-01-23
               mandate_id: mandate_id
-              funds_settlement: managed
-              status: active
+              funds_settlement: funds_settlement
+              last_action: last_action
+              status: status
             cybersource_metadata:
               payment_token: payment_token
           payment_method_id: payment_method_id
@@ -10378,12 +10380,12 @@ components:
                 id: id
               customer:
                 id: id
-            integration_id: STRIPE
+            integration_id: integration_id
             adyen_metadata:
               payment_method_id: payment_method_id
               psp_reference: psp_reference
               network_transaction_reference: network_transaction_reference
-              recurring_processing_model: CardOnFile
+              recurring_processing_model: recurring_processing_model
               auth_code: auth_code
             gocardless_metadata:
               reference: reference
@@ -10392,8 +10394,9 @@ components:
               verified_at: 2000-01-23T04:56:07.000+00:00
               next_possible_charge_date: 2000-01-23
               mandate_id: mandate_id
-              funds_settlement: managed
-              status: active
+              funds_settlement: funds_settlement
+              last_action: last_action
+              status: status
             cybersource_metadata:
               payment_token: payment_token
           payment_method_id: payment_method_id
@@ -13398,6 +13401,44 @@ components:
       required:
       - integration_id
       type: object
+    PaymentMethodIntegrationMetadataResponse:
+      example:
+        stripe_metadata:
+          payment_method:
+            id: id
+          customer:
+            id: id
+        integration_id: integration_id
+        adyen_metadata:
+          payment_method_id: payment_method_id
+          psp_reference: psp_reference
+          network_transaction_reference: network_transaction_reference
+          recurring_processing_model: recurring_processing_model
+          auth_code: auth_code
+        gocardless_metadata:
+          reference: reference
+          scheme: scheme
+          payments_require_approval: true
+          verified_at: 2000-01-23T04:56:07.000+00:00
+          next_possible_charge_date: 2000-01-23
+          mandate_id: mandate_id
+          funds_settlement: funds_settlement
+          last_action: last_action
+          status: status
+        cybersource_metadata:
+          payment_token: payment_token
+      properties:
+        integration_id:
+          type: string
+        stripe_metadata:
+          $ref: '#/components/schemas/PaymentMethodIntegrationMetadataResponse_stripe_metadata'
+        cybersource_metadata:
+          $ref: '#/components/schemas/PaymentMethodIntegrationMetadataResponse_cybersource_metadata'
+        adyen_metadata:
+          $ref: '#/components/schemas/PaymentMethodIntegrationMetadataResponse_adyen_metadata'
+        gocardless_metadata:
+          $ref: '#/components/schemas/PaymentMethodIntegrationMetadataResponse_gocardless_metadata'
+      type: object
     PaymentMethodResponse:
       example:
         payment_method_type: payment_method_type
@@ -13407,12 +13448,12 @@ components:
               id: id
             customer:
               id: id
-          integration_id: STRIPE
+          integration_id: integration_id
           adyen_metadata:
             payment_method_id: payment_method_id
             psp_reference: psp_reference
             network_transaction_reference: network_transaction_reference
-            recurring_processing_model: CardOnFile
+            recurring_processing_model: recurring_processing_model
             auth_code: auth_code
           gocardless_metadata:
             reference: reference
@@ -13421,8 +13462,9 @@ components:
             verified_at: 2000-01-23T04:56:07.000+00:00
             next_possible_charge_date: 2000-01-23
             mandate_id: mandate_id
-            funds_settlement: managed
-            status: active
+            funds_settlement: funds_settlement
+            last_action: last_action
+            status: status
           cybersource_metadata:
             payment_token: payment_token
         payment_method_id: payment_method_id
@@ -13558,7 +13600,7 @@ components:
         card:
           $ref: '#/components/schemas/FVCard'
         integration_metadata:
-          $ref: '#/components/schemas/PaymentMethodIntegrationMetadata'
+          $ref: '#/components/schemas/PaymentMethodIntegrationMetadataResponse'
       type: object
     PaymentMethodFvLinkResponse:
       example:
@@ -14451,6 +14493,100 @@ components:
           type: string
       required:
       - mandate_id
+      type: object
+    PaymentMethodIntegrationMetadataResponse_stripe_metadata_customer:
+      example:
+        id: id
+      properties:
+        id:
+          type: string
+      type: object
+    PaymentMethodIntegrationMetadataResponse_stripe_metadata:
+      example:
+        payment_method:
+          id: id
+        customer:
+          id: id
+      nullable: true
+      properties:
+        customer:
+          $ref: '#/components/schemas/PaymentMethodIntegrationMetadataResponse_stripe_metadata_customer'
+        payment_method:
+          $ref: '#/components/schemas/PaymentMethodIntegrationMetadataResponse_stripe_metadata_customer'
+      type: object
+    PaymentMethodIntegrationMetadataResponse_cybersource_metadata:
+      example:
+        payment_token: payment_token
+      nullable: true
+      properties:
+        payment_token:
+          type: string
+      type: object
+    PaymentMethodIntegrationMetadataResponse_adyen_metadata:
+      example:
+        payment_method_id: payment_method_id
+        psp_reference: psp_reference
+        network_transaction_reference: network_transaction_reference
+        recurring_processing_model: recurring_processing_model
+        auth_code: auth_code
+      nullable: true
+      properties:
+        payment_method_id:
+          type: string
+        auth_code:
+          type: string
+        psp_reference:
+          type: string
+        recurring_processing_model:
+          type: string
+        network_transaction_reference:
+          type: string
+      type: object
+    PaymentMethodIntegrationMetadataResponse_gocardless_metadata:
+      example:
+        reference: reference
+        scheme: scheme
+        payments_require_approval: true
+        verified_at: 2000-01-23T04:56:07.000+00:00
+        next_possible_charge_date: 2000-01-23
+        mandate_id: mandate_id
+        funds_settlement: funds_settlement
+        last_action: last_action
+        status: status
+      nullable: true
+      properties:
+        mandate_id:
+          description: The GoCardless mandate ID
+          type: string
+        reference:
+          description: The GoCardless reference
+          type: string
+        status:
+          description: The GoCardless mandate status
+          type: string
+        last_action:
+          description: The last action taken on the mandate
+          type: string
+        scheme:
+          description: The bank payment scheme
+          type: string
+        next_possible_charge_date:
+          description: "The next possible charge date, in ISO format (YYYY-MM-DD)"
+          format: date
+          nullable: true
+          type: string
+        payments_require_approval:
+          description: Whether payments require approval
+          type: boolean
+        funds_settlement:
+          description: How GoCardless handles funds settlement
+          type: string
+        verified_at:
+          description: "The timestamp when the mandate was verified, in ISO format\
+            \ (YYYY-MM-DDTHH:MM:SS.SSSZ)"
+          format: date-time
+          nullable: true
+          type: string
       type: object
     PaymentSnapshotPaymentMethod_card:
       example:

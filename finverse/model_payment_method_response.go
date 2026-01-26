@@ -20,11 +20,11 @@ var _ MappedNullable = &PaymentMethodResponse{}
 
 // PaymentMethodResponse struct for PaymentMethodResponse
 type PaymentMethodResponse struct {
-	PaymentMethodId      *string                           `json:"payment_method_id,omitempty"`
-	PaymentMethodType    *string                           `json:"payment_method_type,omitempty"`
-	Mandate              *GetMandateResponse               `json:"mandate,omitempty"`
-	Card                 *FVCard                           `json:"card,omitempty"`
-	IntegrationMetadata  *PaymentMethodIntegrationMetadata `json:"integration_metadata,omitempty"`
+	PaymentMethodId      *string                                   `json:"payment_method_id,omitempty"`
+	PaymentMethodType    *string                                   `json:"payment_method_type,omitempty"`
+	Mandate              *GetMandateResponse                       `json:"mandate,omitempty"`
+	Card                 *FVCard                                   `json:"card,omitempty"`
+	IntegrationMetadata  *PaymentMethodIntegrationMetadataResponse `json:"integration_metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -176,9 +176,9 @@ func (o *PaymentMethodResponse) SetCard(v FVCard) {
 }
 
 // GetIntegrationMetadata returns the IntegrationMetadata field value if set, zero value otherwise.
-func (o *PaymentMethodResponse) GetIntegrationMetadata() PaymentMethodIntegrationMetadata {
+func (o *PaymentMethodResponse) GetIntegrationMetadata() PaymentMethodIntegrationMetadataResponse {
 	if o == nil || IsNil(o.IntegrationMetadata) {
-		var ret PaymentMethodIntegrationMetadata
+		var ret PaymentMethodIntegrationMetadataResponse
 		return ret
 	}
 	return *o.IntegrationMetadata
@@ -186,7 +186,7 @@ func (o *PaymentMethodResponse) GetIntegrationMetadata() PaymentMethodIntegratio
 
 // GetIntegrationMetadataOk returns a tuple with the IntegrationMetadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentMethodResponse) GetIntegrationMetadataOk() (*PaymentMethodIntegrationMetadata, bool) {
+func (o *PaymentMethodResponse) GetIntegrationMetadataOk() (*PaymentMethodIntegrationMetadataResponse, bool) {
 	if o == nil || IsNil(o.IntegrationMetadata) {
 		return nil, false
 	}
@@ -202,8 +202,8 @@ func (o *PaymentMethodResponse) HasIntegrationMetadata() bool {
 	return false
 }
 
-// SetIntegrationMetadata gets a reference to the given PaymentMethodIntegrationMetadata and assigns it to the IntegrationMetadata field.
-func (o *PaymentMethodResponse) SetIntegrationMetadata(v PaymentMethodIntegrationMetadata) {
+// SetIntegrationMetadata gets a reference to the given PaymentMethodIntegrationMetadataResponse and assigns it to the IntegrationMetadata field.
+func (o *PaymentMethodResponse) SetIntegrationMetadata(v PaymentMethodIntegrationMetadataResponse) {
 	o.IntegrationMetadata = &v
 }
 
