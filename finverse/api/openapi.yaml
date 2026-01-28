@@ -9866,6 +9866,7 @@ components:
               next_possible_charge_date: 2000-01-23
               mandate_id: mandate_id
               funds_settlement: funds_settlement
+              authorization_source: authorization_source
               last_action: last_action
               status: status
             cybersource_metadata:
@@ -10015,6 +10016,7 @@ components:
               next_possible_charge_date: 2000-01-23
               mandate_id: mandate_id
               funds_settlement: funds_settlement
+              authorization_source: authorization_source
               last_action: last_action
               status: status
             cybersource_metadata:
@@ -10395,6 +10397,7 @@ components:
               next_possible_charge_date: 2000-01-23
               mandate_id: mandate_id
               funds_settlement: funds_settlement
+              authorization_source: authorization_source
               last_action: last_action
               status: status
             cybersource_metadata:
@@ -13423,6 +13426,7 @@ components:
           next_possible_charge_date: 2000-01-23
           mandate_id: mandate_id
           funds_settlement: funds_settlement
+          authorization_source: authorization_source
           last_action: last_action
           status: status
         cybersource_metadata:
@@ -13463,6 +13467,7 @@ components:
             next_possible_charge_date: 2000-01-23
             mandate_id: mandate_id
             funds_settlement: funds_settlement
+            authorization_source: authorization_source
             last_action: last_action
             status: status
           cybersource_metadata:
@@ -14551,6 +14556,7 @@ components:
         next_possible_charge_date: 2000-01-23
         mandate_id: mandate_id
         funds_settlement: funds_settlement
+        authorization_source: authorization_source
         last_action: last_action
         status: status
       nullable: true
@@ -14577,9 +14583,13 @@ components:
           type: string
         payments_require_approval:
           description: Whether payments require approval
+          nullable: true
           type: boolean
         funds_settlement:
           description: How GoCardless handles funds settlement
+          type: string
+        authorization_source:
+          description: The source of the mandate authorization
           type: string
         verified_at:
           description: "The timestamp when the mandate was verified, in ISO format\

@@ -34,9 +34,11 @@ type PaymentMethodIntegrationMetadataResponseGocardlessMetadata struct {
 	// The next possible charge date, in ISO format (YYYY-MM-DD)
 	NextPossibleChargeDate NullableString `json:"next_possible_charge_date,omitempty"`
 	// Whether payments require approval
-	PaymentsRequireApproval *bool `json:"payments_require_approval,omitempty"`
+	PaymentsRequireApproval NullableBool `json:"payments_require_approval,omitempty"`
 	// How GoCardless handles funds settlement
 	FundsSettlement *string `json:"funds_settlement,omitempty"`
+	// The source of the mandate authorization
+	AuthorizationSource *string `json:"authorization_source,omitempty"`
 	// The timestamp when the mandate was verified, in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	VerifiedAt           NullableTime `json:"verified_at,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -264,36 +266,47 @@ func (o *PaymentMethodIntegrationMetadataResponseGocardlessMetadata) UnsetNextPo
 	o.NextPossibleChargeDate.Unset()
 }
 
-// GetPaymentsRequireApproval returns the PaymentsRequireApproval field value if set, zero value otherwise.
+// GetPaymentsRequireApproval returns the PaymentsRequireApproval field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *PaymentMethodIntegrationMetadataResponseGocardlessMetadata) GetPaymentsRequireApproval() bool {
-	if o == nil || IsNil(o.PaymentsRequireApproval) {
+	if o == nil || IsNil(o.PaymentsRequireApproval.Get()) {
 		var ret bool
 		return ret
 	}
-	return *o.PaymentsRequireApproval
+	return *o.PaymentsRequireApproval.Get()
 }
 
 // GetPaymentsRequireApprovalOk returns a tuple with the PaymentsRequireApproval field value if set, nil otherwise
 // and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *PaymentMethodIntegrationMetadataResponseGocardlessMetadata) GetPaymentsRequireApprovalOk() (*bool, bool) {
-	if o == nil || IsNil(o.PaymentsRequireApproval) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PaymentsRequireApproval, true
+	return o.PaymentsRequireApproval.Get(), o.PaymentsRequireApproval.IsSet()
 }
 
 // HasPaymentsRequireApproval returns a boolean if a field has been set.
 func (o *PaymentMethodIntegrationMetadataResponseGocardlessMetadata) HasPaymentsRequireApproval() bool {
-	if o != nil && !IsNil(o.PaymentsRequireApproval) {
+	if o != nil && o.PaymentsRequireApproval.IsSet() {
 		return true
 	}
 
 	return false
 }
 
-// SetPaymentsRequireApproval gets a reference to the given bool and assigns it to the PaymentsRequireApproval field.
+// SetPaymentsRequireApproval gets a reference to the given NullableBool and assigns it to the PaymentsRequireApproval field.
 func (o *PaymentMethodIntegrationMetadataResponseGocardlessMetadata) SetPaymentsRequireApproval(v bool) {
-	o.PaymentsRequireApproval = &v
+	o.PaymentsRequireApproval.Set(&v)
+}
+
+// SetPaymentsRequireApprovalNil sets the value for PaymentsRequireApproval to be an explicit nil
+func (o *PaymentMethodIntegrationMetadataResponseGocardlessMetadata) SetPaymentsRequireApprovalNil() {
+	o.PaymentsRequireApproval.Set(nil)
+}
+
+// UnsetPaymentsRequireApproval ensures that no value is present for PaymentsRequireApproval, not even an explicit nil
+func (o *PaymentMethodIntegrationMetadataResponseGocardlessMetadata) UnsetPaymentsRequireApproval() {
+	o.PaymentsRequireApproval.Unset()
 }
 
 // GetFundsSettlement returns the FundsSettlement field value if set, zero value otherwise.
@@ -326,6 +339,38 @@ func (o *PaymentMethodIntegrationMetadataResponseGocardlessMetadata) HasFundsSet
 // SetFundsSettlement gets a reference to the given string and assigns it to the FundsSettlement field.
 func (o *PaymentMethodIntegrationMetadataResponseGocardlessMetadata) SetFundsSettlement(v string) {
 	o.FundsSettlement = &v
+}
+
+// GetAuthorizationSource returns the AuthorizationSource field value if set, zero value otherwise.
+func (o *PaymentMethodIntegrationMetadataResponseGocardlessMetadata) GetAuthorizationSource() string {
+	if o == nil || IsNil(o.AuthorizationSource) {
+		var ret string
+		return ret
+	}
+	return *o.AuthorizationSource
+}
+
+// GetAuthorizationSourceOk returns a tuple with the AuthorizationSource field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentMethodIntegrationMetadataResponseGocardlessMetadata) GetAuthorizationSourceOk() (*string, bool) {
+	if o == nil || IsNil(o.AuthorizationSource) {
+		return nil, false
+	}
+	return o.AuthorizationSource, true
+}
+
+// HasAuthorizationSource returns a boolean if a field has been set.
+func (o *PaymentMethodIntegrationMetadataResponseGocardlessMetadata) HasAuthorizationSource() bool {
+	if o != nil && !IsNil(o.AuthorizationSource) {
+		return true
+	}
+
+	return false
+}
+
+// SetAuthorizationSource gets a reference to the given string and assigns it to the AuthorizationSource field.
+func (o *PaymentMethodIntegrationMetadataResponseGocardlessMetadata) SetAuthorizationSource(v string) {
+	o.AuthorizationSource = &v
 }
 
 // GetVerifiedAt returns the VerifiedAt field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -399,11 +444,14 @@ func (o PaymentMethodIntegrationMetadataResponseGocardlessMetadata) ToMap() (map
 	if o.NextPossibleChargeDate.IsSet() {
 		toSerialize["next_possible_charge_date"] = o.NextPossibleChargeDate.Get()
 	}
-	if !IsNil(o.PaymentsRequireApproval) {
-		toSerialize["payments_require_approval"] = o.PaymentsRequireApproval
+	if o.PaymentsRequireApproval.IsSet() {
+		toSerialize["payments_require_approval"] = o.PaymentsRequireApproval.Get()
 	}
 	if !IsNil(o.FundsSettlement) {
 		toSerialize["funds_settlement"] = o.FundsSettlement
+	}
+	if !IsNil(o.AuthorizationSource) {
+		toSerialize["authorization_source"] = o.AuthorizationSource
 	}
 	if o.VerifiedAt.IsSet() {
 		toSerialize["verified_at"] = o.VerifiedAt.Get()
@@ -438,6 +486,7 @@ func (o *PaymentMethodIntegrationMetadataResponseGocardlessMetadata) UnmarshalJS
 		delete(additionalProperties, "next_possible_charge_date")
 		delete(additionalProperties, "payments_require_approval")
 		delete(additionalProperties, "funds_settlement")
+		delete(additionalProperties, "authorization_source")
 		delete(additionalProperties, "verified_at")
 		o.AdditionalProperties = additionalProperties
 	}
