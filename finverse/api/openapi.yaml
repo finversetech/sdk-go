@@ -13557,6 +13557,7 @@ components:
           type: LINKING_ERROR
           message: message
         status: AUTHORIZATION_REQUIRED
+        skip_polling: true
       properties:
         payment_id:
           type: string
@@ -13584,6 +13585,12 @@ components:
           $ref: '#/components/schemas/PaymentFvLinkDetails'
         error:
           $ref: '#/components/schemas/FvEmbeddedErrorModel'
+        skip_polling:
+          description: "Set to true if payment uses GoCardless rail, indicating frontend\
+            \ should skip polling"
+          type: boolean
+      required:
+      - skip_polling
       type: object
     PaymentFvLinkDetails:
       example:

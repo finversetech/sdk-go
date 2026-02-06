@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the PaymentFvLinkResponse type satisfies the MappedNullable interface at compile time
@@ -20,11 +21,13 @@ var _ MappedNullable = &PaymentFvLinkResponse{}
 
 // PaymentFvLinkResponse struct for PaymentFvLinkResponse
 type PaymentFvLinkResponse struct {
-	PaymentId            *string               `json:"payment_id,omitempty"`
-	Status               *string               `json:"status,omitempty"`
-	Type                 *string               `json:"type,omitempty"`
-	PaymentDetails       *PaymentFvLinkDetails `json:"payment_details,omitempty"`
-	Error                *FvEmbeddedErrorModel `json:"error,omitempty"`
+	PaymentId      *string               `json:"payment_id,omitempty"`
+	Status         *string               `json:"status,omitempty"`
+	Type           *string               `json:"type,omitempty"`
+	PaymentDetails *PaymentFvLinkDetails `json:"payment_details,omitempty"`
+	Error          *FvEmbeddedErrorModel `json:"error,omitempty"`
+	// Set to true if payment uses GoCardless rail, indicating frontend should skip polling
+	SkipPolling          bool `json:"skip_polling"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,8 +37,9 @@ type _PaymentFvLinkResponse PaymentFvLinkResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentFvLinkResponse() *PaymentFvLinkResponse {
+func NewPaymentFvLinkResponse(skipPolling bool) *PaymentFvLinkResponse {
 	this := PaymentFvLinkResponse{}
+	this.SkipPolling = skipPolling
 	return &this
 }
 
@@ -207,6 +211,30 @@ func (o *PaymentFvLinkResponse) SetError(v FvEmbeddedErrorModel) {
 	o.Error = &v
 }
 
+// GetSkipPolling returns the SkipPolling field value
+func (o *PaymentFvLinkResponse) GetSkipPolling() bool {
+	if o == nil {
+		var ret bool
+		return ret
+	}
+
+	return o.SkipPolling
+}
+
+// GetSkipPollingOk returns a tuple with the SkipPolling field value
+// and a boolean to check if the value has been set.
+func (o *PaymentFvLinkResponse) GetSkipPollingOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.SkipPolling, true
+}
+
+// SetSkipPolling sets field value
+func (o *PaymentFvLinkResponse) SetSkipPolling(v bool) {
+	o.SkipPolling = v
+}
+
 func (o PaymentFvLinkResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -232,6 +260,7 @@ func (o PaymentFvLinkResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
+	toSerialize["skip_polling"] = o.SkipPolling
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -241,6 +270,27 @@ func (o PaymentFvLinkResponse) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *PaymentFvLinkResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"skip_polling",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varPaymentFvLinkResponse := _PaymentFvLinkResponse{}
 
 	err = json.Unmarshal(data, &varPaymentFvLinkResponse)
@@ -259,6 +309,7 @@ func (o *PaymentFvLinkResponse) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "type")
 		delete(additionalProperties, "payment_details")
 		delete(additionalProperties, "error")
+		delete(additionalProperties, "skip_polling")
 		o.AdditionalProperties = additionalProperties
 	}
 
