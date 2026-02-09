@@ -23,8 +23,8 @@ var _ MappedNullable = &AutopayEnrollmentConfiguration{}
 type AutopayEnrollmentConfiguration struct {
 	// Indicate whether the autopay enrollment screen should be prompted to the end user
 	DisplayEnrollmentScreen bool `json:"display_enrollment_screen"`
-	// Indicate what value should be prefilled on the autopay enrollment screen
-	EnrollmentPrefillValue string `json:"enrollment_prefill_value"`
+	// Indicate what value should be prefilled on the autopay enrollment screen. Required when display_enrollment_screen is true; optional when display_enrollment_screen is false.
+	EnrollmentPrefillValue *string `json:"enrollment_prefill_value,omitempty"`
 	AdditionalProperties   map[string]interface{}
 }
 
@@ -34,10 +34,9 @@ type _AutopayEnrollmentConfiguration AutopayEnrollmentConfiguration
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAutopayEnrollmentConfiguration(displayEnrollmentScreen bool, enrollmentPrefillValue string) *AutopayEnrollmentConfiguration {
+func NewAutopayEnrollmentConfiguration(displayEnrollmentScreen bool) *AutopayEnrollmentConfiguration {
 	this := AutopayEnrollmentConfiguration{}
 	this.DisplayEnrollmentScreen = displayEnrollmentScreen
-	this.EnrollmentPrefillValue = enrollmentPrefillValue
 	return &this
 }
 
@@ -73,28 +72,36 @@ func (o *AutopayEnrollmentConfiguration) SetDisplayEnrollmentScreen(v bool) {
 	o.DisplayEnrollmentScreen = v
 }
 
-// GetEnrollmentPrefillValue returns the EnrollmentPrefillValue field value
+// GetEnrollmentPrefillValue returns the EnrollmentPrefillValue field value if set, zero value otherwise.
 func (o *AutopayEnrollmentConfiguration) GetEnrollmentPrefillValue() string {
-	if o == nil {
+	if o == nil || IsNil(o.EnrollmentPrefillValue) {
 		var ret string
 		return ret
 	}
-
-	return o.EnrollmentPrefillValue
+	return *o.EnrollmentPrefillValue
 }
 
-// GetEnrollmentPrefillValueOk returns a tuple with the EnrollmentPrefillValue field value
+// GetEnrollmentPrefillValueOk returns a tuple with the EnrollmentPrefillValue field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *AutopayEnrollmentConfiguration) GetEnrollmentPrefillValueOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.EnrollmentPrefillValue) {
 		return nil, false
 	}
-	return &o.EnrollmentPrefillValue, true
+	return o.EnrollmentPrefillValue, true
 }
 
-// SetEnrollmentPrefillValue sets field value
+// HasEnrollmentPrefillValue returns a boolean if a field has been set.
+func (o *AutopayEnrollmentConfiguration) HasEnrollmentPrefillValue() bool {
+	if o != nil && !IsNil(o.EnrollmentPrefillValue) {
+		return true
+	}
+
+	return false
+}
+
+// SetEnrollmentPrefillValue gets a reference to the given string and assigns it to the EnrollmentPrefillValue field.
 func (o *AutopayEnrollmentConfiguration) SetEnrollmentPrefillValue(v string) {
-	o.EnrollmentPrefillValue = v
+	o.EnrollmentPrefillValue = &v
 }
 
 func (o AutopayEnrollmentConfiguration) MarshalJSON() ([]byte, error) {
@@ -108,7 +115,9 @@ func (o AutopayEnrollmentConfiguration) MarshalJSON() ([]byte, error) {
 func (o AutopayEnrollmentConfiguration) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["display_enrollment_screen"] = o.DisplayEnrollmentScreen
-	toSerialize["enrollment_prefill_value"] = o.EnrollmentPrefillValue
+	if !IsNil(o.EnrollmentPrefillValue) {
+		toSerialize["enrollment_prefill_value"] = o.EnrollmentPrefillValue
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -123,7 +132,6 @@ func (o *AutopayEnrollmentConfiguration) UnmarshalJSON(data []byte) (err error) 
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"display_enrollment_screen",
-		"enrollment_prefill_value",
 	}
 
 	allProperties := make(map[string]interface{})

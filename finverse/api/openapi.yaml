@@ -9663,14 +9663,14 @@ components:
           type: boolean
         enrollment_prefill_value:
           description: Indicate what value should be prefilled on the autopay enrollment
-            screen
+            screen. Required when display_enrollment_screen is true; optional when
+            display_enrollment_screen is false.
           enum:
           - "YES"
           - "NO"
           type: string
       required:
       - display_enrollment_screen
-      - enrollment_prefill_value
       type: object
     RecipientAccountFilters:
       example:
