@@ -14149,6 +14149,7 @@ components:
     SelectPaymentMethodResponse:
       example:
         card_processor_redirect_uri: card_processor_redirect_uri
+        processor_redirect_uri: processor_redirect_uri
         token:
           access_token: access_token
           link_url: link_url
@@ -14164,6 +14165,9 @@ components:
         mandate_processor_redirect_uri:
           description: URL to redirect to for making the mandate payment (right now
             only for Gocardless)
+          type: string
+        processor_redirect_uri:
+          description: URL to redirect to for making the payment
           type: string
       type: object
     token_request:
