@@ -20,8 +20,9 @@ var _ MappedNullable = &PaymentSnapshotPaymentMethod{}
 
 // PaymentSnapshotPaymentMethod struct for PaymentSnapshotPaymentMethod
 type PaymentSnapshotPaymentMethod struct {
-	Card                 *PaymentSnapshotPaymentMethodCard   `json:"card,omitempty"`
-	Wallet               *PaymentSnapshotPaymentMethodWallet `json:"wallet,omitempty"`
+	Card                 *PaymentSnapshotPaymentMethodCard         `json:"card,omitempty"`
+	Wallet               *PaymentSnapshotPaymentMethodWallet       `json:"wallet,omitempty"`
+	BankTransfer         *PaymentSnapshotPaymentMethodBankTransfer `json:"bank_transfer,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -108,6 +109,38 @@ func (o *PaymentSnapshotPaymentMethod) SetWallet(v PaymentSnapshotPaymentMethodW
 	o.Wallet = &v
 }
 
+// GetBankTransfer returns the BankTransfer field value if set, zero value otherwise.
+func (o *PaymentSnapshotPaymentMethod) GetBankTransfer() PaymentSnapshotPaymentMethodBankTransfer {
+	if o == nil || IsNil(o.BankTransfer) {
+		var ret PaymentSnapshotPaymentMethodBankTransfer
+		return ret
+	}
+	return *o.BankTransfer
+}
+
+// GetBankTransferOk returns a tuple with the BankTransfer field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentSnapshotPaymentMethod) GetBankTransferOk() (*PaymentSnapshotPaymentMethodBankTransfer, bool) {
+	if o == nil || IsNil(o.BankTransfer) {
+		return nil, false
+	}
+	return o.BankTransfer, true
+}
+
+// HasBankTransfer returns a boolean if a field has been set.
+func (o *PaymentSnapshotPaymentMethod) HasBankTransfer() bool {
+	if o != nil && !IsNil(o.BankTransfer) {
+		return true
+	}
+
+	return false
+}
+
+// SetBankTransfer gets a reference to the given PaymentSnapshotPaymentMethodBankTransfer and assigns it to the BankTransfer field.
+func (o *PaymentSnapshotPaymentMethod) SetBankTransfer(v PaymentSnapshotPaymentMethodBankTransfer) {
+	o.BankTransfer = &v
+}
+
 func (o PaymentSnapshotPaymentMethod) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -123,6 +156,9 @@ func (o PaymentSnapshotPaymentMethod) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Wallet) {
 		toSerialize["wallet"] = o.Wallet
+	}
+	if !IsNil(o.BankTransfer) {
+		toSerialize["bank_transfer"] = o.BankTransfer
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -148,6 +184,7 @@ func (o *PaymentSnapshotPaymentMethod) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "card")
 		delete(additionalProperties, "wallet")
+		delete(additionalProperties, "bank_transfer")
 		o.AdditionalProperties = additionalProperties
 	}
 

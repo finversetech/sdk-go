@@ -8068,6 +8068,16 @@ components:
                 browser_type: Chrome
                 device_type: Desktop
                 shopper_locale: en-HK
+          bank_transfer:
+            bank_transfer_details:
+              transfer_type: PayNow
+            risk_data:
+              processor_risk_data:
+                shopper_country: HK
+                shopper_ip: 127.0.0.1
+                browser_type: Chrome
+                device_type: Desktop
+                shopper_locale: en-HK
           card:
             card_details:
               last4: "1234"
@@ -8286,6 +8296,16 @@ components:
                   browser_type: Chrome
                   device_type: Desktop
                   shopper_locale: en-HK
+            bank_transfer:
+              bank_transfer_details:
+                transfer_type: PayNow
+              risk_data:
+                processor_risk_data:
+                  shopper_country: HK
+                  shopper_ip: 127.0.0.1
+                  browser_type: Chrome
+                  device_type: Desktop
+                  shopper_locale: en-HK
             card:
               card_details:
                 last4: "1234"
@@ -8405,6 +8425,16 @@ components:
                 brand_product_name: alipay_hk
                 country: HK
                 brand: Alipay
+              risk_data:
+                processor_risk_data:
+                  shopper_country: HK
+                  shopper_ip: 127.0.0.1
+                  browser_type: Chrome
+                  device_type: Desktop
+                  shopper_locale: en-HK
+            bank_transfer:
+              bank_transfer_details:
+                transfer_type: PayNow
               risk_data:
                 processor_risk_data:
                   shopper_country: HK
@@ -10190,6 +10220,16 @@ components:
                   browser_type: Chrome
                   device_type: Desktop
                   shopper_locale: en-HK
+            bank_transfer:
+              bank_transfer_details:
+                transfer_type: PayNow
+              risk_data:
+                processor_risk_data:
+                  shopper_country: HK
+                  shopper_ip: 127.0.0.1
+                  browser_type: Chrome
+                  device_type: Desktop
+                  shopper_locale: en-HK
             card:
               card_details:
                 last4: "1234"
@@ -10854,6 +10894,15 @@ components:
         country:
           description: The issuer country
           example: HK
+          type: string
+      type: object
+    BankTransferDetails:
+      example:
+        transfer_type: PayNow
+      properties:
+        transfer_type:
+          description: The transfer type
+          example: PayNow
           type: string
       type: object
     RiskData:
@@ -13733,6 +13782,16 @@ components:
               browser_type: Chrome
               device_type: Desktop
               shopper_locale: en-HK
+        bank_transfer:
+          bank_transfer_details:
+            transfer_type: PayNow
+          risk_data:
+            processor_risk_data:
+              shopper_country: HK
+              shopper_ip: 127.0.0.1
+              browser_type: Chrome
+              device_type: Desktop
+              shopper_locale: en-HK
         card:
           card_details:
             last4: "1234"
@@ -13761,6 +13820,8 @@ components:
           $ref: '#/components/schemas/PaymentSnapshotPaymentMethod_card'
         wallet:
           $ref: '#/components/schemas/PaymentSnapshotPaymentMethod_wallet'
+        bank_transfer:
+          $ref: '#/components/schemas/PaymentSnapshotPaymentMethod_bank_transfer'
       type: object
     RefreshPaymentAttemptResponse:
       example:
@@ -14494,6 +14555,23 @@ components:
       properties:
         wallet_details:
           $ref: '#/components/schemas/FVWalletDetails'
+        risk_data:
+          $ref: '#/components/schemas/RiskData'
+      type: object
+    PaymentSnapshotPaymentMethod_bank_transfer:
+      example:
+        bank_transfer_details:
+          transfer_type: PayNow
+        risk_data:
+          processor_risk_data:
+            shopper_country: HK
+            shopper_ip: 127.0.0.1
+            browser_type: Chrome
+            device_type: Desktop
+            shopper_locale: en-HK
+      properties:
+        bank_transfer_details:
+          $ref: '#/components/schemas/BankTransferDetails'
         risk_data:
           $ref: '#/components/schemas/RiskData'
       type: object

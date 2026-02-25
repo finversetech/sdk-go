@@ -26,6 +26,7 @@ model_bad_request_model_error.go
 model_bad_request_model_v2.go
 model_bad_request_model_v2_error.go
 model_balance_history.go
+model_bank_transfer_details.go
 model_card_account.go
 model_card_details.go
 model_card_fv_link_details.go
@@ -192,6 +193,7 @@ model_payment_schedule.go
 model_payment_setup_options.go
 model_payment_setup_options_request.go
 model_payment_snapshot_payment_method.go
+model_payment_snapshot_payment_method_bank_transfer.go
 model_payment_snapshot_payment_method_card.go
 model_payment_snapshot_payment_method_wallet.go
 model_payment_user.go
