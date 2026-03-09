@@ -37,13 +37,15 @@ type Principal struct {
 	LinkTokenRequest          *LinkTokenRequest          `json:"link_token_request,omitempty"`
 	GetMandateAuthLinkRequest *GetMandateAuthLinkRequest `json:"get_mandate_auth_link_request,omitempty"`
 	Currency                  *string                    `json:"currency,omitempty"`
-	RedirectUri               *string                    `json:"redirect_uri,omitempty"`
-	PaymentLinkId             *string                    `json:"payment_link_id,omitempty"`
-	UniqueReferenceId         *string                    `json:"unique_reference_id,omitempty"`
-	PaymentMethodId           *string                    `json:"payment_method_id,omitempty"`
-	TppName                   *string                    `json:"tpp_name,omitempty"`
-	RetryUrl                  *string                    `json:"retry_url,omitempty"`
-	OnboardingFlow            *string                    `json:"onboarding_flow,omitempty"`
+	// Limit historical data retrieval to this date (YYYY-MM-DD)
+	HistoryDateLimit  *string `json:"history_date_limit,omitempty"`
+	RedirectUri       *string `json:"redirect_uri,omitempty"`
+	PaymentLinkId     *string `json:"payment_link_id,omitempty"`
+	UniqueReferenceId *string `json:"unique_reference_id,omitempty"`
+	PaymentMethodId   *string `json:"payment_method_id,omitempty"`
+	TppName           *string `json:"tpp_name,omitempty"`
+	RetryUrl          *string `json:"retry_url,omitempty"`
+	OnboardingFlow    *string `json:"onboarding_flow,omitempty"`
 	// The qrCode text to be used to generate the image
 	QrCodeText            *string `json:"qr_code_text,omitempty"`
 	ManualPaymentProvider *string `json:"manual_payment_provider,omitempty"`
@@ -553,6 +555,38 @@ func (o *Principal) SetCurrency(v string) {
 	o.Currency = &v
 }
 
+// GetHistoryDateLimit returns the HistoryDateLimit field value if set, zero value otherwise.
+func (o *Principal) GetHistoryDateLimit() string {
+	if o == nil || IsNil(o.HistoryDateLimit) {
+		var ret string
+		return ret
+	}
+	return *o.HistoryDateLimit
+}
+
+// GetHistoryDateLimitOk returns a tuple with the HistoryDateLimit field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Principal) GetHistoryDateLimitOk() (*string, bool) {
+	if o == nil || IsNil(o.HistoryDateLimit) {
+		return nil, false
+	}
+	return o.HistoryDateLimit, true
+}
+
+// HasHistoryDateLimit returns a boolean if a field has been set.
+func (o *Principal) HasHistoryDateLimit() bool {
+	if o != nil && !IsNil(o.HistoryDateLimit) {
+		return true
+	}
+
+	return false
+}
+
+// SetHistoryDateLimit gets a reference to the given string and assigns it to the HistoryDateLimit field.
+func (o *Principal) SetHistoryDateLimit(v string) {
+	o.HistoryDateLimit = &v
+}
+
 // GetRedirectUri returns the RedirectUri field value if set, zero value otherwise.
 func (o *Principal) GetRedirectUri() string {
 	if o == nil || IsNil(o.RedirectUri) {
@@ -891,6 +925,9 @@ func (o Principal) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Currency) {
 		toSerialize["currency"] = o.Currency
 	}
+	if !IsNil(o.HistoryDateLimit) {
+		toSerialize["history_date_limit"] = o.HistoryDateLimit
+	}
 	if !IsNil(o.RedirectUri) {
 		toSerialize["redirect_uri"] = o.RedirectUri
 	}
@@ -980,6 +1017,7 @@ func (o *Principal) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "link_token_request")
 		delete(additionalProperties, "get_mandate_auth_link_request")
 		delete(additionalProperties, "currency")
+		delete(additionalProperties, "history_date_limit")
 		delete(additionalProperties, "redirect_uri")
 		delete(additionalProperties, "payment_link_id")
 		delete(additionalProperties, "unique_reference_id")

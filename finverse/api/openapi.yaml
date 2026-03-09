@@ -3445,6 +3445,10 @@ components:
           $ref: '#/components/schemas/GetMandateAuthLinkRequest'
         currency:
           type: string
+        history_date_limit:
+          description: Limit historical data retrieval to this date (YYYY-MM-DD)
+          example: 2024-01-31
+          type: string
         redirect_uri:
           type: string
         payment_link_id:
@@ -5316,32 +5320,22 @@ components:
       type: object
     LinkTokenRequest:
       example:
-        institution_status: alpha beta supported
-        link_mode: real
-        payment_instruction_id: payment_instruction_id
+        history_date_limit: 2024-01-31
         response_type: code
         language: en
-        code_challenge_method: code-challenge-method
-        countries:
-        - HKG
-        - SGP
         client_id: 3fa85f64-5717-4562-b3fc-2c963f66afa6
         response_mode: form_post
         institution_id: hsbc-hk
         products_supported:
         - ACCOUNTS
         - TRANSACTIONS
-        customization_id: AULIDGOESHERE
         user_type:
         - PERSONAL
         grant_type: grant_type
-        user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
         scope: "comma,separated,scopes"
         automatic_data_refresh: "ON"
-        redirect_uri: https://example.com/callback
         state: user-state-passed
         login_identity_id: uhdasidasodaso
-        ui_mode: redirect
         user_configs:
           ada_account_number: ada_account_number
         code_challenge: code-challenge
@@ -5349,6 +5343,17 @@ components:
         - ACCOUNTS
         - TRANSACTIONS
         - PAYMENTS
+        institution_status: alpha beta supported
+        link_mode: real
+        payment_instruction_id: payment_instruction_id
+        code_challenge_method: code-challenge-method
+        countries:
+        - HKG
+        - SGP
+        customization_id: AULIDGOESHERE
+        user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
+        redirect_uri: https://example.com/callback
+        ui_mode: redirect
       properties:
         grant_type:
           description: support only client_credentials
@@ -5493,6 +5498,11 @@ components:
           type: string
         user_configs:
           $ref: '#/components/schemas/LinkTokenUserConfigs'
+        history_date_limit:
+          description: Limit historical data retrieval to this date. ISO format (YYYY-MM-DD)
+          example: 2024-01-31
+          format: date
+          type: string
       required:
       - client_id
       - grant_type
@@ -13861,6 +13871,7 @@ components:
       type: object
     RefreshLoginIdentityLinkCustomizations:
       example:
+        history_date_limit: 2024-01-31
         language: en
         redirect_uri: redirect_uri
         state: user-state-passed
@@ -13891,11 +13902,17 @@ components:
           example: user-state-passed
           maxLength: 100
           type: string
+        history_date_limit:
+          description: Limit historical data retrieval to this date. ISO format (YYYY-MM-DD)
+          example: 2024-01-31
+          format: date
+          type: string
       type: object
     RefreshLoginIdentityRequest:
       example:
         user_present: true
         link_customizations:
+          history_date_limit: 2024-01-31
           language: en
           redirect_uri: redirect_uri
           state: user-state-passed

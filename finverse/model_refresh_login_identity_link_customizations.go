@@ -24,8 +24,10 @@ type RefreshLoginIdentityLinkCustomizations struct {
 	Language *string `json:"language,omitempty"`
 	UiMode   *string `json:"ui_mode,omitempty"`
 	// Required if ui_mode is redirect or auto_redirect
-	RedirectUri          *string `json:"redirect_uri,omitempty"`
-	State                *string `json:"state,omitempty"`
+	RedirectUri *string `json:"redirect_uri,omitempty"`
+	State       *string `json:"state,omitempty"`
+	// Limit historical data retrieval to this date. ISO format (YYYY-MM-DD)
+	HistoryDateLimit     *string `json:"history_date_limit,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -176,6 +178,38 @@ func (o *RefreshLoginIdentityLinkCustomizations) SetState(v string) {
 	o.State = &v
 }
 
+// GetHistoryDateLimit returns the HistoryDateLimit field value if set, zero value otherwise.
+func (o *RefreshLoginIdentityLinkCustomizations) GetHistoryDateLimit() string {
+	if o == nil || IsNil(o.HistoryDateLimit) {
+		var ret string
+		return ret
+	}
+	return *o.HistoryDateLimit
+}
+
+// GetHistoryDateLimitOk returns a tuple with the HistoryDateLimit field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *RefreshLoginIdentityLinkCustomizations) GetHistoryDateLimitOk() (*string, bool) {
+	if o == nil || IsNil(o.HistoryDateLimit) {
+		return nil, false
+	}
+	return o.HistoryDateLimit, true
+}
+
+// HasHistoryDateLimit returns a boolean if a field has been set.
+func (o *RefreshLoginIdentityLinkCustomizations) HasHistoryDateLimit() bool {
+	if o != nil && !IsNil(o.HistoryDateLimit) {
+		return true
+	}
+
+	return false
+}
+
+// SetHistoryDateLimit gets a reference to the given string and assigns it to the HistoryDateLimit field.
+func (o *RefreshLoginIdentityLinkCustomizations) SetHistoryDateLimit(v string) {
+	o.HistoryDateLimit = &v
+}
+
 func (o RefreshLoginIdentityLinkCustomizations) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -197,6 +231,9 @@ func (o RefreshLoginIdentityLinkCustomizations) ToMap() (map[string]interface{},
 	}
 	if !IsNil(o.State) {
 		toSerialize["state"] = o.State
+	}
+	if !IsNil(o.HistoryDateLimit) {
+		toSerialize["history_date_limit"] = o.HistoryDateLimit
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -224,6 +261,7 @@ func (o *RefreshLoginIdentityLinkCustomizations) UnmarshalJSON(data []byte) (err
 		delete(additionalProperties, "ui_mode")
 		delete(additionalProperties, "redirect_uri")
 		delete(additionalProperties, "state")
+		delete(additionalProperties, "history_date_limit")
 		o.AdditionalProperties = additionalProperties
 	}
 

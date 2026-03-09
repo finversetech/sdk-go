@@ -58,8 +58,10 @@ type LinkTokenRequest struct {
 	// Controls the behavior of the automatic data refresh checkbox
 	AutomaticDataRefresh *string `json:"automatic_data_refresh,omitempty"`
 	// institution's status filter
-	InstitutionStatus    *string               `json:"institution_status,omitempty"`
-	UserConfigs          *LinkTokenUserConfigs `json:"user_configs,omitempty"`
+	InstitutionStatus *string               `json:"institution_status,omitempty"`
+	UserConfigs       *LinkTokenUserConfigs `json:"user_configs,omitempty"`
+	// Limit historical data retrieval to this date. ISO format (YYYY-MM-DD)
+	HistoryDateLimit     *string `json:"history_date_limit,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -815,6 +817,38 @@ func (o *LinkTokenRequest) SetUserConfigs(v LinkTokenUserConfigs) {
 	o.UserConfigs = &v
 }
 
+// GetHistoryDateLimit returns the HistoryDateLimit field value if set, zero value otherwise.
+func (o *LinkTokenRequest) GetHistoryDateLimit() string {
+	if o == nil || IsNil(o.HistoryDateLimit) {
+		var ret string
+		return ret
+	}
+	return *o.HistoryDateLimit
+}
+
+// GetHistoryDateLimitOk returns a tuple with the HistoryDateLimit field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LinkTokenRequest) GetHistoryDateLimitOk() (*string, bool) {
+	if o == nil || IsNil(o.HistoryDateLimit) {
+		return nil, false
+	}
+	return o.HistoryDateLimit, true
+}
+
+// HasHistoryDateLimit returns a boolean if a field has been set.
+func (o *LinkTokenRequest) HasHistoryDateLimit() bool {
+	if o != nil && !IsNil(o.HistoryDateLimit) {
+		return true
+	}
+
+	return false
+}
+
+// SetHistoryDateLimit gets a reference to the given string and assigns it to the HistoryDateLimit field.
+func (o *LinkTokenRequest) SetHistoryDateLimit(v string) {
+	o.HistoryDateLimit = &v
+}
+
 func (o LinkTokenRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -887,6 +921,9 @@ func (o LinkTokenRequest) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UserConfigs) {
 		toSerialize["user_configs"] = o.UserConfigs
 	}
+	if !IsNil(o.HistoryDateLimit) {
+		toSerialize["history_date_limit"] = o.HistoryDateLimit
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -958,6 +995,7 @@ func (o *LinkTokenRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "automatic_data_refresh")
 		delete(additionalProperties, "institution_status")
 		delete(additionalProperties, "user_configs")
+		delete(additionalProperties, "history_date_limit")
 		o.AdditionalProperties = additionalProperties
 	}
 
