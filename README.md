@@ -440,3 +440,9 @@ mandateResp, _, err := client.DefaultApi.CreateMandateForExistingSender(customer
 
 - Use the same idempotency key for all retries of the same logical operation.
 - Keys should be unique per operation; do not reuse across different payments or mandates.
+
+---
+
+## Resources
+
+- **[Finverse AI Skills](https://github.com/finversetech/ai)** – Cursor Agent Skills for Finverse integrations. Contains implementation guides for payment flows, API patterns, and best practices. AI agents can use these skills when helping build Finverse integrations.
