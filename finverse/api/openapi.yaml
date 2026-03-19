@@ -2993,245 +2993,6 @@ paths:
       security:
       - Oauth2:
         - paymentMethod:get
-  /payment_link/fvlink/payment_user/sender:
-    get:
-      description: Get sender payment user in payment link flow
-      operationId: getSenderPaymentUser
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetPaymentUserResponse'
-          description: Successful
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - payment_links:payment_user:get
-  /payment_link/fvlink/payment_user/autopay:
-    post:
-      description: Set autopay consent for payment user
-      operationId: setAutopayConsent
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SetAutopayConsentRequest'
-        required: true
-      responses:
-        "200":
-          content: {}
-          description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Bad Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - paymentLink:paymentUser:setAutopayConsent
-      x-codegen-request-body-name: setAutopayConsentRequest
-  /payment_link/fvlink/payment_method:
-    get:
-      description: Get payment method in payment link flow
-      operationId: getPaymentMethodPaymentLink
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaymentMethodFvLinkResponse'
-          description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Bad Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - payment_links:payment_method:get
-  /payment_link/fvlink/payment_method/change:
-    post:
-      description: Initiate change payment method from payment link front-end
-      operationId: changePaymentMethodPaymentLink
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ChangePaymentMethodFvLinkResponse'
-          description: OK
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Bad Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - payment_links:payment_method:update
-  /payment_link/fvlink/payment_attempt/refresh:
-    post:
-      description: Refresh payment attempt from payment link front-end
-      operationId: refreshPaymentAttempt
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/RefreshPaymentAttemptResponse'
-          description: OK
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Unauthorized
-      security:
-      - Oauth2:
-        - payment_attempt:refresh
-  /payment_link/fvlink/payment:
-    get:
-      description: Get payment (if exists) on the payment link for front-end
-      operationId: getPaymentPaymentLink
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/PaymentFvLinkResponse'
-          description: OK
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Bad Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - paymentLinks:payment:get
-  /payment_link/fvlink/payment_attempt/demote:
-    post:
-      description: Demote payment attempt
-      operationId: demotePaymentAttempt
-      responses:
-        "200":
-          content: {}
-          description: ok
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Bad Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - paymentLinks:paymentAttempt:demote
-  /payment_link/fvlink/available_payment_methods:
-    get:
-      description: List available payment methods
-      operationId: listAvailablePaymentMethodsPaymentLink
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/AvailablePaymentMethodsFvLinkResponse'
-          description: ok
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Bad Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - paymentLink:availablePaymentMethod:list
   /payment_links/fvlink/select_payment_method:
     post:
       description: Select a payment method for payment link
@@ -11300,8 +11061,6 @@ components:
       - name
       type: object
     CardRecipient:
-      example:
-        name: name
       properties:
         name:
           description: Merchant account name
@@ -12449,11 +12208,6 @@ components:
           type: object
       type: object
     GetPaymentUserResponse:
-      example:
-        customer_app_id: customer_app_id
-        autopay_prefill: true
-        autopay_consent: true
-        payment_user_id: payment_user_id
       properties:
         payment_user_id:
           type: string
@@ -12474,8 +12228,6 @@ components:
       - payment_user_id
       type: object
     SetAutopayConsentRequest:
-      example:
-        autopay_consent: true
       properties:
         autopay_consent:
           type: boolean
@@ -13508,42 +13260,6 @@ components:
           $ref: '#/components/schemas/PaymentMethodIntegrationMetadataResponse'
       type: object
     PaymentMethodFvLinkResponse:
-      example:
-        payment_method_type: payment_method_type
-        recipient_entity_name: recipient_entity_name
-        payment_method_id: payment_method_id
-        mandate:
-          mandate_status: mandate_status
-          mandate_details:
-            collection_entity_name: collection_entity_name
-          sender_account:
-            account_number_masked: account_number_masked
-            institution_name: institution_name
-            institution_id: institution_id
-          recipient:
-            name: name
-          mandate_id: mandate_id
-          error:
-            error_code: CREDENTIALS_INVALID
-            details: details
-            type: LINKING_ERROR
-            message: message
-          institution_id: institution_id
-        card:
-          card_details:
-            last4: "1234"
-            expiry_month: 7
-            collection_entity_name: collection_entity_name
-            brand: VISA
-            expiry_year: 2028
-          recipient:
-            name: name
-          error:
-            error_code: CREDENTIALS_INVALID
-            details: details
-            type: LINKING_ERROR
-            message: message
-          status: UNKNOWN
       properties:
         payment_method_id:
           type: string
@@ -13557,20 +13273,6 @@ components:
           $ref: '#/components/schemas/CardFvLinkResponse'
       type: object
     AvailablePaymentMethodsFvLinkResponse:
-      example:
-        available_payment_methods:
-        - payment_account_id: payment_account_id
-          payment_method_type: payment_method_type
-          recurring: true
-          fee: fee
-          payment_method_provider: payment_method_provider
-          payment_method_subtype: payment_method_subtype
-        - payment_account_id: payment_account_id
-          payment_method_type: payment_method_type
-          recurring: true
-          fee: fee
-          payment_method_provider: payment_method_provider
-          payment_method_subtype: payment_method_subtype
       properties:
         available_payment_methods:
           items:
@@ -13578,13 +13280,6 @@ components:
           type: array
       type: object
     AvailablePaymentMethod:
-      example:
-        payment_account_id: payment_account_id
-        payment_method_type: payment_method_type
-        recurring: true
-        fee: fee
-        payment_method_provider: payment_method_provider
-        payment_method_subtype: payment_method_subtype
       properties:
         payment_account_id:
           type: string
@@ -13605,18 +13300,6 @@ components:
       - recurring
       type: object
     PaymentFvLinkResponse:
-      example:
-        payment_details:
-          collection_entity_name: collection_entity_name
-        payment_id: payment_id
-        type: MANDATE
-        error:
-          error_code: CREDENTIALS_INVALID
-          details: details
-          type: LINKING_ERROR
-          message: message
-        status: AUTHORIZATION_REQUIRED
-        skip_polling: true
       properties:
         payment_id:
           type: string
@@ -13652,30 +13335,11 @@ components:
       - skip_polling
       type: object
     PaymentFvLinkDetails:
-      example:
-        collection_entity_name: collection_entity_name
       properties:
         collection_entity_name:
           type: string
       type: object
     MandateFvLinkResponse:
-      example:
-        mandate_status: mandate_status
-        mandate_details:
-          collection_entity_name: collection_entity_name
-        sender_account:
-          account_number_masked: account_number_masked
-          institution_name: institution_name
-          institution_id: institution_id
-        recipient:
-          name: name
-        mandate_id: mandate_id
-        error:
-          error_code: CREDENTIALS_INVALID
-          details: details
-          type: LINKING_ERROR
-          message: message
-        institution_id: institution_id
       properties:
         mandate_id:
           type: string
@@ -13693,28 +13357,11 @@ components:
           $ref: '#/components/schemas/MandateFvLinkDetails'
       type: object
     MandateFvLinkDetails:
-      example:
-        collection_entity_name: collection_entity_name
       properties:
         collection_entity_name:
           type: string
       type: object
     CardFvLinkResponse:
-      example:
-        card_details:
-          last4: "1234"
-          expiry_month: 7
-          collection_entity_name: collection_entity_name
-          brand: VISA
-          expiry_year: 2028
-        recipient:
-          name: name
-        error:
-          error_code: CREDENTIALS_INVALID
-          details: details
-          type: LINKING_ERROR
-          message: message
-        status: UNKNOWN
       properties:
         status:
           enum:
@@ -13732,12 +13379,6 @@ components:
           $ref: '#/components/schemas/FvEmbeddedErrorModel'
       type: object
     CardFvLinkDetails:
-      example:
-        last4: "1234"
-        expiry_month: 7
-        collection_entity_name: collection_entity_name
-        brand: VISA
-        expiry_year: 2028
       properties:
         brand:
           description: The credit card brand
@@ -13759,10 +13400,6 @@ components:
           type: string
       type: object
     SenderAccountFvLinkResponse:
-      example:
-        account_number_masked: account_number_masked
-        institution_name: institution_name
-        institution_id: institution_id
       properties:
         account_number_masked:
           type: string
@@ -13772,8 +13409,6 @@ components:
           type: string
       type: object
     ChangePaymentMethodFvLinkResponse:
-      example:
-        redirect_url: redirect_url
       properties:
         redirect_url:
           type: string
@@ -13834,8 +13469,6 @@ components:
           $ref: '#/components/schemas/PaymentSnapshotPaymentMethod_bank_transfer'
       type: object
     RefreshPaymentAttemptResponse:
-      example:
-        redirect_url: redirect_url
       properties:
         redirect_url:
           type: string
