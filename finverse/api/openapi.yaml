@@ -15,14 +15,16 @@ security:
 - Oauth2:
   - test
 tags:
-- description: Operations does not required an access token
+- description: Publicly accessible endpoints
   name: public
-- description: Operations required a customer access token
+- description: Customer endpoints
   name: customer
-- description: Operations required a login identity access token
+- description: Login identity endpoints
   name: login_identity
-- description: Operations required a link token
+- description: Link endpoints
   name: link
+- description: Payment endpoints
+  name: payment
 paths:
   /jwks:
     get:
@@ -501,6 +503,8 @@ paths:
       security:
       - Oauth2:
         - institution:link
+      tags:
+      - customer
   /identity:
     get:
       description: "\\[BETA] Get a list of identity data for a given login identity"
@@ -529,32 +533,6 @@ paths:
         - identity
       tags:
       - login_identity
-  /payment_links/confirm:
-    post:
-      description: Confirm a payment against a payment Link
-      operationId: confirmPayment
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ConfirmPaymentResponse'
-          description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Invalid Request
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - payment:confirm
   /payment_links:
     post:
       description: Create payment link
@@ -588,6 +566,8 @@ paths:
       security:
       - Oauth2:
         - paymentlink:create
+      tags:
+      - payment
       x-codegen-request-body-name: createPaymentLinkRequest
   /payment_links/{paymentLinkId}:
     get:
@@ -623,6 +603,8 @@ paths:
       security:
       - Oauth2:
         - paymentlink:get
+      tags:
+      - payment
   /payment_links/{paymentLinkId}/cancel:
     post:
       description: Cancel a payment link
@@ -657,6 +639,8 @@ paths:
       security:
       - Oauth2:
         - paymentlink:cancel
+      tags:
+      - payment
   /payment_links/kcp/payment:
     post:
       description: Complete a KCP payment
@@ -690,6 +674,8 @@ paths:
       security:
       - Oauth2:
         - kcp:completePayment
+      tags:
+      - payment
       x-codegen-request-body-name: completeKcpPaymentRequest
   /link:
     post:
@@ -767,8 +753,7 @@ paths:
       - Oauth2:
         - link:token
       tags:
-      - customer
-      - login_identity
+      - link
       x-codegen-request-body-name: linkTokenRequest
   /link/relink/{loginIdentityId}:
     post:
@@ -891,41 +876,6 @@ paths:
         - linkApi:read
       tags:
       - link
-  /link/fvlink/status/{loginIdentityId}:
-    get:
-      description: Check the status of a given login identity via FVLink
-      operationId: linkStatusNonSensitive
-      parameters:
-      - description: The login identity id
-        in: path
-        name: loginIdentityId
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/NonSensitiveLinkStatusResponse'
-          description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModel'
-          description: Bad Request
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModel'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - fvLinkStatus:read
-      tags:
-      - link
   /auth/token:
     post:
       description: Exchange authorization code for token
@@ -1030,7 +980,7 @@ paths:
       - Oauth2:
         - loginIdentity:get
       tags:
-      - customer
+      - login_identity
   /login_identity/{loginIdentityId}/history:
     get:
       description: Get a history of events for a specific loginIdentity
@@ -1065,7 +1015,7 @@ paths:
       - Oauth2:
         - loginIdentity:get
       tags:
-      - customer
+      - login_identity
   /login_identity:
     delete:
       description: Delete a specific loginIdentity
@@ -1330,6 +1280,8 @@ paths:
       security:
       - Oauth2:
         - payment_method:list
+      tags:
+      - payment
     post:
       description: Create a Payment Method for a user
       operationId: createPaymentMethod
@@ -1374,6 +1326,8 @@ paths:
       security:
       - Oauth2:
         - paymentMethod:create
+      tags:
+      - payment
       x-codegen-request-body-name: createPaymentMethodRequest
   /mandates:
     get:
@@ -1473,6 +1427,8 @@ paths:
       security:
       - Oauth2:
         - mandate:list
+      tags:
+      - payment
     post:
       description: CREATE Mandate
       operationId: createMandate
@@ -1520,7 +1476,7 @@ paths:
       - Oauth2:
         - mandate:create
       tags:
-      - customer
+      - payment
       x-codegen-request-body-name: createMandateRequest
   /mandates/details:
     get:
@@ -1620,6 +1576,8 @@ paths:
       security:
       - Oauth2:
         - mandate:listSensitive
+      tags:
+      - payment
   /mandates/institution_selection:
     post:
       description: Update InstitutionID and SenderType for Mandate
@@ -1660,7 +1618,7 @@ paths:
       - Oauth2:
         - mandate_auth:update
       tags:
-      - customer
+      - payment
       x-codegen-request-body-name: updateRequest
   /mandates/{mandateId}:
     get:
@@ -1702,7 +1660,7 @@ paths:
       - Oauth2:
         - mandate:get
       tags:
-      - customer
+      - payment
   /mandates/link:
     post:
       description: Get link to launch FV Link UI in mandate authorization mode
@@ -1743,7 +1701,7 @@ paths:
       - Oauth2:
         - mandate:create
       tags:
-      - customer
+      - payment
       x-codegen-request-body-name: getMandateAuthLinkRequest
   /mandates/sender_account:
     post:
@@ -1793,6 +1751,8 @@ paths:
       security:
       - Oauth2:
         - mandate:create
+      tags:
+      - payment
       x-codegen-request-body-name: createMandateRequest
   /payments:
     get:
@@ -1934,6 +1894,8 @@ paths:
       security:
       - Oauth2:
         - payment:list
+      tags:
+      - payment
     post:
       description: Create new Payment
       operationId: createPayment
@@ -1981,7 +1943,7 @@ paths:
       - Oauth2:
         - payment:create
       tags:
-      - customer
+      - payment
       x-codegen-request-body-name: createPaymentRequest
   /payments/{paymentId}:
     get:
@@ -2023,7 +1985,7 @@ paths:
       - Oauth2:
         - payment:get
       tags:
-      - customer
+      - payment
     post:
       description: Update payment
       operationId: updatePayment
@@ -2070,7 +2032,7 @@ paths:
       - Oauth2:
         - payment:update
       tags:
-      - customer
+      - payment
       x-codegen-request-body-name: updatePaymentRequest
   /mandates/auth:
     get:
@@ -2105,7 +2067,7 @@ paths:
       - Oauth2:
         - mandate_auth:get
       tags:
-      - customer
+      - payment
     post:
       description: Submit authorization checklist items
       operationId: submitAuthChecklist
@@ -2145,7 +2107,7 @@ paths:
       - Oauth2:
         - mandate_auth:update
       tags:
-      - customer
+      - payment
       x-codegen-request-body-name: submitAuthChecklistRequest
   /mandates/{mandateId}/authorize:
     post:
@@ -2194,7 +2156,7 @@ paths:
       - Oauth2:
         - mandates:authorize
       tags:
-      - customer
+      - payment
       x-codegen-request-body-name: authorizeMandateRequest
   /payments/instruction:
     post:
@@ -2241,7 +2203,8 @@ paths:
       x-codegen-request-body-name: paymentInstruction
   /testing/payments/{paymentId}/status:
     post:
-      description: Update the status of a test manual payment
+      deprecated: true
+      description: "[DEPRECATED] Update the status of a test manual payment"
       operationId: updateTestPaymentStatus
       parameters:
       - description: The test payment ID
@@ -2277,11 +2240,12 @@ paths:
       - Oauth2:
         - testPayment:update
       tags:
-      - customer
+      - payment
       x-codegen-request-body-name: paymentStatus
   /payments/instruction/{paymentInstructionId}:
     get:
-      description: Get payment instructions by payment_instruction_id
+      deprecated: true
+      description: "[DEPRECATED] Get payment instructions by payment_instruction_id"
       operationId: getPaymentInstruction
       parameters:
       - description: The id of a payment instruction
@@ -2320,40 +2284,6 @@ paths:
         - payment:get
       tags:
       - customer
-  /payments/manual_payment:
-    post:
-      description: Submit manual payment confirmation
-      operationId: confirmManualPayment
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/ManualPaymentConfirmationRequest'
-        description: Request body containing information to identify manual payment
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ManualPaymentConfirmationResponse'
-          description: ok
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Bad Request
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - manual_payment:confirm
-      x-codegen-request-body-name: manualPaymentIdentifiers
   /payouts/scheduled:
     post:
       description: Create a scheduled payout
@@ -2396,6 +2326,8 @@ paths:
       security:
       - Oauth2:
         - payout:create
+      tags:
+      - payment
       x-codegen-request-body-name: createScheduledPayoutRequest
   /payouts/{payoutId}:
     get:
@@ -2436,6 +2368,8 @@ paths:
       security:
       - Oauth2:
         - payout:get
+      tags:
+      - payment
   /payouts:
     get:
       description: List payouts
@@ -2542,6 +2476,8 @@ paths:
       security:
       - Oauth2:
         - payout:list
+      tags:
+      - payment
   /payouts/{payoutId}/cancel:
     post:
       description: Cancel Payout by payout_id
@@ -2581,72 +2517,8 @@ paths:
       security:
       - Oauth2:
         - payout:cancel
-  /payment_links/fps/qr_code:
-    get:
-      description: Get the FPS QR code
-      operationId: getFpsQrCode
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/FpsQrCodeResponse'
-          description: Success
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Invalid Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - qr_code:get
-  /calculate/line_items_v2:
-    get:
-      description: Get line items for display
-      operationId: getLineItemsForDisplayV2
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetLineItemsForDisplayResponseV2'
-          description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Invalid Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - line_items:get
       tags:
-      - customer
+      - payment
   /payment_users/{paymentUserId}/payment_accounts:
     get:
       description: Get payment account by user id
@@ -2687,7 +2559,7 @@ paths:
       - Oauth2:
         - payment_account:get
       tags:
-      - customer
+      - payment
   /payment_accounts:
     get:
       description: Get payment account for customer app
@@ -2754,7 +2626,7 @@ paths:
       - Oauth2:
         - paymentAccount:list
       tags:
-      - customer
+      - payment
     post:
       description: create payment account
       operationId: createPaymentAccount
@@ -2794,7 +2666,7 @@ paths:
       - Oauth2:
         - payment_account:create
       tags:
-      - customer
+      - payment
       x-codegen-request-body-name: createPaymentAccountRequest
   /payment_accounts/{paymentAccountId}:
     delete:
@@ -2833,7 +2705,7 @@ paths:
       - Oauth2:
         - payment_account:delete
       tags:
-      - customer
+      - payment
   /payment_users:
     post:
       description: Create a payment user
@@ -2874,7 +2746,7 @@ paths:
       - Oauth2:
         - payment_user:create
       tags:
-      - customer
+      - payment
       x-codegen-request-body-name: createPaymentUserRequest
   /payment_users/{paymentUserId}:
     get:
@@ -2915,7 +2787,7 @@ paths:
       - Oauth2:
         - payment_user:get
       tags:
-      - customer
+      - payment
     post:
       description: Update a payment user
       operationId: updatePaymentUser
@@ -2954,6 +2826,8 @@ paths:
       security:
       - Oauth2:
         - paymentUser:update
+      tags:
+      - payment
       x-codegen-request-body-name: updatePaymentUserRequest
   /payment_methods/{paymentMethodId}:
     get:
@@ -2993,46 +2867,8 @@ paths:
       security:
       - Oauth2:
         - paymentMethod:get
-  /payment_links/fvlink/select_payment_method:
-    post:
-      description: Select a payment method for payment link
-      operationId: selectPaymentMethodPaymentLink
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/SelectPaymentMethodRequest'
-        description: request body for selecting a payment method
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/SelectPaymentMethodResponse'
-          description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Bad Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrBodyModelV2'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - paymentLink:paymentMethod:select
-      x-codegen-request-body-name: selectPaymentMethodRequest
+      tags:
+      - payment
   /ledger/statement:
     get:
       description: Download the balance statement for the ledger (CSV)
@@ -3075,6 +2911,8 @@ paths:
       security:
       - Oauth2:
         - ledger:statement
+      tags:
+      - payment
   /disputes:
     get:
       description: List Disputes
@@ -3152,6 +2990,8 @@ paths:
       security:
       - Oauth2:
         - dispute:list
+      tags:
+      - payment
 components:
   schemas:
     Principal:
@@ -5410,8 +5250,6 @@ components:
       - store_credential
       type: object
     ConfirmPaymentResponse:
-      example:
-        success: true
       properties:
         success:
           example: true
@@ -5420,11 +5258,6 @@ components:
       - success
       type: object
     PaymentLinkTokenResponse:
-      example:
-        access_token: access_token
-        link_url: link_url
-        token_type: Bearer
-        expires_in: 0
       properties:
         access_token:
           description: Short-lived access-token to interact with Finverse Link
@@ -7090,10 +6923,6 @@ components:
           $ref: '#/components/schemas/LinkStatusActionModel'
       type: object
     NonSensitiveLinkStatusSuccessModel:
-      example:
-        code: code
-        state: state
-        login_identity_id: login_identity_id
       properties:
         code:
           type: string
@@ -7103,55 +6932,6 @@ components:
           type: string
       type: object
     NonSensitiveLinkStatusResponse:
-      example:
-        success:
-          code: code
-          state: state
-          login_identity_id: login_identity_id
-        action:
-          buttons:
-          - name: name
-            type: SUBMIT
-            value: Submit One time password
-          - name: name
-            type: SUBMIT
-            value: Submit One time password
-          action_id: action_id
-          name: DEVICE_SELECTION
-          messages:
-          - name: name
-            type: type
-            value: value
-          - name: name
-            type: type
-            value: value
-          type: ACTION
-          fields:
-          - name: name
-            options:
-            - label: joe-iphone-13
-              value: Joe's iPhone 13 Pro Max
-            - label: joe-iphone-13
-              value: Joe's iPhone 13 Pro Max
-            label: label
-            placeholder: placeholder
-            type: SELECT
-          - name: name
-            options:
-            - label: joe-iphone-13
-              value: Joe's iPhone 13 Pro Max
-            - label: joe-iphone-13
-              value: Joe's iPhone 13 Pro Max
-            label: label
-            placeholder: placeholder
-            type: SELECT
-        redirect_uri: redirect_uri
-        error:
-          error_code: CREDENTIALS_INVALID
-          details: details
-          type: LINKING_ERROR
-          message: message
-          request_id: request_id
       properties:
         action:
           $ref: '#/components/schemas/LinkStatusActionModel'
@@ -10476,14 +10256,6 @@ components:
       - amount
       type: object
     GetLineItemsForDisplayResponseV2:
-      example:
-        line_items:
-        - amount: amount
-          item_type: AMOUNT_DUE
-          currency: currency
-        - amount: amount
-          item_type: AMOUNT_DUE
-          currency: currency
       properties:
         line_items:
           items:
@@ -10491,10 +10263,6 @@ components:
           type: array
       type: object
     LineItem:
-      example:
-        amount: amount
-        item_type: AMOUNT_DUE
-        currency: currency
       properties:
         currency:
           type: string
@@ -12269,8 +12037,6 @@ components:
       - autopay_consent
       type: object
     FpsQrCodeResponse:
-      example:
-        qr_code: qr_code
       properties:
         qr_code:
           description: The FPS QR code in base64
@@ -12279,8 +12045,6 @@ components:
       - qr_code
       type: object
     ManualPaymentConfirmationRequest:
-      example:
-        accountholder_name: accountholder_name
       properties:
         accountholder_name:
           description: Required if manual payment provider is HK_FPS. Not required
@@ -12289,9 +12053,6 @@ components:
           type: string
       type: object
     ManualPaymentConfirmationResponse:
-      example:
-        payment_id: payment_id
-        status: AUTHORIZATION_REQUIRED
       properties:
         payment_id:
           type: string
@@ -13858,11 +13619,6 @@ components:
       - redirect
       type: object
     SelectPaymentMethodRequest:
-      example:
-        payment_account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
-        payment_method_type: MANDATE
-        is_mobile: false
-        sender_type: INDIVIDUAL
       properties:
         payment_account_id:
           description: The payment account ID of the selected payment method
@@ -13892,15 +13648,6 @@ components:
       - payment_method_type
       type: object
     SelectPaymentMethodResponse:
-      example:
-        card_processor_redirect_uri: card_processor_redirect_uri
-        processor_redirect_uri: processor_redirect_uri
-        token:
-          access_token: access_token
-          link_url: link_url
-          token_type: Bearer
-          expires_in: 0
-        mandate_processor_redirect_uri: mandate_processor_redirect_uri
       properties:
         token:
           $ref: '#/components/schemas/PaymentLinkTokenResponse'

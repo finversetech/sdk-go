@@ -1,9 +1,9 @@
 .openapi-generator-ignore
 api/openapi.yaml
 api_customer.go
-api_default.go
 api_link.go
 api_login_identity.go
+api_payment.go
 api_public.go
 client.go
 configuration.go

@@ -37,20 +37,6 @@ type LoginIdentityAPI interface {
 	DeleteLoginIdentityExecute(r LoginIdentityAPIDeleteLoginIdentityRequest) (*DeleteLoginIdentityResponse, *http.Response, error)
 
 	/*
-		GenerateLinkToken Method for GenerateLinkToken
-
-		generate a link token that can be used to create link
-
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return LoginIdentityAPIGenerateLinkTokenRequest
-	*/
-	GenerateLinkToken(ctx context.Context) LoginIdentityAPIGenerateLinkTokenRequest
-
-	// GenerateLinkTokenExecute executes the request
-	//  @return LinkTokenResponse
-	GenerateLinkTokenExecute(r LoginIdentityAPIGenerateLinkTokenRequest) (*LinkTokenResponse, *http.Response, error)
-
-	/*
 		GetAccount Method for GetAccount
 
 		Get a specific account's information
@@ -150,6 +136,36 @@ type LoginIdentityAPI interface {
 	// GetLoginIdentityExecute executes the request
 	//  @return GetLoginIdentityByIdResponse
 	GetLoginIdentityExecute(r LoginIdentityAPIGetLoginIdentityRequest) (*GetLoginIdentityByIdResponse, *http.Response, error)
+
+	/*
+		GetLoginIdentityById Method for GetLoginIdentityById
+
+		Get a specific loginIdentity
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param loginIdentityId The login identity id
+		@return LoginIdentityAPIGetLoginIdentityByIdRequest
+	*/
+	GetLoginIdentityById(ctx context.Context, loginIdentityId string) LoginIdentityAPIGetLoginIdentityByIdRequest
+
+	// GetLoginIdentityByIdExecute executes the request
+	//  @return GetLoginIdentityByIdResponse
+	GetLoginIdentityByIdExecute(r LoginIdentityAPIGetLoginIdentityByIdRequest) (*GetLoginIdentityByIdResponse, *http.Response, error)
+
+	/*
+		GetLoginIdentityHistory Method for GetLoginIdentityHistory
+
+		Get a history of events for a specific loginIdentity
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param loginIdentityId The login identity id
+		@return LoginIdentityAPIGetLoginIdentityHistoryRequest
+	*/
+	GetLoginIdentityHistory(ctx context.Context, loginIdentityId string) LoginIdentityAPIGetLoginIdentityHistoryRequest
+
+	// GetLoginIdentityHistoryExecute executes the request
+	//  @return GetLoginIdentityHistoryResponse
+	GetLoginIdentityHistoryExecute(r LoginIdentityAPIGetLoginIdentityHistoryRequest) (*GetLoginIdentityHistoryResponse, *http.Response, error)
 
 	/*
 		GetStatement Method for GetStatement
@@ -347,156 +363,6 @@ func (a *LoginIdentityAPIService) DeleteLoginIdentityExecute(r LoginIdentityAPID
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
-			var v BadRequestModelV2
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v BadRequestModelV2
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type LoginIdentityAPIGenerateLinkTokenRequest struct {
-	ctx              context.Context
-	ApiService       LoginIdentityAPI
-	linkTokenRequest *LinkTokenRequest
-}
-
-// token request
-func (r LoginIdentityAPIGenerateLinkTokenRequest) LinkTokenRequest(linkTokenRequest LinkTokenRequest) LoginIdentityAPIGenerateLinkTokenRequest {
-	r.linkTokenRequest = &linkTokenRequest
-	return r
-}
-
-func (r LoginIdentityAPIGenerateLinkTokenRequest) Execute() (*LinkTokenResponse, *http.Response, error) {
-	return r.ApiService.GenerateLinkTokenExecute(r)
-}
-
-/*
-GenerateLinkToken Method for GenerateLinkToken
-
-generate a link token that can be used to create link
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return LoginIdentityAPIGenerateLinkTokenRequest
-*/
-func (a *LoginIdentityAPIService) GenerateLinkToken(ctx context.Context) LoginIdentityAPIGenerateLinkTokenRequest {
-	return LoginIdentityAPIGenerateLinkTokenRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//  @return LinkTokenResponse
-func (a *LoginIdentityAPIService) GenerateLinkTokenExecute(r LoginIdentityAPIGenerateLinkTokenRequest) (*LinkTokenResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *LinkTokenResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityAPIService.GenerateLinkToken")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/link/token"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.linkTokenRequest == nil {
-		return localVarReturnValue, nil, reportError("linkTokenRequest is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	// body params
-	localVarPostBody = r.linkTokenRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if a.client.cfg.ResponseMiddleware != nil {
-		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
-		if err != nil {
-			return localVarReturnValue, localVarHTTPResponse, err
-		}
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
-			var v BadRequestModelV2
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
 			var v BadRequestModelV2
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -1369,6 +1235,268 @@ func (a *LoginIdentityAPIService) GetLoginIdentityExecute(r LoginIdentityAPIGetL
 	}
 
 	localVarPath := localBasePath + "/login_identity"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v BadRequestModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v BadRequestModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type LoginIdentityAPIGetLoginIdentityByIdRequest struct {
+	ctx             context.Context
+	ApiService      LoginIdentityAPI
+	loginIdentityId string
+}
+
+func (r LoginIdentityAPIGetLoginIdentityByIdRequest) Execute() (*GetLoginIdentityByIdResponse, *http.Response, error) {
+	return r.ApiService.GetLoginIdentityByIdExecute(r)
+}
+
+/*
+GetLoginIdentityById Method for GetLoginIdentityById
+
+Get a specific loginIdentity
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param loginIdentityId The login identity id
+ @return LoginIdentityAPIGetLoginIdentityByIdRequest
+*/
+func (a *LoginIdentityAPIService) GetLoginIdentityById(ctx context.Context, loginIdentityId string) LoginIdentityAPIGetLoginIdentityByIdRequest {
+	return LoginIdentityAPIGetLoginIdentityByIdRequest{
+		ApiService:      a,
+		ctx:             ctx,
+		loginIdentityId: loginIdentityId,
+	}
+}
+
+// Execute executes the request
+//  @return GetLoginIdentityByIdResponse
+func (a *LoginIdentityAPIService) GetLoginIdentityByIdExecute(r LoginIdentityAPIGetLoginIdentityByIdRequest) (*GetLoginIdentityByIdResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetLoginIdentityByIdResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityAPIService.GetLoginIdentityById")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/login_identity/{loginIdentityId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"loginIdentityId"+"}", url.PathEscape(parameterValueToString(r.loginIdentityId, "loginIdentityId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v BadRequestModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+			return localVarReturnValue, localVarHTTPResponse, newErr
+		}
+		if localVarHTTPResponse.StatusCode == 500 {
+			var v BadRequestModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type LoginIdentityAPIGetLoginIdentityHistoryRequest struct {
+	ctx             context.Context
+	ApiService      LoginIdentityAPI
+	loginIdentityId string
+}
+
+func (r LoginIdentityAPIGetLoginIdentityHistoryRequest) Execute() (*GetLoginIdentityHistoryResponse, *http.Response, error) {
+	return r.ApiService.GetLoginIdentityHistoryExecute(r)
+}
+
+/*
+GetLoginIdentityHistory Method for GetLoginIdentityHistory
+
+Get a history of events for a specific loginIdentity
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param loginIdentityId The login identity id
+ @return LoginIdentityAPIGetLoginIdentityHistoryRequest
+*/
+func (a *LoginIdentityAPIService) GetLoginIdentityHistory(ctx context.Context, loginIdentityId string) LoginIdentityAPIGetLoginIdentityHistoryRequest {
+	return LoginIdentityAPIGetLoginIdentityHistoryRequest{
+		ApiService:      a,
+		ctx:             ctx,
+		loginIdentityId: loginIdentityId,
+	}
+}
+
+// Execute executes the request
+//  @return GetLoginIdentityHistoryResponse
+func (a *LoginIdentityAPIService) GetLoginIdentityHistoryExecute(r LoginIdentityAPIGetLoginIdentityHistoryRequest) (*GetLoginIdentityHistoryResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetLoginIdentityHistoryResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "LoginIdentityAPIService.GetLoginIdentityHistory")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/login_identity/{loginIdentityId}/history"
+	localVarPath = strings.Replace(localVarPath, "{"+"loginIdentityId"+"}", url.PathEscape(parameterValueToString(r.loginIdentityId, "loginIdentityId")), -1)
 
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
