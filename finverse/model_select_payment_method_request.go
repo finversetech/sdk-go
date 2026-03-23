@@ -27,7 +27,9 @@ type SelectPaymentMethodRequest struct {
 	PaymentMethodType string  `json:"payment_method_type"`
 	SenderType        *string `json:"sender_type,omitempty"`
 	// Whether the user is on mobile device (only makes a difference if payment_method_provider is KCP)
-	IsMobile             *bool `json:"is_mobile,omitempty"`
+	IsMobile *bool `json:"is_mobile,omitempty"`
+	// Optional Finverse institution ID (passed through when selecting KCP manual payment flow)
+	InstitutionId        *string `json:"institution_id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -168,6 +170,38 @@ func (o *SelectPaymentMethodRequest) SetIsMobile(v bool) {
 	o.IsMobile = &v
 }
 
+// GetInstitutionId returns the InstitutionId field value if set, zero value otherwise.
+func (o *SelectPaymentMethodRequest) GetInstitutionId() string {
+	if o == nil || IsNil(o.InstitutionId) {
+		var ret string
+		return ret
+	}
+	return *o.InstitutionId
+}
+
+// GetInstitutionIdOk returns a tuple with the InstitutionId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SelectPaymentMethodRequest) GetInstitutionIdOk() (*string, bool) {
+	if o == nil || IsNil(o.InstitutionId) {
+		return nil, false
+	}
+	return o.InstitutionId, true
+}
+
+// HasInstitutionId returns a boolean if a field has been set.
+func (o *SelectPaymentMethodRequest) HasInstitutionId() bool {
+	if o != nil && !IsNil(o.InstitutionId) {
+		return true
+	}
+
+	return false
+}
+
+// SetInstitutionId gets a reference to the given string and assigns it to the InstitutionId field.
+func (o *SelectPaymentMethodRequest) SetInstitutionId(v string) {
+	o.InstitutionId = &v
+}
+
 func (o SelectPaymentMethodRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -185,6 +219,9 @@ func (o SelectPaymentMethodRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.IsMobile) {
 		toSerialize["is_mobile"] = o.IsMobile
+	}
+	if !IsNil(o.InstitutionId) {
+		toSerialize["institution_id"] = o.InstitutionId
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -234,6 +271,7 @@ func (o *SelectPaymentMethodRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "payment_method_type")
 		delete(additionalProperties, "sender_type")
 		delete(additionalProperties, "is_mobile")
+		delete(additionalProperties, "institution_id")
 		o.AdditionalProperties = additionalProperties
 	}
 
