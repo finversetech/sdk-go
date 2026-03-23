@@ -11,10 +11,10 @@ import (
 func TestLoginIdentity(t *testing.T) {
 	client := NewTestClient()
 	loginIdentityToken := "loginIdentityToken"
-	loginIdentityCtx := context.WithValue(context.Background(), finverse.ContextAccessToken, loginIdentityToken)
+	loginIdentityCtx := contextWithAccessToken(context.Background(), loginIdentityToken)
 
 	// Get LoginIdentity
-	loginIdentityResp, _, err := client.LoginIdentityApi.GetLoginIdentity(loginIdentityCtx).Execute()
+	loginIdentityResp, _, err := client.LoginIdentityAPI.GetLoginIdentity(loginIdentityCtx).Execute()
 	if err != nil {
 		panic(err)
 	}
@@ -27,14 +27,14 @@ func TestLoginIdentity(t *testing.T) {
 func TestLoginIdentityPollUntilReady(t *testing.T) {
 	client := NewTestClient()
 	loginIdentityToken := "loginIdentityToken"
-	loginIdentityCtx := context.WithValue(context.Background(), finverse.ContextAccessToken, loginIdentityToken)
+	loginIdentityCtx := contextWithAccessToken(context.Background(), loginIdentityToken)
 
 	// Wait until loginIdentityStatus is ready
 	finalStatuses := map[string]struct{}{"ERROR": struct{}{}, "DATA_RETRIEVAL_PARTIALLY_SUCCESSFUL": struct{}{}, "DATA_RETRIEVAL_COMPLETE": struct{}{}}
 	var i int
 	var loginIdentity *finverse.LoginIdentity
 	for i = 0; i < 20; i++ {
-		loginIdentityResp, _, err := client.LoginIdentityApi.GetLoginIdentity(loginIdentityCtx).Execute()
+		loginIdentityResp, _, err := client.LoginIdentityAPI.GetLoginIdentity(loginIdentityCtx).Execute()
 		if err != nil {
 			panic(err)
 		}

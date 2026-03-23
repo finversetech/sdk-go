@@ -1,13 +1,21 @@
 package test
 
 import (
+	"context"
 	"net/http"
 	"net/http/httptest"
 	"os"
 	"time"
 
 	"github.com/finversetech/sdk-go/finverse"
+	"golang.org/x/oauth2"
 )
+
+// contextWithAccessToken attaches a bearer token for authenticated Finverse API calls.
+func contextWithAccessToken(parent context.Context, accessToken string) context.Context {
+	ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: accessToken})
+	return context.WithValue(parent, finverse.ContextOAuth2, ts)
+}
 
 // obtain these from https://dashboard.finverse.com
 // for the test, these will be overriden in initMockServer()
@@ -54,7 +62,8 @@ func mockCustomerToken(w http.ResponseWriter, r *http.Request) {
 {
   "access_token": "customer_token",
   "expires_in": 3600,
-  "token_type": "Bearer"
+  "token_type": "Bearer",
+  "issued_at": "2021-01-01T00:00:00Z"
 }
 	`))
 }
@@ -66,7 +75,8 @@ func mockLinkToken(w http.ResponseWriter, r *http.Request) {
   "access_token": "link_token",
   "expires_in": 300,
   "link_url": "https://link.sandbox.finverse.net/onboarding?token=link_token",
-  "token_type": "Bearer"
+  "token_type": "Bearer",
+  "issued_at": "2021-01-01T00:00:00Z"
 }
 	`))
 }
@@ -79,7 +89,8 @@ func mockLoginIdentityToken(w http.ResponseWriter, r *http.Request) {
   "expires_in": 3600,
   "login_identity_id": "login_identity_id",
   "refresh_token": "login_identity_refresh_token",
-  "token_type": "Bearer"
+  "token_type": "Bearer",
+  "issued_at": "2021-01-01T00:00:00Z"
 }
 	`))
 }
@@ -192,6 +203,7 @@ func mockAccounts(w http.ResponseWriter, r *http.Request) {
       "is_closed": false,
       "is_excluded": false,
       "is_parent": false,
+      "metadata": {},
       "statement_balance": {
         "currency": "HKD",
         "raw": "70013.12",
@@ -213,6 +225,7 @@ func mockAccounts(w http.ResponseWriter, r *http.Request) {
       "is_closed": false,
       "is_excluded": false,
       "is_parent": false,
+      "metadata": {},
       "statement_balance": {
         "currency": "HKD",
         "raw": "-1833.22",
@@ -234,6 +247,7 @@ func mockAccounts(w http.ResponseWriter, r *http.Request) {
       "is_closed": false,
       "is_excluded": false,
       "is_parent": false,
+      "metadata": {},
       "statement_balance": {
         "currency": "HKD",
         "raw": "15001.116",
@@ -255,6 +269,7 @@ func mockAccounts(w http.ResponseWriter, r *http.Request) {
       "is_closed": false,
       "is_excluded": false,
       "is_parent": false,
+      "metadata": {},
       "statement_balance": {
         "currency": "HKD",
         "raw": "106468292.05",
@@ -300,6 +315,7 @@ func mockTransactions(w http.ResponseWriter, r *http.Request) {
       "is_closed": false,
       "is_excluded": false,
       "is_parent": false,
+      "metadata": {},
       "statement_balance": {
         "currency": "HKD",
         "raw": "70013.12",
@@ -321,6 +337,7 @@ func mockTransactions(w http.ResponseWriter, r *http.Request) {
       "is_closed": false,
       "is_excluded": false,
       "is_parent": false,
+      "metadata": {},
       "statement_balance": {
         "currency": "HKD",
         "raw": "-1833.22",
@@ -342,6 +359,7 @@ func mockTransactions(w http.ResponseWriter, r *http.Request) {
       "is_closed": false,
       "is_excluded": false,
       "is_parent": false,
+      "metadata": {},
       "statement_balance": {
         "currency": "HKD",
         "raw": "15001.116",
@@ -363,6 +381,7 @@ func mockTransactions(w http.ResponseWriter, r *http.Request) {
       "is_closed": false,
       "is_excluded": false,
       "is_parent": false,
+      "metadata": {},
       "statement_balance": {
         "currency": "HKD",
         "raw": "106468292.05",
@@ -384,6 +403,7 @@ func mockTransactions(w http.ResponseWriter, r *http.Request) {
       "is_closed": false,
       "is_excluded": false,
       "is_parent": false,
+      "metadata": {},
       "statement_balance": {
         "currency": "HKD",
         "raw": "19,806.58",
@@ -714,8 +734,6 @@ func mockStatements(w http.ResponseWriter, r *http.Request) {
 }
 
 func mockStatementDownload(w http.ResponseWriter, r *http.Request) {
-	w.Header().Add("content-type", "text/plain") // in real, it could be pdf, csv, etc
-	w.Write([]byte(`
-this is a statement
-	`))
+	w.Header().Add("content-type", "application/json")
+	w.Write([]byte(`{"statement_links":[{"url":"https://example.com/statement.pdf"}]}`))
 }

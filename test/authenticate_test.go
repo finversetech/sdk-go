@@ -23,7 +23,7 @@ func TestCustomerAccessToken(t *testing.T) {
 }
 
 func getCustomerAccessToken(ctx context.Context, client *finverse.APIClient) (*finverse.TokenResponse, error) {
-	customerTokenResp, _, err := client.PublicApi.GenerateCustomerAccessToken(ctx).TokenRequest(finverse.TokenRequest{
+	customerTokenResp, _, err := client.PublicAPI.GenerateCustomerAccessToken(ctx).TokenRequest(finverse.TokenRequest{
 		ClientId:     clientId,
 		ClientSecret: clientSecret,
 		GrantType:    "client_credentials",
