@@ -13,8 +13,8 @@ func TestLinkToken(t *testing.T) {
 	customerAccessToken := "customerAccessToken"
 
 	client := NewTestClient()
-	customerCtx := context.WithValue(context.Background(), finverse.ContextAccessToken, customerAccessToken)
-	linkTokenResp, _, err := client.CustomerApi.GenerateLinkToken(customerCtx).LinkTokenRequest(finverse.LinkTokenRequest{
+	customerCtx := contextWithAccessToken(context.Background(), customerAccessToken)
+	linkTokenResp, _, err := client.LinkAPI.GenerateLinkToken(customerCtx).LinkTokenRequest(finverse.LinkTokenRequest{
 		ClientId:     clientId,
 		UserId:       &userId,
 		RedirectUri:  redirectUri,
@@ -37,11 +37,11 @@ func TestLinkToken(t *testing.T) {
 func TestLoginIdentityToken(t *testing.T) {
 	customerAccessToken := "customerAccessToken"
 	client := NewTestClient()
-	customerCtx := context.WithValue(context.Background(), finverse.ContextAccessToken, customerAccessToken)
+	customerCtx := contextWithAccessToken(context.Background(), customerAccessToken)
 
 	// When Finverse link is done, obtain the code and use it to exchange for login identity access token
 	code := "obtainAfterLink"
-	loginIdentityTokenResp, _, err := client.LinkApi.Token(customerCtx).
+	loginIdentityTokenResp, _, err := client.LinkAPI.Token(customerCtx).
 		Code(code).
 		ClientId(clientId).
 		RedirectUri(redirectUri).

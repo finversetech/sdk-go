@@ -4,9 +4,13 @@ This SDK enables backend integration with the Finverse API, including authentica
 
 ## Installation
 
+Requires **Go 1.17** or newer.
+
 ```
-go get -u github.com/finversetech/sdk-go
+go get github.com/finversetech/sdk-go@latest
 ```
+
+Authenticated calls use a bearer token via `golang.org/x/oauth2` and `finverse.ContextOAuth2` (see below).
 
 ## Client Setup
 
@@ -45,11 +49,18 @@ The Payment API supports mandates, payments, payment accounts, payment links, pa
 
 ### Authentication
 
-Obtain a Customer Access Token (required for Payment API):
+Obtain a Customer Access Token (required for Payment API), then attach it to context with `oauth2.StaticTokenSource` and `finverse.ContextOAuth2`:
 
 ```go
+import (
+	"context"
+	"golang.org/x/oauth2"
+
+	"github.com/finversetech/sdk-go/finverse"
+)
+
 ctx := context.Background()
-customerTokenResp, _, err := client.PublicApi.GenerateCustomerAccessToken(ctx).TokenRequest(finverse.TokenRequest{
+customerTokenResp, _, err := client.PublicAPI.GenerateCustomerAccessToken(ctx).TokenRequest(finverse.TokenRequest{
 	ClientId:     clientId,
 	ClientSecret: clientSecret,
 	GrantType:    "client_credentials",
@@ -58,16 +69,17 @@ if err != nil {
 	panic(err)
 }
 customerAccessToken := customerTokenResp.AccessToken
-customerCtx := context.WithValue(ctx, finverse.ContextAccessToken, customerAccessToken)
+ts := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: customerAccessToken})
+customerCtx := context.WithValue(ctx, finverse.ContextOAuth2, ts)
 ```
 
 **Example: Create a payment**
 
 ```go
-paymentResp, _, err := client.CustomerApi.CreatePayment(customerCtx).CreatePaymentRequest(finverse.CreatePaymentRequest{
-	Amount:    10000, // in minor units (e.g., 100.00 HKD = 10000)
-	Currency:  "HKD",
-	// ... other required fields
+paymentResp, _, err := client.PaymentAPI.CreatePayment(customerCtx).CreatePaymentRequest(finverse.CreatePaymentRequest{
+	Amount:   10000, // in minor units (e.g., 100.00 HKD = 10000)
+	Currency: "HKD",
+	// ... other required fields (e.g. PaymentDetails)
 }).Execute()
 if err != nil {
 	panic(err)
@@ -76,8 +88,11 @@ if err != nil {
 
 **Example: List payment accounts**
 
+`ListPaymentAccounts` requires the payment user ID for that customer:
+
 ```go
-accountsResp, _, err := client.CustomerApi.ListPaymentAccounts(customerCtx).Execute()
+paymentUserId := "your-payment-user-id"
+accountsResp, _, err := client.PaymentAPI.ListPaymentAccounts(customerCtx, paymentUserId).Execute()
 if err != nil {
 	panic(err)
 }
@@ -89,7 +104,7 @@ Use payment links to collect one-time or recurring payments via redirect. The fl
 
 #### Flow Overview
 
-1. **Create** – Create a payment link via `DefaultAPI.CreatePaymentLink`, get `url` and `payment_link_id`. Save `payment_link_id` and `unique_reference_id`.
+1. **Create** – Create a payment link via `PaymentAPI.CreatePaymentLink`, get `url` and `payment_link_id`. Save `payment_link_id` and `unique_reference_id`.
 2. **Redirect** – Redirect the user to the payment link URL (use HTTP 303 so the redirect is followed with GET)
 3. **Callback** – Finverse redirects back with `payment_link_id` and `unique_reference_id` query params. Verify the values match what was stored earlier.
 4. **Poll** – Poll `GetPaymentLink` every 2 seconds for up to 30 seconds until `session_status` is `"COMPLETE"`
@@ -106,7 +121,7 @@ amount := int32(10000) // 100.00 HKD
 uiMode := "redirect"
 email := "john@example.com"
 
-linkResp, _, err := client.DefaultApi.CreatePaymentLink(customerCtx).CreatePaymentLinkRequest(finverse.CreatePaymentLinkRequest{
+linkResp, _, err := client.PaymentAPI.CreatePaymentLink(customerCtx).CreatePaymentLinkRequest(finverse.CreatePaymentLinkRequest{
 	Mode:              "PAYMENT",
 	Amount:            &amount,
 	Currency:          "HKD",
@@ -145,10 +160,10 @@ uiMode := "redirect"
 futurePayments := "CLICK_TO_PAY"
 email := "john@example.com"
 
-linkResp, _, err := client.DefaultApi.CreatePaymentLink(customerCtx).CreatePaymentLinkRequest(finverse.CreatePaymentLinkRequest{
+linkResp, _, err := client.PaymentAPI.CreatePaymentLink(customerCtx).CreatePaymentLinkRequest(finverse.CreatePaymentLinkRequest{
 	Mode:              "SETUP",
-	Currency:           "HKD",
-	UniqueReferenceId:  uniqueRefID,
+	Currency:          "HKD",
+	UniqueReferenceId: uniqueRefID,
 	Sender: finverse.PaymentLinkSender{
 		ExternalUserId: "your-internal-user-id",
 		Name:           "John Doe",
@@ -186,13 +201,10 @@ if paymentLinkID == "" {
 uniqueRefID := r.URL.Query().Get("unique_reference_id")
 // Optionally validate paymentLinkID and uniqueRefID match what you stored when creating the link
 
-// Poll for up to 30 seconds
-ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
-defer cancel()
-
 var linkResp *finverse.PaymentLinkResponse
+var err error
 for i := 0; i < 15; i++ {
-	linkResp, _, err = client.DefaultApi.GetPaymentLink(customerCtx, paymentLinkID).Execute()
+	linkResp, _, err = client.PaymentAPI.GetPaymentLink(customerCtx, paymentLinkID).Execute()
 	if err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -219,6 +231,8 @@ http.Redirect(w, r, "/error", http.StatusSeeOther)
 
 The Data API supports retrieving financial data (accounts, transactions, statements, identity, income) from linked institutions. Use the **Login Identity Access Token** for authentication, obtained after completing the institution linking flow.
 
+The snippets below use `golang.org/x/oauth2` the same way as the Payment API authentication example.
+
 ### Authentication & Institution Linking
 
 Data retrieval requires a Login Identity Access Token. Complete the following flow:
@@ -227,7 +241,7 @@ Data retrieval requires a Login Identity Access Token. Complete the following fl
 
 ```go
 ctx := context.Background()
-customerTokenResp, _, err := client.PublicApi.GenerateCustomerAccessToken(ctx).TokenRequest(finverse.TokenRequest{
+customerTokenResp, _, err := client.PublicAPI.GenerateCustomerAccessToken(ctx).TokenRequest(finverse.TokenRequest{
 	ClientId:     clientId,
 	ClientSecret: clientSecret,
 	GrantType:    "client_credentials",
@@ -236,7 +250,8 @@ if err != nil {
 	panic(err)
 }
 customerAccessToken := customerTokenResp.AccessToken
-customerCtx := context.WithValue(ctx, finverse.ContextAccessToken, customerAccessToken)
+customerTS := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: customerAccessToken})
+customerCtx := context.WithValue(ctx, finverse.ContextOAuth2, customerTS)
 ```
 
 **2. Generate Link Token and launch Finverse Link UI**
@@ -244,7 +259,7 @@ customerCtx := context.WithValue(ctx, finverse.ContextAccessToken, customerAcces
 ```go
 userId := "someUserId"     // reference to your system userId
 state := "someUniqueState" // sent in redirectUri callback
-linkTokenResp, _, err := client.CustomerApi.GenerateLinkToken(customerCtx).LinkTokenRequest(finverse.LinkTokenRequest{
+linkTokenResp, _, err := client.LinkAPI.GenerateLinkToken(customerCtx).LinkTokenRequest(finverse.LinkTokenRequest{
 	ClientId:     clientId,
 	UserId:       &userId,
 	RedirectUri:  redirectUri,
@@ -264,7 +279,7 @@ if err != nil {
 ```go
 // After Finverse Link completes, obtain the code from the redirectUri callback
 code := "obtainAfterLink"
-loginIdentityTokenResp, _, err := client.LinkApi.Token(customerCtx).
+loginIdentityTokenResp, _, err := client.LinkAPI.Token(customerCtx).
 	Code(code).
 	ClientId(clientId).
 	RedirectUri(redirectUri).
@@ -274,7 +289,8 @@ if err != nil {
 	panic(err)
 }
 loginIdentityToken := loginIdentityTokenResp.AccessToken
-loginIdentityCtx := context.WithValue(ctx, finverse.ContextAccessToken, loginIdentityToken)
+loginTS := oauth2.StaticTokenSource(&oauth2.Token{AccessToken: loginIdentityToken})
+loginIdentityCtx := context.WithValue(ctx, finverse.ContextOAuth2, loginTS)
 ```
 
 ### Data API Usage Examples
@@ -283,16 +299,17 @@ loginIdentityCtx := context.WithValue(ctx, finverse.ContextAccessToken, loginIde
 
 ```go
 finalStatuses := map[string]struct{}{
-	"ERROR": {},
+	"ERROR":                               {},
 	"DATA_RETRIEVAL_PARTIALLY_SUCCESSFUL": {},
-	"DATA_RETRIEVAL_COMPLETE": {},
+	"DATA_RETRIEVAL_COMPLETE":             {},
 }
+var loginIdentity *finverse.LoginIdentity
 for i := 0; i < 20; i++ {
-	loginIdentityResp, _, err := client.LoginIdentityApi.GetLoginIdentity(loginIdentityCtx).Execute()
+	loginIdentityResp, _, err := client.LoginIdentityAPI.GetLoginIdentity(loginIdentityCtx).Execute()
 	if err != nil {
 		panic(err)
 	}
-	loginIdentity := loginIdentityResp.LoginIdentity
+	loginIdentity = loginIdentityResp.LoginIdentity
 	if _, ok := finalStatuses[loginIdentity.GetStatus()]; ok {
 		break
 	}
@@ -306,7 +323,7 @@ if loginIdentity.GetStatus() == "ERROR" {
 **Get accounts**
 
 ```go
-accountsResp, _, err := client.LoginIdentityApi.ListAccounts(loginIdentityCtx).Execute()
+accountsResp, _, err := client.LoginIdentityAPI.ListAccounts(loginIdentityCtx).Execute()
 if err != nil {
 	panic(err)
 }
@@ -317,7 +334,7 @@ if err != nil {
 ```go
 offset := 0
 for {
-	transactionsResp, _, err := client.LoginIdentityApi.ListTransactionsByLoginIdentityId(loginIdentityCtx).Offset(int32(offset)).Execute()
+	transactionsResp, _, err := client.LoginIdentityAPI.ListTransactionsByLoginIdentityId(loginIdentityCtx).Offset(int32(offset)).Execute()
 	if err != nil {
 		panic(err)
 	}
@@ -331,25 +348,27 @@ for {
 **Get statements**
 
 ```go
-statementsResp, _, err := client.LoginIdentityApi.GetStatements(loginIdentityCtx).Execute()
+statementsResp, _, err := client.LoginIdentityAPI.GetStatements(loginIdentityCtx).Execute()
 if err != nil {
 	panic(err)
 }
 
-// Download statement binary
-statementId := statementsResp.Statements[0].Id
-_, httpResp, err := client.LoginIdentityApi.GetStatement(loginIdentityCtx, *statementId).Execute()
+// Get signed download URL(s) for a statement (JSON response)
+statementID := statementsResp.Statements[0].Id
+stmtLinkResp, httpResp, err := client.LoginIdentityAPI.GetStatement(loginIdentityCtx, *statementID).Execute()
 if err != nil {
 	panic(err)
 }
 defer httpResp.Body.Close()
-statementRaw, err := io.ReadAll(httpResp.Body)
+for _, link := range stmtLinkResp.GetStatementLinks() {
+	_ = link.GetUrl() // HTTP GET this URL to download the file
+}
 ```
 
 **Get institution details**
 
 ```go
-institutionResp, _, err := client.CustomerApi.GetInstitution(customerCtx, "institutionId").Execute()
+institutionResp, _, err := client.CustomerAPI.GetInstitution(customerCtx, "institutionId").Execute()
 if err != nil {
 	panic(err)
 }
@@ -367,7 +386,7 @@ if err != nil {
 ```go
 ctx, cancel := context.WithTimeout(context.Background(), 2*time.Minute)
 defer cancel()
-resp, _, err := client.LoginIdentityApi.GetLoginIdentity(ctx).Execute()
+resp, _, err := client.LoginIdentityAPI.GetLoginIdentity(ctx).Execute()
 ```
 
 ### HTTP Client Configuration
@@ -383,20 +402,11 @@ resp, _, err := client.LoginIdentityApi.GetLoginIdentity(ctx).Execute()
 
 ### Response Body Cleanup
 
-- When reading raw response bodies (e.g., `GetStatement`), always close the body to avoid leaks:
-
-```go
-_, httpResp, err := client.LoginIdentityApi.GetStatement(ctx, statementId).Execute()
-if err != nil {
-	return err
-}
-defer httpResp.Body.Close()
-data, err := io.ReadAll(httpResp.Body)
-```
+- When you use the returned `*http.Response`, always close `Body` after reading (the client may reset the body for decoding; still close when you read it yourself).
 
 ### Token Handling
 
-- Use `context.WithValue(ctx, finverse.ContextAccessToken, token)` to pass tokens.
+- Pass bearer tokens using `oauth2.StaticTokenSource` and `context.WithValue(ctx, finverse.ContextOAuth2, tokenSource)`.
 - Never log or expose access tokens.
 - Store credentials (client ID, secret) in environment variables or a secrets manager.
 
@@ -418,11 +428,12 @@ Use idempotency keys to safely retry payment operations without creating duplica
 
 ```go
 idempotencyKey := "order-12345-" + uuid.New().String() // unique per logical payment
+amount := int32(10000)
 
-paymentResp, _, err := client.CustomerApi.CreatePayment(customerCtx).
+paymentResp, _, err := client.PaymentAPI.CreatePayment(customerCtx).
 	IdempotencyKey(idempotencyKey).
 	CreatePaymentRequest(finverse.CreatePaymentRequest{
-		Amount:   &amount,
+		Amount:   amount,
 		Currency: "HKD",
 		// ... other fields
 	}).Execute()
@@ -431,7 +442,7 @@ paymentResp, _, err := client.CustomerApi.CreatePayment(customerCtx).
 **CreateMandateForExistingSender** and **CreateScheduledPayout** require `IdempotencyKey`:
 
 ```go
-mandateResp, _, err := client.DefaultApi.CreateMandateForExistingSender(customerCtx).
+mandateResp, _, err := client.PaymentAPI.CreateMandateForExistingSender(customerCtx).
 	IdempotencyKey(idempotencyKey).
 	CreateMandateWithSenderAccountRequest(req).Execute()
 ```

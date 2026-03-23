@@ -2,7 +2,6 @@ package test
 
 import (
 	"context"
-	"io/ioutil"
 	"testing"
 	"time"
 
@@ -14,7 +13,7 @@ func TestAll(t *testing.T) {
 	client := NewTestClient()
 
 	// obtain customer access token
-	customerTokenResp, _, err := client.PublicApi.GenerateCustomerAccessToken(ctx).TokenRequest(finverse.TokenRequest{
+	customerTokenResp, _, err := client.PublicAPI.GenerateCustomerAccessToken(ctx).TokenRequest(finverse.TokenRequest{
 		ClientId:     clientId,
 		ClientSecret: clientSecret,
 		GrantType:    "client_credentials",
@@ -27,8 +26,8 @@ func TestAll(t *testing.T) {
 	// generate a link token
 	userId := "someUserId"     // reference back to your system userId, finverse does not use this
 	state := "someUniqueState" // this will be sent in the redirectUri callback, can be used to identify the state
-	customerCtx := context.WithValue(context.Background(), finverse.ContextAccessToken, customerAccessToken)
-	linkTokenResp, _, err := client.CustomerApi.GenerateLinkToken(customerCtx).LinkTokenRequest(finverse.LinkTokenRequest{
+	customerCtx := contextWithAccessToken(context.Background(), customerAccessToken)
+	linkTokenResp, _, err := client.LinkAPI.GenerateLinkToken(customerCtx).LinkTokenRequest(finverse.LinkTokenRequest{
 		ClientId:     clientId,
 		UserId:       &userId,
 		RedirectUri:  redirectUri,
@@ -46,7 +45,7 @@ func TestAll(t *testing.T) {
 
 	// When Finverse link is done, obtain the code and use it to exchange for login identity access token
 	code := "obtainAfterLink"
-	loginIdentityTokenResp, _, err := client.LinkApi.Token(customerCtx).
+	loginIdentityTokenResp, _, err := client.LinkAPI.Token(customerCtx).
 		Code(code).
 		ClientId(clientId).
 		RedirectUri(redirectUri).
@@ -58,10 +57,10 @@ func TestAll(t *testing.T) {
 
 	// the loginIdentityToken can be used to retrieve data
 	loginIdentityToken := loginIdentityTokenResp.AccessToken
-	loginIdentityCtx := context.WithValue(context.Background(), finverse.ContextAccessToken, loginIdentityToken)
+	loginIdentityCtx := contextWithAccessToken(context.Background(), loginIdentityToken)
 
 	// Get LoginIdentity
-	loginIdentityResp, _, err := client.LoginIdentityApi.GetLoginIdentity(loginIdentityCtx).Execute()
+	loginIdentityResp, _, err := client.LoginIdentityAPI.GetLoginIdentity(loginIdentityCtx).Execute()
 	if err != nil {
 		panic(err)
 	}
@@ -73,7 +72,7 @@ func TestAll(t *testing.T) {
 	var i int
 	var loginIdentity *finverse.LoginIdentity
 	for i = 0; i < 20; i++ {
-		loginIdentityResp, _, err := client.LoginIdentityApi.GetLoginIdentity(loginIdentityCtx).Execute()
+		loginIdentityResp, _, err := client.LoginIdentityAPI.GetLoginIdentity(loginIdentityCtx).Execute()
 		if err != nil {
 			panic(err)
 		}
@@ -91,7 +90,7 @@ func TestAll(t *testing.T) {
 	}
 
 	// Get Accounts
-	accountsResp, _, err := client.LoginIdentityApi.ListAccounts(loginIdentityCtx).Execute()
+	accountsResp, _, err := client.LoginIdentityAPI.ListAccounts(loginIdentityCtx).Execute()
 	if err != nil {
 		panic(err)
 	}
@@ -101,7 +100,7 @@ func TestAll(t *testing.T) {
 	// Get Transactions with pagination using offset and limit
 	offset := 0
 	for {
-		transactionsResp, _, err := client.LoginIdentityApi.ListTransactionsByLoginIdentityId(loginIdentityCtx).Offset(int32(offset)).Execute()
+		transactionsResp, _, err := client.LoginIdentityAPI.ListTransactionsByLoginIdentityId(loginIdentityCtx).Offset(int32(offset)).Execute()
 		if err != nil {
 			panic(err)
 		}
@@ -115,7 +114,7 @@ func TestAll(t *testing.T) {
 	}
 
 	// Get Statements metadata
-	statementsResp, _, err := client.LoginIdentityApi.GetStatements(loginIdentityCtx).Execute()
+	statementsResp, _, err := client.LoginIdentityAPI.GetStatements(loginIdentityCtx).Execute()
 	if err != nil {
 		panic(err)
 	}
@@ -126,16 +125,18 @@ func TestAll(t *testing.T) {
 	// assume there is one statement
 	statementId := statementsResp.Statements[0].Id
 
-	httpResp, err := client.LoginIdentityApi.GetStatement(loginIdentityCtx, *statementId).Execute()
+	stmtLinkResp, httpResp, err := client.LoginIdentityAPI.GetStatement(loginIdentityCtx, *statementId).Execute()
 	if err != nil {
 		panic(err)
 	}
 	if httpResp.StatusCode != 200 {
 		panic("bad http status")
 	}
+	defer httpResp.Body.Close()
 
-	statementRaw, err := ioutil.ReadAll(httpResp.Body)
-	httpResp.Body.Close()
-
-	t.Logf("statement: %s", statementRaw)
+	links := stmtLinkResp.GetStatementLinks()
+	if len(links) == 0 || links[0].GetUrl() == "" {
+		panic("expected statement link URL in response")
+	}
+	t.Logf("statement download URL: %s", links[0].GetUrl())
 }
