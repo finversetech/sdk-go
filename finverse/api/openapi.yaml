@@ -3265,6 +3265,10 @@ components:
             raw: "69.00"
             currency: HKD
             value: 69.0
+          ledger_balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           updated_at: 2000-01-23T04:56:07.000+00:00
           balance:
@@ -3481,6 +3485,10 @@ components:
             raw: "69.00"
             currency: HKD
             value: 69.0
+          ledger_balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           updated_at: 2000-01-23T04:56:07.000+00:00
           balance:
@@ -3540,6 +3548,10 @@ components:
           account_nickname: Emergency Fund
           is_parent: false
           statement_balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          ledger_balance:
             raw: "69.00"
             currency: HKD
             value: 69.0
@@ -3911,6 +3923,10 @@ components:
             raw: "69.00"
             currency: HKD
             value: 69.0
+          ledger_balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           updated_at: 2000-01-23T04:56:07.000+00:00
           balance:
@@ -3935,6 +3951,10 @@ components:
           account_nickname: Emergency Fund
           is_parent: false
           statement_balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          ledger_balance:
             raw: "69.00"
             currency: HKD
             value: 69.0
@@ -3983,6 +4003,10 @@ components:
         account_nickname: Emergency Fund
         is_parent: false
         statement_balance:
+          raw: "69.00"
+          currency: HKD
+          value: 69.0
+        ledger_balance:
           raw: "69.00"
           currency: HKD
           value: 69.0
@@ -4035,6 +4059,8 @@ components:
         balance:
           $ref: '#/components/schemas/CurrencyAmount'
         statement_balance:
+          $ref: '#/components/schemas/CurrencyAmount'
+        ledger_balance:
           $ref: '#/components/schemas/CurrencyAmount'
         is_parent:
           example: false
@@ -4301,6 +4327,10 @@ components:
             raw: "69.00"
             currency: HKD
             value: 69.0
+          ledger_balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           updated_at: 2000-01-23T04:56:07.000+00:00
           balance:
@@ -4325,6 +4355,10 @@ components:
           account_nickname: Emergency Fund
           is_parent: false
           statement_balance:
+            raw: "69.00"
+            currency: HKD
+            value: 69.0
+          ledger_balance:
             raw: "69.00"
             currency: HKD
             value: 69.0

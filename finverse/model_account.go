@@ -36,6 +36,7 @@ type Account struct {
 	AccountCurrency      *string           `json:"account_currency,omitempty"`
 	Balance              *CurrencyAmount   `json:"balance,omitempty"`
 	StatementBalance     *CurrencyAmount   `json:"statement_balance,omitempty"`
+	LedgerBalance        *CurrencyAmount   `json:"ledger_balance,omitempty"`
 	IsParent             bool              `json:"is_parent"`
 	IsClosed             bool              `json:"is_closed"`
 	IsExcluded           bool              `json:"is_excluded"`
@@ -462,6 +463,38 @@ func (o *Account) SetStatementBalance(v CurrencyAmount) {
 	o.StatementBalance = &v
 }
 
+// GetLedgerBalance returns the LedgerBalance field value if set, zero value otherwise.
+func (o *Account) GetLedgerBalance() CurrencyAmount {
+	if o == nil || IsNil(o.LedgerBalance) {
+		var ret CurrencyAmount
+		return ret
+	}
+	return *o.LedgerBalance
+}
+
+// GetLedgerBalanceOk returns a tuple with the LedgerBalance field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Account) GetLedgerBalanceOk() (*CurrencyAmount, bool) {
+	if o == nil || IsNil(o.LedgerBalance) {
+		return nil, false
+	}
+	return o.LedgerBalance, true
+}
+
+// HasLedgerBalance returns a boolean if a field has been set.
+func (o *Account) HasLedgerBalance() bool {
+	if o != nil && !IsNil(o.LedgerBalance) {
+		return true
+	}
+
+	return false
+}
+
+// SetLedgerBalance gets a reference to the given CurrencyAmount and assigns it to the LedgerBalance field.
+func (o *Account) SetLedgerBalance(v CurrencyAmount) {
+	o.LedgerBalance = &v
+}
+
 // GetIsParent returns the IsParent field value
 func (o *Account) GetIsParent() bool {
 	if o == nil {
@@ -633,6 +666,9 @@ func (o Account) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.StatementBalance) {
 		toSerialize["statement_balance"] = o.StatementBalance
 	}
+	if !IsNil(o.LedgerBalance) {
+		toSerialize["ledger_balance"] = o.LedgerBalance
+	}
 	toSerialize["is_parent"] = o.IsParent
 	toSerialize["is_closed"] = o.IsClosed
 	toSerialize["is_excluded"] = o.IsExcluded
@@ -702,6 +738,7 @@ func (o *Account) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "account_currency")
 		delete(additionalProperties, "balance")
 		delete(additionalProperties, "statement_balance")
+		delete(additionalProperties, "ledger_balance")
 		delete(additionalProperties, "is_parent")
 		delete(additionalProperties, "is_closed")
 		delete(additionalProperties, "is_excluded")
