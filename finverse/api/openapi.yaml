@@ -2869,6 +2869,36 @@ paths:
         - paymentMethod:get
       tags:
       - payment
+  /payment_methods/{paymentMethodId}/cancel:
+    post:
+      description: Cancel a payment method
+      operationId: cancelPaymentMethod
+      parameters:
+      - description: The payment method id
+        in: path
+        name: paymentMethodId
+        required: true
+        schema:
+          minLength: 1
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaymentMethodResponse'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Bad Request
+      security:
+      - Oauth2:
+        - paymentMethod:cancel
+      tags:
+      - payment
   /ledger/statement:
     get:
       description: Download the balance statement for the ledger (CSV)

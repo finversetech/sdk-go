@@ -53,6 +53,21 @@ type PaymentAPI interface {
 	CancelPaymentLinkExecute(r PaymentAPICancelPaymentLinkRequest) (*PaymentLinkResponse, *http.Response, error)
 
 	/*
+		CancelPaymentMethod Method for CancelPaymentMethod
+
+		Cancel a payment method
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param paymentMethodId The payment method id
+		@return PaymentAPICancelPaymentMethodRequest
+	*/
+	CancelPaymentMethod(ctx context.Context, paymentMethodId string) PaymentAPICancelPaymentMethodRequest
+
+	// CancelPaymentMethodExecute executes the request
+	//  @return PaymentMethodResponse
+	CancelPaymentMethodExecute(r PaymentAPICancelPaymentMethodRequest) (*PaymentMethodResponse, *http.Response, error)
+
+	/*
 		CancelPayout Method for CancelPayout
 
 		Cancel Payout by payout_id
@@ -797,6 +812,129 @@ func (a *PaymentAPIService) CancelPaymentLinkExecute(r PaymentAPICancelPaymentLi
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentAPICancelPaymentMethodRequest struct {
+	ctx             context.Context
+	ApiService      PaymentAPI
+	paymentMethodId string
+}
+
+func (r PaymentAPICancelPaymentMethodRequest) Execute() (*PaymentMethodResponse, *http.Response, error) {
+	return r.ApiService.CancelPaymentMethodExecute(r)
+}
+
+/*
+CancelPaymentMethod Method for CancelPaymentMethod
+
+Cancel a payment method
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param paymentMethodId The payment method id
+ @return PaymentAPICancelPaymentMethodRequest
+*/
+func (a *PaymentAPIService) CancelPaymentMethod(ctx context.Context, paymentMethodId string) PaymentAPICancelPaymentMethodRequest {
+	return PaymentAPICancelPaymentMethodRequest{
+		ApiService:      a,
+		ctx:             ctx,
+		paymentMethodId: paymentMethodId,
+	}
+}
+
+// Execute executes the request
+//  @return PaymentMethodResponse
+func (a *PaymentAPIService) CancelPaymentMethodExecute(r PaymentAPICancelPaymentMethodRequest) (*PaymentMethodResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PaymentMethodResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentAPIService.CancelPaymentMethod")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/payment_methods/{paymentMethodId}/cancel"
+	localVarPath = strings.Replace(localVarPath, "{"+"paymentMethodId"+"}", url.PathEscape(parameterValueToString(r.paymentMethodId, "paymentMethodId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if strlen(r.paymentMethodId) < 1 {
+		return localVarReturnValue, nil, reportError("paymentMethodId must have at least 1 elements")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
 			var v ErrBodyModelV2
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
