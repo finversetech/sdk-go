@@ -7423,10 +7423,12 @@ components:
               decline_reason: decline_reason
               last_action: last_action
               status: status
+            virtual_account_bank_code: virtual_account_bank_code
             processor_reference: processor_reference
             scheme: scheme
             processor_id: processor_id
             auth_code: auth_code
+            virtual_account_number: virtual_account_number
           description: description
           mandate_id: mandate_id
           collection_entity_name: collection_entity_name
@@ -7477,10 +7479,12 @@ components:
             decline_reason: decline_reason
             last_action: last_action
             status: status
+          virtual_account_bank_code: virtual_account_bank_code
           processor_reference: processor_reference
           scheme: scheme
           processor_id: processor_id
           auth_code: auth_code
+          virtual_account_number: virtual_account_number
         description: description
         mandate_id: mandate_id
         collection_entity_name: collection_entity_name
@@ -7534,10 +7538,12 @@ components:
           decline_reason: decline_reason
           last_action: last_action
           status: status
+        virtual_account_bank_code: virtual_account_bank_code
         processor_reference: processor_reference
         scheme: scheme
         processor_id: processor_id
         auth_code: auth_code
+        virtual_account_number: virtual_account_number
       properties:
         auth_code:
           type: string
@@ -7548,6 +7554,14 @@ components:
         scheme:
           description: "Scheme like becs, bacs, ach, etc. (applicable to Gocardless\
             \ for now)"
+          type: string
+        virtual_account_number:
+          description: Virtual account number issued by the processor (e.g. KCP manual
+            virtual account payments).
+          type: string
+        virtual_account_bank_code:
+          description: Bank code for the virtual account without a BK prefix (e.g.
+            KCP manual virtual account payments).
           type: string
         result:
           $ref: '#/components/schemas/PaymentProcessorResult'
@@ -7608,10 +7622,12 @@ components:
               decline_reason: decline_reason
               last_action: last_action
               status: status
+            virtual_account_bank_code: virtual_account_bank_code
             processor_reference: processor_reference
             scheme: scheme
             processor_id: processor_id
             auth_code: auth_code
+            virtual_account_number: virtual_account_number
           description: description
           mandate_id: mandate_id
           collection_entity_name: collection_entity_name
@@ -7836,10 +7852,12 @@ components:
                 decline_reason: decline_reason
                 last_action: last_action
                 status: status
+              virtual_account_bank_code: virtual_account_bank_code
               processor_reference: processor_reference
               scheme: scheme
               processor_id: processor_id
               auth_code: auth_code
+              virtual_account_number: virtual_account_number
             description: description
             mandate_id: mandate_id
             collection_entity_name: collection_entity_name
@@ -7972,10 +7990,12 @@ components:
                 decline_reason: decline_reason
                 last_action: last_action
                 status: status
+              virtual_account_bank_code: virtual_account_bank_code
               processor_reference: processor_reference
               scheme: scheme
               processor_id: processor_id
               auth_code: auth_code
+              virtual_account_number: virtual_account_number
             description: description
             mandate_id: mandate_id
             collection_entity_name: collection_entity_name
@@ -9760,10 +9780,12 @@ components:
                 decline_reason: decline_reason
                 last_action: last_action
                 status: status
+              virtual_account_bank_code: virtual_account_bank_code
               processor_reference: processor_reference
               scheme: scheme
               processor_id: processor_id
               auth_code: auth_code
+              virtual_account_number: virtual_account_number
             description: description
             mandate_id: mandate_id
             collection_entity_name: collection_entity_name

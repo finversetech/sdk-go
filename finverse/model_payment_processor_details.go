@@ -24,9 +24,13 @@ type PaymentProcessorDetails struct {
 	ProcessorId        *string `json:"processor_id,omitempty"`
 	ProcessorReference *string `json:"processor_reference,omitempty"`
 	// Scheme like becs, bacs, ach, etc. (applicable to Gocardless for now)
-	Scheme               *string                 `json:"scheme,omitempty"`
-	Result               *PaymentProcessorResult `json:"result,omitempty"`
-	AdditionalProperties map[string]interface{}
+	Scheme *string `json:"scheme,omitempty"`
+	// Virtual account number issued by the processor (e.g. KCP manual virtual account payments).
+	VirtualAccountNumber *string `json:"virtual_account_number,omitempty"`
+	// Bank code for the virtual account without a BK prefix (e.g. KCP manual virtual account payments).
+	VirtualAccountBankCode *string                 `json:"virtual_account_bank_code,omitempty"`
+	Result                 *PaymentProcessorResult `json:"result,omitempty"`
+	AdditionalProperties   map[string]interface{}
 }
 
 type _PaymentProcessorDetails PaymentProcessorDetails
@@ -176,6 +180,70 @@ func (o *PaymentProcessorDetails) SetScheme(v string) {
 	o.Scheme = &v
 }
 
+// GetVirtualAccountNumber returns the VirtualAccountNumber field value if set, zero value otherwise.
+func (o *PaymentProcessorDetails) GetVirtualAccountNumber() string {
+	if o == nil || IsNil(o.VirtualAccountNumber) {
+		var ret string
+		return ret
+	}
+	return *o.VirtualAccountNumber
+}
+
+// GetVirtualAccountNumberOk returns a tuple with the VirtualAccountNumber field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentProcessorDetails) GetVirtualAccountNumberOk() (*string, bool) {
+	if o == nil || IsNil(o.VirtualAccountNumber) {
+		return nil, false
+	}
+	return o.VirtualAccountNumber, true
+}
+
+// HasVirtualAccountNumber returns a boolean if a field has been set.
+func (o *PaymentProcessorDetails) HasVirtualAccountNumber() bool {
+	if o != nil && !IsNil(o.VirtualAccountNumber) {
+		return true
+	}
+
+	return false
+}
+
+// SetVirtualAccountNumber gets a reference to the given string and assigns it to the VirtualAccountNumber field.
+func (o *PaymentProcessorDetails) SetVirtualAccountNumber(v string) {
+	o.VirtualAccountNumber = &v
+}
+
+// GetVirtualAccountBankCode returns the VirtualAccountBankCode field value if set, zero value otherwise.
+func (o *PaymentProcessorDetails) GetVirtualAccountBankCode() string {
+	if o == nil || IsNil(o.VirtualAccountBankCode) {
+		var ret string
+		return ret
+	}
+	return *o.VirtualAccountBankCode
+}
+
+// GetVirtualAccountBankCodeOk returns a tuple with the VirtualAccountBankCode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentProcessorDetails) GetVirtualAccountBankCodeOk() (*string, bool) {
+	if o == nil || IsNil(o.VirtualAccountBankCode) {
+		return nil, false
+	}
+	return o.VirtualAccountBankCode, true
+}
+
+// HasVirtualAccountBankCode returns a boolean if a field has been set.
+func (o *PaymentProcessorDetails) HasVirtualAccountBankCode() bool {
+	if o != nil && !IsNil(o.VirtualAccountBankCode) {
+		return true
+	}
+
+	return false
+}
+
+// SetVirtualAccountBankCode gets a reference to the given string and assigns it to the VirtualAccountBankCode field.
+func (o *PaymentProcessorDetails) SetVirtualAccountBankCode(v string) {
+	o.VirtualAccountBankCode = &v
+}
+
 // GetResult returns the Result field value if set, zero value otherwise.
 func (o *PaymentProcessorDetails) GetResult() PaymentProcessorResult {
 	if o == nil || IsNil(o.Result) {
@@ -230,6 +298,12 @@ func (o PaymentProcessorDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Scheme) {
 		toSerialize["scheme"] = o.Scheme
 	}
+	if !IsNil(o.VirtualAccountNumber) {
+		toSerialize["virtual_account_number"] = o.VirtualAccountNumber
+	}
+	if !IsNil(o.VirtualAccountBankCode) {
+		toSerialize["virtual_account_bank_code"] = o.VirtualAccountBankCode
+	}
 	if !IsNil(o.Result) {
 		toSerialize["result"] = o.Result
 	}
@@ -259,6 +333,8 @@ func (o *PaymentProcessorDetails) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "processor_id")
 		delete(additionalProperties, "processor_reference")
 		delete(additionalProperties, "scheme")
+		delete(additionalProperties, "virtual_account_number")
+		delete(additionalProperties, "virtual_account_bank_code")
 		delete(additionalProperties, "result")
 		o.AdditionalProperties = additionalProperties
 	}
