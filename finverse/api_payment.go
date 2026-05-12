@@ -238,6 +238,21 @@ type PaymentAPI interface {
 	DownloadBalanceStatementExecute(r PaymentAPIDownloadBalanceStatementRequest) (*DownloadBalanceStatementResponse, *http.Response, error)
 
 	/*
+		GetBill Method for GetBill
+
+		Get a bill by ID
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param billId
+		@return PaymentAPIGetBillRequest
+	*/
+	GetBill(ctx context.Context, billId string) PaymentAPIGetBillRequest
+
+	// GetBillExecute executes the request
+	//  @return GetBillResponse
+	GetBillExecute(r PaymentAPIGetBillRequest) (*GetBillResponse, *http.Response, error)
+
+	/*
 		GetMandate Method for GetMandate
 
 		Get Mandate details by mandate_id
@@ -354,6 +369,20 @@ type PaymentAPI interface {
 	// GetPayoutByIdExecute executes the request
 	//  @return PayoutSnapshotResponse
 	GetPayoutByIdExecute(r PaymentAPIGetPayoutByIdRequest) (*PayoutSnapshotResponse, *http.Response, error)
+
+	/*
+		ListBills Method for ListBills
+
+		List bills
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return PaymentAPIListBillsRequest
+	*/
+	ListBills(ctx context.Context) PaymentAPIListBillsRequest
+
+	// ListBillsExecute executes the request
+	//  @return ListBillsResponse
+	ListBillsExecute(r PaymentAPIListBillsRequest) (*ListBillsResponse, *http.Response, error)
 
 	/*
 		ListDetokenizedMandates Method for ListDetokenizedMandates
@@ -2740,6 +2769,126 @@ func (a *PaymentAPIService) DownloadBalanceStatementExecute(r PaymentAPIDownload
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type PaymentAPIGetBillRequest struct {
+	ctx        context.Context
+	ApiService PaymentAPI
+	billId     string
+}
+
+func (r PaymentAPIGetBillRequest) Execute() (*GetBillResponse, *http.Response, error) {
+	return r.ApiService.GetBillExecute(r)
+}
+
+/*
+GetBill Method for GetBill
+
+Get a bill by ID
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param billId
+ @return PaymentAPIGetBillRequest
+*/
+func (a *PaymentAPIService) GetBill(ctx context.Context, billId string) PaymentAPIGetBillRequest {
+	return PaymentAPIGetBillRequest{
+		ApiService: a,
+		ctx:        ctx,
+		billId:     billId,
+	}
+}
+
+// Execute executes the request
+//  @return GetBillResponse
+func (a *PaymentAPIService) GetBillExecute(r PaymentAPIGetBillRequest) (*GetBillResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *GetBillResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentAPIService.GetBill")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/bills/{billId}"
+	localVarPath = strings.Replace(localVarPath, "{"+"billId"+"}", url.PathEscape(parameterValueToString(r.billId, "billId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type PaymentAPIGetMandateRequest struct {
 	ctx        context.Context
 	ApiService PaymentAPI
@@ -3848,6 +3997,205 @@ func (a *PaymentAPIService) GetPayoutByIdExecute(r PaymentAPIGetPayoutByIdReques
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentAPIListBillsRequest struct {
+	ctx            context.Context
+	ApiService     PaymentAPI
+	dateFrom       *string
+	dateTo         *string
+	statuses       *[]string
+	userId         *string
+	externalUserId *string
+	currencies     *[]string
+	offset         *int32
+	limit          *int32
+}
+
+// ISO format (YYYY-MM-DD)
+func (r PaymentAPIListBillsRequest) DateFrom(dateFrom string) PaymentAPIListBillsRequest {
+	r.dateFrom = &dateFrom
+	return r
+}
+
+// ISO format (YYYY-MM-DD)
+func (r PaymentAPIListBillsRequest) DateTo(dateTo string) PaymentAPIListBillsRequest {
+	r.dateTo = &dateTo
+	return r
+}
+
+// Bill statuses to filter for, comma separated
+func (r PaymentAPIListBillsRequest) Statuses(statuses []string) PaymentAPIListBillsRequest {
+	r.statuses = &statuses
+	return r
+}
+
+func (r PaymentAPIListBillsRequest) UserId(userId string) PaymentAPIListBillsRequest {
+	r.userId = &userId
+	return r
+}
+
+func (r PaymentAPIListBillsRequest) ExternalUserId(externalUserId string) PaymentAPIListBillsRequest {
+	r.externalUserId = &externalUserId
+	return r
+}
+
+func (r PaymentAPIListBillsRequest) Currencies(currencies []string) PaymentAPIListBillsRequest {
+	r.currencies = &currencies
+	return r
+}
+
+// default is 0
+func (r PaymentAPIListBillsRequest) Offset(offset int32) PaymentAPIListBillsRequest {
+	r.offset = &offset
+	return r
+}
+
+// default is 500, max is 1000
+func (r PaymentAPIListBillsRequest) Limit(limit int32) PaymentAPIListBillsRequest {
+	r.limit = &limit
+	return r
+}
+
+func (r PaymentAPIListBillsRequest) Execute() (*ListBillsResponse, *http.Response, error) {
+	return r.ApiService.ListBillsExecute(r)
+}
+
+/*
+ListBills Method for ListBills
+
+List bills
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return PaymentAPIListBillsRequest
+*/
+func (a *PaymentAPIService) ListBills(ctx context.Context) PaymentAPIListBillsRequest {
+	return PaymentAPIListBillsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return ListBillsResponse
+func (a *PaymentAPIService) ListBillsExecute(r PaymentAPIListBillsRequest) (*ListBillsResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *ListBillsResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentAPIService.ListBills")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/bills"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	if r.dateFrom != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "date_from", r.dateFrom, "", "")
+	}
+	if r.dateTo != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "date_to", r.dateTo, "", "")
+	}
+	if r.statuses != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "statuses", r.statuses, "form", "csv")
+	}
+	if r.userId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "user_id", r.userId, "", "")
+	}
+	if r.externalUserId != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "external_user_id", r.externalUserId, "", "")
+	}
+	if r.currencies != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "currencies", r.currencies, "form", "csv")
+	}
+	if r.offset != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "", "")
+	} else {
+		var defaultValue int32 = 0
+		r.offset = &defaultValue
+	}
+	if r.limit != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "", "")
+	} else {
+		var defaultValue int32 = 500
+		r.limit = &defaultValue
+	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
 			var v ErrBodyModelV2
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {

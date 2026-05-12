@@ -3022,6 +3022,115 @@ paths:
         - dispute:list
       tags:
       - payment
+  /bills/{billId}:
+    get:
+      description: Get a bill by ID
+      operationId: getBill
+      parameters:
+      - in: path
+        name: billId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetBillResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+      security:
+      - Oauth2:
+        - bill:get
+      tags:
+      - payment
+  /bills:
+    get:
+      description: List bills
+      operationId: listBills
+      parameters:
+      - description: ISO format (YYYY-MM-DD)
+        in: query
+        name: date_from
+        schema:
+          format: date
+          type: string
+      - description: ISO format (YYYY-MM-DD)
+        in: query
+        name: date_to
+        schema:
+          format: date
+          type: string
+      - description: "Bill statuses to filter for, comma separated"
+        explode: false
+        in: query
+        name: statuses
+        schema:
+          items:
+            enum:
+            - UNKNOWN
+            - UNPAID
+            - PAID
+            - CANCELLED
+            - FAILED
+            type: string
+          type: array
+        style: form
+      - in: query
+        name: user_id
+        schema:
+          type: string
+      - in: query
+        name: external_user_id
+        schema:
+          type: string
+      - explode: false
+        in: query
+        name: currencies
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
+      - description: default is 0
+        in: query
+        name: offset
+        schema:
+          default: 0
+          minimum: 0
+          type: integer
+      - description: "default is 500, max is 1000"
+        in: query
+        name: limit
+        schema:
+          default: 500
+          maximum: 1000
+          minimum: 1
+          type: integer
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListBillsResponse'
+          description: OK
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+      security:
+      - Oauth2:
+        - bill:list
+      tags:
+      - payment
 components:
   schemas:
     Principal:
@@ -13591,6 +13700,605 @@ components:
       required:
       - disputes
       - total_disputes
+      type: object
+    FVBill:
+      example:
+        bill_id: bill_id
+        customer_app_id: customer_app_id
+        sender_details:
+          name: name
+        metadata:
+          key: metadata
+        integration_id: integration_id
+        bill_date: 2000-01-23T04:56:07.000+00:00
+        due_date: 2000-01-23T04:56:07.000+00:00
+        created_at: 2000-01-23T04:56:07.000+00:00
+        external_user_id: external_user_id
+        external_bill_id: external_bill_id
+        integration_metadata:
+          integration_id: integration_id
+          rapidstor_metadata:
+            tenant_id: tenant_id
+            tenant_default_currency: tenant_default_currency
+            i_lease_num: i_lease_num
+            d_sched_out: d_sched_out
+            corp_code: corp_code
+            i_anniv_days: 0
+            account_token: account_token
+            unit_type_id: unit_type_id
+            s_unit_name: s_unit_name
+            s_location_code: s_location_code
+            ledger_id: ledger_id
+            unit_id: unit_id
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        user_id: user_id
+        payment_id: payment_id
+        details:
+          total_amount_due_raw: total_amount_due_raw
+          description: description
+          currency: currency
+          total_amount_due: 6
+          bill_reference_id: bill_reference_id
+        is_finverse_autopay_eligible: true
+        status: UNKNOWN
+      properties:
+        bill_id:
+          type: string
+        external_bill_id:
+          type: string
+        user_id:
+          type: string
+        external_user_id:
+          type: string
+        customer_app_id:
+          type: string
+        bill_date:
+          format: date-time
+          nullable: true
+          type: string
+        due_date:
+          format: date-time
+          nullable: true
+          type: string
+        integration_metadata:
+          $ref: '#/components/schemas/BillIntegrationMetadata'
+        details:
+          $ref: '#/components/schemas/BillDetails'
+        metadata:
+          additionalProperties:
+            type: string
+          type: object
+        status:
+          enum:
+          - UNKNOWN
+          - UNPAID
+          - PAID
+          - CANCELLED
+          - FAILED
+          type: string
+        integration_id:
+          type: string
+        payment_id:
+          type: string
+        sender_details:
+          $ref: '#/components/schemas/BillSenderDetails'
+        created_at:
+          format: date-time
+          nullable: true
+          type: string
+        updated_at:
+          format: date-time
+          nullable: true
+          type: string
+        is_finverse_autopay_eligible:
+          type: boolean
+      type: object
+    GetBillResponse:
+      allOf:
+      - $ref: '#/components/schemas/FVBill'
+      - properties:
+          payments:
+            items:
+              $ref: '#/components/schemas/PaymentResponse'
+            type: array
+        type: object
+      example:
+        bill_id: bill_id
+        customer_app_id: customer_app_id
+        sender_details:
+          name: name
+        metadata:
+          key: metadata
+        integration_id: integration_id
+        bill_date: 2000-01-23T04:56:07.000+00:00
+        payments:
+        - amount: 100
+          fees:
+          - paid_by_account_id: The payment account ID
+            amount: 100
+            currency: HKD
+            paid_by: RECIPIENT
+          - paid_by_account_id: The payment account ID
+            amount: 100
+            currency: HKD
+            paid_by: RECIPIENT
+          metadata:
+            key: metadata
+          payment_details:
+            transaction_reference_id: transaction_reference_id
+            references:
+              bank_transaction_reference: bank_transaction_reference
+              finverse_transaction_reference: finverse_transaction_reference
+              dda_reference: dda_reference
+            external_transaction_reference: external_transaction_reference
+            recurring_payment_mode: recurring_payment_mode
+            processor_details:
+              result:
+                decline_code: decline_code
+                result_code: result_code
+                decline_reason: decline_reason
+                last_action: last_action
+                status: status
+              virtual_account_bank_code: virtual_account_bank_code
+              processor_reference: processor_reference
+              scheme: scheme
+              processor_id: processor_id
+              auth_code: auth_code
+              virtual_account_number: virtual_account_number
+            description: description
+            mandate_id: mandate_id
+            collection_entity_name: collection_entity_name
+            processor_entity_name: processor_entity_name
+          recipient_account:
+            account_type: SETTLEMENT_ACCOUNT
+            account_id: account_id
+          created_at: 2000-01-23T04:56:07.000+00:00
+          type: MANDATE
+          error:
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+          payment_method_id: payment_method_id
+          amount_total_with_surcharge: 100
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          sender:
+            user_type: INDIVIDUAL
+            user_id: user_id
+            user_details:
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            name: name
+            external_user_id: external_user_id
+          payment_id: payment_id
+          sender_account:
+            accountholder_name_plaintext: Chan Li Pak
+            account_number:
+              number: number
+              number_plaintext: number_plaintext
+              type: LOCAL
+            bank_code: bank_code
+            account_type: EXTERNAL_ACCOUNT
+            metadata:
+              key: metadata
+            account_id: sender_account_id
+            user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+            account_number_masked: account_number_masked
+            accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
+            institution_name: HSBC
+            institution_id: hsbc-hk
+          recipient:
+            name: name
+          currency: HKD
+          surcharge_amount: 100
+          payment_method:
+            wallet:
+              wallet_details:
+                brand_product_name: alipay_hk
+                country: HK
+                brand: Alipay
+              risk_data:
+                processor_risk_data:
+                  shopper_country: HK
+                  shopper_ip: 127.0.0.1
+                  browser_type: Chrome
+                  device_type: Desktop
+                  shopper_locale: en-HK
+            bank_transfer:
+              bank_transfer_details:
+                transfer_type: PayNow
+              risk_data:
+                processor_risk_data:
+                  shopper_country: HK
+                  shopper_ip: 127.0.0.1
+                  browser_type: Chrome
+                  device_type: Desktop
+                  shopper_locale: en-HK
+            card:
+              card_details:
+                last4: "1234"
+                country: HK
+                funding: UNKNOWN
+                finverse_authorization_reference: finverse_authorization_reference
+                collection_entity_name: collection_entity_name
+                card_number_alias: F046886807590403
+                is_commercial: true
+                expiry_year: 2028
+                processor_entity_name: processor_entity_name
+                expiry_month: 7
+                brand_product_name: visacommercialpremiumcredit
+                recurring_payment_mode: recurring_payment_mode
+                processor_details:
+                  processor_reference: processor_reference
+                  token_id: token_id
+                  network_transaction_reference: network_transaction_reference
+                  processor_id: processor_id
+                  auth_code: auth_code
+                fingerprint: V0010013822052427221044754993
+                acquirer_authorization_reference: "524506894419"
+                brand: VISA
+          status: AUTHORIZATION_REQUIRED
+        - amount: 100
+          fees:
+          - paid_by_account_id: The payment account ID
+            amount: 100
+            currency: HKD
+            paid_by: RECIPIENT
+          - paid_by_account_id: The payment account ID
+            amount: 100
+            currency: HKD
+            paid_by: RECIPIENT
+          metadata:
+            key: metadata
+          payment_details:
+            transaction_reference_id: transaction_reference_id
+            references:
+              bank_transaction_reference: bank_transaction_reference
+              finverse_transaction_reference: finverse_transaction_reference
+              dda_reference: dda_reference
+            external_transaction_reference: external_transaction_reference
+            recurring_payment_mode: recurring_payment_mode
+            processor_details:
+              result:
+                decline_code: decline_code
+                result_code: result_code
+                decline_reason: decline_reason
+                last_action: last_action
+                status: status
+              virtual_account_bank_code: virtual_account_bank_code
+              processor_reference: processor_reference
+              scheme: scheme
+              processor_id: processor_id
+              auth_code: auth_code
+              virtual_account_number: virtual_account_number
+            description: description
+            mandate_id: mandate_id
+            collection_entity_name: collection_entity_name
+            processor_entity_name: processor_entity_name
+          recipient_account:
+            account_type: SETTLEMENT_ACCOUNT
+            account_id: account_id
+          created_at: 2000-01-23T04:56:07.000+00:00
+          type: MANDATE
+          error:
+            error_code: CREDENTIALS_INVALID
+            details: details
+            type: LINKING_ERROR
+            message: message
+          payment_method_id: payment_method_id
+          amount_total_with_surcharge: 100
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          sender:
+            user_type: INDIVIDUAL
+            user_id: user_id
+            user_details:
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            - values:
+              - values
+              - values
+              - values
+              - values
+              - values
+              details_type: HK_ID
+            name: name
+            external_user_id: external_user_id
+          payment_id: payment_id
+          sender_account:
+            accountholder_name_plaintext: Chan Li Pak
+            account_number:
+              number: number
+              number_plaintext: number_plaintext
+              type: LOCAL
+            bank_code: bank_code
+            account_type: EXTERNAL_ACCOUNT
+            metadata:
+              key: metadata
+            account_id: sender_account_id
+            user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
+            account_number_masked: account_number_masked
+            accountholder_name: 01EP4A1MZDHKETZFRPF0K62S6S
+            institution_name: HSBC
+            institution_id: hsbc-hk
+          recipient:
+            name: name
+          currency: HKD
+          surcharge_amount: 100
+          payment_method:
+            wallet:
+              wallet_details:
+                brand_product_name: alipay_hk
+                country: HK
+                brand: Alipay
+              risk_data:
+                processor_risk_data:
+                  shopper_country: HK
+                  shopper_ip: 127.0.0.1
+                  browser_type: Chrome
+                  device_type: Desktop
+                  shopper_locale: en-HK
+            bank_transfer:
+              bank_transfer_details:
+                transfer_type: PayNow
+              risk_data:
+                processor_risk_data:
+                  shopper_country: HK
+                  shopper_ip: 127.0.0.1
+                  browser_type: Chrome
+                  device_type: Desktop
+                  shopper_locale: en-HK
+            card:
+              card_details:
+                last4: "1234"
+                country: HK
+                funding: UNKNOWN
+                finverse_authorization_reference: finverse_authorization_reference
+                collection_entity_name: collection_entity_name
+                card_number_alias: F046886807590403
+                is_commercial: true
+                expiry_year: 2028
+                processor_entity_name: processor_entity_name
+                expiry_month: 7
+                brand_product_name: visacommercialpremiumcredit
+                recurring_payment_mode: recurring_payment_mode
+                processor_details:
+                  processor_reference: processor_reference
+                  token_id: token_id
+                  network_transaction_reference: network_transaction_reference
+                  processor_id: processor_id
+                  auth_code: auth_code
+                fingerprint: V0010013822052427221044754993
+                acquirer_authorization_reference: "524506894419"
+                brand: VISA
+          status: AUTHORIZATION_REQUIRED
+        due_date: 2000-01-23T04:56:07.000+00:00
+        created_at: 2000-01-23T04:56:07.000+00:00
+        external_user_id: external_user_id
+        external_bill_id: external_bill_id
+        integration_metadata:
+          integration_id: integration_id
+          rapidstor_metadata:
+            tenant_id: tenant_id
+            tenant_default_currency: tenant_default_currency
+            i_lease_num: i_lease_num
+            d_sched_out: d_sched_out
+            corp_code: corp_code
+            i_anniv_days: 0
+            account_token: account_token
+            unit_type_id: unit_type_id
+            s_unit_name: s_unit_name
+            s_location_code: s_location_code
+            ledger_id: ledger_id
+            unit_id: unit_id
+        updated_at: 2000-01-23T04:56:07.000+00:00
+        user_id: user_id
+        payment_id: payment_id
+        details:
+          total_amount_due_raw: total_amount_due_raw
+          description: description
+          currency: currency
+          total_amount_due: 6
+          bill_reference_id: bill_reference_id
+        is_finverse_autopay_eligible: true
+        status: UNKNOWN
+    ListBillsResponse:
+      example:
+        bills:
+        - bill_id: bill_id
+          customer_app_id: customer_app_id
+          sender_details:
+            name: name
+          metadata:
+            key: metadata
+          integration_id: integration_id
+          bill_date: 2000-01-23T04:56:07.000+00:00
+          due_date: 2000-01-23T04:56:07.000+00:00
+          created_at: 2000-01-23T04:56:07.000+00:00
+          external_user_id: external_user_id
+          external_bill_id: external_bill_id
+          integration_metadata:
+            integration_id: integration_id
+            rapidstor_metadata:
+              tenant_id: tenant_id
+              tenant_default_currency: tenant_default_currency
+              i_lease_num: i_lease_num
+              d_sched_out: d_sched_out
+              corp_code: corp_code
+              i_anniv_days: 0
+              account_token: account_token
+              unit_type_id: unit_type_id
+              s_unit_name: s_unit_name
+              s_location_code: s_location_code
+              ledger_id: ledger_id
+              unit_id: unit_id
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          user_id: user_id
+          payment_id: payment_id
+          details:
+            total_amount_due_raw: total_amount_due_raw
+            description: description
+            currency: currency
+            total_amount_due: 6
+            bill_reference_id: bill_reference_id
+          is_finverse_autopay_eligible: true
+          status: UNKNOWN
+        - bill_id: bill_id
+          customer_app_id: customer_app_id
+          sender_details:
+            name: name
+          metadata:
+            key: metadata
+          integration_id: integration_id
+          bill_date: 2000-01-23T04:56:07.000+00:00
+          due_date: 2000-01-23T04:56:07.000+00:00
+          created_at: 2000-01-23T04:56:07.000+00:00
+          external_user_id: external_user_id
+          external_bill_id: external_bill_id
+          integration_metadata:
+            integration_id: integration_id
+            rapidstor_metadata:
+              tenant_id: tenant_id
+              tenant_default_currency: tenant_default_currency
+              i_lease_num: i_lease_num
+              d_sched_out: d_sched_out
+              corp_code: corp_code
+              i_anniv_days: 0
+              account_token: account_token
+              unit_type_id: unit_type_id
+              s_unit_name: s_unit_name
+              s_location_code: s_location_code
+              ledger_id: ledger_id
+              unit_id: unit_id
+          updated_at: 2000-01-23T04:56:07.000+00:00
+          user_id: user_id
+          payment_id: payment_id
+          details:
+            total_amount_due_raw: total_amount_due_raw
+            description: description
+            currency: currency
+            total_amount_due: 6
+            bill_reference_id: bill_reference_id
+          is_finverse_autopay_eligible: true
+          status: UNKNOWN
+        has_more: true
+      properties:
+        bills:
+          items:
+            $ref: '#/components/schemas/FVBill'
+          type: array
+        has_more:
+          description: Whether additional bills exist beyond this page for the same
+            query.
+          type: boolean
+      required:
+      - has_more
+      type: object
+    BillDetails:
+      example:
+        total_amount_due_raw: total_amount_due_raw
+        description: description
+        currency: currency
+        total_amount_due: 6
+        bill_reference_id: bill_reference_id
+      properties:
+        total_amount_due:
+          format: int64
+          type: integer
+        total_amount_due_raw:
+          type: string
+        currency:
+          type: string
+        description:
+          type: string
+        bill_reference_id:
+          type: string
+      type: object
+    BillIntegrationMetadata:
+      example:
+        integration_id: integration_id
+        rapidstor_metadata:
+          tenant_id: tenant_id
+          tenant_default_currency: tenant_default_currency
+          i_lease_num: i_lease_num
+          d_sched_out: d_sched_out
+          corp_code: corp_code
+          i_anniv_days: 0
+          account_token: account_token
+          unit_type_id: unit_type_id
+          s_unit_name: s_unit_name
+          s_location_code: s_location_code
+          ledger_id: ledger_id
+          unit_id: unit_id
+      properties:
+        integration_id:
+          type: string
+        rapidstor_metadata:
+          $ref: '#/components/schemas/BillRapidstorMetadata'
+      type: object
+    BillRapidstorMetadata:
+      example:
+        tenant_id: tenant_id
+        tenant_default_currency: tenant_default_currency
+        i_lease_num: i_lease_num
+        d_sched_out: d_sched_out
+        corp_code: corp_code
+        i_anniv_days: 0
+        account_token: account_token
+        unit_type_id: unit_type_id
+        s_unit_name: s_unit_name
+        s_location_code: s_location_code
+        ledger_id: ledger_id
+        unit_id: unit_id
+      properties:
+        corp_code:
+          type: string
+        s_location_code:
+          type: string
+        tenant_id:
+          type: string
+        i_anniv_days:
+          format: int64
+          type: integer
+        tenant_default_currency:
+          type: string
+        s_unit_name:
+          type: string
+        account_token:
+          type: string
+        ledger_id:
+          type: string
+        unit_id:
+          type: string
+        i_lease_num:
+          type: string
+        d_sched_out:
+          type: string
+        unit_type_id:
+          type: string
+      type: object
+    BillSenderDetails:
+      example:
+        name: name
+      properties:
+        name:
+          type: string
       type: object
     CompleteKcpPaymentRequest:
       example:
