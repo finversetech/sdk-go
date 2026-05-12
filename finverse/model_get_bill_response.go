@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -37,7 +38,7 @@ type GetBillResponse struct {
 	SenderDetails             *BillSenderDetails       `json:"sender_details,omitempty"`
 	CreatedAt                 NullableTime             `json:"created_at,omitempty"`
 	UpdatedAt                 NullableTime             `json:"updated_at,omitempty"`
-	IsFinverseAutopayEligible *bool                    `json:"is_finverse_autopay_eligible,omitempty"`
+	IsFinverseAutopayEligible bool                     `json:"is_finverse_autopay_eligible"`
 	Payments                  []PaymentResponse        `json:"payments,omitempty"`
 	AdditionalProperties      map[string]interface{}
 }
@@ -48,8 +49,9 @@ type _GetBillResponse GetBillResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetBillResponse() *GetBillResponse {
+func NewGetBillResponse(isFinverseAutopayEligible bool) *GetBillResponse {
 	this := GetBillResponse{}
+	this.IsFinverseAutopayEligible = isFinverseAutopayEligible
 	return &this
 }
 
@@ -617,36 +619,28 @@ func (o *GetBillResponse) UnsetUpdatedAt() {
 	o.UpdatedAt.Unset()
 }
 
-// GetIsFinverseAutopayEligible returns the IsFinverseAutopayEligible field value if set, zero value otherwise.
+// GetIsFinverseAutopayEligible returns the IsFinverseAutopayEligible field value
 func (o *GetBillResponse) GetIsFinverseAutopayEligible() bool {
-	if o == nil || IsNil(o.IsFinverseAutopayEligible) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.IsFinverseAutopayEligible
+
+	return o.IsFinverseAutopayEligible
 }
 
-// GetIsFinverseAutopayEligibleOk returns a tuple with the IsFinverseAutopayEligible field value if set, nil otherwise
+// GetIsFinverseAutopayEligibleOk returns a tuple with the IsFinverseAutopayEligible field value
 // and a boolean to check if the value has been set.
 func (o *GetBillResponse) GetIsFinverseAutopayEligibleOk() (*bool, bool) {
-	if o == nil || IsNil(o.IsFinverseAutopayEligible) {
+	if o == nil {
 		return nil, false
 	}
-	return o.IsFinverseAutopayEligible, true
+	return &o.IsFinverseAutopayEligible, true
 }
 
-// HasIsFinverseAutopayEligible returns a boolean if a field has been set.
-func (o *GetBillResponse) HasIsFinverseAutopayEligible() bool {
-	if o != nil && !IsNil(o.IsFinverseAutopayEligible) {
-		return true
-	}
-
-	return false
-}
-
-// SetIsFinverseAutopayEligible gets a reference to the given bool and assigns it to the IsFinverseAutopayEligible field.
+// SetIsFinverseAutopayEligible sets field value
 func (o *GetBillResponse) SetIsFinverseAutopayEligible(v bool) {
-	o.IsFinverseAutopayEligible = &v
+	o.IsFinverseAutopayEligible = v
 }
 
 // GetPayments returns the Payments field value if set, zero value otherwise.
@@ -739,9 +733,7 @@ func (o GetBillResponse) ToMap() (map[string]interface{}, error) {
 	if o.UpdatedAt.IsSet() {
 		toSerialize["updated_at"] = o.UpdatedAt.Get()
 	}
-	if !IsNil(o.IsFinverseAutopayEligible) {
-		toSerialize["is_finverse_autopay_eligible"] = o.IsFinverseAutopayEligible
-	}
+	toSerialize["is_finverse_autopay_eligible"] = o.IsFinverseAutopayEligible
 	if !IsNil(o.Payments) {
 		toSerialize["payments"] = o.Payments
 	}
@@ -754,6 +746,27 @@ func (o GetBillResponse) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *GetBillResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"is_finverse_autopay_eligible",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varGetBillResponse := _GetBillResponse{}
 
 	err = json.Unmarshal(data, &varGetBillResponse)

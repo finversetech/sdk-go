@@ -13792,6 +13792,8 @@ components:
           type: string
         is_finverse_autopay_eligible:
           type: boolean
+      required:
+      - is_finverse_autopay_eligible
       type: object
     GetBillResponse:
       allOf:
