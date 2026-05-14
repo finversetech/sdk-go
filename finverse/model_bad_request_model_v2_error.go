@@ -24,7 +24,7 @@ type BadRequestModelV2Error struct {
 	// The error type
 	Type      string  `json:"type"`
 	ErrorCode string  `json:"error_code"`
-	Code      float32 `json:"code"`
+	Code      int32   `json:"code"`
 	Message   string  `json:"message"`
 	Details   *string `json:"details,omitempty"`
 	// The request_id provided in the request header
@@ -38,7 +38,7 @@ type _BadRequestModelV2Error BadRequestModelV2Error
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBadRequestModelV2Error(type_ string, errorCode string, code float32, message string, requestId string) *BadRequestModelV2Error {
+func NewBadRequestModelV2Error(type_ string, errorCode string, code int32, message string, requestId string) *BadRequestModelV2Error {
 	this := BadRequestModelV2Error{}
 	this.Type = type_
 	this.ErrorCode = errorCode
@@ -105,9 +105,9 @@ func (o *BadRequestModelV2Error) SetErrorCode(v string) {
 }
 
 // GetCode returns the Code field value
-func (o *BadRequestModelV2Error) GetCode() float32 {
+func (o *BadRequestModelV2Error) GetCode() int32 {
 	if o == nil {
-		var ret float32
+		var ret int32
 		return ret
 	}
 
@@ -116,7 +116,7 @@ func (o *BadRequestModelV2Error) GetCode() float32 {
 
 // GetCodeOk returns a tuple with the Code field value
 // and a boolean to check if the value has been set.
-func (o *BadRequestModelV2Error) GetCodeOk() (*float32, bool) {
+func (o *BadRequestModelV2Error) GetCodeOk() (*int32, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -124,7 +124,7 @@ func (o *BadRequestModelV2Error) GetCodeOk() (*float32, bool) {
 }
 
 // SetCode sets field value
-func (o *BadRequestModelV2Error) SetCode(v float32) {
+func (o *BadRequestModelV2Error) SetCode(v int32) {
 	o.Code = v
 }
 

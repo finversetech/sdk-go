@@ -26,7 +26,7 @@ type AccessTokenResponse struct {
 	LoginIdentityId string `json:"login_identity_id"`
 	TokenType       string `json:"token_type"`
 	// seconds
-	ExpiresIn            float32   `json:"expires_in"`
+	ExpiresIn            int64     `json:"expires_in"`
 	RefreshToken         string    `json:"refresh_token"`
 	IssuedAt             time.Time `json:"issued_at"`
 	AdditionalProperties map[string]interface{}
@@ -38,7 +38,7 @@ type _AccessTokenResponse AccessTokenResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewAccessTokenResponse(accessToken string, loginIdentityId string, tokenType string, expiresIn float32, refreshToken string, issuedAt time.Time) *AccessTokenResponse {
+func NewAccessTokenResponse(accessToken string, loginIdentityId string, tokenType string, expiresIn int64, refreshToken string, issuedAt time.Time) *AccessTokenResponse {
 	this := AccessTokenResponse{}
 	this.AccessToken = accessToken
 	this.LoginIdentityId = loginIdentityId
@@ -130,9 +130,9 @@ func (o *AccessTokenResponse) SetTokenType(v string) {
 }
 
 // GetExpiresIn returns the ExpiresIn field value
-func (o *AccessTokenResponse) GetExpiresIn() float32 {
+func (o *AccessTokenResponse) GetExpiresIn() int64 {
 	if o == nil {
-		var ret float32
+		var ret int64
 		return ret
 	}
 
@@ -141,7 +141,7 @@ func (o *AccessTokenResponse) GetExpiresIn() float32 {
 
 // GetExpiresInOk returns a tuple with the ExpiresIn field value
 // and a boolean to check if the value has been set.
-func (o *AccessTokenResponse) GetExpiresInOk() (*float32, bool) {
+func (o *AccessTokenResponse) GetExpiresInOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -149,7 +149,7 @@ func (o *AccessTokenResponse) GetExpiresInOk() (*float32, bool) {
 }
 
 // SetExpiresIn sets field value
-func (o *AccessTokenResponse) SetExpiresIn(v float32) {
+func (o *AccessTokenResponse) SetExpiresIn(v int64) {
 	o.ExpiresIn = v
 }
 

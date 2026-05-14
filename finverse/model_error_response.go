@@ -20,13 +20,13 @@ var _ MappedNullable = &ErrorResponse{}
 
 // ErrorResponse struct for ErrorResponse
 type ErrorResponse struct {
-	Err                  *string  `json:"err,omitempty"`
-	HttpStatusCode       *float32 `json:"http_status_code,omitempty"`
-	StatusText           *string  `json:"status_text,omitempty"`
-	AppCode              *float32 `json:"app_code,omitempty"`
-	ErrorCategory        *string  `json:"error_category,omitempty"`
-	ErrorText            *string  `json:"error_text,omitempty"`
-	RequestId            *string  `json:"request_id,omitempty"`
+	Err                  *string `json:"err,omitempty"`
+	HttpStatusCode       *int32  `json:"http_status_code,omitempty"`
+	StatusText           *string `json:"status_text,omitempty"`
+	AppCode              *int64  `json:"app_code,omitempty"`
+	ErrorCategory        *string `json:"error_category,omitempty"`
+	ErrorText            *string `json:"error_text,omitempty"`
+	RequestId            *string `json:"request_id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -82,9 +82,9 @@ func (o *ErrorResponse) SetErr(v string) {
 }
 
 // GetHttpStatusCode returns the HttpStatusCode field value if set, zero value otherwise.
-func (o *ErrorResponse) GetHttpStatusCode() float32 {
+func (o *ErrorResponse) GetHttpStatusCode() int32 {
 	if o == nil || IsNil(o.HttpStatusCode) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.HttpStatusCode
@@ -92,7 +92,7 @@ func (o *ErrorResponse) GetHttpStatusCode() float32 {
 
 // GetHttpStatusCodeOk returns a tuple with the HttpStatusCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ErrorResponse) GetHttpStatusCodeOk() (*float32, bool) {
+func (o *ErrorResponse) GetHttpStatusCodeOk() (*int32, bool) {
 	if o == nil || IsNil(o.HttpStatusCode) {
 		return nil, false
 	}
@@ -108,8 +108,8 @@ func (o *ErrorResponse) HasHttpStatusCode() bool {
 	return false
 }
 
-// SetHttpStatusCode gets a reference to the given float32 and assigns it to the HttpStatusCode field.
-func (o *ErrorResponse) SetHttpStatusCode(v float32) {
+// SetHttpStatusCode gets a reference to the given int32 and assigns it to the HttpStatusCode field.
+func (o *ErrorResponse) SetHttpStatusCode(v int32) {
 	o.HttpStatusCode = &v
 }
 
@@ -146,9 +146,9 @@ func (o *ErrorResponse) SetStatusText(v string) {
 }
 
 // GetAppCode returns the AppCode field value if set, zero value otherwise.
-func (o *ErrorResponse) GetAppCode() float32 {
+func (o *ErrorResponse) GetAppCode() int64 {
 	if o == nil || IsNil(o.AppCode) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.AppCode
@@ -156,7 +156,7 @@ func (o *ErrorResponse) GetAppCode() float32 {
 
 // GetAppCodeOk returns a tuple with the AppCode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ErrorResponse) GetAppCodeOk() (*float32, bool) {
+func (o *ErrorResponse) GetAppCodeOk() (*int64, bool) {
 	if o == nil || IsNil(o.AppCode) {
 		return nil, false
 	}
@@ -172,8 +172,8 @@ func (o *ErrorResponse) HasAppCode() bool {
 	return false
 }
 
-// SetAppCode gets a reference to the given float32 and assigns it to the AppCode field.
-func (o *ErrorResponse) SetAppCode(v float32) {
+// SetAppCode gets a reference to the given int64 and assigns it to the AppCode field.
+func (o *ErrorResponse) SetAppCode(v int64) {
 	o.AppCode = &v
 }
 

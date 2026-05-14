@@ -20,9 +20,9 @@ var _ MappedNullable = &BadRequestModelError{}
 
 // BadRequestModelError struct for BadRequestModelError
 type BadRequestModelError struct {
-	Code    *float32 `json:"code,omitempty"`
-	Name    *string  `json:"name,omitempty"`
-	Message *string  `json:"message,omitempty"`
+	Code    *int32  `json:"code,omitempty"`
+	Name    *string `json:"name,omitempty"`
+	Message *string `json:"message,omitempty"`
 	// A link to visit for further action
 	Link                 *string `json:"link,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -48,9 +48,9 @@ func NewBadRequestModelErrorWithDefaults() *BadRequestModelError {
 }
 
 // GetCode returns the Code field value if set, zero value otherwise.
-func (o *BadRequestModelError) GetCode() float32 {
+func (o *BadRequestModelError) GetCode() int32 {
 	if o == nil || IsNil(o.Code) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.Code
@@ -58,7 +58,7 @@ func (o *BadRequestModelError) GetCode() float32 {
 
 // GetCodeOk returns a tuple with the Code field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *BadRequestModelError) GetCodeOk() (*float32, bool) {
+func (o *BadRequestModelError) GetCodeOk() (*int32, bool) {
 	if o == nil || IsNil(o.Code) {
 		return nil, false
 	}
@@ -74,8 +74,8 @@ func (o *BadRequestModelError) HasCode() bool {
 	return false
 }
 
-// SetCode gets a reference to the given float32 and assigns it to the Code field.
-func (o *BadRequestModelError) SetCode(v float32) {
+// SetCode gets a reference to the given int32 and assigns it to the Code field.
+func (o *BadRequestModelError) SetCode(v int32) {
 	o.Code = &v
 }
 

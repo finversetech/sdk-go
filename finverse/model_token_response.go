@@ -25,7 +25,7 @@ type TokenResponse struct {
 	AccessToken string `json:"access_token"`
 	TokenType   string `json:"token_type"`
 	// seconds
-	ExpiresIn            float32   `json:"expires_in"`
+	ExpiresIn            int64     `json:"expires_in"`
 	IssuedAt             time.Time `json:"issued_at"`
 	AdditionalProperties map[string]interface{}
 }
@@ -36,7 +36,7 @@ type _TokenResponse TokenResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTokenResponse(accessToken string, tokenType string, expiresIn float32, issuedAt time.Time) *TokenResponse {
+func NewTokenResponse(accessToken string, tokenType string, expiresIn int64, issuedAt time.Time) *TokenResponse {
 	this := TokenResponse{}
 	this.AccessToken = accessToken
 	this.TokenType = tokenType
@@ -102,9 +102,9 @@ func (o *TokenResponse) SetTokenType(v string) {
 }
 
 // GetExpiresIn returns the ExpiresIn field value
-func (o *TokenResponse) GetExpiresIn() float32 {
+func (o *TokenResponse) GetExpiresIn() int64 {
 	if o == nil {
-		var ret float32
+		var ret int64
 		return ret
 	}
 
@@ -113,7 +113,7 @@ func (o *TokenResponse) GetExpiresIn() float32 {
 
 // GetExpiresInOk returns a tuple with the ExpiresIn field value
 // and a boolean to check if the value has been set.
-func (o *TokenResponse) GetExpiresInOk() (*float32, bool) {
+func (o *TokenResponse) GetExpiresInOk() (*int64, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -121,7 +121,7 @@ func (o *TokenResponse) GetExpiresInOk() (*float32, bool) {
 }
 
 // SetExpiresIn sets field value
-func (o *TokenResponse) SetExpiresIn(v float32) {
+func (o *TokenResponse) SetExpiresIn(v int64) {
 	o.ExpiresIn = v
 }
 

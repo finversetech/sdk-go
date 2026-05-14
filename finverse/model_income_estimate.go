@@ -21,7 +21,6 @@ var _ MappedNullable = &IncomeEstimate{}
 
 // IncomeEstimate struct for IncomeEstimate
 type IncomeEstimate struct {
-	// Income amount
 	Amount float32 `json:"amount"`
 	// Currency
 	Currency             string `json:"currency"`

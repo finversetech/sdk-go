@@ -28,7 +28,7 @@ type Principal struct {
 	LoginIdentityId           string                     `json:"login_identity_id"`
 	CustomizationId           *string                    `json:"customization_id,omitempty"`
 	MandateId                 *string                    `json:"mandate_id,omitempty"`
-	ExpiresIn                 *float32                   `json:"expires_in,omitempty"`
+	ExpiresIn                 *int32                     `json:"expires_in,omitempty"`
 	PaymentAttemptId          *string                    `json:"payment_attempt_id,omitempty"`
 	PaymentId                 *string                    `json:"payment_id,omitempty"`
 	PaymentAccountId          *string                    `json:"payment_account_id,omitempty"`
@@ -268,9 +268,9 @@ func (o *Principal) SetMandateId(v string) {
 }
 
 // GetExpiresIn returns the ExpiresIn field value if set, zero value otherwise.
-func (o *Principal) GetExpiresIn() float32 {
+func (o *Principal) GetExpiresIn() int32 {
 	if o == nil || IsNil(o.ExpiresIn) {
-		var ret float32
+		var ret int32
 		return ret
 	}
 	return *o.ExpiresIn
@@ -278,7 +278,7 @@ func (o *Principal) GetExpiresIn() float32 {
 
 // GetExpiresInOk returns a tuple with the ExpiresIn field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Principal) GetExpiresInOk() (*float32, bool) {
+func (o *Principal) GetExpiresInOk() (*int32, bool) {
 	if o == nil || IsNil(o.ExpiresIn) {
 		return nil, false
 	}
@@ -294,8 +294,8 @@ func (o *Principal) HasExpiresIn() bool {
 	return false
 }
 
-// SetExpiresIn gets a reference to the given float32 and assigns it to the ExpiresIn field.
-func (o *Principal) SetExpiresIn(v float32) {
+// SetExpiresIn gets a reference to the given int32 and assigns it to the ExpiresIn field.
+func (o *Principal) SetExpiresIn(v int32) {
 	o.ExpiresIn = &v
 }
 

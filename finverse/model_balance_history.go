@@ -22,8 +22,7 @@ var _ MappedNullable = &BalanceHistory{}
 // BalanceHistory struct for BalanceHistory
 type BalanceHistory struct {
 	// The date the balance was recorded
-	Date string `json:"date"`
-	// The end of day balance for this account on this specific date
+	Date   string  `json:"date"`
 	Amount float32 `json:"amount"`
 	// The currency the balance
 	Currency             string `json:"currency"`

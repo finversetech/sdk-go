@@ -2158,49 +2158,6 @@ paths:
       tags:
       - payment
       x-codegen-request-body-name: authorizeMandateRequest
-  /payments/instruction:
-    post:
-      description: Create a new payment instruction to be used when linking to perform
-        new payment
-      operationId: createPaymentInstruction
-      requestBody:
-        content:
-          application/json:
-            schema:
-              $ref: '#/components/schemas/CustomerPaymentInstruction'
-        description: Request body for starting a new Link
-        required: true
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/CreatePaymentInstructionResponse'
-          description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Invalid Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - payment:create
-      tags:
-      - customer
-      x-codegen-request-body-name: paymentInstruction
   /testing/payments/{paymentId}/status:
     post:
       deprecated: true
@@ -2242,48 +2199,6 @@ paths:
       tags:
       - payment
       x-codegen-request-body-name: paymentStatus
-  /payments/instruction/{paymentInstructionId}:
-    get:
-      deprecated: true
-      description: "[DEPRECATED] Get payment instructions by payment_instruction_id"
-      operationId: getPaymentInstruction
-      parameters:
-      - description: The id of a payment instruction
-        in: path
-        name: paymentInstructionId
-        required: true
-        schema:
-          type: string
-      responses:
-        "200":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/GetPaymentInstructionsResponse'
-          description: Successful
-        "400":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Invalid Request
-        "401":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/BadRequestModel'
-          description: Unauthorized
-        "500":
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/ErrorResponse'
-          description: Internal Server Error
-      security:
-      - Oauth2:
-        - payment:get
-      tags:
-      - customer
   /payouts/scheduled:
     post:
       description: Create a scheduled payout
@@ -3133,6 +3048,13 @@ paths:
       - payment
 components:
   schemas:
+    FvDecimal:
+      type: number
+      x-go-type:
+        type: FvDecimal
+        import:
+          package: gitlab.com/finverse/gitops/applications/common-go/amount
+        embedded: true
     Principal:
       properties:
         subject:
@@ -3158,8 +3080,8 @@ components:
           example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           type: string
         expires_in:
-          example: 3600.0
-          type: number
+          example: 3600
+          type: integer
         payment_attempt_id:
           example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           type: string
@@ -3243,17 +3165,17 @@ components:
           statement_balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           ledger_balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           updated_at: 2000-01-23T04:56:07.000+00:00
           balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           is_excluded: false
           group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
           account_name: HKD Savings
@@ -3278,44 +3200,44 @@ components:
             total_credit_limit:
               raw: "69.00"
               currency: HKD
-              value: 69.0
+              value: 0.8008281904610115
             payment_due_amount:
               raw: "69.00"
               currency: HKD
-              value: 69.0
+              value: 0.8008281904610115
             minimum_payment_due:
               raw: "69.00"
               currency: HKD
-              value: 69.0
+              value: 0.8008281904610115
             last_payment_amount:
               raw: "69.00"
               currency: HKD
-              value: 69.0
+              value: 0.8008281904610115
             rewards_balances:
             - unit: UNI$
               raw: "69.00"
-              value: 69.0
+              value: 0.8008281904610115
             - unit: UNI$
               raw: "69.00"
-              value: 69.0
+              value: 0.8008281904610115
             statement_date: 2021-10-27
             statement_due_amount:
               raw: "69.00"
               currency: HKD
-              value: 69.0
+              value: 0.8008281904610115
             account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
             statement_payment_due_date: 2021-02-01
             updated_at: 2021-02-01T10:01:02.333Z
             available_credit_limit:
               raw: "69.00"
               currency: HKD
-              value: 69.0
+              value: 0.8008281904610115
             account_name: HKD Visa
             account_number_masked: account_number_masked
             current_balance:
               raw: "69.00"
               currency: HKD
-              value: 69.0
+              value: 0.8008281904610115
             next_payment_due_date: 2021-02-01
           - account_type:
               subtype: SAVINGS
@@ -3324,78 +3246,78 @@ components:
             total_credit_limit:
               raw: "69.00"
               currency: HKD
-              value: 69.0
+              value: 0.8008281904610115
             payment_due_amount:
               raw: "69.00"
               currency: HKD
-              value: 69.0
+              value: 0.8008281904610115
             minimum_payment_due:
               raw: "69.00"
               currency: HKD
-              value: 69.0
+              value: 0.8008281904610115
             last_payment_amount:
               raw: "69.00"
               currency: HKD
-              value: 69.0
+              value: 0.8008281904610115
             rewards_balances:
             - unit: UNI$
               raw: "69.00"
-              value: 69.0
+              value: 0.8008281904610115
             - unit: UNI$
               raw: "69.00"
-              value: 69.0
+              value: 0.8008281904610115
             statement_date: 2021-10-27
             statement_due_amount:
               raw: "69.00"
               currency: HKD
-              value: 69.0
+              value: 0.8008281904610115
             account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
             statement_payment_due_date: 2021-02-01
             updated_at: 2021-02-01T10:01:02.333Z
             available_credit_limit:
               raw: "69.00"
               currency: HKD
-              value: 69.0
+              value: 0.8008281904610115
             account_name: HKD Visa
             account_number_masked: account_number_masked
             current_balance:
               raw: "69.00"
               currency: HKD
-              value: 69.0
+              value: 0.8008281904610115
             next_payment_due_date: 2021-02-01
           card_total:
             statement_due_amount:
               raw: "69.00"
               currency: HKD
-              value: 69.0
+              value: 0.8008281904610115
             updated_at: 2021-02-01T10:01:02.333Z
             available_credit_limit:
               raw: "69.00"
               currency: HKD
-              value: 69.0
+              value: 0.8008281904610115
             current_balance:
               raw: "69.00"
               currency: HKD
-              value: 69.0
+              value: 0.8008281904610115
             total_credit_limit:
               raw: "69.00"
               currency: HKD
-              value: 69.0
+              value: 0.8008281904610115
             payment_due_amount:
               raw: "69.00"
               currency: HKD
-              value: 69.0
+              value: 0.8008281904610115
             minimum_payment_due:
               raw: "69.00"
               currency: HKD
-              value: 69.0
+              value: 0.8008281904610115
             rewards_balances:
             - unit: UNI$
               raw: "69.00"
-              value: 69.0
+              value: 0.8008281904610115
             - unit: UNI$
               raw: "69.00"
-              value: 69.0
+              value: 0.8008281904610115
         institution:
           portal_name: Personal Internet Banking
           countries:
@@ -3463,17 +3385,17 @@ components:
           statement_balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           ledger_balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           updated_at: 2000-01-23T04:56:07.000+00:00
           balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           is_excluded: false
           group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
           account_name: HKD Savings
@@ -3507,10 +3429,10 @@ components:
           status: LINKING
         balance_history:
         - date: 2021-10-27
-          amount: 69.0
+          amount: 0.8008281904610115
           currency: HKD
         - date: 2021-10-27
-          amount: 69.0
+          amount: 0.8008281904610115
           currency: HKD
         source: INSTITUTION
         account:
@@ -3529,17 +3451,17 @@ components:
           statement_balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           ledger_balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           updated_at: 2000-01-23T04:56:07.000+00:00
           balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           is_excluded: false
           group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
           account_name: HKD Savings
@@ -3901,17 +3823,17 @@ components:
           statement_balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           ledger_balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           updated_at: 2000-01-23T04:56:07.000+00:00
           balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           is_excluded: false
           group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
           account_name: HKD Savings
@@ -3932,17 +3854,17 @@ components:
           statement_balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           ledger_balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           updated_at: 2000-01-23T04:56:07.000+00:00
           balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           is_excluded: false
           group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
           account_name: HKD Savings
@@ -3984,17 +3906,17 @@ components:
         statement_balance:
           raw: "69.00"
           currency: HKD
-          value: 69.0
+          value: 0.8008281904610115
         ledger_balance:
           raw: "69.00"
           currency: HKD
-          value: 69.0
+          value: 0.8008281904610115
         account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
         updated_at: 2000-01-23T04:56:07.000+00:00
         balance:
           raw: "69.00"
           currency: HKD
-          value: 69.0
+          value: 0.8008281904610115
         is_excluded: false
         group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
         account_name: HKD Savings
@@ -4068,7 +3990,7 @@ components:
     BalanceHistory:
       example:
         date: 2021-10-27
-        amount: 69.0
+        amount: 0.8008281904610115
         currency: HKD
       properties:
         date:
@@ -4076,9 +3998,12 @@ components:
           example: 2021-10-27
           type: string
         amount:
-          description: The end of day balance for this account on this specific date
-          example: 69.0
           type: number
+          x-go-type:
+            type: FvDecimal
+            import:
+              package: gitlab.com/finverse/gitops/applications/common-go/amount
+            embedded: true
         currency:
           description: The currency the balance
           example: HKD
@@ -4111,14 +4036,18 @@ components:
       example:
         unit: UNI$
         raw: "69.00"
-        value: 69.0
+        value: 0.8008281904610115
       properties:
         unit:
           example: UNI$
           type: string
         value:
-          example: 69.0
           type: number
+          x-go-type:
+            type: FvDecimal
+            import:
+              package: gitlab.com/finverse/gitops/applications/common-go/amount
+            embedded: true
         raw:
           example: "69.00"
           type: string
@@ -4129,14 +4058,18 @@ components:
       example:
         raw: "69.00"
         currency: HKD
-        value: 69.0
+        value: 0.8008281904610115
       properties:
         currency:
           example: HKD
           type: string
         value:
-          example: 69.0
           type: number
+          x-go-type:
+            type: FvDecimal
+            import:
+              package: gitlab.com/finverse/gitops/applications/common-go/amount
+            embedded: true
         raw:
           example: "69.00"
           type: string
@@ -4149,7 +4082,7 @@ components:
         amount:
           raw: "69.00"
           currency: HKD
-          value: 69.0
+          value: 0.8008281904610115
         merchant_name: FUEL COFFEE
         description: Latte
         created_at: 2000-01-23T04:56:07.000+00:00
@@ -4157,7 +4090,7 @@ components:
         running_balance:
           raw: "69.00"
           currency: HKD
-          value: 69.0
+          value: 0.8008281904610115
         transaction_details: "{}"
         account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
         category_id: OTHER
@@ -4305,17 +4238,17 @@ components:
           statement_balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           ledger_balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           updated_at: 2000-01-23T04:56:07.000+00:00
           balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           is_excluded: false
           group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
           account_name: HKD Savings
@@ -4336,17 +4269,17 @@ components:
           statement_balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           ledger_balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           updated_at: 2000-01-23T04:56:07.000+00:00
           balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           is_excluded: false
           group_id: 03504faef9ad3ac048c6a43efa6db7ba1c5239a856536839d87ac949559e7ceb
           account_name: HKD Savings
@@ -4357,7 +4290,7 @@ components:
           amount:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           merchant_name: FUEL COFFEE
           description: Latte
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -4365,7 +4298,7 @@ components:
           running_balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           transaction_details: "{}"
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           category_id: OTHER
@@ -4393,7 +4326,7 @@ components:
           amount:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           merchant_name: FUEL COFFEE
           description: Latte
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -4401,7 +4334,7 @@ components:
           running_balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           transaction_details: "{}"
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           category_id: OTHER
@@ -5072,7 +5005,7 @@ components:
       example:
         access_token: access_token
         token_type: token_type
-        expires_in: 0.8008281904610115
+        expires_in: 0
         issued_at: 2000-01-23T04:56:07.000+00:00
       properties:
         access_token:
@@ -5082,7 +5015,7 @@ components:
         expires_in:
           description: seconds
           format: int64
-          type: number
+          type: integer
         issued_at:
           format: date-time
           type: string
@@ -5297,7 +5230,7 @@ components:
         access_token: access_token
         link_url: https://link.dev.finverse.net/onboarding?token=dasdsa8erhiu7rey78r
         token_type: token_type
-        expires_in: 0.8008281904610115
+        expires_in: 0
         issued_at: 2000-01-23T04:56:07.000+00:00
       properties:
         access_token:
@@ -5307,7 +5240,7 @@ components:
         expires_in:
           description: seconds
           format: int64
-          type: number
+          type: integer
         issued_at:
           format: date-time
           type: string
@@ -5327,7 +5260,7 @@ components:
         link_url: https://link.dev.finverse.net/onboarding?token=dasdsa8erhiu7rey78r
         token_type: token_type
         login_identity_id: login_identity_id
-        expires_in: 0.8008281904610115
+        expires_in: 0
         issued_at: 2000-01-23T04:56:07.000+00:00
       properties:
         access_token:
@@ -5337,7 +5270,7 @@ components:
         expires_in:
           description: seconds
           format: int64
-          type: number
+          type: integer
         issued_at:
           format: date-time
           type: string
@@ -6018,7 +5951,7 @@ components:
         refresh_token: refresh_token
         login_identity_id: login_identity_id
         token_type: token_type
-        expires_in: 0.8008281904610115
+        expires_in: 0
         issued_at: 2000-01-23T04:56:07.000+00:00
       properties:
         access_token:
@@ -6030,7 +5963,7 @@ components:
         expires_in:
           description: seconds
           format: int64
-          type: number
+          type: integer
         refresh_token:
           type: string
         issued_at:
@@ -6240,44 +6173,44 @@ components:
           total_credit_limit:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           payment_due_amount:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           minimum_payment_due:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           last_payment_amount:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           rewards_balances:
           - unit: UNI$
             raw: "69.00"
-            value: 69.0
+            value: 0.8008281904610115
           - unit: UNI$
             raw: "69.00"
-            value: 69.0
+            value: 0.8008281904610115
           statement_date: 2021-10-27
           statement_due_amount:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           statement_payment_due_date: 2021-02-01
           updated_at: 2021-02-01T10:01:02.333Z
           available_credit_limit:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           account_name: HKD Visa
           account_number_masked: account_number_masked
           current_balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           next_payment_due_date: 2021-02-01
         - account_type:
             subtype: SAVINGS
@@ -6286,78 +6219,78 @@ components:
           total_credit_limit:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           payment_due_amount:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           minimum_payment_due:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           last_payment_amount:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           rewards_balances:
           - unit: UNI$
             raw: "69.00"
-            value: 69.0
+            value: 0.8008281904610115
           - unit: UNI$
             raw: "69.00"
-            value: 69.0
+            value: 0.8008281904610115
           statement_date: 2021-10-27
           statement_due_amount:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           statement_payment_due_date: 2021-02-01
           updated_at: 2021-02-01T10:01:02.333Z
           available_credit_limit:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           account_name: HKD Visa
           account_number_masked: account_number_masked
           current_balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           next_payment_due_date: 2021-02-01
         card_total:
           statement_due_amount:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           updated_at: 2021-02-01T10:01:02.333Z
           available_credit_limit:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           current_balance:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           total_credit_limit:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           payment_due_amount:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           minimum_payment_due:
             raw: "69.00"
             currency: HKD
-            value: 69.0
+            value: 0.8008281904610115
           rewards_balances:
           - unit: UNI$
             raw: "69.00"
-            value: 69.0
+            value: 0.8008281904610115
           - unit: UNI$
             raw: "69.00"
-            value: 69.0
+            value: 0.8008281904610115
       properties:
         card_accounts:
           items:
@@ -6375,44 +6308,44 @@ components:
         total_credit_limit:
           raw: "69.00"
           currency: HKD
-          value: 69.0
+          value: 0.8008281904610115
         payment_due_amount:
           raw: "69.00"
           currency: HKD
-          value: 69.0
+          value: 0.8008281904610115
         minimum_payment_due:
           raw: "69.00"
           currency: HKD
-          value: 69.0
+          value: 0.8008281904610115
         last_payment_amount:
           raw: "69.00"
           currency: HKD
-          value: 69.0
+          value: 0.8008281904610115
         rewards_balances:
         - unit: UNI$
           raw: "69.00"
-          value: 69.0
+          value: 0.8008281904610115
         - unit: UNI$
           raw: "69.00"
-          value: 69.0
+          value: 0.8008281904610115
         statement_date: 2021-10-27
         statement_due_amount:
           raw: "69.00"
           currency: HKD
-          value: 69.0
+          value: 0.8008281904610115
         account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
         statement_payment_due_date: 2021-02-01
         updated_at: 2021-02-01T10:01:02.333Z
         available_credit_limit:
           raw: "69.00"
           currency: HKD
-          value: 69.0
+          value: 0.8008281904610115
         account_name: HKD Visa
         account_number_masked: account_number_masked
         current_balance:
           raw: "69.00"
           currency: HKD
-          value: 69.0
+          value: 0.8008281904610115
         next_payment_due_date: 2021-02-01
       properties:
         account_id:
@@ -6471,35 +6404,35 @@ components:
         statement_due_amount:
           raw: "69.00"
           currency: HKD
-          value: 69.0
+          value: 0.8008281904610115
         updated_at: 2021-02-01T10:01:02.333Z
         available_credit_limit:
           raw: "69.00"
           currency: HKD
-          value: 69.0
+          value: 0.8008281904610115
         current_balance:
           raw: "69.00"
           currency: HKD
-          value: 69.0
+          value: 0.8008281904610115
         total_credit_limit:
           raw: "69.00"
           currency: HKD
-          value: 69.0
+          value: 0.8008281904610115
         payment_due_amount:
           raw: "69.00"
           currency: HKD
-          value: 69.0
+          value: 0.8008281904610115
         minimum_payment_due:
           raw: "69.00"
           currency: HKD
-          value: 69.0
+          value: 0.8008281904610115
         rewards_balances:
         - unit: UNI$
           raw: "69.00"
-          value: 69.0
+          value: 0.8008281904610115
         - unit: UNI$
           raw: "69.00"
-          value: 69.0
+          value: 0.8008281904610115
       properties:
         current_balance:
           $ref: '#/components/schemas/CurrencyAmount'
@@ -6568,13 +6501,16 @@ components:
       type: object
     IncomeEstimate:
       example:
-        amount: 100.0
+        amount: 0.8008281904610115
         currency: HKD
       properties:
         amount:
-          description: Income amount
-          example: 100.0
           type: number
+          x-go-type:
+            type: FvDecimal
+            import:
+              package: gitlab.com/finverse/gitops/applications/common-go/amount
+            embedded: true
         currency:
           description: Currency
           example: HKD
@@ -6588,7 +6524,7 @@ components:
         month: 1.0
         year: 2020.0
         estimated_income:
-          amount: 100.0
+          amount: 0.8008281904610115
           currency: HKD
       properties:
         estimated_income:
@@ -6612,19 +6548,19 @@ components:
       example:
         account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
         estimated_monthly_income:
-          amount: 100.0
+          amount: 0.8008281904610115
           currency: HKD
         transaction_count: 3.0
         monthly_history:
         - month: 1.0
           year: 2020.0
           estimated_income:
-            amount: 100.0
+            amount: 0.8008281904610115
             currency: HKD
         - month: 1.0
           year: 2020.0
           estimated_income:
-            amount: 100.0
+            amount: 0.8008281904610115
             currency: HKD
       properties:
         account_id:
@@ -6650,19 +6586,19 @@ components:
     IncomeTotal:
       example:
         estimated_monthly_income:
-          amount: 100.0
+          amount: 0.8008281904610115
           currency: HKD
         transaction_count: 3.0
         monthly_history:
         - month: 1.0
           year: 2020.0
           estimated_income:
-            amount: 100.0
+            amount: 0.8008281904610115
             currency: HKD
         - month: 1.0
           year: 2020.0
           estimated_income:
-            amount: 100.0
+            amount: 0.8008281904610115
             currency: HKD
       properties:
         estimated_monthly_income:
@@ -6684,52 +6620,52 @@ components:
       example:
         income_total:
           estimated_monthly_income:
-            amount: 100.0
+            amount: 0.8008281904610115
             currency: HKD
           transaction_count: 3.0
           monthly_history:
           - month: 1.0
             year: 2020.0
             estimated_income:
-              amount: 100.0
+              amount: 0.8008281904610115
               currency: HKD
           - month: 1.0
             year: 2020.0
             estimated_income:
-              amount: 100.0
+              amount: 0.8008281904610115
               currency: HKD
         income_streams:
         - account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           estimated_monthly_income:
-            amount: 100.0
+            amount: 0.8008281904610115
             currency: HKD
           transaction_count: 3.0
           monthly_history:
           - month: 1.0
             year: 2020.0
             estimated_income:
-              amount: 100.0
+              amount: 0.8008281904610115
               currency: HKD
           - month: 1.0
             year: 2020.0
             estimated_income:
-              amount: 100.0
+              amount: 0.8008281904610115
               currency: HKD
         - account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           estimated_monthly_income:
-            amount: 100.0
+            amount: 0.8008281904610115
             currency: HKD
           transaction_count: 3.0
           monthly_history:
           - month: 1.0
             year: 2020.0
             estimated_income:
-              amount: 100.0
+              amount: 0.8008281904610115
               currency: HKD
           - month: 1.0
             year: 2020.0
             estimated_income:
-              amount: 100.0
+              amount: 0.8008281904610115
               currency: HKD
         source: DEPOSITS_ANALYSIS
         source_id: source_id
@@ -6758,103 +6694,103 @@ components:
         income:
         - income_total:
             estimated_monthly_income:
-              amount: 100.0
+              amount: 0.8008281904610115
               currency: HKD
             transaction_count: 3.0
             monthly_history:
             - month: 1.0
               year: 2020.0
               estimated_income:
-                amount: 100.0
+                amount: 0.8008281904610115
                 currency: HKD
             - month: 1.0
               year: 2020.0
               estimated_income:
-                amount: 100.0
+                amount: 0.8008281904610115
                 currency: HKD
           income_streams:
           - account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
             estimated_monthly_income:
-              amount: 100.0
+              amount: 0.8008281904610115
               currency: HKD
             transaction_count: 3.0
             monthly_history:
             - month: 1.0
               year: 2020.0
               estimated_income:
-                amount: 100.0
+                amount: 0.8008281904610115
                 currency: HKD
             - month: 1.0
               year: 2020.0
               estimated_income:
-                amount: 100.0
+                amount: 0.8008281904610115
                 currency: HKD
           - account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
             estimated_monthly_income:
-              amount: 100.0
+              amount: 0.8008281904610115
               currency: HKD
             transaction_count: 3.0
             monthly_history:
             - month: 1.0
               year: 2020.0
               estimated_income:
-                amount: 100.0
+                amount: 0.8008281904610115
                 currency: HKD
             - month: 1.0
               year: 2020.0
               estimated_income:
-                amount: 100.0
+                amount: 0.8008281904610115
                 currency: HKD
           source: DEPOSITS_ANALYSIS
           source_id: source_id
         - income_total:
             estimated_monthly_income:
-              amount: 100.0
+              amount: 0.8008281904610115
               currency: HKD
             transaction_count: 3.0
             monthly_history:
             - month: 1.0
               year: 2020.0
               estimated_income:
-                amount: 100.0
+                amount: 0.8008281904610115
                 currency: HKD
             - month: 1.0
               year: 2020.0
               estimated_income:
-                amount: 100.0
+                amount: 0.8008281904610115
                 currency: HKD
           income_streams:
           - account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
             estimated_monthly_income:
-              amount: 100.0
+              amount: 0.8008281904610115
               currency: HKD
             transaction_count: 3.0
             monthly_history:
             - month: 1.0
               year: 2020.0
               estimated_income:
-                amount: 100.0
+                amount: 0.8008281904610115
                 currency: HKD
             - month: 1.0
               year: 2020.0
               estimated_income:
-                amount: 100.0
+                amount: 0.8008281904610115
                 currency: HKD
           - account_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
             estimated_monthly_income:
-              amount: 100.0
+              amount: 0.8008281904610115
               currency: HKD
             transaction_count: 3.0
             monthly_history:
             - month: 1.0
               year: 2020.0
               estimated_income:
-                amount: 100.0
+                amount: 0.8008281904610115
                 currency: HKD
             - month: 1.0
               year: 2020.0
               estimated_income:
-                amount: 100.0
+                amount: 0.8008281904610115
                 currency: HKD
           source: DEPOSITS_ANALYSIS
           source_id: source_id
@@ -6883,9 +6819,6 @@ components:
       - login_identity
       type: object
     PaymentAccount:
-      example:
-        raw: raw
-        institution_id: institution_id
       properties:
         raw:
           description: The raw value for the account the user selected when making
@@ -7010,7 +6943,7 @@ components:
           refresh_token: refresh_token
           login_identity_id: login_identity_id
           token_type: token_type
-          expires_in: 0.8008281904610115
+          expires_in: 0
           issued_at: 2000-01-23T04:56:07.000+00:00
         pending:
           code: code
@@ -7390,25 +7323,17 @@ components:
       - type
       type: object
     ErrorResponse:
-      example:
-        error_text: error_text
-        err: err
-        http_status_code: 0.8008281904610115
-        status_text: status_text
-        request_id: request_id
-        app_code: 6.027456183070403
-        error_category: error_category
       properties:
         err:
           type: string
         http_status_code:
           format: int
-          type: number
+          type: integer
         status_text:
           type: string
         app_code:
           format: int64
-          type: number
+          type: integer
         error_category:
           type: string
         error_text:
@@ -7417,12 +7342,6 @@ components:
           type: string
       type: object
     BadRequestModel:
-      example:
-        error:
-          code: 40004.0
-          name: CREDENTIAL_NOT_STORED
-          link: link.finverse.com
-          message: Credential for this LoginIdentity is not stored. Please relink.
       properties:
         error:
           $ref: '#/components/schemas/BadRequestModel_error'
@@ -7430,7 +7349,7 @@ components:
     BadRequestModelV2:
       example:
         error:
-          code: 40004.0
+          code: 40004
           error_code: CREDENTIALS_INVALID
           details: details
           type: LINKING_ERROR
@@ -8649,41 +8568,6 @@ components:
       - mandate_id
       - scheduled_date
       type: object
-    CreatePaymentInstructionResponse:
-      example:
-        payment_instruction_id: payment_instruction_id
-      properties:
-        payment_instruction_id:
-          type: string
-      type: object
-    GetPaymentInstructionsResponse:
-      example:
-        payment_instruction:
-          end_date: 2022-11-30
-          amount: 123.45
-          reference_id: reference_id
-          payment_instruction_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
-          sender_name: Jane Doe
-          recipient_account_id: Something
-          type: DEBIT_AUTHORIZATION
-          frequency: "DAILY, WEEKLY OR MONTHLY"
-          user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
-          sender_account:
-            raw: raw
-            institution_id: institution_id
-          last_update: 2000-01-23T04:56:07.000+00:00
-          sender_account_id: The sender account ID
-          currency: HKD
-          login_identity_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
-          recipient_name: John Wick
-          remarks: This is regular payment to pay for loan
-          start_date: 2022-01-23
-          status: "UNKNOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVAILABLE_FOR_INSTITUTION"
-          info: "{}"
-      properties:
-        payment_instruction:
-          $ref: '#/components/schemas/PaymentInstruction'
-      type: object
     UpdateTestPaymentStatusRequest:
       example:
         status: EXECUTED
@@ -8693,184 +8577,6 @@ components:
           enum:
           - EXECUTED
           type: string
-      type: object
-    CustomerPaymentInstruction:
-      example:
-        end_date: 2022-11-30
-        amount: 123.45
-        user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
-        sender_account_id: Something
-        sender_name: Jane Doe
-        currency: HKD
-        recipient_account_id: Something
-        type: DEBIT_AUTHORIZATION
-        recipient_name: John Wick
-        remarks: This is regular payment to pay for loan
-        start_date: 2022-01-23
-        frequency: "DAILY, WEEKLY OR MONTHLY"
-      properties:
-        user_id:
-          description: "A id of the user of this payment, need to equal to userId\
-            \ when creating link"
-          example: 01BX5ZZKBKACTAV9WEVGEMMVRY
-          type: string
-        type:
-          description: "Type of payment is being created, please check Documentation\
-            \ on which payment type is supported in each institution"
-          enum:
-          - DEBIT_AUTHORIZATION
-          type: string
-        recipient_name:
-          description: The recipient name
-          example: John Wick
-          type: string
-        recipient_account_id:
-          description: The recipient account Id
-          example: Something
-          type: string
-        sender_name:
-          description: The sender name
-          example: Jane Doe
-          type: string
-        sender_account_id:
-          description: The sender account Id
-          example: Something
-          type: string
-        start_date:
-          description: When the payment should start
-          example: 2022-01-23
-          format: date
-          nullable: true
-          type: string
-        end_date:
-          description: When the payment should stop
-          example: 2022-11-30
-          format: date
-          nullable: true
-          type: string
-        currency:
-          description: The currency for the payment
-          example: HKD
-          type: string
-        amount:
-          description: The payment amount
-          example: 123.45
-          type: number
-        frequency:
-          description: How often the payment should be executed
-          example: "DAILY, WEEKLY OR MONTHLY"
-          type: string
-        remarks:
-          description: Related remarks about this instruction
-          example: This is regular payment to pay for loan
-          type: string
-      required:
-      - type
-      - user_id
-      type: object
-    PaymentInstruction:
-      example:
-        end_date: 2022-11-30
-        amount: 123.45
-        reference_id: reference_id
-        payment_instruction_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
-        sender_name: Jane Doe
-        recipient_account_id: Something
-        type: DEBIT_AUTHORIZATION
-        frequency: "DAILY, WEEKLY OR MONTHLY"
-        user_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
-        sender_account:
-          raw: raw
-          institution_id: institution_id
-        last_update: 2000-01-23T04:56:07.000+00:00
-        sender_account_id: The sender account ID
-        currency: HKD
-        login_identity_id: 01BX5ZZKBKACTAV9WEVGEMMVRY
-        recipient_name: John Wick
-        remarks: This is regular payment to pay for loan
-        start_date: 2022-01-23
-        status: "UNKNOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVAILABLE_FOR_INSTITUTION"
-        info: "{}"
-      properties:
-        payment_instruction_id:
-          description: An id of the this payment
-          example: 01BX5ZZKBKACTAV9WEVGEMMVRY
-          type: string
-        user_id:
-          description: "An id of the user of this payment, need to equal to userId\
-            \ when creating link"
-          example: 01BX5ZZKBKACTAV9WEVGEMMVRY
-          type: string
-        login_identity_id:
-          description: An id that links this payment to a specific Login Identity
-          example: 01BX5ZZKBKACTAV9WEVGEMMVRY
-          type: string
-        type:
-          description: "Type of payment that was created, please check Documentation\
-            \ on which payment type is supported in each institution"
-          enum:
-          - DEBIT_AUTHORIZATION
-          type: string
-        recipient_name:
-          description: The recipient name
-          example: John Wick
-          type: string
-        recipient_account_id:
-          description: The recipient account Id
-          example: Something
-          type: string
-        sender_name:
-          description: The sender name
-          example: Jane Doe
-          type: string
-        sender_account:
-          $ref: '#/components/schemas/PaymentAccount'
-        sender_account_id:
-          description: The sender account Id
-          example: The sender account ID
-          type: string
-        start_date:
-          description: When the payment should start
-          example: 2022-01-23
-          format: date
-          nullable: true
-          type: string
-        end_date:
-          description: When the payment should stop
-          example: 2022-11-30
-          format: date
-          nullable: true
-          type: string
-        currency:
-          description: The currency for the payment
-          example: HKD
-          type: string
-        amount:
-          description: The payment amount
-          example: 123.45
-          type: number
-        frequency:
-          description: How often the payment should be executed
-          example: "DAILY, WEEKLY OR MONTHLY"
-          type: string
-        remarks:
-          description: Related remarks about this instruction
-          example: This is regular payment to pay for loan
-          type: string
-        status:
-          description: Status of the payment
-          example: "UNKNOWN, STARTED, SUBMITTED, FAILED, NOT_SUPPORTED OR TEMPORARILY_UNAVAILABLE_FOR_INSTITUTION"
-          type: string
-        reference_id:
-          description: Reference identification returned by institution
-          type: string
-        last_update:
-          format: date-time
-          type: string
-        info:
-          description: Extra information collected for this payment instruction
-          properties: {}
-          type: object
       type: object
     CreateMandateRequest:
       example:
@@ -14448,15 +14154,10 @@ components:
       - redirect_uri
       type: object
     BadRequestModel_error:
-      example:
-        code: 40004.0
-        name: CREDENTIAL_NOT_STORED
-        link: link.finverse.com
-        message: Credential for this LoginIdentity is not stored. Please relink.
       properties:
         code:
-          example: 40004.0
-          type: number
+          example: 40004
+          type: integer
         name:
           example: CREDENTIAL_NOT_STORED
           type: string
@@ -14470,7 +14171,7 @@ components:
       type: object
     BadRequestModelV2_error:
       example:
-        code: 40004.0
+        code: 40004
         error_code: CREDENTIALS_INVALID
         details: details
         type: LINKING_ERROR
@@ -14488,8 +14189,8 @@ components:
           example: CREDENTIALS_INVALID
           type: string
         code:
-          example: 40004.0
-          type: number
+          example: 40004
+          type: integer
         message:
           type: string
         details:

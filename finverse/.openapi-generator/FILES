@@ -51,7 +51,6 @@ model_create_mandate_response.go
 model_create_mandate_sender.go
 model_create_mandate_with_sender_account_request.go
 model_create_payment_account_request.go
-model_create_payment_instruction_response.go
 model_create_payment_link_request.go
 model_create_payment_method_request.go
 model_create_payment_request.go
@@ -59,7 +58,6 @@ model_create_payment_user_request.go
 model_create_recipient_account.go
 model_create_scheduled_payout_request.go
 model_currency_amount.go
-model_customer_payment_instruction.go
 model_delete_login_identity_response.go
 model_dispute_response.go
 model_dispute_response_card_details.go
@@ -93,7 +91,6 @@ model_get_mandate_auth_link_response.go
 model_get_mandate_auth_response.go
 model_get_mandate_response.go
 model_get_mandate_sender.go
-model_get_payment_instructions_response.go
 model_get_payment_user_response.go
 model_get_statement_link_response.go
 model_get_statements_response.go
@@ -171,7 +168,6 @@ model_payment_details_references.go
 model_payment_fv_link_details.go
 model_payment_fv_link_response.go
 model_payment_info.go
-model_payment_instruction.go
 model_payment_link_customizations.go
 model_payment_link_details.go
 model_payment_link_response.go
