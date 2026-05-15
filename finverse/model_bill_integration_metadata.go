@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the BillIntegrationMetadata type satisfies the MappedNullable interface at compile time
@@ -20,7 +21,7 @@ var _ MappedNullable = &BillIntegrationMetadata{}
 
 // BillIntegrationMetadata struct for BillIntegrationMetadata
 type BillIntegrationMetadata struct {
-	IntegrationId        *string                `json:"integration_id,omitempty"`
+	IntegrationId        string                 `json:"integration_id"`
 	RapidstorMetadata    *BillRapidstorMetadata `json:"rapidstor_metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -31,8 +32,9 @@ type _BillIntegrationMetadata BillIntegrationMetadata
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBillIntegrationMetadata() *BillIntegrationMetadata {
+func NewBillIntegrationMetadata(integrationId string) *BillIntegrationMetadata {
 	this := BillIntegrationMetadata{}
+	this.IntegrationId = integrationId
 	return &this
 }
 
@@ -44,36 +46,28 @@ func NewBillIntegrationMetadataWithDefaults() *BillIntegrationMetadata {
 	return &this
 }
 
-// GetIntegrationId returns the IntegrationId field value if set, zero value otherwise.
+// GetIntegrationId returns the IntegrationId field value
 func (o *BillIntegrationMetadata) GetIntegrationId() string {
-	if o == nil || IsNil(o.IntegrationId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.IntegrationId
+
+	return o.IntegrationId
 }
 
-// GetIntegrationIdOk returns a tuple with the IntegrationId field value if set, nil otherwise
+// GetIntegrationIdOk returns a tuple with the IntegrationId field value
 // and a boolean to check if the value has been set.
 func (o *BillIntegrationMetadata) GetIntegrationIdOk() (*string, bool) {
-	if o == nil || IsNil(o.IntegrationId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.IntegrationId, true
+	return &o.IntegrationId, true
 }
 
-// HasIntegrationId returns a boolean if a field has been set.
-func (o *BillIntegrationMetadata) HasIntegrationId() bool {
-	if o != nil && !IsNil(o.IntegrationId) {
-		return true
-	}
-
-	return false
-}
-
-// SetIntegrationId gets a reference to the given string and assigns it to the IntegrationId field.
+// SetIntegrationId sets field value
 func (o *BillIntegrationMetadata) SetIntegrationId(v string) {
-	o.IntegrationId = &v
+	o.IntegrationId = v
 }
 
 // GetRapidstorMetadata returns the RapidstorMetadata field value if set, zero value otherwise.
@@ -118,9 +112,7 @@ func (o BillIntegrationMetadata) MarshalJSON() ([]byte, error) {
 
 func (o BillIntegrationMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.IntegrationId) {
-		toSerialize["integration_id"] = o.IntegrationId
-	}
+	toSerialize["integration_id"] = o.IntegrationId
 	if !IsNil(o.RapidstorMetadata) {
 		toSerialize["rapidstor_metadata"] = o.RapidstorMetadata
 	}
@@ -133,6 +125,27 @@ func (o BillIntegrationMetadata) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *BillIntegrationMetadata) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"integration_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varBillIntegrationMetadata := _BillIntegrationMetadata{}
 
 	err = json.Unmarshal(data, &varBillIntegrationMetadata)

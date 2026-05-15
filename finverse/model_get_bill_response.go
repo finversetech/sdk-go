@@ -22,24 +22,24 @@ var _ MappedNullable = &GetBillResponse{}
 
 // GetBillResponse struct for GetBillResponse
 type GetBillResponse struct {
-	BillId                    *string                  `json:"bill_id,omitempty"`
-	ExternalBillId            *string                  `json:"external_bill_id,omitempty"`
-	UserId                    *string                  `json:"user_id,omitempty"`
-	ExternalUserId            *string                  `json:"external_user_id,omitempty"`
-	CustomerAppId             *string                  `json:"customer_app_id,omitempty"`
-	BillDate                  NullableTime             `json:"bill_date,omitempty"`
-	DueDate                   NullableTime             `json:"due_date,omitempty"`
-	IntegrationMetadata       *BillIntegrationMetadata `json:"integration_metadata,omitempty"`
-	Details                   *BillDetails             `json:"details,omitempty"`
-	Metadata                  *map[string]string       `json:"metadata,omitempty"`
-	Status                    *string                  `json:"status,omitempty"`
-	IntegrationId             *string                  `json:"integration_id,omitempty"`
-	PaymentId                 *string                  `json:"payment_id,omitempty"`
-	SenderDetails             *BillSenderDetails       `json:"sender_details,omitempty"`
-	CreatedAt                 NullableTime             `json:"created_at,omitempty"`
-	UpdatedAt                 NullableTime             `json:"updated_at,omitempty"`
-	IsFinverseAutopayEligible bool                     `json:"is_finverse_autopay_eligible"`
-	Payments                  []PaymentResponse        `json:"payments,omitempty"`
+	BillId                    string                  `json:"bill_id"`
+	ExternalBillId            string                  `json:"external_bill_id"`
+	UserId                    string                  `json:"user_id"`
+	ExternalUserId            string                  `json:"external_user_id"`
+	CustomerAppId             string                  `json:"customer_app_id"`
+	BillDate                  NullableTime            `json:"bill_date"`
+	DueDate                   NullableTime            `json:"due_date"`
+	IntegrationMetadata       BillIntegrationMetadata `json:"integration_metadata"`
+	Details                   BillDetails             `json:"details"`
+	Metadata                  *map[string]string      `json:"metadata,omitempty"`
+	Status                    string                  `json:"status"`
+	IntegrationId             string                  `json:"integration_id"`
+	PaymentId                 string                  `json:"payment_id"`
+	SenderDetails             BillSenderDetails       `json:"sender_details"`
+	CreatedAt                 NullableTime            `json:"created_at"`
+	UpdatedAt                 NullableTime            `json:"updated_at"`
+	IsFinverseAutopayEligible bool                    `json:"is_finverse_autopay_eligible"`
+	Payments                  []PaymentResponse       `json:"payments"`
 	AdditionalProperties      map[string]interface{}
 }
 
@@ -49,9 +49,25 @@ type _GetBillResponse GetBillResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetBillResponse(isFinverseAutopayEligible bool) *GetBillResponse {
+func NewGetBillResponse(billId string, externalBillId string, userId string, externalUserId string, customerAppId string, billDate NullableTime, dueDate NullableTime, integrationMetadata BillIntegrationMetadata, details BillDetails, status string, integrationId string, paymentId string, senderDetails BillSenderDetails, createdAt NullableTime, updatedAt NullableTime, isFinverseAutopayEligible bool, payments []PaymentResponse) *GetBillResponse {
 	this := GetBillResponse{}
+	this.BillId = billId
+	this.ExternalBillId = externalBillId
+	this.UserId = userId
+	this.ExternalUserId = externalUserId
+	this.CustomerAppId = customerAppId
+	this.BillDate = billDate
+	this.DueDate = dueDate
+	this.IntegrationMetadata = integrationMetadata
+	this.Details = details
+	this.Status = status
+	this.IntegrationId = integrationId
+	this.PaymentId = paymentId
+	this.SenderDetails = senderDetails
+	this.CreatedAt = createdAt
+	this.UpdatedAt = updatedAt
 	this.IsFinverseAutopayEligible = isFinverseAutopayEligible
+	this.Payments = payments
 	return &this
 }
 
@@ -63,176 +79,138 @@ func NewGetBillResponseWithDefaults() *GetBillResponse {
 	return &this
 }
 
-// GetBillId returns the BillId field value if set, zero value otherwise.
+// GetBillId returns the BillId field value
 func (o *GetBillResponse) GetBillId() string {
-	if o == nil || IsNil(o.BillId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.BillId
+
+	return o.BillId
 }
 
-// GetBillIdOk returns a tuple with the BillId field value if set, nil otherwise
+// GetBillIdOk returns a tuple with the BillId field value
 // and a boolean to check if the value has been set.
 func (o *GetBillResponse) GetBillIdOk() (*string, bool) {
-	if o == nil || IsNil(o.BillId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.BillId, true
+	return &o.BillId, true
 }
 
-// HasBillId returns a boolean if a field has been set.
-func (o *GetBillResponse) HasBillId() bool {
-	if o != nil && !IsNil(o.BillId) {
-		return true
-	}
-
-	return false
-}
-
-// SetBillId gets a reference to the given string and assigns it to the BillId field.
+// SetBillId sets field value
 func (o *GetBillResponse) SetBillId(v string) {
-	o.BillId = &v
+	o.BillId = v
 }
 
-// GetExternalBillId returns the ExternalBillId field value if set, zero value otherwise.
+// GetExternalBillId returns the ExternalBillId field value
 func (o *GetBillResponse) GetExternalBillId() string {
-	if o == nil || IsNil(o.ExternalBillId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.ExternalBillId
+
+	return o.ExternalBillId
 }
 
-// GetExternalBillIdOk returns a tuple with the ExternalBillId field value if set, nil otherwise
+// GetExternalBillIdOk returns a tuple with the ExternalBillId field value
 // and a boolean to check if the value has been set.
 func (o *GetBillResponse) GetExternalBillIdOk() (*string, bool) {
-	if o == nil || IsNil(o.ExternalBillId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ExternalBillId, true
+	return &o.ExternalBillId, true
 }
 
-// HasExternalBillId returns a boolean if a field has been set.
-func (o *GetBillResponse) HasExternalBillId() bool {
-	if o != nil && !IsNil(o.ExternalBillId) {
-		return true
-	}
-
-	return false
-}
-
-// SetExternalBillId gets a reference to the given string and assigns it to the ExternalBillId field.
+// SetExternalBillId sets field value
 func (o *GetBillResponse) SetExternalBillId(v string) {
-	o.ExternalBillId = &v
+	o.ExternalBillId = v
 }
 
-// GetUserId returns the UserId field value if set, zero value otherwise.
+// GetUserId returns the UserId field value
 func (o *GetBillResponse) GetUserId() string {
-	if o == nil || IsNil(o.UserId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.UserId
+
+	return o.UserId
 }
 
-// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
+// GetUserIdOk returns a tuple with the UserId field value
 // and a boolean to check if the value has been set.
 func (o *GetBillResponse) GetUserIdOk() (*string, bool) {
-	if o == nil || IsNil(o.UserId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.UserId, true
+	return &o.UserId, true
 }
 
-// HasUserId returns a boolean if a field has been set.
-func (o *GetBillResponse) HasUserId() bool {
-	if o != nil && !IsNil(o.UserId) {
-		return true
-	}
-
-	return false
-}
-
-// SetUserId gets a reference to the given string and assigns it to the UserId field.
+// SetUserId sets field value
 func (o *GetBillResponse) SetUserId(v string) {
-	o.UserId = &v
+	o.UserId = v
 }
 
-// GetExternalUserId returns the ExternalUserId field value if set, zero value otherwise.
+// GetExternalUserId returns the ExternalUserId field value
 func (o *GetBillResponse) GetExternalUserId() string {
-	if o == nil || IsNil(o.ExternalUserId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.ExternalUserId
+
+	return o.ExternalUserId
 }
 
-// GetExternalUserIdOk returns a tuple with the ExternalUserId field value if set, nil otherwise
+// GetExternalUserIdOk returns a tuple with the ExternalUserId field value
 // and a boolean to check if the value has been set.
 func (o *GetBillResponse) GetExternalUserIdOk() (*string, bool) {
-	if o == nil || IsNil(o.ExternalUserId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ExternalUserId, true
+	return &o.ExternalUserId, true
 }
 
-// HasExternalUserId returns a boolean if a field has been set.
-func (o *GetBillResponse) HasExternalUserId() bool {
-	if o != nil && !IsNil(o.ExternalUserId) {
-		return true
-	}
-
-	return false
-}
-
-// SetExternalUserId gets a reference to the given string and assigns it to the ExternalUserId field.
+// SetExternalUserId sets field value
 func (o *GetBillResponse) SetExternalUserId(v string) {
-	o.ExternalUserId = &v
+	o.ExternalUserId = v
 }
 
-// GetCustomerAppId returns the CustomerAppId field value if set, zero value otherwise.
+// GetCustomerAppId returns the CustomerAppId field value
 func (o *GetBillResponse) GetCustomerAppId() string {
-	if o == nil || IsNil(o.CustomerAppId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.CustomerAppId
+
+	return o.CustomerAppId
 }
 
-// GetCustomerAppIdOk returns a tuple with the CustomerAppId field value if set, nil otherwise
+// GetCustomerAppIdOk returns a tuple with the CustomerAppId field value
 // and a boolean to check if the value has been set.
 func (o *GetBillResponse) GetCustomerAppIdOk() (*string, bool) {
-	if o == nil || IsNil(o.CustomerAppId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CustomerAppId, true
+	return &o.CustomerAppId, true
 }
 
-// HasCustomerAppId returns a boolean if a field has been set.
-func (o *GetBillResponse) HasCustomerAppId() bool {
-	if o != nil && !IsNil(o.CustomerAppId) {
-		return true
-	}
-
-	return false
-}
-
-// SetCustomerAppId gets a reference to the given string and assigns it to the CustomerAppId field.
+// SetCustomerAppId sets field value
 func (o *GetBillResponse) SetCustomerAppId(v string) {
-	o.CustomerAppId = &v
+	o.CustomerAppId = v
 }
 
-// GetBillDate returns the BillDate field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetBillDate returns the BillDate field value
+// If the value is explicit nil, the zero value for time.Time will be returned
 func (o *GetBillResponse) GetBillDate() time.Time {
-	if o == nil || IsNil(o.BillDate.Get()) {
+	if o == nil || o.BillDate.Get() == nil {
 		var ret time.Time
 		return ret
 	}
+
 	return *o.BillDate.Get()
 }
 
-// GetBillDateOk returns a tuple with the BillDate field value if set, nil otherwise
+// GetBillDateOk returns a tuple with the BillDate field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GetBillResponse) GetBillDateOk() (*time.Time, bool) {
@@ -242,40 +220,23 @@ func (o *GetBillResponse) GetBillDateOk() (*time.Time, bool) {
 	return o.BillDate.Get(), o.BillDate.IsSet()
 }
 
-// HasBillDate returns a boolean if a field has been set.
-func (o *GetBillResponse) HasBillDate() bool {
-	if o != nil && o.BillDate.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetBillDate gets a reference to the given NullableTime and assigns it to the BillDate field.
+// SetBillDate sets field value
 func (o *GetBillResponse) SetBillDate(v time.Time) {
 	o.BillDate.Set(&v)
 }
 
-// SetBillDateNil sets the value for BillDate to be an explicit nil
-func (o *GetBillResponse) SetBillDateNil() {
-	o.BillDate.Set(nil)
-}
-
-// UnsetBillDate ensures that no value is present for BillDate, not even an explicit nil
-func (o *GetBillResponse) UnsetBillDate() {
-	o.BillDate.Unset()
-}
-
-// GetDueDate returns the DueDate field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetDueDate returns the DueDate field value
+// If the value is explicit nil, the zero value for time.Time will be returned
 func (o *GetBillResponse) GetDueDate() time.Time {
-	if o == nil || IsNil(o.DueDate.Get()) {
+	if o == nil || o.DueDate.Get() == nil {
 		var ret time.Time
 		return ret
 	}
+
 	return *o.DueDate.Get()
 }
 
-// GetDueDateOk returns a tuple with the DueDate field value if set, nil otherwise
+// GetDueDateOk returns a tuple with the DueDate field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GetBillResponse) GetDueDateOk() (*time.Time, bool) {
@@ -285,92 +246,57 @@ func (o *GetBillResponse) GetDueDateOk() (*time.Time, bool) {
 	return o.DueDate.Get(), o.DueDate.IsSet()
 }
 
-// HasDueDate returns a boolean if a field has been set.
-func (o *GetBillResponse) HasDueDate() bool {
-	if o != nil && o.DueDate.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetDueDate gets a reference to the given NullableTime and assigns it to the DueDate field.
+// SetDueDate sets field value
 func (o *GetBillResponse) SetDueDate(v time.Time) {
 	o.DueDate.Set(&v)
 }
 
-// SetDueDateNil sets the value for DueDate to be an explicit nil
-func (o *GetBillResponse) SetDueDateNil() {
-	o.DueDate.Set(nil)
-}
-
-// UnsetDueDate ensures that no value is present for DueDate, not even an explicit nil
-func (o *GetBillResponse) UnsetDueDate() {
-	o.DueDate.Unset()
-}
-
-// GetIntegrationMetadata returns the IntegrationMetadata field value if set, zero value otherwise.
+// GetIntegrationMetadata returns the IntegrationMetadata field value
 func (o *GetBillResponse) GetIntegrationMetadata() BillIntegrationMetadata {
-	if o == nil || IsNil(o.IntegrationMetadata) {
+	if o == nil {
 		var ret BillIntegrationMetadata
 		return ret
 	}
-	return *o.IntegrationMetadata
+
+	return o.IntegrationMetadata
 }
 
-// GetIntegrationMetadataOk returns a tuple with the IntegrationMetadata field value if set, nil otherwise
+// GetIntegrationMetadataOk returns a tuple with the IntegrationMetadata field value
 // and a boolean to check if the value has been set.
 func (o *GetBillResponse) GetIntegrationMetadataOk() (*BillIntegrationMetadata, bool) {
-	if o == nil || IsNil(o.IntegrationMetadata) {
+	if o == nil {
 		return nil, false
 	}
-	return o.IntegrationMetadata, true
+	return &o.IntegrationMetadata, true
 }
 
-// HasIntegrationMetadata returns a boolean if a field has been set.
-func (o *GetBillResponse) HasIntegrationMetadata() bool {
-	if o != nil && !IsNil(o.IntegrationMetadata) {
-		return true
-	}
-
-	return false
-}
-
-// SetIntegrationMetadata gets a reference to the given BillIntegrationMetadata and assigns it to the IntegrationMetadata field.
+// SetIntegrationMetadata sets field value
 func (o *GetBillResponse) SetIntegrationMetadata(v BillIntegrationMetadata) {
-	o.IntegrationMetadata = &v
+	o.IntegrationMetadata = v
 }
 
-// GetDetails returns the Details field value if set, zero value otherwise.
+// GetDetails returns the Details field value
 func (o *GetBillResponse) GetDetails() BillDetails {
-	if o == nil || IsNil(o.Details) {
+	if o == nil {
 		var ret BillDetails
 		return ret
 	}
-	return *o.Details
+
+	return o.Details
 }
 
-// GetDetailsOk returns a tuple with the Details field value if set, nil otherwise
+// GetDetailsOk returns a tuple with the Details field value
 // and a boolean to check if the value has been set.
 func (o *GetBillResponse) GetDetailsOk() (*BillDetails, bool) {
-	if o == nil || IsNil(o.Details) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Details, true
+	return &o.Details, true
 }
 
-// HasDetails returns a boolean if a field has been set.
-func (o *GetBillResponse) HasDetails() bool {
-	if o != nil && !IsNil(o.Details) {
-		return true
-	}
-
-	return false
-}
-
-// SetDetails gets a reference to the given BillDetails and assigns it to the Details field.
+// SetDetails sets field value
 func (o *GetBillResponse) SetDetails(v BillDetails) {
-	o.Details = &v
+	o.Details = v
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
@@ -405,144 +331,114 @@ func (o *GetBillResponse) SetMetadata(v map[string]string) {
 	o.Metadata = &v
 }
 
-// GetStatus returns the Status field value if set, zero value otherwise.
+// GetStatus returns the Status field value
 func (o *GetBillResponse) GetStatus() string {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Status
+
+	return o.Status
 }
 
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *GetBillResponse) GetStatusOk() (*string, bool) {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Status, true
+	return &o.Status, true
 }
 
-// HasStatus returns a boolean if a field has been set.
-func (o *GetBillResponse) HasStatus() bool {
-	if o != nil && !IsNil(o.Status) {
-		return true
-	}
-
-	return false
-}
-
-// SetStatus gets a reference to the given string and assigns it to the Status field.
+// SetStatus sets field value
 func (o *GetBillResponse) SetStatus(v string) {
-	o.Status = &v
+	o.Status = v
 }
 
-// GetIntegrationId returns the IntegrationId field value if set, zero value otherwise.
+// GetIntegrationId returns the IntegrationId field value
 func (o *GetBillResponse) GetIntegrationId() string {
-	if o == nil || IsNil(o.IntegrationId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.IntegrationId
+
+	return o.IntegrationId
 }
 
-// GetIntegrationIdOk returns a tuple with the IntegrationId field value if set, nil otherwise
+// GetIntegrationIdOk returns a tuple with the IntegrationId field value
 // and a boolean to check if the value has been set.
 func (o *GetBillResponse) GetIntegrationIdOk() (*string, bool) {
-	if o == nil || IsNil(o.IntegrationId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.IntegrationId, true
+	return &o.IntegrationId, true
 }
 
-// HasIntegrationId returns a boolean if a field has been set.
-func (o *GetBillResponse) HasIntegrationId() bool {
-	if o != nil && !IsNil(o.IntegrationId) {
-		return true
-	}
-
-	return false
-}
-
-// SetIntegrationId gets a reference to the given string and assigns it to the IntegrationId field.
+// SetIntegrationId sets field value
 func (o *GetBillResponse) SetIntegrationId(v string) {
-	o.IntegrationId = &v
+	o.IntegrationId = v
 }
 
-// GetPaymentId returns the PaymentId field value if set, zero value otherwise.
+// GetPaymentId returns the PaymentId field value
 func (o *GetBillResponse) GetPaymentId() string {
-	if o == nil || IsNil(o.PaymentId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.PaymentId
+
+	return o.PaymentId
 }
 
-// GetPaymentIdOk returns a tuple with the PaymentId field value if set, nil otherwise
+// GetPaymentIdOk returns a tuple with the PaymentId field value
 // and a boolean to check if the value has been set.
 func (o *GetBillResponse) GetPaymentIdOk() (*string, bool) {
-	if o == nil || IsNil(o.PaymentId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PaymentId, true
+	return &o.PaymentId, true
 }
 
-// HasPaymentId returns a boolean if a field has been set.
-func (o *GetBillResponse) HasPaymentId() bool {
-	if o != nil && !IsNil(o.PaymentId) {
-		return true
-	}
-
-	return false
-}
-
-// SetPaymentId gets a reference to the given string and assigns it to the PaymentId field.
+// SetPaymentId sets field value
 func (o *GetBillResponse) SetPaymentId(v string) {
-	o.PaymentId = &v
+	o.PaymentId = v
 }
 
-// GetSenderDetails returns the SenderDetails field value if set, zero value otherwise.
+// GetSenderDetails returns the SenderDetails field value
 func (o *GetBillResponse) GetSenderDetails() BillSenderDetails {
-	if o == nil || IsNil(o.SenderDetails) {
+	if o == nil {
 		var ret BillSenderDetails
 		return ret
 	}
-	return *o.SenderDetails
+
+	return o.SenderDetails
 }
 
-// GetSenderDetailsOk returns a tuple with the SenderDetails field value if set, nil otherwise
+// GetSenderDetailsOk returns a tuple with the SenderDetails field value
 // and a boolean to check if the value has been set.
 func (o *GetBillResponse) GetSenderDetailsOk() (*BillSenderDetails, bool) {
-	if o == nil || IsNil(o.SenderDetails) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SenderDetails, true
+	return &o.SenderDetails, true
 }
 
-// HasSenderDetails returns a boolean if a field has been set.
-func (o *GetBillResponse) HasSenderDetails() bool {
-	if o != nil && !IsNil(o.SenderDetails) {
-		return true
-	}
-
-	return false
-}
-
-// SetSenderDetails gets a reference to the given BillSenderDetails and assigns it to the SenderDetails field.
+// SetSenderDetails sets field value
 func (o *GetBillResponse) SetSenderDetails(v BillSenderDetails) {
-	o.SenderDetails = &v
+	o.SenderDetails = v
 }
 
-// GetCreatedAt returns the CreatedAt field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetCreatedAt returns the CreatedAt field value
+// If the value is explicit nil, the zero value for time.Time will be returned
 func (o *GetBillResponse) GetCreatedAt() time.Time {
-	if o == nil || IsNil(o.CreatedAt.Get()) {
+	if o == nil || o.CreatedAt.Get() == nil {
 		var ret time.Time
 		return ret
 	}
+
 	return *o.CreatedAt.Get()
 }
 
-// GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
+// GetCreatedAtOk returns a tuple with the CreatedAt field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GetBillResponse) GetCreatedAtOk() (*time.Time, bool) {
@@ -552,40 +448,23 @@ func (o *GetBillResponse) GetCreatedAtOk() (*time.Time, bool) {
 	return o.CreatedAt.Get(), o.CreatedAt.IsSet()
 }
 
-// HasCreatedAt returns a boolean if a field has been set.
-func (o *GetBillResponse) HasCreatedAt() bool {
-	if o != nil && o.CreatedAt.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetCreatedAt gets a reference to the given NullableTime and assigns it to the CreatedAt field.
+// SetCreatedAt sets field value
 func (o *GetBillResponse) SetCreatedAt(v time.Time) {
 	o.CreatedAt.Set(&v)
 }
 
-// SetCreatedAtNil sets the value for CreatedAt to be an explicit nil
-func (o *GetBillResponse) SetCreatedAtNil() {
-	o.CreatedAt.Set(nil)
-}
-
-// UnsetCreatedAt ensures that no value is present for CreatedAt, not even an explicit nil
-func (o *GetBillResponse) UnsetCreatedAt() {
-	o.CreatedAt.Unset()
-}
-
-// GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise (both if not set or set to explicit null).
+// GetUpdatedAt returns the UpdatedAt field value
+// If the value is explicit nil, the zero value for time.Time will be returned
 func (o *GetBillResponse) GetUpdatedAt() time.Time {
-	if o == nil || IsNil(o.UpdatedAt.Get()) {
+	if o == nil || o.UpdatedAt.Get() == nil {
 		var ret time.Time
 		return ret
 	}
+
 	return *o.UpdatedAt.Get()
 }
 
-// GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
+// GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
 func (o *GetBillResponse) GetUpdatedAtOk() (*time.Time, bool) {
@@ -595,28 +474,9 @@ func (o *GetBillResponse) GetUpdatedAtOk() (*time.Time, bool) {
 	return o.UpdatedAt.Get(), o.UpdatedAt.IsSet()
 }
 
-// HasUpdatedAt returns a boolean if a field has been set.
-func (o *GetBillResponse) HasUpdatedAt() bool {
-	if o != nil && o.UpdatedAt.IsSet() {
-		return true
-	}
-
-	return false
-}
-
-// SetUpdatedAt gets a reference to the given NullableTime and assigns it to the UpdatedAt field.
+// SetUpdatedAt sets field value
 func (o *GetBillResponse) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt.Set(&v)
-}
-
-// SetUpdatedAtNil sets the value for UpdatedAt to be an explicit nil
-func (o *GetBillResponse) SetUpdatedAtNil() {
-	o.UpdatedAt.Set(nil)
-}
-
-// UnsetUpdatedAt ensures that no value is present for UpdatedAt, not even an explicit nil
-func (o *GetBillResponse) UnsetUpdatedAt() {
-	o.UpdatedAt.Unset()
 }
 
 // GetIsFinverseAutopayEligible returns the IsFinverseAutopayEligible field value
@@ -643,34 +503,26 @@ func (o *GetBillResponse) SetIsFinverseAutopayEligible(v bool) {
 	o.IsFinverseAutopayEligible = v
 }
 
-// GetPayments returns the Payments field value if set, zero value otherwise.
+// GetPayments returns the Payments field value
 func (o *GetBillResponse) GetPayments() []PaymentResponse {
-	if o == nil || IsNil(o.Payments) {
+	if o == nil {
 		var ret []PaymentResponse
 		return ret
 	}
+
 	return o.Payments
 }
 
-// GetPaymentsOk returns a tuple with the Payments field value if set, nil otherwise
+// GetPaymentsOk returns a tuple with the Payments field value
 // and a boolean to check if the value has been set.
 func (o *GetBillResponse) GetPaymentsOk() ([]PaymentResponse, bool) {
-	if o == nil || IsNil(o.Payments) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Payments, true
 }
 
-// HasPayments returns a boolean if a field has been set.
-func (o *GetBillResponse) HasPayments() bool {
-	if o != nil && !IsNil(o.Payments) {
-		return true
-	}
-
-	return false
-}
-
-// SetPayments gets a reference to the given []PaymentResponse and assigns it to the Payments field.
+// SetPayments sets field value
 func (o *GetBillResponse) SetPayments(v []PaymentResponse) {
 	o.Payments = v
 }
@@ -685,58 +537,26 @@ func (o GetBillResponse) MarshalJSON() ([]byte, error) {
 
 func (o GetBillResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.BillId) {
-		toSerialize["bill_id"] = o.BillId
-	}
-	if !IsNil(o.ExternalBillId) {
-		toSerialize["external_bill_id"] = o.ExternalBillId
-	}
-	if !IsNil(o.UserId) {
-		toSerialize["user_id"] = o.UserId
-	}
-	if !IsNil(o.ExternalUserId) {
-		toSerialize["external_user_id"] = o.ExternalUserId
-	}
-	if !IsNil(o.CustomerAppId) {
-		toSerialize["customer_app_id"] = o.CustomerAppId
-	}
-	if o.BillDate.IsSet() {
-		toSerialize["bill_date"] = o.BillDate.Get()
-	}
-	if o.DueDate.IsSet() {
-		toSerialize["due_date"] = o.DueDate.Get()
-	}
-	if !IsNil(o.IntegrationMetadata) {
-		toSerialize["integration_metadata"] = o.IntegrationMetadata
-	}
-	if !IsNil(o.Details) {
-		toSerialize["details"] = o.Details
-	}
+	toSerialize["bill_id"] = o.BillId
+	toSerialize["external_bill_id"] = o.ExternalBillId
+	toSerialize["user_id"] = o.UserId
+	toSerialize["external_user_id"] = o.ExternalUserId
+	toSerialize["customer_app_id"] = o.CustomerAppId
+	toSerialize["bill_date"] = o.BillDate.Get()
+	toSerialize["due_date"] = o.DueDate.Get()
+	toSerialize["integration_metadata"] = o.IntegrationMetadata
+	toSerialize["details"] = o.Details
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-	if !IsNil(o.Status) {
-		toSerialize["status"] = o.Status
-	}
-	if !IsNil(o.IntegrationId) {
-		toSerialize["integration_id"] = o.IntegrationId
-	}
-	if !IsNil(o.PaymentId) {
-		toSerialize["payment_id"] = o.PaymentId
-	}
-	if !IsNil(o.SenderDetails) {
-		toSerialize["sender_details"] = o.SenderDetails
-	}
-	if o.CreatedAt.IsSet() {
-		toSerialize["created_at"] = o.CreatedAt.Get()
-	}
-	if o.UpdatedAt.IsSet() {
-		toSerialize["updated_at"] = o.UpdatedAt.Get()
-	}
+	toSerialize["status"] = o.Status
+	toSerialize["integration_id"] = o.IntegrationId
+	toSerialize["payment_id"] = o.PaymentId
+	toSerialize["sender_details"] = o.SenderDetails
+	toSerialize["created_at"] = o.CreatedAt.Get()
+	toSerialize["updated_at"] = o.UpdatedAt.Get()
 	toSerialize["is_finverse_autopay_eligible"] = o.IsFinverseAutopayEligible
-	if !IsNil(o.Payments) {
-		toSerialize["payments"] = o.Payments
-	}
+	toSerialize["payments"] = o.Payments
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -750,7 +570,23 @@ func (o *GetBillResponse) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"bill_id",
+		"external_bill_id",
+		"user_id",
+		"external_user_id",
+		"customer_app_id",
+		"bill_date",
+		"due_date",
+		"integration_metadata",
+		"details",
+		"status",
+		"integration_id",
+		"payment_id",
+		"sender_details",
+		"created_at",
+		"updated_at",
 		"is_finverse_autopay_eligible",
+		"payments",
 	}
 
 	allProperties := make(map[string]interface{})

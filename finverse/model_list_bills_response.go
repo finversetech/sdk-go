@@ -21,7 +21,7 @@ var _ MappedNullable = &ListBillsResponse{}
 
 // ListBillsResponse struct for ListBillsResponse
 type ListBillsResponse struct {
-	Bills []FVBill `json:"bills,omitempty"`
+	Bills []FVBill `json:"bills"`
 	// Whether additional bills exist beyond this page for the same query.
 	HasMore              bool `json:"has_more"`
 	AdditionalProperties map[string]interface{}
@@ -33,8 +33,9 @@ type _ListBillsResponse ListBillsResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListBillsResponse(hasMore bool) *ListBillsResponse {
+func NewListBillsResponse(bills []FVBill, hasMore bool) *ListBillsResponse {
 	this := ListBillsResponse{}
+	this.Bills = bills
 	this.HasMore = hasMore
 	return &this
 }
@@ -47,34 +48,26 @@ func NewListBillsResponseWithDefaults() *ListBillsResponse {
 	return &this
 }
 
-// GetBills returns the Bills field value if set, zero value otherwise.
+// GetBills returns the Bills field value
 func (o *ListBillsResponse) GetBills() []FVBill {
-	if o == nil || IsNil(o.Bills) {
+	if o == nil {
 		var ret []FVBill
 		return ret
 	}
+
 	return o.Bills
 }
 
-// GetBillsOk returns a tuple with the Bills field value if set, nil otherwise
+// GetBillsOk returns a tuple with the Bills field value
 // and a boolean to check if the value has been set.
 func (o *ListBillsResponse) GetBillsOk() ([]FVBill, bool) {
-	if o == nil || IsNil(o.Bills) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Bills, true
 }
 
-// HasBills returns a boolean if a field has been set.
-func (o *ListBillsResponse) HasBills() bool {
-	if o != nil && !IsNil(o.Bills) {
-		return true
-	}
-
-	return false
-}
-
-// SetBills gets a reference to the given []FVBill and assigns it to the Bills field.
+// SetBills sets field value
 func (o *ListBillsResponse) SetBills(v []FVBill) {
 	o.Bills = v
 }
@@ -113,9 +106,7 @@ func (o ListBillsResponse) MarshalJSON() ([]byte, error) {
 
 func (o ListBillsResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Bills) {
-		toSerialize["bills"] = o.Bills
-	}
+	toSerialize["bills"] = o.Bills
 	toSerialize["has_more"] = o.HasMore
 
 	for key, value := range o.AdditionalProperties {
@@ -130,6 +121,7 @@ func (o *ListBillsResponse) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"bills",
 		"has_more",
 	}
 

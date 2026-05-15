@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the BillDetails type satisfies the MappedNullable interface at compile time
@@ -20,11 +21,11 @@ var _ MappedNullable = &BillDetails{}
 
 // BillDetails struct for BillDetails
 type BillDetails struct {
-	TotalAmountDue       *int64  `json:"total_amount_due,omitempty"`
-	TotalAmountDueRaw    *string `json:"total_amount_due_raw,omitempty"`
-	Currency             *string `json:"currency,omitempty"`
-	Description          *string `json:"description,omitempty"`
-	BillReferenceId      *string `json:"bill_reference_id,omitempty"`
+	TotalAmountDue       int64  `json:"total_amount_due"`
+	TotalAmountDueRaw    string `json:"total_amount_due_raw"`
+	Currency             string `json:"currency"`
+	Description          string `json:"description"`
+	BillReferenceId      string `json:"bill_reference_id"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,8 +35,13 @@ type _BillDetails BillDetails
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBillDetails() *BillDetails {
+func NewBillDetails(totalAmountDue int64, totalAmountDueRaw string, currency string, description string, billReferenceId string) *BillDetails {
 	this := BillDetails{}
+	this.TotalAmountDue = totalAmountDue
+	this.TotalAmountDueRaw = totalAmountDueRaw
+	this.Currency = currency
+	this.Description = description
+	this.BillReferenceId = billReferenceId
 	return &this
 }
 
@@ -47,164 +53,124 @@ func NewBillDetailsWithDefaults() *BillDetails {
 	return &this
 }
 
-// GetTotalAmountDue returns the TotalAmountDue field value if set, zero value otherwise.
+// GetTotalAmountDue returns the TotalAmountDue field value
 func (o *BillDetails) GetTotalAmountDue() int64 {
-	if o == nil || IsNil(o.TotalAmountDue) {
+	if o == nil {
 		var ret int64
 		return ret
 	}
-	return *o.TotalAmountDue
+
+	return o.TotalAmountDue
 }
 
-// GetTotalAmountDueOk returns a tuple with the TotalAmountDue field value if set, nil otherwise
+// GetTotalAmountDueOk returns a tuple with the TotalAmountDue field value
 // and a boolean to check if the value has been set.
 func (o *BillDetails) GetTotalAmountDueOk() (*int64, bool) {
-	if o == nil || IsNil(o.TotalAmountDue) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TotalAmountDue, true
+	return &o.TotalAmountDue, true
 }
 
-// HasTotalAmountDue returns a boolean if a field has been set.
-func (o *BillDetails) HasTotalAmountDue() bool {
-	if o != nil && !IsNil(o.TotalAmountDue) {
-		return true
-	}
-
-	return false
-}
-
-// SetTotalAmountDue gets a reference to the given int64 and assigns it to the TotalAmountDue field.
+// SetTotalAmountDue sets field value
 func (o *BillDetails) SetTotalAmountDue(v int64) {
-	o.TotalAmountDue = &v
+	o.TotalAmountDue = v
 }
 
-// GetTotalAmountDueRaw returns the TotalAmountDueRaw field value if set, zero value otherwise.
+// GetTotalAmountDueRaw returns the TotalAmountDueRaw field value
 func (o *BillDetails) GetTotalAmountDueRaw() string {
-	if o == nil || IsNil(o.TotalAmountDueRaw) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.TotalAmountDueRaw
+
+	return o.TotalAmountDueRaw
 }
 
-// GetTotalAmountDueRawOk returns a tuple with the TotalAmountDueRaw field value if set, nil otherwise
+// GetTotalAmountDueRawOk returns a tuple with the TotalAmountDueRaw field value
 // and a boolean to check if the value has been set.
 func (o *BillDetails) GetTotalAmountDueRawOk() (*string, bool) {
-	if o == nil || IsNil(o.TotalAmountDueRaw) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TotalAmountDueRaw, true
+	return &o.TotalAmountDueRaw, true
 }
 
-// HasTotalAmountDueRaw returns a boolean if a field has been set.
-func (o *BillDetails) HasTotalAmountDueRaw() bool {
-	if o != nil && !IsNil(o.TotalAmountDueRaw) {
-		return true
-	}
-
-	return false
-}
-
-// SetTotalAmountDueRaw gets a reference to the given string and assigns it to the TotalAmountDueRaw field.
+// SetTotalAmountDueRaw sets field value
 func (o *BillDetails) SetTotalAmountDueRaw(v string) {
-	o.TotalAmountDueRaw = &v
+	o.TotalAmountDueRaw = v
 }
 
-// GetCurrency returns the Currency field value if set, zero value otherwise.
+// GetCurrency returns the Currency field value
 func (o *BillDetails) GetCurrency() string {
-	if o == nil || IsNil(o.Currency) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Currency
+
+	return o.Currency
 }
 
-// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
+// GetCurrencyOk returns a tuple with the Currency field value
 // and a boolean to check if the value has been set.
 func (o *BillDetails) GetCurrencyOk() (*string, bool) {
-	if o == nil || IsNil(o.Currency) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Currency, true
+	return &o.Currency, true
 }
 
-// HasCurrency returns a boolean if a field has been set.
-func (o *BillDetails) HasCurrency() bool {
-	if o != nil && !IsNil(o.Currency) {
-		return true
-	}
-
-	return false
-}
-
-// SetCurrency gets a reference to the given string and assigns it to the Currency field.
+// SetCurrency sets field value
 func (o *BillDetails) SetCurrency(v string) {
-	o.Currency = &v
+	o.Currency = v
 }
 
-// GetDescription returns the Description field value if set, zero value otherwise.
+// GetDescription returns the Description field value
 func (o *BillDetails) GetDescription() string {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Description
+
+	return o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
+// GetDescriptionOk returns a tuple with the Description field value
 // and a boolean to check if the value has been set.
 func (o *BillDetails) GetDescriptionOk() (*string, bool) {
-	if o == nil || IsNil(o.Description) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Description, true
+	return &o.Description, true
 }
 
-// HasDescription returns a boolean if a field has been set.
-func (o *BillDetails) HasDescription() bool {
-	if o != nil && !IsNil(o.Description) {
-		return true
-	}
-
-	return false
-}
-
-// SetDescription gets a reference to the given string and assigns it to the Description field.
+// SetDescription sets field value
 func (o *BillDetails) SetDescription(v string) {
-	o.Description = &v
+	o.Description = v
 }
 
-// GetBillReferenceId returns the BillReferenceId field value if set, zero value otherwise.
+// GetBillReferenceId returns the BillReferenceId field value
 func (o *BillDetails) GetBillReferenceId() string {
-	if o == nil || IsNil(o.BillReferenceId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.BillReferenceId
+
+	return o.BillReferenceId
 }
 
-// GetBillReferenceIdOk returns a tuple with the BillReferenceId field value if set, nil otherwise
+// GetBillReferenceIdOk returns a tuple with the BillReferenceId field value
 // and a boolean to check if the value has been set.
 func (o *BillDetails) GetBillReferenceIdOk() (*string, bool) {
-	if o == nil || IsNil(o.BillReferenceId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.BillReferenceId, true
+	return &o.BillReferenceId, true
 }
 
-// HasBillReferenceId returns a boolean if a field has been set.
-func (o *BillDetails) HasBillReferenceId() bool {
-	if o != nil && !IsNil(o.BillReferenceId) {
-		return true
-	}
-
-	return false
-}
-
-// SetBillReferenceId gets a reference to the given string and assigns it to the BillReferenceId field.
+// SetBillReferenceId sets field value
 func (o *BillDetails) SetBillReferenceId(v string) {
-	o.BillReferenceId = &v
+	o.BillReferenceId = v
 }
 
 func (o BillDetails) MarshalJSON() ([]byte, error) {
@@ -217,21 +183,11 @@ func (o BillDetails) MarshalJSON() ([]byte, error) {
 
 func (o BillDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.TotalAmountDue) {
-		toSerialize["total_amount_due"] = o.TotalAmountDue
-	}
-	if !IsNil(o.TotalAmountDueRaw) {
-		toSerialize["total_amount_due_raw"] = o.TotalAmountDueRaw
-	}
-	if !IsNil(o.Currency) {
-		toSerialize["currency"] = o.Currency
-	}
-	if !IsNil(o.Description) {
-		toSerialize["description"] = o.Description
-	}
-	if !IsNil(o.BillReferenceId) {
-		toSerialize["bill_reference_id"] = o.BillReferenceId
-	}
+	toSerialize["total_amount_due"] = o.TotalAmountDue
+	toSerialize["total_amount_due_raw"] = o.TotalAmountDueRaw
+	toSerialize["currency"] = o.Currency
+	toSerialize["description"] = o.Description
+	toSerialize["bill_reference_id"] = o.BillReferenceId
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -241,6 +197,31 @@ func (o BillDetails) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *BillDetails) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"total_amount_due",
+		"total_amount_due_raw",
+		"currency",
+		"description",
+		"bill_reference_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varBillDetails := _BillDetails{}
 
 	err = json.Unmarshal(data, &varBillDetails)

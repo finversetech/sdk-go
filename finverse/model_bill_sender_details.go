@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the BillSenderDetails type satisfies the MappedNullable interface at compile time
@@ -20,7 +21,7 @@ var _ MappedNullable = &BillSenderDetails{}
 
 // BillSenderDetails struct for BillSenderDetails
 type BillSenderDetails struct {
-	Name                 *string `json:"name,omitempty"`
+	Name                 string `json:"name"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,8 +31,9 @@ type _BillSenderDetails BillSenderDetails
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBillSenderDetails() *BillSenderDetails {
+func NewBillSenderDetails(name string) *BillSenderDetails {
 	this := BillSenderDetails{}
+	this.Name = name
 	return &this
 }
 
@@ -43,36 +45,28 @@ func NewBillSenderDetailsWithDefaults() *BillSenderDetails {
 	return &this
 }
 
-// GetName returns the Name field value if set, zero value otherwise.
+// GetName returns the Name field value
 func (o *BillSenderDetails) GetName() string {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Name
+
+	return o.Name
 }
 
-// GetNameOk returns a tuple with the Name field value if set, nil otherwise
+// GetNameOk returns a tuple with the Name field value
 // and a boolean to check if the value has been set.
 func (o *BillSenderDetails) GetNameOk() (*string, bool) {
-	if o == nil || IsNil(o.Name) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Name, true
+	return &o.Name, true
 }
 
-// HasName returns a boolean if a field has been set.
-func (o *BillSenderDetails) HasName() bool {
-	if o != nil && !IsNil(o.Name) {
-		return true
-	}
-
-	return false
-}
-
-// SetName gets a reference to the given string and assigns it to the Name field.
+// SetName sets field value
 func (o *BillSenderDetails) SetName(v string) {
-	o.Name = &v
+	o.Name = v
 }
 
 func (o BillSenderDetails) MarshalJSON() ([]byte, error) {
@@ -85,9 +79,7 @@ func (o BillSenderDetails) MarshalJSON() ([]byte, error) {
 
 func (o BillSenderDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Name) {
-		toSerialize["name"] = o.Name
-	}
+	toSerialize["name"] = o.Name
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -97,6 +89,27 @@ func (o BillSenderDetails) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *BillSenderDetails) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"name",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varBillSenderDetails := _BillSenderDetails{}
 
 	err = json.Unmarshal(data, &varBillSenderDetails)

@@ -13499,7 +13499,22 @@ components:
         is_finverse_autopay_eligible:
           type: boolean
       required:
+      - bill_date
+      - bill_id
+      - created_at
+      - customer_app_id
+      - details
+      - due_date
+      - external_bill_id
+      - external_user_id
+      - integration_id
+      - integration_metadata
       - is_finverse_autopay_eligible
+      - payment_id
+      - sender_details
+      - status
+      - updated_at
+      - user_id
       type: object
     GetBillResponse:
       allOf:
@@ -13509,6 +13524,8 @@ components:
             items:
               $ref: '#/components/schemas/PaymentResponse'
             type: array
+        required:
+        - payments
         type: object
       example:
         bill_id: bill_id
@@ -13916,6 +13933,7 @@ components:
             query.
           type: boolean
       required:
+      - bills
       - has_more
       type: object
     BillDetails:
@@ -13937,6 +13955,12 @@ components:
           type: string
         bill_reference_id:
           type: string
+      required:
+      - bill_reference_id
+      - currency
+      - description
+      - total_amount_due
+      - total_amount_due_raw
       type: object
     BillIntegrationMetadata:
       example:
@@ -13959,6 +13983,8 @@ components:
           type: string
         rapidstor_metadata:
           $ref: '#/components/schemas/BillRapidstorMetadata'
+      required:
+      - integration_id
       type: object
     BillRapidstorMetadata:
       example:
@@ -14000,6 +14026,19 @@ components:
           type: string
         unit_type_id:
           type: string
+      required:
+      - account_token
+      - corp_code
+      - d_sched_out
+      - i_anniv_days
+      - i_lease_num
+      - ledger_id
+      - s_location_code
+      - s_unit_name
+      - tenant_default_currency
+      - tenant_id
+      - unit_id
+      - unit_type_id
       type: object
     BillSenderDetails:
       example:
@@ -14007,6 +14046,8 @@ components:
       properties:
         name:
           type: string
+      required:
+      - name
       type: object
     CompleteKcpPaymentRequest:
       example:

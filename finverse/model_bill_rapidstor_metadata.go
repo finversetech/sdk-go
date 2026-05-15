@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the BillRapidstorMetadata type satisfies the MappedNullable interface at compile time
@@ -20,18 +21,18 @@ var _ MappedNullable = &BillRapidstorMetadata{}
 
 // BillRapidstorMetadata struct for BillRapidstorMetadata
 type BillRapidstorMetadata struct {
-	CorpCode              *string `json:"corp_code,omitempty"`
-	SLocationCode         *string `json:"s_location_code,omitempty"`
-	TenantId              *string `json:"tenant_id,omitempty"`
-	IAnnivDays            *int64  `json:"i_anniv_days,omitempty"`
-	TenantDefaultCurrency *string `json:"tenant_default_currency,omitempty"`
-	SUnitName             *string `json:"s_unit_name,omitempty"`
-	AccountToken          *string `json:"account_token,omitempty"`
-	LedgerId              *string `json:"ledger_id,omitempty"`
-	UnitId                *string `json:"unit_id,omitempty"`
-	ILeaseNum             *string `json:"i_lease_num,omitempty"`
-	DSchedOut             *string `json:"d_sched_out,omitempty"`
-	UnitTypeId            *string `json:"unit_type_id,omitempty"`
+	CorpCode              string `json:"corp_code"`
+	SLocationCode         string `json:"s_location_code"`
+	TenantId              string `json:"tenant_id"`
+	IAnnivDays            int64  `json:"i_anniv_days"`
+	TenantDefaultCurrency string `json:"tenant_default_currency"`
+	SUnitName             string `json:"s_unit_name"`
+	AccountToken          string `json:"account_token"`
+	LedgerId              string `json:"ledger_id"`
+	UnitId                string `json:"unit_id"`
+	ILeaseNum             string `json:"i_lease_num"`
+	DSchedOut             string `json:"d_sched_out"`
+	UnitTypeId            string `json:"unit_type_id"`
 	AdditionalProperties  map[string]interface{}
 }
 
@@ -41,8 +42,20 @@ type _BillRapidstorMetadata BillRapidstorMetadata
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBillRapidstorMetadata() *BillRapidstorMetadata {
+func NewBillRapidstorMetadata(corpCode string, sLocationCode string, tenantId string, iAnnivDays int64, tenantDefaultCurrency string, sUnitName string, accountToken string, ledgerId string, unitId string, iLeaseNum string, dSchedOut string, unitTypeId string) *BillRapidstorMetadata {
 	this := BillRapidstorMetadata{}
+	this.CorpCode = corpCode
+	this.SLocationCode = sLocationCode
+	this.TenantId = tenantId
+	this.IAnnivDays = iAnnivDays
+	this.TenantDefaultCurrency = tenantDefaultCurrency
+	this.SUnitName = sUnitName
+	this.AccountToken = accountToken
+	this.LedgerId = ledgerId
+	this.UnitId = unitId
+	this.ILeaseNum = iLeaseNum
+	this.DSchedOut = dSchedOut
+	this.UnitTypeId = unitTypeId
 	return &this
 }
 
@@ -54,388 +67,292 @@ func NewBillRapidstorMetadataWithDefaults() *BillRapidstorMetadata {
 	return &this
 }
 
-// GetCorpCode returns the CorpCode field value if set, zero value otherwise.
+// GetCorpCode returns the CorpCode field value
 func (o *BillRapidstorMetadata) GetCorpCode() string {
-	if o == nil || IsNil(o.CorpCode) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.CorpCode
+
+	return o.CorpCode
 }
 
-// GetCorpCodeOk returns a tuple with the CorpCode field value if set, nil otherwise
+// GetCorpCodeOk returns a tuple with the CorpCode field value
 // and a boolean to check if the value has been set.
 func (o *BillRapidstorMetadata) GetCorpCodeOk() (*string, bool) {
-	if o == nil || IsNil(o.CorpCode) {
+	if o == nil {
 		return nil, false
 	}
-	return o.CorpCode, true
+	return &o.CorpCode, true
 }
 
-// HasCorpCode returns a boolean if a field has been set.
-func (o *BillRapidstorMetadata) HasCorpCode() bool {
-	if o != nil && !IsNil(o.CorpCode) {
-		return true
-	}
-
-	return false
-}
-
-// SetCorpCode gets a reference to the given string and assigns it to the CorpCode field.
+// SetCorpCode sets field value
 func (o *BillRapidstorMetadata) SetCorpCode(v string) {
-	o.CorpCode = &v
+	o.CorpCode = v
 }
 
-// GetSLocationCode returns the SLocationCode field value if set, zero value otherwise.
+// GetSLocationCode returns the SLocationCode field value
 func (o *BillRapidstorMetadata) GetSLocationCode() string {
-	if o == nil || IsNil(o.SLocationCode) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.SLocationCode
+
+	return o.SLocationCode
 }
 
-// GetSLocationCodeOk returns a tuple with the SLocationCode field value if set, nil otherwise
+// GetSLocationCodeOk returns a tuple with the SLocationCode field value
 // and a boolean to check if the value has been set.
 func (o *BillRapidstorMetadata) GetSLocationCodeOk() (*string, bool) {
-	if o == nil || IsNil(o.SLocationCode) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SLocationCode, true
+	return &o.SLocationCode, true
 }
 
-// HasSLocationCode returns a boolean if a field has been set.
-func (o *BillRapidstorMetadata) HasSLocationCode() bool {
-	if o != nil && !IsNil(o.SLocationCode) {
-		return true
-	}
-
-	return false
-}
-
-// SetSLocationCode gets a reference to the given string and assigns it to the SLocationCode field.
+// SetSLocationCode sets field value
 func (o *BillRapidstorMetadata) SetSLocationCode(v string) {
-	o.SLocationCode = &v
+	o.SLocationCode = v
 }
 
-// GetTenantId returns the TenantId field value if set, zero value otherwise.
+// GetTenantId returns the TenantId field value
 func (o *BillRapidstorMetadata) GetTenantId() string {
-	if o == nil || IsNil(o.TenantId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.TenantId
+
+	return o.TenantId
 }
 
-// GetTenantIdOk returns a tuple with the TenantId field value if set, nil otherwise
+// GetTenantIdOk returns a tuple with the TenantId field value
 // and a boolean to check if the value has been set.
 func (o *BillRapidstorMetadata) GetTenantIdOk() (*string, bool) {
-	if o == nil || IsNil(o.TenantId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TenantId, true
+	return &o.TenantId, true
 }
 
-// HasTenantId returns a boolean if a field has been set.
-func (o *BillRapidstorMetadata) HasTenantId() bool {
-	if o != nil && !IsNil(o.TenantId) {
-		return true
-	}
-
-	return false
-}
-
-// SetTenantId gets a reference to the given string and assigns it to the TenantId field.
+// SetTenantId sets field value
 func (o *BillRapidstorMetadata) SetTenantId(v string) {
-	o.TenantId = &v
+	o.TenantId = v
 }
 
-// GetIAnnivDays returns the IAnnivDays field value if set, zero value otherwise.
+// GetIAnnivDays returns the IAnnivDays field value
 func (o *BillRapidstorMetadata) GetIAnnivDays() int64 {
-	if o == nil || IsNil(o.IAnnivDays) {
+	if o == nil {
 		var ret int64
 		return ret
 	}
-	return *o.IAnnivDays
+
+	return o.IAnnivDays
 }
 
-// GetIAnnivDaysOk returns a tuple with the IAnnivDays field value if set, nil otherwise
+// GetIAnnivDaysOk returns a tuple with the IAnnivDays field value
 // and a boolean to check if the value has been set.
 func (o *BillRapidstorMetadata) GetIAnnivDaysOk() (*int64, bool) {
-	if o == nil || IsNil(o.IAnnivDays) {
+	if o == nil {
 		return nil, false
 	}
-	return o.IAnnivDays, true
+	return &o.IAnnivDays, true
 }
 
-// HasIAnnivDays returns a boolean if a field has been set.
-func (o *BillRapidstorMetadata) HasIAnnivDays() bool {
-	if o != nil && !IsNil(o.IAnnivDays) {
-		return true
-	}
-
-	return false
-}
-
-// SetIAnnivDays gets a reference to the given int64 and assigns it to the IAnnivDays field.
+// SetIAnnivDays sets field value
 func (o *BillRapidstorMetadata) SetIAnnivDays(v int64) {
-	o.IAnnivDays = &v
+	o.IAnnivDays = v
 }
 
-// GetTenantDefaultCurrency returns the TenantDefaultCurrency field value if set, zero value otherwise.
+// GetTenantDefaultCurrency returns the TenantDefaultCurrency field value
 func (o *BillRapidstorMetadata) GetTenantDefaultCurrency() string {
-	if o == nil || IsNil(o.TenantDefaultCurrency) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.TenantDefaultCurrency
+
+	return o.TenantDefaultCurrency
 }
 
-// GetTenantDefaultCurrencyOk returns a tuple with the TenantDefaultCurrency field value if set, nil otherwise
+// GetTenantDefaultCurrencyOk returns a tuple with the TenantDefaultCurrency field value
 // and a boolean to check if the value has been set.
 func (o *BillRapidstorMetadata) GetTenantDefaultCurrencyOk() (*string, bool) {
-	if o == nil || IsNil(o.TenantDefaultCurrency) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TenantDefaultCurrency, true
+	return &o.TenantDefaultCurrency, true
 }
 
-// HasTenantDefaultCurrency returns a boolean if a field has been set.
-func (o *BillRapidstorMetadata) HasTenantDefaultCurrency() bool {
-	if o != nil && !IsNil(o.TenantDefaultCurrency) {
-		return true
-	}
-
-	return false
-}
-
-// SetTenantDefaultCurrency gets a reference to the given string and assigns it to the TenantDefaultCurrency field.
+// SetTenantDefaultCurrency sets field value
 func (o *BillRapidstorMetadata) SetTenantDefaultCurrency(v string) {
-	o.TenantDefaultCurrency = &v
+	o.TenantDefaultCurrency = v
 }
 
-// GetSUnitName returns the SUnitName field value if set, zero value otherwise.
+// GetSUnitName returns the SUnitName field value
 func (o *BillRapidstorMetadata) GetSUnitName() string {
-	if o == nil || IsNil(o.SUnitName) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.SUnitName
+
+	return o.SUnitName
 }
 
-// GetSUnitNameOk returns a tuple with the SUnitName field value if set, nil otherwise
+// GetSUnitNameOk returns a tuple with the SUnitName field value
 // and a boolean to check if the value has been set.
 func (o *BillRapidstorMetadata) GetSUnitNameOk() (*string, bool) {
-	if o == nil || IsNil(o.SUnitName) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SUnitName, true
+	return &o.SUnitName, true
 }
 
-// HasSUnitName returns a boolean if a field has been set.
-func (o *BillRapidstorMetadata) HasSUnitName() bool {
-	if o != nil && !IsNil(o.SUnitName) {
-		return true
-	}
-
-	return false
-}
-
-// SetSUnitName gets a reference to the given string and assigns it to the SUnitName field.
+// SetSUnitName sets field value
 func (o *BillRapidstorMetadata) SetSUnitName(v string) {
-	o.SUnitName = &v
+	o.SUnitName = v
 }
 
-// GetAccountToken returns the AccountToken field value if set, zero value otherwise.
+// GetAccountToken returns the AccountToken field value
 func (o *BillRapidstorMetadata) GetAccountToken() string {
-	if o == nil || IsNil(o.AccountToken) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.AccountToken
+
+	return o.AccountToken
 }
 
-// GetAccountTokenOk returns a tuple with the AccountToken field value if set, nil otherwise
+// GetAccountTokenOk returns a tuple with the AccountToken field value
 // and a boolean to check if the value has been set.
 func (o *BillRapidstorMetadata) GetAccountTokenOk() (*string, bool) {
-	if o == nil || IsNil(o.AccountToken) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AccountToken, true
+	return &o.AccountToken, true
 }
 
-// HasAccountToken returns a boolean if a field has been set.
-func (o *BillRapidstorMetadata) HasAccountToken() bool {
-	if o != nil && !IsNil(o.AccountToken) {
-		return true
-	}
-
-	return false
-}
-
-// SetAccountToken gets a reference to the given string and assigns it to the AccountToken field.
+// SetAccountToken sets field value
 func (o *BillRapidstorMetadata) SetAccountToken(v string) {
-	o.AccountToken = &v
+	o.AccountToken = v
 }
 
-// GetLedgerId returns the LedgerId field value if set, zero value otherwise.
+// GetLedgerId returns the LedgerId field value
 func (o *BillRapidstorMetadata) GetLedgerId() string {
-	if o == nil || IsNil(o.LedgerId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.LedgerId
+
+	return o.LedgerId
 }
 
-// GetLedgerIdOk returns a tuple with the LedgerId field value if set, nil otherwise
+// GetLedgerIdOk returns a tuple with the LedgerId field value
 // and a boolean to check if the value has been set.
 func (o *BillRapidstorMetadata) GetLedgerIdOk() (*string, bool) {
-	if o == nil || IsNil(o.LedgerId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.LedgerId, true
+	return &o.LedgerId, true
 }
 
-// HasLedgerId returns a boolean if a field has been set.
-func (o *BillRapidstorMetadata) HasLedgerId() bool {
-	if o != nil && !IsNil(o.LedgerId) {
-		return true
-	}
-
-	return false
-}
-
-// SetLedgerId gets a reference to the given string and assigns it to the LedgerId field.
+// SetLedgerId sets field value
 func (o *BillRapidstorMetadata) SetLedgerId(v string) {
-	o.LedgerId = &v
+	o.LedgerId = v
 }
 
-// GetUnitId returns the UnitId field value if set, zero value otherwise.
+// GetUnitId returns the UnitId field value
 func (o *BillRapidstorMetadata) GetUnitId() string {
-	if o == nil || IsNil(o.UnitId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.UnitId
+
+	return o.UnitId
 }
 
-// GetUnitIdOk returns a tuple with the UnitId field value if set, nil otherwise
+// GetUnitIdOk returns a tuple with the UnitId field value
 // and a boolean to check if the value has been set.
 func (o *BillRapidstorMetadata) GetUnitIdOk() (*string, bool) {
-	if o == nil || IsNil(o.UnitId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.UnitId, true
+	return &o.UnitId, true
 }
 
-// HasUnitId returns a boolean if a field has been set.
-func (o *BillRapidstorMetadata) HasUnitId() bool {
-	if o != nil && !IsNil(o.UnitId) {
-		return true
-	}
-
-	return false
-}
-
-// SetUnitId gets a reference to the given string and assigns it to the UnitId field.
+// SetUnitId sets field value
 func (o *BillRapidstorMetadata) SetUnitId(v string) {
-	o.UnitId = &v
+	o.UnitId = v
 }
 
-// GetILeaseNum returns the ILeaseNum field value if set, zero value otherwise.
+// GetILeaseNum returns the ILeaseNum field value
 func (o *BillRapidstorMetadata) GetILeaseNum() string {
-	if o == nil || IsNil(o.ILeaseNum) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.ILeaseNum
+
+	return o.ILeaseNum
 }
 
-// GetILeaseNumOk returns a tuple with the ILeaseNum field value if set, nil otherwise
+// GetILeaseNumOk returns a tuple with the ILeaseNum field value
 // and a boolean to check if the value has been set.
 func (o *BillRapidstorMetadata) GetILeaseNumOk() (*string, bool) {
-	if o == nil || IsNil(o.ILeaseNum) {
+	if o == nil {
 		return nil, false
 	}
-	return o.ILeaseNum, true
+	return &o.ILeaseNum, true
 }
 
-// HasILeaseNum returns a boolean if a field has been set.
-func (o *BillRapidstorMetadata) HasILeaseNum() bool {
-	if o != nil && !IsNil(o.ILeaseNum) {
-		return true
-	}
-
-	return false
-}
-
-// SetILeaseNum gets a reference to the given string and assigns it to the ILeaseNum field.
+// SetILeaseNum sets field value
 func (o *BillRapidstorMetadata) SetILeaseNum(v string) {
-	o.ILeaseNum = &v
+	o.ILeaseNum = v
 }
 
-// GetDSchedOut returns the DSchedOut field value if set, zero value otherwise.
+// GetDSchedOut returns the DSchedOut field value
 func (o *BillRapidstorMetadata) GetDSchedOut() string {
-	if o == nil || IsNil(o.DSchedOut) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.DSchedOut
+
+	return o.DSchedOut
 }
 
-// GetDSchedOutOk returns a tuple with the DSchedOut field value if set, nil otherwise
+// GetDSchedOutOk returns a tuple with the DSchedOut field value
 // and a boolean to check if the value has been set.
 func (o *BillRapidstorMetadata) GetDSchedOutOk() (*string, bool) {
-	if o == nil || IsNil(o.DSchedOut) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DSchedOut, true
+	return &o.DSchedOut, true
 }
 
-// HasDSchedOut returns a boolean if a field has been set.
-func (o *BillRapidstorMetadata) HasDSchedOut() bool {
-	if o != nil && !IsNil(o.DSchedOut) {
-		return true
-	}
-
-	return false
-}
-
-// SetDSchedOut gets a reference to the given string and assigns it to the DSchedOut field.
+// SetDSchedOut sets field value
 func (o *BillRapidstorMetadata) SetDSchedOut(v string) {
-	o.DSchedOut = &v
+	o.DSchedOut = v
 }
 
-// GetUnitTypeId returns the UnitTypeId field value if set, zero value otherwise.
+// GetUnitTypeId returns the UnitTypeId field value
 func (o *BillRapidstorMetadata) GetUnitTypeId() string {
-	if o == nil || IsNil(o.UnitTypeId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.UnitTypeId
+
+	return o.UnitTypeId
 }
 
-// GetUnitTypeIdOk returns a tuple with the UnitTypeId field value if set, nil otherwise
+// GetUnitTypeIdOk returns a tuple with the UnitTypeId field value
 // and a boolean to check if the value has been set.
 func (o *BillRapidstorMetadata) GetUnitTypeIdOk() (*string, bool) {
-	if o == nil || IsNil(o.UnitTypeId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.UnitTypeId, true
+	return &o.UnitTypeId, true
 }
 
-// HasUnitTypeId returns a boolean if a field has been set.
-func (o *BillRapidstorMetadata) HasUnitTypeId() bool {
-	if o != nil && !IsNil(o.UnitTypeId) {
-		return true
-	}
-
-	return false
-}
-
-// SetUnitTypeId gets a reference to the given string and assigns it to the UnitTypeId field.
+// SetUnitTypeId sets field value
 func (o *BillRapidstorMetadata) SetUnitTypeId(v string) {
-	o.UnitTypeId = &v
+	o.UnitTypeId = v
 }
 
 func (o BillRapidstorMetadata) MarshalJSON() ([]byte, error) {
@@ -448,42 +365,18 @@ func (o BillRapidstorMetadata) MarshalJSON() ([]byte, error) {
 
 func (o BillRapidstorMetadata) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.CorpCode) {
-		toSerialize["corp_code"] = o.CorpCode
-	}
-	if !IsNil(o.SLocationCode) {
-		toSerialize["s_location_code"] = o.SLocationCode
-	}
-	if !IsNil(o.TenantId) {
-		toSerialize["tenant_id"] = o.TenantId
-	}
-	if !IsNil(o.IAnnivDays) {
-		toSerialize["i_anniv_days"] = o.IAnnivDays
-	}
-	if !IsNil(o.TenantDefaultCurrency) {
-		toSerialize["tenant_default_currency"] = o.TenantDefaultCurrency
-	}
-	if !IsNil(o.SUnitName) {
-		toSerialize["s_unit_name"] = o.SUnitName
-	}
-	if !IsNil(o.AccountToken) {
-		toSerialize["account_token"] = o.AccountToken
-	}
-	if !IsNil(o.LedgerId) {
-		toSerialize["ledger_id"] = o.LedgerId
-	}
-	if !IsNil(o.UnitId) {
-		toSerialize["unit_id"] = o.UnitId
-	}
-	if !IsNil(o.ILeaseNum) {
-		toSerialize["i_lease_num"] = o.ILeaseNum
-	}
-	if !IsNil(o.DSchedOut) {
-		toSerialize["d_sched_out"] = o.DSchedOut
-	}
-	if !IsNil(o.UnitTypeId) {
-		toSerialize["unit_type_id"] = o.UnitTypeId
-	}
+	toSerialize["corp_code"] = o.CorpCode
+	toSerialize["s_location_code"] = o.SLocationCode
+	toSerialize["tenant_id"] = o.TenantId
+	toSerialize["i_anniv_days"] = o.IAnnivDays
+	toSerialize["tenant_default_currency"] = o.TenantDefaultCurrency
+	toSerialize["s_unit_name"] = o.SUnitName
+	toSerialize["account_token"] = o.AccountToken
+	toSerialize["ledger_id"] = o.LedgerId
+	toSerialize["unit_id"] = o.UnitId
+	toSerialize["i_lease_num"] = o.ILeaseNum
+	toSerialize["d_sched_out"] = o.DSchedOut
+	toSerialize["unit_type_id"] = o.UnitTypeId
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -493,6 +386,38 @@ func (o BillRapidstorMetadata) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *BillRapidstorMetadata) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"corp_code",
+		"s_location_code",
+		"tenant_id",
+		"i_anniv_days",
+		"tenant_default_currency",
+		"s_unit_name",
+		"account_token",
+		"ledger_id",
+		"unit_id",
+		"i_lease_num",
+		"d_sched_out",
+		"unit_type_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varBillRapidstorMetadata := _BillRapidstorMetadata{}
 
 	err = json.Unmarshal(data, &varBillRapidstorMetadata)
