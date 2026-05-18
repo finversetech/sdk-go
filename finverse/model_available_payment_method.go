@@ -29,7 +29,9 @@ type AvailablePaymentMethod struct {
 	Recurring             bool    `json:"recurring"`
 	Fee                   *string `json:"fee,omitempty"`
 	PaymentMethodProvider *string `json:"payment_method_provider,omitempty"`
-	AdditionalProperties  map[string]interface{}
+	// Ordered list of payment method brands, e.g. VISA, MASTERCARD, DISCOVER
+	PaymentMethodsList   []string `json:"payment_methods_list,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _AvailablePaymentMethod AvailablePaymentMethod
@@ -236,6 +238,38 @@ func (o *AvailablePaymentMethod) SetPaymentMethodProvider(v string) {
 	o.PaymentMethodProvider = &v
 }
 
+// GetPaymentMethodsList returns the PaymentMethodsList field value if set, zero value otherwise.
+func (o *AvailablePaymentMethod) GetPaymentMethodsList() []string {
+	if o == nil || IsNil(o.PaymentMethodsList) {
+		var ret []string
+		return ret
+	}
+	return o.PaymentMethodsList
+}
+
+// GetPaymentMethodsListOk returns a tuple with the PaymentMethodsList field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *AvailablePaymentMethod) GetPaymentMethodsListOk() ([]string, bool) {
+	if o == nil || IsNil(o.PaymentMethodsList) {
+		return nil, false
+	}
+	return o.PaymentMethodsList, true
+}
+
+// HasPaymentMethodsList returns a boolean if a field has been set.
+func (o *AvailablePaymentMethod) HasPaymentMethodsList() bool {
+	if o != nil && !IsNil(o.PaymentMethodsList) {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentMethodsList gets a reference to the given []string and assigns it to the PaymentMethodsList field.
+func (o *AvailablePaymentMethod) SetPaymentMethodsList(v []string) {
+	o.PaymentMethodsList = v
+}
+
 func (o AvailablePaymentMethod) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -261,6 +295,9 @@ func (o AvailablePaymentMethod) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.PaymentMethodProvider) {
 		toSerialize["payment_method_provider"] = o.PaymentMethodProvider
+	}
+	if !IsNil(o.PaymentMethodsList) {
+		toSerialize["payment_methods_list"] = o.PaymentMethodsList
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -311,6 +348,7 @@ func (o *AvailablePaymentMethod) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "recurring")
 		delete(additionalProperties, "fee")
 		delete(additionalProperties, "payment_method_provider")
+		delete(additionalProperties, "payment_methods_list")
 		o.AdditionalProperties = additionalProperties
 	}
 

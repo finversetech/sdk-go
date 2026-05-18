@@ -12958,6 +12958,12 @@ components:
           type: string
         payment_method_provider:
           type: string
+        payment_methods_list:
+          description: "Ordered list of payment method brands, e.g. VISA, MASTERCARD,\
+            \ DISCOVER"
+          items:
+            type: string
+          type: array
       required:
       - recurring
       type: object
