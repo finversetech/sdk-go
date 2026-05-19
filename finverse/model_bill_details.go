@@ -21,11 +21,10 @@ var _ MappedNullable = &BillDetails{}
 
 // BillDetails struct for BillDetails
 type BillDetails struct {
-	TotalAmountDue       int64  `json:"total_amount_due"`
-	TotalAmountDueRaw    string `json:"total_amount_due_raw"`
-	Currency             string `json:"currency"`
-	Description          string `json:"description"`
-	BillReferenceId      string `json:"bill_reference_id"`
+	TotalAmountDue       int64   `json:"total_amount_due"`
+	Currency             string  `json:"currency"`
+	Description          *string `json:"description,omitempty"`
+	BillReferenceId      string  `json:"bill_reference_id"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -35,12 +34,10 @@ type _BillDetails BillDetails
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBillDetails(totalAmountDue int64, totalAmountDueRaw string, currency string, description string, billReferenceId string) *BillDetails {
+func NewBillDetails(totalAmountDue int64, currency string, billReferenceId string) *BillDetails {
 	this := BillDetails{}
 	this.TotalAmountDue = totalAmountDue
-	this.TotalAmountDueRaw = totalAmountDueRaw
 	this.Currency = currency
-	this.Description = description
 	this.BillReferenceId = billReferenceId
 	return &this
 }
@@ -77,30 +74,6 @@ func (o *BillDetails) SetTotalAmountDue(v int64) {
 	o.TotalAmountDue = v
 }
 
-// GetTotalAmountDueRaw returns the TotalAmountDueRaw field value
-func (o *BillDetails) GetTotalAmountDueRaw() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.TotalAmountDueRaw
-}
-
-// GetTotalAmountDueRawOk returns a tuple with the TotalAmountDueRaw field value
-// and a boolean to check if the value has been set.
-func (o *BillDetails) GetTotalAmountDueRawOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.TotalAmountDueRaw, true
-}
-
-// SetTotalAmountDueRaw sets field value
-func (o *BillDetails) SetTotalAmountDueRaw(v string) {
-	o.TotalAmountDueRaw = v
-}
-
 // GetCurrency returns the Currency field value
 func (o *BillDetails) GetCurrency() string {
 	if o == nil {
@@ -125,28 +98,36 @@ func (o *BillDetails) SetCurrency(v string) {
 	o.Currency = v
 }
 
-// GetDescription returns the Description field value
+// GetDescription returns the Description field value if set, zero value otherwise.
 func (o *BillDetails) GetDescription() string {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
 	}
-
-	return o.Description
+	return *o.Description
 }
 
-// GetDescriptionOk returns a tuple with the Description field value
+// GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *BillDetails) GetDescriptionOk() (*string, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
-	return &o.Description, true
+	return o.Description, true
 }
 
-// SetDescription sets field value
+// HasDescription returns a boolean if a field has been set.
+func (o *BillDetails) HasDescription() bool {
+	if o != nil && !IsNil(o.Description) {
+		return true
+	}
+
+	return false
+}
+
+// SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *BillDetails) SetDescription(v string) {
-	o.Description = v
+	o.Description = &v
 }
 
 // GetBillReferenceId returns the BillReferenceId field value
@@ -184,9 +165,10 @@ func (o BillDetails) MarshalJSON() ([]byte, error) {
 func (o BillDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["total_amount_due"] = o.TotalAmountDue
-	toSerialize["total_amount_due_raw"] = o.TotalAmountDueRaw
 	toSerialize["currency"] = o.Currency
-	toSerialize["description"] = o.Description
+	if !IsNil(o.Description) {
+		toSerialize["description"] = o.Description
+	}
 	toSerialize["bill_reference_id"] = o.BillReferenceId
 
 	for key, value := range o.AdditionalProperties {
@@ -202,9 +184,7 @@ func (o *BillDetails) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"total_amount_due",
-		"total_amount_due_raw",
 		"currency",
-		"description",
 		"bill_reference_id",
 	}
 
@@ -236,7 +216,6 @@ func (o *BillDetails) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "total_amount_due")
-		delete(additionalProperties, "total_amount_due_raw")
 		delete(additionalProperties, "currency")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "bill_reference_id")

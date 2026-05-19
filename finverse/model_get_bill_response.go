@@ -34,7 +34,6 @@ type GetBillResponse struct {
 	Metadata                  *map[string]string      `json:"metadata,omitempty"`
 	Status                    string                  `json:"status"`
 	IntegrationId             string                  `json:"integration_id"`
-	PaymentId                 string                  `json:"payment_id"`
 	SenderDetails             BillSenderDetails       `json:"sender_details"`
 	CreatedAt                 NullableTime            `json:"created_at"`
 	UpdatedAt                 NullableTime            `json:"updated_at"`
@@ -49,7 +48,7 @@ type _GetBillResponse GetBillResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetBillResponse(billId string, externalBillId string, userId string, externalUserId string, customerAppId string, billDate NullableTime, dueDate NullableTime, integrationMetadata BillIntegrationMetadata, details BillDetails, status string, integrationId string, paymentId string, senderDetails BillSenderDetails, createdAt NullableTime, updatedAt NullableTime, isFinverseAutopayEligible bool, payments []PaymentResponse) *GetBillResponse {
+func NewGetBillResponse(billId string, externalBillId string, userId string, externalUserId string, customerAppId string, billDate NullableTime, dueDate NullableTime, integrationMetadata BillIntegrationMetadata, details BillDetails, status string, integrationId string, senderDetails BillSenderDetails, createdAt NullableTime, updatedAt NullableTime, isFinverseAutopayEligible bool, payments []PaymentResponse) *GetBillResponse {
 	this := GetBillResponse{}
 	this.BillId = billId
 	this.ExternalBillId = externalBillId
@@ -62,7 +61,6 @@ func NewGetBillResponse(billId string, externalBillId string, userId string, ext
 	this.Details = details
 	this.Status = status
 	this.IntegrationId = integrationId
-	this.PaymentId = paymentId
 	this.SenderDetails = senderDetails
 	this.CreatedAt = createdAt
 	this.UpdatedAt = updatedAt
@@ -379,30 +377,6 @@ func (o *GetBillResponse) SetIntegrationId(v string) {
 	o.IntegrationId = v
 }
 
-// GetPaymentId returns the PaymentId field value
-func (o *GetBillResponse) GetPaymentId() string {
-	if o == nil {
-		var ret string
-		return ret
-	}
-
-	return o.PaymentId
-}
-
-// GetPaymentIdOk returns a tuple with the PaymentId field value
-// and a boolean to check if the value has been set.
-func (o *GetBillResponse) GetPaymentIdOk() (*string, bool) {
-	if o == nil {
-		return nil, false
-	}
-	return &o.PaymentId, true
-}
-
-// SetPaymentId sets field value
-func (o *GetBillResponse) SetPaymentId(v string) {
-	o.PaymentId = v
-}
-
 // GetSenderDetails returns the SenderDetails field value
 func (o *GetBillResponse) GetSenderDetails() BillSenderDetails {
 	if o == nil {
@@ -551,7 +525,6 @@ func (o GetBillResponse) ToMap() (map[string]interface{}, error) {
 	}
 	toSerialize["status"] = o.Status
 	toSerialize["integration_id"] = o.IntegrationId
-	toSerialize["payment_id"] = o.PaymentId
 	toSerialize["sender_details"] = o.SenderDetails
 	toSerialize["created_at"] = o.CreatedAt.Get()
 	toSerialize["updated_at"] = o.UpdatedAt.Get()
@@ -581,7 +554,6 @@ func (o *GetBillResponse) UnmarshalJSON(data []byte) (err error) {
 		"details",
 		"status",
 		"integration_id",
-		"payment_id",
 		"sender_details",
 		"created_at",
 		"updated_at",
@@ -628,7 +600,6 @@ func (o *GetBillResponse) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "metadata")
 		delete(additionalProperties, "status")
 		delete(additionalProperties, "integration_id")
-		delete(additionalProperties, "payment_id")
 		delete(additionalProperties, "sender_details")
 		delete(additionalProperties, "created_at")
 		delete(additionalProperties, "updated_at")

@@ -13444,9 +13444,7 @@ components:
             unit_id: unit_id
         updated_at: 2000-01-23T04:56:07.000+00:00
         user_id: user_id
-        payment_id: payment_id
         details:
-          total_amount_due_raw: total_amount_due_raw
           description: description
           currency: currency
           total_amount_due: 6
@@ -13490,8 +13488,6 @@ components:
           type: string
         integration_id:
           type: string
-        payment_id:
-          type: string
         sender_details:
           $ref: '#/components/schemas/BillSenderDetails'
         created_at:
@@ -13516,7 +13512,6 @@ components:
       - integration_id
       - integration_metadata
       - is_finverse_autopay_eligible
-      - payment_id
       - sender_details
       - status
       - updated_at
@@ -13840,9 +13835,7 @@ components:
             unit_id: unit_id
         updated_at: 2000-01-23T04:56:07.000+00:00
         user_id: user_id
-        payment_id: payment_id
         details:
-          total_amount_due_raw: total_amount_due_raw
           description: description
           currency: currency
           total_amount_due: 6
@@ -13881,9 +13874,7 @@ components:
               unit_id: unit_id
           updated_at: 2000-01-23T04:56:07.000+00:00
           user_id: user_id
-          payment_id: payment_id
           details:
-            total_amount_due_raw: total_amount_due_raw
             description: description
             currency: currency
             total_amount_due: 6
@@ -13919,9 +13910,7 @@ components:
               unit_id: unit_id
           updated_at: 2000-01-23T04:56:07.000+00:00
           user_id: user_id
-          payment_id: payment_id
           details:
-            total_amount_due_raw: total_amount_due_raw
             description: description
             currency: currency
             total_amount_due: 6
@@ -13944,7 +13933,6 @@ components:
       type: object
     BillDetails:
       example:
-        total_amount_due_raw: total_amount_due_raw
         description: description
         currency: currency
         total_amount_due: 6
@@ -13953,8 +13941,6 @@ components:
         total_amount_due:
           format: int64
           type: integer
-        total_amount_due_raw:
-          type: string
         currency:
           type: string
         description:
@@ -13964,9 +13950,7 @@ components:
       required:
       - bill_reference_id
       - currency
-      - description
       - total_amount_due
-      - total_amount_due_raw
       type: object
     BillIntegrationMetadata:
       example:
