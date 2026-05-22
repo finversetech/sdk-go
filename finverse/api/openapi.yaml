@@ -10219,7 +10219,7 @@ components:
           description: Card Status
           enum:
           - UNKNOWN
-          - PROCESSING
+          - CREATED
           - SUCCEEDED
           - CANCELLED
           - FAILED
@@ -13034,7 +13034,7 @@ components:
         status:
           enum:
           - UNKNOWN
-          - PROCESSING
+          - CREATED
           - SUCCEEDED
           - CANCELLED
           - FAILED
