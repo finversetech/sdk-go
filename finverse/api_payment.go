@@ -238,6 +238,20 @@ type PaymentAPI interface {
 	DownloadBalanceStatementExecute(r PaymentAPIDownloadBalanceStatementRequest) (*DownloadBalanceStatementResponse, *http.Response, error)
 
 	/*
+		GetAdyenCardSetupPaymentMethods Method for GetAdyenCardSetupPaymentMethods
+
+		Get available Adyen payment methods for Advanced card setup (proxy to Adyen /paymentMethods)
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return PaymentAPIGetAdyenCardSetupPaymentMethodsRequest
+	*/
+	GetAdyenCardSetupPaymentMethods(ctx context.Context) PaymentAPIGetAdyenCardSetupPaymentMethodsRequest
+
+	// GetAdyenCardSetupPaymentMethodsExecute executes the request
+	//  @return map[string]interface{}
+	GetAdyenCardSetupPaymentMethodsExecute(r PaymentAPIGetAdyenCardSetupPaymentMethodsRequest) (map[string]interface{}, *http.Response, error)
+
+	/*
 		GetBill Method for GetBill
 
 		Get a bill by ID
@@ -511,6 +525,34 @@ type PaymentAPI interface {
 	// SetMandateInstitutionExecute executes the request
 	//  @return SetMandateInstitutionResponse
 	SetMandateInstitutionExecute(r PaymentAPISetMandateInstitutionRequest) (*SetMandateInstitutionResponse, *http.Response, error)
+
+	/*
+		SubmitAdyenCardSetupPayment Method for SubmitAdyenCardSetupPayment
+
+		Submit Adyen card setup payment (proxy to Adyen /payments with Drop-in state.data from onSubmit)
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return PaymentAPISubmitAdyenCardSetupPaymentRequest
+	*/
+	SubmitAdyenCardSetupPayment(ctx context.Context) PaymentAPISubmitAdyenCardSetupPaymentRequest
+
+	// SubmitAdyenCardSetupPaymentExecute executes the request
+	//  @return map[string]interface{}
+	SubmitAdyenCardSetupPaymentExecute(r PaymentAPISubmitAdyenCardSetupPaymentRequest) (map[string]interface{}, *http.Response, error)
+
+	/*
+		SubmitAdyenCardSetupPaymentDetails Method for SubmitAdyenCardSetupPaymentDetails
+
+		Submit Adyen card setup payment details (proxy to Adyen /payments/details with Drop-in state.data from onAdditionalDetails)
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return PaymentAPISubmitAdyenCardSetupPaymentDetailsRequest
+	*/
+	SubmitAdyenCardSetupPaymentDetails(ctx context.Context) PaymentAPISubmitAdyenCardSetupPaymentDetailsRequest
+
+	// SubmitAdyenCardSetupPaymentDetailsExecute executes the request
+	//  @return map[string]interface{}
+	SubmitAdyenCardSetupPaymentDetailsExecute(r PaymentAPISubmitAdyenCardSetupPaymentDetailsRequest) (map[string]interface{}, *http.Response, error)
 
 	/*
 		SubmitAuthChecklist Method for SubmitAuthChecklist
@@ -2698,6 +2740,122 @@ func (a *PaymentAPIService) DownloadBalanceStatementExecute(r PaymentAPIDownload
 	if r.currencies != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "currencies", r.currencies, "form", "csv")
 	}
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentAPIGetAdyenCardSetupPaymentMethodsRequest struct {
+	ctx        context.Context
+	ApiService PaymentAPI
+}
+
+func (r PaymentAPIGetAdyenCardSetupPaymentMethodsRequest) Execute() (map[string]interface{}, *http.Response, error) {
+	return r.ApiService.GetAdyenCardSetupPaymentMethodsExecute(r)
+}
+
+/*
+GetAdyenCardSetupPaymentMethods Method for GetAdyenCardSetupPaymentMethods
+
+Get available Adyen payment methods for Advanced card setup (proxy to Adyen /paymentMethods)
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return PaymentAPIGetAdyenCardSetupPaymentMethodsRequest
+*/
+func (a *PaymentAPIService) GetAdyenCardSetupPaymentMethods(ctx context.Context) PaymentAPIGetAdyenCardSetupPaymentMethodsRequest {
+	return PaymentAPIGetAdyenCardSetupPaymentMethodsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return map[string]interface{}
+func (a *PaymentAPIService) GetAdyenCardSetupPaymentMethodsExecute(r PaymentAPIGetAdyenCardSetupPaymentMethodsRequest) (map[string]interface{}, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodGet
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue map[string]interface{}
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentAPIService.GetAdyenCardSetupPaymentMethods")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/payment_link/fvlink/adyen/payment_methods"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
@@ -5963,6 +6121,262 @@ func (a *PaymentAPIService) SetMandateInstitutionExecute(r PaymentAPISetMandateI
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentAPISubmitAdyenCardSetupPaymentRequest struct {
+	ctx                                context.Context
+	ApiService                         PaymentAPI
+	submitAdyenCardSetupPaymentRequest *map[string]interface{}
+}
+
+// Full Drop-in state.data from onSubmit
+func (r PaymentAPISubmitAdyenCardSetupPaymentRequest) SubmitAdyenCardSetupPaymentRequest(submitAdyenCardSetupPaymentRequest map[string]interface{}) PaymentAPISubmitAdyenCardSetupPaymentRequest {
+	r.submitAdyenCardSetupPaymentRequest = &submitAdyenCardSetupPaymentRequest
+	return r
+}
+
+func (r PaymentAPISubmitAdyenCardSetupPaymentRequest) Execute() (map[string]interface{}, *http.Response, error) {
+	return r.ApiService.SubmitAdyenCardSetupPaymentExecute(r)
+}
+
+/*
+SubmitAdyenCardSetupPayment Method for SubmitAdyenCardSetupPayment
+
+Submit Adyen card setup payment (proxy to Adyen /payments with Drop-in state.data from onSubmit)
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return PaymentAPISubmitAdyenCardSetupPaymentRequest
+*/
+func (a *PaymentAPIService) SubmitAdyenCardSetupPayment(ctx context.Context) PaymentAPISubmitAdyenCardSetupPaymentRequest {
+	return PaymentAPISubmitAdyenCardSetupPaymentRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return map[string]interface{}
+func (a *PaymentAPIService) SubmitAdyenCardSetupPaymentExecute(r PaymentAPISubmitAdyenCardSetupPaymentRequest) (map[string]interface{}, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue map[string]interface{}
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentAPIService.SubmitAdyenCardSetupPayment")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/payment_link/fvlink/adyen/payments"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.submitAdyenCardSetupPaymentRequest == nil {
+		return localVarReturnValue, nil, reportError("submitAdyenCardSetupPaymentRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.submitAdyenCardSetupPaymentRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentAPISubmitAdyenCardSetupPaymentDetailsRequest struct {
+	ctx                                       context.Context
+	ApiService                                PaymentAPI
+	submitAdyenCardSetupPaymentDetailsRequest *map[string]interface{}
+}
+
+// Full Drop-in state.data from onAdditionalDetails (includes details + paymentData)
+func (r PaymentAPISubmitAdyenCardSetupPaymentDetailsRequest) SubmitAdyenCardSetupPaymentDetailsRequest(submitAdyenCardSetupPaymentDetailsRequest map[string]interface{}) PaymentAPISubmitAdyenCardSetupPaymentDetailsRequest {
+	r.submitAdyenCardSetupPaymentDetailsRequest = &submitAdyenCardSetupPaymentDetailsRequest
+	return r
+}
+
+func (r PaymentAPISubmitAdyenCardSetupPaymentDetailsRequest) Execute() (map[string]interface{}, *http.Response, error) {
+	return r.ApiService.SubmitAdyenCardSetupPaymentDetailsExecute(r)
+}
+
+/*
+SubmitAdyenCardSetupPaymentDetails Method for SubmitAdyenCardSetupPaymentDetails
+
+Submit Adyen card setup payment details (proxy to Adyen /payments/details with Drop-in state.data from onAdditionalDetails)
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return PaymentAPISubmitAdyenCardSetupPaymentDetailsRequest
+*/
+func (a *PaymentAPIService) SubmitAdyenCardSetupPaymentDetails(ctx context.Context) PaymentAPISubmitAdyenCardSetupPaymentDetailsRequest {
+	return PaymentAPISubmitAdyenCardSetupPaymentDetailsRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return map[string]interface{}
+func (a *PaymentAPIService) SubmitAdyenCardSetupPaymentDetailsExecute(r PaymentAPISubmitAdyenCardSetupPaymentDetailsRequest) (map[string]interface{}, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue map[string]interface{}
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentAPIService.SubmitAdyenCardSetupPaymentDetails")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/payment_link/fvlink/adyen/payments/details"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.submitAdyenCardSetupPaymentDetailsRequest == nil {
+		return localVarReturnValue, nil, reportError("submitAdyenCardSetupPaymentDetailsRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	// body params
+	localVarPostBody = r.submitAdyenCardSetupPaymentDetailsRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
 			var v ErrBodyModelV2
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
