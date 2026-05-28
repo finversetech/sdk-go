@@ -196,20 +196,6 @@ type PaymentAPI interface {
 	CreatePaymentUserExecute(r PaymentAPICreatePaymentUserRequest) (*PaymentUser, *http.Response, error)
 
 	/*
-		CreateScheduledPayout Method for CreateScheduledPayout
-
-		Create a scheduled payout
-
-		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
-		@return PaymentAPICreateScheduledPayoutRequest
-	*/
-	CreateScheduledPayout(ctx context.Context) PaymentAPICreateScheduledPayoutRequest
-
-	// CreateScheduledPayoutExecute executes the request
-	//  @return PayoutSnapshotResponse
-	CreateScheduledPayoutExecute(r PaymentAPICreateScheduledPayoutRequest) (*PayoutSnapshotResponse, *http.Response, error)
-
-	/*
 		DeletePaymentAccount Method for DeletePaymentAccount
 
 		delete payment account
@@ -1126,28 +1112,6 @@ func (a *PaymentAPIService) CancelPayoutExecute(r PaymentAPICancelPayoutRequest)
 			error: localVarHTTPResponse.Status,
 		}
 		if localVarHTTPResponse.StatusCode == 400 {
-			var v ErrBodyModelV2
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 401 {
-			var v ErrBodyModelV2
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
 			var v ErrBodyModelV2
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
@@ -2349,156 +2313,6 @@ func (a *PaymentAPIService) CreatePaymentUserExecute(r PaymentAPICreatePaymentUs
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 401 {
-			var v ErrBodyModelV2
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-			return localVarReturnValue, localVarHTTPResponse, newErr
-		}
-		if localVarHTTPResponse.StatusCode == 500 {
-			var v ErrBodyModelV2
-			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-			if err != nil {
-				newErr.error = err.Error()
-				return localVarReturnValue, localVarHTTPResponse, newErr
-			}
-			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
-			newErr.model = v
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
-	if err != nil {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: err.Error(),
-		}
-		return localVarReturnValue, localVarHTTPResponse, newErr
-	}
-
-	return localVarReturnValue, localVarHTTPResponse, nil
-}
-
-type PaymentAPICreateScheduledPayoutRequest struct {
-	ctx                          context.Context
-	ApiService                   PaymentAPI
-	idempotencyKey               *string
-	createScheduledPayoutRequest *CreateScheduledPayoutRequest
-}
-
-// A random key provided by the customer, per unique payment. The purpose for the Idempotency key is to allow safe retrying without the operation being performed multiple times.
-func (r PaymentAPICreateScheduledPayoutRequest) IdempotencyKey(idempotencyKey string) PaymentAPICreateScheduledPayoutRequest {
-	r.idempotencyKey = &idempotencyKey
-	return r
-}
-
-// Request body containing information to create scheduled payout
-func (r PaymentAPICreateScheduledPayoutRequest) CreateScheduledPayoutRequest(createScheduledPayoutRequest CreateScheduledPayoutRequest) PaymentAPICreateScheduledPayoutRequest {
-	r.createScheduledPayoutRequest = &createScheduledPayoutRequest
-	return r
-}
-
-func (r PaymentAPICreateScheduledPayoutRequest) Execute() (*PayoutSnapshotResponse, *http.Response, error) {
-	return r.ApiService.CreateScheduledPayoutExecute(r)
-}
-
-/*
-CreateScheduledPayout Method for CreateScheduledPayout
-
-Create a scheduled payout
-
- @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
- @return PaymentAPICreateScheduledPayoutRequest
-*/
-func (a *PaymentAPIService) CreateScheduledPayout(ctx context.Context) PaymentAPICreateScheduledPayoutRequest {
-	return PaymentAPICreateScheduledPayoutRequest{
-		ApiService: a,
-		ctx:        ctx,
-	}
-}
-
-// Execute executes the request
-//  @return PayoutSnapshotResponse
-func (a *PaymentAPIService) CreateScheduledPayoutExecute(r PaymentAPICreateScheduledPayoutRequest) (*PayoutSnapshotResponse, *http.Response, error) {
-	var (
-		localVarHTTPMethod  = http.MethodPost
-		localVarPostBody    interface{}
-		formFiles           []formFile
-		localVarReturnValue *PayoutSnapshotResponse
-	)
-
-	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentAPIService.CreateScheduledPayout")
-	if err != nil {
-		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
-	}
-
-	localVarPath := localBasePath + "/payouts/scheduled"
-
-	localVarHeaderParams := make(map[string]string)
-	localVarQueryParams := url.Values{}
-	localVarFormParams := url.Values{}
-	if r.idempotencyKey == nil {
-		return localVarReturnValue, nil, reportError("idempotencyKey is required and must be specified")
-	}
-	if r.createScheduledPayoutRequest == nil {
-		return localVarReturnValue, nil, reportError("createScheduledPayoutRequest is required and must be specified")
-	}
-
-	// to determine the Content-Type header
-	localVarHTTPContentTypes := []string{"application/json"}
-
-	// set Content-Type header
-	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
-	if localVarHTTPContentType != "" {
-		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
-	}
-
-	// to determine the Accept header
-	localVarHTTPHeaderAccepts := []string{"application/json"}
-
-	// set Accept header
-	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
-	if localVarHTTPHeaderAccept != "" {
-		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
-	}
-	parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "", "")
-	// body params
-	localVarPostBody = r.createScheduledPayoutRequest
-	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
-	if err != nil {
-		return localVarReturnValue, nil, err
-	}
-
-	localVarHTTPResponse, err := a.client.callAPI(req)
-	if err != nil || localVarHTTPResponse == nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
-	localVarHTTPResponse.Body.Close()
-	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
-	if err != nil {
-		return localVarReturnValue, localVarHTTPResponse, err
-	}
-
-	if a.client.cfg.ResponseMiddleware != nil {
-		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
-		if err != nil {
-			return localVarReturnValue, localVarHTTPResponse, err
-		}
-	}
-
-	if localVarHTTPResponse.StatusCode >= 300 {
-		newErr := &GenericOpenAPIError{
-			body:  localVarBody,
-			error: localVarHTTPResponse.Status,
-		}
-		if localVarHTTPResponse.StatusCode == 400 {
 			var v ErrBodyModelV2
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {

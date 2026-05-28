@@ -56,7 +56,6 @@ model_create_payment_method_request.go
 model_create_payment_request.go
 model_create_payment_user_request.go
 model_create_recipient_account.go
-model_create_scheduled_payout_request.go
 model_currency_amount.go
 model_delete_login_identity_response.go
 model_dispute_response.go
