@@ -2292,6 +2292,7 @@ paths:
             - MANUAL
             - SCHEDULED
             - SETTLEMENT
+            - ON_DEMAND
             type: string
           type: array
         style: form
@@ -2346,6 +2347,74 @@ paths:
       security:
       - Oauth2:
         - payout:list
+      tags:
+      - payment
+    post:
+      description: Create a payout
+      operationId: createPayout
+      parameters:
+      - description: "A random key provided by the customer, per unique payout. The\
+          \ purpose for the Idempotency key is to allow safe retrying without the\
+          \ operation being performed multiple times."
+        in: header
+        name: Idempotency-Key
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreatePayoutRequest'
+        description: Request body containing information to create a payout
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayoutSnapshotResponse'
+          description: ok
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Bad Request
+      security:
+      - Oauth2:
+        - payout:create
+      tags:
+      - payment
+      x-codegen-request-body-name: createPayoutRequest
+  /payouts/{payoutId}/confirm:
+    post:
+      description: "Confirm a payout that was created with confirm = false, submitting\
+        \ it for processing"
+      operationId: confirmPayout
+      parameters:
+      - description: payout id
+        in: path
+        name: payoutId
+        required: true
+        schema:
+          type: string
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PayoutSnapshotResponse'
+          description: ok
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrBodyModelV2'
+          description: Invalid Request
+      security:
+      - Oauth2:
+        - payout:confirm
       tags:
       - payment
   /payouts/{payoutId}/cancel:
@@ -8268,6 +8337,7 @@ components:
           - MANUAL
           - SCHEDULED
           - SETTLEMENT
+          - ON_DEMAND
           type: string
         created_at:
           format: date-time
@@ -8311,6 +8381,76 @@ components:
           $ref: '#/components/schemas/FvEmbeddedErrorModel'
       required:
       - live
+      type: object
+    CreatePayoutRequest:
+      example:
+        confirm: true
+        amount: 0
+        metadata:
+          key: metadata
+        payment_details:
+          external_transaction_reference: external_transaction_reference
+          description: description
+        recipient_account:
+          account_id: account_id
+        sender_account:
+          account_id: account_id
+        currency: currency
+      properties:
+        amount:
+          description: "The payout amount, in the minor unit of the currency"
+          type: integer
+        currency:
+          description: ISO 4217 currency code of the payout
+          type: string
+        confirm:
+          description: "If true, the payout is immediately submitted for processing.\
+            \ If false, the payout is created in CREATED status and must be confirmed\
+            \ via POST /payouts/{payoutId}/confirm before it is processed."
+          type: boolean
+        payment_details:
+          $ref: '#/components/schemas/CreatePayoutDetails'
+        sender_account:
+          $ref: '#/components/schemas/PayoutAccountRef'
+        recipient_account:
+          $ref: '#/components/schemas/PayoutAccountRef'
+        metadata:
+          additionalProperties:
+            type: string
+          description: Up to 20 metadata key-value pairs
+          type: object
+      required:
+      - amount
+      - confirm
+      - currency
+      - payment_details
+      - recipient_account
+      - sender_account
+      type: object
+    CreatePayoutDetails:
+      example:
+        external_transaction_reference: external_transaction_reference
+        description: description
+      properties:
+        description:
+          description: A description for the payout
+          type: string
+        external_transaction_reference:
+          description: Any reference ID provided by the customer for this payout
+          type: string
+      required:
+      - description
+      - external_transaction_reference
+      type: object
+    PayoutAccountRef:
+      example:
+        account_id: account_id
+      properties:
+        account_id:
+          description: The payment account id
+          type: string
+      required:
+      - account_id
       type: object
     ListPayoutsResponse:
       example:

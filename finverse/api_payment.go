@@ -97,6 +97,21 @@ type PaymentAPI interface {
 	CompleteKcpPaymentExecute(r PaymentAPICompleteKcpPaymentRequest) (*CompleteKcpPaymentResponse, *http.Response, error)
 
 	/*
+		ConfirmPayout Method for ConfirmPayout
+
+		Confirm a payout that was created with confirm = false, submitting it for processing
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@param payoutId payout id
+		@return PaymentAPIConfirmPayoutRequest
+	*/
+	ConfirmPayout(ctx context.Context, payoutId string) PaymentAPIConfirmPayoutRequest
+
+	// ConfirmPayoutExecute executes the request
+	//  @return PayoutSnapshotResponse
+	ConfirmPayoutExecute(r PaymentAPIConfirmPayoutRequest) (*PayoutSnapshotResponse, *http.Response, error)
+
+	/*
 		CreateMandate Method for CreateMandate
 
 		CREATE Mandate
@@ -194,6 +209,20 @@ type PaymentAPI interface {
 	// CreatePaymentUserExecute executes the request
 	//  @return PaymentUser
 	CreatePaymentUserExecute(r PaymentAPICreatePaymentUserRequest) (*PaymentUser, *http.Response, error)
+
+	/*
+		CreatePayout Method for CreatePayout
+
+		Create a payout
+
+		@param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+		@return PaymentAPICreatePayoutRequest
+	*/
+	CreatePayout(ctx context.Context) PaymentAPICreatePayoutRequest
+
+	// CreatePayoutExecute executes the request
+	//  @return PayoutSnapshotResponse
+	CreatePayoutExecute(r PaymentAPICreatePayoutRequest) (*PayoutSnapshotResponse, *http.Response, error)
 
 	/*
 		DeletePaymentAccount Method for DeletePaymentAccount
@@ -1275,6 +1304,126 @@ func (a *PaymentAPIService) CompleteKcpPaymentExecute(r PaymentAPICompleteKcpPay
 	return localVarReturnValue, localVarHTTPResponse, nil
 }
 
+type PaymentAPIConfirmPayoutRequest struct {
+	ctx        context.Context
+	ApiService PaymentAPI
+	payoutId   string
+}
+
+func (r PaymentAPIConfirmPayoutRequest) Execute() (*PayoutSnapshotResponse, *http.Response, error) {
+	return r.ApiService.ConfirmPayoutExecute(r)
+}
+
+/*
+ConfirmPayout Method for ConfirmPayout
+
+Confirm a payout that was created with confirm = false, submitting it for processing
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @param payoutId payout id
+ @return PaymentAPIConfirmPayoutRequest
+*/
+func (a *PaymentAPIService) ConfirmPayout(ctx context.Context, payoutId string) PaymentAPIConfirmPayoutRequest {
+	return PaymentAPIConfirmPayoutRequest{
+		ApiService: a,
+		ctx:        ctx,
+		payoutId:   payoutId,
+	}
+}
+
+// Execute executes the request
+//  @return PayoutSnapshotResponse
+func (a *PaymentAPIService) ConfirmPayoutExecute(r PaymentAPIConfirmPayoutRequest) (*PayoutSnapshotResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PayoutSnapshotResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentAPIService.ConfirmPayout")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/payouts/{payoutId}/confirm"
+	localVarPath = strings.Replace(localVarPath, "{"+"payoutId"+"}", url.PathEscape(parameterValueToString(r.payoutId, "payoutId")), -1)
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
 type PaymentAPICreateMandateRequest struct {
 	ctx                  context.Context
 	ApiService           PaymentAPI
@@ -2324,6 +2473,145 @@ func (a *PaymentAPIService) CreatePaymentUserExecute(r PaymentAPICreatePaymentUs
 			return localVarReturnValue, localVarHTTPResponse, newErr
 		}
 		if localVarHTTPResponse.StatusCode == 500 {
+			var v ErrBodyModelV2
+			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+			if err != nil {
+				newErr.error = err.Error()
+				return localVarReturnValue, localVarHTTPResponse, newErr
+			}
+			newErr.error = formatErrorMessage(localVarHTTPResponse.Status, &v)
+			newErr.model = v
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	err = a.client.decode(&localVarReturnValue, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
+	if err != nil {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: err.Error(),
+		}
+		return localVarReturnValue, localVarHTTPResponse, newErr
+	}
+
+	return localVarReturnValue, localVarHTTPResponse, nil
+}
+
+type PaymentAPICreatePayoutRequest struct {
+	ctx                 context.Context
+	ApiService          PaymentAPI
+	idempotencyKey      *string
+	createPayoutRequest *CreatePayoutRequest
+}
+
+// A random key provided by the customer, per unique payout. The purpose for the Idempotency key is to allow safe retrying without the operation being performed multiple times.
+func (r PaymentAPICreatePayoutRequest) IdempotencyKey(idempotencyKey string) PaymentAPICreatePayoutRequest {
+	r.idempotencyKey = &idempotencyKey
+	return r
+}
+
+// Request body containing information to create a payout
+func (r PaymentAPICreatePayoutRequest) CreatePayoutRequest(createPayoutRequest CreatePayoutRequest) PaymentAPICreatePayoutRequest {
+	r.createPayoutRequest = &createPayoutRequest
+	return r
+}
+
+func (r PaymentAPICreatePayoutRequest) Execute() (*PayoutSnapshotResponse, *http.Response, error) {
+	return r.ApiService.CreatePayoutExecute(r)
+}
+
+/*
+CreatePayout Method for CreatePayout
+
+Create a payout
+
+ @param ctx context.Context - for authentication, logging, cancellation, deadlines, tracing, etc. Passed from http.Request or context.Background().
+ @return PaymentAPICreatePayoutRequest
+*/
+func (a *PaymentAPIService) CreatePayout(ctx context.Context) PaymentAPICreatePayoutRequest {
+	return PaymentAPICreatePayoutRequest{
+		ApiService: a,
+		ctx:        ctx,
+	}
+}
+
+// Execute executes the request
+//  @return PayoutSnapshotResponse
+func (a *PaymentAPIService) CreatePayoutExecute(r PaymentAPICreatePayoutRequest) (*PayoutSnapshotResponse, *http.Response, error) {
+	var (
+		localVarHTTPMethod  = http.MethodPost
+		localVarPostBody    interface{}
+		formFiles           []formFile
+		localVarReturnValue *PayoutSnapshotResponse
+	)
+
+	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentAPIService.CreatePayout")
+	if err != nil {
+		return localVarReturnValue, nil, &GenericOpenAPIError{error: err.Error()}
+	}
+
+	localVarPath := localBasePath + "/payouts"
+
+	localVarHeaderParams := make(map[string]string)
+	localVarQueryParams := url.Values{}
+	localVarFormParams := url.Values{}
+	if r.idempotencyKey == nil {
+		return localVarReturnValue, nil, reportError("idempotencyKey is required and must be specified")
+	}
+	if r.createPayoutRequest == nil {
+		return localVarReturnValue, nil, reportError("createPayoutRequest is required and must be specified")
+	}
+
+	// to determine the Content-Type header
+	localVarHTTPContentTypes := []string{"application/json"}
+
+	// set Content-Type header
+	localVarHTTPContentType := selectHeaderContentType(localVarHTTPContentTypes)
+	if localVarHTTPContentType != "" {
+		localVarHeaderParams["Content-Type"] = localVarHTTPContentType
+	}
+
+	// to determine the Accept header
+	localVarHTTPHeaderAccepts := []string{"application/json"}
+
+	// set Accept header
+	localVarHTTPHeaderAccept := selectHeaderAccept(localVarHTTPHeaderAccepts)
+	if localVarHTTPHeaderAccept != "" {
+		localVarHeaderParams["Accept"] = localVarHTTPHeaderAccept
+	}
+	parameterAddToHeaderOrQuery(localVarHeaderParams, "Idempotency-Key", r.idempotencyKey, "", "")
+	// body params
+	localVarPostBody = r.createPayoutRequest
+	req, err := a.client.prepareRequest(r.ctx, localVarPath, localVarHTTPMethod, localVarPostBody, localVarHeaderParams, localVarQueryParams, localVarFormParams, formFiles)
+	if err != nil {
+		return localVarReturnValue, nil, err
+	}
+
+	localVarHTTPResponse, err := a.client.callAPI(req)
+	if err != nil || localVarHTTPResponse == nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	localVarBody, err := io.ReadAll(localVarHTTPResponse.Body)
+	localVarHTTPResponse.Body.Close()
+	localVarHTTPResponse.Body = io.NopCloser(bytes.NewBuffer(localVarBody))
+	if err != nil {
+		return localVarReturnValue, localVarHTTPResponse, err
+	}
+
+	if a.client.cfg.ResponseMiddleware != nil {
+		err = a.client.cfg.ResponseMiddleware(localVarHTTPResponse, localVarBody)
+		if err != nil {
+			return localVarReturnValue, localVarHTTPResponse, err
+		}
+	}
+
+	if localVarHTTPResponse.StatusCode >= 300 {
+		newErr := &GenericOpenAPIError{
+			body:  localVarBody,
+			error: localVarHTTPResponse.Status,
+		}
+		if localVarHTTPResponse.StatusCode == 400 {
 			var v ErrBodyModelV2
 			err = a.client.decode(&v, localVarBody, localVarHTTPResponse.Header.Get("Content-Type"))
 			if err != nil {
