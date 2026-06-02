@@ -29,7 +29,8 @@ type SelectPaymentMethodRequest struct {
 	// Whether the user is on mobile device (only makes a difference if payment_method_provider is KCP)
 	IsMobile *bool `json:"is_mobile,omitempty"`
 	// Optional Finverse institution ID (passed through when selecting KCP manual payment flow)
-	InstitutionId        *string `json:"institution_id,omitempty"`
+	InstitutionId        *string        `json:"institution_id,omitempty"`
+	KcpVaMetadata        *KcpVaMetadata `json:"kcp_va_metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -202,6 +203,38 @@ func (o *SelectPaymentMethodRequest) SetInstitutionId(v string) {
 	o.InstitutionId = &v
 }
 
+// GetKcpVaMetadata returns the KcpVaMetadata field value if set, zero value otherwise.
+func (o *SelectPaymentMethodRequest) GetKcpVaMetadata() KcpVaMetadata {
+	if o == nil || IsNil(o.KcpVaMetadata) {
+		var ret KcpVaMetadata
+		return ret
+	}
+	return *o.KcpVaMetadata
+}
+
+// GetKcpVaMetadataOk returns a tuple with the KcpVaMetadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SelectPaymentMethodRequest) GetKcpVaMetadataOk() (*KcpVaMetadata, bool) {
+	if o == nil || IsNil(o.KcpVaMetadata) {
+		return nil, false
+	}
+	return o.KcpVaMetadata, true
+}
+
+// HasKcpVaMetadata returns a boolean if a field has been set.
+func (o *SelectPaymentMethodRequest) HasKcpVaMetadata() bool {
+	if o != nil && !IsNil(o.KcpVaMetadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetKcpVaMetadata gets a reference to the given KcpVaMetadata and assigns it to the KcpVaMetadata field.
+func (o *SelectPaymentMethodRequest) SetKcpVaMetadata(v KcpVaMetadata) {
+	o.KcpVaMetadata = &v
+}
+
 func (o SelectPaymentMethodRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -222,6 +255,9 @@ func (o SelectPaymentMethodRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.InstitutionId) {
 		toSerialize["institution_id"] = o.InstitutionId
+	}
+	if !IsNil(o.KcpVaMetadata) {
+		toSerialize["kcp_va_metadata"] = o.KcpVaMetadata
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -272,6 +308,7 @@ func (o *SelectPaymentMethodRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "sender_type")
 		delete(additionalProperties, "is_mobile")
 		delete(additionalProperties, "institution_id")
+		delete(additionalProperties, "kcp_va_metadata")
 		o.AdditionalProperties = additionalProperties
 	}
 

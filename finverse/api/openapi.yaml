@@ -14286,9 +14286,28 @@ components:
             KCP manual payment flow)
           maxLength: 100
           type: string
+        kcp_va_metadata:
+          $ref: '#/components/schemas/KcpVaMetadata'
       required:
       - payment_account_id
       - payment_method_type
+      type: object
+    KcpVaMetadata:
+      description: KCP virtual account metadata
+      properties:
+        va_receipt_gubn:
+          description: "Cash receipt type; \"0\" = income tax deduction (for individuals),\
+            \ \"1\" = proof of expenditure (for businesses)"
+          enum:
+          - "0"
+          - "1"
+          type: string
+        va_taxno:
+          description: ID number for cash receipt issuance
+          type: string
+      required:
+      - va_receipt_gubn
+      - va_taxno
       type: object
     SelectPaymentMethodResponse:
       properties:

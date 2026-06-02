@@ -111,6 +111,7 @@ model_integration_metadata_payment_user_request.go
 model_integration_metadata_request.go
 model_integration_metadata_response.go
 model_jwks_key.go
+model_kcp_va_metadata.go
 model_line_item.go
 model_link_request.go
 model_link_response.go
