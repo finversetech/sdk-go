@@ -7936,7 +7936,7 @@ components:
           additionalProperties:
             type: string
           description: "Additional attributes of the payment in key:value format (e.g.\
-            \ payment_internal_id: 1234). It supports up to 10 key:value pairs, whereas\
+            \ payment_internal_id: 1234). It supports up to 20 key:value pairs, whereas\
             \ the key and value supports up to 50 and 1000 characters respectively."
           type: object
         error:
@@ -8992,7 +8992,7 @@ components:
           additionalProperties:
             type: string
           description: "Additional attributes of the mandate in key:value format (e.g.\
-            \ mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas\
+            \ mandate_internal_id: 1234). It supports up to 20 key:value pairs, whereas\
             \ the key and value supports up to 50 and 1000 characters respectively."
           type: object
         error:
@@ -10015,7 +10015,7 @@ components:
           additionalProperties:
             type: string
           description: "Additional attributes of the payment link in key:value format\
-            \ (e.g. payment_id: 1234). It supports up to 10 key:value pairs, whereas\
+            \ (e.g. payment_id: 1234). It supports up to 20 key:value pairs, whereas\
             \ the key and value supports up to 50 and 1000 characters respectively."
           type: object
         payment_metadata:
@@ -10658,7 +10658,7 @@ components:
           additionalProperties:
             type: string
           description: "Additional attributes of the mandate in key:value format (e.g.\
-            \ mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas\
+            \ mandate_internal_id: 1234). It supports up to 20 key:value pairs, whereas\
             \ the key and value supports up to 50 and 1000 characters respectively."
           type: object
       required:
@@ -11996,7 +11996,7 @@ components:
           additionalProperties:
             type: string
           description: "Additional attributes of the sender account in key:value format\
-            \ (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas\
+            \ (e.g. sender_id: 1234). It supports up to 20 key:value pairs, whereas\
             \ the key and value supports up to 50 and 1000 characters respectively."
           type: object
       type: object
@@ -12339,7 +12339,7 @@ components:
           additionalProperties:
             type: string
           description: "Additional attributes of the sender account in key:value format\
-            \ (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas\
+            \ (e.g. sender_id: 1234). It supports up to 20 key:value pairs, whereas\
             \ the key and value supports up to 50 and 1000 characters respectively."
           type: object
         created_at:

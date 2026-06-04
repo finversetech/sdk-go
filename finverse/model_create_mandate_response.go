@@ -38,7 +38,7 @@ type CreateMandateResponse struct {
 	SenderAccount    *MandateSenderAccount    `json:"sender_account,omitempty"`
 	MandateDetails   MandateDetailsResponse   `json:"mandate_details"`
 	Fees             []Fee                    `json:"fees,omitempty"`
-	// Additional attributes of the mandate in key:value format (e.g. mandate_internal_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 1000 characters respectively.
+	// Additional attributes of the mandate in key:value format (e.g. mandate_internal_id: 1234). It supports up to 20 key:value pairs, whereas the key and value supports up to 50 and 1000 characters respectively.
 	Metadata             *map[string]string    `json:"metadata,omitempty"`
 	Error                *FvEmbeddedErrorModel `json:"error,omitempty"`
 	AdditionalProperties map[string]interface{}

@@ -48,7 +48,7 @@ type PaymentAccountDetails struct {
 	BusinessUnits []string `json:"business_units,omitempty"`
 	// This field is only applicable to settlement account
 	LegalEntityName *string `json:"legal_entity_name,omitempty"`
-	// Additional attributes of the sender account in key:value format (e.g. sender_id: 1234). It supports up to 10 key:value pairs, whereas the key and value supports up to 50 and 1000 characters respectively.
+	// Additional attributes of the sender account in key:value format (e.g. sender_id: 1234). It supports up to 20 key:value pairs, whereas the key and value supports up to 50 and 1000 characters respectively.
 	Metadata *map[string]string `json:"metadata,omitempty"`
 	// Timestamp of when the payment link was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
