@@ -8257,6 +8257,7 @@ components:
           estimated_arrival_time: 2025-08-22T12:00:00Z
           transaction_reference_id: transaction_reference_id
           references:
+            finverse_transaction_reference: finverse_transaction_reference
             recipient_reference: recipient_reference
           processor_details:
             processor_reference: processor_reference
@@ -8472,6 +8473,7 @@ components:
             estimated_arrival_time: 2025-08-22T12:00:00Z
             transaction_reference_id: transaction_reference_id
             references:
+              finverse_transaction_reference: finverse_transaction_reference
               recipient_reference: recipient_reference
             processor_details:
               processor_reference: processor_reference
@@ -8550,6 +8552,7 @@ components:
             estimated_arrival_time: 2025-08-22T12:00:00Z
             transaction_reference_id: transaction_reference_id
             references:
+              finverse_transaction_reference: finverse_transaction_reference
               recipient_reference: recipient_reference
             processor_details:
               processor_reference: processor_reference
@@ -8628,6 +8631,7 @@ components:
         estimated_arrival_time: 2025-08-22T12:00:00Z
         transaction_reference_id: transaction_reference_id
         references:
+          finverse_transaction_reference: finverse_transaction_reference
           recipient_reference: recipient_reference
         processor_details:
           processor_reference: processor_reference
@@ -8668,9 +8672,12 @@ components:
       type: object
     PayoutReferences:
       example:
+        finverse_transaction_reference: finverse_transaction_reference
         recipient_reference: recipient_reference
       properties:
         recipient_reference:
+          type: string
+        finverse_transaction_reference:
           type: string
       type: object
     PayoutDetails:

@@ -20,8 +20,9 @@ var _ MappedNullable = &PayoutReferences{}
 
 // PayoutReferences struct for PayoutReferences
 type PayoutReferences struct {
-	RecipientReference   *string `json:"recipient_reference,omitempty"`
-	AdditionalProperties map[string]interface{}
+	RecipientReference           *string `json:"recipient_reference,omitempty"`
+	FinverseTransactionReference *string `json:"finverse_transaction_reference,omitempty"`
+	AdditionalProperties         map[string]interface{}
 }
 
 type _PayoutReferences PayoutReferences
@@ -75,6 +76,38 @@ func (o *PayoutReferences) SetRecipientReference(v string) {
 	o.RecipientReference = &v
 }
 
+// GetFinverseTransactionReference returns the FinverseTransactionReference field value if set, zero value otherwise.
+func (o *PayoutReferences) GetFinverseTransactionReference() string {
+	if o == nil || IsNil(o.FinverseTransactionReference) {
+		var ret string
+		return ret
+	}
+	return *o.FinverseTransactionReference
+}
+
+// GetFinverseTransactionReferenceOk returns a tuple with the FinverseTransactionReference field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayoutReferences) GetFinverseTransactionReferenceOk() (*string, bool) {
+	if o == nil || IsNil(o.FinverseTransactionReference) {
+		return nil, false
+	}
+	return o.FinverseTransactionReference, true
+}
+
+// HasFinverseTransactionReference returns a boolean if a field has been set.
+func (o *PayoutReferences) HasFinverseTransactionReference() bool {
+	if o != nil && !IsNil(o.FinverseTransactionReference) {
+		return true
+	}
+
+	return false
+}
+
+// SetFinverseTransactionReference gets a reference to the given string and assigns it to the FinverseTransactionReference field.
+func (o *PayoutReferences) SetFinverseTransactionReference(v string) {
+	o.FinverseTransactionReference = &v
+}
+
 func (o PayoutReferences) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -87,6 +120,9 @@ func (o PayoutReferences) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.RecipientReference) {
 		toSerialize["recipient_reference"] = o.RecipientReference
+	}
+	if !IsNil(o.FinverseTransactionReference) {
+		toSerialize["finverse_transaction_reference"] = o.FinverseTransactionReference
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -111,6 +147,7 @@ func (o *PayoutReferences) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "recipient_reference")
+		delete(additionalProperties, "finverse_transaction_reference")
 		o.AdditionalProperties = additionalProperties
 	}
 
