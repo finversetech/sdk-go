@@ -133,6 +133,7 @@ model_list_payments_response.go
 model_list_payouts_response.go
 model_list_transactions_response.go
 model_login_action.go
+model_login_details.go
 model_login_field.go
 model_login_identity.go
 model_login_identity_billing_details.go

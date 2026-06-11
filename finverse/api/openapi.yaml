@@ -4760,7 +4760,10 @@ components:
         countries:
         - HKG
         institution_name: Mock Bank
-        login_details: "{}"
+        login_details:
+          refresh_supported: true
+          info_message: "Use credentials: User ID = usergood | Password = datagood"
+          secret_required: true
         institution_id: "123"
         tags:
         - real
@@ -4935,11 +4938,7 @@ components:
           example: https://example.com/login
           type: string
         login_details:
-          type: object
-          x-go-type:
-            type: LoginDetails
-            import:
-              package: gitlab.com/finverse/gitops/applications/api/models/custom
+          $ref: '#/components/schemas/LoginDetails'
         login_methods:
           items:
             $ref: '#/components/schemas/LoginMethod'
@@ -4961,10 +4960,26 @@ components:
       - institution_id
       - institution_name
       - institution_type
-      - login_details
       - products_supported
       - status
       - user_type
+      type: object
+    LoginDetails:
+      example:
+        refresh_supported: true
+        info_message: "Use credentials: User ID = usergood | Password = datagood"
+        secret_required: true
+      properties:
+        info_message:
+          example: "Use credentials: User ID = usergood | Password = datagood"
+          type: string
+        secret_required:
+          example: true
+          type: boolean
+        refresh_supported:
+          example: true
+          type: boolean
+          x-omitempty: false
       type: object
     LoginMethod:
       example:

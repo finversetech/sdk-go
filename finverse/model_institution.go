@@ -34,7 +34,7 @@ type Institution struct {
 	Status                string                 `json:"status"`
 	StatusDetails         map[string]interface{} `json:"status_details,omitempty"`
 	LoginUrl              *string                `json:"login_url,omitempty"`
-	LoginDetails          map[string]interface{} `json:"login_details"`
+	LoginDetails          *LoginDetails          `json:"login_details,omitempty"`
 	LoginMethods          []LoginMethod          `json:"login_methods,omitempty"`
 	PaymentInfo           *PaymentInfo           `json:"payment_info,omitempty"`
 	Color                 *string                `json:"color,omitempty"`
@@ -49,7 +49,7 @@ type _Institution Institution
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInstitution(institutionId string, countries []string, institutionType string, productsSupported []string, institutionName string, userType []string, status string, loginDetails map[string]interface{}) *Institution {
+func NewInstitution(institutionId string, countries []string, institutionType string, productsSupported []string, institutionName string, userType []string, status string) *Institution {
 	this := Institution{}
 	this.InstitutionId = institutionId
 	this.Countries = countries
@@ -58,7 +58,6 @@ func NewInstitution(institutionId string, countries []string, institutionType st
 	this.InstitutionName = institutionName
 	this.UserType = userType
 	this.Status = status
-	this.LoginDetails = loginDetails
 	return &this
 }
 
@@ -398,28 +397,36 @@ func (o *Institution) SetLoginUrl(v string) {
 	o.LoginUrl = &v
 }
 
-// GetLoginDetails returns the LoginDetails field value
-func (o *Institution) GetLoginDetails() map[string]interface{} {
-	if o == nil {
-		var ret map[string]interface{}
+// GetLoginDetails returns the LoginDetails field value if set, zero value otherwise.
+func (o *Institution) GetLoginDetails() LoginDetails {
+	if o == nil || IsNil(o.LoginDetails) {
+		var ret LoginDetails
 		return ret
 	}
-
-	return o.LoginDetails
+	return *o.LoginDetails
 }
 
-// GetLoginDetailsOk returns a tuple with the LoginDetails field value
+// GetLoginDetailsOk returns a tuple with the LoginDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Institution) GetLoginDetailsOk() (map[string]interface{}, bool) {
-	if o == nil {
-		return map[string]interface{}{}, false
+func (o *Institution) GetLoginDetailsOk() (*LoginDetails, bool) {
+	if o == nil || IsNil(o.LoginDetails) {
+		return nil, false
 	}
 	return o.LoginDetails, true
 }
 
-// SetLoginDetails sets field value
-func (o *Institution) SetLoginDetails(v map[string]interface{}) {
-	o.LoginDetails = v
+// HasLoginDetails returns a boolean if a field has been set.
+func (o *Institution) HasLoginDetails() bool {
+	if o != nil && !IsNil(o.LoginDetails) {
+		return true
+	}
+
+	return false
+}
+
+// SetLoginDetails gets a reference to the given LoginDetails and assigns it to the LoginDetails field.
+func (o *Institution) SetLoginDetails(v LoginDetails) {
+	o.LoginDetails = &v
 }
 
 // GetLoginMethods returns the LoginMethods field value if set, zero value otherwise.
@@ -614,7 +621,9 @@ func (o Institution) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LoginUrl) {
 		toSerialize["login_url"] = o.LoginUrl
 	}
-	toSerialize["login_details"] = o.LoginDetails
+	if !IsNil(o.LoginDetails) {
+		toSerialize["login_details"] = o.LoginDetails
+	}
 	if !IsNil(o.LoginMethods) {
 		toSerialize["login_methods"] = o.LoginMethods
 	}
@@ -650,7 +659,6 @@ func (o *Institution) UnmarshalJSON(data []byte) (err error) {
 		"institution_name",
 		"user_type",
 		"status",
-		"login_details",
 	}
 
 	allProperties := make(map[string]interface{})
