@@ -21,14 +21,15 @@ var _ MappedNullable = &PayoutSnapshotDetails{}
 
 // PayoutSnapshotDetails struct for PayoutSnapshotDetails
 type PayoutSnapshotDetails struct {
-	Description            *string                 `json:"description,omitempty"`
-	TransactionReferenceId *string                 `json:"transaction_reference_id,omitempty"`
-	MandateId              *string                 `json:"mandate_id,omitempty"`
-	ScheduledDate          NullableTime            `json:"scheduled_date,omitempty"`
-	EstimatedArrivalTime   NullableTime            `json:"estimated_arrival_time,omitempty"`
-	ProcessorDetails       *PayoutProcessorDetails `json:"processor_details,omitempty"`
-	References             *PayoutReferences       `json:"references,omitempty"`
-	AdditionalProperties   map[string]interface{}
+	Description                  *string                 `json:"description,omitempty"`
+	TransactionReferenceId       *string                 `json:"transaction_reference_id,omitempty"`
+	ExternalTransactionReference *string                 `json:"external_transaction_reference,omitempty"`
+	MandateId                    *string                 `json:"mandate_id,omitempty"`
+	ScheduledDate                NullableTime            `json:"scheduled_date,omitempty"`
+	EstimatedArrivalTime         NullableTime            `json:"estimated_arrival_time,omitempty"`
+	ProcessorDetails             *PayoutProcessorDetails `json:"processor_details,omitempty"`
+	References                   *PayoutReferences       `json:"references,omitempty"`
+	AdditionalProperties         map[string]interface{}
 }
 
 type _PayoutSnapshotDetails PayoutSnapshotDetails
@@ -112,6 +113,38 @@ func (o *PayoutSnapshotDetails) HasTransactionReferenceId() bool {
 // SetTransactionReferenceId gets a reference to the given string and assigns it to the TransactionReferenceId field.
 func (o *PayoutSnapshotDetails) SetTransactionReferenceId(v string) {
 	o.TransactionReferenceId = &v
+}
+
+// GetExternalTransactionReference returns the ExternalTransactionReference field value if set, zero value otherwise.
+func (o *PayoutSnapshotDetails) GetExternalTransactionReference() string {
+	if o == nil || IsNil(o.ExternalTransactionReference) {
+		var ret string
+		return ret
+	}
+	return *o.ExternalTransactionReference
+}
+
+// GetExternalTransactionReferenceOk returns a tuple with the ExternalTransactionReference field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayoutSnapshotDetails) GetExternalTransactionReferenceOk() (*string, bool) {
+	if o == nil || IsNil(o.ExternalTransactionReference) {
+		return nil, false
+	}
+	return o.ExternalTransactionReference, true
+}
+
+// HasExternalTransactionReference returns a boolean if a field has been set.
+func (o *PayoutSnapshotDetails) HasExternalTransactionReference() bool {
+	if o != nil && !IsNil(o.ExternalTransactionReference) {
+		return true
+	}
+
+	return false
+}
+
+// SetExternalTransactionReference gets a reference to the given string and assigns it to the ExternalTransactionReference field.
+func (o *PayoutSnapshotDetails) SetExternalTransactionReference(v string) {
+	o.ExternalTransactionReference = &v
 }
 
 // GetMandateId returns the MandateId field value if set, zero value otherwise.
@@ -312,6 +345,9 @@ func (o PayoutSnapshotDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.TransactionReferenceId) {
 		toSerialize["transaction_reference_id"] = o.TransactionReferenceId
 	}
+	if !IsNil(o.ExternalTransactionReference) {
+		toSerialize["external_transaction_reference"] = o.ExternalTransactionReference
+	}
 	if !IsNil(o.MandateId) {
 		toSerialize["mandate_id"] = o.MandateId
 	}
@@ -351,6 +387,7 @@ func (o *PayoutSnapshotDetails) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "transaction_reference_id")
+		delete(additionalProperties, "external_transaction_reference")
 		delete(additionalProperties, "mandate_id")
 		delete(additionalProperties, "scheduled_date")
 		delete(additionalProperties, "estimated_arrival_time")
