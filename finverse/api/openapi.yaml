@@ -14274,10 +14274,43 @@ components:
       description: Raw Drop-in state.data from onSubmit or onAdditionalDetails; forwarded
         as-is to the Adyen integration service
       type: object
+    FrontendFvErrorModel:
+      description: Finverse error details surfaced to the frontend; absent on success
+        and action-required outcomes
+      example:
+        display_details: Please use a different payment method.
+        error_code: PAYMENT_METHOD_EXPIRED
+        message: Payment method expired
+      properties:
+        error_code:
+          description: Finverse error code
+          example: PAYMENT_METHOD_EXPIRED
+          type: string
+        message:
+          description: Short human-readable error message
+          example: Payment method expired
+          type: string
+        display_details:
+          description: Human-readable error detail safe for display to the end user
+          example: Please use a different payment method.
+          type: string
+      required:
+      - display_details
+      - error_code
+      - message
+      type: object
     AdyenCardSetupPaymentResponse:
       additionalProperties: true
       description: Raw Adyen /payments or /payments/details JSON response; passed
         directly to Drop-in actions.resolve()
+      example:
+        error:
+          display_details: Please use a different payment method.
+          error_code: PAYMENT_METHOD_EXPIRED
+          message: Payment method expired
+      properties:
+        error:
+          $ref: '#/components/schemas/FrontendFvErrorModel'
       type: object
     AdyenCardSetupPaymentMethodsResponse:
       additionalProperties: true

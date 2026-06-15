@@ -12,6 +12,7 @@ model_account.go
 model_account_number.go
 model_account_type.go
 model_action_request.go
+model_adyen_card_setup_payment_response.go
 model_all_product_status.go
 model_api_link_request.go
 model_api_relink_request.go
@@ -69,6 +70,7 @@ model_err_body_model_v2.go
 model_error_response.go
 model_fee.go
 model_fps_qr_code_response.go
+model_frontend_fv_error_model.go
 model_fv_bill.go
 model_fv_card.go
 model_fv_card_details.go

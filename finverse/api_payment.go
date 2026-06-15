@@ -552,8 +552,8 @@ type PaymentAPI interface {
 	SubmitAdyenCardSetupPayment(ctx context.Context) PaymentAPISubmitAdyenCardSetupPaymentRequest
 
 	// SubmitAdyenCardSetupPaymentExecute executes the request
-	//  @return map[string]interface{}
-	SubmitAdyenCardSetupPaymentExecute(r PaymentAPISubmitAdyenCardSetupPaymentRequest) (map[string]interface{}, *http.Response, error)
+	//  @return AdyenCardSetupPaymentResponse
+	SubmitAdyenCardSetupPaymentExecute(r PaymentAPISubmitAdyenCardSetupPaymentRequest) (*AdyenCardSetupPaymentResponse, *http.Response, error)
 
 	/*
 		SubmitAdyenCardSetupPaymentDetails Method for SubmitAdyenCardSetupPaymentDetails
@@ -566,8 +566,8 @@ type PaymentAPI interface {
 	SubmitAdyenCardSetupPaymentDetails(ctx context.Context) PaymentAPISubmitAdyenCardSetupPaymentDetailsRequest
 
 	// SubmitAdyenCardSetupPaymentDetailsExecute executes the request
-	//  @return map[string]interface{}
-	SubmitAdyenCardSetupPaymentDetailsExecute(r PaymentAPISubmitAdyenCardSetupPaymentDetailsRequest) (map[string]interface{}, *http.Response, error)
+	//  @return AdyenCardSetupPaymentResponse
+	SubmitAdyenCardSetupPaymentDetailsExecute(r PaymentAPISubmitAdyenCardSetupPaymentDetailsRequest) (*AdyenCardSetupPaymentResponse, *http.Response, error)
 
 	/*
 		SubmitAuthChecklist Method for SubmitAuthChecklist
@@ -6259,7 +6259,7 @@ func (r PaymentAPISubmitAdyenCardSetupPaymentRequest) SubmitAdyenCardSetupPaymen
 	return r
 }
 
-func (r PaymentAPISubmitAdyenCardSetupPaymentRequest) Execute() (map[string]interface{}, *http.Response, error) {
+func (r PaymentAPISubmitAdyenCardSetupPaymentRequest) Execute() (*AdyenCardSetupPaymentResponse, *http.Response, error) {
 	return r.ApiService.SubmitAdyenCardSetupPaymentExecute(r)
 }
 
@@ -6279,13 +6279,13 @@ func (a *PaymentAPIService) SubmitAdyenCardSetupPayment(ctx context.Context) Pay
 }
 
 // Execute executes the request
-//  @return map[string]interface{}
-func (a *PaymentAPIService) SubmitAdyenCardSetupPaymentExecute(r PaymentAPISubmitAdyenCardSetupPaymentRequest) (map[string]interface{}, *http.Response, error) {
+//  @return AdyenCardSetupPaymentResponse
+func (a *PaymentAPIService) SubmitAdyenCardSetupPaymentExecute(r PaymentAPISubmitAdyenCardSetupPaymentRequest) (*AdyenCardSetupPaymentResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarReturnValue *AdyenCardSetupPaymentResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentAPIService.SubmitAdyenCardSetupPayment")
@@ -6387,7 +6387,7 @@ func (r PaymentAPISubmitAdyenCardSetupPaymentDetailsRequest) SubmitAdyenCardSetu
 	return r
 }
 
-func (r PaymentAPISubmitAdyenCardSetupPaymentDetailsRequest) Execute() (map[string]interface{}, *http.Response, error) {
+func (r PaymentAPISubmitAdyenCardSetupPaymentDetailsRequest) Execute() (*AdyenCardSetupPaymentResponse, *http.Response, error) {
 	return r.ApiService.SubmitAdyenCardSetupPaymentDetailsExecute(r)
 }
 
@@ -6407,13 +6407,13 @@ func (a *PaymentAPIService) SubmitAdyenCardSetupPaymentDetails(ctx context.Conte
 }
 
 // Execute executes the request
-//  @return map[string]interface{}
-func (a *PaymentAPIService) SubmitAdyenCardSetupPaymentDetailsExecute(r PaymentAPISubmitAdyenCardSetupPaymentDetailsRequest) (map[string]interface{}, *http.Response, error) {
+//  @return AdyenCardSetupPaymentResponse
+func (a *PaymentAPIService) SubmitAdyenCardSetupPaymentDetailsExecute(r PaymentAPISubmitAdyenCardSetupPaymentDetailsRequest) (*AdyenCardSetupPaymentResponse, *http.Response, error) {
 	var (
 		localVarHTTPMethod  = http.MethodPost
 		localVarPostBody    interface{}
 		formFiles           []formFile
-		localVarReturnValue map[string]interface{}
+		localVarReturnValue *AdyenCardSetupPaymentResponse
 	)
 
 	localBasePath, err := a.client.cfg.ServerURLWithContext(r.ctx, "PaymentAPIService.SubmitAdyenCardSetupPaymentDetails")
