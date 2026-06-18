@@ -7775,6 +7775,7 @@ components:
           processor_entity_name: processor_entity_name
         recipient_account:
           account_type: SETTLEMENT_ACCOUNT
+          settlement_account_reference: settlement_account_reference
           account_id: account_id
         created_at: 2000-01-23T04:56:07.000+00:00
         type: MANDATE
@@ -8005,6 +8006,7 @@ components:
             processor_entity_name: processor_entity_name
           recipient_account:
             account_type: SETTLEMENT_ACCOUNT
+            settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
           type: MANDATE
@@ -8143,6 +8145,7 @@ components:
             processor_entity_name: processor_entity_name
           recipient_account:
             account_type: SETTLEMENT_ACCOUNT
+            settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
           type: MANDATE
@@ -8310,6 +8313,7 @@ components:
           name: name
         sender_account:
           account_type: SETTLEMENT_ACCOUNT
+          settlement_account_reference: settlement_account_reference
           account_id: account_id
         recipient:
           user_type: INDIVIDUAL
@@ -8527,6 +8531,7 @@ components:
             name: name
           sender_account:
             account_type: SETTLEMENT_ACCOUNT
+            settlement_account_reference: settlement_account_reference
             account_id: account_id
           recipient:
             user_type: INDIVIDUAL
@@ -8607,6 +8612,7 @@ components:
             name: name
           sender_account:
             account_type: SETTLEMENT_ACCOUNT
+            settlement_account_reference: settlement_account_reference
             account_id: account_id
           recipient:
             user_type: INDIVIDUAL
@@ -8906,6 +8912,7 @@ components:
           key: metadata
         recipient_account:
           account_type: SETTLEMENT_ACCOUNT
+          settlement_account_reference: settlement_account_reference
           account_id: account_id
         created_at: 2000-01-23T04:56:07.000+00:00
         mandate_id: mandate_id
@@ -9359,6 +9366,7 @@ components:
               key: metadata
             recipient_account:
               account_type: SETTLEMENT_ACCOUNT
+              settlement_account_reference: settlement_account_reference
               account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
             mandate_id: mandate_id
@@ -9452,6 +9460,7 @@ components:
             updated_at: 2000-01-23T04:56:07.000+00:00
             recipient_account:
               account_type: SETTLEMENT_ACCOUNT
+              settlement_account_reference: settlement_account_reference
               account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
             risk_data:
@@ -9509,6 +9518,7 @@ components:
               key: metadata
             recipient_account:
               account_type: SETTLEMENT_ACCOUNT
+              settlement_account_reference: settlement_account_reference
               account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
             mandate_id: mandate_id
@@ -9602,6 +9612,7 @@ components:
             updated_at: 2000-01-23T04:56:07.000+00:00
             recipient_account:
               account_type: SETTLEMENT_ACCOUNT
+              settlement_account_reference: settlement_account_reference
               account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
             risk_data:
@@ -9759,6 +9770,7 @@ components:
             processor_entity_name: processor_entity_name
           recipient_account:
             account_type: SETTLEMENT_ACCOUNT
+            settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
           type: MANDATE
@@ -9902,6 +9914,7 @@ components:
               key: metadata
             recipient_account:
               account_type: SETTLEMENT_ACCOUNT
+              settlement_account_reference: settlement_account_reference
               account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
             mandate_id: mandate_id
@@ -9995,6 +10008,7 @@ components:
             updated_at: 2000-01-23T04:56:07.000+00:00
             recipient_account:
               account_type: SETTLEMENT_ACCOUNT
+              settlement_account_reference: settlement_account_reference
               account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
             risk_data:
@@ -10343,6 +10357,7 @@ components:
         updated_at: 2000-01-23T04:56:07.000+00:00
         recipient_account:
           account_type: SETTLEMENT_ACCOUNT
+          settlement_account_reference: settlement_account_reference
           account_id: account_id
         created_at: 2000-01-23T04:56:07.000+00:00
         risk_data:
@@ -10573,6 +10588,7 @@ components:
           key: metadata
         recipient_account:
           account_type: SETTLEMENT_ACCOUNT
+          settlement_account_reference: settlement_account_reference
           account_id: account_id
         created_at: 2000-01-23T04:56:07.000+00:00
         mandate_id: mandate_id
@@ -10714,6 +10730,7 @@ components:
             key: metadata
           recipient_account:
             account_type: SETTLEMENT_ACCOUNT
+            settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
           mandate_id: mandate_id
@@ -10794,6 +10811,7 @@ components:
             key: metadata
           recipient_account:
             account_type: SETTLEMENT_ACCOUNT
+            settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
           mandate_id: mandate_id
@@ -10890,6 +10908,7 @@ components:
     MandateRecipientAccount:
       example:
         account_type: SETTLEMENT_ACCOUNT
+        settlement_account_reference: settlement_account_reference
         account_id: account_id
       properties:
         account_id:
@@ -10901,6 +10920,10 @@ components:
           - EXTERNAL_ACCOUNT
           - SETTLEMENT_ACCOUNT
           example: SETTLEMENT_ACCOUNT
+          type: string
+        settlement_account_reference:
+          description: Optional reference identifier for the settlement account. Only
+            applicable to settlement accounts.
           type: string
       required:
       - account_id
@@ -12963,6 +12986,7 @@ components:
             key: metadata
           recipient_account:
             account_type: SETTLEMENT_ACCOUNT
+            settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
           mandate_id: mandate_id
@@ -13056,6 +13080,7 @@ components:
           updated_at: 2000-01-23T04:56:07.000+00:00
           recipient_account:
             account_type: SETTLEMENT_ACCOUNT
+            settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
           risk_data:
@@ -13739,6 +13764,7 @@ components:
             processor_entity_name: processor_entity_name
           recipient_account:
             account_type: SETTLEMENT_ACCOUNT
+            settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
           type: MANDATE
@@ -13877,6 +13903,7 @@ components:
             processor_entity_name: processor_entity_name
           recipient_account:
             account_type: SETTLEMENT_ACCOUNT
+            settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
           type: MANDATE

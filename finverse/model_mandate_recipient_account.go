@@ -24,8 +24,10 @@ type MandateRecipientAccount struct {
 	// Merchant account ID assigned by Finverse
 	AccountId string `json:"account_id"`
 	// Type of recipient account.
-	AccountType          string `json:"account_type"`
-	AdditionalProperties map[string]interface{}
+	AccountType string `json:"account_type"`
+	// Optional reference identifier for the settlement account. Only applicable to settlement accounts.
+	SettlementAccountReference *string `json:"settlement_account_reference,omitempty"`
+	AdditionalProperties       map[string]interface{}
 }
 
 type _MandateRecipientAccount MandateRecipientAccount
@@ -97,6 +99,38 @@ func (o *MandateRecipientAccount) SetAccountType(v string) {
 	o.AccountType = v
 }
 
+// GetSettlementAccountReference returns the SettlementAccountReference field value if set, zero value otherwise.
+func (o *MandateRecipientAccount) GetSettlementAccountReference() string {
+	if o == nil || IsNil(o.SettlementAccountReference) {
+		var ret string
+		return ret
+	}
+	return *o.SettlementAccountReference
+}
+
+// GetSettlementAccountReferenceOk returns a tuple with the SettlementAccountReference field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MandateRecipientAccount) GetSettlementAccountReferenceOk() (*string, bool) {
+	if o == nil || IsNil(o.SettlementAccountReference) {
+		return nil, false
+	}
+	return o.SettlementAccountReference, true
+}
+
+// HasSettlementAccountReference returns a boolean if a field has been set.
+func (o *MandateRecipientAccount) HasSettlementAccountReference() bool {
+	if o != nil && !IsNil(o.SettlementAccountReference) {
+		return true
+	}
+
+	return false
+}
+
+// SetSettlementAccountReference gets a reference to the given string and assigns it to the SettlementAccountReference field.
+func (o *MandateRecipientAccount) SetSettlementAccountReference(v string) {
+	o.SettlementAccountReference = &v
+}
+
 func (o MandateRecipientAccount) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -109,6 +143,9 @@ func (o MandateRecipientAccount) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["account_id"] = o.AccountId
 	toSerialize["account_type"] = o.AccountType
+	if !IsNil(o.SettlementAccountReference) {
+		toSerialize["settlement_account_reference"] = o.SettlementAccountReference
+	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -155,6 +192,7 @@ func (o *MandateRecipientAccount) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "account_id")
 		delete(additionalProperties, "account_type")
+		delete(additionalProperties, "settlement_account_reference")
 		o.AdditionalProperties = additionalProperties
 	}
 
