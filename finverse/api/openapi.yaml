@@ -12098,6 +12098,7 @@ components:
           customer_app_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           bank_code: "004"
           account_type: EXTERNAL_ACCOUNT
+          settlement_account_reference: settlement_account_reference
           metadata:
             key: metadata
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -12123,6 +12124,7 @@ components:
           customer_app_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           bank_code: "004"
           account_type: EXTERNAL_ACCOUNT
+          settlement_account_reference: settlement_account_reference
           metadata:
             key: metadata
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -12158,6 +12160,7 @@ components:
           customer_app_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           bank_code: "004"
           account_type: EXTERNAL_ACCOUNT
+          settlement_account_reference: settlement_account_reference
           metadata:
             key: metadata
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -12193,6 +12196,7 @@ components:
           customer_app_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           bank_code: "004"
           account_type: EXTERNAL_ACCOUNT
+          settlement_account_reference: settlement_account_reference
           metadata:
             key: metadata
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -12245,6 +12249,7 @@ components:
         customer_app_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
         bank_code: "004"
         account_type: EXTERNAL_ACCOUNT
+        settlement_account_reference: settlement_account_reference
         metadata:
           key: metadata
         created_at: 2000-01-23T04:56:07.000+00:00
@@ -12282,6 +12287,7 @@ components:
         customer_app_id: 01ARZ3NDEKTSV4RRFFQ69G5FAV
         bank_code: "004"
         account_type: EXTERNAL_ACCOUNT
+        settlement_account_reference: settlement_account_reference
         metadata:
           key: metadata
         created_at: 2000-01-23T04:56:07.000+00:00
@@ -12362,6 +12368,10 @@ components:
           x-omitempty: true
         legal_entity_name:
           description: This field is only applicable to settlement account
+          type: string
+        settlement_account_reference:
+          description: Optional reference identifier for the settlement account. Only
+            applicable to settlement accounts.
           type: string
         metadata:
           additionalProperties:

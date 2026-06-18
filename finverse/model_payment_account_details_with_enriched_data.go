@@ -48,6 +48,8 @@ type PaymentAccountDetailsWithEnrichedData struct {
 	BusinessUnits []string `json:"business_units,omitempty"`
 	// This field is only applicable to settlement account
 	LegalEntityName *string `json:"legal_entity_name,omitempty"`
+	// Optional reference identifier for the settlement account. Only applicable to settlement accounts.
+	SettlementAccountReference *string `json:"settlement_account_reference,omitempty"`
 	// Additional attributes of the sender account in key:value format (e.g. sender_id: 1234). It supports up to 20 key:value pairs, whereas the key and value supports up to 50 and 1000 characters respectively.
 	Metadata *map[string]string `json:"metadata,omitempty"`
 	// Timestamp of when the payment link was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
@@ -525,6 +527,38 @@ func (o *PaymentAccountDetailsWithEnrichedData) SetLegalEntityName(v string) {
 	o.LegalEntityName = &v
 }
 
+// GetSettlementAccountReference returns the SettlementAccountReference field value if set, zero value otherwise.
+func (o *PaymentAccountDetailsWithEnrichedData) GetSettlementAccountReference() string {
+	if o == nil || IsNil(o.SettlementAccountReference) {
+		var ret string
+		return ret
+	}
+	return *o.SettlementAccountReference
+}
+
+// GetSettlementAccountReferenceOk returns a tuple with the SettlementAccountReference field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentAccountDetailsWithEnrichedData) GetSettlementAccountReferenceOk() (*string, bool) {
+	if o == nil || IsNil(o.SettlementAccountReference) {
+		return nil, false
+	}
+	return o.SettlementAccountReference, true
+}
+
+// HasSettlementAccountReference returns a boolean if a field has been set.
+func (o *PaymentAccountDetailsWithEnrichedData) HasSettlementAccountReference() bool {
+	if o != nil && !IsNil(o.SettlementAccountReference) {
+		return true
+	}
+
+	return false
+}
+
+// SetSettlementAccountReference gets a reference to the given string and assigns it to the SettlementAccountReference field.
+func (o *PaymentAccountDetailsWithEnrichedData) SetSettlementAccountReference(v string) {
+	o.SettlementAccountReference = &v
+}
+
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *PaymentAccountDetailsWithEnrichedData) GetMetadata() map[string]string {
 	if o == nil || IsNil(o.Metadata) {
@@ -705,6 +739,9 @@ func (o PaymentAccountDetailsWithEnrichedData) ToMap() (map[string]interface{}, 
 	if !IsNil(o.LegalEntityName) {
 		toSerialize["legal_entity_name"] = o.LegalEntityName
 	}
+	if !IsNil(o.SettlementAccountReference) {
+		toSerialize["settlement_account_reference"] = o.SettlementAccountReference
+	}
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
@@ -753,6 +790,7 @@ func (o *PaymentAccountDetailsWithEnrichedData) UnmarshalJSON(data []byte) (err 
 		delete(additionalProperties, "currencies")
 		delete(additionalProperties, "business_units")
 		delete(additionalProperties, "legal_entity_name")
+		delete(additionalProperties, "settlement_account_reference")
 		delete(additionalProperties, "metadata")
 		delete(additionalProperties, "created_at")
 		delete(additionalProperties, "updated_at")
