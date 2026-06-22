@@ -8275,8 +8275,10 @@ components:
           estimated_arrival_time: 2025-08-22T12:00:00Z
           transaction_reference_id: transaction_reference_id
           references:
+            bank_transaction_reference: bank_transaction_reference
             finverse_transaction_reference: finverse_transaction_reference
             recipient_reference: recipient_reference
+            bank_additional_reference: bank_additional_reference
           external_transaction_reference: external_transaction_reference
           processor_details:
             processor_reference: processor_reference
@@ -8493,8 +8495,10 @@ components:
             estimated_arrival_time: 2025-08-22T12:00:00Z
             transaction_reference_id: transaction_reference_id
             references:
+              bank_transaction_reference: bank_transaction_reference
               finverse_transaction_reference: finverse_transaction_reference
               recipient_reference: recipient_reference
+              bank_additional_reference: bank_additional_reference
             external_transaction_reference: external_transaction_reference
             processor_details:
               processor_reference: processor_reference
@@ -8574,8 +8578,10 @@ components:
             estimated_arrival_time: 2025-08-22T12:00:00Z
             transaction_reference_id: transaction_reference_id
             references:
+              bank_transaction_reference: bank_transaction_reference
               finverse_transaction_reference: finverse_transaction_reference
               recipient_reference: recipient_reference
+              bank_additional_reference: bank_additional_reference
             external_transaction_reference: external_transaction_reference
             processor_details:
               processor_reference: processor_reference
@@ -8655,8 +8661,10 @@ components:
         estimated_arrival_time: 2025-08-22T12:00:00Z
         transaction_reference_id: transaction_reference_id
         references:
+          bank_transaction_reference: bank_transaction_reference
           finverse_transaction_reference: finverse_transaction_reference
           recipient_reference: recipient_reference
+          bank_additional_reference: bank_additional_reference
         external_transaction_reference: external_transaction_reference
         processor_details:
           processor_reference: processor_reference
@@ -8699,12 +8707,18 @@ components:
       type: object
     PayoutReferences:
       example:
+        bank_transaction_reference: bank_transaction_reference
         finverse_transaction_reference: finverse_transaction_reference
         recipient_reference: recipient_reference
+        bank_additional_reference: bank_additional_reference
       properties:
         recipient_reference:
           type: string
         finverse_transaction_reference:
+          type: string
+        bank_transaction_reference:
+          type: string
+        bank_additional_reference:
           type: string
       type: object
     PayoutDetails:

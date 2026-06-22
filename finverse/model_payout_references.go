@@ -22,6 +22,8 @@ var _ MappedNullable = &PayoutReferences{}
 type PayoutReferences struct {
 	RecipientReference           *string `json:"recipient_reference,omitempty"`
 	FinverseTransactionReference *string `json:"finverse_transaction_reference,omitempty"`
+	BankTransactionReference     *string `json:"bank_transaction_reference,omitempty"`
+	BankAdditionalReference      *string `json:"bank_additional_reference,omitempty"`
 	AdditionalProperties         map[string]interface{}
 }
 
@@ -108,6 +110,70 @@ func (o *PayoutReferences) SetFinverseTransactionReference(v string) {
 	o.FinverseTransactionReference = &v
 }
 
+// GetBankTransactionReference returns the BankTransactionReference field value if set, zero value otherwise.
+func (o *PayoutReferences) GetBankTransactionReference() string {
+	if o == nil || IsNil(o.BankTransactionReference) {
+		var ret string
+		return ret
+	}
+	return *o.BankTransactionReference
+}
+
+// GetBankTransactionReferenceOk returns a tuple with the BankTransactionReference field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayoutReferences) GetBankTransactionReferenceOk() (*string, bool) {
+	if o == nil || IsNil(o.BankTransactionReference) {
+		return nil, false
+	}
+	return o.BankTransactionReference, true
+}
+
+// HasBankTransactionReference returns a boolean if a field has been set.
+func (o *PayoutReferences) HasBankTransactionReference() bool {
+	if o != nil && !IsNil(o.BankTransactionReference) {
+		return true
+	}
+
+	return false
+}
+
+// SetBankTransactionReference gets a reference to the given string and assigns it to the BankTransactionReference field.
+func (o *PayoutReferences) SetBankTransactionReference(v string) {
+	o.BankTransactionReference = &v
+}
+
+// GetBankAdditionalReference returns the BankAdditionalReference field value if set, zero value otherwise.
+func (o *PayoutReferences) GetBankAdditionalReference() string {
+	if o == nil || IsNil(o.BankAdditionalReference) {
+		var ret string
+		return ret
+	}
+	return *o.BankAdditionalReference
+}
+
+// GetBankAdditionalReferenceOk returns a tuple with the BankAdditionalReference field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PayoutReferences) GetBankAdditionalReferenceOk() (*string, bool) {
+	if o == nil || IsNil(o.BankAdditionalReference) {
+		return nil, false
+	}
+	return o.BankAdditionalReference, true
+}
+
+// HasBankAdditionalReference returns a boolean if a field has been set.
+func (o *PayoutReferences) HasBankAdditionalReference() bool {
+	if o != nil && !IsNil(o.BankAdditionalReference) {
+		return true
+	}
+
+	return false
+}
+
+// SetBankAdditionalReference gets a reference to the given string and assigns it to the BankAdditionalReference field.
+func (o *PayoutReferences) SetBankAdditionalReference(v string) {
+	o.BankAdditionalReference = &v
+}
+
 func (o PayoutReferences) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -123,6 +189,12 @@ func (o PayoutReferences) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.FinverseTransactionReference) {
 		toSerialize["finverse_transaction_reference"] = o.FinverseTransactionReference
+	}
+	if !IsNil(o.BankTransactionReference) {
+		toSerialize["bank_transaction_reference"] = o.BankTransactionReference
+	}
+	if !IsNil(o.BankAdditionalReference) {
+		toSerialize["bank_additional_reference"] = o.BankAdditionalReference
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -148,6 +220,8 @@ func (o *PayoutReferences) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "recipient_reference")
 		delete(additionalProperties, "finverse_transaction_reference")
+		delete(additionalProperties, "bank_transaction_reference")
+		delete(additionalProperties, "bank_additional_reference")
 		o.AdditionalProperties = additionalProperties
 	}
 
