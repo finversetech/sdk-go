@@ -26,9 +26,9 @@ type CreatePaymentRequest struct {
 	// The currency code as defined in ISO 4217.
 	Currency string `json:"currency"`
 	// ID of the payment method this pament is referring to.
-	PaymentMethodId      *string            `json:"payment_method_id,omitempty"`
-	PaymentDetails       PaymentDetails2    `json:"payment_details"`
-	Metadata             *map[string]string `json:"metadata,omitempty"`
+	PaymentMethodId      *string               `json:"payment_method_id,omitempty"`
+	PaymentDetails       PaymentDetailsRequest `json:"payment_details"`
+	Metadata             *map[string]string    `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -38,7 +38,7 @@ type _CreatePaymentRequest CreatePaymentRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentRequest(amount int32, currency string, paymentDetails PaymentDetails2) *CreatePaymentRequest {
+func NewCreatePaymentRequest(amount int32, currency string, paymentDetails PaymentDetailsRequest) *CreatePaymentRequest {
 	this := CreatePaymentRequest{}
 	this.Amount = amount
 	this.Currency = currency
@@ -135,9 +135,9 @@ func (o *CreatePaymentRequest) SetPaymentMethodId(v string) {
 }
 
 // GetPaymentDetails returns the PaymentDetails field value
-func (o *CreatePaymentRequest) GetPaymentDetails() PaymentDetails2 {
+func (o *CreatePaymentRequest) GetPaymentDetails() PaymentDetailsRequest {
 	if o == nil {
-		var ret PaymentDetails2
+		var ret PaymentDetailsRequest
 		return ret
 	}
 
@@ -146,7 +146,7 @@ func (o *CreatePaymentRequest) GetPaymentDetails() PaymentDetails2 {
 
 // GetPaymentDetailsOk returns a tuple with the PaymentDetails field value
 // and a boolean to check if the value has been set.
-func (o *CreatePaymentRequest) GetPaymentDetailsOk() (*PaymentDetails2, bool) {
+func (o *CreatePaymentRequest) GetPaymentDetailsOk() (*PaymentDetailsRequest, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -154,7 +154,7 @@ func (o *CreatePaymentRequest) GetPaymentDetailsOk() (*PaymentDetails2, bool) {
 }
 
 // SetPaymentDetails sets field value
-func (o *CreatePaymentRequest) SetPaymentDetails(v PaymentDetails2) {
+func (o *CreatePaymentRequest) SetPaymentDetails(v PaymentDetailsRequest) {
 	o.PaymentDetails = v
 }
 

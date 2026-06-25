@@ -40,7 +40,7 @@ type PaymentResponse struct {
 	Status *string `json:"status,omitempty"`
 	// ID of the payment method this pament is referring to.
 	PaymentMethodId  *string                  `json:"payment_method_id,omitempty"`
-	PaymentDetails   *PaymentDetails2         `json:"payment_details,omitempty"`
+	PaymentDetails   *PaymentDetailsResponse  `json:"payment_details,omitempty"`
 	Recipient        *MandateRecipient        `json:"recipient,omitempty"`
 	RecipientAccount *MandateRecipientAccount `json:"recipient_account,omitempty"`
 	Sender           *GetMandateSender        `json:"sender,omitempty"`
@@ -342,9 +342,9 @@ func (o *PaymentResponse) SetPaymentMethodId(v string) {
 }
 
 // GetPaymentDetails returns the PaymentDetails field value if set, zero value otherwise.
-func (o *PaymentResponse) GetPaymentDetails() PaymentDetails2 {
+func (o *PaymentResponse) GetPaymentDetails() PaymentDetailsResponse {
 	if o == nil || IsNil(o.PaymentDetails) {
-		var ret PaymentDetails2
+		var ret PaymentDetailsResponse
 		return ret
 	}
 	return *o.PaymentDetails
@@ -352,7 +352,7 @@ func (o *PaymentResponse) GetPaymentDetails() PaymentDetails2 {
 
 // GetPaymentDetailsOk returns a tuple with the PaymentDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentResponse) GetPaymentDetailsOk() (*PaymentDetails2, bool) {
+func (o *PaymentResponse) GetPaymentDetailsOk() (*PaymentDetailsResponse, bool) {
 	if o == nil || IsNil(o.PaymentDetails) {
 		return nil, false
 	}
@@ -368,8 +368,8 @@ func (o *PaymentResponse) HasPaymentDetails() bool {
 	return false
 }
 
-// SetPaymentDetails gets a reference to the given PaymentDetails2 and assigns it to the PaymentDetails field.
-func (o *PaymentResponse) SetPaymentDetails(v PaymentDetails2) {
+// SetPaymentDetails gets a reference to the given PaymentDetailsResponse and assigns it to the PaymentDetails field.
+func (o *PaymentResponse) SetPaymentDetails(v PaymentDetailsResponse) {
 	o.PaymentDetails = &v
 }
 

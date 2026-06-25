@@ -7551,29 +7551,10 @@ components:
           key: metadata
         payment_details:
           transaction_reference_id: transaction_reference_id
-          references:
-            bank_transaction_reference: bank_transaction_reference
-            finverse_transaction_reference: finverse_transaction_reference
-            dda_reference: dda_reference
           external_transaction_reference: external_transaction_reference
           recurring_payment_mode: recurring_payment_mode
-          processor_details:
-            result:
-              decline_code: decline_code
-              result_code: result_code
-              decline_reason: decline_reason
-              last_action: last_action
-              status: status
-            virtual_account_bank_code: virtual_account_bank_code
-            processor_reference: processor_reference
-            scheme: scheme
-            processor_id: processor_id
-            auth_code: auth_code
-            virtual_account_number: virtual_account_number
           description: description
           mandate_id: mandate_id
-          collection_entity_name: collection_entity_name
-          processor_entity_name: processor_entity_name
         currency: HKD
       properties:
         amount:
@@ -7593,7 +7574,7 @@ components:
           description: ID of the payment method this pament is referring to.
           type: string
         payment_details:
-          $ref: '#/components/schemas/PaymentDetails2'
+          $ref: '#/components/schemas/PaymentDetailsRequest'
         metadata:
           additionalProperties:
             maxLength: 1000
@@ -7604,7 +7585,34 @@ components:
       - currency
       - payment_details
       type: object
-    PaymentDetails2:
+    PaymentDetailsRequest:
+      example:
+        transaction_reference_id: transaction_reference_id
+        external_transaction_reference: external_transaction_reference
+        recurring_payment_mode: recurring_payment_mode
+        description: description
+        mandate_id: mandate_id
+      properties:
+        description:
+          description: "The transaction description provided to banks, which banks\
+            \ will show to their customers."
+          maxLength: 100
+          type: string
+        mandate_id:
+          description: ID of the mandate this payment is referring to.
+          type: string
+        transaction_reference_id:
+          description: "Deprecated: Customer's ID for this transaction"
+          type: string
+        external_transaction_reference:
+          description: Customer reference for this transaction
+          maxLength: 35
+          type: string
+        recurring_payment_mode:
+          description: The recurring payment mode
+          type: string
+      type: object
+    PaymentDetailsResponse:
       example:
         transaction_reference_id: transaction_reference_id
         references:
@@ -7634,17 +7642,15 @@ components:
         description:
           description: "The transaction description provided to banks, which banks\
             \ will show to their customers."
-          maxLength: 100
           type: string
         mandate_id:
-          description: ID of the mandate this pament is referring to.
+          description: ID of the mandate this payment is referring to.
           type: string
         transaction_reference_id:
           description: "Deprecated: Customer's ID for this transaction"
           type: string
         external_transaction_reference:
           description: Customer reference for this transaction
-          maxLength: 35
           type: string
         references:
           $ref: '#/components/schemas/PaymentDetailsReferences'
@@ -7931,7 +7937,7 @@ components:
           description: ID of the payment method this pament is referring to.
           type: string
         payment_details:
-          $ref: '#/components/schemas/PaymentDetails2'
+          $ref: '#/components/schemas/PaymentDetailsResponse'
         recipient:
           $ref: '#/components/schemas/MandateRecipient'
         recipient_account:

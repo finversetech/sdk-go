@@ -15,14 +15,14 @@ import (
 	"encoding/json"
 )
 
-// checks if the PaymentDetails2 type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &PaymentDetails2{}
+// checks if the PaymentDetailsResponse type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaymentDetailsResponse{}
 
-// PaymentDetails2 struct for PaymentDetails2
-type PaymentDetails2 struct {
+// PaymentDetailsResponse struct for PaymentDetailsResponse
+type PaymentDetailsResponse struct {
 	// The transaction description provided to banks, which banks will show to their customers.
 	Description *string `json:"description,omitempty"`
-	// ID of the mandate this pament is referring to.
+	// ID of the mandate this payment is referring to.
 	MandateId *string `json:"mandate_id,omitempty"`
 	// Deprecated: Customer's ID for this transaction
 	TransactionReferenceId *string `json:"transaction_reference_id,omitempty"`
@@ -37,27 +37,27 @@ type PaymentDetails2 struct {
 	AdditionalProperties map[string]interface{}
 }
 
-type _PaymentDetails2 PaymentDetails2
+type _PaymentDetailsResponse PaymentDetailsResponse
 
-// NewPaymentDetails2 instantiates a new PaymentDetails2 object
+// NewPaymentDetailsResponse instantiates a new PaymentDetailsResponse object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentDetails2() *PaymentDetails2 {
-	this := PaymentDetails2{}
+func NewPaymentDetailsResponse() *PaymentDetailsResponse {
+	this := PaymentDetailsResponse{}
 	return &this
 }
 
-// NewPaymentDetails2WithDefaults instantiates a new PaymentDetails2 object
+// NewPaymentDetailsResponseWithDefaults instantiates a new PaymentDetailsResponse object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewPaymentDetails2WithDefaults() *PaymentDetails2 {
-	this := PaymentDetails2{}
+func NewPaymentDetailsResponseWithDefaults() *PaymentDetailsResponse {
+	this := PaymentDetailsResponse{}
 	return &this
 }
 
 // GetDescription returns the Description field value if set, zero value otherwise.
-func (o *PaymentDetails2) GetDescription() string {
+func (o *PaymentDetailsResponse) GetDescription() string {
 	if o == nil || IsNil(o.Description) {
 		var ret string
 		return ret
@@ -67,7 +67,7 @@ func (o *PaymentDetails2) GetDescription() string {
 
 // GetDescriptionOk returns a tuple with the Description field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentDetails2) GetDescriptionOk() (*string, bool) {
+func (o *PaymentDetailsResponse) GetDescriptionOk() (*string, bool) {
 	if o == nil || IsNil(o.Description) {
 		return nil, false
 	}
@@ -75,7 +75,7 @@ func (o *PaymentDetails2) GetDescriptionOk() (*string, bool) {
 }
 
 // HasDescription returns a boolean if a field has been set.
-func (o *PaymentDetails2) HasDescription() bool {
+func (o *PaymentDetailsResponse) HasDescription() bool {
 	if o != nil && !IsNil(o.Description) {
 		return true
 	}
@@ -84,12 +84,12 @@ func (o *PaymentDetails2) HasDescription() bool {
 }
 
 // SetDescription gets a reference to the given string and assigns it to the Description field.
-func (o *PaymentDetails2) SetDescription(v string) {
+func (o *PaymentDetailsResponse) SetDescription(v string) {
 	o.Description = &v
 }
 
 // GetMandateId returns the MandateId field value if set, zero value otherwise.
-func (o *PaymentDetails2) GetMandateId() string {
+func (o *PaymentDetailsResponse) GetMandateId() string {
 	if o == nil || IsNil(o.MandateId) {
 		var ret string
 		return ret
@@ -99,7 +99,7 @@ func (o *PaymentDetails2) GetMandateId() string {
 
 // GetMandateIdOk returns a tuple with the MandateId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentDetails2) GetMandateIdOk() (*string, bool) {
+func (o *PaymentDetailsResponse) GetMandateIdOk() (*string, bool) {
 	if o == nil || IsNil(o.MandateId) {
 		return nil, false
 	}
@@ -107,7 +107,7 @@ func (o *PaymentDetails2) GetMandateIdOk() (*string, bool) {
 }
 
 // HasMandateId returns a boolean if a field has been set.
-func (o *PaymentDetails2) HasMandateId() bool {
+func (o *PaymentDetailsResponse) HasMandateId() bool {
 	if o != nil && !IsNil(o.MandateId) {
 		return true
 	}
@@ -116,12 +116,12 @@ func (o *PaymentDetails2) HasMandateId() bool {
 }
 
 // SetMandateId gets a reference to the given string and assigns it to the MandateId field.
-func (o *PaymentDetails2) SetMandateId(v string) {
+func (o *PaymentDetailsResponse) SetMandateId(v string) {
 	o.MandateId = &v
 }
 
 // GetTransactionReferenceId returns the TransactionReferenceId field value if set, zero value otherwise.
-func (o *PaymentDetails2) GetTransactionReferenceId() string {
+func (o *PaymentDetailsResponse) GetTransactionReferenceId() string {
 	if o == nil || IsNil(o.TransactionReferenceId) {
 		var ret string
 		return ret
@@ -131,7 +131,7 @@ func (o *PaymentDetails2) GetTransactionReferenceId() string {
 
 // GetTransactionReferenceIdOk returns a tuple with the TransactionReferenceId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentDetails2) GetTransactionReferenceIdOk() (*string, bool) {
+func (o *PaymentDetailsResponse) GetTransactionReferenceIdOk() (*string, bool) {
 	if o == nil || IsNil(o.TransactionReferenceId) {
 		return nil, false
 	}
@@ -139,7 +139,7 @@ func (o *PaymentDetails2) GetTransactionReferenceIdOk() (*string, bool) {
 }
 
 // HasTransactionReferenceId returns a boolean if a field has been set.
-func (o *PaymentDetails2) HasTransactionReferenceId() bool {
+func (o *PaymentDetailsResponse) HasTransactionReferenceId() bool {
 	if o != nil && !IsNil(o.TransactionReferenceId) {
 		return true
 	}
@@ -148,12 +148,12 @@ func (o *PaymentDetails2) HasTransactionReferenceId() bool {
 }
 
 // SetTransactionReferenceId gets a reference to the given string and assigns it to the TransactionReferenceId field.
-func (o *PaymentDetails2) SetTransactionReferenceId(v string) {
+func (o *PaymentDetailsResponse) SetTransactionReferenceId(v string) {
 	o.TransactionReferenceId = &v
 }
 
 // GetExternalTransactionReference returns the ExternalTransactionReference field value if set, zero value otherwise.
-func (o *PaymentDetails2) GetExternalTransactionReference() string {
+func (o *PaymentDetailsResponse) GetExternalTransactionReference() string {
 	if o == nil || IsNil(o.ExternalTransactionReference) {
 		var ret string
 		return ret
@@ -163,7 +163,7 @@ func (o *PaymentDetails2) GetExternalTransactionReference() string {
 
 // GetExternalTransactionReferenceOk returns a tuple with the ExternalTransactionReference field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentDetails2) GetExternalTransactionReferenceOk() (*string, bool) {
+func (o *PaymentDetailsResponse) GetExternalTransactionReferenceOk() (*string, bool) {
 	if o == nil || IsNil(o.ExternalTransactionReference) {
 		return nil, false
 	}
@@ -171,7 +171,7 @@ func (o *PaymentDetails2) GetExternalTransactionReferenceOk() (*string, bool) {
 }
 
 // HasExternalTransactionReference returns a boolean if a field has been set.
-func (o *PaymentDetails2) HasExternalTransactionReference() bool {
+func (o *PaymentDetailsResponse) HasExternalTransactionReference() bool {
 	if o != nil && !IsNil(o.ExternalTransactionReference) {
 		return true
 	}
@@ -180,12 +180,12 @@ func (o *PaymentDetails2) HasExternalTransactionReference() bool {
 }
 
 // SetExternalTransactionReference gets a reference to the given string and assigns it to the ExternalTransactionReference field.
-func (o *PaymentDetails2) SetExternalTransactionReference(v string) {
+func (o *PaymentDetailsResponse) SetExternalTransactionReference(v string) {
 	o.ExternalTransactionReference = &v
 }
 
 // GetReferences returns the References field value if set, zero value otherwise.
-func (o *PaymentDetails2) GetReferences() PaymentDetailsReferences {
+func (o *PaymentDetailsResponse) GetReferences() PaymentDetailsReferences {
 	if o == nil || IsNil(o.References) {
 		var ret PaymentDetailsReferences
 		return ret
@@ -195,7 +195,7 @@ func (o *PaymentDetails2) GetReferences() PaymentDetailsReferences {
 
 // GetReferencesOk returns a tuple with the References field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentDetails2) GetReferencesOk() (*PaymentDetailsReferences, bool) {
+func (o *PaymentDetailsResponse) GetReferencesOk() (*PaymentDetailsReferences, bool) {
 	if o == nil || IsNil(o.References) {
 		return nil, false
 	}
@@ -203,7 +203,7 @@ func (o *PaymentDetails2) GetReferencesOk() (*PaymentDetailsReferences, bool) {
 }
 
 // HasReferences returns a boolean if a field has been set.
-func (o *PaymentDetails2) HasReferences() bool {
+func (o *PaymentDetailsResponse) HasReferences() bool {
 	if o != nil && !IsNil(o.References) {
 		return true
 	}
@@ -212,12 +212,12 @@ func (o *PaymentDetails2) HasReferences() bool {
 }
 
 // SetReferences gets a reference to the given PaymentDetailsReferences and assigns it to the References field.
-func (o *PaymentDetails2) SetReferences(v PaymentDetailsReferences) {
+func (o *PaymentDetailsResponse) SetReferences(v PaymentDetailsReferences) {
 	o.References = &v
 }
 
 // GetProcessorEntityName returns the ProcessorEntityName field value if set, zero value otherwise.
-func (o *PaymentDetails2) GetProcessorEntityName() string {
+func (o *PaymentDetailsResponse) GetProcessorEntityName() string {
 	if o == nil || IsNil(o.ProcessorEntityName) {
 		var ret string
 		return ret
@@ -227,7 +227,7 @@ func (o *PaymentDetails2) GetProcessorEntityName() string {
 
 // GetProcessorEntityNameOk returns a tuple with the ProcessorEntityName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentDetails2) GetProcessorEntityNameOk() (*string, bool) {
+func (o *PaymentDetailsResponse) GetProcessorEntityNameOk() (*string, bool) {
 	if o == nil || IsNil(o.ProcessorEntityName) {
 		return nil, false
 	}
@@ -235,7 +235,7 @@ func (o *PaymentDetails2) GetProcessorEntityNameOk() (*string, bool) {
 }
 
 // HasProcessorEntityName returns a boolean if a field has been set.
-func (o *PaymentDetails2) HasProcessorEntityName() bool {
+func (o *PaymentDetailsResponse) HasProcessorEntityName() bool {
 	if o != nil && !IsNil(o.ProcessorEntityName) {
 		return true
 	}
@@ -244,12 +244,12 @@ func (o *PaymentDetails2) HasProcessorEntityName() bool {
 }
 
 // SetProcessorEntityName gets a reference to the given string and assigns it to the ProcessorEntityName field.
-func (o *PaymentDetails2) SetProcessorEntityName(v string) {
+func (o *PaymentDetailsResponse) SetProcessorEntityName(v string) {
 	o.ProcessorEntityName = &v
 }
 
 // GetCollectionEntityName returns the CollectionEntityName field value if set, zero value otherwise.
-func (o *PaymentDetails2) GetCollectionEntityName() string {
+func (o *PaymentDetailsResponse) GetCollectionEntityName() string {
 	if o == nil || IsNil(o.CollectionEntityName) {
 		var ret string
 		return ret
@@ -259,7 +259,7 @@ func (o *PaymentDetails2) GetCollectionEntityName() string {
 
 // GetCollectionEntityNameOk returns a tuple with the CollectionEntityName field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentDetails2) GetCollectionEntityNameOk() (*string, bool) {
+func (o *PaymentDetailsResponse) GetCollectionEntityNameOk() (*string, bool) {
 	if o == nil || IsNil(o.CollectionEntityName) {
 		return nil, false
 	}
@@ -267,7 +267,7 @@ func (o *PaymentDetails2) GetCollectionEntityNameOk() (*string, bool) {
 }
 
 // HasCollectionEntityName returns a boolean if a field has been set.
-func (o *PaymentDetails2) HasCollectionEntityName() bool {
+func (o *PaymentDetailsResponse) HasCollectionEntityName() bool {
 	if o != nil && !IsNil(o.CollectionEntityName) {
 		return true
 	}
@@ -276,12 +276,12 @@ func (o *PaymentDetails2) HasCollectionEntityName() bool {
 }
 
 // SetCollectionEntityName gets a reference to the given string and assigns it to the CollectionEntityName field.
-func (o *PaymentDetails2) SetCollectionEntityName(v string) {
+func (o *PaymentDetailsResponse) SetCollectionEntityName(v string) {
 	o.CollectionEntityName = &v
 }
 
 // GetProcessorDetails returns the ProcessorDetails field value if set, zero value otherwise.
-func (o *PaymentDetails2) GetProcessorDetails() PaymentProcessorDetails {
+func (o *PaymentDetailsResponse) GetProcessorDetails() PaymentProcessorDetails {
 	if o == nil || IsNil(o.ProcessorDetails) {
 		var ret PaymentProcessorDetails
 		return ret
@@ -291,7 +291,7 @@ func (o *PaymentDetails2) GetProcessorDetails() PaymentProcessorDetails {
 
 // GetProcessorDetailsOk returns a tuple with the ProcessorDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentDetails2) GetProcessorDetailsOk() (*PaymentProcessorDetails, bool) {
+func (o *PaymentDetailsResponse) GetProcessorDetailsOk() (*PaymentProcessorDetails, bool) {
 	if o == nil || IsNil(o.ProcessorDetails) {
 		return nil, false
 	}
@@ -299,7 +299,7 @@ func (o *PaymentDetails2) GetProcessorDetailsOk() (*PaymentProcessorDetails, boo
 }
 
 // HasProcessorDetails returns a boolean if a field has been set.
-func (o *PaymentDetails2) HasProcessorDetails() bool {
+func (o *PaymentDetailsResponse) HasProcessorDetails() bool {
 	if o != nil && !IsNil(o.ProcessorDetails) {
 		return true
 	}
@@ -308,12 +308,12 @@ func (o *PaymentDetails2) HasProcessorDetails() bool {
 }
 
 // SetProcessorDetails gets a reference to the given PaymentProcessorDetails and assigns it to the ProcessorDetails field.
-func (o *PaymentDetails2) SetProcessorDetails(v PaymentProcessorDetails) {
+func (o *PaymentDetailsResponse) SetProcessorDetails(v PaymentProcessorDetails) {
 	o.ProcessorDetails = &v
 }
 
 // GetRecurringPaymentMode returns the RecurringPaymentMode field value if set, zero value otherwise.
-func (o *PaymentDetails2) GetRecurringPaymentMode() string {
+func (o *PaymentDetailsResponse) GetRecurringPaymentMode() string {
 	if o == nil || IsNil(o.RecurringPaymentMode) {
 		var ret string
 		return ret
@@ -323,7 +323,7 @@ func (o *PaymentDetails2) GetRecurringPaymentMode() string {
 
 // GetRecurringPaymentModeOk returns a tuple with the RecurringPaymentMode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentDetails2) GetRecurringPaymentModeOk() (*string, bool) {
+func (o *PaymentDetailsResponse) GetRecurringPaymentModeOk() (*string, bool) {
 	if o == nil || IsNil(o.RecurringPaymentMode) {
 		return nil, false
 	}
@@ -331,7 +331,7 @@ func (o *PaymentDetails2) GetRecurringPaymentModeOk() (*string, bool) {
 }
 
 // HasRecurringPaymentMode returns a boolean if a field has been set.
-func (o *PaymentDetails2) HasRecurringPaymentMode() bool {
+func (o *PaymentDetailsResponse) HasRecurringPaymentMode() bool {
 	if o != nil && !IsNil(o.RecurringPaymentMode) {
 		return true
 	}
@@ -340,11 +340,11 @@ func (o *PaymentDetails2) HasRecurringPaymentMode() bool {
 }
 
 // SetRecurringPaymentMode gets a reference to the given string and assigns it to the RecurringPaymentMode field.
-func (o *PaymentDetails2) SetRecurringPaymentMode(v string) {
+func (o *PaymentDetailsResponse) SetRecurringPaymentMode(v string) {
 	o.RecurringPaymentMode = &v
 }
 
-func (o PaymentDetails2) MarshalJSON() ([]byte, error) {
+func (o PaymentDetailsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -352,7 +352,7 @@ func (o PaymentDetails2) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o PaymentDetails2) ToMap() (map[string]interface{}, error) {
+func (o PaymentDetailsResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
@@ -389,16 +389,16 @@ func (o PaymentDetails2) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *PaymentDetails2) UnmarshalJSON(data []byte) (err error) {
-	varPaymentDetails2 := _PaymentDetails2{}
+func (o *PaymentDetailsResponse) UnmarshalJSON(data []byte) (err error) {
+	varPaymentDetailsResponse := _PaymentDetailsResponse{}
 
-	err = json.Unmarshal(data, &varPaymentDetails2)
+	err = json.Unmarshal(data, &varPaymentDetailsResponse)
 
 	if err != nil {
 		return err
 	}
 
-	*o = PaymentDetails2(varPaymentDetails2)
+	*o = PaymentDetailsResponse(varPaymentDetailsResponse)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -418,38 +418,38 @@ func (o *PaymentDetails2) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullablePaymentDetails2 struct {
-	value *PaymentDetails2
+type NullablePaymentDetailsResponse struct {
+	value *PaymentDetailsResponse
 	isSet bool
 }
 
-func (v NullablePaymentDetails2) Get() *PaymentDetails2 {
+func (v NullablePaymentDetailsResponse) Get() *PaymentDetailsResponse {
 	return v.value
 }
 
-func (v *NullablePaymentDetails2) Set(val *PaymentDetails2) {
+func (v *NullablePaymentDetailsResponse) Set(val *PaymentDetailsResponse) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullablePaymentDetails2) IsSet() bool {
+func (v NullablePaymentDetailsResponse) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullablePaymentDetails2) Unset() {
+func (v *NullablePaymentDetailsResponse) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullablePaymentDetails2(val *PaymentDetails2) *NullablePaymentDetails2 {
-	return &NullablePaymentDetails2{value: val, isSet: true}
+func NewNullablePaymentDetailsResponse(val *PaymentDetailsResponse) *NullablePaymentDetailsResponse {
+	return &NullablePaymentDetailsResponse{value: val, isSet: true}
 }
 
-func (v NullablePaymentDetails2) MarshalJSON() ([]byte, error) {
+func (v NullablePaymentDetailsResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullablePaymentDetails2) UnmarshalJSON(src []byte) error {
+func (v *NullablePaymentDetailsResponse) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
