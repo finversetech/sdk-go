@@ -30,9 +30,7 @@ type MandateDetailsRequest struct {
 	PaymentSchedule   *PaymentSchedule          `json:"payment_schedule,omitempty"`
 	TransactionLimits *TransactionLimitsRequest `json:"transaction_limits,omitempty"`
 	// End-user facing description of the mandate (used in notifications, and in payments if no description is provided)
-	Description *string `json:"description,omitempty"`
-	// A bank specific reference, what the end user may see
-	MandateBankReference *string `json:"mandate_bank_reference,omitempty"`
+	Description          *string `json:"description,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -262,38 +260,6 @@ func (o *MandateDetailsRequest) SetDescription(v string) {
 	o.Description = &v
 }
 
-// GetMandateBankReference returns the MandateBankReference field value if set, zero value otherwise.
-func (o *MandateDetailsRequest) GetMandateBankReference() string {
-	if o == nil || IsNil(o.MandateBankReference) {
-		var ret string
-		return ret
-	}
-	return *o.MandateBankReference
-}
-
-// GetMandateBankReferenceOk returns a tuple with the MandateBankReference field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *MandateDetailsRequest) GetMandateBankReferenceOk() (*string, bool) {
-	if o == nil || IsNil(o.MandateBankReference) {
-		return nil, false
-	}
-	return o.MandateBankReference, true
-}
-
-// HasMandateBankReference returns a boolean if a field has been set.
-func (o *MandateDetailsRequest) HasMandateBankReference() bool {
-	if o != nil && !IsNil(o.MandateBankReference) {
-		return true
-	}
-
-	return false
-}
-
-// SetMandateBankReference gets a reference to the given string and assigns it to the MandateBankReference field.
-func (o *MandateDetailsRequest) SetMandateBankReference(v string) {
-	o.MandateBankReference = &v
-}
-
 func (o MandateDetailsRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -319,9 +285,6 @@ func (o MandateDetailsRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
-	}
-	if !IsNil(o.MandateBankReference) {
-		toSerialize["mandate_bank_reference"] = o.MandateBankReference
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -372,7 +335,6 @@ func (o *MandateDetailsRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "payment_schedule")
 		delete(additionalProperties, "transaction_limits")
 		delete(additionalProperties, "description")
-		delete(additionalProperties, "mandate_bank_reference")
 		o.AdditionalProperties = additionalProperties
 	}
 
