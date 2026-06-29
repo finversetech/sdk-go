@@ -5586,18 +5586,12 @@ components:
           institution_name: Mock Bank
           institution_id: "123"
         login_identity:
-          login_methods_available:
-            havePassword: true
-            haveSecret: true
-          customer_app_id: customer_app_id
-          permissions_expiry_date: 2000-01-23T04:56:07.000+00:00
           billing_details:
             billed_products:
             - billed_products
             - billed_products
           webhook: https://auth.example.com/callback
           last_success: 2000-01-23T04:56:07.000+00:00
-          permissions_grant_date: 2000-01-23T04:56:07.000+00:00
           product_status:
             card_details:
               last_successful_update: 2021-02-01T10:01:02.333Z
@@ -5650,34 +5644,41 @@ components:
               status_details: AUTHENTICATION_INITIALIZED
               status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
           created_at: 2000-01-23T04:56:07.000+00:00
-          refresh:
-            refresh_allowed: true
-            credentials_stored: true
           error:
             code: 0
             details: Credentials are invalid. Please try again.
             type: INVALID_CREDENTIALS
             message: Credentials invalid
           last_session_id: last_session_id
-          authentication_id: "123"
           institution_id: "123"
           linking_attempt_id: "123"
           updated_at: 2000-01-23T04:56:07.000+00:00
-          user_id: form_post
           permissions:
           - permissions
           - permissions
-          authentication_status:
-            last_successful_update: 2021-02-01T10:01:02.333Z
-            last_update: 2021-02-01T10:01:02.333Z
-            status_details: AUTHENTICATION_INITIALIZED
-            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
           first_success: 2000-01-23T04:56:07.000+00:00
           login_identity_id: login_identity_id
           session_status: COMPLETED
           status_details:
             event_date: 2000-01-23T04:56:07.000+00:00
             event_name: event_name
+          login_methods_available:
+            havePassword: true
+            haveSecret: true
+          customer_app_id: customer_app_id
+          permissions_expiry_date: 2000-01-23T04:56:07.000+00:00
+          permissions_grant_date: 2000-01-23T04:56:07.000+00:00
+          refresh:
+            refresh_allowed: true
+            credentials_stored: true
+          authentication_id: "123"
+          user_id: form_post
+          authentication_status:
+            last_successful_update: 2021-02-01T10:01:02.333Z
+            last_update: 2021-02-01T10:01:02.333Z
+            status_details: AUTHENTICATION_INITIALIZED
+            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+          username_hash_id: username_hash_id
           status: LINKING
       properties:
         login_identity:
@@ -5688,18 +5689,12 @@ components:
     GetLoginIdentityHistoryResponse:
       example:
         login_identity:
-          login_methods_available:
-            havePassword: true
-            haveSecret: true
-          customer_app_id: customer_app_id
-          permissions_expiry_date: 2000-01-23T04:56:07.000+00:00
           billing_details:
             billed_products:
             - billed_products
             - billed_products
           webhook: https://auth.example.com/callback
           last_success: 2000-01-23T04:56:07.000+00:00
-          permissions_grant_date: 2000-01-23T04:56:07.000+00:00
           product_status:
             card_details:
               last_successful_update: 2021-02-01T10:01:02.333Z
@@ -5752,34 +5747,41 @@ components:
               status_details: AUTHENTICATION_INITIALIZED
               status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
           created_at: 2000-01-23T04:56:07.000+00:00
-          refresh:
-            refresh_allowed: true
-            credentials_stored: true
           error:
             code: 0
             details: Credentials are invalid. Please try again.
             type: INVALID_CREDENTIALS
             message: Credentials invalid
           last_session_id: last_session_id
-          authentication_id: "123"
           institution_id: "123"
           linking_attempt_id: "123"
           updated_at: 2000-01-23T04:56:07.000+00:00
-          user_id: form_post
           permissions:
           - permissions
           - permissions
-          authentication_status:
-            last_successful_update: 2021-02-01T10:01:02.333Z
-            last_update: 2021-02-01T10:01:02.333Z
-            status_details: AUTHENTICATION_INITIALIZED
-            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
           first_success: 2000-01-23T04:56:07.000+00:00
           login_identity_id: login_identity_id
           session_status: COMPLETED
           status_details:
             event_date: 2000-01-23T04:56:07.000+00:00
             event_name: event_name
+          login_methods_available:
+            havePassword: true
+            haveSecret: true
+          customer_app_id: customer_app_id
+          permissions_expiry_date: 2000-01-23T04:56:07.000+00:00
+          permissions_grant_date: 2000-01-23T04:56:07.000+00:00
+          refresh:
+            refresh_allowed: true
+            credentials_stored: true
+          authentication_id: "123"
+          user_id: form_post
+          authentication_status:
+            last_successful_update: 2021-02-01T10:01:02.333Z
+            last_update: 2021-02-01T10:01:02.333Z
+            status_details: AUTHENTICATION_INITIALIZED
+            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+          username_hash_id: username_hash_id
           status: LINKING
         status_history:
         - event_date: 2000-01-23T04:56:07.000+00:00
@@ -5844,18 +5846,12 @@ components:
       type: object
     LoginIdentity:
       example:
-        login_methods_available:
-          havePassword: true
-          haveSecret: true
-        customer_app_id: customer_app_id
-        permissions_expiry_date: 2000-01-23T04:56:07.000+00:00
         billing_details:
           billed_products:
           - billed_products
           - billed_products
         webhook: https://auth.example.com/callback
         last_success: 2000-01-23T04:56:07.000+00:00
-        permissions_grant_date: 2000-01-23T04:56:07.000+00:00
         product_status:
           card_details:
             last_successful_update: 2021-02-01T10:01:02.333Z
@@ -5908,34 +5904,41 @@ components:
             status_details: AUTHENTICATION_INITIALIZED
             status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
         created_at: 2000-01-23T04:56:07.000+00:00
-        refresh:
-          refresh_allowed: true
-          credentials_stored: true
         error:
           code: 0
           details: Credentials are invalid. Please try again.
           type: INVALID_CREDENTIALS
           message: Credentials invalid
         last_session_id: last_session_id
-        authentication_id: "123"
         institution_id: "123"
         linking_attempt_id: "123"
         updated_at: 2000-01-23T04:56:07.000+00:00
-        user_id: form_post
         permissions:
         - permissions
         - permissions
-        authentication_status:
-          last_successful_update: 2021-02-01T10:01:02.333Z
-          last_update: 2021-02-01T10:01:02.333Z
-          status_details: AUTHENTICATION_INITIALIZED
-          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
         first_success: 2000-01-23T04:56:07.000+00:00
         login_identity_id: login_identity_id
         session_status: COMPLETED
         status_details:
           event_date: 2000-01-23T04:56:07.000+00:00
           event_name: event_name
+        login_methods_available:
+          havePassword: true
+          haveSecret: true
+        customer_app_id: customer_app_id
+        permissions_expiry_date: 2000-01-23T04:56:07.000+00:00
+        permissions_grant_date: 2000-01-23T04:56:07.000+00:00
+        refresh:
+          refresh_allowed: true
+          credentials_stored: true
+        authentication_id: "123"
+        user_id: form_post
+        authentication_status:
+          last_successful_update: 2021-02-01T10:01:02.333Z
+          last_update: 2021-02-01T10:01:02.333Z
+          status_details: AUTHENTICATION_INITIALIZED
+          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+        username_hash_id: username_hash_id
         status: LINKING
       properties:
         login_identity_id:
@@ -6003,6 +6006,11 @@ components:
           example: "123"
           type: string
         last_session_id:
+          format: ulid
+          type: string
+        username_hash_id:
+          description: "stable id for the hashed bank username, used to track unique\
+            \ end-user online-banking accounts"
           format: ulid
           type: string
         refresh:

@@ -45,8 +45,10 @@ type LoginIdentity struct {
 	// a login attempt id which is unique per login_identity
 	LinkingAttemptId *string `json:"linking_attempt_id,omitempty"`
 	// a successful login attempt id which is unique per login_identity
-	AuthenticationId     *string      `json:"authentication_id,omitempty"`
-	LastSessionId        *string      `json:"last_session_id,omitempty"`
+	AuthenticationId *string `json:"authentication_id,omitempty"`
+	LastSessionId    *string `json:"last_session_id,omitempty"`
+	// stable id for the hashed bank username, used to track unique end-user online-banking accounts
+	UsernameHashId       *string      `json:"username_hash_id,omitempty"`
 	Refresh              *RefreshData `json:"refresh,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -785,6 +787,38 @@ func (o *LoginIdentity) SetLastSessionId(v string) {
 	o.LastSessionId = &v
 }
 
+// GetUsernameHashId returns the UsernameHashId field value if set, zero value otherwise.
+func (o *LoginIdentity) GetUsernameHashId() string {
+	if o == nil || IsNil(o.UsernameHashId) {
+		var ret string
+		return ret
+	}
+	return *o.UsernameHashId
+}
+
+// GetUsernameHashIdOk returns a tuple with the UsernameHashId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LoginIdentity) GetUsernameHashIdOk() (*string, bool) {
+	if o == nil || IsNil(o.UsernameHashId) {
+		return nil, false
+	}
+	return o.UsernameHashId, true
+}
+
+// HasUsernameHashId returns a boolean if a field has been set.
+func (o *LoginIdentity) HasUsernameHashId() bool {
+	if o != nil && !IsNil(o.UsernameHashId) {
+		return true
+	}
+
+	return false
+}
+
+// SetUsernameHashId gets a reference to the given string and assigns it to the UsernameHashId field.
+func (o *LoginIdentity) SetUsernameHashId(v string) {
+	o.UsernameHashId = &v
+}
+
 // GetRefresh returns the Refresh field value if set, zero value otherwise.
 func (o *LoginIdentity) GetRefresh() RefreshData {
 	if o == nil || IsNil(o.Refresh) {
@@ -890,6 +924,9 @@ func (o LoginIdentity) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.LastSessionId) {
 		toSerialize["last_session_id"] = o.LastSessionId
 	}
+	if !IsNil(o.UsernameHashId) {
+		toSerialize["username_hash_id"] = o.UsernameHashId
+	}
 	if !IsNil(o.Refresh) {
 		toSerialize["refresh"] = o.Refresh
 	}
@@ -961,6 +998,7 @@ func (o *LoginIdentity) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "linking_attempt_id")
 		delete(additionalProperties, "authentication_id")
 		delete(additionalProperties, "last_session_id")
+		delete(additionalProperties, "username_hash_id")
 		delete(additionalProperties, "refresh")
 		o.AdditionalProperties = additionalProperties
 	}
