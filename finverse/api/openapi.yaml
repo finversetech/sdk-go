@@ -14408,6 +14408,13 @@ components:
           type: string
         kcp_va_metadata:
           $ref: '#/components/schemas/KcpVaMetadata'
+        locale:
+          description: "Locale for the payment processor's hosted checkout UI (e.g.\
+            \ en-US, zh-TW, ko-KR), mapped from the Finverse Link language. Optional;\
+            \ the processor falls back to its default if omitted."
+          example: zh-TW
+          maxLength: 10
+          type: string
       required:
       - payment_account_id
       - payment_method_type

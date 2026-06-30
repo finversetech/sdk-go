@@ -29,8 +29,10 @@ type SelectPaymentMethodRequest struct {
 	// Whether the user is on mobile device (only makes a difference if payment_method_provider is KCP)
 	IsMobile *bool `json:"is_mobile,omitempty"`
 	// Optional Finverse institution ID (passed through when selecting KCP manual payment flow)
-	InstitutionId        *string        `json:"institution_id,omitempty"`
-	KcpVaMetadata        *KcpVaMetadata `json:"kcp_va_metadata,omitempty"`
+	InstitutionId *string        `json:"institution_id,omitempty"`
+	KcpVaMetadata *KcpVaMetadata `json:"kcp_va_metadata,omitempty"`
+	// Locale for the payment processor's hosted checkout UI (e.g. en-US, zh-TW, ko-KR), mapped from the Finverse Link language. Optional; the processor falls back to its default if omitted.
+	Locale               *string `json:"locale,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -235,6 +237,38 @@ func (o *SelectPaymentMethodRequest) SetKcpVaMetadata(v KcpVaMetadata) {
 	o.KcpVaMetadata = &v
 }
 
+// GetLocale returns the Locale field value if set, zero value otherwise.
+func (o *SelectPaymentMethodRequest) GetLocale() string {
+	if o == nil || IsNil(o.Locale) {
+		var ret string
+		return ret
+	}
+	return *o.Locale
+}
+
+// GetLocaleOk returns a tuple with the Locale field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *SelectPaymentMethodRequest) GetLocaleOk() (*string, bool) {
+	if o == nil || IsNil(o.Locale) {
+		return nil, false
+	}
+	return o.Locale, true
+}
+
+// HasLocale returns a boolean if a field has been set.
+func (o *SelectPaymentMethodRequest) HasLocale() bool {
+	if o != nil && !IsNil(o.Locale) {
+		return true
+	}
+
+	return false
+}
+
+// SetLocale gets a reference to the given string and assigns it to the Locale field.
+func (o *SelectPaymentMethodRequest) SetLocale(v string) {
+	o.Locale = &v
+}
+
 func (o SelectPaymentMethodRequest) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -258,6 +292,9 @@ func (o SelectPaymentMethodRequest) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.KcpVaMetadata) {
 		toSerialize["kcp_va_metadata"] = o.KcpVaMetadata
+	}
+	if !IsNil(o.Locale) {
+		toSerialize["locale"] = o.Locale
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -309,6 +346,7 @@ func (o *SelectPaymentMethodRequest) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "is_mobile")
 		delete(additionalProperties, "institution_id")
 		delete(additionalProperties, "kcp_va_metadata")
+		delete(additionalProperties, "locale")
 		o.AdditionalProperties = additionalProperties
 	}
 
