@@ -8968,6 +8968,7 @@ components:
             - values
             details_type: HK_ID
           name: name
+          email: email
           external_user_id: external_user_id
         mandate_details:
           end_date: 2000-01-23
@@ -9040,7 +9041,7 @@ components:
         recipient_account:
           $ref: '#/components/schemas/MandateRecipientAccount'
         sender:
-          $ref: '#/components/schemas/GetMandateSender'
+          $ref: '#/components/schemas/CreateMandateSenderResponse'
         sender_account:
           $ref: '#/components/schemas/MandateSenderAccount'
         mandate_details:
@@ -11071,6 +11072,58 @@ components:
           description: A unique identifier generated after creating sender
           type: string
         name:
+          type: string
+        external_user_id:
+          description: "Customer App's user ID, representing the end-user making the\
+            \ payment."
+          type: string
+        user_type:
+          description: "Type of account held by the Sender at the Institution. Possible\
+            \ values are INDIVIDUAL, BUSINESS"
+          enum:
+          - INDIVIDUAL
+          - BUSINESS
+          type: string
+        user_details:
+          description: Sender details which will be used for fraud checking.
+          items:
+            $ref: '#/components/schemas/SenderDetail'
+          type: array
+      required:
+      - external_user_id
+      - user_id
+      - user_type
+      type: object
+    CreateMandateSenderResponse:
+      example:
+        user_type: INDIVIDUAL
+        user_id: user_id
+        user_details:
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        - values:
+          - values
+          - values
+          - values
+          - values
+          - values
+          details_type: HK_ID
+        name: name
+        email: email
+        external_user_id: external_user_id
+      properties:
+        user_id:
+          description: A unique identifier generated after creating sender
+          type: string
+        name:
+          type: string
+        email:
+          format: email
           type: string
         external_user_id:
           description: "Customer App's user ID, representing the end-user making the\

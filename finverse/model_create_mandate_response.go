@@ -31,13 +31,13 @@ type CreateMandateResponse struct {
 	// Finverse Payment Method ID (ULID)
 	PaymentMethodId *string `json:"payment_method_id,omitempty"`
 	// Mandate status
-	Status           string                   `json:"status"`
-	Recipient        MandateRecipient         `json:"recipient"`
-	RecipientAccount *MandateRecipientAccount `json:"recipient_account,omitempty"`
-	Sender           GetMandateSender         `json:"sender"`
-	SenderAccount    *MandateSenderAccount    `json:"sender_account,omitempty"`
-	MandateDetails   MandateDetailsResponse   `json:"mandate_details"`
-	Fees             []Fee                    `json:"fees,omitempty"`
+	Status           string                      `json:"status"`
+	Recipient        MandateRecipient            `json:"recipient"`
+	RecipientAccount *MandateRecipientAccount    `json:"recipient_account,omitempty"`
+	Sender           CreateMandateSenderResponse `json:"sender"`
+	SenderAccount    *MandateSenderAccount       `json:"sender_account,omitempty"`
+	MandateDetails   MandateDetailsResponse      `json:"mandate_details"`
+	Fees             []Fee                       `json:"fees,omitempty"`
 	// Additional attributes of the mandate in key:value format (e.g. mandate_internal_id: 1234). It supports up to 20 key:value pairs, whereas the key and value supports up to 50 and 1000 characters respectively.
 	Metadata             *map[string]string    `json:"metadata,omitempty"`
 	Error                *FvEmbeddedErrorModel `json:"error,omitempty"`
@@ -50,7 +50,7 @@ type _CreateMandateResponse CreateMandateResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateMandateResponse(updatedAt time.Time, mandateId string, status string, recipient MandateRecipient, sender GetMandateSender, mandateDetails MandateDetailsResponse) *CreateMandateResponse {
+func NewCreateMandateResponse(updatedAt time.Time, mandateId string, status string, recipient MandateRecipient, sender CreateMandateSenderResponse, mandateDetails MandateDetailsResponse) *CreateMandateResponse {
 	this := CreateMandateResponse{}
 	this.UpdatedAt = updatedAt
 	this.MandateId = mandateId
@@ -262,9 +262,9 @@ func (o *CreateMandateResponse) SetRecipientAccount(v MandateRecipientAccount) {
 }
 
 // GetSender returns the Sender field value
-func (o *CreateMandateResponse) GetSender() GetMandateSender {
+func (o *CreateMandateResponse) GetSender() CreateMandateSenderResponse {
 	if o == nil {
-		var ret GetMandateSender
+		var ret CreateMandateSenderResponse
 		return ret
 	}
 
@@ -273,7 +273,7 @@ func (o *CreateMandateResponse) GetSender() GetMandateSender {
 
 // GetSenderOk returns a tuple with the Sender field value
 // and a boolean to check if the value has been set.
-func (o *CreateMandateResponse) GetSenderOk() (*GetMandateSender, bool) {
+func (o *CreateMandateResponse) GetSenderOk() (*CreateMandateSenderResponse, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -281,7 +281,7 @@ func (o *CreateMandateResponse) GetSenderOk() (*GetMandateSender, bool) {
 }
 
 // SetSender sets field value
-func (o *CreateMandateResponse) SetSender(v GetMandateSender) {
+func (o *CreateMandateResponse) SetSender(v CreateMandateSenderResponse) {
 	o.Sender = v
 }
 
