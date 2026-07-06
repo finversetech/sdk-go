@@ -22,7 +22,6 @@ var _ MappedNullable = &PayoutSnapshotDetails{}
 // PayoutSnapshotDetails struct for PayoutSnapshotDetails
 type PayoutSnapshotDetails struct {
 	Description                  *string                 `json:"description,omitempty"`
-	TransactionReferenceId       *string                 `json:"transaction_reference_id,omitempty"`
 	ExternalTransactionReference *string                 `json:"external_transaction_reference,omitempty"`
 	MandateId                    *string                 `json:"mandate_id,omitempty"`
 	ScheduledDate                NullableTime            `json:"scheduled_date,omitempty"`
@@ -81,38 +80,6 @@ func (o *PayoutSnapshotDetails) HasDescription() bool {
 // SetDescription gets a reference to the given string and assigns it to the Description field.
 func (o *PayoutSnapshotDetails) SetDescription(v string) {
 	o.Description = &v
-}
-
-// GetTransactionReferenceId returns the TransactionReferenceId field value if set, zero value otherwise.
-func (o *PayoutSnapshotDetails) GetTransactionReferenceId() string {
-	if o == nil || IsNil(o.TransactionReferenceId) {
-		var ret string
-		return ret
-	}
-	return *o.TransactionReferenceId
-}
-
-// GetTransactionReferenceIdOk returns a tuple with the TransactionReferenceId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PayoutSnapshotDetails) GetTransactionReferenceIdOk() (*string, bool) {
-	if o == nil || IsNil(o.TransactionReferenceId) {
-		return nil, false
-	}
-	return o.TransactionReferenceId, true
-}
-
-// HasTransactionReferenceId returns a boolean if a field has been set.
-func (o *PayoutSnapshotDetails) HasTransactionReferenceId() bool {
-	if o != nil && !IsNil(o.TransactionReferenceId) {
-		return true
-	}
-
-	return false
-}
-
-// SetTransactionReferenceId gets a reference to the given string and assigns it to the TransactionReferenceId field.
-func (o *PayoutSnapshotDetails) SetTransactionReferenceId(v string) {
-	o.TransactionReferenceId = &v
 }
 
 // GetExternalTransactionReference returns the ExternalTransactionReference field value if set, zero value otherwise.
@@ -342,9 +309,6 @@ func (o PayoutSnapshotDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Description) {
 		toSerialize["description"] = o.Description
 	}
-	if !IsNil(o.TransactionReferenceId) {
-		toSerialize["transaction_reference_id"] = o.TransactionReferenceId
-	}
 	if !IsNil(o.ExternalTransactionReference) {
 		toSerialize["external_transaction_reference"] = o.ExternalTransactionReference
 	}
@@ -386,7 +350,6 @@ func (o *PayoutSnapshotDetails) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "description")
-		delete(additionalProperties, "transaction_reference_id")
 		delete(additionalProperties, "external_transaction_reference")
 		delete(additionalProperties, "mandate_id")
 		delete(additionalProperties, "scheduled_date")

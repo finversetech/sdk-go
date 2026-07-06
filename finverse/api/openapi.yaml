@@ -8287,7 +8287,6 @@ components:
           paid_by: RECIPIENT
         payment_details:
           estimated_arrival_time: 2025-08-22T12:00:00Z
-          transaction_reference_id: transaction_reference_id
           references:
             bank_transaction_reference: bank_transaction_reference
             finverse_transaction_reference: finverse_transaction_reference
@@ -8507,7 +8506,6 @@ components:
             paid_by: RECIPIENT
           payment_details:
             estimated_arrival_time: 2025-08-22T12:00:00Z
-            transaction_reference_id: transaction_reference_id
             references:
               bank_transaction_reference: bank_transaction_reference
               finverse_transaction_reference: finverse_transaction_reference
@@ -8590,7 +8588,6 @@ components:
             paid_by: RECIPIENT
           payment_details:
             estimated_arrival_time: 2025-08-22T12:00:00Z
-            transaction_reference_id: transaction_reference_id
             references:
               bank_transaction_reference: bank_transaction_reference
               finverse_transaction_reference: finverse_transaction_reference
@@ -8673,7 +8670,6 @@ components:
     PayoutSnapshotDetails:
       example:
         estimated_arrival_time: 2025-08-22T12:00:00Z
-        transaction_reference_id: transaction_reference_id
         references:
           bank_transaction_reference: bank_transaction_reference
           finverse_transaction_reference: finverse_transaction_reference
@@ -8688,8 +8684,6 @@ components:
         scheduled_date: 2000-01-23T04:56:07.000+00:00
       properties:
         description:
-          type: string
-        transaction_reference_id:
           type: string
         external_transaction_reference:
           type: string
