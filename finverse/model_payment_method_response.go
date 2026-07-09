@@ -20,8 +20,10 @@ var _ MappedNullable = &PaymentMethodResponse{}
 
 // PaymentMethodResponse struct for PaymentMethodResponse
 type PaymentMethodResponse struct {
-	PaymentMethodId      *string                                   `json:"payment_method_id,omitempty"`
-	PaymentMethodType    *string                                   `json:"payment_method_type,omitempty"`
+	PaymentMethodId   *string `json:"payment_method_id,omitempty"`
+	PaymentMethodType *string `json:"payment_method_type,omitempty"`
+	// Whether the payment method is live (true) or a test payment method (false), based on its payment rail. Absent if the payment rail is unknown.
+	Live                 NullableBool                              `json:"live,omitempty"`
 	Mandate              *GetMandateResponse                       `json:"mandate,omitempty"`
 	Card                 *FVCard                                   `json:"card,omitempty"`
 	IntegrationMetadata  *PaymentMethodIntegrationMetadataResponse `json:"integration_metadata,omitempty"`
@@ -109,6 +111,49 @@ func (o *PaymentMethodResponse) HasPaymentMethodType() bool {
 // SetPaymentMethodType gets a reference to the given string and assigns it to the PaymentMethodType field.
 func (o *PaymentMethodResponse) SetPaymentMethodType(v string) {
 	o.PaymentMethodType = &v
+}
+
+// GetLive returns the Live field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PaymentMethodResponse) GetLive() bool {
+	if o == nil || IsNil(o.Live.Get()) {
+		var ret bool
+		return ret
+	}
+	return *o.Live.Get()
+}
+
+// GetLiveOk returns a tuple with the Live field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PaymentMethodResponse) GetLiveOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Live.Get(), o.Live.IsSet()
+}
+
+// HasLive returns a boolean if a field has been set.
+func (o *PaymentMethodResponse) HasLive() bool {
+	if o != nil && o.Live.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetLive gets a reference to the given NullableBool and assigns it to the Live field.
+func (o *PaymentMethodResponse) SetLive(v bool) {
+	o.Live.Set(&v)
+}
+
+// SetLiveNil sets the value for Live to be an explicit nil
+func (o *PaymentMethodResponse) SetLiveNil() {
+	o.Live.Set(nil)
+}
+
+// UnsetLive ensures that no value is present for Live, not even an explicit nil
+func (o *PaymentMethodResponse) UnsetLive() {
+	o.Live.Unset()
 }
 
 // GetMandate returns the Mandate field value if set, zero value otherwise.
@@ -223,6 +268,9 @@ func (o PaymentMethodResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaymentMethodType) {
 		toSerialize["payment_method_type"] = o.PaymentMethodType
 	}
+	if o.Live.IsSet() {
+		toSerialize["live"] = o.Live.Get()
+	}
 	if !IsNil(o.Mandate) {
 		toSerialize["mandate"] = o.Mandate
 	}
@@ -256,6 +304,7 @@ func (o *PaymentMethodResponse) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "payment_method_id")
 		delete(additionalProperties, "payment_method_type")
+		delete(additionalProperties, "live")
 		delete(additionalProperties, "mandate")
 		delete(additionalProperties, "card")
 		delete(additionalProperties, "integration_metadata")

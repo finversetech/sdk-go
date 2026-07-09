@@ -24,6 +24,8 @@ var _ MappedNullable = &PaymentResponse{}
 type PaymentResponse struct {
 	// Finverse Payment ID
 	PaymentId *string `json:"payment_id,omitempty"`
+	// Whether the payment is live (true) or a test payment (false), based on its payment rail. Absent if the payment rail is unknown.
+	Live NullableBool `json:"live,omitempty"`
 	// Amount to be paid, in currency's smallest unit or “minor unit”, as defined in ISO 4217. For example, HKD 100.01 is represented as amount = 10001 (minor unit = cents). For currencies without minor units (e.g. VND, JPY), the amount is represented as is, without modification. For example, VND 15101 is represented as amount = 15101.
 	Amount int32 `json:"amount"`
 	// Surcharge amount in minor
@@ -107,6 +109,49 @@ func (o *PaymentResponse) HasPaymentId() bool {
 // SetPaymentId gets a reference to the given string and assigns it to the PaymentId field.
 func (o *PaymentResponse) SetPaymentId(v string) {
 	o.PaymentId = &v
+}
+
+// GetLive returns the Live field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PaymentResponse) GetLive() bool {
+	if o == nil || IsNil(o.Live.Get()) {
+		var ret bool
+		return ret
+	}
+	return *o.Live.Get()
+}
+
+// GetLiveOk returns a tuple with the Live field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PaymentResponse) GetLiveOk() (*bool, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.Live.Get(), o.Live.IsSet()
+}
+
+// HasLive returns a boolean if a field has been set.
+func (o *PaymentResponse) HasLive() bool {
+	if o != nil && o.Live.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetLive gets a reference to the given NullableBool and assigns it to the Live field.
+func (o *PaymentResponse) SetLive(v bool) {
+	o.Live.Set(&v)
+}
+
+// SetLiveNil sets the value for Live to be an explicit nil
+func (o *PaymentResponse) SetLiveNil() {
+	o.Live.Set(nil)
+}
+
+// UnsetLive ensures that no value is present for Live, not even an explicit nil
+func (o *PaymentResponse) UnsetLive() {
+	o.Live.Unset()
 }
 
 // GetAmount returns the Amount field value
@@ -674,6 +719,9 @@ func (o PaymentResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaymentId) {
 		toSerialize["payment_id"] = o.PaymentId
 	}
+	if o.Live.IsSet() {
+		toSerialize["live"] = o.Live.Get()
+	}
 	toSerialize["amount"] = o.Amount
 	toSerialize["surcharge_amount"] = o.SurchargeAmount
 	toSerialize["amount_total_with_surcharge"] = o.AmountTotalWithSurcharge
@@ -768,6 +816,7 @@ func (o *PaymentResponse) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "payment_id")
+		delete(additionalProperties, "live")
 		delete(additionalProperties, "amount")
 		delete(additionalProperties, "surcharge_amount")
 		delete(additionalProperties, "amount_total_with_surcharge")

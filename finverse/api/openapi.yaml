@@ -7842,6 +7842,7 @@ components:
           name: name
         currency: HKD
         surcharge_amount: 100
+        live: true
         payment_method:
           wallet:
             wallet_details:
@@ -7893,6 +7894,11 @@ components:
         payment_id:
           description: Finverse Payment ID
           type: string
+        live:
+          description: "Whether the payment is live (true) or a test payment (false),\
+            \ based on its payment rail. Absent if the payment rail is unknown."
+          nullable: true
+          type: boolean
         amount:
           description: "Amount to be paid, in currency's smallest unit or “minor unit”\
             , as defined in ISO 4217. For example, HKD 100.01 is represented as amount\
@@ -8073,6 +8079,7 @@ components:
             name: name
           currency: HKD
           surcharge_amount: 100
+          live: true
           payment_method:
             wallet:
               wallet_details:
@@ -8212,6 +8219,7 @@ components:
             name: name
           currency: HKD
           surcharge_amount: 100
+          live: true
           payment_method:
             wallet:
               wallet_details:
@@ -9455,6 +9463,7 @@ components:
             recipient:
               name: name
             status: AUTHORIZATION_REQUIRED
+          live: true
           card:
             card_details:
               last4: "1234"
@@ -9607,6 +9616,7 @@ components:
             recipient:
               name: name
             status: AUTHORIZATION_REQUIRED
+          live: true
           card:
             card_details:
               last4: "1234"
@@ -9844,6 +9854,7 @@ components:
             name: name
           currency: HKD
           surcharge_amount: 100
+          live: true
           payment_method:
             wallet:
               wallet_details:
@@ -10003,6 +10014,7 @@ components:
             recipient:
               name: name
             status: AUTHORIZATION_REQUIRED
+          live: true
           card:
             card_details:
               last4: "1234"
@@ -13123,6 +13135,7 @@ components:
           recipient:
             name: name
           status: AUTHORIZATION_REQUIRED
+        live: true
         card:
           card_details:
             last4: "1234"
@@ -13170,6 +13183,12 @@ components:
           type: string
         payment_method_type:
           type: string
+        live:
+          description: "Whether the payment method is live (true) or a test payment\
+            \ method (false), based on its payment rail. Absent if the payment rail\
+            \ is unknown."
+          nullable: true
+          type: boolean
         mandate:
           $ref: '#/components/schemas/GetMandateResponse'
         card:
@@ -13886,6 +13905,7 @@ components:
             name: name
           currency: HKD
           surcharge_amount: 100
+          live: true
           payment_method:
             wallet:
               wallet_details:
@@ -14025,6 +14045,7 @@ components:
             name: name
           currency: HKD
           surcharge_amount: 100
+          live: true
           payment_method:
             wallet:
               wallet_details:
