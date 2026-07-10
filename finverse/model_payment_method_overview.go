@@ -24,9 +24,8 @@ type PaymentMethodOverview struct {
 	// STRIPE, CYBERSOURCE, UOB, DBS (only shown when payment flows funds via a 3rd party gateway direct to the customer)
 	ExternalGateway *string `json:"external_gateway,omitempty"`
 	// It can be either REALTIME or DELAYED
-	PaymentConfirmationSpeed *string `json:"payment_confirmation_speed,omitempty"`
-	// The payment method type, possible values CARD, MANDATE and MANUAL
-	PaymentMethodType *string `json:"payment_method_type,omitempty"`
+	PaymentConfirmationSpeed *string      `json:"payment_confirmation_speed,omitempty"`
+	PaymentMethodType        *PaymentType `json:"payment_method_type,omitempty"`
 	// The payment method subtype, e.g., EDDA_HK, CARD_GENERIC etc
 	PaymentMethodSubtype *string `json:"payment_method_subtype,omitempty"`
 	// Only shown if funds flow via Finverse, possible values FINVERSE
@@ -123,9 +122,9 @@ func (o *PaymentMethodOverview) SetPaymentConfirmationSpeed(v string) {
 }
 
 // GetPaymentMethodType returns the PaymentMethodType field value if set, zero value otherwise.
-func (o *PaymentMethodOverview) GetPaymentMethodType() string {
+func (o *PaymentMethodOverview) GetPaymentMethodType() PaymentType {
 	if o == nil || IsNil(o.PaymentMethodType) {
-		var ret string
+		var ret PaymentType
 		return ret
 	}
 	return *o.PaymentMethodType
@@ -133,7 +132,7 @@ func (o *PaymentMethodOverview) GetPaymentMethodType() string {
 
 // GetPaymentMethodTypeOk returns a tuple with the PaymentMethodType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentMethodOverview) GetPaymentMethodTypeOk() (*string, bool) {
+func (o *PaymentMethodOverview) GetPaymentMethodTypeOk() (*PaymentType, bool) {
 	if o == nil || IsNil(o.PaymentMethodType) {
 		return nil, false
 	}
@@ -149,8 +148,8 @@ func (o *PaymentMethodOverview) HasPaymentMethodType() bool {
 	return false
 }
 
-// SetPaymentMethodType gets a reference to the given string and assigns it to the PaymentMethodType field.
-func (o *PaymentMethodOverview) SetPaymentMethodType(v string) {
+// SetPaymentMethodType gets a reference to the given PaymentType and assigns it to the PaymentMethodType field.
+func (o *PaymentMethodOverview) SetPaymentMethodType(v PaymentType) {
 	o.PaymentMethodType = &v
 }
 

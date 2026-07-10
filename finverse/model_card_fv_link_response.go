@@ -20,7 +20,7 @@ var _ MappedNullable = &CardFvLinkResponse{}
 
 // CardFvLinkResponse struct for CardFvLinkResponse
 type CardFvLinkResponse struct {
-	Status               *string               `json:"status,omitempty"`
+	Status               *CardStatus           `json:"status,omitempty"`
 	CardDetails          *CardFvLinkDetails    `json:"card_details,omitempty"`
 	Recipient            *CardRecipient        `json:"recipient,omitempty"`
 	Error                *FvEmbeddedErrorModel `json:"error,omitempty"`
@@ -47,9 +47,9 @@ func NewCardFvLinkResponseWithDefaults() *CardFvLinkResponse {
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *CardFvLinkResponse) GetStatus() string {
+func (o *CardFvLinkResponse) GetStatus() CardStatus {
 	if o == nil || IsNil(o.Status) {
-		var ret string
+		var ret CardStatus
 		return ret
 	}
 	return *o.Status
@@ -57,7 +57,7 @@ func (o *CardFvLinkResponse) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CardFvLinkResponse) GetStatusOk() (*string, bool) {
+func (o *CardFvLinkResponse) GetStatusOk() (*CardStatus, bool) {
 	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
@@ -73,8 +73,8 @@ func (o *CardFvLinkResponse) HasStatus() bool {
 	return false
 }
 
-// SetStatus gets a reference to the given string and assigns it to the Status field.
-func (o *CardFvLinkResponse) SetStatus(v string) {
+// SetStatus gets a reference to the given CardStatus and assigns it to the Status field.
+func (o *CardFvLinkResponse) SetStatus(v CardStatus) {
 	o.Status = &v
 }
 

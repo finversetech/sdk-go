@@ -23,7 +23,7 @@ type PaymentSetupOptions struct {
 	// The type of future_payments that customer want to use. Possible values: AUTOPAY or CLICK_TO_PAY
 	FuturePayments                 *string                         `json:"future_payments,omitempty"`
 	MandateDetails                 *MandateDetailsForPaymentLink   `json:"mandate_details,omitempty"`
-	PaymentMethodTypes             []string                        `json:"payment_method_types,omitempty"`
+	PaymentMethodTypes             []PaymentType                   `json:"payment_method_types,omitempty"`
 	RecipientAccountFilters        *RecipientAccountFilters        `json:"recipient_account_filters,omitempty"`
 	AutopayEnrollmentConfiguration *AutopayEnrollmentConfiguration `json:"autopay_enrollment_configuration,omitempty"`
 	// The recurring payment mode
@@ -115,9 +115,9 @@ func (o *PaymentSetupOptions) SetMandateDetails(v MandateDetailsForPaymentLink) 
 }
 
 // GetPaymentMethodTypes returns the PaymentMethodTypes field value if set, zero value otherwise.
-func (o *PaymentSetupOptions) GetPaymentMethodTypes() []string {
+func (o *PaymentSetupOptions) GetPaymentMethodTypes() []PaymentType {
 	if o == nil || IsNil(o.PaymentMethodTypes) {
-		var ret []string
+		var ret []PaymentType
 		return ret
 	}
 	return o.PaymentMethodTypes
@@ -125,7 +125,7 @@ func (o *PaymentSetupOptions) GetPaymentMethodTypes() []string {
 
 // GetPaymentMethodTypesOk returns a tuple with the PaymentMethodTypes field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentSetupOptions) GetPaymentMethodTypesOk() ([]string, bool) {
+func (o *PaymentSetupOptions) GetPaymentMethodTypesOk() ([]PaymentType, bool) {
 	if o == nil || IsNil(o.PaymentMethodTypes) {
 		return nil, false
 	}
@@ -141,8 +141,8 @@ func (o *PaymentSetupOptions) HasPaymentMethodTypes() bool {
 	return false
 }
 
-// SetPaymentMethodTypes gets a reference to the given []string and assigns it to the PaymentMethodTypes field.
-func (o *PaymentSetupOptions) SetPaymentMethodTypes(v []string) {
+// SetPaymentMethodTypes gets a reference to the given []PaymentType and assigns it to the PaymentMethodTypes field.
+func (o *PaymentSetupOptions) SetPaymentMethodTypes(v []PaymentType) {
 	o.PaymentMethodTypes = v
 }
 

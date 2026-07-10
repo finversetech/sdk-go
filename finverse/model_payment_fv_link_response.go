@@ -22,8 +22,8 @@ var _ MappedNullable = &PaymentFvLinkResponse{}
 // PaymentFvLinkResponse struct for PaymentFvLinkResponse
 type PaymentFvLinkResponse struct {
 	PaymentId      *string               `json:"payment_id,omitempty"`
-	Status         *string               `json:"status,omitempty"`
-	Type           *string               `json:"type,omitempty"`
+	Status         *PaymentStatus        `json:"status,omitempty"`
+	Type           *PaymentType          `json:"type,omitempty"`
 	PaymentDetails *PaymentFvLinkDetails `json:"payment_details,omitempty"`
 	Error          *FvEmbeddedErrorModel `json:"error,omitempty"`
 	// Set to true if payment uses GoCardless rail, indicating frontend should skip polling
@@ -84,9 +84,9 @@ func (o *PaymentFvLinkResponse) SetPaymentId(v string) {
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *PaymentFvLinkResponse) GetStatus() string {
+func (o *PaymentFvLinkResponse) GetStatus() PaymentStatus {
 	if o == nil || IsNil(o.Status) {
-		var ret string
+		var ret PaymentStatus
 		return ret
 	}
 	return *o.Status
@@ -94,7 +94,7 @@ func (o *PaymentFvLinkResponse) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentFvLinkResponse) GetStatusOk() (*string, bool) {
+func (o *PaymentFvLinkResponse) GetStatusOk() (*PaymentStatus, bool) {
 	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
@@ -110,15 +110,15 @@ func (o *PaymentFvLinkResponse) HasStatus() bool {
 	return false
 }
 
-// SetStatus gets a reference to the given string and assigns it to the Status field.
-func (o *PaymentFvLinkResponse) SetStatus(v string) {
+// SetStatus gets a reference to the given PaymentStatus and assigns it to the Status field.
+func (o *PaymentFvLinkResponse) SetStatus(v PaymentStatus) {
 	o.Status = &v
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
-func (o *PaymentFvLinkResponse) GetType() string {
+func (o *PaymentFvLinkResponse) GetType() PaymentType {
 	if o == nil || IsNil(o.Type) {
-		var ret string
+		var ret PaymentType
 		return ret
 	}
 	return *o.Type
@@ -126,7 +126,7 @@ func (o *PaymentFvLinkResponse) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentFvLinkResponse) GetTypeOk() (*string, bool) {
+func (o *PaymentFvLinkResponse) GetTypeOk() (*PaymentType, bool) {
 	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
@@ -142,8 +142,8 @@ func (o *PaymentFvLinkResponse) HasType() bool {
 	return false
 }
 
-// SetType gets a reference to the given string and assigns it to the Type field.
-func (o *PaymentFvLinkResponse) SetType(v string) {
+// SetType gets a reference to the given PaymentType and assigns it to the Type field.
+func (o *PaymentFvLinkResponse) SetType(v PaymentType) {
 	o.Type = &v
 }
 

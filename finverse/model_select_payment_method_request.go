@@ -22,10 +22,9 @@ var _ MappedNullable = &SelectPaymentMethodRequest{}
 // SelectPaymentMethodRequest struct for SelectPaymentMethodRequest
 type SelectPaymentMethodRequest struct {
 	// The payment account ID of the selected payment method
-	PaymentAccountId string `json:"payment_account_id"`
-	// The type of payment method to select
-	PaymentMethodType string  `json:"payment_method_type"`
-	SenderType        *string `json:"sender_type,omitempty"`
+	PaymentAccountId  string      `json:"payment_account_id"`
+	PaymentMethodType PaymentType `json:"payment_method_type"`
+	SenderType        *string     `json:"sender_type,omitempty"`
 	// Whether the user is on mobile device (only makes a difference if payment_method_provider is KCP)
 	IsMobile *bool `json:"is_mobile,omitempty"`
 	// Optional Finverse institution ID (passed through when selecting KCP manual payment flow)
@@ -42,7 +41,7 @@ type _SelectPaymentMethodRequest SelectPaymentMethodRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSelectPaymentMethodRequest(paymentAccountId string, paymentMethodType string) *SelectPaymentMethodRequest {
+func NewSelectPaymentMethodRequest(paymentAccountId string, paymentMethodType PaymentType) *SelectPaymentMethodRequest {
 	this := SelectPaymentMethodRequest{}
 	this.PaymentAccountId = paymentAccountId
 	this.PaymentMethodType = paymentMethodType
@@ -86,9 +85,9 @@ func (o *SelectPaymentMethodRequest) SetPaymentAccountId(v string) {
 }
 
 // GetPaymentMethodType returns the PaymentMethodType field value
-func (o *SelectPaymentMethodRequest) GetPaymentMethodType() string {
+func (o *SelectPaymentMethodRequest) GetPaymentMethodType() PaymentType {
 	if o == nil {
-		var ret string
+		var ret PaymentType
 		return ret
 	}
 
@@ -97,7 +96,7 @@ func (o *SelectPaymentMethodRequest) GetPaymentMethodType() string {
 
 // GetPaymentMethodTypeOk returns a tuple with the PaymentMethodType field value
 // and a boolean to check if the value has been set.
-func (o *SelectPaymentMethodRequest) GetPaymentMethodTypeOk() (*string, bool) {
+func (o *SelectPaymentMethodRequest) GetPaymentMethodTypeOk() (*PaymentType, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -105,7 +104,7 @@ func (o *SelectPaymentMethodRequest) GetPaymentMethodTypeOk() (*string, bool) {
 }
 
 // SetPaymentMethodType sets field value
-func (o *SelectPaymentMethodRequest) SetPaymentMethodType(v string) {
+func (o *SelectPaymentMethodRequest) SetPaymentMethodType(v PaymentType) {
 	o.PaymentMethodType = v
 }
 

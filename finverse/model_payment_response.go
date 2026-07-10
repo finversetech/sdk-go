@@ -33,13 +33,11 @@ type PaymentResponse struct {
 	// Amount with all fees and surcharges applied in minor
 	AmountTotalWithSurcharge int32 `json:"amount_total_with_surcharge"`
 	// The currency code as defined in ISO 4217.
-	Currency *string `json:"currency,omitempty"`
-	// Indicates whether this is a mandate-based payment or one-off direct payment to an account. Possible values - MANDATE, SINGLE
-	Type *string `json:"type,omitempty"`
+	Currency *string      `json:"currency,omitempty"`
+	Type     *PaymentType `json:"type,omitempty"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-	// Possible values - CREATED, AUTHORIZED, SUBMITTED, EXECUTED, FAILED, REJECTED, CANCELLED.
-	Status *string `json:"status,omitempty"`
+	UpdatedAt *time.Time     `json:"updated_at,omitempty"`
+	Status    *PaymentStatus `json:"status,omitempty"`
 	// ID of the payment method this pament is referring to.
 	PaymentMethodId  *string                  `json:"payment_method_id,omitempty"`
 	PaymentDetails   *PaymentDetailsResponse  `json:"payment_details,omitempty"`
@@ -259,9 +257,9 @@ func (o *PaymentResponse) SetCurrency(v string) {
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
-func (o *PaymentResponse) GetType() string {
+func (o *PaymentResponse) GetType() PaymentType {
 	if o == nil || IsNil(o.Type) {
-		var ret string
+		var ret PaymentType
 		return ret
 	}
 	return *o.Type
@@ -269,7 +267,7 @@ func (o *PaymentResponse) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentResponse) GetTypeOk() (*string, bool) {
+func (o *PaymentResponse) GetTypeOk() (*PaymentType, bool) {
 	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
@@ -285,8 +283,8 @@ func (o *PaymentResponse) HasType() bool {
 	return false
 }
 
-// SetType gets a reference to the given string and assigns it to the Type field.
-func (o *PaymentResponse) SetType(v string) {
+// SetType gets a reference to the given PaymentType and assigns it to the Type field.
+func (o *PaymentResponse) SetType(v PaymentType) {
 	o.Type = &v
 }
 
@@ -323,9 +321,9 @@ func (o *PaymentResponse) SetUpdatedAt(v time.Time) {
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *PaymentResponse) GetStatus() string {
+func (o *PaymentResponse) GetStatus() PaymentStatus {
 	if o == nil || IsNil(o.Status) {
-		var ret string
+		var ret PaymentStatus
 		return ret
 	}
 	return *o.Status
@@ -333,7 +331,7 @@ func (o *PaymentResponse) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentResponse) GetStatusOk() (*string, bool) {
+func (o *PaymentResponse) GetStatusOk() (*PaymentStatus, bool) {
 	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
@@ -349,8 +347,8 @@ func (o *PaymentResponse) HasStatus() bool {
 	return false
 }
 
-// SetStatus gets a reference to the given string and assigns it to the Status field.
-func (o *PaymentResponse) SetStatus(v string) {
+// SetStatus gets a reference to the given PaymentStatus and assigns it to the Status field.
+func (o *PaymentResponse) SetStatus(v PaymentStatus) {
 	o.Status = &v
 }
 

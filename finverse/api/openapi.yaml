@@ -3153,6 +3153,58 @@ components:
         import:
           package: gitlab.com/finverse/gitops/applications/common-go/amount
         embedded: true
+    MandateStatus:
+      description: Mandate status
+      enum:
+      - AUTHORIZATION_REQUIRED
+      - AUTHORIZING
+      - PROCESSING
+      - SUBMITTED
+      - SUCCEEDED
+      - FAILED
+      - REVOKED
+      - READY_TO_SUBMIT
+      - CLOSED
+      - CANCELLED
+      type: string
+    CardStatus:
+      description: Card status
+      enum:
+      - UNKNOWN
+      - CREATED
+      - SUCCEEDED
+      - CANCELLED
+      - FAILED
+      type: string
+    PaymentStatus:
+      description: Payment status
+      enum:
+      - AUTHORIZATION_REQUIRED
+      - AUTHORIZING
+      - PROCESSING
+      - SUBMITTED
+      - EXECUTED
+      - FAILED
+      - REVOKED
+      - CANCELLED
+      - CREATED
+      type: string
+    PaymentType:
+      description: Indicates whether this is a mandate-based payment or one-off direct
+        payment to an account
+      enum:
+      - MANDATE
+      - SINGLE
+      - CARD
+      - MANUAL
+      - WALLET
+      type: string
+    PaymentMethodType:
+      description: The payment method type
+      enum:
+      - CARD
+      - MANDATE
+      type: string
     Principal:
       properties:
         subject:
@@ -7792,7 +7844,7 @@ components:
           settlement_account_reference: settlement_account_reference
           account_id: account_id
         created_at: 2000-01-23T04:56:07.000+00:00
-        type: MANDATE
+        type: null
         error:
           error_code: CREDENTIALS_INVALID
           details: details
@@ -7920,33 +7972,13 @@ components:
           example: HKD
           type: string
         type:
-          description: "Indicates whether this is a mandate-based payment or one-off\
-            \ direct payment to an account. Possible values - MANDATE, SINGLE"
-          enum:
-          - MANDATE
-          - SINGLE
-          - CARD
-          - MANUAL
-          - WALLET
-          type: string
+          $ref: '#/components/schemas/PaymentType'
         updated_at:
           description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time
           type: string
         status:
-          description: "Possible values - CREATED, AUTHORIZED, SUBMITTED, EXECUTED,\
-            \ FAILED, REJECTED, CANCELLED."
-          enum:
-          - AUTHORIZATION_REQUIRED
-          - AUTHORIZING
-          - PROCESSING
-          - SUBMITTED
-          - EXECUTED
-          - FAILED
-          - REVOKED
-          - CANCELLED
-          - CREATED
-          type: string
+          $ref: '#/components/schemas/PaymentStatus'
         payment_method_id:
           description: ID of the payment method this pament is referring to.
           type: string
@@ -8029,7 +8061,7 @@ components:
             settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
-          type: MANDATE
+          type: null
           error:
             error_code: CREDENTIALS_INVALID
             details: details
@@ -8169,7 +8201,7 @@ components:
             settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
-          type: MANDATE
+          type: null
           error:
             error_code: CREDENTIALS_INVALID
             details: details
@@ -9025,19 +9057,7 @@ components:
           description: Finverse Payment Method ID (ULID)
           type: string
         status:
-          description: Mandate status
-          enum:
-          - AUTHORIZATION_REQUIRED
-          - AUTHORIZING
-          - PROCESSING
-          - SUBMITTED
-          - SUCCEEDED
-          - FAILED
-          - REVOKED
-          - READY_TO_SUBMIT
-          - CLOSED
-          - CANCELLED
-          type: string
+          $ref: '#/components/schemas/MandateStatus'
         recipient:
           $ref: '#/components/schemas/MandateRecipient'
         recipient_account:
@@ -9253,13 +9273,7 @@ components:
           $ref: '#/components/schemas/MandateDetailsForPaymentLink'
         payment_method_types:
           items:
-            enum:
-            - MANDATE
-            - SINGLE
-            - CARD
-            - MANUAL
-            - WALLET
-            type: string
+            $ref: '#/components/schemas/PaymentType'
           type: array
           x-omitempty: true
         recipient_account_filters:
@@ -9303,13 +9317,7 @@ components:
           $ref: '#/components/schemas/MandateDetailsForPaymentLinkRequest'
         payment_method_types:
           items:
-            enum:
-            - MANDATE
-            - SINGLE
-            - CARD
-            - MANUAL
-            - WALLET
-            type: string
+            $ref: '#/components/schemas/PaymentType'
           type: array
           x-omitempty: true
         recipient_account_filters:
@@ -9353,7 +9361,7 @@ components:
     ListPaymentMethodsResponse:
       example:
         payment_methods:
-        - payment_method_type: payment_method_type
+        - payment_method_type: CARD
           integration_metadata:
             stripe_metadata:
               payment_method:
@@ -9506,7 +9514,7 @@ components:
               type: LINKING_ERROR
               message: message
             status: UNKNOWN
-        - payment_method_type: payment_method_type
+        - payment_method_type: CARD
           integration_metadata:
             stripe_metadata:
               payment_method:
@@ -9804,7 +9812,7 @@ components:
             settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
-          type: MANDATE
+          type: null
           error:
             error_code: CREDENTIALS_INVALID
             details: details
@@ -9904,7 +9912,7 @@ components:
           status: AUTHORIZATION_REQUIRED
         session_status: OPEN
         payment_method:
-          payment_method_type: payment_method_type
+          payment_method_type: CARD
           integration_metadata:
             stripe_metadata:
               payment_method:
@@ -10416,14 +10424,7 @@ components:
           format: date-time
           type: string
         status:
-          description: Card Status
-          enum:
-          - UNKNOWN
-          - CREATED
-          - SUCCEEDED
-          - CANCELLED
-          - FAILED
-          type: string
+          $ref: '#/components/schemas/CardStatus'
         error:
           $ref: '#/components/schemas/FvEmbeddedErrorModel'
         card_details:
@@ -10705,16 +10706,7 @@ components:
           description: Finverse Payment Method ID (ULID)
           type: string
         status:
-          description: Mandate Status
-          enum:
-          - AUTHORIZATION_REQUIRED
-          - AUTHORIZING
-          - PROCESSING
-          - SUBMITTED
-          - SUCCEEDED
-          - FAILED
-          - REVOKED
-          type: string
+          $ref: '#/components/schemas/MandateStatus'
         recipient:
           $ref: '#/components/schemas/MandateRecipient'
         recipient_account:
@@ -12180,17 +12172,7 @@ components:
         payment_id:
           type: string
         status:
-          enum:
-          - AUTHORIZATION_REQUIRED
-          - AUTHORIZING
-          - PROCESSING
-          - SUBMITTED
-          - EXECUTED
-          - FAILED
-          - REVOKED
-          - CANCELLED
-          - CREATED
-          type: string
+          $ref: '#/components/schemas/PaymentStatus'
       type: object
     ListPaymentAccountsResponse:
       example:
@@ -12281,7 +12263,7 @@ components:
           accountholder_name: Chan Li Pak
           legal_entity_name: legal_entity_name
           payment_method_overview:
-            payment_method_type: payment_method_type
+            payment_method_type: MANDATE
             external_gateway: external_gateway
             live_mode: true
             payment_confirmation_speed: payment_confirmation_speed
@@ -12317,7 +12299,7 @@ components:
           accountholder_name: Chan Li Pak
           legal_entity_name: legal_entity_name
           payment_method_overview:
-            payment_method_type: payment_method_type
+            payment_method_type: MANDATE
             external_gateway: external_gateway
             live_mode: true
             payment_confirmation_speed: payment_confirmation_speed
@@ -12370,7 +12352,7 @@ components:
         accountholder_name: Chan Li Pak
         legal_entity_name: legal_entity_name
         payment_method_overview:
-          payment_method_type: payment_method_type
+          payment_method_type: MANDATE
           external_gateway: external_gateway
           live_mode: true
           payment_confirmation_speed: payment_confirmation_speed
@@ -12497,7 +12479,7 @@ components:
       type: object
     PaymentMethodOverview:
       example:
-        payment_method_type: payment_method_type
+        payment_method_type: MANDATE
         external_gateway: external_gateway
         live_mode: true
         payment_confirmation_speed: payment_confirmation_speed
@@ -12515,9 +12497,7 @@ components:
           description: It can be either REALTIME or DELAYED
           type: string
         payment_method_type:
-          description: "The payment method type, possible values CARD, MANDATE and\
-            \ MANUAL"
-          type: string
+          $ref: '#/components/schemas/PaymentType'
         payment_method_subtype:
           description: "The payment method subtype, e.g., EDDA_HK, CARD_GENERIC etc"
           type: string
@@ -12933,10 +12913,7 @@ components:
         integration_metadata:
           $ref: '#/components/schemas/PaymentMethodIntegrationMetadata'
         payment_method_type:
-          enum:
-          - CARD
-          - MANDATE
-          type: string
+          $ref: '#/components/schemas/PaymentMethodType'
       required:
       - payment_method_type
       type: object
@@ -13025,7 +13002,7 @@ components:
       type: object
     PaymentMethodResponse:
       example:
-        payment_method_type: payment_method_type
+        payment_method_type: CARD
         integration_metadata:
           stripe_metadata:
             payment_method:
@@ -13182,7 +13159,7 @@ components:
         payment_method_id:
           type: string
         payment_method_type:
-          type: string
+          $ref: '#/components/schemas/PaymentMethodType'
         live:
           description: "Whether the payment method is live (true) or a test payment\
             \ method (false), based on its payment rail. Absent if the payment rail\
@@ -13201,7 +13178,7 @@ components:
         payment_method_id:
           type: string
         payment_method_type:
-          type: string
+          $ref: '#/components/schemas/PaymentMethodType'
         recipient_entity_name:
           type: string
         mandate:
@@ -13221,9 +13198,7 @@ components:
         payment_account_id:
           type: string
         payment_method_type:
-          description: "The payment method type, possible values CARD, MANDATE and\
-            \ MANUAL"
-          type: string
+          $ref: '#/components/schemas/PaymentType'
         payment_method_subtype:
           description: "The payment method subtype, e.g., EDDA_HK, CARD_GENERIC etc"
           type: string
@@ -13247,25 +13222,9 @@ components:
         payment_id:
           type: string
         status:
-          enum:
-          - AUTHORIZATION_REQUIRED
-          - AUTHORIZING
-          - PROCESSING
-          - SUBMITTED
-          - EXECUTED
-          - FAILED
-          - REVOKED
-          - CANCELLED
-          - CREATED
-          type: string
+          $ref: '#/components/schemas/PaymentStatus'
         type:
-          enum:
-          - MANDATE
-          - SINGLE
-          - CARD
-          - MANUAL
-          - WALLET
-          type: string
+          $ref: '#/components/schemas/PaymentType'
         payment_details:
           $ref: '#/components/schemas/PaymentFvLinkDetails'
         error:
@@ -13307,13 +13266,7 @@ components:
     CardFvLinkResponse:
       properties:
         status:
-          enum:
-          - UNKNOWN
-          - CREATED
-          - SUCCEEDED
-          - CANCELLED
-          - FAILED
-          type: string
+          $ref: '#/components/schemas/CardStatus'
         card_details:
           $ref: '#/components/schemas/CardFvLinkDetails'
         recipient:
@@ -13855,7 +13808,7 @@ components:
             settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
-          type: MANDATE
+          type: null
           error:
             error_code: CREDENTIALS_INVALID
             details: details
@@ -13995,7 +13948,7 @@ components:
             settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
-          type: MANDATE
+          type: null
           error:
             error_code: CREDENTIALS_INVALID
             details: details
@@ -14451,14 +14404,7 @@ components:
           example: 01ARZ3NDEKTSV4RRFFQ69G5FAV
           type: string
         payment_method_type:
-          description: The type of payment method to select
-          enum:
-          - MANDATE
-          - SINGLE
-          - CARD
-          - MANUAL
-          - WALLET
-          type: string
+          $ref: '#/components/schemas/PaymentType'
         sender_type:
           enum:
           - INDIVIDUAL

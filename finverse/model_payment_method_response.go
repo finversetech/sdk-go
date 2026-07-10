@@ -20,8 +20,8 @@ var _ MappedNullable = &PaymentMethodResponse{}
 
 // PaymentMethodResponse struct for PaymentMethodResponse
 type PaymentMethodResponse struct {
-	PaymentMethodId   *string `json:"payment_method_id,omitempty"`
-	PaymentMethodType *string `json:"payment_method_type,omitempty"`
+	PaymentMethodId   *string            `json:"payment_method_id,omitempty"`
+	PaymentMethodType *PaymentMethodType `json:"payment_method_type,omitempty"`
 	// Whether the payment method is live (true) or a test payment method (false), based on its payment rail. Absent if the payment rail is unknown.
 	Live                 NullableBool                              `json:"live,omitempty"`
 	Mandate              *GetMandateResponse                       `json:"mandate,omitempty"`
@@ -82,9 +82,9 @@ func (o *PaymentMethodResponse) SetPaymentMethodId(v string) {
 }
 
 // GetPaymentMethodType returns the PaymentMethodType field value if set, zero value otherwise.
-func (o *PaymentMethodResponse) GetPaymentMethodType() string {
+func (o *PaymentMethodResponse) GetPaymentMethodType() PaymentMethodType {
 	if o == nil || IsNil(o.PaymentMethodType) {
-		var ret string
+		var ret PaymentMethodType
 		return ret
 	}
 	return *o.PaymentMethodType
@@ -92,7 +92,7 @@ func (o *PaymentMethodResponse) GetPaymentMethodType() string {
 
 // GetPaymentMethodTypeOk returns a tuple with the PaymentMethodType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentMethodResponse) GetPaymentMethodTypeOk() (*string, bool) {
+func (o *PaymentMethodResponse) GetPaymentMethodTypeOk() (*PaymentMethodType, bool) {
 	if o == nil || IsNil(o.PaymentMethodType) {
 		return nil, false
 	}
@@ -108,8 +108,8 @@ func (o *PaymentMethodResponse) HasPaymentMethodType() bool {
 	return false
 }
 
-// SetPaymentMethodType gets a reference to the given string and assigns it to the PaymentMethodType field.
-func (o *PaymentMethodResponse) SetPaymentMethodType(v string) {
+// SetPaymentMethodType gets a reference to the given PaymentMethodType and assigns it to the PaymentMethodType field.
+func (o *PaymentMethodResponse) SetPaymentMethodType(v PaymentMethodType) {
 	o.PaymentMethodType = &v
 }
 

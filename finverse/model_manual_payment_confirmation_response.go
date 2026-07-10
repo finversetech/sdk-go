@@ -20,8 +20,8 @@ var _ MappedNullable = &ManualPaymentConfirmationResponse{}
 
 // ManualPaymentConfirmationResponse struct for ManualPaymentConfirmationResponse
 type ManualPaymentConfirmationResponse struct {
-	PaymentId            *string `json:"payment_id,omitempty"`
-	Status               *string `json:"status,omitempty"`
+	PaymentId            *string        `json:"payment_id,omitempty"`
+	Status               *PaymentStatus `json:"status,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -77,9 +77,9 @@ func (o *ManualPaymentConfirmationResponse) SetPaymentId(v string) {
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *ManualPaymentConfirmationResponse) GetStatus() string {
+func (o *ManualPaymentConfirmationResponse) GetStatus() PaymentStatus {
 	if o == nil || IsNil(o.Status) {
-		var ret string
+		var ret PaymentStatus
 		return ret
 	}
 	return *o.Status
@@ -87,7 +87,7 @@ func (o *ManualPaymentConfirmationResponse) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ManualPaymentConfirmationResponse) GetStatusOk() (*string, bool) {
+func (o *ManualPaymentConfirmationResponse) GetStatusOk() (*PaymentStatus, bool) {
 	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
@@ -103,8 +103,8 @@ func (o *ManualPaymentConfirmationResponse) HasStatus() bool {
 	return false
 }
 
-// SetStatus gets a reference to the given string and assigns it to the Status field.
-func (o *ManualPaymentConfirmationResponse) SetStatus(v string) {
+// SetStatus gets a reference to the given PaymentStatus and assigns it to the Status field.
+func (o *ManualPaymentConfirmationResponse) SetStatus(v PaymentStatus) {
 	o.Status = &v
 }
 

@@ -29,9 +29,8 @@ type GetMandateResponse struct {
 	// Finverse Mandate ID (ULID)
 	MandateId string `json:"mandate_id"`
 	// Finverse Payment Method ID (ULID)
-	PaymentMethodId *string `json:"payment_method_id,omitempty"`
-	// Mandate Status
-	Status           string                   `json:"status"`
+	PaymentMethodId  *string                  `json:"payment_method_id,omitempty"`
+	Status           MandateStatus            `json:"status"`
 	Recipient        MandateRecipient         `json:"recipient"`
 	RecipientAccount *MandateRecipientAccount `json:"recipient_account,omitempty"`
 	Sender           GetMandateSender         `json:"sender"`
@@ -50,7 +49,7 @@ type _GetMandateResponse GetMandateResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetMandateResponse(updatedAt time.Time, mandateId string, status string, recipient MandateRecipient, sender GetMandateSender, mandateDetails MandateDetailsResponse) *GetMandateResponse {
+func NewGetMandateResponse(updatedAt time.Time, mandateId string, status MandateStatus, recipient MandateRecipient, sender GetMandateSender, mandateDetails MandateDetailsResponse) *GetMandateResponse {
 	this := GetMandateResponse{}
 	this.UpdatedAt = updatedAt
 	this.MandateId = mandateId
@@ -182,9 +181,9 @@ func (o *GetMandateResponse) SetPaymentMethodId(v string) {
 }
 
 // GetStatus returns the Status field value
-func (o *GetMandateResponse) GetStatus() string {
+func (o *GetMandateResponse) GetStatus() MandateStatus {
 	if o == nil {
-		var ret string
+		var ret MandateStatus
 		return ret
 	}
 
@@ -193,7 +192,7 @@ func (o *GetMandateResponse) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-func (o *GetMandateResponse) GetStatusOk() (*string, bool) {
+func (o *GetMandateResponse) GetStatusOk() (*MandateStatus, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -201,7 +200,7 @@ func (o *GetMandateResponse) GetStatusOk() (*string, bool) {
 }
 
 // SetStatus sets field value
-func (o *GetMandateResponse) SetStatus(v string) {
+func (o *GetMandateResponse) SetStatus(v MandateStatus) {
 	o.Status = v
 }
 

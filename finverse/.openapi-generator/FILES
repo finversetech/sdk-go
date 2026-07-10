@@ -37,6 +37,7 @@ model_card_details.go
 model_card_fv_link_details.go
 model_card_fv_link_response.go
 model_card_recipient.go
+model_card_status.go
 model_card_total.go
 model_category_predictions.go
 model_change_payment_method_fv_link_response.go
@@ -159,6 +160,7 @@ model_mandate_recipient_account.go
 model_mandate_recipient_request.go
 model_mandate_sender_account.go
 model_mandate_sender_account_request.go
+model_mandate_status.go
 model_manual_payment_confirmation_request.go
 model_manual_payment_confirmation_response.go
 model_monthly_income_estimate.go
@@ -196,6 +198,7 @@ model_payment_method_integration_metadata_stripe_metadata.go
 model_payment_method_integration_metadata_stripe_metadata_customer.go
 model_payment_method_overview.go
 model_payment_method_response.go
+model_payment_method_type.go
 model_payment_processor_details.go
 model_payment_processor_result.go
 model_payment_response.go
@@ -206,6 +209,8 @@ model_payment_snapshot_payment_method.go
 model_payment_snapshot_payment_method_bank_transfer.go
 model_payment_snapshot_payment_method_card.go
 model_payment_snapshot_payment_method_wallet.go
+model_payment_status.go
+model_payment_type.go
 model_payment_user.go
 model_payment_user_without_email.go
 model_payout_account_ref.go

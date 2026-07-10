@@ -21,9 +21,8 @@ var _ MappedNullable = &AvailablePaymentMethod{}
 
 // AvailablePaymentMethod struct for AvailablePaymentMethod
 type AvailablePaymentMethod struct {
-	PaymentAccountId *string `json:"payment_account_id,omitempty"`
-	// The payment method type, possible values CARD, MANDATE and MANUAL
-	PaymentMethodType *string `json:"payment_method_type,omitempty"`
+	PaymentAccountId  *string      `json:"payment_account_id,omitempty"`
+	PaymentMethodType *PaymentType `json:"payment_method_type,omitempty"`
 	// The payment method subtype, e.g., EDDA_HK, CARD_GENERIC etc
 	PaymentMethodSubtype  *string `json:"payment_method_subtype,omitempty"`
 	Recurring             bool    `json:"recurring"`
@@ -87,9 +86,9 @@ func (o *AvailablePaymentMethod) SetPaymentAccountId(v string) {
 }
 
 // GetPaymentMethodType returns the PaymentMethodType field value if set, zero value otherwise.
-func (o *AvailablePaymentMethod) GetPaymentMethodType() string {
+func (o *AvailablePaymentMethod) GetPaymentMethodType() PaymentType {
 	if o == nil || IsNil(o.PaymentMethodType) {
-		var ret string
+		var ret PaymentType
 		return ret
 	}
 	return *o.PaymentMethodType
@@ -97,7 +96,7 @@ func (o *AvailablePaymentMethod) GetPaymentMethodType() string {
 
 // GetPaymentMethodTypeOk returns a tuple with the PaymentMethodType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AvailablePaymentMethod) GetPaymentMethodTypeOk() (*string, bool) {
+func (o *AvailablePaymentMethod) GetPaymentMethodTypeOk() (*PaymentType, bool) {
 	if o == nil || IsNil(o.PaymentMethodType) {
 		return nil, false
 	}
@@ -113,8 +112,8 @@ func (o *AvailablePaymentMethod) HasPaymentMethodType() bool {
 	return false
 }
 
-// SetPaymentMethodType gets a reference to the given string and assigns it to the PaymentMethodType field.
-func (o *AvailablePaymentMethod) SetPaymentMethodType(v string) {
+// SetPaymentMethodType gets a reference to the given PaymentType and assigns it to the PaymentMethodType field.
+func (o *AvailablePaymentMethod) SetPaymentMethodType(v PaymentType) {
 	o.PaymentMethodType = &v
 }
 

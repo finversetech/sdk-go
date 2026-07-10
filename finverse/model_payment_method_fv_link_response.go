@@ -21,7 +21,7 @@ var _ MappedNullable = &PaymentMethodFvLinkResponse{}
 // PaymentMethodFvLinkResponse struct for PaymentMethodFvLinkResponse
 type PaymentMethodFvLinkResponse struct {
 	PaymentMethodId      *string                `json:"payment_method_id,omitempty"`
-	PaymentMethodType    *string                `json:"payment_method_type,omitempty"`
+	PaymentMethodType    *PaymentMethodType     `json:"payment_method_type,omitempty"`
 	RecipientEntityName  *string                `json:"recipient_entity_name,omitempty"`
 	Mandate              *MandateFvLinkResponse `json:"mandate,omitempty"`
 	Card                 *CardFvLinkResponse    `json:"card,omitempty"`
@@ -80,9 +80,9 @@ func (o *PaymentMethodFvLinkResponse) SetPaymentMethodId(v string) {
 }
 
 // GetPaymentMethodType returns the PaymentMethodType field value if set, zero value otherwise.
-func (o *PaymentMethodFvLinkResponse) GetPaymentMethodType() string {
+func (o *PaymentMethodFvLinkResponse) GetPaymentMethodType() PaymentMethodType {
 	if o == nil || IsNil(o.PaymentMethodType) {
-		var ret string
+		var ret PaymentMethodType
 		return ret
 	}
 	return *o.PaymentMethodType
@@ -90,7 +90,7 @@ func (o *PaymentMethodFvLinkResponse) GetPaymentMethodType() string {
 
 // GetPaymentMethodTypeOk returns a tuple with the PaymentMethodType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentMethodFvLinkResponse) GetPaymentMethodTypeOk() (*string, bool) {
+func (o *PaymentMethodFvLinkResponse) GetPaymentMethodTypeOk() (*PaymentMethodType, bool) {
 	if o == nil || IsNil(o.PaymentMethodType) {
 		return nil, false
 	}
@@ -106,8 +106,8 @@ func (o *PaymentMethodFvLinkResponse) HasPaymentMethodType() bool {
 	return false
 }
 
-// SetPaymentMethodType gets a reference to the given string and assigns it to the PaymentMethodType field.
-func (o *PaymentMethodFvLinkResponse) SetPaymentMethodType(v string) {
+// SetPaymentMethodType gets a reference to the given PaymentMethodType and assigns it to the PaymentMethodType field.
+func (o *PaymentMethodFvLinkResponse) SetPaymentMethodType(v PaymentMethodType) {
 	o.PaymentMethodType = &v
 }
 

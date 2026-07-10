@@ -24,9 +24,8 @@ type FVCard struct {
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	UpdatedAt *time.Time `json:"updated_at,omitempty"`
-	// Card Status
-	Status               *string                  `json:"status,omitempty"`
+	UpdatedAt            *time.Time               `json:"updated_at,omitempty"`
+	Status               *CardStatus              `json:"status,omitempty"`
 	Error                *FvEmbeddedErrorModel    `json:"error,omitempty"`
 	CardDetails          *FVCardDetails           `json:"card_details,omitempty"`
 	RecipientAccount     *MandateRecipientAccount `json:"recipient_account,omitempty"`
@@ -118,9 +117,9 @@ func (o *FVCard) SetUpdatedAt(v time.Time) {
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *FVCard) GetStatus() string {
+func (o *FVCard) GetStatus() CardStatus {
 	if o == nil || IsNil(o.Status) {
-		var ret string
+		var ret CardStatus
 		return ret
 	}
 	return *o.Status
@@ -128,7 +127,7 @@ func (o *FVCard) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FVCard) GetStatusOk() (*string, bool) {
+func (o *FVCard) GetStatusOk() (*CardStatus, bool) {
 	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
@@ -144,8 +143,8 @@ func (o *FVCard) HasStatus() bool {
 	return false
 }
 
-// SetStatus gets a reference to the given string and assigns it to the Status field.
-func (o *FVCard) SetStatus(v string) {
+// SetStatus gets a reference to the given CardStatus and assigns it to the Status field.
+func (o *FVCard) SetStatus(v CardStatus) {
 	o.Status = &v
 }
 

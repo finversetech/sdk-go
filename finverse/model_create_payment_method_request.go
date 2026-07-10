@@ -24,7 +24,7 @@ type CreatePaymentMethodRequest struct {
 	Card                 *CreateCardRequest                    `json:"card,omitempty"`
 	Mandate              *CreateMandateRequestWithDdaReference `json:"mandate,omitempty"`
 	IntegrationMetadata  *PaymentMethodIntegrationMetadata     `json:"integration_metadata,omitempty"`
-	PaymentMethodType    string                                `json:"payment_method_type"`
+	PaymentMethodType    PaymentMethodType                     `json:"payment_method_type"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,7 +34,7 @@ type _CreatePaymentMethodRequest CreatePaymentMethodRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentMethodRequest(paymentMethodType string) *CreatePaymentMethodRequest {
+func NewCreatePaymentMethodRequest(paymentMethodType PaymentMethodType) *CreatePaymentMethodRequest {
 	this := CreatePaymentMethodRequest{}
 	this.PaymentMethodType = paymentMethodType
 	return &this
@@ -145,9 +145,9 @@ func (o *CreatePaymentMethodRequest) SetIntegrationMetadata(v PaymentMethodInteg
 }
 
 // GetPaymentMethodType returns the PaymentMethodType field value
-func (o *CreatePaymentMethodRequest) GetPaymentMethodType() string {
+func (o *CreatePaymentMethodRequest) GetPaymentMethodType() PaymentMethodType {
 	if o == nil {
-		var ret string
+		var ret PaymentMethodType
 		return ret
 	}
 
@@ -156,7 +156,7 @@ func (o *CreatePaymentMethodRequest) GetPaymentMethodType() string {
 
 // GetPaymentMethodTypeOk returns a tuple with the PaymentMethodType field value
 // and a boolean to check if the value has been set.
-func (o *CreatePaymentMethodRequest) GetPaymentMethodTypeOk() (*string, bool) {
+func (o *CreatePaymentMethodRequest) GetPaymentMethodTypeOk() (*PaymentMethodType, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -164,7 +164,7 @@ func (o *CreatePaymentMethodRequest) GetPaymentMethodTypeOk() (*string, bool) {
 }
 
 // SetPaymentMethodType sets field value
-func (o *CreatePaymentMethodRequest) SetPaymentMethodType(v string) {
+func (o *CreatePaymentMethodRequest) SetPaymentMethodType(v PaymentMethodType) {
 	o.PaymentMethodType = v
 }
 
