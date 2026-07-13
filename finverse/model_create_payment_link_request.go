@@ -25,10 +25,9 @@ type CreatePaymentLinkRequest struct {
 	Amount             *int32                     `json:"amount,omitempty"`
 	Currency           string                     `json:"currency"`
 	LinkCustomizations *PaymentLinkCustomizations `json:"link_customizations,omitempty"`
-	// The payment link mode
-	Mode           string              `json:"mode"`
-	PaymentDetails *PaymentLinkDetails `json:"payment_details,omitempty"`
-	Sender         PaymentLinkSender   `json:"sender"`
+	Mode               PaymentLinkMode            `json:"mode"`
+	PaymentDetails     *PaymentLinkDetails        `json:"payment_details,omitempty"`
+	Sender             PaymentLinkSender          `json:"sender"`
 	// Unique reference id to identifying the payment to be collected.
 	UniqueReferenceId    string                      `json:"unique_reference_id"`
 	PaymentSetupOptions  *PaymentSetupOptionsRequest `json:"payment_setup_options,omitempty"`
@@ -44,7 +43,7 @@ type _CreatePaymentLinkRequest CreatePaymentLinkRequest
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreatePaymentLinkRequest(currency string, mode string, sender PaymentLinkSender, uniqueReferenceId string) *CreatePaymentLinkRequest {
+func NewCreatePaymentLinkRequest(currency string, mode PaymentLinkMode, sender PaymentLinkSender, uniqueReferenceId string) *CreatePaymentLinkRequest {
 	this := CreatePaymentLinkRequest{}
 	this.Currency = currency
 	this.Mode = mode
@@ -150,9 +149,9 @@ func (o *CreatePaymentLinkRequest) SetLinkCustomizations(v PaymentLinkCustomizat
 }
 
 // GetMode returns the Mode field value
-func (o *CreatePaymentLinkRequest) GetMode() string {
+func (o *CreatePaymentLinkRequest) GetMode() PaymentLinkMode {
 	if o == nil {
-		var ret string
+		var ret PaymentLinkMode
 		return ret
 	}
 
@@ -161,7 +160,7 @@ func (o *CreatePaymentLinkRequest) GetMode() string {
 
 // GetModeOk returns a tuple with the Mode field value
 // and a boolean to check if the value has been set.
-func (o *CreatePaymentLinkRequest) GetModeOk() (*string, bool) {
+func (o *CreatePaymentLinkRequest) GetModeOk() (*PaymentLinkMode, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -169,7 +168,7 @@ func (o *CreatePaymentLinkRequest) GetModeOk() (*string, bool) {
 }
 
 // SetMode sets field value
-func (o *CreatePaymentLinkRequest) SetMode(v string) {
+func (o *CreatePaymentLinkRequest) SetMode(v PaymentLinkMode) {
 	o.Mode = v
 }
 

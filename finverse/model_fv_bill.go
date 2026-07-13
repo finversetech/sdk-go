@@ -32,7 +32,7 @@ type FVBill struct {
 	IntegrationMetadata       BillIntegrationMetadata `json:"integration_metadata"`
 	Details                   BillDetails             `json:"details"`
 	Metadata                  *map[string]string      `json:"metadata,omitempty"`
-	Status                    string                  `json:"status"`
+	Status                    BillStatus              `json:"status"`
 	IntegrationId             string                  `json:"integration_id"`
 	SenderDetails             BillSenderDetails       `json:"sender_details"`
 	CreatedAt                 NullableTime            `json:"created_at"`
@@ -47,7 +47,7 @@ type _FVBill FVBill
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFVBill(billId string, externalBillId string, userId string, externalUserId string, customerAppId string, billDate NullableTime, dueDate NullableTime, integrationMetadata BillIntegrationMetadata, details BillDetails, status string, integrationId string, senderDetails BillSenderDetails, createdAt NullableTime, updatedAt NullableTime, isFinverseAutopayEligible bool) *FVBill {
+func NewFVBill(billId string, externalBillId string, userId string, externalUserId string, customerAppId string, billDate NullableTime, dueDate NullableTime, integrationMetadata BillIntegrationMetadata, details BillDetails, status BillStatus, integrationId string, senderDetails BillSenderDetails, createdAt NullableTime, updatedAt NullableTime, isFinverseAutopayEligible bool) *FVBill {
 	this := FVBill{}
 	this.BillId = billId
 	this.ExternalBillId = externalBillId
@@ -328,9 +328,9 @@ func (o *FVBill) SetMetadata(v map[string]string) {
 }
 
 // GetStatus returns the Status field value
-func (o *FVBill) GetStatus() string {
+func (o *FVBill) GetStatus() BillStatus {
 	if o == nil {
-		var ret string
+		var ret BillStatus
 		return ret
 	}
 
@@ -339,7 +339,7 @@ func (o *FVBill) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-func (o *FVBill) GetStatusOk() (*string, bool) {
+func (o *FVBill) GetStatusOk() (*BillStatus, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -347,7 +347,7 @@ func (o *FVBill) GetStatusOk() (*string, bool) {
 }
 
 // SetStatus sets field value
-func (o *FVBill) SetStatus(v string) {
+func (o *FVBill) SetStatus(v BillStatus) {
 	o.Status = v
 }
 

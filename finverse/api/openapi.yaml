@@ -3205,6 +3205,82 @@ components:
       - CARD
       - MANDATE
       type: string
+    PaymentLinkStatus:
+      description: The status of payment link
+      enum:
+      - CREATED
+      - PAID
+      - EXPIRED
+      type: string
+    PaymentLinkSessionStatus:
+      description: The session status of payment link
+      enum:
+      - OPEN
+      - PROCESSING
+      - COMPLETE
+      - FAILED
+      type: string
+    PaymentLinkMode:
+      description: The payment link mode
+      enum:
+      - PAYMENT
+      - SETUP
+      type: string
+    BillStatus:
+      description: Bill status
+      enum:
+      - UNKNOWN
+      - UNPAID
+      - PAID
+      - CANCELLED
+      - FAILED
+      type: string
+    DisputeStatus:
+      description: The status of the dispute
+      enum:
+      - UNKNOWN
+      - UNDEFENDED
+      - ACTION_REQUIRED
+      - PROCESSING
+      - ACCEPTED
+      - LOST
+      - WON
+      type: string
+    PayoutStatus:
+      description: Payout status
+      enum:
+      - EXECUTED
+      - CREATED
+      - PROCESSING
+      - PROCESSING_FUNDS
+      - CANCELLED
+      - FAILED
+      - FUNDED
+      - SUBMITTED
+      type: string
+    PayoutType:
+      description: Payout type
+      enum:
+      - MANUAL
+      - SCHEDULED
+      - SETTLEMENT
+      - ON_DEMAND
+      type: string
+    CardFundingType:
+      description: The funding source of the card
+      enum:
+      - UNKNOWN
+      - CREDIT
+      - DEBIT
+      - PREPAID
+      type: string
+    FuturePaymentsMode:
+      description: "The type of future_payments that customer want to use. Possible\
+        \ values: AUTOPAY or CLICK_TO_PAY"
+      enum:
+      - AUTOPAY
+      - CLICK_TO_PAY
+      type: string
     Principal:
       properties:
         subject:
@@ -8398,23 +8474,9 @@ components:
         payout_id:
           type: string
         status:
-          enum:
-          - EXECUTED
-          - CREATED
-          - PROCESSING
-          - PROCESSING_FUNDS
-          - CANCELLED
-          - FAILED
-          - FUNDED
-          - SUBMITTED
-          type: string
+          $ref: '#/components/schemas/PayoutStatus'
         type:
-          enum:
-          - MANUAL
-          - SCHEDULED
-          - SETTLEMENT
-          - ON_DEMAND
-          type: string
+          $ref: '#/components/schemas/PayoutType'
         created_at:
           format: date-time
           type: string
@@ -9154,12 +9216,7 @@ components:
         link_customizations:
           $ref: '#/components/schemas/PaymentLinkCustomizations'
         mode:
-          description: The payment link mode
-          enum:
-          - PAYMENT
-          - SETUP
-          example: PAYMENT
-          type: string
+          $ref: '#/components/schemas/PaymentLinkMode'
         payment_details:
           $ref: '#/components/schemas/PaymentLinkDetails'
         sender:
@@ -9263,12 +9320,7 @@ components:
           enrollment_prefill_value: "YES"
       properties:
         future_payments:
-          description: "The type of future_payments that customer want to use. Possible\
-            \ values: AUTOPAY or CLICK_TO_PAY"
-          enum:
-          - AUTOPAY
-          - CLICK_TO_PAY
-          type: string
+          $ref: '#/components/schemas/FuturePaymentsMode'
         mandate_details:
           $ref: '#/components/schemas/MandateDetailsForPaymentLink'
         payment_method_types:
@@ -9307,12 +9359,7 @@ components:
           enrollment_prefill_value: "YES"
       properties:
         future_payments:
-          description: "The type of future_payments that customer want to use. Possible\
-            \ values: AUTOPAY or CLICK_TO_PAY"
-          enum:
-          - AUTOPAY
-          - CLICK_TO_PAY
-          type: string
+          $ref: '#/components/schemas/FuturePaymentsMode'
         mandate_details:
           $ref: '#/components/schemas/MandateDetailsForPaymentLinkRequest'
         payment_method_types:
@@ -10081,11 +10128,7 @@ components:
         link_customizations:
           $ref: '#/components/schemas/PaymentLinkCustomizations'
         mode:
-          description: The payment link mode
-          enum:
-          - PAYMENT
-          example: PAYMENT
-          type: string
+          $ref: '#/components/schemas/PaymentLinkMode'
         payment_details:
           $ref: '#/components/schemas/PaymentLinkDetails'
         unique_reference_id:
@@ -10111,20 +10154,9 @@ components:
           description: The URL for payment link
           type: string
         status:
-          description: The status of payment link
-          enum:
-          - CREATED
-          - PAID
-          - EXPIRED
-          type: string
+          $ref: '#/components/schemas/PaymentLinkStatus'
         session_status:
-          description: The session status of payment link
-          enum:
-          - OPEN
-          - PROCESSING
-          - COMPLETE
-          - FAILED
-          type: string
+          $ref: '#/components/schemas/PaymentLinkSessionStatus'
         created_at:
           description: Timestamp of when the payment link was created in ISO format
             (YYYY-MM-DDTHH:MM:SS.SSSZ)
@@ -10486,13 +10518,7 @@ components:
           example: V0010013822052427221044754993
           type: string
         funding:
-          description: The funding source of the card
-          enum:
-          - UNKNOWN
-          - CREDIT
-          - DEBIT
-          - PREPAID
-          type: string
+          $ref: '#/components/schemas/CardFundingType'
         finverse_authorization_reference:
           type: string
         processor_details:
@@ -13543,16 +13569,7 @@ components:
           nullable: true
           type: boolean
         dispute_status:
-          description: The status of the dispute
-          enum:
-          - UNKNOWN
-          - UNDEFENDED
-          - ACTION_REQUIRED
-          - PROCESSING
-          - ACCEPTED
-          - LOST
-          - WON
-          type: string
+          $ref: '#/components/schemas/DisputeStatus'
         payment_processor_dispute_status:
           description: The status of the dispute at the payment processor
           type: string
@@ -13707,13 +13724,7 @@ components:
             type: string
           type: object
         status:
-          enum:
-          - UNKNOWN
-          - UNPAID
-          - PAID
-          - CANCELLED
-          - FAILED
-          type: string
+          $ref: '#/components/schemas/BillStatus'
         integration_id:
           type: string
         sender_details:
@@ -14838,13 +14849,7 @@ components:
           example: HK
           type: string
         funding:
-          description: The funding source of the card
-          enum:
-          - UNKNOWN
-          - CREDIT
-          - DEBIT
-          - PREPAID
-          type: string
+          $ref: '#/components/schemas/CardFundingType'
       required:
       - brand
       - currency

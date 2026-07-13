@@ -31,10 +31,9 @@ type FVCardDetails struct {
 	ProcessorEntityName  *string `json:"processor_entity_name,omitempty"`
 	CollectionEntityName *string `json:"collection_entity_name,omitempty"`
 	// The issuer country
-	Country     *string `json:"country,omitempty"`
-	Fingerprint *string `json:"fingerprint,omitempty"`
-	// The funding source of the card
-	Funding                        *string                 `json:"funding,omitempty"`
+	Country                        *string                 `json:"country,omitempty"`
+	Fingerprint                    *string                 `json:"fingerprint,omitempty"`
+	Funding                        *CardFundingType        `json:"funding,omitempty"`
 	FinverseAuthorizationReference *string                 `json:"finverse_authorization_reference,omitempty"`
 	ProcessorDetails               *FVCardProcessorDetails `json:"processor_details,omitempty"`
 	// The recurring payment mode
@@ -326,9 +325,9 @@ func (o *FVCardDetails) SetFingerprint(v string) {
 }
 
 // GetFunding returns the Funding field value if set, zero value otherwise.
-func (o *FVCardDetails) GetFunding() string {
+func (o *FVCardDetails) GetFunding() CardFundingType {
 	if o == nil || IsNil(o.Funding) {
-		var ret string
+		var ret CardFundingType
 		return ret
 	}
 	return *o.Funding
@@ -336,7 +335,7 @@ func (o *FVCardDetails) GetFunding() string {
 
 // GetFundingOk returns a tuple with the Funding field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FVCardDetails) GetFundingOk() (*string, bool) {
+func (o *FVCardDetails) GetFundingOk() (*CardFundingType, bool) {
 	if o == nil || IsNil(o.Funding) {
 		return nil, false
 	}
@@ -352,8 +351,8 @@ func (o *FVCardDetails) HasFunding() bool {
 	return false
 }
 
-// SetFunding gets a reference to the given string and assigns it to the Funding field.
-func (o *FVCardDetails) SetFunding(v string) {
+// SetFunding gets a reference to the given CardFundingType and assigns it to the Funding field.
+func (o *FVCardDetails) SetFunding(v CardFundingType) {
 	o.Funding = &v
 }
 

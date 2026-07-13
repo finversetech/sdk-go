@@ -31,9 +31,8 @@ type CreateCardRequestCardDetails struct {
 	// The card number alias
 	CardNumberAlias *string `json:"card_number_alias,omitempty"`
 	// The issuer country
-	Country *string `json:"country,omitempty"`
-	// The funding source of the card
-	Funding              *string `json:"funding,omitempty"`
+	Country              *string          `json:"country,omitempty"`
+	Funding              *CardFundingType `json:"funding,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -292,9 +291,9 @@ func (o *CreateCardRequestCardDetails) SetCountry(v string) {
 }
 
 // GetFunding returns the Funding field value if set, zero value otherwise.
-func (o *CreateCardRequestCardDetails) GetFunding() string {
+func (o *CreateCardRequestCardDetails) GetFunding() CardFundingType {
 	if o == nil || IsNil(o.Funding) {
-		var ret string
+		var ret CardFundingType
 		return ret
 	}
 	return *o.Funding
@@ -302,7 +301,7 @@ func (o *CreateCardRequestCardDetails) GetFunding() string {
 
 // GetFundingOk returns a tuple with the Funding field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateCardRequestCardDetails) GetFundingOk() (*string, bool) {
+func (o *CreateCardRequestCardDetails) GetFundingOk() (*CardFundingType, bool) {
 	if o == nil || IsNil(o.Funding) {
 		return nil, false
 	}
@@ -318,8 +317,8 @@ func (o *CreateCardRequestCardDetails) HasFunding() bool {
 	return false
 }
 
-// SetFunding gets a reference to the given string and assigns it to the Funding field.
-func (o *CreateCardRequestCardDetails) SetFunding(v string) {
+// SetFunding gets a reference to the given CardFundingType and assigns it to the Funding field.
+func (o *CreateCardRequestCardDetails) SetFunding(v CardFundingType) {
 	o.Funding = &v
 }
 

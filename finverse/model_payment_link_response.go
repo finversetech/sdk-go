@@ -27,9 +27,8 @@ type PaymentLinkResponse struct {
 	Amount             *int32                     `json:"amount,omitempty"`
 	Currency           *string                    `json:"currency,omitempty"`
 	LinkCustomizations *PaymentLinkCustomizations `json:"link_customizations,omitempty"`
-	// The payment link mode
-	Mode           *string             `json:"mode,omitempty"`
-	PaymentDetails *PaymentLinkDetails `json:"payment_details,omitempty"`
+	Mode               *PaymentLinkMode           `json:"mode,omitempty"`
+	PaymentDetails     *PaymentLinkDetails        `json:"payment_details,omitempty"`
 	// Unique reference id to identifying the payment to be collected.
 	UniqueReferenceId   *string              `json:"unique_reference_id,omitempty"`
 	PaymentSetupOptions *PaymentSetupOptions `json:"payment_setup_options,omitempty"`
@@ -38,11 +37,9 @@ type PaymentLinkResponse struct {
 	// Key-Value metadata to store on payments created on this Payment Link
 	PaymentMetadata *map[string]string `json:"payment_metadata,omitempty"`
 	// The URL for payment link
-	Url *string `json:"url,omitempty"`
-	// The status of payment link
-	Status *string `json:"status,omitempty"`
-	// The session status of payment link
-	SessionStatus *string `json:"session_status,omitempty"`
+	Url           *string                   `json:"url,omitempty"`
+	Status        *PaymentLinkStatus        `json:"status,omitempty"`
+	SessionStatus *PaymentLinkSessionStatus `json:"session_status,omitempty"`
 	// Timestamp of when the payment link was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp of when the payment link was last updated in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
@@ -202,9 +199,9 @@ func (o *PaymentLinkResponse) SetLinkCustomizations(v PaymentLinkCustomizations)
 }
 
 // GetMode returns the Mode field value if set, zero value otherwise.
-func (o *PaymentLinkResponse) GetMode() string {
+func (o *PaymentLinkResponse) GetMode() PaymentLinkMode {
 	if o == nil || IsNil(o.Mode) {
-		var ret string
+		var ret PaymentLinkMode
 		return ret
 	}
 	return *o.Mode
@@ -212,7 +209,7 @@ func (o *PaymentLinkResponse) GetMode() string {
 
 // GetModeOk returns a tuple with the Mode field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentLinkResponse) GetModeOk() (*string, bool) {
+func (o *PaymentLinkResponse) GetModeOk() (*PaymentLinkMode, bool) {
 	if o == nil || IsNil(o.Mode) {
 		return nil, false
 	}
@@ -228,8 +225,8 @@ func (o *PaymentLinkResponse) HasMode() bool {
 	return false
 }
 
-// SetMode gets a reference to the given string and assigns it to the Mode field.
-func (o *PaymentLinkResponse) SetMode(v string) {
+// SetMode gets a reference to the given PaymentLinkMode and assigns it to the Mode field.
+func (o *PaymentLinkResponse) SetMode(v PaymentLinkMode) {
 	o.Mode = &v
 }
 
@@ -426,9 +423,9 @@ func (o *PaymentLinkResponse) SetUrl(v string) {
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *PaymentLinkResponse) GetStatus() string {
+func (o *PaymentLinkResponse) GetStatus() PaymentLinkStatus {
 	if o == nil || IsNil(o.Status) {
-		var ret string
+		var ret PaymentLinkStatus
 		return ret
 	}
 	return *o.Status
@@ -436,7 +433,7 @@ func (o *PaymentLinkResponse) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentLinkResponse) GetStatusOk() (*string, bool) {
+func (o *PaymentLinkResponse) GetStatusOk() (*PaymentLinkStatus, bool) {
 	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
@@ -452,15 +449,15 @@ func (o *PaymentLinkResponse) HasStatus() bool {
 	return false
 }
 
-// SetStatus gets a reference to the given string and assigns it to the Status field.
-func (o *PaymentLinkResponse) SetStatus(v string) {
+// SetStatus gets a reference to the given PaymentLinkStatus and assigns it to the Status field.
+func (o *PaymentLinkResponse) SetStatus(v PaymentLinkStatus) {
 	o.Status = &v
 }
 
 // GetSessionStatus returns the SessionStatus field value if set, zero value otherwise.
-func (o *PaymentLinkResponse) GetSessionStatus() string {
+func (o *PaymentLinkResponse) GetSessionStatus() PaymentLinkSessionStatus {
 	if o == nil || IsNil(o.SessionStatus) {
-		var ret string
+		var ret PaymentLinkSessionStatus
 		return ret
 	}
 	return *o.SessionStatus
@@ -468,7 +465,7 @@ func (o *PaymentLinkResponse) GetSessionStatus() string {
 
 // GetSessionStatusOk returns a tuple with the SessionStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentLinkResponse) GetSessionStatusOk() (*string, bool) {
+func (o *PaymentLinkResponse) GetSessionStatusOk() (*PaymentLinkSessionStatus, bool) {
 	if o == nil || IsNil(o.SessionStatus) {
 		return nil, false
 	}
@@ -484,8 +481,8 @@ func (o *PaymentLinkResponse) HasSessionStatus() bool {
 	return false
 }
 
-// SetSessionStatus gets a reference to the given string and assigns it to the SessionStatus field.
-func (o *PaymentLinkResponse) SetSessionStatus(v string) {
+// SetSessionStatus gets a reference to the given PaymentLinkSessionStatus and assigns it to the SessionStatus field.
+func (o *PaymentLinkResponse) SetSessionStatus(v PaymentLinkSessionStatus) {
 	o.SessionStatus = &v
 }
 

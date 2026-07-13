@@ -20,8 +20,7 @@ var _ MappedNullable = &PaymentSetupOptionsRequest{}
 
 // PaymentSetupOptionsRequest struct for PaymentSetupOptionsRequest
 type PaymentSetupOptionsRequest struct {
-	// The type of future_payments that customer want to use. Possible values: AUTOPAY or CLICK_TO_PAY
-	FuturePayments                 *string                              `json:"future_payments,omitempty"`
+	FuturePayments                 *FuturePaymentsMode                  `json:"future_payments,omitempty"`
 	MandateDetails                 *MandateDetailsForPaymentLinkRequest `json:"mandate_details,omitempty"`
 	PaymentMethodTypes             []PaymentType                        `json:"payment_method_types,omitempty"`
 	RecipientAccountFilters        *RecipientAccountFilters             `json:"recipient_account_filters,omitempty"`
@@ -51,9 +50,9 @@ func NewPaymentSetupOptionsRequestWithDefaults() *PaymentSetupOptionsRequest {
 }
 
 // GetFuturePayments returns the FuturePayments field value if set, zero value otherwise.
-func (o *PaymentSetupOptionsRequest) GetFuturePayments() string {
+func (o *PaymentSetupOptionsRequest) GetFuturePayments() FuturePaymentsMode {
 	if o == nil || IsNil(o.FuturePayments) {
-		var ret string
+		var ret FuturePaymentsMode
 		return ret
 	}
 	return *o.FuturePayments
@@ -61,7 +60,7 @@ func (o *PaymentSetupOptionsRequest) GetFuturePayments() string {
 
 // GetFuturePaymentsOk returns a tuple with the FuturePayments field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentSetupOptionsRequest) GetFuturePaymentsOk() (*string, bool) {
+func (o *PaymentSetupOptionsRequest) GetFuturePaymentsOk() (*FuturePaymentsMode, bool) {
 	if o == nil || IsNil(o.FuturePayments) {
 		return nil, false
 	}
@@ -77,8 +76,8 @@ func (o *PaymentSetupOptionsRequest) HasFuturePayments() bool {
 	return false
 }
 
-// SetFuturePayments gets a reference to the given string and assigns it to the FuturePayments field.
-func (o *PaymentSetupOptionsRequest) SetFuturePayments(v string) {
+// SetFuturePayments gets a reference to the given FuturePaymentsMode and assigns it to the FuturePayments field.
+func (o *PaymentSetupOptionsRequest) SetFuturePayments(v FuturePaymentsMode) {
 	o.FuturePayments = &v
 }
 

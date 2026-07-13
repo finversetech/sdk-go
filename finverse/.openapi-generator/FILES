@@ -32,8 +32,10 @@ model_bill_details.go
 model_bill_integration_metadata.go
 model_bill_rapidstor_metadata.go
 model_bill_sender_details.go
+model_bill_status.go
 model_card_account.go
 model_card_details.go
+model_card_funding_type.go
 model_card_fv_link_details.go
 model_card_fv_link_response.go
 model_card_recipient.go
@@ -65,6 +67,7 @@ model_currency_amount.go
 model_delete_login_identity_response.go
 model_dispute_response.go
 model_dispute_response_card_details.go
+model_dispute_status.go
 model_download_balance_statement_response.go
 model_encrypted_payload.go
 model_err_body_model.go
@@ -73,6 +76,7 @@ model_error_response.go
 model_fee.go
 model_fps_qr_code_response.go
 model_frontend_fv_error_model.go
+model_future_payments_mode.go
 model_fv_bill.go
 model_fv_card.go
 model_fv_card_details.go
@@ -179,9 +183,12 @@ model_payment_fv_link_response.go
 model_payment_info.go
 model_payment_link_customizations.go
 model_payment_link_details.go
+model_payment_link_mode.go
 model_payment_link_response.go
 model_payment_link_sender.go
 model_payment_link_sender_response.go
+model_payment_link_session_status.go
+model_payment_link_status.go
 model_payment_link_token_response.go
 model_payment_method_fv_link_response.go
 model_payment_method_integration_metadata.go
@@ -219,6 +226,8 @@ model_payout_processor_details.go
 model_payout_references.go
 model_payout_snapshot_details.go
 model_payout_snapshot_response.go
+model_payout_status.go
+model_payout_type.go
 model_principal.go
 model_processor_risk_data.go
 model_product_status.go

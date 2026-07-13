@@ -48,9 +48,8 @@ type DisputeResponse struct {
 	// The dispute code from the payment processor
 	PaymentProcessorDisputeCode *string `json:"payment_processor_dispute_code,omitempty"`
 	// Whether the dispute is defendable
-	IsDefendable NullableBool `json:"is_defendable,omitempty"`
-	// The status of the dispute
-	DisputeStatus *string `json:"dispute_status,omitempty"`
+	IsDefendable  NullableBool   `json:"is_defendable,omitempty"`
+	DisputeStatus *DisputeStatus `json:"dispute_status,omitempty"`
 	// The status of the dispute at the payment processor
 	PaymentProcessorDisputeStatus *string `json:"payment_processor_dispute_status,omitempty"`
 	// Whether the dispute was automatically defended
@@ -576,9 +575,9 @@ func (o *DisputeResponse) UnsetIsDefendable() {
 }
 
 // GetDisputeStatus returns the DisputeStatus field value if set, zero value otherwise.
-func (o *DisputeResponse) GetDisputeStatus() string {
+func (o *DisputeResponse) GetDisputeStatus() DisputeStatus {
 	if o == nil || IsNil(o.DisputeStatus) {
-		var ret string
+		var ret DisputeStatus
 		return ret
 	}
 	return *o.DisputeStatus
@@ -586,7 +585,7 @@ func (o *DisputeResponse) GetDisputeStatus() string {
 
 // GetDisputeStatusOk returns a tuple with the DisputeStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *DisputeResponse) GetDisputeStatusOk() (*string, bool) {
+func (o *DisputeResponse) GetDisputeStatusOk() (*DisputeStatus, bool) {
 	if o == nil || IsNil(o.DisputeStatus) {
 		return nil, false
 	}
@@ -602,8 +601,8 @@ func (o *DisputeResponse) HasDisputeStatus() bool {
 	return false
 }
 
-// SetDisputeStatus gets a reference to the given string and assigns it to the DisputeStatus field.
-func (o *DisputeResponse) SetDisputeStatus(v string) {
+// SetDisputeStatus gets a reference to the given DisputeStatus and assigns it to the DisputeStatus field.
+func (o *DisputeResponse) SetDisputeStatus(v DisputeStatus) {
 	o.DisputeStatus = &v
 }
 

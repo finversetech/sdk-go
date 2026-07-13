@@ -32,7 +32,7 @@ type GetBillResponse struct {
 	IntegrationMetadata       BillIntegrationMetadata `json:"integration_metadata"`
 	Details                   BillDetails             `json:"details"`
 	Metadata                  *map[string]string      `json:"metadata,omitempty"`
-	Status                    string                  `json:"status"`
+	Status                    BillStatus              `json:"status"`
 	IntegrationId             string                  `json:"integration_id"`
 	SenderDetails             BillSenderDetails       `json:"sender_details"`
 	CreatedAt                 NullableTime            `json:"created_at"`
@@ -48,7 +48,7 @@ type _GetBillResponse GetBillResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetBillResponse(billId string, externalBillId string, userId string, externalUserId string, customerAppId string, billDate NullableTime, dueDate NullableTime, integrationMetadata BillIntegrationMetadata, details BillDetails, status string, integrationId string, senderDetails BillSenderDetails, createdAt NullableTime, updatedAt NullableTime, isFinverseAutopayEligible bool, payments []PaymentResponse) *GetBillResponse {
+func NewGetBillResponse(billId string, externalBillId string, userId string, externalUserId string, customerAppId string, billDate NullableTime, dueDate NullableTime, integrationMetadata BillIntegrationMetadata, details BillDetails, status BillStatus, integrationId string, senderDetails BillSenderDetails, createdAt NullableTime, updatedAt NullableTime, isFinverseAutopayEligible bool, payments []PaymentResponse) *GetBillResponse {
 	this := GetBillResponse{}
 	this.BillId = billId
 	this.ExternalBillId = externalBillId
@@ -330,9 +330,9 @@ func (o *GetBillResponse) SetMetadata(v map[string]string) {
 }
 
 // GetStatus returns the Status field value
-func (o *GetBillResponse) GetStatus() string {
+func (o *GetBillResponse) GetStatus() BillStatus {
 	if o == nil {
-		var ret string
+		var ret BillStatus
 		return ret
 	}
 
@@ -341,7 +341,7 @@ func (o *GetBillResponse) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-func (o *GetBillResponse) GetStatusOk() (*string, bool) {
+func (o *GetBillResponse) GetStatusOk() (*BillStatus, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -349,7 +349,7 @@ func (o *GetBillResponse) GetStatusOk() (*string, bool) {
 }
 
 // SetStatus sets field value
-func (o *GetBillResponse) SetStatus(v string) {
+func (o *GetBillResponse) SetStatus(v BillStatus) {
 	o.Status = v
 }
 

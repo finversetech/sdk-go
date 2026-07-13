@@ -23,8 +23,8 @@ var _ MappedNullable = &PayoutSnapshotResponse{}
 // PayoutSnapshotResponse struct for PayoutSnapshotResponse
 type PayoutSnapshotResponse struct {
 	PayoutId         *string                  `json:"payout_id,omitempty"`
-	Status           *string                  `json:"status,omitempty"`
-	Type             *string                  `json:"type,omitempty"`
+	Status           *PayoutStatus            `json:"status,omitempty"`
+	Type             *PayoutType              `json:"type,omitempty"`
 	CreatedAt        *time.Time               `json:"created_at,omitempty"`
 	UpdatedAt        *time.Time               `json:"updated_at,omitempty"`
 	TransactionDate  *string                  `json:"transaction_date,omitempty"`
@@ -97,9 +97,9 @@ func (o *PayoutSnapshotResponse) SetPayoutId(v string) {
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *PayoutSnapshotResponse) GetStatus() string {
+func (o *PayoutSnapshotResponse) GetStatus() PayoutStatus {
 	if o == nil || IsNil(o.Status) {
-		var ret string
+		var ret PayoutStatus
 		return ret
 	}
 	return *o.Status
@@ -107,7 +107,7 @@ func (o *PayoutSnapshotResponse) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PayoutSnapshotResponse) GetStatusOk() (*string, bool) {
+func (o *PayoutSnapshotResponse) GetStatusOk() (*PayoutStatus, bool) {
 	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
@@ -123,15 +123,15 @@ func (o *PayoutSnapshotResponse) HasStatus() bool {
 	return false
 }
 
-// SetStatus gets a reference to the given string and assigns it to the Status field.
-func (o *PayoutSnapshotResponse) SetStatus(v string) {
+// SetStatus gets a reference to the given PayoutStatus and assigns it to the Status field.
+func (o *PayoutSnapshotResponse) SetStatus(v PayoutStatus) {
 	o.Status = &v
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
-func (o *PayoutSnapshotResponse) GetType() string {
+func (o *PayoutSnapshotResponse) GetType() PayoutType {
 	if o == nil || IsNil(o.Type) {
-		var ret string
+		var ret PayoutType
 		return ret
 	}
 	return *o.Type
@@ -139,7 +139,7 @@ func (o *PayoutSnapshotResponse) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PayoutSnapshotResponse) GetTypeOk() (*string, bool) {
+func (o *PayoutSnapshotResponse) GetTypeOk() (*PayoutType, bool) {
 	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
@@ -155,8 +155,8 @@ func (o *PayoutSnapshotResponse) HasType() bool {
 	return false
 }
 
-// SetType gets a reference to the given string and assigns it to the Type field.
-func (o *PayoutSnapshotResponse) SetType(v string) {
+// SetType gets a reference to the given PayoutType and assigns it to the Type field.
+func (o *PayoutSnapshotResponse) SetType(v PayoutType) {
 	o.Type = &v
 }
 
