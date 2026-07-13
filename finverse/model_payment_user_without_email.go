@@ -31,7 +31,7 @@ type PaymentUserWithoutEmail struct {
 	UpdatedAt      *time.Time         `json:"updated_at,omitempty"`
 	NextBillUpdate NullableTime       `json:"next_bill_update,omitempty"`
 	UserId         *string            `json:"user_id,omitempty"`
-	UserType       *string            `json:"user_type,omitempty"`
+	UserType       *PaymentUserType   `json:"user_type,omitempty"`
 	// Whether the user has given consent for autopay
 	AutopayConsent       bool                         `json:"autopay_consent"`
 	IntegrationMetadata  *IntegrationMetadataResponse `json:"integration_metadata,omitempty"`
@@ -358,9 +358,9 @@ func (o *PaymentUserWithoutEmail) SetUserId(v string) {
 }
 
 // GetUserType returns the UserType field value if set, zero value otherwise.
-func (o *PaymentUserWithoutEmail) GetUserType() string {
+func (o *PaymentUserWithoutEmail) GetUserType() PaymentUserType {
 	if o == nil || IsNil(o.UserType) {
-		var ret string
+		var ret PaymentUserType
 		return ret
 	}
 	return *o.UserType
@@ -368,7 +368,7 @@ func (o *PaymentUserWithoutEmail) GetUserType() string {
 
 // GetUserTypeOk returns a tuple with the UserType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentUserWithoutEmail) GetUserTypeOk() (*string, bool) {
+func (o *PaymentUserWithoutEmail) GetUserTypeOk() (*PaymentUserType, bool) {
 	if o == nil || IsNil(o.UserType) {
 		return nil, false
 	}
@@ -384,8 +384,8 @@ func (o *PaymentUserWithoutEmail) HasUserType() bool {
 	return false
 }
 
-// SetUserType gets a reference to the given string and assigns it to the UserType field.
-func (o *PaymentUserWithoutEmail) SetUserType(v string) {
+// SetUserType gets a reference to the given PaymentUserType and assigns it to the UserType field.
+func (o *PaymentUserWithoutEmail) SetUserType(v PaymentUserType) {
 	o.UserType = &v
 }
 

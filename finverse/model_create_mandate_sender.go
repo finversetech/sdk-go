@@ -24,9 +24,8 @@ type CreateMandateSender struct {
 	Name  *string `json:"name,omitempty"`
 	Email string  `json:"email"`
 	// Customer App's user ID, representing the end-user making the payment.
-	ExternalUserId *string `json:"external_user_id,omitempty"`
-	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
-	UserType *string `json:"user_type,omitempty"`
+	ExternalUserId *string          `json:"external_user_id,omitempty"`
+	UserType       *PaymentUserType `json:"user_type,omitempty"`
 	// Sender details which will be used for fraud checking.
 	UserDetails          []SenderDetail `json:"user_details,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -141,9 +140,9 @@ func (o *CreateMandateSender) SetExternalUserId(v string) {
 }
 
 // GetUserType returns the UserType field value if set, zero value otherwise.
-func (o *CreateMandateSender) GetUserType() string {
+func (o *CreateMandateSender) GetUserType() PaymentUserType {
 	if o == nil || IsNil(o.UserType) {
-		var ret string
+		var ret PaymentUserType
 		return ret
 	}
 	return *o.UserType
@@ -151,7 +150,7 @@ func (o *CreateMandateSender) GetUserType() string {
 
 // GetUserTypeOk returns a tuple with the UserType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreateMandateSender) GetUserTypeOk() (*string, bool) {
+func (o *CreateMandateSender) GetUserTypeOk() (*PaymentUserType, bool) {
 	if o == nil || IsNil(o.UserType) {
 		return nil, false
 	}
@@ -167,8 +166,8 @@ func (o *CreateMandateSender) HasUserType() bool {
 	return false
 }
 
-// SetUserType gets a reference to the given string and assigns it to the UserType field.
-func (o *CreateMandateSender) SetUserType(v string) {
+// SetUserType gets a reference to the given PaymentUserType and assigns it to the UserType field.
+func (o *CreateMandateSender) SetUserType(v PaymentUserType) {
 	o.UserType = &v
 }
 

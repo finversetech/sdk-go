@@ -22,9 +22,8 @@ var _ MappedNullable = &MandateRecipientAccount{}
 // MandateRecipientAccount struct for MandateRecipientAccount
 type MandateRecipientAccount struct {
 	// Merchant account ID assigned by Finverse
-	AccountId string `json:"account_id"`
-	// Type of recipient account.
-	AccountType string `json:"account_type"`
+	AccountId   string             `json:"account_id"`
+	AccountType PaymentAccountType `json:"account_type"`
 	// Optional reference identifier for the settlement account. Only applicable to settlement accounts.
 	SettlementAccountReference *string `json:"settlement_account_reference,omitempty"`
 	AdditionalProperties       map[string]interface{}
@@ -36,7 +35,7 @@ type _MandateRecipientAccount MandateRecipientAccount
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMandateRecipientAccount(accountId string, accountType string) *MandateRecipientAccount {
+func NewMandateRecipientAccount(accountId string, accountType PaymentAccountType) *MandateRecipientAccount {
 	this := MandateRecipientAccount{}
 	this.AccountId = accountId
 	this.AccountType = accountType
@@ -76,9 +75,9 @@ func (o *MandateRecipientAccount) SetAccountId(v string) {
 }
 
 // GetAccountType returns the AccountType field value
-func (o *MandateRecipientAccount) GetAccountType() string {
+func (o *MandateRecipientAccount) GetAccountType() PaymentAccountType {
 	if o == nil {
-		var ret string
+		var ret PaymentAccountType
 		return ret
 	}
 
@@ -87,7 +86,7 @@ func (o *MandateRecipientAccount) GetAccountType() string {
 
 // GetAccountTypeOk returns a tuple with the AccountType field value
 // and a boolean to check if the value has been set.
-func (o *MandateRecipientAccount) GetAccountTypeOk() (*string, bool) {
+func (o *MandateRecipientAccount) GetAccountTypeOk() (*PaymentAccountType, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -95,7 +94,7 @@ func (o *MandateRecipientAccount) GetAccountTypeOk() (*string, bool) {
 }
 
 // SetAccountType sets field value
-func (o *MandateRecipientAccount) SetAccountType(v string) {
+func (o *MandateRecipientAccount) SetAccountType(v PaymentAccountType) {
 	o.AccountType = v
 }
 

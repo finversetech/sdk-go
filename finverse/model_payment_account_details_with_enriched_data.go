@@ -25,9 +25,8 @@ type PaymentAccountDetailsWithEnrichedData struct {
 	AccountId     *string                 `json:"account_id,omitempty"`
 	AccountNumber *RecipientAccountNumber `json:"account_number,omitempty"`
 	// Masked Account number of the payment account
-	AccountNumberMasked *string `json:"account_number_masked,omitempty"`
-	// Type of payment account.
-	AccountType *string `json:"account_type,omitempty"`
+	AccountNumberMasked *string             `json:"account_number_masked,omitempty"`
+	AccountType         *PaymentAccountType `json:"account_type,omitempty"`
 	// Accountholder name of the payment account
 	AccountholderName *string `json:"accountholder_name,omitempty"`
 	// The customer app ID
@@ -176,9 +175,9 @@ func (o *PaymentAccountDetailsWithEnrichedData) SetAccountNumberMasked(v string)
 }
 
 // GetAccountType returns the AccountType field value if set, zero value otherwise.
-func (o *PaymentAccountDetailsWithEnrichedData) GetAccountType() string {
+func (o *PaymentAccountDetailsWithEnrichedData) GetAccountType() PaymentAccountType {
 	if o == nil || IsNil(o.AccountType) {
-		var ret string
+		var ret PaymentAccountType
 		return ret
 	}
 	return *o.AccountType
@@ -186,7 +185,7 @@ func (o *PaymentAccountDetailsWithEnrichedData) GetAccountType() string {
 
 // GetAccountTypeOk returns a tuple with the AccountType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentAccountDetailsWithEnrichedData) GetAccountTypeOk() (*string, bool) {
+func (o *PaymentAccountDetailsWithEnrichedData) GetAccountTypeOk() (*PaymentAccountType, bool) {
 	if o == nil || IsNil(o.AccountType) {
 		return nil, false
 	}
@@ -202,8 +201,8 @@ func (o *PaymentAccountDetailsWithEnrichedData) HasAccountType() bool {
 	return false
 }
 
-// SetAccountType gets a reference to the given string and assigns it to the AccountType field.
-func (o *PaymentAccountDetailsWithEnrichedData) SetAccountType(v string) {
+// SetAccountType gets a reference to the given PaymentAccountType and assigns it to the AccountType field.
+func (o *PaymentAccountDetailsWithEnrichedData) SetAccountType(v PaymentAccountType) {
 	o.AccountType = &v
 }
 

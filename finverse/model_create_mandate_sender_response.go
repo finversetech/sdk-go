@@ -26,9 +26,8 @@ type CreateMandateSenderResponse struct {
 	Name   *string `json:"name,omitempty"`
 	Email  *string `json:"email,omitempty"`
 	// Customer App's user ID, representing the end-user making the payment.
-	ExternalUserId string `json:"external_user_id"`
-	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
-	UserType string `json:"user_type"`
+	ExternalUserId string          `json:"external_user_id"`
+	UserType       PaymentUserType `json:"user_type"`
 	// Sender details which will be used for fraud checking.
 	UserDetails          []SenderDetail `json:"user_details,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -40,7 +39,7 @@ type _CreateMandateSenderResponse CreateMandateSenderResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateMandateSenderResponse(userId string, externalUserId string, userType string) *CreateMandateSenderResponse {
+func NewCreateMandateSenderResponse(userId string, externalUserId string, userType PaymentUserType) *CreateMandateSenderResponse {
 	this := CreateMandateSenderResponse{}
 	this.UserId = userId
 	this.ExternalUserId = externalUserId
@@ -169,9 +168,9 @@ func (o *CreateMandateSenderResponse) SetExternalUserId(v string) {
 }
 
 // GetUserType returns the UserType field value
-func (o *CreateMandateSenderResponse) GetUserType() string {
+func (o *CreateMandateSenderResponse) GetUserType() PaymentUserType {
 	if o == nil {
-		var ret string
+		var ret PaymentUserType
 		return ret
 	}
 
@@ -180,7 +179,7 @@ func (o *CreateMandateSenderResponse) GetUserType() string {
 
 // GetUserTypeOk returns a tuple with the UserType field value
 // and a boolean to check if the value has been set.
-func (o *CreateMandateSenderResponse) GetUserTypeOk() (*string, bool) {
+func (o *CreateMandateSenderResponse) GetUserTypeOk() (*PaymentUserType, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -188,7 +187,7 @@ func (o *CreateMandateSenderResponse) GetUserTypeOk() (*string, bool) {
 }
 
 // SetUserType sets field value
-func (o *CreateMandateSenderResponse) SetUserType(v string) {
+func (o *CreateMandateSenderResponse) SetUserType(v PaymentUserType) {
 	o.UserType = v
 }
 

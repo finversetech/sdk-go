@@ -25,9 +25,8 @@ type GetMandateSender struct {
 	UserId string  `json:"user_id"`
 	Name   *string `json:"name,omitempty"`
 	// Customer App's user ID, representing the end-user making the payment.
-	ExternalUserId string `json:"external_user_id"`
-	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
-	UserType string `json:"user_type"`
+	ExternalUserId string          `json:"external_user_id"`
+	UserType       PaymentUserType `json:"user_type"`
 	// Sender details which will be used for fraud checking.
 	UserDetails          []SenderDetail `json:"user_details,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -39,7 +38,7 @@ type _GetMandateSender GetMandateSender
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetMandateSender(userId string, externalUserId string, userType string) *GetMandateSender {
+func NewGetMandateSender(userId string, externalUserId string, userType PaymentUserType) *GetMandateSender {
 	this := GetMandateSender{}
 	this.UserId = userId
 	this.ExternalUserId = externalUserId
@@ -136,9 +135,9 @@ func (o *GetMandateSender) SetExternalUserId(v string) {
 }
 
 // GetUserType returns the UserType field value
-func (o *GetMandateSender) GetUserType() string {
+func (o *GetMandateSender) GetUserType() PaymentUserType {
 	if o == nil {
-		var ret string
+		var ret PaymentUserType
 		return ret
 	}
 
@@ -147,7 +146,7 @@ func (o *GetMandateSender) GetUserType() string {
 
 // GetUserTypeOk returns a tuple with the UserType field value
 // and a boolean to check if the value has been set.
-func (o *GetMandateSender) GetUserTypeOk() (*string, bool) {
+func (o *GetMandateSender) GetUserTypeOk() (*PaymentUserType, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -155,7 +154,7 @@ func (o *GetMandateSender) GetUserTypeOk() (*string, bool) {
 }
 
 // SetUserType sets field value
-func (o *GetMandateSender) SetUserType(v string) {
+func (o *GetMandateSender) SetUserType(v PaymentUserType) {
 	o.UserType = v
 }
 

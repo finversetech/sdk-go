@@ -26,7 +26,7 @@ type UpdatePaymentUserRequest struct {
 	Metadata             map[string]string `json:"metadata,omitempty"`
 	Name                 NullableString    `json:"name,omitempty"`
 	NextBillUpdate       NullableTime      `json:"next_bill_update,omitempty"`
-	UserType             NullableString    `json:"user_type,omitempty"`
+	UserType             *PaymentUserType  `json:"user_type,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -254,47 +254,36 @@ func (o *UpdatePaymentUserRequest) UnsetNextBillUpdate() {
 	o.NextBillUpdate.Unset()
 }
 
-// GetUserType returns the UserType field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *UpdatePaymentUserRequest) GetUserType() string {
-	if o == nil || IsNil(o.UserType.Get()) {
-		var ret string
+// GetUserType returns the UserType field value if set, zero value otherwise.
+func (o *UpdatePaymentUserRequest) GetUserType() PaymentUserType {
+	if o == nil || IsNil(o.UserType) {
+		var ret PaymentUserType
 		return ret
 	}
-	return *o.UserType.Get()
+	return *o.UserType
 }
 
 // GetUserTypeOk returns a tuple with the UserType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-// NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *UpdatePaymentUserRequest) GetUserTypeOk() (*string, bool) {
-	if o == nil {
+func (o *UpdatePaymentUserRequest) GetUserTypeOk() (*PaymentUserType, bool) {
+	if o == nil || IsNil(o.UserType) {
 		return nil, false
 	}
-	return o.UserType.Get(), o.UserType.IsSet()
+	return o.UserType, true
 }
 
 // HasUserType returns a boolean if a field has been set.
 func (o *UpdatePaymentUserRequest) HasUserType() bool {
-	if o != nil && o.UserType.IsSet() {
+	if o != nil && !IsNil(o.UserType) {
 		return true
 	}
 
 	return false
 }
 
-// SetUserType gets a reference to the given NullableString and assigns it to the UserType field.
-func (o *UpdatePaymentUserRequest) SetUserType(v string) {
-	o.UserType.Set(&v)
-}
-
-// SetUserTypeNil sets the value for UserType to be an explicit nil
-func (o *UpdatePaymentUserRequest) SetUserTypeNil() {
-	o.UserType.Set(nil)
-}
-
-// UnsetUserType ensures that no value is present for UserType, not even an explicit nil
-func (o *UpdatePaymentUserRequest) UnsetUserType() {
-	o.UserType.Unset()
+// SetUserType gets a reference to the given PaymentUserType and assigns it to the UserType field.
+func (o *UpdatePaymentUserRequest) SetUserType(v PaymentUserType) {
+	o.UserType = &v
 }
 
 func (o UpdatePaymentUserRequest) MarshalJSON() ([]byte, error) {
@@ -322,8 +311,8 @@ func (o UpdatePaymentUserRequest) ToMap() (map[string]interface{}, error) {
 	if o.NextBillUpdate.IsSet() {
 		toSerialize["next_bill_update"] = o.NextBillUpdate.Get()
 	}
-	if o.UserType.IsSet() {
-		toSerialize["user_type"] = o.UserType.Get()
+	if !IsNil(o.UserType) {
+		toSerialize["user_type"] = o.UserType
 	}
 
 	for key, value := range o.AdditionalProperties {

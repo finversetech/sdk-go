@@ -3281,6 +3281,37 @@ components:
       - AUTOPAY
       - CLICK_TO_PAY
       type: string
+    PaymentUserType:
+      description: "Type of account held by the Sender at the Institution. Possible\
+        \ values are INDIVIDUAL, BUSINESS"
+      enum:
+      - INDIVIDUAL
+      - BUSINESS
+      type: string
+    FeePaidBy:
+      description: Who pays the fee
+      enum:
+      - RECIPIENT
+      - SENDER
+      type: string
+    PaymentAccountType:
+      description: Type of payment account
+      enum:
+      - EXTERNAL_ACCOUNT
+      - SETTLEMENT_ACCOUNT
+      type: string
+    AccountNumberType:
+      description: "Type of account number. Possible values: LOCAL, IBAN"
+      enum:
+      - LOCAL
+      - IBAN
+      type: string
+    FinverseErrorCategory:
+      description: The error type
+      enum:
+      - LINK_ERROR
+      - API_ERROR
+      type: string
     Principal:
       properties:
         subject:
@@ -7446,7 +7477,7 @@ components:
         error:
           error_code: CREDENTIALS_INVALID
           details: details
-          type: LINKING_ERROR
+          type: LINK_ERROR
           message: message
           request_id: request_id
       properties:
@@ -7457,16 +7488,11 @@ components:
       example:
         error_code: CREDENTIALS_INVALID
         details: details
-        type: LINKING_ERROR
+        type: LINK_ERROR
         message: message
       properties:
         type:
-          description: The error type
-          enum:
-          - LINK_ERROR
-          - API_ERROR
-          example: LINKING_ERROR
-          type: string
+          $ref: '#/components/schemas/FinverseErrorCategory'
         error_code:
           example: CREDENTIALS_INVALID
           type: string
@@ -7484,17 +7510,12 @@ components:
       example:
         error_code: CREDENTIALS_INVALID
         details: details
-        type: LINKING_ERROR
+        type: LINK_ERROR
         message: message
         request_id: request_id
       properties:
         type:
-          description: The error type
-          enum:
-          - LINK_ERROR
-          - API_ERROR
-          example: LINKING_ERROR
-          type: string
+          $ref: '#/components/schemas/FinverseErrorCategory'
         error_code:
           example: CREDENTIALS_INVALID
           type: string
@@ -7518,7 +7539,7 @@ components:
           code: CREDENTIALS_INVALID
           error_code: CREDENTIALS_INVALID
           details: details
-          type: LINKING_ERROR
+          type: LINK_ERROR
           message: message
           request_id: request_id
       properties:
@@ -7539,17 +7560,12 @@ components:
         code: CREDENTIALS_INVALID
         error_code: CREDENTIALS_INVALID
         details: details
-        type: LINKING_ERROR
+        type: LINK_ERROR
         message: message
         request_id: request_id
       properties:
         type:
-          description: The error type
-          enum:
-          - LINK_ERROR
-          - API_ERROR
-          example: LINKING_ERROR
-          type: string
+          $ref: '#/components/schemas/FinverseErrorCategory'
         error_code:
           example: CREDENTIALS_INVALID
           type: string
@@ -7601,7 +7617,7 @@ components:
           code: 40004
           error_code: CREDENTIALS_INVALID
           details: details
-          type: LINKING_ERROR
+          type: LINK_ERROR
           message: message
           request_id: request_id
       properties:
@@ -7916,7 +7932,7 @@ components:
           collection_entity_name: collection_entity_name
           processor_entity_name: processor_entity_name
         recipient_account:
-          account_type: SETTLEMENT_ACCOUNT
+          account_type: EXTERNAL_ACCOUNT
           settlement_account_reference: settlement_account_reference
           account_id: account_id
         created_at: 2000-01-23T04:56:07.000+00:00
@@ -7924,7 +7940,7 @@ components:
         error:
           error_code: CREDENTIALS_INVALID
           details: details
-          type: LINKING_ERROR
+          type: LINK_ERROR
           message: message
         payment_method_id: payment_method_id
         amount_total_with_surcharge: 100
@@ -7957,7 +7973,7 @@ components:
             number_plaintext: number_plaintext
             type: LOCAL
           bank_code: bank_code
-          account_type: EXTERNAL_ACCOUNT
+          account_type: null
           metadata:
             key: metadata
           account_id: sender_account_id
@@ -8133,7 +8149,7 @@ components:
             collection_entity_name: collection_entity_name
             processor_entity_name: processor_entity_name
           recipient_account:
-            account_type: SETTLEMENT_ACCOUNT
+            account_type: EXTERNAL_ACCOUNT
             settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -8141,7 +8157,7 @@ components:
           error:
             error_code: CREDENTIALS_INVALID
             details: details
-            type: LINKING_ERROR
+            type: LINK_ERROR
             message: message
           payment_method_id: payment_method_id
           amount_total_with_surcharge: 100
@@ -8174,7 +8190,7 @@ components:
               number_plaintext: number_plaintext
               type: LOCAL
             bank_code: bank_code
-            account_type: EXTERNAL_ACCOUNT
+            account_type: null
             metadata:
               key: metadata
             account_id: sender_account_id
@@ -8273,7 +8289,7 @@ components:
             collection_entity_name: collection_entity_name
             processor_entity_name: processor_entity_name
           recipient_account:
-            account_type: SETTLEMENT_ACCOUNT
+            account_type: EXTERNAL_ACCOUNT
             settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -8281,7 +8297,7 @@ components:
           error:
             error_code: CREDENTIALS_INVALID
             details: details
-            type: LINKING_ERROR
+            type: LINK_ERROR
             message: message
           payment_method_id: payment_method_id
           amount_total_with_surcharge: 100
@@ -8314,7 +8330,7 @@ components:
               number_plaintext: number_plaintext
               type: LOCAL
             bank_code: bank_code
-            account_type: EXTERNAL_ACCOUNT
+            account_type: null
             metadata:
               key: metadata
             account_id: sender_account_id
@@ -8422,7 +8438,7 @@ components:
             number_plaintext: number_plaintext
             type: LOCAL
           bank_code: bank_code
-          account_type: EXTERNAL_ACCOUNT
+          account_type: null
           metadata:
             key: metadata
           account_id: sender_account_id
@@ -8436,14 +8452,14 @@ components:
         error:
           error_code: CREDENTIALS_INVALID
           details: details
-          type: LINKING_ERROR
+          type: LINK_ERROR
           message: message
         payout_id: payout_id
         updated_at: 2000-01-23T04:56:07.000+00:00
         sender:
           name: name
         sender_account:
-          account_type: SETTLEMENT_ACCOUNT
+          account_type: EXTERNAL_ACCOUNT
           settlement_account_reference: settlement_account_reference
           account_id: account_id
         recipient:
@@ -8627,7 +8643,7 @@ components:
               number_plaintext: number_plaintext
               type: LOCAL
             bank_code: bank_code
-            account_type: EXTERNAL_ACCOUNT
+            account_type: null
             metadata:
               key: metadata
             account_id: sender_account_id
@@ -8641,14 +8657,14 @@ components:
           error:
             error_code: CREDENTIALS_INVALID
             details: details
-            type: LINKING_ERROR
+            type: LINK_ERROR
             message: message
           payout_id: payout_id
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
             name: name
           sender_account:
-            account_type: SETTLEMENT_ACCOUNT
+            account_type: EXTERNAL_ACCOUNT
             settlement_account_reference: settlement_account_reference
             account_id: account_id
           recipient:
@@ -8709,7 +8725,7 @@ components:
               number_plaintext: number_plaintext
               type: LOCAL
             bank_code: bank_code
-            account_type: EXTERNAL_ACCOUNT
+            account_type: null
             metadata:
               key: metadata
             account_id: sender_account_id
@@ -8723,14 +8739,14 @@ components:
           error:
             error_code: CREDENTIALS_INVALID
             details: details
-            type: LINKING_ERROR
+            type: LINK_ERROR
             message: message
           payout_id: payout_id
           updated_at: 2000-01-23T04:56:07.000+00:00
           sender:
             name: name
           sender_account:
-            account_type: SETTLEMENT_ACCOUNT
+            account_type: EXTERNAL_ACCOUNT
             settlement_account_reference: settlement_account_reference
             account_id: account_id
           recipient:
@@ -9033,7 +9049,7 @@ components:
         metadata:
           key: metadata
         recipient_account:
-          account_type: SETTLEMENT_ACCOUNT
+          account_type: EXTERNAL_ACCOUNT
           settlement_account_reference: settlement_account_reference
           account_id: account_id
         created_at: 2000-01-23T04:56:07.000+00:00
@@ -9041,7 +9057,7 @@ components:
         error:
           error_code: CREDENTIALS_INVALID
           details: details
-          type: LINKING_ERROR
+          type: LINK_ERROR
           message: message
         payment_method_id: payment_method_id
         updated_at: 2000-01-23T04:56:07.000+00:00
@@ -9091,7 +9107,7 @@ components:
             number_plaintext: number_plaintext
             type: LOCAL
           bank_code: bank_code
-          account_type: EXTERNAL_ACCOUNT
+          account_type: null
           metadata:
             key: metadata
           account_id: sender_account_id
@@ -9449,7 +9465,7 @@ components:
             metadata:
               key: metadata
             recipient_account:
-              account_type: SETTLEMENT_ACCOUNT
+              account_type: EXTERNAL_ACCOUNT
               settlement_account_reference: settlement_account_reference
               account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
@@ -9457,7 +9473,7 @@ components:
             error:
               error_code: CREDENTIALS_INVALID
               details: details
-              type: LINKING_ERROR
+              type: LINK_ERROR
               message: message
             payment_method_id: payment_method_id
             updated_at: 2000-01-23T04:56:07.000+00:00
@@ -9506,7 +9522,7 @@ components:
                 number_plaintext: number_plaintext
                 type: LOCAL
               bank_code: bank_code
-              account_type: EXTERNAL_ACCOUNT
+              account_type: null
               metadata:
                 key: metadata
               account_id: sender_account_id
@@ -9544,7 +9560,7 @@ components:
               brand: VISA
             updated_at: 2000-01-23T04:56:07.000+00:00
             recipient_account:
-              account_type: SETTLEMENT_ACCOUNT
+              account_type: EXTERNAL_ACCOUNT
               settlement_account_reference: settlement_account_reference
               account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
@@ -9558,7 +9574,7 @@ components:
             error:
               error_code: CREDENTIALS_INVALID
               details: details
-              type: LINKING_ERROR
+              type: LINK_ERROR
               message: message
             status: UNKNOWN
         - payment_method_type: CARD
@@ -9602,7 +9618,7 @@ components:
             metadata:
               key: metadata
             recipient_account:
-              account_type: SETTLEMENT_ACCOUNT
+              account_type: EXTERNAL_ACCOUNT
               settlement_account_reference: settlement_account_reference
               account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
@@ -9610,7 +9626,7 @@ components:
             error:
               error_code: CREDENTIALS_INVALID
               details: details
-              type: LINKING_ERROR
+              type: LINK_ERROR
               message: message
             payment_method_id: payment_method_id
             updated_at: 2000-01-23T04:56:07.000+00:00
@@ -9659,7 +9675,7 @@ components:
                 number_plaintext: number_plaintext
                 type: LOCAL
               bank_code: bank_code
-              account_type: EXTERNAL_ACCOUNT
+              account_type: null
               metadata:
                 key: metadata
               account_id: sender_account_id
@@ -9697,7 +9713,7 @@ components:
               brand: VISA
             updated_at: 2000-01-23T04:56:07.000+00:00
             recipient_account:
-              account_type: SETTLEMENT_ACCOUNT
+              account_type: EXTERNAL_ACCOUNT
               settlement_account_reference: settlement_account_reference
               account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
@@ -9711,7 +9727,7 @@ components:
             error:
               error_code: CREDENTIALS_INVALID
               details: details
-              type: LINKING_ERROR
+              type: LINK_ERROR
               message: message
             status: UNKNOWN
         sender:
@@ -9855,7 +9871,7 @@ components:
             collection_entity_name: collection_entity_name
             processor_entity_name: processor_entity_name
           recipient_account:
-            account_type: SETTLEMENT_ACCOUNT
+            account_type: EXTERNAL_ACCOUNT
             settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -9863,7 +9879,7 @@ components:
           error:
             error_code: CREDENTIALS_INVALID
             details: details
-            type: LINKING_ERROR
+            type: LINK_ERROR
             message: message
           payment_method_id: payment_method_id
           amount_total_with_surcharge: 100
@@ -9896,7 +9912,7 @@ components:
               number_plaintext: number_plaintext
               type: LOCAL
             bank_code: bank_code
-            account_type: EXTERNAL_ACCOUNT
+            account_type: null
             metadata:
               key: metadata
             account_id: sender_account_id
@@ -10000,7 +10016,7 @@ components:
             metadata:
               key: metadata
             recipient_account:
-              account_type: SETTLEMENT_ACCOUNT
+              account_type: EXTERNAL_ACCOUNT
               settlement_account_reference: settlement_account_reference
               account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
@@ -10008,7 +10024,7 @@ components:
             error:
               error_code: CREDENTIALS_INVALID
               details: details
-              type: LINKING_ERROR
+              type: LINK_ERROR
               message: message
             payment_method_id: payment_method_id
             updated_at: 2000-01-23T04:56:07.000+00:00
@@ -10057,7 +10073,7 @@ components:
                 number_plaintext: number_plaintext
                 type: LOCAL
               bank_code: bank_code
-              account_type: EXTERNAL_ACCOUNT
+              account_type: null
               metadata:
                 key: metadata
               account_id: sender_account_id
@@ -10095,7 +10111,7 @@ components:
               brand: VISA
             updated_at: 2000-01-23T04:56:07.000+00:00
             recipient_account:
-              account_type: SETTLEMENT_ACCOUNT
+              account_type: EXTERNAL_ACCOUNT
               settlement_account_reference: settlement_account_reference
               account_id: account_id
             created_at: 2000-01-23T04:56:07.000+00:00
@@ -10109,7 +10125,7 @@ components:
             error:
               error_code: CREDENTIALS_INVALID
               details: details
-              type: LINKING_ERROR
+              type: LINK_ERROR
               message: message
             status: UNKNOWN
         status: CREATED
@@ -10349,11 +10365,7 @@ components:
           example: HKD
           type: string
         paid_by:
-          enum:
-          - RECIPIENT
-          - SENDER
-          example: RECIPIENT
-          type: string
+          $ref: '#/components/schemas/FeePaidBy'
         paid_by_account_id:
           description: The payment account Id
           example: The payment account ID
@@ -10429,7 +10441,7 @@ components:
           brand: VISA
         updated_at: 2000-01-23T04:56:07.000+00:00
         recipient_account:
-          account_type: SETTLEMENT_ACCOUNT
+          account_type: EXTERNAL_ACCOUNT
           settlement_account_reference: settlement_account_reference
           account_id: account_id
         created_at: 2000-01-23T04:56:07.000+00:00
@@ -10443,7 +10455,7 @@ components:
         error:
           error_code: CREDENTIALS_INVALID
           details: details
-          type: LINKING_ERROR
+          type: LINK_ERROR
           message: message
         status: UNKNOWN
       properties:
@@ -10647,7 +10659,7 @@ components:
         metadata:
           key: metadata
         recipient_account:
-          account_type: SETTLEMENT_ACCOUNT
+          account_type: EXTERNAL_ACCOUNT
           settlement_account_reference: settlement_account_reference
           account_id: account_id
         created_at: 2000-01-23T04:56:07.000+00:00
@@ -10655,7 +10667,7 @@ components:
         error:
           error_code: CREDENTIALS_INVALID
           details: details
-          type: LINKING_ERROR
+          type: LINK_ERROR
           message: message
         payment_method_id: payment_method_id
         updated_at: 2000-01-23T04:56:07.000+00:00
@@ -10704,7 +10716,7 @@ components:
             number_plaintext: number_plaintext
             type: LOCAL
           bank_code: bank_code
-          account_type: EXTERNAL_ACCOUNT
+          account_type: null
           metadata:
             key: metadata
           account_id: sender_account_id
@@ -10780,7 +10792,7 @@ components:
           metadata:
             key: metadata
           recipient_account:
-            account_type: SETTLEMENT_ACCOUNT
+            account_type: EXTERNAL_ACCOUNT
             settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -10788,7 +10800,7 @@ components:
           error:
             error_code: CREDENTIALS_INVALID
             details: details
-            type: LINKING_ERROR
+            type: LINK_ERROR
             message: message
           payment_method_id: payment_method_id
           updated_at: 2000-01-23T04:56:07.000+00:00
@@ -10837,7 +10849,7 @@ components:
               number_plaintext: number_plaintext
               type: LOCAL
             bank_code: bank_code
-            account_type: EXTERNAL_ACCOUNT
+            account_type: null
             metadata:
               key: metadata
             account_id: sender_account_id
@@ -10861,7 +10873,7 @@ components:
           metadata:
             key: metadata
           recipient_account:
-            account_type: SETTLEMENT_ACCOUNT
+            account_type: EXTERNAL_ACCOUNT
             settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -10869,7 +10881,7 @@ components:
           error:
             error_code: CREDENTIALS_INVALID
             details: details
-            type: LINKING_ERROR
+            type: LINK_ERROR
             message: message
           payment_method_id: payment_method_id
           updated_at: 2000-01-23T04:56:07.000+00:00
@@ -10918,7 +10930,7 @@ components:
               number_plaintext: number_plaintext
               type: LOCAL
             bank_code: bank_code
-            account_type: EXTERNAL_ACCOUNT
+            account_type: null
             metadata:
               key: metadata
             account_id: sender_account_id
@@ -10958,7 +10970,7 @@ components:
       type: object
     MandateRecipientAccount:
       example:
-        account_type: SETTLEMENT_ACCOUNT
+        account_type: EXTERNAL_ACCOUNT
         settlement_account_reference: settlement_account_reference
         account_id: account_id
       properties:
@@ -10966,12 +10978,7 @@ components:
           description: Merchant account ID assigned by Finverse
           type: string
         account_type:
-          description: Type of recipient account.
-          enum:
-          - EXTERNAL_ACCOUNT
-          - SETTLEMENT_ACCOUNT
-          example: SETTLEMENT_ACCOUNT
-          type: string
+          $ref: '#/components/schemas/PaymentAccountType'
         settlement_account_reference:
           description: Optional reference identifier for the settlement account. Only
             applicable to settlement accounts.
@@ -11055,12 +11062,7 @@ components:
             \ payment."
           type: string
         user_type:
-          description: "Type of account held by the Sender at the Institution. Possible\
-            \ values are INDIVIDUAL, BUSINESS"
-          enum:
-          - INDIVIDUAL
-          - BUSINESS
-          type: string
+          $ref: '#/components/schemas/PaymentUserType'
         user_details:
           description: Sender details which will be used for fraud checking.
           items:
@@ -11102,12 +11104,7 @@ components:
             \ payment."
           type: string
         user_type:
-          description: "Type of account held by the Sender at the Institution. Possible\
-            \ values are INDIVIDUAL, BUSINESS"
-          enum:
-          - INDIVIDUAL
-          - BUSINESS
-          type: string
+          $ref: '#/components/schemas/PaymentUserType'
         user_details:
           description: Sender details which will be used for fraud checking.
           items:
@@ -11154,12 +11151,7 @@ components:
             \ payment."
           type: string
         user_type:
-          description: "Type of account held by the Sender at the Institution. Possible\
-            \ values are INDIVIDUAL, BUSINESS"
-          enum:
-          - INDIVIDUAL
-          - BUSINESS
-          type: string
+          $ref: '#/components/schemas/PaymentUserType'
         user_details:
           description: Sender details which will be used for fraud checking.
           items:
@@ -11697,7 +11689,7 @@ components:
         error:
           error_code: CREDENTIALS_INVALID
           details: details
-          type: LINKING_ERROR
+          type: LINK_ERROR
           message: message
         institution_id: institution_id
         auth_checklist:
@@ -11747,12 +11739,7 @@ components:
             included in the request.
           type: string
         sender_type:
-          description: "Type of account held by the Sender at the Institution. Possible\
-            \ values are INDIVIDUAL, BUSINESS"
-          enum:
-          - INDIVIDUAL
-          - BUSINESS
-          type: string
+          $ref: '#/components/schemas/PaymentUserType'
         auth_checklist:
           description: Checklist of the authorization factors needed to complete Mandate
             authorization
@@ -12027,12 +12014,7 @@ components:
         account_number:
           $ref: '#/components/schemas/RecipientAccountNumber'
         account_type:
-          description: Type of recipient account.
-          enum:
-          - EXTERNAL_ACCOUNT
-          - SETTLEMENT_ACCOUNT
-          example: EXTERNAL_ACCOUNT
-          type: string
+          $ref: '#/components/schemas/PaymentAccountType'
         currencies:
           description: List of currencies supported by the recipient account
           example:
@@ -12065,11 +12047,7 @@ components:
         type: LOCAL
       properties:
         type:
-          description: "Type of account number. Possible values: LOCAL, IBAN"
-          enum:
-          - LOCAL
-          - IBAN
-          type: string
+          $ref: '#/components/schemas/AccountNumberType'
         number:
           description: Account number value
           maxLength: 100
@@ -12093,7 +12071,7 @@ components:
           number_plaintext: number_plaintext
           type: LOCAL
         bank_code: bank_code
-        account_type: EXTERNAL_ACCOUNT
+        account_type: null
         metadata:
           key: metadata
         account_id: sender_account_id
@@ -12122,11 +12100,7 @@ components:
           description: Masked Account number of the sender’s account
           type: string
         account_type:
-          description: Type of sender account.
-          enum:
-          - EXTERNAL_ACCOUNT
-          example: EXTERNAL_ACCOUNT
-          type: string
+          $ref: '#/components/schemas/PaymentAccountType'
         institution_id:
           description: Finverse Institution ID for the sender’s institution.
           example: hsbc-hk
@@ -12428,12 +12402,7 @@ components:
           description: Masked Account number of the payment account
           type: string
         account_type:
-          description: Type of payment account.
-          enum:
-          - EXTERNAL_ACCOUNT
-          - SETTLEMENT_ACCOUNT
-          example: EXTERNAL_ACCOUNT
-          type: string
+          $ref: '#/components/schemas/PaymentAccountType'
         accountholder_name:
           description: Accountholder name of the payment account
           example: Chan Li Pak
@@ -12652,10 +12621,7 @@ components:
           maxLength: 100
           type: string
         user_type:
-          enum:
-          - INDIVIDUAL
-          - BUSINESS
-          type: string
+          $ref: '#/components/schemas/PaymentUserType'
         email:
           maxLength: 256
           type: string
@@ -12707,11 +12673,7 @@ components:
           nullable: true
           type: string
         user_type:
-          enum:
-          - INDIVIDUAL
-          - BUSINESS
-          nullable: true
-          type: string
+          $ref: '#/components/schemas/PaymentUserType'
       type: object
     PaymentUser:
       example:
@@ -12779,10 +12741,7 @@ components:
         user_id:
           type: string
         user_type:
-          enum:
-          - INDIVIDUAL
-          - BUSINESS
-          type: string
+          $ref: '#/components/schemas/PaymentUserType'
         autopay_consent:
           description: Whether the user has given consent for autopay
           example: false
@@ -12858,10 +12817,7 @@ components:
         user_id:
           type: string
         user_type:
-          enum:
-          - INDIVIDUAL
-          - BUSINESS
-          type: string
+          $ref: '#/components/schemas/PaymentUserType'
         autopay_consent:
           description: Whether the user has given consent for autopay
           example: false
@@ -13069,7 +13025,7 @@ components:
           metadata:
             key: metadata
           recipient_account:
-            account_type: SETTLEMENT_ACCOUNT
+            account_type: EXTERNAL_ACCOUNT
             settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -13077,7 +13033,7 @@ components:
           error:
             error_code: CREDENTIALS_INVALID
             details: details
-            type: LINKING_ERROR
+            type: LINK_ERROR
             message: message
           payment_method_id: payment_method_id
           updated_at: 2000-01-23T04:56:07.000+00:00
@@ -13126,7 +13082,7 @@ components:
               number_plaintext: number_plaintext
               type: LOCAL
             bank_code: bank_code
-            account_type: EXTERNAL_ACCOUNT
+            account_type: null
             metadata:
               key: metadata
             account_id: sender_account_id
@@ -13164,7 +13120,7 @@ components:
             brand: VISA
           updated_at: 2000-01-23T04:56:07.000+00:00
           recipient_account:
-            account_type: SETTLEMENT_ACCOUNT
+            account_type: EXTERNAL_ACCOUNT
             settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -13178,7 +13134,7 @@ components:
           error:
             error_code: CREDENTIALS_INVALID
             details: details
-            type: LINKING_ERROR
+            type: LINK_ERROR
             message: message
           status: UNKNOWN
       properties:
@@ -13815,7 +13771,7 @@ components:
             collection_entity_name: collection_entity_name
             processor_entity_name: processor_entity_name
           recipient_account:
-            account_type: SETTLEMENT_ACCOUNT
+            account_type: EXTERNAL_ACCOUNT
             settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -13823,7 +13779,7 @@ components:
           error:
             error_code: CREDENTIALS_INVALID
             details: details
-            type: LINKING_ERROR
+            type: LINK_ERROR
             message: message
           payment_method_id: payment_method_id
           amount_total_with_surcharge: 100
@@ -13856,7 +13812,7 @@ components:
               number_plaintext: number_plaintext
               type: LOCAL
             bank_code: bank_code
-            account_type: EXTERNAL_ACCOUNT
+            account_type: null
             metadata:
               key: metadata
             account_id: sender_account_id
@@ -13955,7 +13911,7 @@ components:
             collection_entity_name: collection_entity_name
             processor_entity_name: processor_entity_name
           recipient_account:
-            account_type: SETTLEMENT_ACCOUNT
+            account_type: EXTERNAL_ACCOUNT
             settlement_account_reference: settlement_account_reference
             account_id: account_id
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -13963,7 +13919,7 @@ components:
           error:
             error_code: CREDENTIALS_INVALID
             details: details
-            type: LINKING_ERROR
+            type: LINK_ERROR
             message: message
           payment_method_id: payment_method_id
           amount_total_with_surcharge: 100
@@ -13996,7 +13952,7 @@ components:
               number_plaintext: number_plaintext
               type: LOCAL
             bank_code: bank_code
-            account_type: EXTERNAL_ACCOUNT
+            account_type: null
             metadata:
               key: metadata
             account_id: sender_account_id
@@ -14417,10 +14373,7 @@ components:
         payment_method_type:
           $ref: '#/components/schemas/PaymentType'
         sender_type:
-          enum:
-          - INDIVIDUAL
-          - BUSINESS
-          type: string
+          $ref: '#/components/schemas/PaymentUserType'
         is_mobile:
           default: false
           description: Whether the user is on mobile device (only makes a difference
@@ -14515,17 +14468,12 @@ components:
         code: 40004
         error_code: CREDENTIALS_INVALID
         details: details
-        type: LINKING_ERROR
+        type: LINK_ERROR
         message: message
         request_id: request_id
       properties:
         type:
-          description: The error type
-          enum:
-          - LINK_ERROR
-          - API_ERROR
-          example: LINKING_ERROR
-          type: string
+          $ref: '#/components/schemas/FinverseErrorCategory'
         error_code:
           example: CREDENTIALS_INVALID
           type: string

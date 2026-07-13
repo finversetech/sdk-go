@@ -22,9 +22,9 @@ var _ MappedNullable = &SelectPaymentMethodRequest{}
 // SelectPaymentMethodRequest struct for SelectPaymentMethodRequest
 type SelectPaymentMethodRequest struct {
 	// The payment account ID of the selected payment method
-	PaymentAccountId  string      `json:"payment_account_id"`
-	PaymentMethodType PaymentType `json:"payment_method_type"`
-	SenderType        *string     `json:"sender_type,omitempty"`
+	PaymentAccountId  string           `json:"payment_account_id"`
+	PaymentMethodType PaymentType      `json:"payment_method_type"`
+	SenderType        *PaymentUserType `json:"sender_type,omitempty"`
 	// Whether the user is on mobile device (only makes a difference if payment_method_provider is KCP)
 	IsMobile *bool `json:"is_mobile,omitempty"`
 	// Optional Finverse institution ID (passed through when selecting KCP manual payment flow)
@@ -109,9 +109,9 @@ func (o *SelectPaymentMethodRequest) SetPaymentMethodType(v PaymentType) {
 }
 
 // GetSenderType returns the SenderType field value if set, zero value otherwise.
-func (o *SelectPaymentMethodRequest) GetSenderType() string {
+func (o *SelectPaymentMethodRequest) GetSenderType() PaymentUserType {
 	if o == nil || IsNil(o.SenderType) {
-		var ret string
+		var ret PaymentUserType
 		return ret
 	}
 	return *o.SenderType
@@ -119,7 +119,7 @@ func (o *SelectPaymentMethodRequest) GetSenderType() string {
 
 // GetSenderTypeOk returns a tuple with the SenderType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *SelectPaymentMethodRequest) GetSenderTypeOk() (*string, bool) {
+func (o *SelectPaymentMethodRequest) GetSenderTypeOk() (*PaymentUserType, bool) {
 	if o == nil || IsNil(o.SenderType) {
 		return nil, false
 	}
@@ -135,8 +135,8 @@ func (o *SelectPaymentMethodRequest) HasSenderType() bool {
 	return false
 }
 
-// SetSenderType gets a reference to the given string and assigns it to the SenderType field.
-func (o *SelectPaymentMethodRequest) SetSenderType(v string) {
+// SetSenderType gets a reference to the given PaymentUserType and assigns it to the SenderType field.
+func (o *SelectPaymentMethodRequest) SetSenderType(v PaymentUserType) {
 	o.SenderType = &v
 }
 

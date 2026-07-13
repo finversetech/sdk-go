@@ -21,8 +21,7 @@ var _ MappedNullable = &RecipientAccountNumber{}
 
 // RecipientAccountNumber struct for RecipientAccountNumber
 type RecipientAccountNumber struct {
-	// Type of account number. Possible values: LOCAL, IBAN
-	Type string `json:"type"`
+	Type AccountNumberType `json:"type"`
 	// Account number value
 	Number string `json:"number"`
 	// Account number value
@@ -36,7 +35,7 @@ type _RecipientAccountNumber RecipientAccountNumber
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewRecipientAccountNumber(type_ string, number string) *RecipientAccountNumber {
+func NewRecipientAccountNumber(type_ AccountNumberType, number string) *RecipientAccountNumber {
 	this := RecipientAccountNumber{}
 	this.Type = type_
 	this.Number = number
@@ -52,9 +51,9 @@ func NewRecipientAccountNumberWithDefaults() *RecipientAccountNumber {
 }
 
 // GetType returns the Type field value
-func (o *RecipientAccountNumber) GetType() string {
+func (o *RecipientAccountNumber) GetType() AccountNumberType {
 	if o == nil {
-		var ret string
+		var ret AccountNumberType
 		return ret
 	}
 
@@ -63,7 +62,7 @@ func (o *RecipientAccountNumber) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *RecipientAccountNumber) GetTypeOk() (*string, bool) {
+func (o *RecipientAccountNumber) GetTypeOk() (*AccountNumberType, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -71,7 +70,7 @@ func (o *RecipientAccountNumber) GetTypeOk() (*string, bool) {
 }
 
 // SetType sets field value
-func (o *RecipientAccountNumber) SetType(v string) {
+func (o *RecipientAccountNumber) SetType(v AccountNumberType) {
 	o.Type = v
 }
 

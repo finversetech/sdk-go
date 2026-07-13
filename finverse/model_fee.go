@@ -22,9 +22,9 @@ var _ MappedNullable = &Fee{}
 // Fee struct for Fee
 type Fee struct {
 	// The amount of fee for a single transaction. Expressed in currency's smallest unit or “minor unit”, as defined in ISO 4217.
-	Amount   int32   `json:"amount"`
-	Currency *string `json:"currency,omitempty"`
-	PaidBy   *string `json:"paid_by,omitempty"`
+	Amount   int32      `json:"amount"`
+	Currency *string    `json:"currency,omitempty"`
+	PaidBy   *FeePaidBy `json:"paid_by,omitempty"`
 	// The payment account Id
 	PaidByAccountId      *string `json:"paid_by_account_id,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -107,9 +107,9 @@ func (o *Fee) SetCurrency(v string) {
 }
 
 // GetPaidBy returns the PaidBy field value if set, zero value otherwise.
-func (o *Fee) GetPaidBy() string {
+func (o *Fee) GetPaidBy() FeePaidBy {
 	if o == nil || IsNil(o.PaidBy) {
-		var ret string
+		var ret FeePaidBy
 		return ret
 	}
 	return *o.PaidBy
@@ -117,7 +117,7 @@ func (o *Fee) GetPaidBy() string {
 
 // GetPaidByOk returns a tuple with the PaidBy field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *Fee) GetPaidByOk() (*string, bool) {
+func (o *Fee) GetPaidByOk() (*FeePaidBy, bool) {
 	if o == nil || IsNil(o.PaidBy) {
 		return nil, false
 	}
@@ -133,8 +133,8 @@ func (o *Fee) HasPaidBy() bool {
 	return false
 }
 
-// SetPaidBy gets a reference to the given string and assigns it to the PaidBy field.
-func (o *Fee) SetPaidBy(v string) {
+// SetPaidBy gets a reference to the given FeePaidBy and assigns it to the PaidBy field.
+func (o *Fee) SetPaidBy(v FeePaidBy) {
 	o.PaidBy = &v
 }
 

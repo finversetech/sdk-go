@@ -21,11 +21,10 @@ var _ MappedNullable = &FvErrorModelV2{}
 
 // FvErrorModelV2 struct for FvErrorModelV2
 type FvErrorModelV2 struct {
-	// The error type
-	Type      string `json:"type"`
-	ErrorCode string `json:"error_code"`
-	Message   string `json:"message"`
-	Details   string `json:"details"`
+	Type      FinverseErrorCategory `json:"type"`
+	ErrorCode string                `json:"error_code"`
+	Message   string                `json:"message"`
+	Details   string                `json:"details"`
 	// The request_id provided in the request header
 	RequestId            string `json:"request_id"`
 	AdditionalProperties map[string]interface{}
@@ -37,7 +36,7 @@ type _FvErrorModelV2 FvErrorModelV2
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFvErrorModelV2(type_ string, errorCode string, message string, details string, requestId string) *FvErrorModelV2 {
+func NewFvErrorModelV2(type_ FinverseErrorCategory, errorCode string, message string, details string, requestId string) *FvErrorModelV2 {
 	this := FvErrorModelV2{}
 	this.Type = type_
 	this.ErrorCode = errorCode
@@ -56,9 +55,9 @@ func NewFvErrorModelV2WithDefaults() *FvErrorModelV2 {
 }
 
 // GetType returns the Type field value
-func (o *FvErrorModelV2) GetType() string {
+func (o *FvErrorModelV2) GetType() FinverseErrorCategory {
 	if o == nil {
-		var ret string
+		var ret FinverseErrorCategory
 		return ret
 	}
 
@@ -67,7 +66,7 @@ func (o *FvErrorModelV2) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *FvErrorModelV2) GetTypeOk() (*string, bool) {
+func (o *FvErrorModelV2) GetTypeOk() (*FinverseErrorCategory, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -75,7 +74,7 @@ func (o *FvErrorModelV2) GetTypeOk() (*string, bool) {
 }
 
 // SetType sets field value
-func (o *FvErrorModelV2) SetType(v string) {
+func (o *FvErrorModelV2) SetType(v FinverseErrorCategory) {
 	o.Type = v
 }
 

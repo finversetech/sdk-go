@@ -25,8 +25,7 @@ type RecipientAccountResponse struct {
 	// Accountholder name of the recipient's account
 	AccountholderName *string                 `json:"accountholder_name,omitempty"`
 	AccountNumber     *RecipientAccountNumber `json:"account_number,omitempty"`
-	// Type of recipient account.
-	AccountType *string `json:"account_type,omitempty"`
+	AccountType       *PaymentAccountType     `json:"account_type,omitempty"`
 	// List of currencies supported by the recipient account
 	Currencies []string `json:"currencies,omitempty"`
 	// Finverse Institution ID for the recipient’s institution.
@@ -156,9 +155,9 @@ func (o *RecipientAccountResponse) SetAccountNumber(v RecipientAccountNumber) {
 }
 
 // GetAccountType returns the AccountType field value if set, zero value otherwise.
-func (o *RecipientAccountResponse) GetAccountType() string {
+func (o *RecipientAccountResponse) GetAccountType() PaymentAccountType {
 	if o == nil || IsNil(o.AccountType) {
-		var ret string
+		var ret PaymentAccountType
 		return ret
 	}
 	return *o.AccountType
@@ -166,7 +165,7 @@ func (o *RecipientAccountResponse) GetAccountType() string {
 
 // GetAccountTypeOk returns a tuple with the AccountType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RecipientAccountResponse) GetAccountTypeOk() (*string, bool) {
+func (o *RecipientAccountResponse) GetAccountTypeOk() (*PaymentAccountType, bool) {
 	if o == nil || IsNil(o.AccountType) {
 		return nil, false
 	}
@@ -182,8 +181,8 @@ func (o *RecipientAccountResponse) HasAccountType() bool {
 	return false
 }
 
-// SetAccountType gets a reference to the given string and assigns it to the AccountType field.
-func (o *RecipientAccountResponse) SetAccountType(v string) {
+// SetAccountType gets a reference to the given PaymentAccountType and assigns it to the AccountType field.
+func (o *RecipientAccountResponse) SetAccountType(v PaymentAccountType) {
 	o.AccountType = &v
 }
 

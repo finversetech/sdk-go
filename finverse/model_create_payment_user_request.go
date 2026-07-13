@@ -23,7 +23,7 @@ var _ MappedNullable = &CreatePaymentUserRequest{}
 type CreatePaymentUserRequest struct {
 	Name                 string                                 `json:"name"`
 	ExternalUserId       string                                 `json:"external_user_id"`
-	UserType             *string                                `json:"user_type,omitempty"`
+	UserType             *PaymentUserType                       `json:"user_type,omitempty"`
 	Email                *string                                `json:"email,omitempty"`
 	UserDetails          []SenderDetail                         `json:"user_details,omitempty"`
 	Metadata             *map[string]string                     `json:"metadata,omitempty"`
@@ -102,9 +102,9 @@ func (o *CreatePaymentUserRequest) SetExternalUserId(v string) {
 }
 
 // GetUserType returns the UserType field value if set, zero value otherwise.
-func (o *CreatePaymentUserRequest) GetUserType() string {
+func (o *CreatePaymentUserRequest) GetUserType() PaymentUserType {
 	if o == nil || IsNil(o.UserType) {
-		var ret string
+		var ret PaymentUserType
 		return ret
 	}
 	return *o.UserType
@@ -112,7 +112,7 @@ func (o *CreatePaymentUserRequest) GetUserType() string {
 
 // GetUserTypeOk returns a tuple with the UserType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *CreatePaymentUserRequest) GetUserTypeOk() (*string, bool) {
+func (o *CreatePaymentUserRequest) GetUserTypeOk() (*PaymentUserType, bool) {
 	if o == nil || IsNil(o.UserType) {
 		return nil, false
 	}
@@ -128,8 +128,8 @@ func (o *CreatePaymentUserRequest) HasUserType() bool {
 	return false
 }
 
-// SetUserType gets a reference to the given string and assigns it to the UserType field.
-func (o *CreatePaymentUserRequest) SetUserType(v string) {
+// SetUserType gets a reference to the given PaymentUserType and assigns it to the UserType field.
+func (o *CreatePaymentUserRequest) SetUserType(v PaymentUserType) {
 	o.UserType = &v
 }
 

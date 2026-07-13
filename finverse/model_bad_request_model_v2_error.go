@@ -21,12 +21,11 @@ var _ MappedNullable = &BadRequestModelV2Error{}
 
 // BadRequestModelV2Error struct for BadRequestModelV2Error
 type BadRequestModelV2Error struct {
-	// The error type
-	Type      string  `json:"type"`
-	ErrorCode string  `json:"error_code"`
-	Code      int32   `json:"code"`
-	Message   string  `json:"message"`
-	Details   *string `json:"details,omitempty"`
+	Type      FinverseErrorCategory `json:"type"`
+	ErrorCode string                `json:"error_code"`
+	Code      int32                 `json:"code"`
+	Message   string                `json:"message"`
+	Details   *string               `json:"details,omitempty"`
 	// The request_id provided in the request header
 	RequestId            string `json:"request_id"`
 	AdditionalProperties map[string]interface{}
@@ -38,7 +37,7 @@ type _BadRequestModelV2Error BadRequestModelV2Error
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewBadRequestModelV2Error(type_ string, errorCode string, code int32, message string, requestId string) *BadRequestModelV2Error {
+func NewBadRequestModelV2Error(type_ FinverseErrorCategory, errorCode string, code int32, message string, requestId string) *BadRequestModelV2Error {
 	this := BadRequestModelV2Error{}
 	this.Type = type_
 	this.ErrorCode = errorCode
@@ -57,9 +56,9 @@ func NewBadRequestModelV2ErrorWithDefaults() *BadRequestModelV2Error {
 }
 
 // GetType returns the Type field value
-func (o *BadRequestModelV2Error) GetType() string {
+func (o *BadRequestModelV2Error) GetType() FinverseErrorCategory {
 	if o == nil {
-		var ret string
+		var ret FinverseErrorCategory
 		return ret
 	}
 
@@ -68,7 +67,7 @@ func (o *BadRequestModelV2Error) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
-func (o *BadRequestModelV2Error) GetTypeOk() (*string, bool) {
+func (o *BadRequestModelV2Error) GetTypeOk() (*FinverseErrorCategory, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -76,7 +75,7 @@ func (o *BadRequestModelV2Error) GetTypeOk() (*string, bool) {
 }
 
 // SetType sets field value
-func (o *BadRequestModelV2Error) SetType(v string) {
+func (o *BadRequestModelV2Error) SetType(v FinverseErrorCategory) {
 	o.Type = v
 }
 

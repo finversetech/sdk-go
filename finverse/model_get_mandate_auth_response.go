@@ -29,9 +29,8 @@ type GetMandateAuthResponse struct {
 	// Merchant account ID assigned by Finverse
 	RecipientAccountId string `json:"recipient_account_id"`
 	// Finverse Institution ID. Only returned if institution_id was included in the request.
-	InstitutionId string `json:"institution_id"`
-	// Type of account held by the Sender at the Institution. Possible values are INDIVIDUAL, BUSINESS
-	SenderType *string `json:"sender_type,omitempty"`
+	InstitutionId string           `json:"institution_id"`
+	SenderType    *PaymentUserType `json:"sender_type,omitempty"`
 	// Checklist of the authorization factors needed to complete Mandate authorization
 	AuthChecklist  []AuthChecklistFactor     `json:"auth_checklist"`
 	EncryptionInfo MandateAuthEncryptionInfo `json:"encryption_info"`
@@ -166,9 +165,9 @@ func (o *GetMandateAuthResponse) SetInstitutionId(v string) {
 }
 
 // GetSenderType returns the SenderType field value if set, zero value otherwise.
-func (o *GetMandateAuthResponse) GetSenderType() string {
+func (o *GetMandateAuthResponse) GetSenderType() PaymentUserType {
 	if o == nil || IsNil(o.SenderType) {
-		var ret string
+		var ret PaymentUserType
 		return ret
 	}
 	return *o.SenderType
@@ -176,7 +175,7 @@ func (o *GetMandateAuthResponse) GetSenderType() string {
 
 // GetSenderTypeOk returns a tuple with the SenderType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetMandateAuthResponse) GetSenderTypeOk() (*string, bool) {
+func (o *GetMandateAuthResponse) GetSenderTypeOk() (*PaymentUserType, bool) {
 	if o == nil || IsNil(o.SenderType) {
 		return nil, false
 	}
@@ -192,8 +191,8 @@ func (o *GetMandateAuthResponse) HasSenderType() bool {
 	return false
 }
 
-// SetSenderType gets a reference to the given string and assigns it to the SenderType field.
-func (o *GetMandateAuthResponse) SetSenderType(v string) {
+// SetSenderType gets a reference to the given PaymentUserType and assigns it to the SenderType field.
+func (o *GetMandateAuthResponse) SetSenderType(v PaymentUserType) {
 	o.SenderType = &v
 }
 
