@@ -21,13 +21,13 @@ var _ MappedNullable = &RapidstorPaymentUserMetadataRequest{}
 
 // RapidstorPaymentUserMetadataRequest struct for RapidstorPaymentUserMetadataRequest
 type RapidstorPaymentUserMetadataRequest struct {
-	CorpCode              string   `json:"corp_code"`
-	SLocationCode         string   `json:"s_location_code"`
-	TenantId              string   `json:"tenant_id"`
-	IAnnivDays            *float32 `json:"i_anniv_days,omitempty"`
-	AccountToken          string   `json:"account_token"`
-	UnitTypeId            *string  `json:"unit_type_id,omitempty"`
-	TenantDefaultCurrency string   `json:"tenant_default_currency"`
+	CorpCode              string  `json:"corp_code"`
+	SLocationCode         string  `json:"s_location_code"`
+	TenantId              string  `json:"tenant_id"`
+	IAnnivDays            *int64  `json:"i_anniv_days,omitempty"`
+	AccountToken          string  `json:"account_token"`
+	UnitTypeId            *string `json:"unit_type_id,omitempty"`
+	TenantDefaultCurrency string  `json:"tenant_default_currency"`
 	AdditionalProperties  map[string]interface{}
 }
 
@@ -128,9 +128,9 @@ func (o *RapidstorPaymentUserMetadataRequest) SetTenantId(v string) {
 }
 
 // GetIAnnivDays returns the IAnnivDays field value if set, zero value otherwise.
-func (o *RapidstorPaymentUserMetadataRequest) GetIAnnivDays() float32 {
+func (o *RapidstorPaymentUserMetadataRequest) GetIAnnivDays() int64 {
 	if o == nil || IsNil(o.IAnnivDays) {
-		var ret float32
+		var ret int64
 		return ret
 	}
 	return *o.IAnnivDays
@@ -138,7 +138,7 @@ func (o *RapidstorPaymentUserMetadataRequest) GetIAnnivDays() float32 {
 
 // GetIAnnivDaysOk returns a tuple with the IAnnivDays field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *RapidstorPaymentUserMetadataRequest) GetIAnnivDaysOk() (*float32, bool) {
+func (o *RapidstorPaymentUserMetadataRequest) GetIAnnivDaysOk() (*int64, bool) {
 	if o == nil || IsNil(o.IAnnivDays) {
 		return nil, false
 	}
@@ -154,8 +154,8 @@ func (o *RapidstorPaymentUserMetadataRequest) HasIAnnivDays() bool {
 	return false
 }
 
-// SetIAnnivDays gets a reference to the given float32 and assigns it to the IAnnivDays field.
-func (o *RapidstorPaymentUserMetadataRequest) SetIAnnivDays(v float32) {
+// SetIAnnivDays gets a reference to the given int64 and assigns it to the IAnnivDays field.
+func (o *RapidstorPaymentUserMetadataRequest) SetIAnnivDays(v int64) {
 	o.IAnnivDays = &v
 }
 

@@ -22,7 +22,7 @@ var _ MappedNullable = &MandateFvLinkResponse{}
 type MandateFvLinkResponse struct {
 	MandateId            *string                      `json:"mandate_id,omitempty"`
 	InstitutionId        *string                      `json:"institution_id,omitempty"`
-	MandateStatus        *string                      `json:"mandate_status,omitempty"`
+	MandateStatus        *MandateStatus               `json:"mandate_status,omitempty"`
 	Recipient            *MandateRecipient            `json:"recipient,omitempty"`
 	SenderAccount        *SenderAccountFvLinkResponse `json:"sender_account,omitempty"`
 	Error                *FvEmbeddedErrorModel        `json:"error,omitempty"`
@@ -114,9 +114,9 @@ func (o *MandateFvLinkResponse) SetInstitutionId(v string) {
 }
 
 // GetMandateStatus returns the MandateStatus field value if set, zero value otherwise.
-func (o *MandateFvLinkResponse) GetMandateStatus() string {
+func (o *MandateFvLinkResponse) GetMandateStatus() MandateStatus {
 	if o == nil || IsNil(o.MandateStatus) {
-		var ret string
+		var ret MandateStatus
 		return ret
 	}
 	return *o.MandateStatus
@@ -124,7 +124,7 @@ func (o *MandateFvLinkResponse) GetMandateStatus() string {
 
 // GetMandateStatusOk returns a tuple with the MandateStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *MandateFvLinkResponse) GetMandateStatusOk() (*string, bool) {
+func (o *MandateFvLinkResponse) GetMandateStatusOk() (*MandateStatus, bool) {
 	if o == nil || IsNil(o.MandateStatus) {
 		return nil, false
 	}
@@ -140,8 +140,8 @@ func (o *MandateFvLinkResponse) HasMandateStatus() bool {
 	return false
 }
 
-// SetMandateStatus gets a reference to the given string and assigns it to the MandateStatus field.
-func (o *MandateFvLinkResponse) SetMandateStatus(v string) {
+// SetMandateStatus gets a reference to the given MandateStatus and assigns it to the MandateStatus field.
+func (o *MandateFvLinkResponse) SetMandateStatus(v MandateStatus) {
 	o.MandateStatus = &v
 }
 

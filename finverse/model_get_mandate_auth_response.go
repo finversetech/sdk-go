@@ -23,9 +23,8 @@ var _ MappedNullable = &GetMandateAuthResponse{}
 // GetMandateAuthResponse struct for GetMandateAuthResponse
 type GetMandateAuthResponse struct {
 	// Finverse Mandate ID
-	MandateId string `json:"mandate_id"`
-	// Mandate status
-	MandateStatus string `json:"mandate_status"`
+	MandateId     string        `json:"mandate_id"`
+	MandateStatus MandateStatus `json:"mandate_status"`
 	// Merchant account ID assigned by Finverse
 	RecipientAccountId string `json:"recipient_account_id"`
 	// Finverse Institution ID. Only returned if institution_id was included in the request.
@@ -48,7 +47,7 @@ type _GetMandateAuthResponse GetMandateAuthResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetMandateAuthResponse(mandateId string, mandateStatus string, recipientAccountId string, institutionId string, authChecklist []AuthChecklistFactor, encryptionInfo MandateAuthEncryptionInfo, lastUpdate time.Time) *GetMandateAuthResponse {
+func NewGetMandateAuthResponse(mandateId string, mandateStatus MandateStatus, recipientAccountId string, institutionId string, authChecklist []AuthChecklistFactor, encryptionInfo MandateAuthEncryptionInfo, lastUpdate time.Time) *GetMandateAuthResponse {
 	this := GetMandateAuthResponse{}
 	this.MandateId = mandateId
 	this.MandateStatus = mandateStatus
@@ -93,9 +92,9 @@ func (o *GetMandateAuthResponse) SetMandateId(v string) {
 }
 
 // GetMandateStatus returns the MandateStatus field value
-func (o *GetMandateAuthResponse) GetMandateStatus() string {
+func (o *GetMandateAuthResponse) GetMandateStatus() MandateStatus {
 	if o == nil {
-		var ret string
+		var ret MandateStatus
 		return ret
 	}
 
@@ -104,7 +103,7 @@ func (o *GetMandateAuthResponse) GetMandateStatus() string {
 
 // GetMandateStatusOk returns a tuple with the MandateStatus field value
 // and a boolean to check if the value has been set.
-func (o *GetMandateAuthResponse) GetMandateStatusOk() (*string, bool) {
+func (o *GetMandateAuthResponse) GetMandateStatusOk() (*MandateStatus, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -112,7 +111,7 @@ func (o *GetMandateAuthResponse) GetMandateStatusOk() (*string, bool) {
 }
 
 // SetMandateStatus sets field value
-func (o *GetMandateAuthResponse) SetMandateStatus(v string) {
+func (o *GetMandateAuthResponse) SetMandateStatus(v MandateStatus) {
 	o.MandateStatus = v
 }
 

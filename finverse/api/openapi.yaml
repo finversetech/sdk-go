@@ -9175,7 +9175,7 @@ components:
           rapidstor_metadata:
             tenant_id: tenant_id
             corp_code: corp_code
-            i_anniv_days: 18.886401750049547
+            i_anniv_days: 18
             account_token: account_token
             unit_type_id: unit_type_id
             s_location_code: s_location_code
@@ -9737,7 +9737,7 @@ components:
               tenant_id: tenant_id
               tenant_default_currency: tenant_default_currency
               corp_code: corp_code
-              i_anniv_days: 5.637376656633329
+              i_anniv_days: 5
               account_token: account_token
               unit_type_id: unit_type_id
               s_location_code: s_location_code
@@ -9796,7 +9796,7 @@ components:
             tenant_id: tenant_id
             tenant_default_currency: tenant_default_currency
             corp_code: corp_code
-            i_anniv_days: 5.637376656633329
+            i_anniv_days: 5
             account_token: account_token
             unit_type_id: unit_type_id
             s_location_code: s_location_code
@@ -10220,7 +10220,7 @@ components:
       example:
         tenant_id: tenant_id
         corp_code: corp_code
-        i_anniv_days: 18.886401750049547
+        i_anniv_days: 18
         account_token: account_token
         unit_type_id: unit_type_id
         s_location_code: s_location_code
@@ -10232,10 +10232,10 @@ components:
         tenant_id:
           type: string
         i_anniv_days:
-          format: int32
+          format: int64
           maximum: 31
           minimum: 1
-          type: number
+          type: integer
         account_token:
           type: string
         unit_type_id:
@@ -10259,7 +10259,7 @@ components:
         tenant_id: tenant_id
         tenant_default_currency: tenant_default_currency
         corp_code: corp_code
-        i_anniv_days: 3.4024845713830345
+        i_anniv_days: 3
         account_token: account_token
         unit_type_id: unit_type_id
         s_location_code: s_location_code
@@ -10268,7 +10268,7 @@ components:
         tenant_id: tenant_id
         tenant_default_currency: tenant_default_currency
         corp_code: corp_code
-        i_anniv_days: 5.637376656633329
+        i_anniv_days: 5
         account_token: account_token
         unit_type_id: unit_type_id
         s_location_code: s_location_code
@@ -10280,8 +10280,8 @@ components:
         tenant_id:
           type: string
         i_anniv_days:
-          format: int32
-          type: number
+          format: int64
+          type: integer
         tenant_default_currency:
           type: string
         account_token:
@@ -10295,7 +10295,7 @@ components:
         rapidstor_metadata:
           tenant_id: tenant_id
           corp_code: corp_code
-          i_anniv_days: 18.886401750049547
+          i_anniv_days: 18
           account_token: account_token
           unit_type_id: unit_type_id
           s_location_code: s_location_code
@@ -10316,7 +10316,7 @@ components:
           tenant_id: tenant_id
           tenant_default_currency: tenant_default_currency
           corp_code: corp_code
-          i_anniv_days: 3.4024845713830345
+          i_anniv_days: 3
           account_token: account_token
           unit_type_id: unit_type_id
           s_location_code: s_location_code
@@ -10337,7 +10337,7 @@ components:
           tenant_id: tenant_id
           tenant_default_currency: tenant_default_currency
           corp_code: corp_code
-          i_anniv_days: 5.637376656633329
+          i_anniv_days: 5
           account_token: account_token
           unit_type_id: unit_type_id
           s_location_code: s_location_code
@@ -10513,10 +10513,12 @@ components:
         expiry_month:
           description: The credit card expiry month
           example: 7
+          format: int32
           type: integer
         expiry_year:
           description: The credit card expiry year
           example: 2028
+          format: int32
           type: integer
         processor_entity_name:
           type: string
@@ -11658,7 +11660,7 @@ components:
       type: object
     GetMandateAuthResponse:
       example:
-        mandate_status: CREATED
+        mandate_status: AUTHORIZATION_REQUIRED
         mandate_details:
           end_date: 2000-01-23
           payment_schedule:
@@ -11724,13 +11726,7 @@ components:
           description: Finverse Mandate ID
           type: string
         mandate_status:
-          description: Mandate status
-          enum:
-          - CREATED
-          - PROCESSING
-          - SUBMITTED
-          - ERROR
-          type: string
+          $ref: '#/components/schemas/MandateStatus'
         recipient_account_id:
           description: Merchant account ID assigned by Finverse
           type: string
@@ -11865,7 +11861,7 @@ components:
       type: object
     SubmitAuthChecklistResponse:
       example:
-        mandate_status: CREATED
+        mandate_status: AUTHORIZATION_REQUIRED
         last_update: 2000-01-23T04:56:07.000+00:00
         mandate_id: mandate_id
         auth_checklist:
@@ -11906,13 +11902,7 @@ components:
             $ref: '#/components/schemas/AuthChecklistFactor'
           type: array
         mandate_status:
-          description: Mandate status
-          enum:
-          - CREATED
-          - PROCESSING
-          - SUBMITTED
-          - ERROR
-          type: string
+          $ref: '#/components/schemas/MandateStatus'
         last_update:
           description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time
@@ -12587,7 +12577,7 @@ components:
             tenant_id: tenant_id
             tenant_default_currency: tenant_default_currency
             corp_code: corp_code
-            i_anniv_days: 3.4024845713830345
+            i_anniv_days: 3
             account_token: account_token
             unit_type_id: unit_type_id
             s_location_code: s_location_code
@@ -12683,7 +12673,7 @@ components:
             tenant_id: tenant_id
             tenant_default_currency: tenant_default_currency
             corp_code: corp_code
-            i_anniv_days: 5.637376656633329
+            i_anniv_days: 5
             account_token: account_token
             unit_type_id: unit_type_id
             s_location_code: s_location_code
@@ -12759,7 +12749,7 @@ components:
             tenant_id: tenant_id
             tenant_default_currency: tenant_default_currency
             corp_code: corp_code
-            i_anniv_days: 5.637376656633329
+            i_anniv_days: 5
             account_token: account_token
             unit_type_id: unit_type_id
             s_location_code: s_location_code
@@ -13230,7 +13220,7 @@ components:
         institution_id:
           type: string
         mandate_status:
-          type: string
+          $ref: '#/components/schemas/MandateStatus'
         recipient:
           $ref: '#/components/schemas/MandateRecipient'
         sender_account:
@@ -13269,10 +13259,12 @@ components:
         expiry_month:
           description: The credit card expiry month
           example: 7
+          format: int32
           type: integer
         expiry_year:
           description: The credit card expiry year
           example: 2028
+          format: int32
           type: integer
         collection_entity_name:
           type: string
@@ -14782,8 +14774,10 @@ components:
         currency:
           type: string
         expiry_month:
+          format: int32
           type: integer
         expiry_year:
+          format: int32
           type: integer
         card_bin:
           description: First 6 digits of the credit card number

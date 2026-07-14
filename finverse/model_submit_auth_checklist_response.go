@@ -26,8 +26,7 @@ type SubmitAuthChecklistResponse struct {
 	MandateId string `json:"mandate_id"`
 	// Checklist of the authorization factors needed to complete Mandate authorization
 	AuthChecklist []AuthChecklistFactor `json:"auth_checklist"`
-	// Mandate status
-	MandateStatus string `json:"mandate_status"`
+	MandateStatus MandateStatus         `json:"mandate_status"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	LastUpdate           time.Time `json:"last_update"`
 	AdditionalProperties map[string]interface{}
@@ -39,7 +38,7 @@ type _SubmitAuthChecklistResponse SubmitAuthChecklistResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewSubmitAuthChecklistResponse(mandateId string, authChecklist []AuthChecklistFactor, mandateStatus string, lastUpdate time.Time) *SubmitAuthChecklistResponse {
+func NewSubmitAuthChecklistResponse(mandateId string, authChecklist []AuthChecklistFactor, mandateStatus MandateStatus, lastUpdate time.Time) *SubmitAuthChecklistResponse {
 	this := SubmitAuthChecklistResponse{}
 	this.MandateId = mandateId
 	this.AuthChecklist = authChecklist
@@ -105,9 +104,9 @@ func (o *SubmitAuthChecklistResponse) SetAuthChecklist(v []AuthChecklistFactor) 
 }
 
 // GetMandateStatus returns the MandateStatus field value
-func (o *SubmitAuthChecklistResponse) GetMandateStatus() string {
+func (o *SubmitAuthChecklistResponse) GetMandateStatus() MandateStatus {
 	if o == nil {
-		var ret string
+		var ret MandateStatus
 		return ret
 	}
 
@@ -116,7 +115,7 @@ func (o *SubmitAuthChecklistResponse) GetMandateStatus() string {
 
 // GetMandateStatusOk returns a tuple with the MandateStatus field value
 // and a boolean to check if the value has been set.
-func (o *SubmitAuthChecklistResponse) GetMandateStatusOk() (*string, bool) {
+func (o *SubmitAuthChecklistResponse) GetMandateStatusOk() (*MandateStatus, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -124,7 +123,7 @@ func (o *SubmitAuthChecklistResponse) GetMandateStatusOk() (*string, bool) {
 }
 
 // SetMandateStatus sets field value
-func (o *SubmitAuthChecklistResponse) SetMandateStatus(v string) {
+func (o *SubmitAuthChecklistResponse) SetMandateStatus(v MandateStatus) {
 	o.MandateStatus = v
 }
 
