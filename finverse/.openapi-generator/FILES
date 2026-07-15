@@ -9,6 +9,7 @@ client.go
 configuration.go
 model_access_token_response.go
 model_account.go
+model_account_category.go
 model_account_number.go
 model_account_number_type.go
 model_account_type.go
@@ -19,6 +20,7 @@ model_api_link_request.go
 model_api_relink_request.go
 model_auth_checklist_factor.go
 model_auth_checklist_options.go
+model_authentication_status.go
 model_authorize_mandate_request.go
 model_autopay_enrollment_configuration.go
 model_available_payment_method.go
@@ -147,10 +149,13 @@ model_login_action.go
 model_login_details.go
 model_login_field.go
 model_login_identity.go
+model_login_identity_auth_status.go
 model_login_identity_billing_details.go
 model_login_identity_error.go
 model_login_identity_login_methods_available.go
+model_login_identity_session_status.go
 model_login_identity_short.go
+model_login_identity_status.go
 model_login_identity_status_details.go
 model_login_method.go
 model_mandate_auth_encryption_info.go
@@ -235,6 +240,7 @@ model_payout_status.go
 model_payout_type.go
 model_principal.go
 model_processor_risk_data.go
+model_product_health_status.go
 model_product_status.go
 model_rapidstor_metadata_request.go
 model_rapidstor_metadata_response.go

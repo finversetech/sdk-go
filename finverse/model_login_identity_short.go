@@ -20,9 +20,9 @@ var _ MappedNullable = &LoginIdentityShort{}
 
 // LoginIdentityShort struct for LoginIdentityShort
 type LoginIdentityShort struct {
-	LoginIdentityId      *string `json:"login_identity_id,omitempty"`
-	Status               *string `json:"status,omitempty"`
-	LastSessionId        *string `json:"last_session_id,omitempty"`
+	LoginIdentityId      *string              `json:"login_identity_id,omitempty"`
+	Status               *LoginIdentityStatus `json:"status,omitempty"`
+	LastSessionId        *string              `json:"last_session_id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -78,9 +78,9 @@ func (o *LoginIdentityShort) SetLoginIdentityId(v string) {
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *LoginIdentityShort) GetStatus() string {
+func (o *LoginIdentityShort) GetStatus() LoginIdentityStatus {
 	if o == nil || IsNil(o.Status) {
-		var ret string
+		var ret LoginIdentityStatus
 		return ret
 	}
 	return *o.Status
@@ -88,7 +88,7 @@ func (o *LoginIdentityShort) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LoginIdentityShort) GetStatusOk() (*string, bool) {
+func (o *LoginIdentityShort) GetStatusOk() (*LoginIdentityStatus, bool) {
 	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
@@ -104,8 +104,8 @@ func (o *LoginIdentityShort) HasStatus() bool {
 	return false
 }
 
-// SetStatus gets a reference to the given string and assigns it to the Status field.
-func (o *LoginIdentityShort) SetStatus(v string) {
+// SetStatus gets a reference to the given LoginIdentityStatus and assigns it to the Status field.
+func (o *LoginIdentityShort) SetStatus(v LoginIdentityStatus) {
 	o.Status = &v
 }
 

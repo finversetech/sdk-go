@@ -20,8 +20,8 @@ var _ MappedNullable = &AccountType{}
 
 // AccountType struct for AccountType
 type AccountType struct {
-	Type                 *string `json:"type,omitempty"`
-	Subtype              *string `json:"subtype,omitempty"`
+	Type                 *AccountCategory `json:"type,omitempty"`
+	Subtype              *string          `json:"subtype,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -45,9 +45,9 @@ func NewAccountTypeWithDefaults() *AccountType {
 }
 
 // GetType returns the Type field value if set, zero value otherwise.
-func (o *AccountType) GetType() string {
+func (o *AccountType) GetType() AccountCategory {
 	if o == nil || IsNil(o.Type) {
-		var ret string
+		var ret AccountCategory
 		return ret
 	}
 	return *o.Type
@@ -55,7 +55,7 @@ func (o *AccountType) GetType() string {
 
 // GetTypeOk returns a tuple with the Type field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *AccountType) GetTypeOk() (*string, bool) {
+func (o *AccountType) GetTypeOk() (*AccountCategory, bool) {
 	if o == nil || IsNil(o.Type) {
 		return nil, false
 	}
@@ -71,8 +71,8 @@ func (o *AccountType) HasType() bool {
 	return false
 }
 
-// SetType gets a reference to the given string and assigns it to the Type field.
-func (o *AccountType) SetType(v string) {
+// SetType gets a reference to the given AccountCategory and assigns it to the Type field.
+func (o *AccountType) SetType(v AccountCategory) {
 	o.Type = &v
 }
 

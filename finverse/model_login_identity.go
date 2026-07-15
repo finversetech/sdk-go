@@ -30,15 +30,15 @@ type LoginIdentity struct {
 	PermissionsExpiryDate *time.Time                          `json:"permissions_expiry_date,omitempty"`
 	Permissions           []string                            `json:"permissions,omitempty"`
 	BillingDetails        *LoginIdentityBillingDetails        `json:"billing_details,omitempty"`
-	Status                *string                             `json:"status,omitempty"`
+	Status                *LoginIdentityStatus                `json:"status,omitempty"`
 	StatusDetails         *LoginIdentityStatusDetails         `json:"status_details,omitempty"`
 	ProductStatus         *AllProductStatus                   `json:"product_status,omitempty"`
-	AuthenticationStatus  *ProductStatus                      `json:"authentication_status,omitempty"`
+	AuthenticationStatus  *AuthenticationStatus               `json:"authentication_status,omitempty"`
 	Error                 *LoginIdentityError                 `json:"error,omitempty"`
 	LastSuccess           *time.Time                          `json:"last_success,omitempty"`
 	FirstSuccess          *time.Time                          `json:"first_success,omitempty"`
 	Webhook               *string                             `json:"webhook,omitempty"`
-	SessionStatus         *string                             `json:"session_status,omitempty"`
+	SessionStatus         *LoginIdentitySessionStatus         `json:"session_status,omitempty"`
 	InstitutionId         string                              `json:"institution_id"`
 	CreatedAt             *time.Time                          `json:"created_at,omitempty"`
 	UpdatedAt             *time.Time                          `json:"updated_at,omitempty"`
@@ -316,9 +316,9 @@ func (o *LoginIdentity) SetBillingDetails(v LoginIdentityBillingDetails) {
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *LoginIdentity) GetStatus() string {
+func (o *LoginIdentity) GetStatus() LoginIdentityStatus {
 	if o == nil || IsNil(o.Status) {
-		var ret string
+		var ret LoginIdentityStatus
 		return ret
 	}
 	return *o.Status
@@ -326,7 +326,7 @@ func (o *LoginIdentity) GetStatus() string {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LoginIdentity) GetStatusOk() (*string, bool) {
+func (o *LoginIdentity) GetStatusOk() (*LoginIdentityStatus, bool) {
 	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
@@ -342,8 +342,8 @@ func (o *LoginIdentity) HasStatus() bool {
 	return false
 }
 
-// SetStatus gets a reference to the given string and assigns it to the Status field.
-func (o *LoginIdentity) SetStatus(v string) {
+// SetStatus gets a reference to the given LoginIdentityStatus and assigns it to the Status field.
+func (o *LoginIdentity) SetStatus(v LoginIdentityStatus) {
 	o.Status = &v
 }
 
@@ -412,9 +412,9 @@ func (o *LoginIdentity) SetProductStatus(v AllProductStatus) {
 }
 
 // GetAuthenticationStatus returns the AuthenticationStatus field value if set, zero value otherwise.
-func (o *LoginIdentity) GetAuthenticationStatus() ProductStatus {
+func (o *LoginIdentity) GetAuthenticationStatus() AuthenticationStatus {
 	if o == nil || IsNil(o.AuthenticationStatus) {
-		var ret ProductStatus
+		var ret AuthenticationStatus
 		return ret
 	}
 	return *o.AuthenticationStatus
@@ -422,7 +422,7 @@ func (o *LoginIdentity) GetAuthenticationStatus() ProductStatus {
 
 // GetAuthenticationStatusOk returns a tuple with the AuthenticationStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LoginIdentity) GetAuthenticationStatusOk() (*ProductStatus, bool) {
+func (o *LoginIdentity) GetAuthenticationStatusOk() (*AuthenticationStatus, bool) {
 	if o == nil || IsNil(o.AuthenticationStatus) {
 		return nil, false
 	}
@@ -438,8 +438,8 @@ func (o *LoginIdentity) HasAuthenticationStatus() bool {
 	return false
 }
 
-// SetAuthenticationStatus gets a reference to the given ProductStatus and assigns it to the AuthenticationStatus field.
-func (o *LoginIdentity) SetAuthenticationStatus(v ProductStatus) {
+// SetAuthenticationStatus gets a reference to the given AuthenticationStatus and assigns it to the AuthenticationStatus field.
+func (o *LoginIdentity) SetAuthenticationStatus(v AuthenticationStatus) {
 	o.AuthenticationStatus = &v
 }
 
@@ -572,9 +572,9 @@ func (o *LoginIdentity) SetWebhook(v string) {
 }
 
 // GetSessionStatus returns the SessionStatus field value if set, zero value otherwise.
-func (o *LoginIdentity) GetSessionStatus() string {
+func (o *LoginIdentity) GetSessionStatus() LoginIdentitySessionStatus {
 	if o == nil || IsNil(o.SessionStatus) {
-		var ret string
+		var ret LoginIdentitySessionStatus
 		return ret
 	}
 	return *o.SessionStatus
@@ -582,7 +582,7 @@ func (o *LoginIdentity) GetSessionStatus() string {
 
 // GetSessionStatusOk returns a tuple with the SessionStatus field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *LoginIdentity) GetSessionStatusOk() (*string, bool) {
+func (o *LoginIdentity) GetSessionStatusOk() (*LoginIdentitySessionStatus, bool) {
 	if o == nil || IsNil(o.SessionStatus) {
 		return nil, false
 	}
@@ -598,8 +598,8 @@ func (o *LoginIdentity) HasSessionStatus() bool {
 	return false
 }
 
-// SetSessionStatus gets a reference to the given string and assigns it to the SessionStatus field.
-func (o *LoginIdentity) SetSessionStatus(v string) {
+// SetSessionStatus gets a reference to the given LoginIdentitySessionStatus and assigns it to the SessionStatus field.
+func (o *LoginIdentity) SetSessionStatus(v LoginIdentitySessionStatus) {
 	o.SessionStatus = &v
 }
 

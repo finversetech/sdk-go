@@ -16,12 +16,12 @@ import (
 	"time"
 )
 
-// checks if the ProductStatus type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &ProductStatus{}
+// checks if the AuthenticationStatus type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &AuthenticationStatus{}
 
-// ProductStatus struct for ProductStatus
-type ProductStatus struct {
-	Status *ProductHealthStatus `json:"status,omitempty"`
+// AuthenticationStatus struct for AuthenticationStatus
+type AuthenticationStatus struct {
+	Status *LoginIdentityAuthStatus `json:"status,omitempty"`
 	// The detailed event name
 	StatusDetails        *string      `json:"status_details,omitempty"`
 	LastUpdate           NullableTime `json:"last_update,omitempty"`
@@ -29,29 +29,29 @@ type ProductStatus struct {
 	AdditionalProperties map[string]interface{}
 }
 
-type _ProductStatus ProductStatus
+type _AuthenticationStatus AuthenticationStatus
 
-// NewProductStatus instantiates a new ProductStatus object
+// NewAuthenticationStatus instantiates a new AuthenticationStatus object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewProductStatus() *ProductStatus {
-	this := ProductStatus{}
+func NewAuthenticationStatus() *AuthenticationStatus {
+	this := AuthenticationStatus{}
 	return &this
 }
 
-// NewProductStatusWithDefaults instantiates a new ProductStatus object
+// NewAuthenticationStatusWithDefaults instantiates a new AuthenticationStatus object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewProductStatusWithDefaults() *ProductStatus {
-	this := ProductStatus{}
+func NewAuthenticationStatusWithDefaults() *AuthenticationStatus {
+	this := AuthenticationStatus{}
 	return &this
 }
 
 // GetStatus returns the Status field value if set, zero value otherwise.
-func (o *ProductStatus) GetStatus() ProductHealthStatus {
+func (o *AuthenticationStatus) GetStatus() LoginIdentityAuthStatus {
 	if o == nil || IsNil(o.Status) {
-		var ret ProductHealthStatus
+		var ret LoginIdentityAuthStatus
 		return ret
 	}
 	return *o.Status
@@ -59,7 +59,7 @@ func (o *ProductStatus) GetStatus() ProductHealthStatus {
 
 // GetStatusOk returns a tuple with the Status field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProductStatus) GetStatusOk() (*ProductHealthStatus, bool) {
+func (o *AuthenticationStatus) GetStatusOk() (*LoginIdentityAuthStatus, bool) {
 	if o == nil || IsNil(o.Status) {
 		return nil, false
 	}
@@ -67,7 +67,7 @@ func (o *ProductStatus) GetStatusOk() (*ProductHealthStatus, bool) {
 }
 
 // HasStatus returns a boolean if a field has been set.
-func (o *ProductStatus) HasStatus() bool {
+func (o *AuthenticationStatus) HasStatus() bool {
 	if o != nil && !IsNil(o.Status) {
 		return true
 	}
@@ -75,13 +75,13 @@ func (o *ProductStatus) HasStatus() bool {
 	return false
 }
 
-// SetStatus gets a reference to the given ProductHealthStatus and assigns it to the Status field.
-func (o *ProductStatus) SetStatus(v ProductHealthStatus) {
+// SetStatus gets a reference to the given LoginIdentityAuthStatus and assigns it to the Status field.
+func (o *AuthenticationStatus) SetStatus(v LoginIdentityAuthStatus) {
 	o.Status = &v
 }
 
 // GetStatusDetails returns the StatusDetails field value if set, zero value otherwise.
-func (o *ProductStatus) GetStatusDetails() string {
+func (o *AuthenticationStatus) GetStatusDetails() string {
 	if o == nil || IsNil(o.StatusDetails) {
 		var ret string
 		return ret
@@ -91,7 +91,7 @@ func (o *ProductStatus) GetStatusDetails() string {
 
 // GetStatusDetailsOk returns a tuple with the StatusDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *ProductStatus) GetStatusDetailsOk() (*string, bool) {
+func (o *AuthenticationStatus) GetStatusDetailsOk() (*string, bool) {
 	if o == nil || IsNil(o.StatusDetails) {
 		return nil, false
 	}
@@ -99,7 +99,7 @@ func (o *ProductStatus) GetStatusDetailsOk() (*string, bool) {
 }
 
 // HasStatusDetails returns a boolean if a field has been set.
-func (o *ProductStatus) HasStatusDetails() bool {
+func (o *AuthenticationStatus) HasStatusDetails() bool {
 	if o != nil && !IsNil(o.StatusDetails) {
 		return true
 	}
@@ -108,12 +108,12 @@ func (o *ProductStatus) HasStatusDetails() bool {
 }
 
 // SetStatusDetails gets a reference to the given string and assigns it to the StatusDetails field.
-func (o *ProductStatus) SetStatusDetails(v string) {
+func (o *AuthenticationStatus) SetStatusDetails(v string) {
 	o.StatusDetails = &v
 }
 
 // GetLastUpdate returns the LastUpdate field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ProductStatus) GetLastUpdate() time.Time {
+func (o *AuthenticationStatus) GetLastUpdate() time.Time {
 	if o == nil || IsNil(o.LastUpdate.Get()) {
 		var ret time.Time
 		return ret
@@ -124,7 +124,7 @@ func (o *ProductStatus) GetLastUpdate() time.Time {
 // GetLastUpdateOk returns a tuple with the LastUpdate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ProductStatus) GetLastUpdateOk() (*time.Time, bool) {
+func (o *AuthenticationStatus) GetLastUpdateOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -132,7 +132,7 @@ func (o *ProductStatus) GetLastUpdateOk() (*time.Time, bool) {
 }
 
 // HasLastUpdate returns a boolean if a field has been set.
-func (o *ProductStatus) HasLastUpdate() bool {
+func (o *AuthenticationStatus) HasLastUpdate() bool {
 	if o != nil && o.LastUpdate.IsSet() {
 		return true
 	}
@@ -141,22 +141,22 @@ func (o *ProductStatus) HasLastUpdate() bool {
 }
 
 // SetLastUpdate gets a reference to the given NullableTime and assigns it to the LastUpdate field.
-func (o *ProductStatus) SetLastUpdate(v time.Time) {
+func (o *AuthenticationStatus) SetLastUpdate(v time.Time) {
 	o.LastUpdate.Set(&v)
 }
 
 // SetLastUpdateNil sets the value for LastUpdate to be an explicit nil
-func (o *ProductStatus) SetLastUpdateNil() {
+func (o *AuthenticationStatus) SetLastUpdateNil() {
 	o.LastUpdate.Set(nil)
 }
 
 // UnsetLastUpdate ensures that no value is present for LastUpdate, not even an explicit nil
-func (o *ProductStatus) UnsetLastUpdate() {
+func (o *AuthenticationStatus) UnsetLastUpdate() {
 	o.LastUpdate.Unset()
 }
 
 // GetLastSuccessfulUpdate returns the LastSuccessfulUpdate field value if set, zero value otherwise (both if not set or set to explicit null).
-func (o *ProductStatus) GetLastSuccessfulUpdate() time.Time {
+func (o *AuthenticationStatus) GetLastSuccessfulUpdate() time.Time {
 	if o == nil || IsNil(o.LastSuccessfulUpdate.Get()) {
 		var ret time.Time
 		return ret
@@ -167,7 +167,7 @@ func (o *ProductStatus) GetLastSuccessfulUpdate() time.Time {
 // GetLastSuccessfulUpdateOk returns a tuple with the LastSuccessfulUpdate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 // NOTE: If the value is an explicit nil, `nil, true` will be returned
-func (o *ProductStatus) GetLastSuccessfulUpdateOk() (*time.Time, bool) {
+func (o *AuthenticationStatus) GetLastSuccessfulUpdateOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -175,7 +175,7 @@ func (o *ProductStatus) GetLastSuccessfulUpdateOk() (*time.Time, bool) {
 }
 
 // HasLastSuccessfulUpdate returns a boolean if a field has been set.
-func (o *ProductStatus) HasLastSuccessfulUpdate() bool {
+func (o *AuthenticationStatus) HasLastSuccessfulUpdate() bool {
 	if o != nil && o.LastSuccessfulUpdate.IsSet() {
 		return true
 	}
@@ -184,21 +184,21 @@ func (o *ProductStatus) HasLastSuccessfulUpdate() bool {
 }
 
 // SetLastSuccessfulUpdate gets a reference to the given NullableTime and assigns it to the LastSuccessfulUpdate field.
-func (o *ProductStatus) SetLastSuccessfulUpdate(v time.Time) {
+func (o *AuthenticationStatus) SetLastSuccessfulUpdate(v time.Time) {
 	o.LastSuccessfulUpdate.Set(&v)
 }
 
 // SetLastSuccessfulUpdateNil sets the value for LastSuccessfulUpdate to be an explicit nil
-func (o *ProductStatus) SetLastSuccessfulUpdateNil() {
+func (o *AuthenticationStatus) SetLastSuccessfulUpdateNil() {
 	o.LastSuccessfulUpdate.Set(nil)
 }
 
 // UnsetLastSuccessfulUpdate ensures that no value is present for LastSuccessfulUpdate, not even an explicit nil
-func (o *ProductStatus) UnsetLastSuccessfulUpdate() {
+func (o *AuthenticationStatus) UnsetLastSuccessfulUpdate() {
 	o.LastSuccessfulUpdate.Unset()
 }
 
-func (o ProductStatus) MarshalJSON() ([]byte, error) {
+func (o AuthenticationStatus) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -206,7 +206,7 @@ func (o ProductStatus) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o ProductStatus) ToMap() (map[string]interface{}, error) {
+func (o AuthenticationStatus) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.Status) {
 		toSerialize["status"] = o.Status
@@ -228,16 +228,16 @@ func (o ProductStatus) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *ProductStatus) UnmarshalJSON(data []byte) (err error) {
-	varProductStatus := _ProductStatus{}
+func (o *AuthenticationStatus) UnmarshalJSON(data []byte) (err error) {
+	varAuthenticationStatus := _AuthenticationStatus{}
 
-	err = json.Unmarshal(data, &varProductStatus)
+	err = json.Unmarshal(data, &varAuthenticationStatus)
 
 	if err != nil {
 		return err
 	}
 
-	*o = ProductStatus(varProductStatus)
+	*o = AuthenticationStatus(varAuthenticationStatus)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -252,38 +252,38 @@ func (o *ProductStatus) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableProductStatus struct {
-	value *ProductStatus
+type NullableAuthenticationStatus struct {
+	value *AuthenticationStatus
 	isSet bool
 }
 
-func (v NullableProductStatus) Get() *ProductStatus {
+func (v NullableAuthenticationStatus) Get() *AuthenticationStatus {
 	return v.value
 }
 
-func (v *NullableProductStatus) Set(val *ProductStatus) {
+func (v *NullableAuthenticationStatus) Set(val *AuthenticationStatus) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableProductStatus) IsSet() bool {
+func (v NullableAuthenticationStatus) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableProductStatus) Unset() {
+func (v *NullableAuthenticationStatus) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableProductStatus(val *ProductStatus) *NullableProductStatus {
-	return &NullableProductStatus{value: val, isSet: true}
+func NewNullableAuthenticationStatus(val *AuthenticationStatus) *NullableAuthenticationStatus {
+	return &NullableAuthenticationStatus{value: val, isSet: true}
 }
 
-func (v NullableProductStatus) MarshalJSON() ([]byte, error) {
+func (v NullableAuthenticationStatus) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableProductStatus) UnmarshalJSON(src []byte) error {
+func (v *NullableAuthenticationStatus) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

@@ -3312,6 +3312,65 @@ components:
       - LINK_ERROR
       - API_ERROR
       type: string
+    LoginIdentityStatus:
+      description: Login identity status
+      enum:
+      - UNKNOWN
+      - ERROR
+      - LINKING
+      - AUTHENTICATING
+      - CONNECTION_COMPLETE
+      - CONNECTION_IN_PROGRESS
+      - DATA_RETRIEVAL_IN_PROGRESS
+      - DATA_AVAILABLE
+      - DATA_RETRIEVAL_PARTIALLY_SUCCESSFUL
+      - DATA_RETRIEVAL_COMPLETE
+      - REFRESHING
+      - UNLINKED
+      - UNLINK_SUCCEEDED
+      - UNLINK_FAILED
+      type: string
+    LoginIdentitySessionStatus:
+      description: Login identity session status
+      enum:
+      - UNKNOWN
+      - IN_PROGRESS
+      - COMPLETED
+      - UNLINKED
+      type: string
+    ProductHealthStatus:
+      description: Health status of a login identity product
+      enum:
+      - UNKNOWN
+      - IN_PROGRESS
+      - SUCCESS
+      - WARNING
+      - ERROR
+      - NOT_SUPPORTED
+      - NOT_AVAILABLE
+      - TEMPORARILY_UNAVAILABLE_FOR_INSTITUTION
+      type: string
+    LoginIdentityAuthStatus:
+      description: Login identity authentication status
+      enum:
+      - UNKNOWN
+      - LINKING
+      - AUTHENTICATING
+      - AUTHENTICATED
+      - AUTHENTICATE_FAILED
+      - AUTHENTICATION_TEMPORARILY_UNAVAILABLE_FOR_INSTITUTION
+      - AUTHENTICATION_TOO_MANY_ATTEMPTS
+      type: string
+    AccountCategory:
+      description: Account category
+      enum:
+      - UNKNOWN
+      - DEPOSIT
+      - CARD
+      - INVESTMENT
+      - LOAN
+      - OTHER
+      type: string
     Principal:
       properties:
         subject:
@@ -3405,13 +3464,13 @@ components:
         login_identity:
           login_identity_id: login_identity_id
           last_session_id: last_session_id
-          status: LINKING
+          status: UNKNOWN
         account:
           country: HKG
           account_currency: HKD
           account_type:
             subtype: SAVINGS
-            type: DEPOSIT
+            type: UNKNOWN
           metadata:
             key: metadata
           account_holder_name: John Doe
@@ -3452,7 +3511,7 @@ components:
           card_accounts:
           - account_type:
               subtype: SAVINGS
-              type: DEPOSIT
+              type: UNKNOWN
             last_payment_date: 2021-10-27
             total_credit_limit:
               raw: "69.00"
@@ -3498,7 +3557,7 @@ components:
             next_payment_due_date: 2021-02-01
           - account_type:
               subtype: SAVINGS
-              type: DEPOSIT
+              type: UNKNOWN
             last_payment_date: 2021-10-27
             total_credit_limit:
               raw: "69.00"
@@ -3584,7 +3643,7 @@ components:
         login_identity:
           login_identity_id: login_identity_id
           last_session_id: last_session_id
-          status: LINKING
+          status: UNKNOWN
       properties:
         login_identity:
           $ref: '#/components/schemas/LoginIdentityShort'
@@ -3625,13 +3684,13 @@ components:
         login_identity:
           login_identity_id: login_identity_id
           last_session_id: last_session_id
-          status: LINKING
+          status: UNKNOWN
         account:
           country: HKG
           account_currency: HKD
           account_type:
             subtype: SAVINGS
-            type: DEPOSIT
+            type: UNKNOWN
           metadata:
             key: metadata
           account_holder_name: John Doe
@@ -3683,7 +3742,7 @@ components:
         login_identity:
           login_identity_id: login_identity_id
           last_session_id: last_session_id
-          status: LINKING
+          status: UNKNOWN
         balance_history:
         - date: 2021-10-27
           amount: 0.8008281904610115
@@ -3697,7 +3756,7 @@ components:
           account_currency: HKD
           account_type:
             subtype: SAVINGS
-            type: DEPOSIT
+            type: UNKNOWN
           metadata:
             key: metadata
           account_holder_name: John Doe
@@ -3886,7 +3945,7 @@ components:
         login_identity:
           login_identity_id: login_identity_id
           last_session_id: last_session_id
-          status: LINKING
+          status: UNKNOWN
       properties:
         identity:
           $ref: '#/components/schemas/Identity'
@@ -4063,13 +4122,13 @@ components:
         login_identity:
           login_identity_id: login_identity_id
           last_session_id: last_session_id
-          status: LINKING
+          status: UNKNOWN
         accounts:
         - country: HKG
           account_currency: HKD
           account_type:
             subtype: SAVINGS
-            type: DEPOSIT
+            type: UNKNOWN
           metadata:
             key: metadata
           account_holder_name: John Doe
@@ -4100,7 +4159,7 @@ components:
           account_currency: HKD
           account_type:
             subtype: SAVINGS
-            type: DEPOSIT
+            type: UNKNOWN
           metadata:
             key: metadata
           account_holder_name: John Doe
@@ -4152,7 +4211,7 @@ components:
         account_currency: HKD
         account_type:
           subtype: SAVINGS
-          type: DEPOSIT
+          type: UNKNOWN
         metadata:
           key: metadata
         account_holder_name: John Doe
@@ -4477,14 +4536,14 @@ components:
         login_identity:
           login_identity_id: login_identity_id
           last_session_id: last_session_id
-          status: LINKING
+          status: UNKNOWN
         total_transactions: 0
         accounts:
         - country: HKG
           account_currency: HKD
           account_type:
             subtype: SAVINGS
-            type: DEPOSIT
+            type: UNKNOWN
           metadata:
             key: metadata
           account_holder_name: John Doe
@@ -4515,7 +4574,7 @@ components:
           account_currency: HKD
           account_type:
             subtype: SAVINGS
-            type: DEPOSIT
+            type: UNKNOWN
           metadata:
             key: metadata
           account_holder_name: John Doe
@@ -5756,52 +5815,52 @@ components:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+              status: UNKNOWN
             identity:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+              status: UNKNOWN
             income_estimation:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+              status: UNKNOWN
             payments:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+              status: UNKNOWN
             balance_history:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+              status: UNKNOWN
             statements:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+              status: UNKNOWN
             accounts:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+              status: UNKNOWN
             account_numbers:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+              status: UNKNOWN
             historical_transactions:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+              status: UNKNOWN
             online_transactions:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+              status: UNKNOWN
           created_at: 2000-01-23T04:56:07.000+00:00
           error:
             code: 0
@@ -5817,7 +5876,7 @@ components:
           - permissions
           first_success: 2000-01-23T04:56:07.000+00:00
           login_identity_id: login_identity_id
-          session_status: COMPLETED
+          session_status: UNKNOWN
           status_details:
             event_date: 2000-01-23T04:56:07.000+00:00
             event_name: event_name
@@ -5836,9 +5895,9 @@ components:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+            status: UNKNOWN
           username_hash_id: username_hash_id
-          status: LINKING
+          status: UNKNOWN
       properties:
         login_identity:
           $ref: '#/components/schemas/LoginIdentity'
@@ -5859,52 +5918,52 @@ components:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+              status: UNKNOWN
             identity:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+              status: UNKNOWN
             income_estimation:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+              status: UNKNOWN
             payments:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+              status: UNKNOWN
             balance_history:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+              status: UNKNOWN
             statements:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+              status: UNKNOWN
             accounts:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+              status: UNKNOWN
             account_numbers:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+              status: UNKNOWN
             historical_transactions:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+              status: UNKNOWN
             online_transactions:
               last_successful_update: 2021-02-01T10:01:02.333Z
               last_update: 2021-02-01T10:01:02.333Z
               status_details: AUTHENTICATION_INITIALIZED
-              status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+              status: UNKNOWN
           created_at: 2000-01-23T04:56:07.000+00:00
           error:
             code: 0
@@ -5920,7 +5979,7 @@ components:
           - permissions
           first_success: 2000-01-23T04:56:07.000+00:00
           login_identity_id: login_identity_id
-          session_status: COMPLETED
+          session_status: UNKNOWN
           status_details:
             event_date: 2000-01-23T04:56:07.000+00:00
             event_name: event_name
@@ -5939,9 +5998,9 @@ components:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+            status: UNKNOWN
           username_hash_id: username_hash_id
-          status: LINKING
+          status: UNKNOWN
         status_history:
         - event_date: 2000-01-23T04:56:07.000+00:00
           event_name: event_name
@@ -5991,14 +6050,13 @@ components:
       example:
         login_identity_id: login_identity_id
         last_session_id: last_session_id
-        status: LINKING
+        status: UNKNOWN
       properties:
         login_identity_id:
           format: ulid
           type: string
         status:
-          example: LINKING
-          type: string
+          $ref: '#/components/schemas/LoginIdentityStatus'
         last_session_id:
           format: ulid
           type: string
@@ -6016,52 +6074,52 @@ components:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+            status: UNKNOWN
           identity:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+            status: UNKNOWN
           income_estimation:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+            status: UNKNOWN
           payments:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+            status: UNKNOWN
           balance_history:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+            status: UNKNOWN
           statements:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+            status: UNKNOWN
           accounts:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+            status: UNKNOWN
           account_numbers:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+            status: UNKNOWN
           historical_transactions:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+            status: UNKNOWN
           online_transactions:
             last_successful_update: 2021-02-01T10:01:02.333Z
             last_update: 2021-02-01T10:01:02.333Z
             status_details: AUTHENTICATION_INITIALIZED
-            status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+            status: UNKNOWN
         created_at: 2000-01-23T04:56:07.000+00:00
         error:
           code: 0
@@ -6077,7 +6135,7 @@ components:
         - permissions
         first_success: 2000-01-23T04:56:07.000+00:00
         login_identity_id: login_identity_id
-        session_status: COMPLETED
+        session_status: UNKNOWN
         status_details:
           event_date: 2000-01-23T04:56:07.000+00:00
           event_name: event_name
@@ -6096,9 +6154,9 @@ components:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+          status: UNKNOWN
         username_hash_id: username_hash_id
-        status: LINKING
+        status: UNKNOWN
       properties:
         login_identity_id:
           format: ulid
@@ -6124,14 +6182,13 @@ components:
         billing_details:
           $ref: '#/components/schemas/LoginIdentityBillingDetails'
         status:
-          example: LINKING
-          type: string
+          $ref: '#/components/schemas/LoginIdentityStatus'
         status_details:
           $ref: '#/components/schemas/LoginIdentityStatusDetails'
         product_status:
           $ref: '#/components/schemas/AllProductStatus'
         authentication_status:
-          $ref: '#/components/schemas/ProductStatus'
+          $ref: '#/components/schemas/AuthenticationStatus'
         error:
           $ref: '#/components/schemas/LoginIdentityError'
         last_success:
@@ -6145,8 +6202,7 @@ components:
           format: uri
           type: string
         session_status:
-          example: COMPLETED
-          type: string
+          $ref: '#/components/schemas/LoginIdentitySessionStatus'
         institution_id:
           example: "123"
           type: string
@@ -6268,7 +6324,7 @@ components:
         login_identity:
           login_identity_id: login_identity_id
           last_session_id: last_session_id
-          status: LINKING
+          status: UNKNOWN
         statements:
         - date: 2021-02-01
           name: BusinessVantage
@@ -6349,52 +6405,52 @@ components:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+          status: UNKNOWN
         identity:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+          status: UNKNOWN
         income_estimation:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+          status: UNKNOWN
         payments:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+          status: UNKNOWN
         balance_history:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+          status: UNKNOWN
         statements:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+          status: UNKNOWN
         accounts:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+          status: UNKNOWN
         account_numbers:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+          status: UNKNOWN
         historical_transactions:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+          status: UNKNOWN
         online_transactions:
           last_successful_update: 2021-02-01T10:01:02.333Z
           last_update: 2021-02-01T10:01:02.333Z
           status_details: AUTHENTICATION_INITIALIZED
-          status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+          status: UNKNOWN
       properties:
         accounts:
           $ref: '#/components/schemas/ProductStatus'
@@ -6417,17 +6473,39 @@ components:
         card_details:
           $ref: '#/components/schemas/ProductStatus'
       type: object
+    AuthenticationStatus:
+      example:
+        last_successful_update: 2021-02-01T10:01:02.333Z
+        last_update: 2021-02-01T10:01:02.333Z
+        status_details: AUTHENTICATION_INITIALIZED
+        status: UNKNOWN
+      properties:
+        status:
+          $ref: '#/components/schemas/LoginIdentityAuthStatus'
+        status_details:
+          description: The detailed event name
+          example: AUTHENTICATION_INITIALIZED
+          type: string
+        last_update:
+          example: 2021-02-01T10:01:02.333Z
+          format: date-time
+          nullable: true
+          type: string
+        last_successful_update:
+          example: 2021-02-01T10:01:02.333Z
+          format: date-time
+          nullable: true
+          type: string
+      type: object
     ProductStatus:
       example:
         last_successful_update: 2021-02-01T10:01:02.333Z
         last_update: 2021-02-01T10:01:02.333Z
         status_details: AUTHENTICATION_INITIALIZED
-        status: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
+        status: UNKNOWN
       properties:
         status:
-          description: The current health of this product
-          example: "IN_PROGRESS, SUCCESS, PARTIAL_ERROR, WARNING, ERROR"
-          type: string
+          $ref: '#/components/schemas/ProductHealthStatus'
         status_details:
           description: The detailed event name
           example: AUTHENTICATION_INITIALIZED
@@ -6448,7 +6526,7 @@ components:
         card_accounts:
         - account_type:
             subtype: SAVINGS
-            type: DEPOSIT
+            type: UNKNOWN
           last_payment_date: 2021-10-27
           total_credit_limit:
             raw: "69.00"
@@ -6494,7 +6572,7 @@ components:
           next_payment_due_date: 2021-02-01
         - account_type:
             subtype: SAVINGS
-            type: DEPOSIT
+            type: UNKNOWN
           last_payment_date: 2021-10-27
           total_credit_limit:
             raw: "69.00"
@@ -6583,7 +6661,7 @@ components:
       example:
         account_type:
           subtype: SAVINGS
-          type: DEPOSIT
+          type: UNKNOWN
         last_payment_date: 2021-10-27
         total_credit_limit:
           raw: "69.00"
@@ -7083,7 +7161,7 @@ components:
         login_identity:
           login_identity_id: login_identity_id
           last_session_id: last_session_id
-          status: LINKING
+          status: UNKNOWN
       properties:
         income:
           items:
@@ -7665,17 +7743,10 @@ components:
     AccountType:
       example:
         subtype: SAVINGS
-        type: DEPOSIT
+        type: UNKNOWN
       properties:
         type:
-          enum:
-          - DEPOSIT
-          - CARD
-          - INVESTMENT
-          - LOAN
-          - UNKNOWN
-          example: DEPOSIT
-          type: string
+          $ref: '#/components/schemas/AccountCategory'
         subtype:
           enum:
           - CURRENT
