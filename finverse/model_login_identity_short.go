@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the LoginIdentityShort type satisfies the MappedNullable interface at compile time
@@ -20,9 +21,9 @@ var _ MappedNullable = &LoginIdentityShort{}
 
 // LoginIdentityShort struct for LoginIdentityShort
 type LoginIdentityShort struct {
-	LoginIdentityId      *string              `json:"login_identity_id,omitempty"`
-	Status               *LoginIdentityStatus `json:"status,omitempty"`
-	LastSessionId        *string              `json:"last_session_id,omitempty"`
+	LoginIdentityId      string              `json:"login_identity_id"`
+	Status               LoginIdentityStatus `json:"status"`
+	LastSessionId        *string             `json:"last_session_id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -32,8 +33,10 @@ type _LoginIdentityShort LoginIdentityShort
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLoginIdentityShort() *LoginIdentityShort {
+func NewLoginIdentityShort(loginIdentityId string, status LoginIdentityStatus) *LoginIdentityShort {
 	this := LoginIdentityShort{}
+	this.LoginIdentityId = loginIdentityId
+	this.Status = status
 	return &this
 }
 
@@ -45,68 +48,52 @@ func NewLoginIdentityShortWithDefaults() *LoginIdentityShort {
 	return &this
 }
 
-// GetLoginIdentityId returns the LoginIdentityId field value if set, zero value otherwise.
+// GetLoginIdentityId returns the LoginIdentityId field value
 func (o *LoginIdentityShort) GetLoginIdentityId() string {
-	if o == nil || IsNil(o.LoginIdentityId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.LoginIdentityId
+
+	return o.LoginIdentityId
 }
 
-// GetLoginIdentityIdOk returns a tuple with the LoginIdentityId field value if set, nil otherwise
+// GetLoginIdentityIdOk returns a tuple with the LoginIdentityId field value
 // and a boolean to check if the value has been set.
 func (o *LoginIdentityShort) GetLoginIdentityIdOk() (*string, bool) {
-	if o == nil || IsNil(o.LoginIdentityId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.LoginIdentityId, true
+	return &o.LoginIdentityId, true
 }
 
-// HasLoginIdentityId returns a boolean if a field has been set.
-func (o *LoginIdentityShort) HasLoginIdentityId() bool {
-	if o != nil && !IsNil(o.LoginIdentityId) {
-		return true
-	}
-
-	return false
-}
-
-// SetLoginIdentityId gets a reference to the given string and assigns it to the LoginIdentityId field.
+// SetLoginIdentityId sets field value
 func (o *LoginIdentityShort) SetLoginIdentityId(v string) {
-	o.LoginIdentityId = &v
+	o.LoginIdentityId = v
 }
 
-// GetStatus returns the Status field value if set, zero value otherwise.
+// GetStatus returns the Status field value
 func (o *LoginIdentityShort) GetStatus() LoginIdentityStatus {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		var ret LoginIdentityStatus
 		return ret
 	}
-	return *o.Status
+
+	return o.Status
 }
 
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *LoginIdentityShort) GetStatusOk() (*LoginIdentityStatus, bool) {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Status, true
+	return &o.Status, true
 }
 
-// HasStatus returns a boolean if a field has been set.
-func (o *LoginIdentityShort) HasStatus() bool {
-	if o != nil && !IsNil(o.Status) {
-		return true
-	}
-
-	return false
-}
-
-// SetStatus gets a reference to the given LoginIdentityStatus and assigns it to the Status field.
+// SetStatus sets field value
 func (o *LoginIdentityShort) SetStatus(v LoginIdentityStatus) {
-	o.Status = &v
+	o.Status = v
 }
 
 // GetLastSessionId returns the LastSessionId field value if set, zero value otherwise.
@@ -151,12 +138,8 @@ func (o LoginIdentityShort) MarshalJSON() ([]byte, error) {
 
 func (o LoginIdentityShort) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.LoginIdentityId) {
-		toSerialize["login_identity_id"] = o.LoginIdentityId
-	}
-	if !IsNil(o.Status) {
-		toSerialize["status"] = o.Status
-	}
+	toSerialize["login_identity_id"] = o.LoginIdentityId
+	toSerialize["status"] = o.Status
 	if !IsNil(o.LastSessionId) {
 		toSerialize["last_session_id"] = o.LastSessionId
 	}
@@ -169,6 +152,28 @@ func (o LoginIdentityShort) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *LoginIdentityShort) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"login_identity_id",
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varLoginIdentityShort := _LoginIdentityShort{}
 
 	err = json.Unmarshal(data, &varLoginIdentityShort)

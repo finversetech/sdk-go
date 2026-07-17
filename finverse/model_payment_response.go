@@ -23,7 +23,7 @@ var _ MappedNullable = &PaymentResponse{}
 // PaymentResponse struct for PaymentResponse
 type PaymentResponse struct {
 	// Finverse Payment ID
-	PaymentId *string `json:"payment_id,omitempty"`
+	PaymentId string `json:"payment_id"`
 	// Whether the payment is live (true) or a test payment (false), based on its payment rail. Absent if the payment rail is unknown.
 	Live NullableBool `json:"live,omitempty"`
 	// Amount to be paid, in currency's smallest unit or “minor unit”, as defined in ISO 4217. For example, HKD 100.01 is represented as amount = 10001 (minor unit = cents). For currencies without minor units (e.g. VND, JPY), the amount is represented as is, without modification. For example, VND 15101 is represented as amount = 15101.
@@ -33,11 +33,11 @@ type PaymentResponse struct {
 	// Amount with all fees and surcharges applied in minor
 	AmountTotalWithSurcharge int32 `json:"amount_total_with_surcharge"`
 	// The currency code as defined in ISO 4217.
-	Currency *string      `json:"currency,omitempty"`
-	Type     *PaymentType `json:"type,omitempty"`
+	Currency string      `json:"currency"`
+	Type     PaymentType `json:"type"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	UpdatedAt *time.Time     `json:"updated_at,omitempty"`
-	Status    *PaymentStatus `json:"status,omitempty"`
+	UpdatedAt *time.Time    `json:"updated_at,omitempty"`
+	Status    PaymentStatus `json:"status"`
 	// ID of the payment method this pament is referring to.
 	PaymentMethodId  *string                  `json:"payment_method_id,omitempty"`
 	PaymentDetails   *PaymentDetailsResponse  `json:"payment_details,omitempty"`
@@ -61,11 +61,15 @@ type _PaymentResponse PaymentResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentResponse(amount int32, surchargeAmount int32, amountTotalWithSurcharge int32) *PaymentResponse {
+func NewPaymentResponse(paymentId string, amount int32, surchargeAmount int32, amountTotalWithSurcharge int32, currency string, type_ PaymentType, status PaymentStatus) *PaymentResponse {
 	this := PaymentResponse{}
+	this.PaymentId = paymentId
 	this.Amount = amount
 	this.SurchargeAmount = surchargeAmount
 	this.AmountTotalWithSurcharge = amountTotalWithSurcharge
+	this.Currency = currency
+	this.Type = type_
+	this.Status = status
 	return &this
 }
 
@@ -77,36 +81,28 @@ func NewPaymentResponseWithDefaults() *PaymentResponse {
 	return &this
 }
 
-// GetPaymentId returns the PaymentId field value if set, zero value otherwise.
+// GetPaymentId returns the PaymentId field value
 func (o *PaymentResponse) GetPaymentId() string {
-	if o == nil || IsNil(o.PaymentId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.PaymentId
+
+	return o.PaymentId
 }
 
-// GetPaymentIdOk returns a tuple with the PaymentId field value if set, nil otherwise
+// GetPaymentIdOk returns a tuple with the PaymentId field value
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetPaymentIdOk() (*string, bool) {
-	if o == nil || IsNil(o.PaymentId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PaymentId, true
+	return &o.PaymentId, true
 }
 
-// HasPaymentId returns a boolean if a field has been set.
-func (o *PaymentResponse) HasPaymentId() bool {
-	if o != nil && !IsNil(o.PaymentId) {
-		return true
-	}
-
-	return false
-}
-
-// SetPaymentId gets a reference to the given string and assigns it to the PaymentId field.
+// SetPaymentId sets field value
 func (o *PaymentResponse) SetPaymentId(v string) {
-	o.PaymentId = &v
+	o.PaymentId = v
 }
 
 // GetLive returns the Live field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -224,68 +220,52 @@ func (o *PaymentResponse) SetAmountTotalWithSurcharge(v int32) {
 	o.AmountTotalWithSurcharge = v
 }
 
-// GetCurrency returns the Currency field value if set, zero value otherwise.
+// GetCurrency returns the Currency field value
 func (o *PaymentResponse) GetCurrency() string {
-	if o == nil || IsNil(o.Currency) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Currency
+
+	return o.Currency
 }
 
-// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
+// GetCurrencyOk returns a tuple with the Currency field value
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetCurrencyOk() (*string, bool) {
-	if o == nil || IsNil(o.Currency) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Currency, true
+	return &o.Currency, true
 }
 
-// HasCurrency returns a boolean if a field has been set.
-func (o *PaymentResponse) HasCurrency() bool {
-	if o != nil && !IsNil(o.Currency) {
-		return true
-	}
-
-	return false
-}
-
-// SetCurrency gets a reference to the given string and assigns it to the Currency field.
+// SetCurrency sets field value
 func (o *PaymentResponse) SetCurrency(v string) {
-	o.Currency = &v
+	o.Currency = v
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *PaymentResponse) GetType() PaymentType {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret PaymentType
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetTypeOk() (*PaymentType, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *PaymentResponse) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given PaymentType and assigns it to the Type field.
+// SetType sets field value
 func (o *PaymentResponse) SetType(v PaymentType) {
-	o.Type = &v
+	o.Type = v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
@@ -320,36 +300,28 @@ func (o *PaymentResponse) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = &v
 }
 
-// GetStatus returns the Status field value if set, zero value otherwise.
+// GetStatus returns the Status field value
 func (o *PaymentResponse) GetStatus() PaymentStatus {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		var ret PaymentStatus
 		return ret
 	}
-	return *o.Status
+
+	return o.Status
 }
 
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *PaymentResponse) GetStatusOk() (*PaymentStatus, bool) {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Status, true
+	return &o.Status, true
 }
 
-// HasStatus returns a boolean if a field has been set.
-func (o *PaymentResponse) HasStatus() bool {
-	if o != nil && !IsNil(o.Status) {
-		return true
-	}
-
-	return false
-}
-
-// SetStatus gets a reference to the given PaymentStatus and assigns it to the Status field.
+// SetStatus sets field value
 func (o *PaymentResponse) SetStatus(v PaymentStatus) {
-	o.Status = &v
+	o.Status = v
 }
 
 // GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise.
@@ -714,27 +686,19 @@ func (o PaymentResponse) MarshalJSON() ([]byte, error) {
 
 func (o PaymentResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.PaymentId) {
-		toSerialize["payment_id"] = o.PaymentId
-	}
+	toSerialize["payment_id"] = o.PaymentId
 	if o.Live.IsSet() {
 		toSerialize["live"] = o.Live.Get()
 	}
 	toSerialize["amount"] = o.Amount
 	toSerialize["surcharge_amount"] = o.SurchargeAmount
 	toSerialize["amount_total_with_surcharge"] = o.AmountTotalWithSurcharge
-	if !IsNil(o.Currency) {
-		toSerialize["currency"] = o.Currency
-	}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
+	toSerialize["currency"] = o.Currency
+	toSerialize["type"] = o.Type
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
 	}
-	if !IsNil(o.Status) {
-		toSerialize["status"] = o.Status
-	}
+	toSerialize["status"] = o.Status
 	if !IsNil(o.PaymentMethodId) {
 		toSerialize["payment_method_id"] = o.PaymentMethodId
 	}
@@ -781,9 +745,13 @@ func (o *PaymentResponse) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"payment_id",
 		"amount",
 		"surcharge_amount",
 		"amount_total_with_surcharge",
+		"currency",
+		"type",
+		"status",
 	}
 
 	allProperties := make(map[string]interface{})

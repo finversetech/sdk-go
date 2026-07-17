@@ -22,8 +22,8 @@ var _ MappedNullable = &Transaction{}
 
 // Transaction struct for Transaction
 type Transaction struct {
-	TransactionId    *string `json:"transaction_id,omitempty"`
-	AccountId        *string `json:"account_id,omitempty"`
+	TransactionId    string  `json:"transaction_id"`
+	AccountId        string  `json:"account_id"`
 	TransactionState *string `json:"transaction_state,omitempty"`
 	TransactionType  *string `json:"transaction_type,omitempty"`
 	// (Deprecated)
@@ -59,8 +59,10 @@ type _Transaction Transaction
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTransaction(isPending bool) *Transaction {
+func NewTransaction(transactionId string, accountId string, isPending bool) *Transaction {
 	this := Transaction{}
+	this.TransactionId = transactionId
+	this.AccountId = accountId
 	this.IsPending = isPending
 	return &this
 }
@@ -73,68 +75,52 @@ func NewTransactionWithDefaults() *Transaction {
 	return &this
 }
 
-// GetTransactionId returns the TransactionId field value if set, zero value otherwise.
+// GetTransactionId returns the TransactionId field value
 func (o *Transaction) GetTransactionId() string {
-	if o == nil || IsNil(o.TransactionId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.TransactionId
+
+	return o.TransactionId
 }
 
-// GetTransactionIdOk returns a tuple with the TransactionId field value if set, nil otherwise
+// GetTransactionIdOk returns a tuple with the TransactionId field value
 // and a boolean to check if the value has been set.
 func (o *Transaction) GetTransactionIdOk() (*string, bool) {
-	if o == nil || IsNil(o.TransactionId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.TransactionId, true
+	return &o.TransactionId, true
 }
 
-// HasTransactionId returns a boolean if a field has been set.
-func (o *Transaction) HasTransactionId() bool {
-	if o != nil && !IsNil(o.TransactionId) {
-		return true
-	}
-
-	return false
-}
-
-// SetTransactionId gets a reference to the given string and assigns it to the TransactionId field.
+// SetTransactionId sets field value
 func (o *Transaction) SetTransactionId(v string) {
-	o.TransactionId = &v
+	o.TransactionId = v
 }
 
-// GetAccountId returns the AccountId field value if set, zero value otherwise.
+// GetAccountId returns the AccountId field value
 func (o *Transaction) GetAccountId() string {
-	if o == nil || IsNil(o.AccountId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.AccountId
+
+	return o.AccountId
 }
 
-// GetAccountIdOk returns a tuple with the AccountId field value if set, nil otherwise
+// GetAccountIdOk returns a tuple with the AccountId field value
 // and a boolean to check if the value has been set.
 func (o *Transaction) GetAccountIdOk() (*string, bool) {
-	if o == nil || IsNil(o.AccountId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AccountId, true
+	return &o.AccountId, true
 }
 
-// HasAccountId returns a boolean if a field has been set.
-func (o *Transaction) HasAccountId() bool {
-	if o != nil && !IsNil(o.AccountId) {
-		return true
-	}
-
-	return false
-}
-
-// SetAccountId gets a reference to the given string and assigns it to the AccountId field.
+// SetAccountId sets field value
 func (o *Transaction) SetAccountId(v string) {
-	o.AccountId = &v
+	o.AccountId = v
 }
 
 // GetTransactionState returns the TransactionState field value if set, zero value otherwise.
@@ -758,12 +744,8 @@ func (o Transaction) MarshalJSON() ([]byte, error) {
 
 func (o Transaction) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.TransactionId) {
-		toSerialize["transaction_id"] = o.TransactionId
-	}
-	if !IsNil(o.AccountId) {
-		toSerialize["account_id"] = o.AccountId
-	}
+	toSerialize["transaction_id"] = o.TransactionId
+	toSerialize["account_id"] = o.AccountId
 	if !IsNil(o.TransactionState) {
 		toSerialize["transaction_state"] = o.TransactionState
 	}
@@ -832,6 +814,8 @@ func (o *Transaction) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"transaction_id",
+		"account_id",
 		"is_pending",
 	}
 

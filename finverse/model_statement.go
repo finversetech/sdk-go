@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -21,7 +22,7 @@ var _ MappedNullable = &Statement{}
 
 // Statement struct for Statement
 type Statement struct {
-	Id *string `json:"id,omitempty"`
+	Id string `json:"id"`
 	// YYYY-MM-DD
 	Date                 *string    `json:"date,omitempty"`
 	Name                 *string    `json:"name,omitempty"`
@@ -35,8 +36,9 @@ type _Statement Statement
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStatement() *Statement {
+func NewStatement(id string) *Statement {
 	this := Statement{}
+	this.Id = id
 	return &this
 }
 
@@ -48,36 +50,28 @@ func NewStatementWithDefaults() *Statement {
 	return &this
 }
 
-// GetId returns the Id field value if set, zero value otherwise.
+// GetId returns the Id field value
 func (o *Statement) GetId() string {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Id
+
+	return o.Id
 }
 
-// GetIdOk returns a tuple with the Id field value if set, nil otherwise
+// GetIdOk returns a tuple with the Id field value
 // and a boolean to check if the value has been set.
 func (o *Statement) GetIdOk() (*string, bool) {
-	if o == nil || IsNil(o.Id) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Id, true
+	return &o.Id, true
 }
 
-// HasId returns a boolean if a field has been set.
-func (o *Statement) HasId() bool {
-	if o != nil && !IsNil(o.Id) {
-		return true
-	}
-
-	return false
-}
-
-// SetId gets a reference to the given string and assigns it to the Id field.
+// SetId sets field value
 func (o *Statement) SetId(v string) {
-	o.Id = &v
+	o.Id = v
 }
 
 // GetDate returns the Date field value if set, zero value otherwise.
@@ -186,9 +180,7 @@ func (o Statement) MarshalJSON() ([]byte, error) {
 
 func (o Statement) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Id) {
-		toSerialize["id"] = o.Id
-	}
+	toSerialize["id"] = o.Id
 	if !IsNil(o.Date) {
 		toSerialize["date"] = o.Date
 	}
@@ -207,6 +199,27 @@ func (o Statement) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *Statement) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varStatement := _Statement{}
 
 	err = json.Unmarshal(data, &varStatement)

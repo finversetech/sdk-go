@@ -22,8 +22,8 @@ var _ MappedNullable = &PaymentFvLinkResponse{}
 // PaymentFvLinkResponse struct for PaymentFvLinkResponse
 type PaymentFvLinkResponse struct {
 	PaymentId      *string               `json:"payment_id,omitempty"`
-	Status         *PaymentStatus        `json:"status,omitempty"`
-	Type           *PaymentType          `json:"type,omitempty"`
+	Status         PaymentStatus         `json:"status"`
+	Type           PaymentType           `json:"type"`
 	PaymentDetails *PaymentFvLinkDetails `json:"payment_details,omitempty"`
 	Error          *FvEmbeddedErrorModel `json:"error,omitempty"`
 	// Set to true if payment uses GoCardless rail, indicating frontend should skip polling
@@ -37,8 +37,10 @@ type _PaymentFvLinkResponse PaymentFvLinkResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentFvLinkResponse(skipPolling bool) *PaymentFvLinkResponse {
+func NewPaymentFvLinkResponse(status PaymentStatus, type_ PaymentType, skipPolling bool) *PaymentFvLinkResponse {
 	this := PaymentFvLinkResponse{}
+	this.Status = status
+	this.Type = type_
 	this.SkipPolling = skipPolling
 	return &this
 }
@@ -83,68 +85,52 @@ func (o *PaymentFvLinkResponse) SetPaymentId(v string) {
 	o.PaymentId = &v
 }
 
-// GetStatus returns the Status field value if set, zero value otherwise.
+// GetStatus returns the Status field value
 func (o *PaymentFvLinkResponse) GetStatus() PaymentStatus {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		var ret PaymentStatus
 		return ret
 	}
-	return *o.Status
+
+	return o.Status
 }
 
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *PaymentFvLinkResponse) GetStatusOk() (*PaymentStatus, bool) {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Status, true
+	return &o.Status, true
 }
 
-// HasStatus returns a boolean if a field has been set.
-func (o *PaymentFvLinkResponse) HasStatus() bool {
-	if o != nil && !IsNil(o.Status) {
-		return true
-	}
-
-	return false
-}
-
-// SetStatus gets a reference to the given PaymentStatus and assigns it to the Status field.
+// SetStatus sets field value
 func (o *PaymentFvLinkResponse) SetStatus(v PaymentStatus) {
-	o.Status = &v
+	o.Status = v
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *PaymentFvLinkResponse) GetType() PaymentType {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret PaymentType
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *PaymentFvLinkResponse) GetTypeOk() (*PaymentType, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *PaymentFvLinkResponse) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given PaymentType and assigns it to the Type field.
+// SetType sets field value
 func (o *PaymentFvLinkResponse) SetType(v PaymentType) {
-	o.Type = &v
+	o.Type = v
 }
 
 // GetPaymentDetails returns the PaymentDetails field value if set, zero value otherwise.
@@ -248,12 +234,8 @@ func (o PaymentFvLinkResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.PaymentId) {
 		toSerialize["payment_id"] = o.PaymentId
 	}
-	if !IsNil(o.Status) {
-		toSerialize["status"] = o.Status
-	}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
+	toSerialize["status"] = o.Status
+	toSerialize["type"] = o.Type
 	if !IsNil(o.PaymentDetails) {
 		toSerialize["payment_details"] = o.PaymentDetails
 	}
@@ -274,6 +256,8 @@ func (o *PaymentFvLinkResponse) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"status",
+		"type",
 		"skip_polling",
 	}
 

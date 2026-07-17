@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the GetBalanceHistoryResponse type satisfies the MappedNullable interface at compile time
@@ -24,7 +25,7 @@ type GetBalanceHistoryResponse struct {
 	LoginIdentity        *LoginIdentityShort `json:"login_identity,omitempty"`
 	Institution          *InstitutionShort   `json:"institution,omitempty"`
 	BalanceHistory       []BalanceHistory    `json:"balance_history,omitempty"`
-	Source               *string             `json:"source,omitempty"`
+	Source               string              `json:"source"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,8 +35,9 @@ type _GetBalanceHistoryResponse GetBalanceHistoryResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetBalanceHistoryResponse() *GetBalanceHistoryResponse {
+func NewGetBalanceHistoryResponse(source string) *GetBalanceHistoryResponse {
 	this := GetBalanceHistoryResponse{}
+	this.Source = source
 	return &this
 }
 
@@ -175,36 +177,28 @@ func (o *GetBalanceHistoryResponse) SetBalanceHistory(v []BalanceHistory) {
 	o.BalanceHistory = v
 }
 
-// GetSource returns the Source field value if set, zero value otherwise.
+// GetSource returns the Source field value
 func (o *GetBalanceHistoryResponse) GetSource() string {
-	if o == nil || IsNil(o.Source) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Source
+
+	return o.Source
 }
 
-// GetSourceOk returns a tuple with the Source field value if set, nil otherwise
+// GetSourceOk returns a tuple with the Source field value
 // and a boolean to check if the value has been set.
 func (o *GetBalanceHistoryResponse) GetSourceOk() (*string, bool) {
-	if o == nil || IsNil(o.Source) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Source, true
+	return &o.Source, true
 }
 
-// HasSource returns a boolean if a field has been set.
-func (o *GetBalanceHistoryResponse) HasSource() bool {
-	if o != nil && !IsNil(o.Source) {
-		return true
-	}
-
-	return false
-}
-
-// SetSource gets a reference to the given string and assigns it to the Source field.
+// SetSource sets field value
 func (o *GetBalanceHistoryResponse) SetSource(v string) {
-	o.Source = &v
+	o.Source = v
 }
 
 func (o GetBalanceHistoryResponse) MarshalJSON() ([]byte, error) {
@@ -229,9 +223,7 @@ func (o GetBalanceHistoryResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.BalanceHistory) {
 		toSerialize["balance_history"] = o.BalanceHistory
 	}
-	if !IsNil(o.Source) {
-		toSerialize["source"] = o.Source
-	}
+	toSerialize["source"] = o.Source
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -241,6 +233,27 @@ func (o GetBalanceHistoryResponse) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *GetBalanceHistoryResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"source",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varGetBalanceHistoryResponse := _GetBalanceHistoryResponse{}
 
 	err = json.Unmarshal(data, &varGetBalanceHistoryResponse)

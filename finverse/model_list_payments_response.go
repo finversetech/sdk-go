@@ -21,7 +21,7 @@ var _ MappedNullable = &ListPaymentsResponse{}
 
 // ListPaymentsResponse struct for ListPaymentsResponse
 type ListPaymentsResponse struct {
-	Payments             []PaymentResponse `json:"payments,omitempty"`
+	Payments             []PaymentResponse `json:"payments"`
 	TotalPayments        int32             `json:"total_payments"`
 	AdditionalProperties map[string]interface{}
 }
@@ -32,8 +32,9 @@ type _ListPaymentsResponse ListPaymentsResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewListPaymentsResponse(totalPayments int32) *ListPaymentsResponse {
+func NewListPaymentsResponse(payments []PaymentResponse, totalPayments int32) *ListPaymentsResponse {
 	this := ListPaymentsResponse{}
+	this.Payments = payments
 	this.TotalPayments = totalPayments
 	return &this
 }
@@ -46,34 +47,26 @@ func NewListPaymentsResponseWithDefaults() *ListPaymentsResponse {
 	return &this
 }
 
-// GetPayments returns the Payments field value if set, zero value otherwise.
+// GetPayments returns the Payments field value
 func (o *ListPaymentsResponse) GetPayments() []PaymentResponse {
-	if o == nil || IsNil(o.Payments) {
+	if o == nil {
 		var ret []PaymentResponse
 		return ret
 	}
+
 	return o.Payments
 }
 
-// GetPaymentsOk returns a tuple with the Payments field value if set, nil otherwise
+// GetPaymentsOk returns a tuple with the Payments field value
 // and a boolean to check if the value has been set.
 func (o *ListPaymentsResponse) GetPaymentsOk() ([]PaymentResponse, bool) {
-	if o == nil || IsNil(o.Payments) {
+	if o == nil {
 		return nil, false
 	}
 	return o.Payments, true
 }
 
-// HasPayments returns a boolean if a field has been set.
-func (o *ListPaymentsResponse) HasPayments() bool {
-	if o != nil && !IsNil(o.Payments) {
-		return true
-	}
-
-	return false
-}
-
-// SetPayments gets a reference to the given []PaymentResponse and assigns it to the Payments field.
+// SetPayments sets field value
 func (o *ListPaymentsResponse) SetPayments(v []PaymentResponse) {
 	o.Payments = v
 }
@@ -112,9 +105,7 @@ func (o ListPaymentsResponse) MarshalJSON() ([]byte, error) {
 
 func (o ListPaymentsResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Payments) {
-		toSerialize["payments"] = o.Payments
-	}
+	toSerialize["payments"] = o.Payments
 	toSerialize["total_payments"] = o.TotalPayments
 
 	for key, value := range o.AdditionalProperties {
@@ -129,6 +120,7 @@ func (o *ListPaymentsResponse) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"payments",
 		"total_payments",
 	}
 

@@ -30,7 +30,7 @@ type PaymentUserWithoutEmail struct {
 	UserDetails    []SenderDetail     `json:"user_details,omitempty"`
 	UpdatedAt      *time.Time         `json:"updated_at,omitempty"`
 	NextBillUpdate NullableTime       `json:"next_bill_update,omitempty"`
-	UserId         *string            `json:"user_id,omitempty"`
+	UserId         string             `json:"user_id"`
 	UserType       *PaymentUserType   `json:"user_type,omitempty"`
 	// Whether the user has given consent for autopay
 	AutopayConsent       bool                         `json:"autopay_consent"`
@@ -44,8 +44,9 @@ type _PaymentUserWithoutEmail PaymentUserWithoutEmail
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentUserWithoutEmail(autopayConsent bool) *PaymentUserWithoutEmail {
+func NewPaymentUserWithoutEmail(userId string, autopayConsent bool) *PaymentUserWithoutEmail {
 	this := PaymentUserWithoutEmail{}
+	this.UserId = userId
 	this.AutopayConsent = autopayConsent
 	return &this
 }
@@ -325,36 +326,28 @@ func (o *PaymentUserWithoutEmail) UnsetNextBillUpdate() {
 	o.NextBillUpdate.Unset()
 }
 
-// GetUserId returns the UserId field value if set, zero value otherwise.
+// GetUserId returns the UserId field value
 func (o *PaymentUserWithoutEmail) GetUserId() string {
-	if o == nil || IsNil(o.UserId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.UserId
+
+	return o.UserId
 }
 
-// GetUserIdOk returns a tuple with the UserId field value if set, nil otherwise
+// GetUserIdOk returns a tuple with the UserId field value
 // and a boolean to check if the value has been set.
 func (o *PaymentUserWithoutEmail) GetUserIdOk() (*string, bool) {
-	if o == nil || IsNil(o.UserId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.UserId, true
+	return &o.UserId, true
 }
 
-// HasUserId returns a boolean if a field has been set.
-func (o *PaymentUserWithoutEmail) HasUserId() bool {
-	if o != nil && !IsNil(o.UserId) {
-		return true
-	}
-
-	return false
-}
-
-// SetUserId gets a reference to the given string and assigns it to the UserId field.
+// SetUserId sets field value
 func (o *PaymentUserWithoutEmail) SetUserId(v string) {
-	o.UserId = &v
+	o.UserId = v
 }
 
 // GetUserType returns the UserType field value if set, zero value otherwise.
@@ -479,9 +472,7 @@ func (o PaymentUserWithoutEmail) ToMap() (map[string]interface{}, error) {
 	if o.NextBillUpdate.IsSet() {
 		toSerialize["next_bill_update"] = o.NextBillUpdate.Get()
 	}
-	if !IsNil(o.UserId) {
-		toSerialize["user_id"] = o.UserId
-	}
+	toSerialize["user_id"] = o.UserId
 	if !IsNil(o.UserType) {
 		toSerialize["user_type"] = o.UserType
 	}
@@ -502,6 +493,7 @@ func (o *PaymentUserWithoutEmail) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"user_id",
 		"autopay_consent",
 	}
 

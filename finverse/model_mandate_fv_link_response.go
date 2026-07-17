@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the MandateFvLinkResponse type satisfies the MappedNullable interface at compile time
@@ -22,7 +23,7 @@ var _ MappedNullable = &MandateFvLinkResponse{}
 type MandateFvLinkResponse struct {
 	MandateId            *string                      `json:"mandate_id,omitempty"`
 	InstitutionId        *string                      `json:"institution_id,omitempty"`
-	MandateStatus        *MandateStatus               `json:"mandate_status,omitempty"`
+	MandateStatus        MandateStatus                `json:"mandate_status"`
 	Recipient            *MandateRecipient            `json:"recipient,omitempty"`
 	SenderAccount        *SenderAccountFvLinkResponse `json:"sender_account,omitempty"`
 	Error                *FvEmbeddedErrorModel        `json:"error,omitempty"`
@@ -36,8 +37,9 @@ type _MandateFvLinkResponse MandateFvLinkResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMandateFvLinkResponse() *MandateFvLinkResponse {
+func NewMandateFvLinkResponse(mandateStatus MandateStatus) *MandateFvLinkResponse {
 	this := MandateFvLinkResponse{}
+	this.MandateStatus = mandateStatus
 	return &this
 }
 
@@ -113,36 +115,28 @@ func (o *MandateFvLinkResponse) SetInstitutionId(v string) {
 	o.InstitutionId = &v
 }
 
-// GetMandateStatus returns the MandateStatus field value if set, zero value otherwise.
+// GetMandateStatus returns the MandateStatus field value
 func (o *MandateFvLinkResponse) GetMandateStatus() MandateStatus {
-	if o == nil || IsNil(o.MandateStatus) {
+	if o == nil {
 		var ret MandateStatus
 		return ret
 	}
-	return *o.MandateStatus
+
+	return o.MandateStatus
 }
 
-// GetMandateStatusOk returns a tuple with the MandateStatus field value if set, nil otherwise
+// GetMandateStatusOk returns a tuple with the MandateStatus field value
 // and a boolean to check if the value has been set.
 func (o *MandateFvLinkResponse) GetMandateStatusOk() (*MandateStatus, bool) {
-	if o == nil || IsNil(o.MandateStatus) {
+	if o == nil {
 		return nil, false
 	}
-	return o.MandateStatus, true
+	return &o.MandateStatus, true
 }
 
-// HasMandateStatus returns a boolean if a field has been set.
-func (o *MandateFvLinkResponse) HasMandateStatus() bool {
-	if o != nil && !IsNil(o.MandateStatus) {
-		return true
-	}
-
-	return false
-}
-
-// SetMandateStatus gets a reference to the given MandateStatus and assigns it to the MandateStatus field.
+// SetMandateStatus sets field value
 func (o *MandateFvLinkResponse) SetMandateStatus(v MandateStatus) {
-	o.MandateStatus = &v
+	o.MandateStatus = v
 }
 
 // GetRecipient returns the Recipient field value if set, zero value otherwise.
@@ -289,9 +283,7 @@ func (o MandateFvLinkResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.InstitutionId) {
 		toSerialize["institution_id"] = o.InstitutionId
 	}
-	if !IsNil(o.MandateStatus) {
-		toSerialize["mandate_status"] = o.MandateStatus
-	}
+	toSerialize["mandate_status"] = o.MandateStatus
 	if !IsNil(o.Recipient) {
 		toSerialize["recipient"] = o.Recipient
 	}
@@ -313,6 +305,27 @@ func (o MandateFvLinkResponse) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *MandateFvLinkResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"mandate_status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varMandateFvLinkResponse := _MandateFvLinkResponse{}
 
 	err = json.Unmarshal(data, &varMandateFvLinkResponse)

@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -25,7 +26,7 @@ type FVCard struct {
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	UpdatedAt            *time.Time               `json:"updated_at,omitempty"`
-	Status               *CardStatus              `json:"status,omitempty"`
+	Status               CardStatus               `json:"status"`
 	Error                *FvEmbeddedErrorModel    `json:"error,omitempty"`
 	CardDetails          *FVCardDetails           `json:"card_details,omitempty"`
 	RecipientAccount     *MandateRecipientAccount `json:"recipient_account,omitempty"`
@@ -39,8 +40,9 @@ type _FVCard FVCard
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFVCard() *FVCard {
+func NewFVCard(status CardStatus) *FVCard {
 	this := FVCard{}
+	this.Status = status
 	return &this
 }
 
@@ -116,36 +118,28 @@ func (o *FVCard) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = &v
 }
 
-// GetStatus returns the Status field value if set, zero value otherwise.
+// GetStatus returns the Status field value
 func (o *FVCard) GetStatus() CardStatus {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		var ret CardStatus
 		return ret
 	}
-	return *o.Status
+
+	return o.Status
 }
 
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *FVCard) GetStatusOk() (*CardStatus, bool) {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Status, true
+	return &o.Status, true
 }
 
-// HasStatus returns a boolean if a field has been set.
-func (o *FVCard) HasStatus() bool {
-	if o != nil && !IsNil(o.Status) {
-		return true
-	}
-
-	return false
-}
-
-// SetStatus gets a reference to the given CardStatus and assigns it to the Status field.
+// SetStatus sets field value
 func (o *FVCard) SetStatus(v CardStatus) {
-	o.Status = &v
+	o.Status = v
 }
 
 // GetError returns the Error field value if set, zero value otherwise.
@@ -292,9 +286,7 @@ func (o FVCard) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
 	}
-	if !IsNil(o.Status) {
-		toSerialize["status"] = o.Status
-	}
+	toSerialize["status"] = o.Status
 	if !IsNil(o.Error) {
 		toSerialize["error"] = o.Error
 	}
@@ -316,6 +308,27 @@ func (o FVCard) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *FVCard) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varFVCard := _FVCard{}
 
 	err = json.Unmarshal(data, &varFVCard)

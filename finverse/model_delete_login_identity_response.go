@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the DeleteLoginIdentityResponse type satisfies the MappedNullable interface at compile time
@@ -20,7 +21,7 @@ var _ MappedNullable = &DeleteLoginIdentityResponse{}
 
 // DeleteLoginIdentityResponse struct for DeleteLoginIdentityResponse
 type DeleteLoginIdentityResponse struct {
-	Success              *bool `json:"success,omitempty"`
+	Success              bool `json:"success"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -30,8 +31,9 @@ type _DeleteLoginIdentityResponse DeleteLoginIdentityResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDeleteLoginIdentityResponse() *DeleteLoginIdentityResponse {
+func NewDeleteLoginIdentityResponse(success bool) *DeleteLoginIdentityResponse {
 	this := DeleteLoginIdentityResponse{}
+	this.Success = success
 	return &this
 }
 
@@ -43,36 +45,28 @@ func NewDeleteLoginIdentityResponseWithDefaults() *DeleteLoginIdentityResponse {
 	return &this
 }
 
-// GetSuccess returns the Success field value if set, zero value otherwise.
+// GetSuccess returns the Success field value
 func (o *DeleteLoginIdentityResponse) GetSuccess() bool {
-	if o == nil || IsNil(o.Success) {
+	if o == nil {
 		var ret bool
 		return ret
 	}
-	return *o.Success
+
+	return o.Success
 }
 
-// GetSuccessOk returns a tuple with the Success field value if set, nil otherwise
+// GetSuccessOk returns a tuple with the Success field value
 // and a boolean to check if the value has been set.
 func (o *DeleteLoginIdentityResponse) GetSuccessOk() (*bool, bool) {
-	if o == nil || IsNil(o.Success) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Success, true
+	return &o.Success, true
 }
 
-// HasSuccess returns a boolean if a field has been set.
-func (o *DeleteLoginIdentityResponse) HasSuccess() bool {
-	if o != nil && !IsNil(o.Success) {
-		return true
-	}
-
-	return false
-}
-
-// SetSuccess gets a reference to the given bool and assigns it to the Success field.
+// SetSuccess sets field value
 func (o *DeleteLoginIdentityResponse) SetSuccess(v bool) {
-	o.Success = &v
+	o.Success = v
 }
 
 func (o DeleteLoginIdentityResponse) MarshalJSON() ([]byte, error) {
@@ -85,9 +79,7 @@ func (o DeleteLoginIdentityResponse) MarshalJSON() ([]byte, error) {
 
 func (o DeleteLoginIdentityResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Success) {
-		toSerialize["success"] = o.Success
-	}
+	toSerialize["success"] = o.Success
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -97,6 +89,27 @@ func (o DeleteLoginIdentityResponse) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *DeleteLoginIdentityResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"success",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varDeleteLoginIdentityResponse := _DeleteLoginIdentityResponse{}
 
 	err = json.Unmarshal(data, &varDeleteLoginIdentityResponse)

@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the PaymentMethodFvLinkResponse type satisfies the MappedNullable interface at compile time
@@ -20,8 +21,8 @@ var _ MappedNullable = &PaymentMethodFvLinkResponse{}
 
 // PaymentMethodFvLinkResponse struct for PaymentMethodFvLinkResponse
 type PaymentMethodFvLinkResponse struct {
-	PaymentMethodId      *string                `json:"payment_method_id,omitempty"`
-	PaymentMethodType    *PaymentMethodType     `json:"payment_method_type,omitempty"`
+	PaymentMethodId      string                 `json:"payment_method_id"`
+	PaymentMethodType    PaymentMethodType      `json:"payment_method_type"`
 	RecipientEntityName  *string                `json:"recipient_entity_name,omitempty"`
 	Mandate              *MandateFvLinkResponse `json:"mandate,omitempty"`
 	Card                 *CardFvLinkResponse    `json:"card,omitempty"`
@@ -34,8 +35,10 @@ type _PaymentMethodFvLinkResponse PaymentMethodFvLinkResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentMethodFvLinkResponse() *PaymentMethodFvLinkResponse {
+func NewPaymentMethodFvLinkResponse(paymentMethodId string, paymentMethodType PaymentMethodType) *PaymentMethodFvLinkResponse {
 	this := PaymentMethodFvLinkResponse{}
+	this.PaymentMethodId = paymentMethodId
+	this.PaymentMethodType = paymentMethodType
 	return &this
 }
 
@@ -47,68 +50,52 @@ func NewPaymentMethodFvLinkResponseWithDefaults() *PaymentMethodFvLinkResponse {
 	return &this
 }
 
-// GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise.
+// GetPaymentMethodId returns the PaymentMethodId field value
 func (o *PaymentMethodFvLinkResponse) GetPaymentMethodId() string {
-	if o == nil || IsNil(o.PaymentMethodId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.PaymentMethodId
+
+	return o.PaymentMethodId
 }
 
-// GetPaymentMethodIdOk returns a tuple with the PaymentMethodId field value if set, nil otherwise
+// GetPaymentMethodIdOk returns a tuple with the PaymentMethodId field value
 // and a boolean to check if the value has been set.
 func (o *PaymentMethodFvLinkResponse) GetPaymentMethodIdOk() (*string, bool) {
-	if o == nil || IsNil(o.PaymentMethodId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PaymentMethodId, true
+	return &o.PaymentMethodId, true
 }
 
-// HasPaymentMethodId returns a boolean if a field has been set.
-func (o *PaymentMethodFvLinkResponse) HasPaymentMethodId() bool {
-	if o != nil && !IsNil(o.PaymentMethodId) {
-		return true
-	}
-
-	return false
-}
-
-// SetPaymentMethodId gets a reference to the given string and assigns it to the PaymentMethodId field.
+// SetPaymentMethodId sets field value
 func (o *PaymentMethodFvLinkResponse) SetPaymentMethodId(v string) {
-	o.PaymentMethodId = &v
+	o.PaymentMethodId = v
 }
 
-// GetPaymentMethodType returns the PaymentMethodType field value if set, zero value otherwise.
+// GetPaymentMethodType returns the PaymentMethodType field value
 func (o *PaymentMethodFvLinkResponse) GetPaymentMethodType() PaymentMethodType {
-	if o == nil || IsNil(o.PaymentMethodType) {
+	if o == nil {
 		var ret PaymentMethodType
 		return ret
 	}
-	return *o.PaymentMethodType
+
+	return o.PaymentMethodType
 }
 
-// GetPaymentMethodTypeOk returns a tuple with the PaymentMethodType field value if set, nil otherwise
+// GetPaymentMethodTypeOk returns a tuple with the PaymentMethodType field value
 // and a boolean to check if the value has been set.
 func (o *PaymentMethodFvLinkResponse) GetPaymentMethodTypeOk() (*PaymentMethodType, bool) {
-	if o == nil || IsNil(o.PaymentMethodType) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PaymentMethodType, true
+	return &o.PaymentMethodType, true
 }
 
-// HasPaymentMethodType returns a boolean if a field has been set.
-func (o *PaymentMethodFvLinkResponse) HasPaymentMethodType() bool {
-	if o != nil && !IsNil(o.PaymentMethodType) {
-		return true
-	}
-
-	return false
-}
-
-// SetPaymentMethodType gets a reference to the given PaymentMethodType and assigns it to the PaymentMethodType field.
+// SetPaymentMethodType sets field value
 func (o *PaymentMethodFvLinkResponse) SetPaymentMethodType(v PaymentMethodType) {
-	o.PaymentMethodType = &v
+	o.PaymentMethodType = v
 }
 
 // GetRecipientEntityName returns the RecipientEntityName field value if set, zero value otherwise.
@@ -217,12 +204,8 @@ func (o PaymentMethodFvLinkResponse) MarshalJSON() ([]byte, error) {
 
 func (o PaymentMethodFvLinkResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.PaymentMethodId) {
-		toSerialize["payment_method_id"] = o.PaymentMethodId
-	}
-	if !IsNil(o.PaymentMethodType) {
-		toSerialize["payment_method_type"] = o.PaymentMethodType
-	}
+	toSerialize["payment_method_id"] = o.PaymentMethodId
+	toSerialize["payment_method_type"] = o.PaymentMethodType
 	if !IsNil(o.RecipientEntityName) {
 		toSerialize["recipient_entity_name"] = o.RecipientEntityName
 	}
@@ -241,6 +224,28 @@ func (o PaymentMethodFvLinkResponse) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *PaymentMethodFvLinkResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"payment_method_id",
+		"payment_method_type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varPaymentMethodFvLinkResponse := _PaymentMethodFvLinkResponse{}
 
 	err = json.Unmarshal(data, &varPaymentMethodFvLinkResponse)

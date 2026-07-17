@@ -23,7 +23,7 @@ var _ MappedNullable = &Fee{}
 type Fee struct {
 	// The amount of fee for a single transaction. Expressed in currency's smallest unit or “minor unit”, as defined in ISO 4217.
 	Amount   int32      `json:"amount"`
-	Currency *string    `json:"currency,omitempty"`
+	Currency string     `json:"currency"`
 	PaidBy   *FeePaidBy `json:"paid_by,omitempty"`
 	// The payment account Id
 	PaidByAccountId      *string `json:"paid_by_account_id,omitempty"`
@@ -36,9 +36,10 @@ type _Fee Fee
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFee(amount int32) *Fee {
+func NewFee(amount int32, currency string) *Fee {
 	this := Fee{}
 	this.Amount = amount
+	this.Currency = currency
 	return &this
 }
 
@@ -74,36 +75,28 @@ func (o *Fee) SetAmount(v int32) {
 	o.Amount = v
 }
 
-// GetCurrency returns the Currency field value if set, zero value otherwise.
+// GetCurrency returns the Currency field value
 func (o *Fee) GetCurrency() string {
-	if o == nil || IsNil(o.Currency) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Currency
+
+	return o.Currency
 }
 
-// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
+// GetCurrencyOk returns a tuple with the Currency field value
 // and a boolean to check if the value has been set.
 func (o *Fee) GetCurrencyOk() (*string, bool) {
-	if o == nil || IsNil(o.Currency) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Currency, true
+	return &o.Currency, true
 }
 
-// HasCurrency returns a boolean if a field has been set.
-func (o *Fee) HasCurrency() bool {
-	if o != nil && !IsNil(o.Currency) {
-		return true
-	}
-
-	return false
-}
-
-// SetCurrency gets a reference to the given string and assigns it to the Currency field.
+// SetCurrency sets field value
 func (o *Fee) SetCurrency(v string) {
-	o.Currency = &v
+	o.Currency = v
 }
 
 // GetPaidBy returns the PaidBy field value if set, zero value otherwise.
@@ -181,9 +174,7 @@ func (o Fee) MarshalJSON() ([]byte, error) {
 func (o Fee) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	toSerialize["amount"] = o.Amount
-	if !IsNil(o.Currency) {
-		toSerialize["currency"] = o.Currency
-	}
+	toSerialize["currency"] = o.Currency
 	if !IsNil(o.PaidBy) {
 		toSerialize["paid_by"] = o.PaidBy
 	}
@@ -204,6 +195,7 @@ func (o *Fee) UnmarshalJSON(data []byte) (err error) {
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
 		"amount",
+		"currency",
 	}
 
 	allProperties := make(map[string]interface{})

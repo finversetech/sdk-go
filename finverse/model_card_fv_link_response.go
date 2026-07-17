@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the CardFvLinkResponse type satisfies the MappedNullable interface at compile time
@@ -20,7 +21,7 @@ var _ MappedNullable = &CardFvLinkResponse{}
 
 // CardFvLinkResponse struct for CardFvLinkResponse
 type CardFvLinkResponse struct {
-	Status               *CardStatus           `json:"status,omitempty"`
+	Status               CardStatus            `json:"status"`
 	CardDetails          *CardFvLinkDetails    `json:"card_details,omitempty"`
 	Recipient            *CardRecipient        `json:"recipient,omitempty"`
 	Error                *FvEmbeddedErrorModel `json:"error,omitempty"`
@@ -33,8 +34,9 @@ type _CardFvLinkResponse CardFvLinkResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCardFvLinkResponse() *CardFvLinkResponse {
+func NewCardFvLinkResponse(status CardStatus) *CardFvLinkResponse {
 	this := CardFvLinkResponse{}
+	this.Status = status
 	return &this
 }
 
@@ -46,36 +48,28 @@ func NewCardFvLinkResponseWithDefaults() *CardFvLinkResponse {
 	return &this
 }
 
-// GetStatus returns the Status field value if set, zero value otherwise.
+// GetStatus returns the Status field value
 func (o *CardFvLinkResponse) GetStatus() CardStatus {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		var ret CardStatus
 		return ret
 	}
-	return *o.Status
+
+	return o.Status
 }
 
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *CardFvLinkResponse) GetStatusOk() (*CardStatus, bool) {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Status, true
+	return &o.Status, true
 }
 
-// HasStatus returns a boolean if a field has been set.
-func (o *CardFvLinkResponse) HasStatus() bool {
-	if o != nil && !IsNil(o.Status) {
-		return true
-	}
-
-	return false
-}
-
-// SetStatus gets a reference to the given CardStatus and assigns it to the Status field.
+// SetStatus sets field value
 func (o *CardFvLinkResponse) SetStatus(v CardStatus) {
-	o.Status = &v
+	o.Status = v
 }
 
 // GetCardDetails returns the CardDetails field value if set, zero value otherwise.
@@ -184,9 +178,7 @@ func (o CardFvLinkResponse) MarshalJSON() ([]byte, error) {
 
 func (o CardFvLinkResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Status) {
-		toSerialize["status"] = o.Status
-	}
+	toSerialize["status"] = o.Status
 	if !IsNil(o.CardDetails) {
 		toSerialize["card_details"] = o.CardDetails
 	}
@@ -205,6 +197,27 @@ func (o CardFvLinkResponse) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *CardFvLinkResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varCardFvLinkResponse := _CardFvLinkResponse{}
 
 	err = json.Unmarshal(data, &varCardFvLinkResponse)

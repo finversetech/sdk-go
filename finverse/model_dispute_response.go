@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -22,11 +23,11 @@ var _ MappedNullable = &DisputeResponse{}
 // DisputeResponse struct for DisputeResponse
 type DisputeResponse struct {
 	// The dispute id
-	DisputeId *string `json:"dispute_id,omitempty"`
+	DisputeId string `json:"dispute_id"`
 	// Amount to be disputed, in currency's smallest unit or “minor unit”, as defined in ISO 4217. For example, HKD 100.01 is represented as amount = 10001 (minor unit = cents). For currencies without minor units (e.g. VND, JPY), the amount is represented as is, without modification. For example, VND 15101 is represented as amount = 15101.
-	Amount *int32 `json:"amount,omitempty"`
+	Amount int32 `json:"amount"`
 	// The currency of the balance
-	Currency *string `json:"currency,omitempty"`
+	Currency string `json:"currency"`
 	// The name of the last event for this dispute
 	LastEventName *string `json:"last_event_name,omitempty"`
 	// The payment id
@@ -48,8 +49,8 @@ type DisputeResponse struct {
 	// The dispute code from the payment processor
 	PaymentProcessorDisputeCode *string `json:"payment_processor_dispute_code,omitempty"`
 	// Whether the dispute is defendable
-	IsDefendable  NullableBool   `json:"is_defendable,omitempty"`
-	DisputeStatus *DisputeStatus `json:"dispute_status,omitempty"`
+	IsDefendable  NullableBool  `json:"is_defendable,omitempty"`
+	DisputeStatus DisputeStatus `json:"dispute_status"`
 	// The status of the dispute at the payment processor
 	PaymentProcessorDisputeStatus *string `json:"payment_processor_dispute_status,omitempty"`
 	// Whether the dispute was automatically defended
@@ -70,8 +71,12 @@ type _DisputeResponse DisputeResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewDisputeResponse() *DisputeResponse {
+func NewDisputeResponse(disputeId string, amount int32, currency string, disputeStatus DisputeStatus) *DisputeResponse {
 	this := DisputeResponse{}
+	this.DisputeId = disputeId
+	this.Amount = amount
+	this.Currency = currency
+	this.DisputeStatus = disputeStatus
 	return &this
 }
 
@@ -83,100 +88,76 @@ func NewDisputeResponseWithDefaults() *DisputeResponse {
 	return &this
 }
 
-// GetDisputeId returns the DisputeId field value if set, zero value otherwise.
+// GetDisputeId returns the DisputeId field value
 func (o *DisputeResponse) GetDisputeId() string {
-	if o == nil || IsNil(o.DisputeId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.DisputeId
+
+	return o.DisputeId
 }
 
-// GetDisputeIdOk returns a tuple with the DisputeId field value if set, nil otherwise
+// GetDisputeIdOk returns a tuple with the DisputeId field value
 // and a boolean to check if the value has been set.
 func (o *DisputeResponse) GetDisputeIdOk() (*string, bool) {
-	if o == nil || IsNil(o.DisputeId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DisputeId, true
+	return &o.DisputeId, true
 }
 
-// HasDisputeId returns a boolean if a field has been set.
-func (o *DisputeResponse) HasDisputeId() bool {
-	if o != nil && !IsNil(o.DisputeId) {
-		return true
-	}
-
-	return false
-}
-
-// SetDisputeId gets a reference to the given string and assigns it to the DisputeId field.
+// SetDisputeId sets field value
 func (o *DisputeResponse) SetDisputeId(v string) {
-	o.DisputeId = &v
+	o.DisputeId = v
 }
 
-// GetAmount returns the Amount field value if set, zero value otherwise.
+// GetAmount returns the Amount field value
 func (o *DisputeResponse) GetAmount() int32 {
-	if o == nil || IsNil(o.Amount) {
+	if o == nil {
 		var ret int32
 		return ret
 	}
-	return *o.Amount
+
+	return o.Amount
 }
 
-// GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
+// GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
 func (o *DisputeResponse) GetAmountOk() (*int32, bool) {
-	if o == nil || IsNil(o.Amount) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Amount, true
+	return &o.Amount, true
 }
 
-// HasAmount returns a boolean if a field has been set.
-func (o *DisputeResponse) HasAmount() bool {
-	if o != nil && !IsNil(o.Amount) {
-		return true
-	}
-
-	return false
-}
-
-// SetAmount gets a reference to the given int32 and assigns it to the Amount field.
+// SetAmount sets field value
 func (o *DisputeResponse) SetAmount(v int32) {
-	o.Amount = &v
+	o.Amount = v
 }
 
-// GetCurrency returns the Currency field value if set, zero value otherwise.
+// GetCurrency returns the Currency field value
 func (o *DisputeResponse) GetCurrency() string {
-	if o == nil || IsNil(o.Currency) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Currency
+
+	return o.Currency
 }
 
-// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
+// GetCurrencyOk returns a tuple with the Currency field value
 // and a boolean to check if the value has been set.
 func (o *DisputeResponse) GetCurrencyOk() (*string, bool) {
-	if o == nil || IsNil(o.Currency) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Currency, true
+	return &o.Currency, true
 }
 
-// HasCurrency returns a boolean if a field has been set.
-func (o *DisputeResponse) HasCurrency() bool {
-	if o != nil && !IsNil(o.Currency) {
-		return true
-	}
-
-	return false
-}
-
-// SetCurrency gets a reference to the given string and assigns it to the Currency field.
+// SetCurrency sets field value
 func (o *DisputeResponse) SetCurrency(v string) {
-	o.Currency = &v
+	o.Currency = v
 }
 
 // GetLastEventName returns the LastEventName field value if set, zero value otherwise.
@@ -574,36 +555,28 @@ func (o *DisputeResponse) UnsetIsDefendable() {
 	o.IsDefendable.Unset()
 }
 
-// GetDisputeStatus returns the DisputeStatus field value if set, zero value otherwise.
+// GetDisputeStatus returns the DisputeStatus field value
 func (o *DisputeResponse) GetDisputeStatus() DisputeStatus {
-	if o == nil || IsNil(o.DisputeStatus) {
+	if o == nil {
 		var ret DisputeStatus
 		return ret
 	}
-	return *o.DisputeStatus
+
+	return o.DisputeStatus
 }
 
-// GetDisputeStatusOk returns a tuple with the DisputeStatus field value if set, nil otherwise
+// GetDisputeStatusOk returns a tuple with the DisputeStatus field value
 // and a boolean to check if the value has been set.
 func (o *DisputeResponse) GetDisputeStatusOk() (*DisputeStatus, bool) {
-	if o == nil || IsNil(o.DisputeStatus) {
+	if o == nil {
 		return nil, false
 	}
-	return o.DisputeStatus, true
+	return &o.DisputeStatus, true
 }
 
-// HasDisputeStatus returns a boolean if a field has been set.
-func (o *DisputeResponse) HasDisputeStatus() bool {
-	if o != nil && !IsNil(o.DisputeStatus) {
-		return true
-	}
-
-	return false
-}
-
-// SetDisputeStatus gets a reference to the given DisputeStatus and assigns it to the DisputeStatus field.
+// SetDisputeStatus sets field value
 func (o *DisputeResponse) SetDisputeStatus(v DisputeStatus) {
-	o.DisputeStatus = &v
+	o.DisputeStatus = v
 }
 
 // GetPaymentProcessorDisputeStatus returns the PaymentProcessorDisputeStatus field value if set, zero value otherwise.
@@ -830,15 +803,9 @@ func (o DisputeResponse) MarshalJSON() ([]byte, error) {
 
 func (o DisputeResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.DisputeId) {
-		toSerialize["dispute_id"] = o.DisputeId
-	}
-	if !IsNil(o.Amount) {
-		toSerialize["amount"] = o.Amount
-	}
-	if !IsNil(o.Currency) {
-		toSerialize["currency"] = o.Currency
-	}
+	toSerialize["dispute_id"] = o.DisputeId
+	toSerialize["amount"] = o.Amount
+	toSerialize["currency"] = o.Currency
 	if !IsNil(o.LastEventName) {
 		toSerialize["last_event_name"] = o.LastEventName
 	}
@@ -875,9 +842,7 @@ func (o DisputeResponse) ToMap() (map[string]interface{}, error) {
 	if o.IsDefendable.IsSet() {
 		toSerialize["is_defendable"] = o.IsDefendable.Get()
 	}
-	if !IsNil(o.DisputeStatus) {
-		toSerialize["dispute_status"] = o.DisputeStatus
-	}
+	toSerialize["dispute_status"] = o.DisputeStatus
 	if !IsNil(o.PaymentProcessorDisputeStatus) {
 		toSerialize["payment_processor_dispute_status"] = o.PaymentProcessorDisputeStatus
 	}
@@ -905,6 +870,30 @@ func (o DisputeResponse) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *DisputeResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"dispute_id",
+		"amount",
+		"currency",
+		"dispute_status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varDisputeResponse := _DisputeResponse{}
 
 	err = json.Unmarshal(data, &varDisputeResponse)

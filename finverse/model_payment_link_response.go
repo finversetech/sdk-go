@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -22,12 +23,12 @@ var _ MappedNullable = &PaymentLinkResponse{}
 // PaymentLinkResponse struct for PaymentLinkResponse
 type PaymentLinkResponse struct {
 	// Finverse Payment Link ID
-	PaymentLinkId *string `json:"payment_link_id,omitempty"`
+	PaymentLinkId string `json:"payment_link_id"`
 	// The amount of the payment. Expressed in currency's smallest unit or “minor unit”, as defined in ISO 4217.
-	Amount             *int32                     `json:"amount,omitempty"`
-	Currency           *string                    `json:"currency,omitempty"`
+	Amount             int32                      `json:"amount"`
+	Currency           string                     `json:"currency"`
 	LinkCustomizations *PaymentLinkCustomizations `json:"link_customizations,omitempty"`
-	Mode               *PaymentLinkMode           `json:"mode,omitempty"`
+	Mode               PaymentLinkMode            `json:"mode"`
 	PaymentDetails     *PaymentLinkDetails        `json:"payment_details,omitempty"`
 	// Unique reference id to identifying the payment to be collected.
 	UniqueReferenceId   *string              `json:"unique_reference_id,omitempty"`
@@ -37,9 +38,9 @@ type PaymentLinkResponse struct {
 	// Key-Value metadata to store on payments created on this Payment Link
 	PaymentMetadata *map[string]string `json:"payment_metadata,omitempty"`
 	// The URL for payment link
-	Url           *string                   `json:"url,omitempty"`
-	Status        *PaymentLinkStatus        `json:"status,omitempty"`
-	SessionStatus *PaymentLinkSessionStatus `json:"session_status,omitempty"`
+	Url           *string                  `json:"url,omitempty"`
+	Status        PaymentLinkStatus        `json:"status"`
+	SessionStatus PaymentLinkSessionStatus `json:"session_status"`
 	// Timestamp of when the payment link was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp of when the payment link was last updated in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
@@ -57,8 +58,14 @@ type _PaymentLinkResponse PaymentLinkResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentLinkResponse() *PaymentLinkResponse {
+func NewPaymentLinkResponse(paymentLinkId string, amount int32, currency string, mode PaymentLinkMode, status PaymentLinkStatus, sessionStatus PaymentLinkSessionStatus) *PaymentLinkResponse {
 	this := PaymentLinkResponse{}
+	this.PaymentLinkId = paymentLinkId
+	this.Amount = amount
+	this.Currency = currency
+	this.Mode = mode
+	this.Status = status
+	this.SessionStatus = sessionStatus
 	return &this
 }
 
@@ -70,100 +77,76 @@ func NewPaymentLinkResponseWithDefaults() *PaymentLinkResponse {
 	return &this
 }
 
-// GetPaymentLinkId returns the PaymentLinkId field value if set, zero value otherwise.
+// GetPaymentLinkId returns the PaymentLinkId field value
 func (o *PaymentLinkResponse) GetPaymentLinkId() string {
-	if o == nil || IsNil(o.PaymentLinkId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.PaymentLinkId
+
+	return o.PaymentLinkId
 }
 
-// GetPaymentLinkIdOk returns a tuple with the PaymentLinkId field value if set, nil otherwise
+// GetPaymentLinkIdOk returns a tuple with the PaymentLinkId field value
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetPaymentLinkIdOk() (*string, bool) {
-	if o == nil || IsNil(o.PaymentLinkId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PaymentLinkId, true
+	return &o.PaymentLinkId, true
 }
 
-// HasPaymentLinkId returns a boolean if a field has been set.
-func (o *PaymentLinkResponse) HasPaymentLinkId() bool {
-	if o != nil && !IsNil(o.PaymentLinkId) {
-		return true
-	}
-
-	return false
-}
-
-// SetPaymentLinkId gets a reference to the given string and assigns it to the PaymentLinkId field.
+// SetPaymentLinkId sets field value
 func (o *PaymentLinkResponse) SetPaymentLinkId(v string) {
-	o.PaymentLinkId = &v
+	o.PaymentLinkId = v
 }
 
-// GetAmount returns the Amount field value if set, zero value otherwise.
+// GetAmount returns the Amount field value
 func (o *PaymentLinkResponse) GetAmount() int32 {
-	if o == nil || IsNil(o.Amount) {
+	if o == nil {
 		var ret int32
 		return ret
 	}
-	return *o.Amount
+
+	return o.Amount
 }
 
-// GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
+// GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetAmountOk() (*int32, bool) {
-	if o == nil || IsNil(o.Amount) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Amount, true
+	return &o.Amount, true
 }
 
-// HasAmount returns a boolean if a field has been set.
-func (o *PaymentLinkResponse) HasAmount() bool {
-	if o != nil && !IsNil(o.Amount) {
-		return true
-	}
-
-	return false
-}
-
-// SetAmount gets a reference to the given int32 and assigns it to the Amount field.
+// SetAmount sets field value
 func (o *PaymentLinkResponse) SetAmount(v int32) {
-	o.Amount = &v
+	o.Amount = v
 }
 
-// GetCurrency returns the Currency field value if set, zero value otherwise.
+// GetCurrency returns the Currency field value
 func (o *PaymentLinkResponse) GetCurrency() string {
-	if o == nil || IsNil(o.Currency) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Currency
+
+	return o.Currency
 }
 
-// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
+// GetCurrencyOk returns a tuple with the Currency field value
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetCurrencyOk() (*string, bool) {
-	if o == nil || IsNil(o.Currency) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Currency, true
+	return &o.Currency, true
 }
 
-// HasCurrency returns a boolean if a field has been set.
-func (o *PaymentLinkResponse) HasCurrency() bool {
-	if o != nil && !IsNil(o.Currency) {
-		return true
-	}
-
-	return false
-}
-
-// SetCurrency gets a reference to the given string and assigns it to the Currency field.
+// SetCurrency sets field value
 func (o *PaymentLinkResponse) SetCurrency(v string) {
-	o.Currency = &v
+	o.Currency = v
 }
 
 // GetLinkCustomizations returns the LinkCustomizations field value if set, zero value otherwise.
@@ -198,36 +181,28 @@ func (o *PaymentLinkResponse) SetLinkCustomizations(v PaymentLinkCustomizations)
 	o.LinkCustomizations = &v
 }
 
-// GetMode returns the Mode field value if set, zero value otherwise.
+// GetMode returns the Mode field value
 func (o *PaymentLinkResponse) GetMode() PaymentLinkMode {
-	if o == nil || IsNil(o.Mode) {
+	if o == nil {
 		var ret PaymentLinkMode
 		return ret
 	}
-	return *o.Mode
+
+	return o.Mode
 }
 
-// GetModeOk returns a tuple with the Mode field value if set, nil otherwise
+// GetModeOk returns a tuple with the Mode field value
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetModeOk() (*PaymentLinkMode, bool) {
-	if o == nil || IsNil(o.Mode) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Mode, true
+	return &o.Mode, true
 }
 
-// HasMode returns a boolean if a field has been set.
-func (o *PaymentLinkResponse) HasMode() bool {
-	if o != nil && !IsNil(o.Mode) {
-		return true
-	}
-
-	return false
-}
-
-// SetMode gets a reference to the given PaymentLinkMode and assigns it to the Mode field.
+// SetMode sets field value
 func (o *PaymentLinkResponse) SetMode(v PaymentLinkMode) {
-	o.Mode = &v
+	o.Mode = v
 }
 
 // GetPaymentDetails returns the PaymentDetails field value if set, zero value otherwise.
@@ -422,68 +397,52 @@ func (o *PaymentLinkResponse) SetUrl(v string) {
 	o.Url = &v
 }
 
-// GetStatus returns the Status field value if set, zero value otherwise.
+// GetStatus returns the Status field value
 func (o *PaymentLinkResponse) GetStatus() PaymentLinkStatus {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		var ret PaymentLinkStatus
 		return ret
 	}
-	return *o.Status
+
+	return o.Status
 }
 
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetStatusOk() (*PaymentLinkStatus, bool) {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Status, true
+	return &o.Status, true
 }
 
-// HasStatus returns a boolean if a field has been set.
-func (o *PaymentLinkResponse) HasStatus() bool {
-	if o != nil && !IsNil(o.Status) {
-		return true
-	}
-
-	return false
-}
-
-// SetStatus gets a reference to the given PaymentLinkStatus and assigns it to the Status field.
+// SetStatus sets field value
 func (o *PaymentLinkResponse) SetStatus(v PaymentLinkStatus) {
-	o.Status = &v
+	o.Status = v
 }
 
-// GetSessionStatus returns the SessionStatus field value if set, zero value otherwise.
+// GetSessionStatus returns the SessionStatus field value
 func (o *PaymentLinkResponse) GetSessionStatus() PaymentLinkSessionStatus {
-	if o == nil || IsNil(o.SessionStatus) {
+	if o == nil {
 		var ret PaymentLinkSessionStatus
 		return ret
 	}
-	return *o.SessionStatus
+
+	return o.SessionStatus
 }
 
-// GetSessionStatusOk returns a tuple with the SessionStatus field value if set, nil otherwise
+// GetSessionStatusOk returns a tuple with the SessionStatus field value
 // and a boolean to check if the value has been set.
 func (o *PaymentLinkResponse) GetSessionStatusOk() (*PaymentLinkSessionStatus, bool) {
-	if o == nil || IsNil(o.SessionStatus) {
+	if o == nil {
 		return nil, false
 	}
-	return o.SessionStatus, true
+	return &o.SessionStatus, true
 }
 
-// HasSessionStatus returns a boolean if a field has been set.
-func (o *PaymentLinkResponse) HasSessionStatus() bool {
-	if o != nil && !IsNil(o.SessionStatus) {
-		return true
-	}
-
-	return false
-}
-
-// SetSessionStatus gets a reference to the given PaymentLinkSessionStatus and assigns it to the SessionStatus field.
+// SetSessionStatus sets field value
 func (o *PaymentLinkResponse) SetSessionStatus(v PaymentLinkSessionStatus) {
-	o.SessionStatus = &v
+	o.SessionStatus = v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -688,21 +647,13 @@ func (o PaymentLinkResponse) MarshalJSON() ([]byte, error) {
 
 func (o PaymentLinkResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.PaymentLinkId) {
-		toSerialize["payment_link_id"] = o.PaymentLinkId
-	}
-	if !IsNil(o.Amount) {
-		toSerialize["amount"] = o.Amount
-	}
-	if !IsNil(o.Currency) {
-		toSerialize["currency"] = o.Currency
-	}
+	toSerialize["payment_link_id"] = o.PaymentLinkId
+	toSerialize["amount"] = o.Amount
+	toSerialize["currency"] = o.Currency
 	if !IsNil(o.LinkCustomizations) {
 		toSerialize["link_customizations"] = o.LinkCustomizations
 	}
-	if !IsNil(o.Mode) {
-		toSerialize["mode"] = o.Mode
-	}
+	toSerialize["mode"] = o.Mode
 	if !IsNil(o.PaymentDetails) {
 		toSerialize["payment_details"] = o.PaymentDetails
 	}
@@ -721,12 +672,8 @@ func (o PaymentLinkResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Url) {
 		toSerialize["url"] = o.Url
 	}
-	if !IsNil(o.Status) {
-		toSerialize["status"] = o.Status
-	}
-	if !IsNil(o.SessionStatus) {
-		toSerialize["session_status"] = o.SessionStatus
-	}
+	toSerialize["status"] = o.Status
+	toSerialize["session_status"] = o.SessionStatus
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
@@ -754,6 +701,32 @@ func (o PaymentLinkResponse) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *PaymentLinkResponse) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"payment_link_id",
+		"amount",
+		"currency",
+		"mode",
+		"status",
+		"session_status",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varPaymentLinkResponse := _PaymentLinkResponse{}
 
 	err = json.Unmarshal(data, &varPaymentLinkResponse)

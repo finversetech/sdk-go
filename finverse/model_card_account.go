@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -22,7 +23,7 @@ var _ MappedNullable = &CardAccount{}
 // CardAccount struct for CardAccount
 type CardAccount struct {
 	// Account this card is associated with
-	AccountId   *string `json:"account_id,omitempty"`
+	AccountId   string  `json:"account_id"`
 	AccountName *string `json:"account_name,omitempty"`
 	// Masked Account number of the card account
 	AccountNumberMasked *string      `json:"account_number_masked,omitempty"`
@@ -53,8 +54,9 @@ type _CardAccount CardAccount
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCardAccount() *CardAccount {
+func NewCardAccount(accountId string) *CardAccount {
 	this := CardAccount{}
+	this.AccountId = accountId
 	return &this
 }
 
@@ -66,36 +68,28 @@ func NewCardAccountWithDefaults() *CardAccount {
 	return &this
 }
 
-// GetAccountId returns the AccountId field value if set, zero value otherwise.
+// GetAccountId returns the AccountId field value
 func (o *CardAccount) GetAccountId() string {
-	if o == nil || IsNil(o.AccountId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.AccountId
+
+	return o.AccountId
 }
 
-// GetAccountIdOk returns a tuple with the AccountId field value if set, nil otherwise
+// GetAccountIdOk returns a tuple with the AccountId field value
 // and a boolean to check if the value has been set.
 func (o *CardAccount) GetAccountIdOk() (*string, bool) {
-	if o == nil || IsNil(o.AccountId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AccountId, true
+	return &o.AccountId, true
 }
 
-// HasAccountId returns a boolean if a field has been set.
-func (o *CardAccount) HasAccountId() bool {
-	if o != nil && !IsNil(o.AccountId) {
-		return true
-	}
-
-	return false
-}
-
-// SetAccountId gets a reference to the given string and assigns it to the AccountId field.
+// SetAccountId sets field value
 func (o *CardAccount) SetAccountId(v string) {
-	o.AccountId = &v
+	o.AccountId = v
 }
 
 // GetAccountName returns the AccountName field value if set, zero value otherwise.
@@ -620,9 +614,7 @@ func (o CardAccount) MarshalJSON() ([]byte, error) {
 
 func (o CardAccount) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.AccountId) {
-		toSerialize["account_id"] = o.AccountId
-	}
+	toSerialize["account_id"] = o.AccountId
 	if !IsNil(o.AccountName) {
 		toSerialize["account_name"] = o.AccountName
 	}
@@ -680,6 +672,27 @@ func (o CardAccount) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *CardAccount) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"account_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varCardAccount := _CardAccount{}
 
 	err = json.Unmarshal(data, &varCardAccount)

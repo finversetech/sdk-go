@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the MandateSenderAccount type satisfies the MappedNullable interface at compile time
@@ -28,8 +29,8 @@ type MandateSenderAccount struct {
 	AccountholderNamePlaintext NullableString          `json:"accountholder_name_plaintext,omitempty"`
 	AccountNumber              *RecipientAccountNumber `json:"account_number,omitempty"`
 	// Masked Account number of the sender’s account
-	AccountNumberMasked *string             `json:"account_number_masked,omitempty"`
-	AccountType         *PaymentAccountType `json:"account_type,omitempty"`
+	AccountNumberMasked *string            `json:"account_number_masked,omitempty"`
+	AccountType         PaymentAccountType `json:"account_type"`
 	// Finverse Institution ID for the sender’s institution.
 	InstitutionId *string `json:"institution_id,omitempty"`
 	// Institution Name for the sender’s institution.
@@ -48,8 +49,9 @@ type _MandateSenderAccount MandateSenderAccount
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewMandateSenderAccount() *MandateSenderAccount {
+func NewMandateSenderAccount(accountType PaymentAccountType) *MandateSenderAccount {
 	this := MandateSenderAccount{}
+	this.AccountType = accountType
 	return &this
 }
 
@@ -232,36 +234,28 @@ func (o *MandateSenderAccount) SetAccountNumberMasked(v string) {
 	o.AccountNumberMasked = &v
 }
 
-// GetAccountType returns the AccountType field value if set, zero value otherwise.
+// GetAccountType returns the AccountType field value
 func (o *MandateSenderAccount) GetAccountType() PaymentAccountType {
-	if o == nil || IsNil(o.AccountType) {
+	if o == nil {
 		var ret PaymentAccountType
 		return ret
 	}
-	return *o.AccountType
+
+	return o.AccountType
 }
 
-// GetAccountTypeOk returns a tuple with the AccountType field value if set, nil otherwise
+// GetAccountTypeOk returns a tuple with the AccountType field value
 // and a boolean to check if the value has been set.
 func (o *MandateSenderAccount) GetAccountTypeOk() (*PaymentAccountType, bool) {
-	if o == nil || IsNil(o.AccountType) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AccountType, true
+	return &o.AccountType, true
 }
 
-// HasAccountType returns a boolean if a field has been set.
-func (o *MandateSenderAccount) HasAccountType() bool {
-	if o != nil && !IsNil(o.AccountType) {
-		return true
-	}
-
-	return false
-}
-
-// SetAccountType gets a reference to the given PaymentAccountType and assigns it to the AccountType field.
+// SetAccountType sets field value
 func (o *MandateSenderAccount) SetAccountType(v PaymentAccountType) {
-	o.AccountType = &v
+	o.AccountType = v
 }
 
 // GetInstitutionId returns the InstitutionId field value if set, zero value otherwise.
@@ -449,9 +443,7 @@ func (o MandateSenderAccount) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.AccountNumberMasked) {
 		toSerialize["account_number_masked"] = o.AccountNumberMasked
 	}
-	if !IsNil(o.AccountType) {
-		toSerialize["account_type"] = o.AccountType
-	}
+	toSerialize["account_type"] = o.AccountType
 	if !IsNil(o.InstitutionId) {
 		toSerialize["institution_id"] = o.InstitutionId
 	}
@@ -476,6 +468,27 @@ func (o MandateSenderAccount) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *MandateSenderAccount) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"account_type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varMandateSenderAccount := _MandateSenderAccount{}
 
 	err = json.Unmarshal(data, &varMandateSenderAccount)

@@ -22,7 +22,7 @@ var _ MappedNullable = &LoginIdentity{}
 
 // LoginIdentity struct for LoginIdentity
 type LoginIdentity struct {
-	LoginIdentityId       *string                             `json:"login_identity_id,omitempty"`
+	LoginIdentityId       string                              `json:"login_identity_id"`
 	CustomerAppId         string                              `json:"customer_app_id"`
 	UserId                string                              `json:"user_id"`
 	LoginMethodsAvailable *LoginIdentityLoginMethodsAvailable `json:"login_methods_available,omitempty"`
@@ -30,7 +30,7 @@ type LoginIdentity struct {
 	PermissionsExpiryDate *time.Time                          `json:"permissions_expiry_date,omitempty"`
 	Permissions           []string                            `json:"permissions,omitempty"`
 	BillingDetails        *LoginIdentityBillingDetails        `json:"billing_details,omitempty"`
-	Status                *LoginIdentityStatus                `json:"status,omitempty"`
+	Status                LoginIdentityStatus                 `json:"status"`
 	StatusDetails         *LoginIdentityStatusDetails         `json:"status_details,omitempty"`
 	ProductStatus         *AllProductStatus                   `json:"product_status,omitempty"`
 	AuthenticationStatus  *AuthenticationStatus               `json:"authentication_status,omitempty"`
@@ -59,10 +59,12 @@ type _LoginIdentity LoginIdentity
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewLoginIdentity(customerAppId string, userId string, institutionId string) *LoginIdentity {
+func NewLoginIdentity(loginIdentityId string, customerAppId string, userId string, status LoginIdentityStatus, institutionId string) *LoginIdentity {
 	this := LoginIdentity{}
+	this.LoginIdentityId = loginIdentityId
 	this.CustomerAppId = customerAppId
 	this.UserId = userId
+	this.Status = status
 	this.InstitutionId = institutionId
 	return &this
 }
@@ -75,36 +77,28 @@ func NewLoginIdentityWithDefaults() *LoginIdentity {
 	return &this
 }
 
-// GetLoginIdentityId returns the LoginIdentityId field value if set, zero value otherwise.
+// GetLoginIdentityId returns the LoginIdentityId field value
 func (o *LoginIdentity) GetLoginIdentityId() string {
-	if o == nil || IsNil(o.LoginIdentityId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.LoginIdentityId
+
+	return o.LoginIdentityId
 }
 
-// GetLoginIdentityIdOk returns a tuple with the LoginIdentityId field value if set, nil otherwise
+// GetLoginIdentityIdOk returns a tuple with the LoginIdentityId field value
 // and a boolean to check if the value has been set.
 func (o *LoginIdentity) GetLoginIdentityIdOk() (*string, bool) {
-	if o == nil || IsNil(o.LoginIdentityId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.LoginIdentityId, true
+	return &o.LoginIdentityId, true
 }
 
-// HasLoginIdentityId returns a boolean if a field has been set.
-func (o *LoginIdentity) HasLoginIdentityId() bool {
-	if o != nil && !IsNil(o.LoginIdentityId) {
-		return true
-	}
-
-	return false
-}
-
-// SetLoginIdentityId gets a reference to the given string and assigns it to the LoginIdentityId field.
+// SetLoginIdentityId sets field value
 func (o *LoginIdentity) SetLoginIdentityId(v string) {
-	o.LoginIdentityId = &v
+	o.LoginIdentityId = v
 }
 
 // GetCustomerAppId returns the CustomerAppId field value
@@ -315,36 +309,28 @@ func (o *LoginIdentity) SetBillingDetails(v LoginIdentityBillingDetails) {
 	o.BillingDetails = &v
 }
 
-// GetStatus returns the Status field value if set, zero value otherwise.
+// GetStatus returns the Status field value
 func (o *LoginIdentity) GetStatus() LoginIdentityStatus {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		var ret LoginIdentityStatus
 		return ret
 	}
-	return *o.Status
+
+	return o.Status
 }
 
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *LoginIdentity) GetStatusOk() (*LoginIdentityStatus, bool) {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Status, true
+	return &o.Status, true
 }
 
-// HasStatus returns a boolean if a field has been set.
-func (o *LoginIdentity) HasStatus() bool {
-	if o != nil && !IsNil(o.Status) {
-		return true
-	}
-
-	return false
-}
-
-// SetStatus gets a reference to the given LoginIdentityStatus and assigns it to the Status field.
+// SetStatus sets field value
 func (o *LoginIdentity) SetStatus(v LoginIdentityStatus) {
-	o.Status = &v
+	o.Status = v
 }
 
 // GetStatusDetails returns the StatusDetails field value if set, zero value otherwise.
@@ -861,9 +847,7 @@ func (o LoginIdentity) MarshalJSON() ([]byte, error) {
 
 func (o LoginIdentity) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.LoginIdentityId) {
-		toSerialize["login_identity_id"] = o.LoginIdentityId
-	}
+	toSerialize["login_identity_id"] = o.LoginIdentityId
 	toSerialize["customer_app_id"] = o.CustomerAppId
 	toSerialize["user_id"] = o.UserId
 	if !IsNil(o.LoginMethodsAvailable) {
@@ -881,9 +865,7 @@ func (o LoginIdentity) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.BillingDetails) {
 		toSerialize["billing_details"] = o.BillingDetails
 	}
-	if !IsNil(o.Status) {
-		toSerialize["status"] = o.Status
-	}
+	toSerialize["status"] = o.Status
 	if !IsNil(o.StatusDetails) {
 		toSerialize["status_details"] = o.StatusDetails
 	}
@@ -943,8 +925,10 @@ func (o *LoginIdentity) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"login_identity_id",
 		"customer_app_id",
 		"user_id",
+		"status",
 		"institution_id",
 	}
 

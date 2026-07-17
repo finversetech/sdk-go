@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -22,10 +23,10 @@ var _ MappedNullable = &StatementLink{}
 // StatementLink struct for StatementLink
 type StatementLink struct {
 	// signedURL to download statement
-	Url *string `json:"url,omitempty"`
+	Url string `json:"url"`
 	// expiry of the signedURL
 	Expiry               *time.Time `json:"expiry,omitempty"`
-	StatementId          *string    `json:"statement_id,omitempty"`
+	StatementId          string     `json:"statement_id"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -35,8 +36,10 @@ type _StatementLink StatementLink
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewStatementLink() *StatementLink {
+func NewStatementLink(url string, statementId string) *StatementLink {
 	this := StatementLink{}
+	this.Url = url
+	this.StatementId = statementId
 	return &this
 }
 
@@ -48,36 +51,28 @@ func NewStatementLinkWithDefaults() *StatementLink {
 	return &this
 }
 
-// GetUrl returns the Url field value if set, zero value otherwise.
+// GetUrl returns the Url field value
 func (o *StatementLink) GetUrl() string {
-	if o == nil || IsNil(o.Url) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Url
+
+	return o.Url
 }
 
-// GetUrlOk returns a tuple with the Url field value if set, nil otherwise
+// GetUrlOk returns a tuple with the Url field value
 // and a boolean to check if the value has been set.
 func (o *StatementLink) GetUrlOk() (*string, bool) {
-	if o == nil || IsNil(o.Url) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Url, true
+	return &o.Url, true
 }
 
-// HasUrl returns a boolean if a field has been set.
-func (o *StatementLink) HasUrl() bool {
-	if o != nil && !IsNil(o.Url) {
-		return true
-	}
-
-	return false
-}
-
-// SetUrl gets a reference to the given string and assigns it to the Url field.
+// SetUrl sets field value
 func (o *StatementLink) SetUrl(v string) {
-	o.Url = &v
+	o.Url = v
 }
 
 // GetExpiry returns the Expiry field value if set, zero value otherwise.
@@ -112,36 +107,28 @@ func (o *StatementLink) SetExpiry(v time.Time) {
 	o.Expiry = &v
 }
 
-// GetStatementId returns the StatementId field value if set, zero value otherwise.
+// GetStatementId returns the StatementId field value
 func (o *StatementLink) GetStatementId() string {
-	if o == nil || IsNil(o.StatementId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.StatementId
+
+	return o.StatementId
 }
 
-// GetStatementIdOk returns a tuple with the StatementId field value if set, nil otherwise
+// GetStatementIdOk returns a tuple with the StatementId field value
 // and a boolean to check if the value has been set.
 func (o *StatementLink) GetStatementIdOk() (*string, bool) {
-	if o == nil || IsNil(o.StatementId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.StatementId, true
+	return &o.StatementId, true
 }
 
-// HasStatementId returns a boolean if a field has been set.
-func (o *StatementLink) HasStatementId() bool {
-	if o != nil && !IsNil(o.StatementId) {
-		return true
-	}
-
-	return false
-}
-
-// SetStatementId gets a reference to the given string and assigns it to the StatementId field.
+// SetStatementId sets field value
 func (o *StatementLink) SetStatementId(v string) {
-	o.StatementId = &v
+	o.StatementId = v
 }
 
 func (o StatementLink) MarshalJSON() ([]byte, error) {
@@ -154,15 +141,11 @@ func (o StatementLink) MarshalJSON() ([]byte, error) {
 
 func (o StatementLink) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.Url) {
-		toSerialize["url"] = o.Url
-	}
+	toSerialize["url"] = o.Url
 	if !IsNil(o.Expiry) {
 		toSerialize["expiry"] = o.Expiry
 	}
-	if !IsNil(o.StatementId) {
-		toSerialize["statement_id"] = o.StatementId
-	}
+	toSerialize["statement_id"] = o.StatementId
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -172,6 +155,28 @@ func (o StatementLink) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *StatementLink) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"url",
+		"statement_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varStatementLink := _StatementLink{}
 
 	err = json.Unmarshal(data, &varStatementLink)

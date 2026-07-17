@@ -3799,6 +3799,8 @@ components:
           - INSTITUTION
           - COMPUTED
           type: string
+      required:
+      - source
       type: object
     GetIdentityResponse:
       example:
@@ -4504,7 +4506,9 @@ components:
             $ref: '#/components/schemas/categoryPredictions'
           type: array
       required:
+      - account_id
       - is_pending
+      - transaction_id
       type: object
     categoryPredictions:
       example:
@@ -4945,6 +4949,8 @@ components:
         portal_name:
           example: Personal Internet Banking
           type: string
+      required:
+      - institution_id
       type: object
     Institution:
       example:
@@ -6060,6 +6066,9 @@ components:
         last_session_id:
           format: ulid
           type: string
+      required:
+      - login_identity_id
+      - status
       type: object
     LoginIdentity:
       example:
@@ -6233,6 +6242,8 @@ components:
       required:
       - customer_app_id
       - institution_id
+      - login_identity_id
+      - status
       - user_id
       type: object
     RefreshData:
@@ -6274,6 +6285,8 @@ components:
         success:
           example: true
           type: boolean
+      required:
+      - success
       type: object
     LinkResponse:
       properties:
@@ -6380,6 +6393,8 @@ components:
           example: 2021-02-01T10:01:02.333Z
           format: date-time
           type: string
+      required:
+      - id
       type: object
     StatementLink:
       example:
@@ -6398,6 +6413,9 @@ components:
         statement_id:
           example: sadasd
           type: string
+      required:
+      - statement_id
+      - url
       type: object
     AllProductStatus:
       example:
@@ -6520,6 +6538,8 @@ components:
           format: date-time
           nullable: true
           type: string
+      required:
+      - status
       type: object
     CardDetails:
       example:
@@ -6756,6 +6776,8 @@ components:
           example: 2021-02-01T10:01:02.333Z
           format: date-time
           type: string
+      required:
+      - account_id
       type: object
     CardTotal:
       example:
@@ -8177,7 +8199,11 @@ components:
       required:
       - amount
       - amount_total_with_surcharge
+      - currency
+      - payment_id
+      - status
       - surcharge_amount
+      - type
       type: object
     ListPaymentsResponse:
       example:
@@ -8471,6 +8497,7 @@ components:
         total_payments:
           type: integer
       required:
+      - payments
       - total_payments
       type: object
     PayoutSnapshotResponse:
@@ -8605,7 +8632,12 @@ components:
         error:
           $ref: '#/components/schemas/FvEmbeddedErrorModel'
       required:
+      - amount
+      - currency
       - live
+      - payout_id
+      - status
+      - type
       type: object
     CreatePayoutRequest:
       example:
@@ -10262,6 +10294,13 @@ components:
           $ref: '#/components/schemas/PaymentMethodResponse'
         integration_metadata:
           $ref: '#/components/schemas/IntegrationMetadataResponse'
+      required:
+      - amount
+      - currency
+      - mode
+      - payment_link_id
+      - session_status
+      - status
       type: object
     PaymentLinkSenderResponse:
       example:
@@ -10443,6 +10482,7 @@ components:
           type: string
       required:
       - amount
+      - currency
       type: object
     GetLineItemsForDisplayResponseV2:
       properties:
@@ -10548,6 +10588,8 @@ components:
           $ref: '#/components/schemas/MandateRecipientAccount'
         risk_data:
           $ref: '#/components/schemas/RiskData'
+      required:
+      - status
       type: object
     FVCardDetails:
       example:
@@ -11040,6 +11082,8 @@ components:
         name:
           description: Merchant account name
           type: string
+      required:
+      - name
       type: object
     MandateRecipientAccount:
       example:
@@ -11562,6 +11606,8 @@ components:
           - YEARLY
           nullable: true
           type: string
+      required:
+      - max_transaction_amount
       type: object
     GetMandateAuthLinkResponse:
       example:
@@ -12184,6 +12230,8 @@ components:
             \ (e.g. sender_id: 1234). It supports up to 20 key:value pairs, whereas\
             \ the key and value supports up to 50 and 1000 characters respectively."
           type: object
+      required:
+      - account_type
       type: object
     GetPaymentUserResponse:
       properties:
@@ -12532,6 +12580,9 @@ components:
             format (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time
           type: string
+      required:
+      - account_id
+      - account_type
       type: object
     PaymentMethodOverview:
       example:
@@ -12811,6 +12862,7 @@ components:
           $ref: '#/components/schemas/IntegrationMetadataResponse'
       required:
       - autopay_consent
+      - user_id
       type: object
     PaymentUserWithoutEmail:
       example:
@@ -12887,6 +12939,7 @@ components:
           $ref: '#/components/schemas/IntegrationMetadataResponse'
       required:
       - autopay_consent
+      - user_id
       type: object
     CreatePaymentMethodRequest:
       example:
@@ -13215,6 +13268,9 @@ components:
           $ref: '#/components/schemas/FVCard'
         integration_metadata:
           $ref: '#/components/schemas/PaymentMethodIntegrationMetadataResponse'
+      required:
+      - payment_method_id
+      - payment_method_type
       type: object
     PaymentMethodFvLinkResponse:
       properties:
@@ -13228,6 +13284,9 @@ components:
           $ref: '#/components/schemas/MandateFvLinkResponse'
         card:
           $ref: '#/components/schemas/CardFvLinkResponse'
+      required:
+      - payment_method_id
+      - payment_method_type
       type: object
     AvailablePaymentMethodsFvLinkResponse:
       properties:
@@ -13258,6 +13317,7 @@ components:
             type: string
           type: array
       required:
+      - payment_method_type
       - recurring
       type: object
     PaymentFvLinkResponse:
@@ -13278,6 +13338,8 @@ components:
           type: boolean
       required:
       - skip_polling
+      - status
+      - type
       type: object
     PaymentFvLinkDetails:
       properties:
@@ -13300,6 +13362,8 @@ components:
           $ref: '#/components/schemas/FvEmbeddedErrorModel'
         mandate_details:
           $ref: '#/components/schemas/MandateFvLinkDetails'
+      required:
+      - mandate_status
       type: object
     MandateFvLinkDetails:
       properties:
@@ -13316,6 +13380,8 @@ components:
           $ref: '#/components/schemas/CardRecipient'
         error:
           $ref: '#/components/schemas/FvEmbeddedErrorModel'
+      required:
+      - status
       type: object
     CardFvLinkDetails:
       properties:
@@ -13613,6 +13679,11 @@ components:
           description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
           format: date-time
           type: string
+      required:
+      - amount
+      - currency
+      - dispute_id
+      - dispute_status
       type: object
     ListDisputesResponse:
       example:

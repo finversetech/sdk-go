@@ -22,17 +22,17 @@ var _ MappedNullable = &PayoutSnapshotResponse{}
 
 // PayoutSnapshotResponse struct for PayoutSnapshotResponse
 type PayoutSnapshotResponse struct {
-	PayoutId         *string                  `json:"payout_id,omitempty"`
-	Status           *PayoutStatus            `json:"status,omitempty"`
-	Type             *PayoutType              `json:"type,omitempty"`
+	PayoutId         string                   `json:"payout_id"`
+	Status           PayoutStatus             `json:"status"`
+	Type             PayoutType               `json:"type"`
 	CreatedAt        *time.Time               `json:"created_at,omitempty"`
 	UpdatedAt        *time.Time               `json:"updated_at,omitempty"`
 	TransactionDate  *string                  `json:"transaction_date,omitempty"`
 	TransactionTime  NullableTime             `json:"transaction_time,omitempty"`
 	PaymentDetails   *PayoutSnapshotDetails   `json:"payment_details,omitempty"`
 	Metadata         *map[string]string       `json:"metadata,omitempty"`
-	Amount           *int32                   `json:"amount,omitempty"`
-	Currency         *string                  `json:"currency,omitempty"`
+	Amount           int32                    `json:"amount"`
+	Currency         string                   `json:"currency"`
 	Sender           *MandateRecipient        `json:"sender,omitempty"`
 	SenderAccount    *MandateRecipientAccount `json:"sender_account,omitempty"`
 	Recipient        *GetMandateSender        `json:"recipient,omitempty"`
@@ -50,8 +50,13 @@ type _PayoutSnapshotResponse PayoutSnapshotResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPayoutSnapshotResponse(live bool) *PayoutSnapshotResponse {
+func NewPayoutSnapshotResponse(payoutId string, status PayoutStatus, type_ PayoutType, amount int32, currency string, live bool) *PayoutSnapshotResponse {
 	this := PayoutSnapshotResponse{}
+	this.PayoutId = payoutId
+	this.Status = status
+	this.Type = type_
+	this.Amount = amount
+	this.Currency = currency
 	this.Live = live
 	return &this
 }
@@ -64,100 +69,76 @@ func NewPayoutSnapshotResponseWithDefaults() *PayoutSnapshotResponse {
 	return &this
 }
 
-// GetPayoutId returns the PayoutId field value if set, zero value otherwise.
+// GetPayoutId returns the PayoutId field value
 func (o *PayoutSnapshotResponse) GetPayoutId() string {
-	if o == nil || IsNil(o.PayoutId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.PayoutId
+
+	return o.PayoutId
 }
 
-// GetPayoutIdOk returns a tuple with the PayoutId field value if set, nil otherwise
+// GetPayoutIdOk returns a tuple with the PayoutId field value
 // and a boolean to check if the value has been set.
 func (o *PayoutSnapshotResponse) GetPayoutIdOk() (*string, bool) {
-	if o == nil || IsNil(o.PayoutId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.PayoutId, true
+	return &o.PayoutId, true
 }
 
-// HasPayoutId returns a boolean if a field has been set.
-func (o *PayoutSnapshotResponse) HasPayoutId() bool {
-	if o != nil && !IsNil(o.PayoutId) {
-		return true
-	}
-
-	return false
-}
-
-// SetPayoutId gets a reference to the given string and assigns it to the PayoutId field.
+// SetPayoutId sets field value
 func (o *PayoutSnapshotResponse) SetPayoutId(v string) {
-	o.PayoutId = &v
+	o.PayoutId = v
 }
 
-// GetStatus returns the Status field value if set, zero value otherwise.
+// GetStatus returns the Status field value
 func (o *PayoutSnapshotResponse) GetStatus() PayoutStatus {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		var ret PayoutStatus
 		return ret
 	}
-	return *o.Status
+
+	return o.Status
 }
 
-// GetStatusOk returns a tuple with the Status field value if set, nil otherwise
+// GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
 func (o *PayoutSnapshotResponse) GetStatusOk() (*PayoutStatus, bool) {
-	if o == nil || IsNil(o.Status) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Status, true
+	return &o.Status, true
 }
 
-// HasStatus returns a boolean if a field has been set.
-func (o *PayoutSnapshotResponse) HasStatus() bool {
-	if o != nil && !IsNil(o.Status) {
-		return true
-	}
-
-	return false
-}
-
-// SetStatus gets a reference to the given PayoutStatus and assigns it to the Status field.
+// SetStatus sets field value
 func (o *PayoutSnapshotResponse) SetStatus(v PayoutStatus) {
-	o.Status = &v
+	o.Status = v
 }
 
-// GetType returns the Type field value if set, zero value otherwise.
+// GetType returns the Type field value
 func (o *PayoutSnapshotResponse) GetType() PayoutType {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		var ret PayoutType
 		return ret
 	}
-	return *o.Type
+
+	return o.Type
 }
 
-// GetTypeOk returns a tuple with the Type field value if set, nil otherwise
+// GetTypeOk returns a tuple with the Type field value
 // and a boolean to check if the value has been set.
 func (o *PayoutSnapshotResponse) GetTypeOk() (*PayoutType, bool) {
-	if o == nil || IsNil(o.Type) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Type, true
+	return &o.Type, true
 }
 
-// HasType returns a boolean if a field has been set.
-func (o *PayoutSnapshotResponse) HasType() bool {
-	if o != nil && !IsNil(o.Type) {
-		return true
-	}
-
-	return false
-}
-
-// SetType gets a reference to the given PayoutType and assigns it to the Type field.
+// SetType sets field value
 func (o *PayoutSnapshotResponse) SetType(v PayoutType) {
-	o.Type = &v
+	o.Type = v
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
@@ -363,68 +344,52 @@ func (o *PayoutSnapshotResponse) SetMetadata(v map[string]string) {
 	o.Metadata = &v
 }
 
-// GetAmount returns the Amount field value if set, zero value otherwise.
+// GetAmount returns the Amount field value
 func (o *PayoutSnapshotResponse) GetAmount() int32 {
-	if o == nil || IsNil(o.Amount) {
+	if o == nil {
 		var ret int32
 		return ret
 	}
-	return *o.Amount
+
+	return o.Amount
 }
 
-// GetAmountOk returns a tuple with the Amount field value if set, nil otherwise
+// GetAmountOk returns a tuple with the Amount field value
 // and a boolean to check if the value has been set.
 func (o *PayoutSnapshotResponse) GetAmountOk() (*int32, bool) {
-	if o == nil || IsNil(o.Amount) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Amount, true
+	return &o.Amount, true
 }
 
-// HasAmount returns a boolean if a field has been set.
-func (o *PayoutSnapshotResponse) HasAmount() bool {
-	if o != nil && !IsNil(o.Amount) {
-		return true
-	}
-
-	return false
-}
-
-// SetAmount gets a reference to the given int32 and assigns it to the Amount field.
+// SetAmount sets field value
 func (o *PayoutSnapshotResponse) SetAmount(v int32) {
-	o.Amount = &v
+	o.Amount = v
 }
 
-// GetCurrency returns the Currency field value if set, zero value otherwise.
+// GetCurrency returns the Currency field value
 func (o *PayoutSnapshotResponse) GetCurrency() string {
-	if o == nil || IsNil(o.Currency) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.Currency
+
+	return o.Currency
 }
 
-// GetCurrencyOk returns a tuple with the Currency field value if set, nil otherwise
+// GetCurrencyOk returns a tuple with the Currency field value
 // and a boolean to check if the value has been set.
 func (o *PayoutSnapshotResponse) GetCurrencyOk() (*string, bool) {
-	if o == nil || IsNil(o.Currency) {
+	if o == nil {
 		return nil, false
 	}
-	return o.Currency, true
+	return &o.Currency, true
 }
 
-// HasCurrency returns a boolean if a field has been set.
-func (o *PayoutSnapshotResponse) HasCurrency() bool {
-	if o != nil && !IsNil(o.Currency) {
-		return true
-	}
-
-	return false
-}
-
-// SetCurrency gets a reference to the given string and assigns it to the Currency field.
+// SetCurrency sets field value
 func (o *PayoutSnapshotResponse) SetCurrency(v string) {
-	o.Currency = &v
+	o.Currency = v
 }
 
 // GetSender returns the Sender field value if set, zero value otherwise.
@@ -653,15 +618,9 @@ func (o PayoutSnapshotResponse) MarshalJSON() ([]byte, error) {
 
 func (o PayoutSnapshotResponse) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.PayoutId) {
-		toSerialize["payout_id"] = o.PayoutId
-	}
-	if !IsNil(o.Status) {
-		toSerialize["status"] = o.Status
-	}
-	if !IsNil(o.Type) {
-		toSerialize["type"] = o.Type
-	}
+	toSerialize["payout_id"] = o.PayoutId
+	toSerialize["status"] = o.Status
+	toSerialize["type"] = o.Type
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
 	}
@@ -680,12 +639,8 @@ func (o PayoutSnapshotResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-	if !IsNil(o.Amount) {
-		toSerialize["amount"] = o.Amount
-	}
-	if !IsNil(o.Currency) {
-		toSerialize["currency"] = o.Currency
-	}
+	toSerialize["amount"] = o.Amount
+	toSerialize["currency"] = o.Currency
 	if !IsNil(o.Sender) {
 		toSerialize["sender"] = o.Sender
 	}
@@ -718,6 +673,11 @@ func (o *PayoutSnapshotResponse) UnmarshalJSON(data []byte) (err error) {
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
 	requiredProperties := []string{
+		"payout_id",
+		"status",
+		"type",
+		"amount",
+		"currency",
 		"live",
 	}
 

@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 )
 
@@ -22,11 +23,11 @@ var _ MappedNullable = &PaymentAccountDetailsWithEnrichedData{}
 // PaymentAccountDetailsWithEnrichedData struct for PaymentAccountDetailsWithEnrichedData
 type PaymentAccountDetailsWithEnrichedData struct {
 	// Payment account id
-	AccountId     *string                 `json:"account_id,omitempty"`
+	AccountId     string                  `json:"account_id"`
 	AccountNumber *RecipientAccountNumber `json:"account_number,omitempty"`
 	// Masked Account number of the payment account
-	AccountNumberMasked *string             `json:"account_number_masked,omitempty"`
-	AccountType         *PaymentAccountType `json:"account_type,omitempty"`
+	AccountNumberMasked *string            `json:"account_number_masked,omitempty"`
+	AccountType         PaymentAccountType `json:"account_type"`
 	// Accountholder name of the payment account
 	AccountholderName *string `json:"accountholder_name,omitempty"`
 	// The customer app ID
@@ -65,8 +66,10 @@ type _PaymentAccountDetailsWithEnrichedData PaymentAccountDetailsWithEnrichedDat
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewPaymentAccountDetailsWithEnrichedData() *PaymentAccountDetailsWithEnrichedData {
+func NewPaymentAccountDetailsWithEnrichedData(accountId string, accountType PaymentAccountType) *PaymentAccountDetailsWithEnrichedData {
 	this := PaymentAccountDetailsWithEnrichedData{}
+	this.AccountId = accountId
+	this.AccountType = accountType
 	return &this
 }
 
@@ -78,36 +81,28 @@ func NewPaymentAccountDetailsWithEnrichedDataWithDefaults() *PaymentAccountDetai
 	return &this
 }
 
-// GetAccountId returns the AccountId field value if set, zero value otherwise.
+// GetAccountId returns the AccountId field value
 func (o *PaymentAccountDetailsWithEnrichedData) GetAccountId() string {
-	if o == nil || IsNil(o.AccountId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.AccountId
+
+	return o.AccountId
 }
 
-// GetAccountIdOk returns a tuple with the AccountId field value if set, nil otherwise
+// GetAccountIdOk returns a tuple with the AccountId field value
 // and a boolean to check if the value has been set.
 func (o *PaymentAccountDetailsWithEnrichedData) GetAccountIdOk() (*string, bool) {
-	if o == nil || IsNil(o.AccountId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AccountId, true
+	return &o.AccountId, true
 }
 
-// HasAccountId returns a boolean if a field has been set.
-func (o *PaymentAccountDetailsWithEnrichedData) HasAccountId() bool {
-	if o != nil && !IsNil(o.AccountId) {
-		return true
-	}
-
-	return false
-}
-
-// SetAccountId gets a reference to the given string and assigns it to the AccountId field.
+// SetAccountId sets field value
 func (o *PaymentAccountDetailsWithEnrichedData) SetAccountId(v string) {
-	o.AccountId = &v
+	o.AccountId = v
 }
 
 // GetAccountNumber returns the AccountNumber field value if set, zero value otherwise.
@@ -174,36 +169,28 @@ func (o *PaymentAccountDetailsWithEnrichedData) SetAccountNumberMasked(v string)
 	o.AccountNumberMasked = &v
 }
 
-// GetAccountType returns the AccountType field value if set, zero value otherwise.
+// GetAccountType returns the AccountType field value
 func (o *PaymentAccountDetailsWithEnrichedData) GetAccountType() PaymentAccountType {
-	if o == nil || IsNil(o.AccountType) {
+	if o == nil {
 		var ret PaymentAccountType
 		return ret
 	}
-	return *o.AccountType
+
+	return o.AccountType
 }
 
-// GetAccountTypeOk returns a tuple with the AccountType field value if set, nil otherwise
+// GetAccountTypeOk returns a tuple with the AccountType field value
 // and a boolean to check if the value has been set.
 func (o *PaymentAccountDetailsWithEnrichedData) GetAccountTypeOk() (*PaymentAccountType, bool) {
-	if o == nil || IsNil(o.AccountType) {
+	if o == nil {
 		return nil, false
 	}
-	return o.AccountType, true
+	return &o.AccountType, true
 }
 
-// HasAccountType returns a boolean if a field has been set.
-func (o *PaymentAccountDetailsWithEnrichedData) HasAccountType() bool {
-	if o != nil && !IsNil(o.AccountType) {
-		return true
-	}
-
-	return false
-}
-
-// SetAccountType gets a reference to the given PaymentAccountType and assigns it to the AccountType field.
+// SetAccountType sets field value
 func (o *PaymentAccountDetailsWithEnrichedData) SetAccountType(v PaymentAccountType) {
-	o.AccountType = &v
+	o.AccountType = v
 }
 
 // GetAccountholderName returns the AccountholderName field value if set, zero value otherwise.
@@ -696,18 +683,14 @@ func (o PaymentAccountDetailsWithEnrichedData) MarshalJSON() ([]byte, error) {
 
 func (o PaymentAccountDetailsWithEnrichedData) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.AccountId) {
-		toSerialize["account_id"] = o.AccountId
-	}
+	toSerialize["account_id"] = o.AccountId
 	if !IsNil(o.AccountNumber) {
 		toSerialize["account_number"] = o.AccountNumber
 	}
 	if !IsNil(o.AccountNumberMasked) {
 		toSerialize["account_number_masked"] = o.AccountNumberMasked
 	}
-	if !IsNil(o.AccountType) {
-		toSerialize["account_type"] = o.AccountType
-	}
+	toSerialize["account_type"] = o.AccountType
 	if !IsNil(o.AccountholderName) {
 		toSerialize["accountholder_name"] = o.AccountholderName
 	}
@@ -762,6 +745,28 @@ func (o PaymentAccountDetailsWithEnrichedData) ToMap() (map[string]interface{}, 
 }
 
 func (o *PaymentAccountDetailsWithEnrichedData) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"account_id",
+		"account_type",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varPaymentAccountDetailsWithEnrichedData := _PaymentAccountDetailsWithEnrichedData{}
 
 	err = json.Unmarshal(data, &varPaymentAccountDetailsWithEnrichedData)

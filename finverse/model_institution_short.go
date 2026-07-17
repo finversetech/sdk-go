@@ -13,6 +13,7 @@ package finverse
 
 import (
 	"encoding/json"
+	"fmt"
 )
 
 // checks if the InstitutionShort type satisfies the MappedNullable interface at compile time
@@ -20,7 +21,7 @@ var _ MappedNullable = &InstitutionShort{}
 
 // InstitutionShort struct for InstitutionShort
 type InstitutionShort struct {
-	InstitutionId        *string  `json:"institution_id,omitempty"`
+	InstitutionId        string   `json:"institution_id"`
 	Countries            []string `json:"countries,omitempty"`
 	InstitutionName      *string  `json:"institution_name,omitempty"`
 	PortalName           *string  `json:"portal_name,omitempty"`
@@ -33,8 +34,9 @@ type _InstitutionShort InstitutionShort
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewInstitutionShort() *InstitutionShort {
+func NewInstitutionShort(institutionId string) *InstitutionShort {
 	this := InstitutionShort{}
+	this.InstitutionId = institutionId
 	return &this
 }
 
@@ -46,36 +48,28 @@ func NewInstitutionShortWithDefaults() *InstitutionShort {
 	return &this
 }
 
-// GetInstitutionId returns the InstitutionId field value if set, zero value otherwise.
+// GetInstitutionId returns the InstitutionId field value
 func (o *InstitutionShort) GetInstitutionId() string {
-	if o == nil || IsNil(o.InstitutionId) {
+	if o == nil {
 		var ret string
 		return ret
 	}
-	return *o.InstitutionId
+
+	return o.InstitutionId
 }
 
-// GetInstitutionIdOk returns a tuple with the InstitutionId field value if set, nil otherwise
+// GetInstitutionIdOk returns a tuple with the InstitutionId field value
 // and a boolean to check if the value has been set.
 func (o *InstitutionShort) GetInstitutionIdOk() (*string, bool) {
-	if o == nil || IsNil(o.InstitutionId) {
+	if o == nil {
 		return nil, false
 	}
-	return o.InstitutionId, true
+	return &o.InstitutionId, true
 }
 
-// HasInstitutionId returns a boolean if a field has been set.
-func (o *InstitutionShort) HasInstitutionId() bool {
-	if o != nil && !IsNil(o.InstitutionId) {
-		return true
-	}
-
-	return false
-}
-
-// SetInstitutionId gets a reference to the given string and assigns it to the InstitutionId field.
+// SetInstitutionId sets field value
 func (o *InstitutionShort) SetInstitutionId(v string) {
-	o.InstitutionId = &v
+	o.InstitutionId = v
 }
 
 // GetCountries returns the Countries field value if set, zero value otherwise.
@@ -184,9 +178,7 @@ func (o InstitutionShort) MarshalJSON() ([]byte, error) {
 
 func (o InstitutionShort) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
-	if !IsNil(o.InstitutionId) {
-		toSerialize["institution_id"] = o.InstitutionId
-	}
+	toSerialize["institution_id"] = o.InstitutionId
 	if !IsNil(o.Countries) {
 		toSerialize["countries"] = o.Countries
 	}
@@ -205,6 +197,27 @@ func (o InstitutionShort) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *InstitutionShort) UnmarshalJSON(data []byte) (err error) {
+	// This validates that all required properties are included in the JSON object
+	// by unmarshalling the object into a generic map with string keys and checking
+	// that every required field exists as a key in the generic map.
+	requiredProperties := []string{
+		"institution_id",
+	}
+
+	allProperties := make(map[string]interface{})
+
+	err = json.Unmarshal(data, &allProperties)
+
+	if err != nil {
+		return err
+	}
+
+	for _, requiredProperty := range requiredProperties {
+		if _, exists := allProperties[requiredProperty]; !exists {
+			return fmt.Errorf("no value given for required property %v", requiredProperty)
+		}
+	}
+
 	varInstitutionShort := _InstitutionShort{}
 
 	err = json.Unmarshal(data, &varInstitutionShort)
