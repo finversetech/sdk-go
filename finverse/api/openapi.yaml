@@ -7873,6 +7873,7 @@ components:
             decline_reason: decline_reason
             last_action: last_action
             status: status
+          bank_code: bank_code
           virtual_account_bank_code: virtual_account_bank_code
           processor_reference: processor_reference
           scheme: scheme
@@ -7930,6 +7931,7 @@ components:
           decline_reason: decline_reason
           last_action: last_action
           status: status
+        bank_code: bank_code
         virtual_account_bank_code: virtual_account_bank_code
         processor_reference: processor_reference
         scheme: scheme
@@ -7948,12 +7950,16 @@ components:
             \ for now)"
           type: string
         virtual_account_number:
-          description: Virtual account number issued by the processor (e.g. KCP manual
-            virtual account payments).
+          description: Virtual account number issued by the processor (applicable
+            to KCP manual virtual account payments).
           type: string
         virtual_account_bank_code:
-          description: Bank code for the virtual account without a BK prefix (e.g.
-            KCP manual virtual account payments).
+          description: Bank code for the virtual account without a "BK"/"B" prefix
+            (applicable to KCP manual virtual account payments).
+          type: string
+        bank_code:
+          description: Bank code of the payer's bank without a "BK"/"B" prefix (applicable
+            to KCP bank transfer payments).
           type: string
         result:
           $ref: '#/components/schemas/PaymentProcessorResult'
@@ -8014,6 +8020,7 @@ components:
               decline_reason: decline_reason
               last_action: last_action
               status: status
+            bank_code: bank_code
             virtual_account_bank_code: virtual_account_bank_code
             processor_reference: processor_reference
             scheme: scheme
@@ -8235,6 +8242,7 @@ components:
                 decline_reason: decline_reason
                 last_action: last_action
                 status: status
+              bank_code: bank_code
               virtual_account_bank_code: virtual_account_bank_code
               processor_reference: processor_reference
               scheme: scheme
@@ -8375,6 +8383,7 @@ components:
                 decline_reason: decline_reason
                 last_action: last_action
                 status: status
+              bank_code: bank_code
               virtual_account_bank_code: virtual_account_bank_code
               processor_reference: processor_reference
               scheme: scheme
@@ -9963,6 +9972,7 @@ components:
                 decline_reason: decline_reason
                 last_action: last_action
                 status: status
+              bank_code: bank_code
               virtual_account_bank_code: virtual_account_bank_code
               processor_reference: processor_reference
               scheme: scheme
@@ -12230,8 +12240,6 @@ components:
             \ (e.g. sender_id: 1234). It supports up to 20 key:value pairs, whereas\
             \ the key and value supports up to 50 and 1000 characters respectively."
           type: object
-      required:
-      - account_type
       type: object
     GetPaymentUserResponse:
       properties:
@@ -13894,6 +13902,7 @@ components:
                 decline_reason: decline_reason
                 last_action: last_action
                 status: status
+              bank_code: bank_code
               virtual_account_bank_code: virtual_account_bank_code
               processor_reference: processor_reference
               scheme: scheme
@@ -14034,6 +14043,7 @@ components:
                 decline_reason: decline_reason
                 last_action: last_action
                 status: status
+              bank_code: bank_code
               virtual_account_bank_code: virtual_account_bank_code
               processor_reference: processor_reference
               scheme: scheme

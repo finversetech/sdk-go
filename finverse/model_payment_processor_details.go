@@ -25,12 +25,14 @@ type PaymentProcessorDetails struct {
 	ProcessorReference *string `json:"processor_reference,omitempty"`
 	// Scheme like becs, bacs, ach, etc. (applicable to Gocardless for now)
 	Scheme *string `json:"scheme,omitempty"`
-	// Virtual account number issued by the processor (e.g. KCP manual virtual account payments).
+	// Virtual account number issued by the processor (applicable to KCP manual virtual account payments).
 	VirtualAccountNumber *string `json:"virtual_account_number,omitempty"`
-	// Bank code for the virtual account without a BK prefix (e.g. KCP manual virtual account payments).
-	VirtualAccountBankCode *string                 `json:"virtual_account_bank_code,omitempty"`
-	Result                 *PaymentProcessorResult `json:"result,omitempty"`
-	AdditionalProperties   map[string]interface{}
+	// Bank code for the virtual account without a \"BK\"/\"B\" prefix (applicable to KCP manual virtual account payments).
+	VirtualAccountBankCode *string `json:"virtual_account_bank_code,omitempty"`
+	// Bank code of the payer's bank without a \"BK\"/\"B\" prefix (applicable to KCP bank transfer payments).
+	BankCode             *string                 `json:"bank_code,omitempty"`
+	Result               *PaymentProcessorResult `json:"result,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _PaymentProcessorDetails PaymentProcessorDetails
@@ -244,6 +246,38 @@ func (o *PaymentProcessorDetails) SetVirtualAccountBankCode(v string) {
 	o.VirtualAccountBankCode = &v
 }
 
+// GetBankCode returns the BankCode field value if set, zero value otherwise.
+func (o *PaymentProcessorDetails) GetBankCode() string {
+	if o == nil || IsNil(o.BankCode) {
+		var ret string
+		return ret
+	}
+	return *o.BankCode
+}
+
+// GetBankCodeOk returns a tuple with the BankCode field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentProcessorDetails) GetBankCodeOk() (*string, bool) {
+	if o == nil || IsNil(o.BankCode) {
+		return nil, false
+	}
+	return o.BankCode, true
+}
+
+// HasBankCode returns a boolean if a field has been set.
+func (o *PaymentProcessorDetails) HasBankCode() bool {
+	if o != nil && !IsNil(o.BankCode) {
+		return true
+	}
+
+	return false
+}
+
+// SetBankCode gets a reference to the given string and assigns it to the BankCode field.
+func (o *PaymentProcessorDetails) SetBankCode(v string) {
+	o.BankCode = &v
+}
+
 // GetResult returns the Result field value if set, zero value otherwise.
 func (o *PaymentProcessorDetails) GetResult() PaymentProcessorResult {
 	if o == nil || IsNil(o.Result) {
@@ -304,6 +338,9 @@ func (o PaymentProcessorDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.VirtualAccountBankCode) {
 		toSerialize["virtual_account_bank_code"] = o.VirtualAccountBankCode
 	}
+	if !IsNil(o.BankCode) {
+		toSerialize["bank_code"] = o.BankCode
+	}
 	if !IsNil(o.Result) {
 		toSerialize["result"] = o.Result
 	}
@@ -335,6 +372,7 @@ func (o *PaymentProcessorDetails) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "scheme")
 		delete(additionalProperties, "virtual_account_number")
 		delete(additionalProperties, "virtual_account_bank_code")
+		delete(additionalProperties, "bank_code")
 		delete(additionalProperties, "result")
 		o.AdditionalProperties = additionalProperties
 	}
