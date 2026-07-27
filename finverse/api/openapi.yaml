@@ -11616,8 +11616,6 @@ components:
           - YEARLY
           nullable: true
           type: string
-      required:
-      - max_transaction_amount
       type: object
     GetMandateAuthLinkResponse:
       example:

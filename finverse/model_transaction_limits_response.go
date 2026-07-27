@@ -13,7 +13,6 @@ package finverse
 
 import (
 	"encoding/json"
-	"fmt"
 )
 
 // checks if the TransactionLimitsResponse type satisfies the MappedNullable interface at compile time
@@ -26,7 +25,7 @@ type TransactionLimitsResponse struct {
 	// Maximum number of transactions (of any amount) that can be executed during the reference period.
 	MaxPeriodCount *int32 `json:"max_period_count,omitempty"`
 	// The maximum amount of money that can be transferred in a single transaction under this mandate. Expressed in currency's smallest unit or “minor unit”, as defined in ISO 4217.
-	MaxTransactionAmount int32 `json:"max_transaction_amount"`
+	MaxTransactionAmount *int32 `json:"max_transaction_amount,omitempty"`
 	// The maximum amount of money that can be transferred in a single transaction under this mandate set by the payer. Expressed in currency's smallest unit or “minor unit”, as defined in ISO 4217.
 	MaxTransactionAmountSetByPayerInitial NullableInt32 `json:"max_transaction_amount_set_by_payer_initial,omitempty"`
 	// Reference calendar periods for the payment limits. Possible values (DAILY, WEEKLY, MONTHLY, QUARTERLY, YEARLY)
@@ -40,9 +39,8 @@ type _TransactionLimitsResponse TransactionLimitsResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewTransactionLimitsResponse(maxTransactionAmount int32) *TransactionLimitsResponse {
+func NewTransactionLimitsResponse() *TransactionLimitsResponse {
 	this := TransactionLimitsResponse{}
-	this.MaxTransactionAmount = maxTransactionAmount
 	return &this
 }
 
@@ -118,28 +116,36 @@ func (o *TransactionLimitsResponse) SetMaxPeriodCount(v int32) {
 	o.MaxPeriodCount = &v
 }
 
-// GetMaxTransactionAmount returns the MaxTransactionAmount field value
+// GetMaxTransactionAmount returns the MaxTransactionAmount field value if set, zero value otherwise.
 func (o *TransactionLimitsResponse) GetMaxTransactionAmount() int32 {
-	if o == nil {
+	if o == nil || IsNil(o.MaxTransactionAmount) {
 		var ret int32
 		return ret
 	}
-
-	return o.MaxTransactionAmount
+	return *o.MaxTransactionAmount
 }
 
-// GetMaxTransactionAmountOk returns a tuple with the MaxTransactionAmount field value
+// GetMaxTransactionAmountOk returns a tuple with the MaxTransactionAmount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *TransactionLimitsResponse) GetMaxTransactionAmountOk() (*int32, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.MaxTransactionAmount) {
 		return nil, false
 	}
-	return &o.MaxTransactionAmount, true
+	return o.MaxTransactionAmount, true
 }
 
-// SetMaxTransactionAmount sets field value
+// HasMaxTransactionAmount returns a boolean if a field has been set.
+func (o *TransactionLimitsResponse) HasMaxTransactionAmount() bool {
+	if o != nil && !IsNil(o.MaxTransactionAmount) {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxTransactionAmount gets a reference to the given int32 and assigns it to the MaxTransactionAmount field.
 func (o *TransactionLimitsResponse) SetMaxTransactionAmount(v int32) {
-	o.MaxTransactionAmount = v
+	o.MaxTransactionAmount = &v
 }
 
 // GetMaxTransactionAmountSetByPayerInitial returns the MaxTransactionAmountSetByPayerInitial field value if set, zero value otherwise (both if not set or set to explicit null).
@@ -244,7 +250,9 @@ func (o TransactionLimitsResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MaxPeriodCount) {
 		toSerialize["max_period_count"] = o.MaxPeriodCount
 	}
-	toSerialize["max_transaction_amount"] = o.MaxTransactionAmount
+	if !IsNil(o.MaxTransactionAmount) {
+		toSerialize["max_transaction_amount"] = o.MaxTransactionAmount
+	}
 	if o.MaxTransactionAmountSetByPayerInitial.IsSet() {
 		toSerialize["max_transaction_amount_set_by_payer_initial"] = o.MaxTransactionAmountSetByPayerInitial.Get()
 	}
@@ -260,27 +268,6 @@ func (o TransactionLimitsResponse) ToMap() (map[string]interface{}, error) {
 }
 
 func (o *TransactionLimitsResponse) UnmarshalJSON(data []byte) (err error) {
-	// This validates that all required properties are included in the JSON object
-	// by unmarshalling the object into a generic map with string keys and checking
-	// that every required field exists as a key in the generic map.
-	requiredProperties := []string{
-		"max_transaction_amount",
-	}
-
-	allProperties := make(map[string]interface{})
-
-	err = json.Unmarshal(data, &allProperties)
-
-	if err != nil {
-		return err
-	}
-
-	for _, requiredProperty := range requiredProperties {
-		if _, exists := allProperties[requiredProperty]; !exists {
-			return fmt.Errorf("no value given for required property %v", requiredProperty)
-		}
-	}
-
 	varTransactionLimitsResponse := _TransactionLimitsResponse{}
 
 	err = json.Unmarshal(data, &varTransactionLimitsResponse)
