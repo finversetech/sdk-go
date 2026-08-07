@@ -13542,7 +13542,8 @@ components:
           example: redirect
           type: string
         redirect_uri:
-          description: Required if ui_mode is redirect or auto_redirect
+          description: "Required if user_present is true, or if ui_mode is redirect\
+            \ or auto_redirect"
           type: string
         state:
           example: user-state-passed
@@ -13567,7 +13568,7 @@ components:
         user_present:
           description: "Indicate whether the user is present in this flow. If the\
             \ user is not present, only institutions that do not require 2fa can be\
-            \ refreshed"
+            \ refreshed. If true, link_customizations.redirect_uri is required"
           type: boolean
         link_customizations:
           $ref: '#/components/schemas/RefreshLoginIdentityLinkCustomizations'

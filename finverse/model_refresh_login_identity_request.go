@@ -20,7 +20,7 @@ var _ MappedNullable = &RefreshLoginIdentityRequest{}
 
 // RefreshLoginIdentityRequest struct for RefreshLoginIdentityRequest
 type RefreshLoginIdentityRequest struct {
-	// Indicate whether the user is present in this flow. If the user is not present, only institutions that do not require 2fa can be refreshed
+	// Indicate whether the user is present in this flow. If the user is not present, only institutions that do not require 2fa can be refreshed. If true, link_customizations.redirect_uri is required
 	UserPresent          *bool                                   `json:"user_present,omitempty"`
 	LinkCustomizations   *RefreshLoginIdentityLinkCustomizations `json:"link_customizations,omitempty"`
 	AdditionalProperties map[string]interface{}

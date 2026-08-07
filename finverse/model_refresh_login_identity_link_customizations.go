@@ -23,7 +23,7 @@ type RefreshLoginIdentityLinkCustomizations struct {
 	// ISO639-1 language code. Language to display when user open the link, default to English (en) if not specified
 	Language *string `json:"language,omitempty"`
 	UiMode   *string `json:"ui_mode,omitempty"`
-	// Required if ui_mode is redirect or auto_redirect
+	// Required if user_present is true, or if ui_mode is redirect or auto_redirect
 	RedirectUri *string `json:"redirect_uri,omitempty"`
 	State       *string `json:"state,omitempty"`
 	// Limit historical data retrieval to this date. ISO format (YYYY-MM-DD)
