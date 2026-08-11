@@ -25,7 +25,8 @@ type PaymentResponse struct {
 	// Finverse Payment ID
 	PaymentId string `json:"payment_id"`
 	// Whether the payment is live (true) or a test payment (false), based on its payment rail. Absent if the payment rail is unknown.
-	Live NullableBool `json:"live,omitempty"`
+	Live    NullableBool    `json:"live,omitempty"`
+	Subtype *PaymentSubtype `json:"subtype,omitempty"`
 	// Amount to be paid, in currency's smallest unit or “minor unit”, as defined in ISO 4217. For example, HKD 100.01 is represented as amount = 10001 (minor unit = cents). For currencies without minor units (e.g. VND, JPY), the amount is represented as is, without modification. For example, VND 15101 is represented as amount = 15101.
 	Amount int32 `json:"amount"`
 	// Surcharge amount in minor
@@ -146,6 +147,38 @@ func (o *PaymentResponse) SetLiveNil() {
 // UnsetLive ensures that no value is present for Live, not even an explicit nil
 func (o *PaymentResponse) UnsetLive() {
 	o.Live.Unset()
+}
+
+// GetSubtype returns the Subtype field value if set, zero value otherwise.
+func (o *PaymentResponse) GetSubtype() PaymentSubtype {
+	if o == nil || IsNil(o.Subtype) {
+		var ret PaymentSubtype
+		return ret
+	}
+	return *o.Subtype
+}
+
+// GetSubtypeOk returns a tuple with the Subtype field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentResponse) GetSubtypeOk() (*PaymentSubtype, bool) {
+	if o == nil || IsNil(o.Subtype) {
+		return nil, false
+	}
+	return o.Subtype, true
+}
+
+// HasSubtype returns a boolean if a field has been set.
+func (o *PaymentResponse) HasSubtype() bool {
+	if o != nil && !IsNil(o.Subtype) {
+		return true
+	}
+
+	return false
+}
+
+// SetSubtype gets a reference to the given PaymentSubtype and assigns it to the Subtype field.
+func (o *PaymentResponse) SetSubtype(v PaymentSubtype) {
+	o.Subtype = &v
 }
 
 // GetAmount returns the Amount field value
@@ -690,6 +723,9 @@ func (o PaymentResponse) ToMap() (map[string]interface{}, error) {
 	if o.Live.IsSet() {
 		toSerialize["live"] = o.Live.Get()
 	}
+	if !IsNil(o.Subtype) {
+		toSerialize["subtype"] = o.Subtype
+	}
 	toSerialize["amount"] = o.Amount
 	toSerialize["surcharge_amount"] = o.SurchargeAmount
 	toSerialize["amount_total_with_surcharge"] = o.AmountTotalWithSurcharge
@@ -783,6 +819,7 @@ func (o *PaymentResponse) UnmarshalJSON(data []byte) (err error) {
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "payment_id")
 		delete(additionalProperties, "live")
+		delete(additionalProperties, "subtype")
 		delete(additionalProperties, "amount")
 		delete(additionalProperties, "surcharge_amount")
 		delete(additionalProperties, "amount_total_with_surcharge")

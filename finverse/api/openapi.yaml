@@ -3199,6 +3199,22 @@ components:
       - MANUAL
       - WALLET
       type: string
+    PaymentSubtype:
+      description: "The payment subtype, derived from the payment's rail. Absent if\
+        \ the payment rail is unknown."
+      enum:
+      - FPS_HK
+      - PAYNOW_SG
+      - EGIRO_SG
+      - EDDA_HK
+      - CARD_KR
+      - CARD_GENERIC
+      - WALLET_GENERIC
+      - GOCARDLESS_GENERIC
+      - MANUAL_GENERIC
+      - MANUAL_KR
+      - BANKPAY_KR
+      type: string
     PaymentMethodType:
       description: The payment method type
       enum:
@@ -8045,6 +8061,7 @@ components:
         payment_method_id: payment_method_id
         amount_total_with_surcharge: 100
         updated_at: 2000-01-23T04:56:07.000+00:00
+        subtype: FPS_HK
         sender:
           user_type: INDIVIDUAL
           user_id: user_id
@@ -8143,6 +8160,8 @@ components:
             \ based on its payment rail. Absent if the payment rail is unknown."
           nullable: true
           type: boolean
+        subtype:
+          $ref: '#/components/schemas/PaymentSubtype'
         amount:
           description: "Amount to be paid, in currency's smallest unit or “minor unit”\
             , as defined in ISO 4217. For example, HKD 100.01 is represented as amount\
@@ -8267,6 +8286,7 @@ components:
           payment_method_id: payment_method_id
           amount_total_with_surcharge: 100
           updated_at: 2000-01-23T04:56:07.000+00:00
+          subtype: FPS_HK
           sender:
             user_type: INDIVIDUAL
             user_id: user_id
@@ -8408,6 +8428,7 @@ components:
           payment_method_id: payment_method_id
           amount_total_with_surcharge: 100
           updated_at: 2000-01-23T04:56:07.000+00:00
+          subtype: FPS_HK
           sender:
             user_type: INDIVIDUAL
             user_id: user_id
@@ -9997,6 +10018,7 @@ components:
           payment_method_id: payment_method_id
           amount_total_with_surcharge: 100
           updated_at: 2000-01-23T04:56:07.000+00:00
+          subtype: FPS_HK
           sender:
             user_type: INDIVIDUAL
             user_id: user_id
@@ -13926,6 +13948,7 @@ components:
           payment_method_id: payment_method_id
           amount_total_with_surcharge: 100
           updated_at: 2000-01-23T04:56:07.000+00:00
+          subtype: FPS_HK
           sender:
             user_type: INDIVIDUAL
             user_id: user_id
@@ -14067,6 +14090,7 @@ components:
           payment_method_id: payment_method_id
           amount_total_with_surcharge: 100
           updated_at: 2000-01-23T04:56:07.000+00:00
+          subtype: FPS_HK
           sender:
             user_type: INDIVIDUAL
             user_id: user_id

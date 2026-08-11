@@ -226,6 +226,7 @@ model_payment_snapshot_payment_method_bank_transfer.go
 model_payment_snapshot_payment_method_card.go
 model_payment_snapshot_payment_method_wallet.go
 model_payment_status.go
+model_payment_subtype.go
 model_payment_type.go
 model_payment_user.go
 model_payment_user_type.go
