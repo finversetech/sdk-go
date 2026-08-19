@@ -24,8 +24,10 @@ var _ MappedNullable = &Statement{}
 type Statement struct {
 	Id string `json:"id"`
 	// YYYY-MM-DD
-	Date                 *string    `json:"date,omitempty"`
-	Name                 *string    `json:"name,omitempty"`
+	Date *string `json:"date,omitempty"`
+	Name *string `json:"name,omitempty"`
+	// name of the statement file
+	FileName             *string    `json:"file_name,omitempty"`
 	CreatedAt            *time.Time `json:"created_at,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -138,6 +140,38 @@ func (o *Statement) SetName(v string) {
 	o.Name = &v
 }
 
+// GetFileName returns the FileName field value if set, zero value otherwise.
+func (o *Statement) GetFileName() string {
+	if o == nil || IsNil(o.FileName) {
+		var ret string
+		return ret
+	}
+	return *o.FileName
+}
+
+// GetFileNameOk returns a tuple with the FileName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Statement) GetFileNameOk() (*string, bool) {
+	if o == nil || IsNil(o.FileName) {
+		return nil, false
+	}
+	return o.FileName, true
+}
+
+// HasFileName returns a boolean if a field has been set.
+func (o *Statement) HasFileName() bool {
+	if o != nil && !IsNil(o.FileName) {
+		return true
+	}
+
+	return false
+}
+
+// SetFileName gets a reference to the given string and assigns it to the FileName field.
+func (o *Statement) SetFileName(v string) {
+	o.FileName = &v
+}
+
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
 func (o *Statement) GetCreatedAt() time.Time {
 	if o == nil || IsNil(o.CreatedAt) {
@@ -186,6 +220,9 @@ func (o Statement) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Name) {
 		toSerialize["name"] = o.Name
+	}
+	if !IsNil(o.FileName) {
+		toSerialize["file_name"] = o.FileName
 	}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
@@ -236,6 +273,7 @@ func (o *Statement) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "id")
 		delete(additionalProperties, "date")
 		delete(additionalProperties, "name")
+		delete(additionalProperties, "file_name")
 		delete(additionalProperties, "created_at")
 		o.AdditionalProperties = additionalProperties
 	}
