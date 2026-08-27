@@ -10799,7 +10799,60 @@ components:
           description: The network transaction reference
           type: string
       type: object
+    MandateBase:
+      properties:
+        created_at:
+          description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+          format: date-time
+          type: string
+        updated_at:
+          description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
+          format: date-time
+          type: string
+        mandate_id:
+          description: Finverse Mandate ID (ULID)
+          type: string
+        payment_method_id:
+          description: Finverse Payment Method ID (ULID)
+          type: string
+        status:
+          $ref: '#/components/schemas/MandateStatus'
+        recipient:
+          $ref: '#/components/schemas/MandateRecipient'
+        sender:
+          $ref: '#/components/schemas/GetMandateSender'
+        sender_account:
+          $ref: '#/components/schemas/MandateSenderAccount'
+        mandate_details:
+          $ref: '#/components/schemas/MandateDetailsResponse'
+        fees:
+          items:
+            $ref: '#/components/schemas/Fee'
+          type: array
+        error:
+          $ref: '#/components/schemas/FvEmbeddedErrorModel'
+        metadata:
+          additionalProperties:
+            type: string
+          description: "Additional attributes of the mandate in key:value format (e.g.\
+            \ mandate_internal_id: 1234). It supports up to 20 key:value pairs, whereas\
+            \ the key and value supports up to 50 and 1000 characters respectively."
+          type: object
+      required:
+      - mandate_details
+      - mandate_id
+      - recipient
+      - sender
+      - status
+      - updated_at
+      type: object
     GetMandateResponse:
+      allOf:
+      - $ref: '#/components/schemas/MandateBase'
+      - properties:
+          recipient_account:
+            $ref: '#/components/schemas/MandateRecipientAccount'
+        type: object
       example:
         fees:
         - paid_by_account_id: The payment account ID
@@ -10882,54 +10935,13 @@ components:
         recipient:
           name: name
         status: AUTHORIZATION_REQUIRED
-      properties:
-        created_at:
-          description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-          format: date-time
-          type: string
-        updated_at:
-          description: Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-          format: date-time
-          type: string
-        mandate_id:
-          description: Finverse Mandate ID (ULID)
-          type: string
-        payment_method_id:
-          description: Finverse Payment Method ID (ULID)
-          type: string
-        status:
-          $ref: '#/components/schemas/MandateStatus'
-        recipient:
-          $ref: '#/components/schemas/MandateRecipient'
-        recipient_account:
-          $ref: '#/components/schemas/MandateRecipientAccount'
-        sender:
-          $ref: '#/components/schemas/GetMandateSender'
-        sender_account:
-          $ref: '#/components/schemas/MandateSenderAccount'
-        mandate_details:
-          $ref: '#/components/schemas/MandateDetailsResponse'
-        fees:
-          items:
-            $ref: '#/components/schemas/Fee'
-          type: array
-        error:
-          $ref: '#/components/schemas/FvEmbeddedErrorModel'
-        metadata:
-          additionalProperties:
-            type: string
-          description: "Additional attributes of the mandate in key:value format (e.g.\
-            \ mandate_internal_id: 1234). It supports up to 20 key:value pairs, whereas\
-            \ the key and value supports up to 50 and 1000 characters respectively."
-          type: object
-      required:
-      - mandate_details
-      - mandate_id
-      - recipient
-      - sender
-      - status
-      - updated_at
-      type: object
+    PaymentMethodMandate:
+      allOf:
+      - $ref: '#/components/schemas/MandateBase'
+      - properties:
+          recipient_account:
+            $ref: '#/components/schemas/PaymentMethodRecipientAccount'
+        type: object
     ListMandatesResponse:
       example:
         total_mandates: 0
@@ -11143,6 +11155,17 @@ components:
       - account_id
       - account_type
       type: object
+    PaymentMethodRecipientAccount:
+      allOf:
+      - $ref: '#/components/schemas/MandateRecipientAccount'
+      - properties:
+          business_units:
+            description: The business units the payment account belongs to
+            items:
+              type: string
+            type: array
+            x-omitempty: true
+        type: object
     MandateRecipientRequest:
       example:
         account_id: account_id

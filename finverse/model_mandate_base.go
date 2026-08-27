@@ -17,11 +17,11 @@ import (
 	"time"
 )
 
-// checks if the GetMandateResponse type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &GetMandateResponse{}
+// checks if the MandateBase type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &MandateBase{}
 
-// GetMandateResponse struct for GetMandateResponse
-type GetMandateResponse struct {
+// MandateBase struct for MandateBase
+type MandateBase struct {
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
@@ -38,19 +38,18 @@ type GetMandateResponse struct {
 	Fees            []Fee                  `json:"fees,omitempty"`
 	Error           *FvEmbeddedErrorModel  `json:"error,omitempty"`
 	// Additional attributes of the mandate in key:value format (e.g. mandate_internal_id: 1234). It supports up to 20 key:value pairs, whereas the key and value supports up to 50 and 1000 characters respectively.
-	Metadata             *map[string]string       `json:"metadata,omitempty"`
-	RecipientAccount     *MandateRecipientAccount `json:"recipient_account,omitempty"`
+	Metadata             *map[string]string `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _GetMandateResponse GetMandateResponse
+type _MandateBase MandateBase
 
-// NewGetMandateResponse instantiates a new GetMandateResponse object
+// NewMandateBase instantiates a new MandateBase object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewGetMandateResponse(updatedAt time.Time, mandateId string, status MandateStatus, recipient MandateRecipient, sender GetMandateSender, mandateDetails MandateDetailsResponse) *GetMandateResponse {
-	this := GetMandateResponse{}
+func NewMandateBase(updatedAt time.Time, mandateId string, status MandateStatus, recipient MandateRecipient, sender GetMandateSender, mandateDetails MandateDetailsResponse) *MandateBase {
+	this := MandateBase{}
 	this.UpdatedAt = updatedAt
 	this.MandateId = mandateId
 	this.Status = status
@@ -60,16 +59,16 @@ func NewGetMandateResponse(updatedAt time.Time, mandateId string, status Mandate
 	return &this
 }
 
-// NewGetMandateResponseWithDefaults instantiates a new GetMandateResponse object
+// NewMandateBaseWithDefaults instantiates a new MandateBase object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewGetMandateResponseWithDefaults() *GetMandateResponse {
-	this := GetMandateResponse{}
+func NewMandateBaseWithDefaults() *MandateBase {
+	this := MandateBase{}
 	return &this
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *GetMandateResponse) GetCreatedAt() time.Time {
+func (o *MandateBase) GetCreatedAt() time.Time {
 	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
@@ -79,7 +78,7 @@ func (o *GetMandateResponse) GetCreatedAt() time.Time {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetMandateResponse) GetCreatedAtOk() (*time.Time, bool) {
+func (o *MandateBase) GetCreatedAtOk() (*time.Time, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -87,7 +86,7 @@ func (o *GetMandateResponse) GetCreatedAtOk() (*time.Time, bool) {
 }
 
 // HasCreatedAt returns a boolean if a field has been set.
-func (o *GetMandateResponse) HasCreatedAt() bool {
+func (o *MandateBase) HasCreatedAt() bool {
 	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
@@ -96,12 +95,12 @@ func (o *GetMandateResponse) HasCreatedAt() bool {
 }
 
 // SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
-func (o *GetMandateResponse) SetCreatedAt(v time.Time) {
+func (o *MandateBase) SetCreatedAt(v time.Time) {
 	o.CreatedAt = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value
-func (o *GetMandateResponse) GetUpdatedAt() time.Time {
+func (o *MandateBase) GetUpdatedAt() time.Time {
 	if o == nil {
 		var ret time.Time
 		return ret
@@ -112,7 +111,7 @@ func (o *GetMandateResponse) GetUpdatedAt() time.Time {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value
 // and a boolean to check if the value has been set.
-func (o *GetMandateResponse) GetUpdatedAtOk() (*time.Time, bool) {
+func (o *MandateBase) GetUpdatedAtOk() (*time.Time, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -120,12 +119,12 @@ func (o *GetMandateResponse) GetUpdatedAtOk() (*time.Time, bool) {
 }
 
 // SetUpdatedAt sets field value
-func (o *GetMandateResponse) SetUpdatedAt(v time.Time) {
+func (o *MandateBase) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = v
 }
 
 // GetMandateId returns the MandateId field value
-func (o *GetMandateResponse) GetMandateId() string {
+func (o *MandateBase) GetMandateId() string {
 	if o == nil {
 		var ret string
 		return ret
@@ -136,7 +135,7 @@ func (o *GetMandateResponse) GetMandateId() string {
 
 // GetMandateIdOk returns a tuple with the MandateId field value
 // and a boolean to check if the value has been set.
-func (o *GetMandateResponse) GetMandateIdOk() (*string, bool) {
+func (o *MandateBase) GetMandateIdOk() (*string, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -144,12 +143,12 @@ func (o *GetMandateResponse) GetMandateIdOk() (*string, bool) {
 }
 
 // SetMandateId sets field value
-func (o *GetMandateResponse) SetMandateId(v string) {
+func (o *MandateBase) SetMandateId(v string) {
 	o.MandateId = v
 }
 
 // GetPaymentMethodId returns the PaymentMethodId field value if set, zero value otherwise.
-func (o *GetMandateResponse) GetPaymentMethodId() string {
+func (o *MandateBase) GetPaymentMethodId() string {
 	if o == nil || IsNil(o.PaymentMethodId) {
 		var ret string
 		return ret
@@ -159,7 +158,7 @@ func (o *GetMandateResponse) GetPaymentMethodId() string {
 
 // GetPaymentMethodIdOk returns a tuple with the PaymentMethodId field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetMandateResponse) GetPaymentMethodIdOk() (*string, bool) {
+func (o *MandateBase) GetPaymentMethodIdOk() (*string, bool) {
 	if o == nil || IsNil(o.PaymentMethodId) {
 		return nil, false
 	}
@@ -167,7 +166,7 @@ func (o *GetMandateResponse) GetPaymentMethodIdOk() (*string, bool) {
 }
 
 // HasPaymentMethodId returns a boolean if a field has been set.
-func (o *GetMandateResponse) HasPaymentMethodId() bool {
+func (o *MandateBase) HasPaymentMethodId() bool {
 	if o != nil && !IsNil(o.PaymentMethodId) {
 		return true
 	}
@@ -176,12 +175,12 @@ func (o *GetMandateResponse) HasPaymentMethodId() bool {
 }
 
 // SetPaymentMethodId gets a reference to the given string and assigns it to the PaymentMethodId field.
-func (o *GetMandateResponse) SetPaymentMethodId(v string) {
+func (o *MandateBase) SetPaymentMethodId(v string) {
 	o.PaymentMethodId = &v
 }
 
 // GetStatus returns the Status field value
-func (o *GetMandateResponse) GetStatus() MandateStatus {
+func (o *MandateBase) GetStatus() MandateStatus {
 	if o == nil {
 		var ret MandateStatus
 		return ret
@@ -192,7 +191,7 @@ func (o *GetMandateResponse) GetStatus() MandateStatus {
 
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-func (o *GetMandateResponse) GetStatusOk() (*MandateStatus, bool) {
+func (o *MandateBase) GetStatusOk() (*MandateStatus, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -200,12 +199,12 @@ func (o *GetMandateResponse) GetStatusOk() (*MandateStatus, bool) {
 }
 
 // SetStatus sets field value
-func (o *GetMandateResponse) SetStatus(v MandateStatus) {
+func (o *MandateBase) SetStatus(v MandateStatus) {
 	o.Status = v
 }
 
 // GetRecipient returns the Recipient field value
-func (o *GetMandateResponse) GetRecipient() MandateRecipient {
+func (o *MandateBase) GetRecipient() MandateRecipient {
 	if o == nil {
 		var ret MandateRecipient
 		return ret
@@ -216,7 +215,7 @@ func (o *GetMandateResponse) GetRecipient() MandateRecipient {
 
 // GetRecipientOk returns a tuple with the Recipient field value
 // and a boolean to check if the value has been set.
-func (o *GetMandateResponse) GetRecipientOk() (*MandateRecipient, bool) {
+func (o *MandateBase) GetRecipientOk() (*MandateRecipient, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -224,12 +223,12 @@ func (o *GetMandateResponse) GetRecipientOk() (*MandateRecipient, bool) {
 }
 
 // SetRecipient sets field value
-func (o *GetMandateResponse) SetRecipient(v MandateRecipient) {
+func (o *MandateBase) SetRecipient(v MandateRecipient) {
 	o.Recipient = v
 }
 
 // GetSender returns the Sender field value
-func (o *GetMandateResponse) GetSender() GetMandateSender {
+func (o *MandateBase) GetSender() GetMandateSender {
 	if o == nil {
 		var ret GetMandateSender
 		return ret
@@ -240,7 +239,7 @@ func (o *GetMandateResponse) GetSender() GetMandateSender {
 
 // GetSenderOk returns a tuple with the Sender field value
 // and a boolean to check if the value has been set.
-func (o *GetMandateResponse) GetSenderOk() (*GetMandateSender, bool) {
+func (o *MandateBase) GetSenderOk() (*GetMandateSender, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -248,12 +247,12 @@ func (o *GetMandateResponse) GetSenderOk() (*GetMandateSender, bool) {
 }
 
 // SetSender sets field value
-func (o *GetMandateResponse) SetSender(v GetMandateSender) {
+func (o *MandateBase) SetSender(v GetMandateSender) {
 	o.Sender = v
 }
 
 // GetSenderAccount returns the SenderAccount field value if set, zero value otherwise.
-func (o *GetMandateResponse) GetSenderAccount() MandateSenderAccount {
+func (o *MandateBase) GetSenderAccount() MandateSenderAccount {
 	if o == nil || IsNil(o.SenderAccount) {
 		var ret MandateSenderAccount
 		return ret
@@ -263,7 +262,7 @@ func (o *GetMandateResponse) GetSenderAccount() MandateSenderAccount {
 
 // GetSenderAccountOk returns a tuple with the SenderAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetMandateResponse) GetSenderAccountOk() (*MandateSenderAccount, bool) {
+func (o *MandateBase) GetSenderAccountOk() (*MandateSenderAccount, bool) {
 	if o == nil || IsNil(o.SenderAccount) {
 		return nil, false
 	}
@@ -271,7 +270,7 @@ func (o *GetMandateResponse) GetSenderAccountOk() (*MandateSenderAccount, bool) 
 }
 
 // HasSenderAccount returns a boolean if a field has been set.
-func (o *GetMandateResponse) HasSenderAccount() bool {
+func (o *MandateBase) HasSenderAccount() bool {
 	if o != nil && !IsNil(o.SenderAccount) {
 		return true
 	}
@@ -280,12 +279,12 @@ func (o *GetMandateResponse) HasSenderAccount() bool {
 }
 
 // SetSenderAccount gets a reference to the given MandateSenderAccount and assigns it to the SenderAccount field.
-func (o *GetMandateResponse) SetSenderAccount(v MandateSenderAccount) {
+func (o *MandateBase) SetSenderAccount(v MandateSenderAccount) {
 	o.SenderAccount = &v
 }
 
 // GetMandateDetails returns the MandateDetails field value
-func (o *GetMandateResponse) GetMandateDetails() MandateDetailsResponse {
+func (o *MandateBase) GetMandateDetails() MandateDetailsResponse {
 	if o == nil {
 		var ret MandateDetailsResponse
 		return ret
@@ -296,7 +295,7 @@ func (o *GetMandateResponse) GetMandateDetails() MandateDetailsResponse {
 
 // GetMandateDetailsOk returns a tuple with the MandateDetails field value
 // and a boolean to check if the value has been set.
-func (o *GetMandateResponse) GetMandateDetailsOk() (*MandateDetailsResponse, bool) {
+func (o *MandateBase) GetMandateDetailsOk() (*MandateDetailsResponse, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -304,12 +303,12 @@ func (o *GetMandateResponse) GetMandateDetailsOk() (*MandateDetailsResponse, boo
 }
 
 // SetMandateDetails sets field value
-func (o *GetMandateResponse) SetMandateDetails(v MandateDetailsResponse) {
+func (o *MandateBase) SetMandateDetails(v MandateDetailsResponse) {
 	o.MandateDetails = v
 }
 
 // GetFees returns the Fees field value if set, zero value otherwise.
-func (o *GetMandateResponse) GetFees() []Fee {
+func (o *MandateBase) GetFees() []Fee {
 	if o == nil || IsNil(o.Fees) {
 		var ret []Fee
 		return ret
@@ -319,7 +318,7 @@ func (o *GetMandateResponse) GetFees() []Fee {
 
 // GetFeesOk returns a tuple with the Fees field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetMandateResponse) GetFeesOk() ([]Fee, bool) {
+func (o *MandateBase) GetFeesOk() ([]Fee, bool) {
 	if o == nil || IsNil(o.Fees) {
 		return nil, false
 	}
@@ -327,7 +326,7 @@ func (o *GetMandateResponse) GetFeesOk() ([]Fee, bool) {
 }
 
 // HasFees returns a boolean if a field has been set.
-func (o *GetMandateResponse) HasFees() bool {
+func (o *MandateBase) HasFees() bool {
 	if o != nil && !IsNil(o.Fees) {
 		return true
 	}
@@ -336,12 +335,12 @@ func (o *GetMandateResponse) HasFees() bool {
 }
 
 // SetFees gets a reference to the given []Fee and assigns it to the Fees field.
-func (o *GetMandateResponse) SetFees(v []Fee) {
+func (o *MandateBase) SetFees(v []Fee) {
 	o.Fees = v
 }
 
 // GetError returns the Error field value if set, zero value otherwise.
-func (o *GetMandateResponse) GetError() FvEmbeddedErrorModel {
+func (o *MandateBase) GetError() FvEmbeddedErrorModel {
 	if o == nil || IsNil(o.Error) {
 		var ret FvEmbeddedErrorModel
 		return ret
@@ -351,7 +350,7 @@ func (o *GetMandateResponse) GetError() FvEmbeddedErrorModel {
 
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetMandateResponse) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
+func (o *MandateBase) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
 	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
@@ -359,7 +358,7 @@ func (o *GetMandateResponse) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
 }
 
 // HasError returns a boolean if a field has been set.
-func (o *GetMandateResponse) HasError() bool {
+func (o *MandateBase) HasError() bool {
 	if o != nil && !IsNil(o.Error) {
 		return true
 	}
@@ -368,12 +367,12 @@ func (o *GetMandateResponse) HasError() bool {
 }
 
 // SetError gets a reference to the given FvEmbeddedErrorModel and assigns it to the Error field.
-func (o *GetMandateResponse) SetError(v FvEmbeddedErrorModel) {
+func (o *MandateBase) SetError(v FvEmbeddedErrorModel) {
 	o.Error = &v
 }
 
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
-func (o *GetMandateResponse) GetMetadata() map[string]string {
+func (o *MandateBase) GetMetadata() map[string]string {
 	if o == nil || IsNil(o.Metadata) {
 		var ret map[string]string
 		return ret
@@ -383,7 +382,7 @@ func (o *GetMandateResponse) GetMetadata() map[string]string {
 
 // GetMetadataOk returns a tuple with the Metadata field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *GetMandateResponse) GetMetadataOk() (*map[string]string, bool) {
+func (o *MandateBase) GetMetadataOk() (*map[string]string, bool) {
 	if o == nil || IsNil(o.Metadata) {
 		return nil, false
 	}
@@ -391,7 +390,7 @@ func (o *GetMandateResponse) GetMetadataOk() (*map[string]string, bool) {
 }
 
 // HasMetadata returns a boolean if a field has been set.
-func (o *GetMandateResponse) HasMetadata() bool {
+func (o *MandateBase) HasMetadata() bool {
 	if o != nil && !IsNil(o.Metadata) {
 		return true
 	}
@@ -400,43 +399,11 @@ func (o *GetMandateResponse) HasMetadata() bool {
 }
 
 // SetMetadata gets a reference to the given map[string]string and assigns it to the Metadata field.
-func (o *GetMandateResponse) SetMetadata(v map[string]string) {
+func (o *MandateBase) SetMetadata(v map[string]string) {
 	o.Metadata = &v
 }
 
-// GetRecipientAccount returns the RecipientAccount field value if set, zero value otherwise.
-func (o *GetMandateResponse) GetRecipientAccount() MandateRecipientAccount {
-	if o == nil || IsNil(o.RecipientAccount) {
-		var ret MandateRecipientAccount
-		return ret
-	}
-	return *o.RecipientAccount
-}
-
-// GetRecipientAccountOk returns a tuple with the RecipientAccount field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *GetMandateResponse) GetRecipientAccountOk() (*MandateRecipientAccount, bool) {
-	if o == nil || IsNil(o.RecipientAccount) {
-		return nil, false
-	}
-	return o.RecipientAccount, true
-}
-
-// HasRecipientAccount returns a boolean if a field has been set.
-func (o *GetMandateResponse) HasRecipientAccount() bool {
-	if o != nil && !IsNil(o.RecipientAccount) {
-		return true
-	}
-
-	return false
-}
-
-// SetRecipientAccount gets a reference to the given MandateRecipientAccount and assigns it to the RecipientAccount field.
-func (o *GetMandateResponse) SetRecipientAccount(v MandateRecipientAccount) {
-	o.RecipientAccount = &v
-}
-
-func (o GetMandateResponse) MarshalJSON() ([]byte, error) {
+func (o MandateBase) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -444,7 +411,7 @@ func (o GetMandateResponse) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o GetMandateResponse) ToMap() (map[string]interface{}, error) {
+func (o MandateBase) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
@@ -470,9 +437,6 @@ func (o GetMandateResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
-	if !IsNil(o.RecipientAccount) {
-		toSerialize["recipient_account"] = o.RecipientAccount
-	}
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -481,7 +445,7 @@ func (o GetMandateResponse) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *GetMandateResponse) UnmarshalJSON(data []byte) (err error) {
+func (o *MandateBase) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -508,15 +472,15 @@ func (o *GetMandateResponse) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varGetMandateResponse := _GetMandateResponse{}
+	varMandateBase := _MandateBase{}
 
-	err = json.Unmarshal(data, &varGetMandateResponse)
+	err = json.Unmarshal(data, &varMandateBase)
 
 	if err != nil {
 		return err
 	}
 
-	*o = GetMandateResponse(varGetMandateResponse)
+	*o = MandateBase(varMandateBase)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -533,45 +497,44 @@ func (o *GetMandateResponse) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "fees")
 		delete(additionalProperties, "error")
 		delete(additionalProperties, "metadata")
-		delete(additionalProperties, "recipient_account")
 		o.AdditionalProperties = additionalProperties
 	}
 
 	return err
 }
 
-type NullableGetMandateResponse struct {
-	value *GetMandateResponse
+type NullableMandateBase struct {
+	value *MandateBase
 	isSet bool
 }
 
-func (v NullableGetMandateResponse) Get() *GetMandateResponse {
+func (v NullableMandateBase) Get() *MandateBase {
 	return v.value
 }
 
-func (v *NullableGetMandateResponse) Set(val *GetMandateResponse) {
+func (v *NullableMandateBase) Set(val *MandateBase) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableGetMandateResponse) IsSet() bool {
+func (v NullableMandateBase) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableGetMandateResponse) Unset() {
+func (v *NullableMandateBase) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableGetMandateResponse(val *GetMandateResponse) *NullableGetMandateResponse {
-	return &NullableGetMandateResponse{value: val, isSet: true}
+func NewNullableMandateBase(val *MandateBase) *NullableMandateBase {
+	return &NullableMandateBase{value: val, isSet: true}
 }
 
-func (v NullableGetMandateResponse) MarshalJSON() ([]byte, error) {
+func (v NullableMandateBase) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableGetMandateResponse) UnmarshalJSON(src []byte) error {
+func (v *NullableMandateBase) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }
