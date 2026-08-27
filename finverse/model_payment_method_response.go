@@ -25,7 +25,7 @@ type PaymentMethodResponse struct {
 	PaymentMethodType PaymentMethodType `json:"payment_method_type"`
 	// Whether the payment method is live (true) or a test payment method (false), based on its payment rail. Absent if the payment rail is unknown.
 	Live                 NullableBool                              `json:"live,omitempty"`
-	Mandate              *GetMandateResponse                       `json:"mandate,omitempty"`
+	Mandate              *PaymentMethodMandate                     `json:"mandate,omitempty"`
 	Card                 *FVCard                                   `json:"card,omitempty"`
 	IntegrationMetadata  *PaymentMethodIntegrationMetadataResponse `json:"integration_metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -144,9 +144,9 @@ func (o *PaymentMethodResponse) UnsetLive() {
 }
 
 // GetMandate returns the Mandate field value if set, zero value otherwise.
-func (o *PaymentMethodResponse) GetMandate() GetMandateResponse {
+func (o *PaymentMethodResponse) GetMandate() PaymentMethodMandate {
 	if o == nil || IsNil(o.Mandate) {
-		var ret GetMandateResponse
+		var ret PaymentMethodMandate
 		return ret
 	}
 	return *o.Mandate
@@ -154,7 +154,7 @@ func (o *PaymentMethodResponse) GetMandate() GetMandateResponse {
 
 // GetMandateOk returns a tuple with the Mandate field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentMethodResponse) GetMandateOk() (*GetMandateResponse, bool) {
+func (o *PaymentMethodResponse) GetMandateOk() (*PaymentMethodMandate, bool) {
 	if o == nil || IsNil(o.Mandate) {
 		return nil, false
 	}
@@ -170,8 +170,8 @@ func (o *PaymentMethodResponse) HasMandate() bool {
 	return false
 }
 
-// SetMandate gets a reference to the given GetMandateResponse and assigns it to the Mandate field.
-func (o *PaymentMethodResponse) SetMandate(v GetMandateResponse) {
+// SetMandate gets a reference to the given PaymentMethodMandate and assigns it to the Mandate field.
+func (o *PaymentMethodResponse) SetMandate(v PaymentMethodMandate) {
 	o.Mandate = &v
 }
 
