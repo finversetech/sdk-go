@@ -1252,6 +1252,16 @@ paths:
         required: true
         schema:
           type: string
+      - description: "Payment method statuses to filter for (matches underlying mandate\
+          \ or card status), comma separated"
+        explode: false
+        in: query
+        name: statuses
+        schema:
+          items:
+            type: string
+          type: array
+        style: form
       responses:
         "200":
           content:
@@ -9681,9 +9691,9 @@ components:
               card_number_alias: F046886807590403
               is_commercial: true
             recipient_account:
-              account_id: account_id
-              account_type: EXTERNAL_ACCOUNT
-              settlement_account_reference: settlement_account_reference
+              business_units:
+              - business_units
+              - business_units
             risk_data:
               processor_risk_data:
                 browser_type: Chrome
@@ -9834,9 +9844,9 @@ components:
               card_number_alias: F046886807590403
               is_commercial: true
             recipient_account:
-              account_id: account_id
-              account_type: EXTERNAL_ACCOUNT
-              settlement_account_reference: settlement_account_reference
+              business_units:
+              - business_units
+              - business_units
             risk_data:
               processor_risk_data:
                 browser_type: Chrome
@@ -10225,9 +10235,9 @@ components:
               card_number_alias: F046886807590403
               is_commercial: true
             recipient_account:
-              account_id: account_id
-              account_type: EXTERNAL_ACCOUNT
-              settlement_account_reference: settlement_account_reference
+              business_units:
+              - business_units
+              - business_units
             risk_data:
               processor_risk_data:
                 browser_type: Chrome
@@ -10565,7 +10575,7 @@ components:
       required:
       - mandate_id
       type: object
-    FVCard:
+    PaymentMethodFVCard:
       example:
         created_at: 2000-01-23T04:56:07.000+00:00
         updated_at: 2000-01-23T04:56:07.000+00:00
@@ -10598,9 +10608,9 @@ components:
           card_number_alias: F046886807590403
           is_commercial: true
         recipient_account:
-          account_id: account_id
-          account_type: EXTERNAL_ACCOUNT
-          settlement_account_reference: settlement_account_reference
+          business_units:
+          - business_units
+          - business_units
         risk_data:
           processor_risk_data:
             browser_type: Chrome
@@ -10624,7 +10634,7 @@ components:
         card_details:
           $ref: "#/components/schemas/FVCardDetails"
         recipient_account:
-          $ref: "#/components/schemas/MandateRecipientAccount"
+          $ref: "#/components/schemas/PaymentMethodRecipientAccount"
         risk_data:
           $ref: "#/components/schemas/RiskData"
       required:
@@ -13359,9 +13369,9 @@ components:
             card_number_alias: F046886807590403
             is_commercial: true
           recipient_account:
-            account_id: account_id
-            account_type: EXTERNAL_ACCOUNT
-            settlement_account_reference: settlement_account_reference
+            business_units:
+            - business_units
+            - business_units
           risk_data:
             processor_risk_data:
               browser_type: Chrome
@@ -13409,7 +13419,7 @@ components:
         mandate:
           $ref: "#/components/schemas/PaymentMethodMandate"
         card:
-          $ref: "#/components/schemas/FVCard"
+          $ref: "#/components/schemas/PaymentMethodFVCard"
         integration_metadata:
           $ref: "#/components/schemas/PaymentMethodIntegrationMetadataResponse"
       required:

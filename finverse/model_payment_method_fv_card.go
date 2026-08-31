@@ -17,45 +17,45 @@ import (
 	"time"
 )
 
-// checks if the FVCard type satisfies the MappedNullable interface at compile time
-var _ MappedNullable = &FVCard{}
+// checks if the PaymentMethodFVCard type satisfies the MappedNullable interface at compile time
+var _ MappedNullable = &PaymentMethodFVCard{}
 
-// FVCard struct for FVCard
-type FVCard struct {
+// PaymentMethodFVCard struct for PaymentMethodFVCard
+type PaymentMethodFVCard struct {
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
 	CreatedAt *time.Time `json:"created_at,omitempty"`
 	// Timestamp in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
-	UpdatedAt            *time.Time               `json:"updated_at,omitempty"`
-	Status               CardStatus               `json:"status"`
-	Error                *FvEmbeddedErrorModel    `json:"error,omitempty"`
-	CardDetails          *FVCardDetails           `json:"card_details,omitempty"`
-	RecipientAccount     *MandateRecipientAccount `json:"recipient_account,omitempty"`
-	RiskData             *RiskData                `json:"risk_data,omitempty"`
+	UpdatedAt            *time.Time                     `json:"updated_at,omitempty"`
+	Status               CardStatus                     `json:"status"`
+	Error                *FvEmbeddedErrorModel          `json:"error,omitempty"`
+	CardDetails          *FVCardDetails                 `json:"card_details,omitempty"`
+	RecipientAccount     *PaymentMethodRecipientAccount `json:"recipient_account,omitempty"`
+	RiskData             *RiskData                      `json:"risk_data,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
-type _FVCard FVCard
+type _PaymentMethodFVCard PaymentMethodFVCard
 
-// NewFVCard instantiates a new FVCard object
+// NewPaymentMethodFVCard instantiates a new PaymentMethodFVCard object
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFVCard(status CardStatus) *FVCard {
-	this := FVCard{}
+func NewPaymentMethodFVCard(status CardStatus) *PaymentMethodFVCard {
+	this := PaymentMethodFVCard{}
 	this.Status = status
 	return &this
 }
 
-// NewFVCardWithDefaults instantiates a new FVCard object
+// NewPaymentMethodFVCardWithDefaults instantiates a new PaymentMethodFVCard object
 // This constructor will only assign default values to properties that have it defined,
 // but it doesn't guarantee that properties required by API are set
-func NewFVCardWithDefaults() *FVCard {
-	this := FVCard{}
+func NewPaymentMethodFVCardWithDefaults() *PaymentMethodFVCard {
+	this := PaymentMethodFVCard{}
 	return &this
 }
 
 // GetCreatedAt returns the CreatedAt field value if set, zero value otherwise.
-func (o *FVCard) GetCreatedAt() time.Time {
+func (o *PaymentMethodFVCard) GetCreatedAt() time.Time {
 	if o == nil || IsNil(o.CreatedAt) {
 		var ret time.Time
 		return ret
@@ -65,7 +65,7 @@ func (o *FVCard) GetCreatedAt() time.Time {
 
 // GetCreatedAtOk returns a tuple with the CreatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FVCard) GetCreatedAtOk() (*time.Time, bool) {
+func (o *PaymentMethodFVCard) GetCreatedAtOk() (*time.Time, bool) {
 	if o == nil || IsNil(o.CreatedAt) {
 		return nil, false
 	}
@@ -73,7 +73,7 @@ func (o *FVCard) GetCreatedAtOk() (*time.Time, bool) {
 }
 
 // HasCreatedAt returns a boolean if a field has been set.
-func (o *FVCard) HasCreatedAt() bool {
+func (o *PaymentMethodFVCard) HasCreatedAt() bool {
 	if o != nil && !IsNil(o.CreatedAt) {
 		return true
 	}
@@ -82,12 +82,12 @@ func (o *FVCard) HasCreatedAt() bool {
 }
 
 // SetCreatedAt gets a reference to the given time.Time and assigns it to the CreatedAt field.
-func (o *FVCard) SetCreatedAt(v time.Time) {
+func (o *PaymentMethodFVCard) SetCreatedAt(v time.Time) {
 	o.CreatedAt = &v
 }
 
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
-func (o *FVCard) GetUpdatedAt() time.Time {
+func (o *PaymentMethodFVCard) GetUpdatedAt() time.Time {
 	if o == nil || IsNil(o.UpdatedAt) {
 		var ret time.Time
 		return ret
@@ -97,7 +97,7 @@ func (o *FVCard) GetUpdatedAt() time.Time {
 
 // GetUpdatedAtOk returns a tuple with the UpdatedAt field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FVCard) GetUpdatedAtOk() (*time.Time, bool) {
+func (o *PaymentMethodFVCard) GetUpdatedAtOk() (*time.Time, bool) {
 	if o == nil || IsNil(o.UpdatedAt) {
 		return nil, false
 	}
@@ -105,7 +105,7 @@ func (o *FVCard) GetUpdatedAtOk() (*time.Time, bool) {
 }
 
 // HasUpdatedAt returns a boolean if a field has been set.
-func (o *FVCard) HasUpdatedAt() bool {
+func (o *PaymentMethodFVCard) HasUpdatedAt() bool {
 	if o != nil && !IsNil(o.UpdatedAt) {
 		return true
 	}
@@ -114,12 +114,12 @@ func (o *FVCard) HasUpdatedAt() bool {
 }
 
 // SetUpdatedAt gets a reference to the given time.Time and assigns it to the UpdatedAt field.
-func (o *FVCard) SetUpdatedAt(v time.Time) {
+func (o *PaymentMethodFVCard) SetUpdatedAt(v time.Time) {
 	o.UpdatedAt = &v
 }
 
 // GetStatus returns the Status field value
-func (o *FVCard) GetStatus() CardStatus {
+func (o *PaymentMethodFVCard) GetStatus() CardStatus {
 	if o == nil {
 		var ret CardStatus
 		return ret
@@ -130,7 +130,7 @@ func (o *FVCard) GetStatus() CardStatus {
 
 // GetStatusOk returns a tuple with the Status field value
 // and a boolean to check if the value has been set.
-func (o *FVCard) GetStatusOk() (*CardStatus, bool) {
+func (o *PaymentMethodFVCard) GetStatusOk() (*CardStatus, bool) {
 	if o == nil {
 		return nil, false
 	}
@@ -138,12 +138,12 @@ func (o *FVCard) GetStatusOk() (*CardStatus, bool) {
 }
 
 // SetStatus sets field value
-func (o *FVCard) SetStatus(v CardStatus) {
+func (o *PaymentMethodFVCard) SetStatus(v CardStatus) {
 	o.Status = v
 }
 
 // GetError returns the Error field value if set, zero value otherwise.
-func (o *FVCard) GetError() FvEmbeddedErrorModel {
+func (o *PaymentMethodFVCard) GetError() FvEmbeddedErrorModel {
 	if o == nil || IsNil(o.Error) {
 		var ret FvEmbeddedErrorModel
 		return ret
@@ -153,7 +153,7 @@ func (o *FVCard) GetError() FvEmbeddedErrorModel {
 
 // GetErrorOk returns a tuple with the Error field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FVCard) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
+func (o *PaymentMethodFVCard) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
 	if o == nil || IsNil(o.Error) {
 		return nil, false
 	}
@@ -161,7 +161,7 @@ func (o *FVCard) GetErrorOk() (*FvEmbeddedErrorModel, bool) {
 }
 
 // HasError returns a boolean if a field has been set.
-func (o *FVCard) HasError() bool {
+func (o *PaymentMethodFVCard) HasError() bool {
 	if o != nil && !IsNil(o.Error) {
 		return true
 	}
@@ -170,12 +170,12 @@ func (o *FVCard) HasError() bool {
 }
 
 // SetError gets a reference to the given FvEmbeddedErrorModel and assigns it to the Error field.
-func (o *FVCard) SetError(v FvEmbeddedErrorModel) {
+func (o *PaymentMethodFVCard) SetError(v FvEmbeddedErrorModel) {
 	o.Error = &v
 }
 
 // GetCardDetails returns the CardDetails field value if set, zero value otherwise.
-func (o *FVCard) GetCardDetails() FVCardDetails {
+func (o *PaymentMethodFVCard) GetCardDetails() FVCardDetails {
 	if o == nil || IsNil(o.CardDetails) {
 		var ret FVCardDetails
 		return ret
@@ -185,7 +185,7 @@ func (o *FVCard) GetCardDetails() FVCardDetails {
 
 // GetCardDetailsOk returns a tuple with the CardDetails field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FVCard) GetCardDetailsOk() (*FVCardDetails, bool) {
+func (o *PaymentMethodFVCard) GetCardDetailsOk() (*FVCardDetails, bool) {
 	if o == nil || IsNil(o.CardDetails) {
 		return nil, false
 	}
@@ -193,7 +193,7 @@ func (o *FVCard) GetCardDetailsOk() (*FVCardDetails, bool) {
 }
 
 // HasCardDetails returns a boolean if a field has been set.
-func (o *FVCard) HasCardDetails() bool {
+func (o *PaymentMethodFVCard) HasCardDetails() bool {
 	if o != nil && !IsNil(o.CardDetails) {
 		return true
 	}
@@ -202,14 +202,14 @@ func (o *FVCard) HasCardDetails() bool {
 }
 
 // SetCardDetails gets a reference to the given FVCardDetails and assigns it to the CardDetails field.
-func (o *FVCard) SetCardDetails(v FVCardDetails) {
+func (o *PaymentMethodFVCard) SetCardDetails(v FVCardDetails) {
 	o.CardDetails = &v
 }
 
 // GetRecipientAccount returns the RecipientAccount field value if set, zero value otherwise.
-func (o *FVCard) GetRecipientAccount() MandateRecipientAccount {
+func (o *PaymentMethodFVCard) GetRecipientAccount() PaymentMethodRecipientAccount {
 	if o == nil || IsNil(o.RecipientAccount) {
-		var ret MandateRecipientAccount
+		var ret PaymentMethodRecipientAccount
 		return ret
 	}
 	return *o.RecipientAccount
@@ -217,7 +217,7 @@ func (o *FVCard) GetRecipientAccount() MandateRecipientAccount {
 
 // GetRecipientAccountOk returns a tuple with the RecipientAccount field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FVCard) GetRecipientAccountOk() (*MandateRecipientAccount, bool) {
+func (o *PaymentMethodFVCard) GetRecipientAccountOk() (*PaymentMethodRecipientAccount, bool) {
 	if o == nil || IsNil(o.RecipientAccount) {
 		return nil, false
 	}
@@ -225,7 +225,7 @@ func (o *FVCard) GetRecipientAccountOk() (*MandateRecipientAccount, bool) {
 }
 
 // HasRecipientAccount returns a boolean if a field has been set.
-func (o *FVCard) HasRecipientAccount() bool {
+func (o *PaymentMethodFVCard) HasRecipientAccount() bool {
 	if o != nil && !IsNil(o.RecipientAccount) {
 		return true
 	}
@@ -233,13 +233,13 @@ func (o *FVCard) HasRecipientAccount() bool {
 	return false
 }
 
-// SetRecipientAccount gets a reference to the given MandateRecipientAccount and assigns it to the RecipientAccount field.
-func (o *FVCard) SetRecipientAccount(v MandateRecipientAccount) {
+// SetRecipientAccount gets a reference to the given PaymentMethodRecipientAccount and assigns it to the RecipientAccount field.
+func (o *PaymentMethodFVCard) SetRecipientAccount(v PaymentMethodRecipientAccount) {
 	o.RecipientAccount = &v
 }
 
 // GetRiskData returns the RiskData field value if set, zero value otherwise.
-func (o *FVCard) GetRiskData() RiskData {
+func (o *PaymentMethodFVCard) GetRiskData() RiskData {
 	if o == nil || IsNil(o.RiskData) {
 		var ret RiskData
 		return ret
@@ -249,7 +249,7 @@ func (o *FVCard) GetRiskData() RiskData {
 
 // GetRiskDataOk returns a tuple with the RiskData field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *FVCard) GetRiskDataOk() (*RiskData, bool) {
+func (o *PaymentMethodFVCard) GetRiskDataOk() (*RiskData, bool) {
 	if o == nil || IsNil(o.RiskData) {
 		return nil, false
 	}
@@ -257,7 +257,7 @@ func (o *FVCard) GetRiskDataOk() (*RiskData, bool) {
 }
 
 // HasRiskData returns a boolean if a field has been set.
-func (o *FVCard) HasRiskData() bool {
+func (o *PaymentMethodFVCard) HasRiskData() bool {
 	if o != nil && !IsNil(o.RiskData) {
 		return true
 	}
@@ -266,11 +266,11 @@ func (o *FVCard) HasRiskData() bool {
 }
 
 // SetRiskData gets a reference to the given RiskData and assigns it to the RiskData field.
-func (o *FVCard) SetRiskData(v RiskData) {
+func (o *PaymentMethodFVCard) SetRiskData(v RiskData) {
 	o.RiskData = &v
 }
 
-func (o FVCard) MarshalJSON() ([]byte, error) {
+func (o PaymentMethodFVCard) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
 		return []byte{}, err
@@ -278,7 +278,7 @@ func (o FVCard) MarshalJSON() ([]byte, error) {
 	return json.Marshal(toSerialize)
 }
 
-func (o FVCard) ToMap() (map[string]interface{}, error) {
+func (o PaymentMethodFVCard) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.CreatedAt) {
 		toSerialize["created_at"] = o.CreatedAt
@@ -307,7 +307,7 @@ func (o FVCard) ToMap() (map[string]interface{}, error) {
 	return toSerialize, nil
 }
 
-func (o *FVCard) UnmarshalJSON(data []byte) (err error) {
+func (o *PaymentMethodFVCard) UnmarshalJSON(data []byte) (err error) {
 	// This validates that all required properties are included in the JSON object
 	// by unmarshalling the object into a generic map with string keys and checking
 	// that every required field exists as a key in the generic map.
@@ -329,15 +329,15 @@ func (o *FVCard) UnmarshalJSON(data []byte) (err error) {
 		}
 	}
 
-	varFVCard := _FVCard{}
+	varPaymentMethodFVCard := _PaymentMethodFVCard{}
 
-	err = json.Unmarshal(data, &varFVCard)
+	err = json.Unmarshal(data, &varPaymentMethodFVCard)
 
 	if err != nil {
 		return err
 	}
 
-	*o = FVCard(varFVCard)
+	*o = PaymentMethodFVCard(varPaymentMethodFVCard)
 
 	additionalProperties := make(map[string]interface{})
 
@@ -355,38 +355,38 @@ func (o *FVCard) UnmarshalJSON(data []byte) (err error) {
 	return err
 }
 
-type NullableFVCard struct {
-	value *FVCard
+type NullablePaymentMethodFVCard struct {
+	value *PaymentMethodFVCard
 	isSet bool
 }
 
-func (v NullableFVCard) Get() *FVCard {
+func (v NullablePaymentMethodFVCard) Get() *PaymentMethodFVCard {
 	return v.value
 }
 
-func (v *NullableFVCard) Set(val *FVCard) {
+func (v *NullablePaymentMethodFVCard) Set(val *PaymentMethodFVCard) {
 	v.value = val
 	v.isSet = true
 }
 
-func (v NullableFVCard) IsSet() bool {
+func (v NullablePaymentMethodFVCard) IsSet() bool {
 	return v.isSet
 }
 
-func (v *NullableFVCard) Unset() {
+func (v *NullablePaymentMethodFVCard) Unset() {
 	v.value = nil
 	v.isSet = false
 }
 
-func NewNullableFVCard(val *FVCard) *NullableFVCard {
-	return &NullableFVCard{value: val, isSet: true}
+func NewNullablePaymentMethodFVCard(val *PaymentMethodFVCard) *NullablePaymentMethodFVCard {
+	return &NullablePaymentMethodFVCard{value: val, isSet: true}
 }
 
-func (v NullableFVCard) MarshalJSON() ([]byte, error) {
+func (v NullablePaymentMethodFVCard) MarshalJSON() ([]byte, error) {
 	return json.Marshal(v.value)
 }
 
-func (v *NullableFVCard) UnmarshalJSON(src []byte) error {
+func (v *NullablePaymentMethodFVCard) UnmarshalJSON(src []byte) error {
 	v.isSet = true
 	return json.Unmarshal(src, &v.value)
 }

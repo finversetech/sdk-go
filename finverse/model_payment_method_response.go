@@ -26,7 +26,7 @@ type PaymentMethodResponse struct {
 	// Whether the payment method is live (true) or a test payment method (false), based on its payment rail. Absent if the payment rail is unknown.
 	Live                 NullableBool                              `json:"live,omitempty"`
 	Mandate              *PaymentMethodMandate                     `json:"mandate,omitempty"`
-	Card                 *FVCard                                   `json:"card,omitempty"`
+	Card                 *PaymentMethodFVCard                      `json:"card,omitempty"`
 	IntegrationMetadata  *PaymentMethodIntegrationMetadataResponse `json:"integration_metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
@@ -176,9 +176,9 @@ func (o *PaymentMethodResponse) SetMandate(v PaymentMethodMandate) {
 }
 
 // GetCard returns the Card field value if set, zero value otherwise.
-func (o *PaymentMethodResponse) GetCard() FVCard {
+func (o *PaymentMethodResponse) GetCard() PaymentMethodFVCard {
 	if o == nil || IsNil(o.Card) {
-		var ret FVCard
+		var ret PaymentMethodFVCard
 		return ret
 	}
 	return *o.Card
@@ -186,7 +186,7 @@ func (o *PaymentMethodResponse) GetCard() FVCard {
 
 // GetCardOk returns a tuple with the Card field value if set, nil otherwise
 // and a boolean to check if the value has been set.
-func (o *PaymentMethodResponse) GetCardOk() (*FVCard, bool) {
+func (o *PaymentMethodResponse) GetCardOk() (*PaymentMethodFVCard, bool) {
 	if o == nil || IsNil(o.Card) {
 		return nil, false
 	}
@@ -202,8 +202,8 @@ func (o *PaymentMethodResponse) HasCard() bool {
 	return false
 }
 
-// SetCard gets a reference to the given FVCard and assigns it to the Card field.
-func (o *PaymentMethodResponse) SetCard(v FVCard) {
+// SetCard gets a reference to the given PaymentMethodFVCard and assigns it to the Card field.
+func (o *PaymentMethodResponse) SetCard(v PaymentMethodFVCard) {
 	o.Card = &v
 }
 

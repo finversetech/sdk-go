@@ -83,7 +83,6 @@ model_fps_qr_code_response.go
 model_frontend_fv_error_model.go
 model_future_payments_mode.go
 model_fv_bill.go
-model_fv_card.go
 model_fv_card_details.go
 model_fv_card_processor_details.go
 model_fv_embedded_error_model.go
@@ -200,6 +199,7 @@ model_payment_link_sender_response.go
 model_payment_link_session_status.go
 model_payment_link_status.go
 model_payment_link_token_response.go
+model_payment_method_fv_card.go
 model_payment_method_fv_link_response.go
 model_payment_method_integration_metadata.go
 model_payment_method_integration_metadata_adyen_metadata.go

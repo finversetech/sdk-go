@@ -5462,6 +5462,13 @@ type PaymentAPIListPaymentMethodsRequest struct {
 	ctx           context.Context
 	ApiService    PaymentAPI
 	paymentUserId string
+	statuses      *[]string
+}
+
+// Payment method statuses to filter for (matches underlying mandate or card status), comma separated
+func (r PaymentAPIListPaymentMethodsRequest) Statuses(statuses []string) PaymentAPIListPaymentMethodsRequest {
+	r.statuses = &statuses
+	return r
 }
 
 func (r PaymentAPIListPaymentMethodsRequest) Execute() (*ListPaymentMethodsResponse, *http.Response, error) {
@@ -5507,6 +5514,9 @@ func (a *PaymentAPIService) ListPaymentMethodsExecute(r PaymentAPIListPaymentMet
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
 
+	if r.statuses != nil {
+		parameterAddToHeaderOrQuery(localVarQueryParams, "statuses", r.statuses, "form", "csv")
+	}
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{}
 
