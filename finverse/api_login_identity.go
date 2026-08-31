@@ -857,6 +857,7 @@ func (a *LoginIdentityAPIService) GetCompositeStatementExecute(r LoginIdentityAP
 		parameterAddToHeaderOrQuery(localVarQueryParams, "redirect", r.redirect, "", "")
 	} else {
 		var defaultValue bool = true
+		parameterAddToHeaderOrQuery(localVarQueryParams, "redirect", defaultValue, "", "")
 		r.redirect = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -1644,6 +1645,7 @@ func (a *LoginIdentityAPIService) GetStatementExecute(r LoginIdentityAPIGetState
 		parameterAddToHeaderOrQuery(localVarQueryParams, "redirect", r.redirect, "", "")
 	} else {
 		var defaultValue bool = true
+		parameterAddToHeaderOrQuery(localVarQueryParams, "redirect", defaultValue, "", "")
 		r.redirect = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -2183,18 +2185,21 @@ func (a *LoginIdentityAPIService) ListTransactionsByAccountIdExecute(r LoginIden
 		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "", "")
 	} else {
 		var defaultValue int32 = 0
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", defaultValue, "", "")
 		r.offset = &defaultValue
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "", "")
 	} else {
 		var defaultValue int32 = 500
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "", "")
 		r.limit = &defaultValue
 	}
 	if r.enrichments != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "enrichments", r.enrichments, "", "")
 	} else {
 		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "enrichments", defaultValue, "", "")
 		r.enrichments = &defaultValue
 	}
 	// to determine the Content-Type header
@@ -2349,18 +2354,21 @@ func (a *LoginIdentityAPIService) ListTransactionsByLoginIdentityIdExecute(r Log
 		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", r.offset, "", "")
 	} else {
 		var defaultValue int32 = 0
+		parameterAddToHeaderOrQuery(localVarQueryParams, "offset", defaultValue, "", "")
 		r.offset = &defaultValue
 	}
 	if r.limit != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", r.limit, "", "")
 	} else {
 		var defaultValue int32 = 500
+		parameterAddToHeaderOrQuery(localVarQueryParams, "limit", defaultValue, "", "")
 		r.limit = &defaultValue
 	}
 	if r.enrichments != nil {
 		parameterAddToHeaderOrQuery(localVarQueryParams, "enrichments", r.enrichments, "", "")
 	} else {
 		var defaultValue bool = false
+		parameterAddToHeaderOrQuery(localVarQueryParams, "enrichments", defaultValue, "", "")
 		r.enrichments = &defaultValue
 	}
 	// to determine the Content-Type header
