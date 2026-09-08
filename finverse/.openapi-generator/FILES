@@ -68,6 +68,7 @@ model_create_payout_request.go
 model_create_recipient_account.go
 model_currency_amount.go
 model_delete_login_identity_response.go
+model_display_configs.go
 model_dispute_response.go
 model_dispute_response_card_details.go
 model_dispute_status.go
@@ -190,6 +191,7 @@ model_payment_details_response.go
 model_payment_fv_link_details.go
 model_payment_fv_link_response.go
 model_payment_info.go
+model_payment_link_configs.go
 model_payment_link_customizations.go
 model_payment_link_details.go
 model_payment_link_mode.go

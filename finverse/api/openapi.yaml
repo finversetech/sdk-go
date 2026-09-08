@@ -11243,6 +11243,62 @@ components:
       required:
       - name
       type: object
+    PaymentLinkConfigs:
+      example:
+        display_configs:
+          display_status: ACTIVE
+          payment_methods_list:
+          - ALIPAY
+          - ALIPAY
+      properties:
+        display_configs:
+          $ref: "#/components/schemas/DisplayConfigs"
+      type: object
+    DisplayConfigs:
+      example:
+        display_status: ACTIVE
+        payment_methods_list:
+        - ALIPAY
+        - ALIPAY
+      properties:
+        display_status:
+          enum:
+          - ACTIVE
+          - INACTIVE
+          type: string
+        payment_methods_list:
+          description: Ordered list of payment method brands
+          items:
+            enum:
+            - ALIPAY
+            - ALIPAY_HK
+            - AMEX
+            - APPLEPAY
+            - DINERS
+            - DISCOVER
+            - EFTPOS
+            - EGIRO_SG
+            - FPS_HK
+            - GOOGLEPAY
+            - GRABPAY
+            - JCB
+            - MAESTRO
+            - MASTERCARD
+            - PAYME
+            - PAYNOW_SG
+            - PAYPAL
+            - PAYTO_AU
+            - UNIONPAY
+            - VISA
+            - WECHAT_PAY
+            - EDDA_HK
+            - BANKPAY_KR
+            - CARD_GENERIC
+            - BANK_GENERIC
+            type: string
+          type: array
+          x-omitempty: true
+      type: object
     MandateRecipientAccount:
       example:
         account_id: account_id
@@ -12484,6 +12540,12 @@ components:
           - business_units
           legal_entity_name: legal_entity_name
           settlement_account_reference: settlement_account_reference
+          payment_link_configs:
+            display_configs:
+              display_status: ACTIVE
+              payment_methods_list:
+              - ALIPAY
+              - ALIPAY
           metadata:
             key: metadata
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -12510,6 +12572,12 @@ components:
           - business_units
           legal_entity_name: legal_entity_name
           settlement_account_reference: settlement_account_reference
+          payment_link_configs:
+            display_configs:
+              display_status: ACTIVE
+              payment_methods_list:
+              - ALIPAY
+              - ALIPAY
           metadata:
             key: metadata
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -12545,6 +12613,12 @@ components:
           - business_units
           legal_entity_name: legal_entity_name
           settlement_account_reference: settlement_account_reference
+          payment_link_configs:
+            display_configs:
+              display_status: ACTIVE
+              payment_methods_list:
+              - ALIPAY
+              - ALIPAY
           metadata:
             key: metadata
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -12581,6 +12655,12 @@ components:
           - business_units
           legal_entity_name: legal_entity_name
           settlement_account_reference: settlement_account_reference
+          payment_link_configs:
+            display_configs:
+              display_status: ACTIVE
+              payment_methods_list:
+              - ALIPAY
+              - ALIPAY
           metadata:
             key: metadata
           created_at: 2000-01-23T04:56:07.000+00:00
@@ -12635,6 +12715,12 @@ components:
         - business_units
         legal_entity_name: legal_entity_name
         settlement_account_reference: settlement_account_reference
+        payment_link_configs:
+          display_configs:
+            display_status: ACTIVE
+            payment_methods_list:
+            - ALIPAY
+            - ALIPAY
         metadata:
           key: metadata
         created_at: 2000-01-23T04:56:07.000+00:00
@@ -12673,6 +12759,12 @@ components:
         - business_units
         legal_entity_name: legal_entity_name
         settlement_account_reference: settlement_account_reference
+        payment_link_configs:
+          display_configs:
+            display_status: ACTIVE
+            payment_methods_list:
+            - ALIPAY
+            - ALIPAY
         metadata:
           key: metadata
         created_at: 2000-01-23T04:56:07.000+00:00
@@ -12739,6 +12831,8 @@ components:
           description: Optional reference identifier for the settlement account. Only
             applicable to settlement accounts.
           type: string
+        payment_link_configs:
+          $ref: "#/components/schemas/PaymentLinkConfigs"
         metadata:
           additionalProperties:
             type: string

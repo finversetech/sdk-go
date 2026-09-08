@@ -49,7 +49,8 @@ type PaymentAccountDetails struct {
 	// This field is only applicable to settlement account
 	LegalEntityName *string `json:"legal_entity_name,omitempty"`
 	// Optional reference identifier for the settlement account. Only applicable to settlement accounts.
-	SettlementAccountReference *string `json:"settlement_account_reference,omitempty"`
+	SettlementAccountReference *string             `json:"settlement_account_reference,omitempty"`
+	PaymentLinkConfigs         *PaymentLinkConfigs `json:"payment_link_configs,omitempty"`
 	// Additional attributes of the sender account in key:value format (e.g. sender_id: 1234). It supports up to 20 key:value pairs, whereas the key and value supports up to 50 and 1000 characters respectively.
 	Metadata *map[string]string `json:"metadata,omitempty"`
 	// Timestamp of when the payment link was created in ISO format (YYYY-MM-DDTHH:MM:SS.SSSZ)
@@ -544,6 +545,38 @@ func (o *PaymentAccountDetails) SetSettlementAccountReference(v string) {
 	o.SettlementAccountReference = &v
 }
 
+// GetPaymentLinkConfigs returns the PaymentLinkConfigs field value if set, zero value otherwise.
+func (o *PaymentAccountDetails) GetPaymentLinkConfigs() PaymentLinkConfigs {
+	if o == nil || IsNil(o.PaymentLinkConfigs) {
+		var ret PaymentLinkConfigs
+		return ret
+	}
+	return *o.PaymentLinkConfigs
+}
+
+// GetPaymentLinkConfigsOk returns a tuple with the PaymentLinkConfigs field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentAccountDetails) GetPaymentLinkConfigsOk() (*PaymentLinkConfigs, bool) {
+	if o == nil || IsNil(o.PaymentLinkConfigs) {
+		return nil, false
+	}
+	return o.PaymentLinkConfigs, true
+}
+
+// HasPaymentLinkConfigs returns a boolean if a field has been set.
+func (o *PaymentAccountDetails) HasPaymentLinkConfigs() bool {
+	if o != nil && !IsNil(o.PaymentLinkConfigs) {
+		return true
+	}
+
+	return false
+}
+
+// SetPaymentLinkConfigs gets a reference to the given PaymentLinkConfigs and assigns it to the PaymentLinkConfigs field.
+func (o *PaymentAccountDetails) SetPaymentLinkConfigs(v PaymentLinkConfigs) {
+	o.PaymentLinkConfigs = &v
+}
+
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *PaymentAccountDetails) GetMetadata() map[string]string {
 	if o == nil || IsNil(o.Metadata) {
@@ -691,6 +724,9 @@ func (o PaymentAccountDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.SettlementAccountReference) {
 		toSerialize["settlement_account_reference"] = o.SettlementAccountReference
 	}
+	if !IsNil(o.PaymentLinkConfigs) {
+		toSerialize["payment_link_configs"] = o.PaymentLinkConfigs
+	}
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
@@ -759,6 +795,7 @@ func (o *PaymentAccountDetails) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "business_units")
 		delete(additionalProperties, "legal_entity_name")
 		delete(additionalProperties, "settlement_account_reference")
+		delete(additionalProperties, "payment_link_configs")
 		delete(additionalProperties, "metadata")
 		delete(additionalProperties, "created_at")
 		delete(additionalProperties, "updated_at")
