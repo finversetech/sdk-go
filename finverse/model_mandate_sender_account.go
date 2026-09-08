@@ -37,6 +37,8 @@ type MandateSenderAccount struct {
 	// A unique identifier generated after creating sender (Finverse Payment User ID)
 	UserId   *string `json:"user_id,omitempty"`
 	BankCode *string `json:"bank_code,omitempty"`
+	// BIC (SWIFT code) of the sender’s institution. Only returned when account_type is EXTERNAL_ACCOUNT and the institution has a registered BIC.
+	Bic *string `json:"bic,omitempty"`
 	// Additional attributes of the sender account in key:value format (e.g. sender_id: 1234). It supports up to 20 key:value pairs, whereas the key and value supports up to 50 and 1000 characters respectively.
 	Metadata             *map[string]string `json:"metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -392,6 +394,38 @@ func (o *MandateSenderAccount) SetBankCode(v string) {
 	o.BankCode = &v
 }
 
+// GetBic returns the Bic field value if set, zero value otherwise.
+func (o *MandateSenderAccount) GetBic() string {
+	if o == nil || IsNil(o.Bic) {
+		var ret string
+		return ret
+	}
+	return *o.Bic
+}
+
+// GetBicOk returns a tuple with the Bic field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MandateSenderAccount) GetBicOk() (*string, bool) {
+	if o == nil || IsNil(o.Bic) {
+		return nil, false
+	}
+	return o.Bic, true
+}
+
+// HasBic returns a boolean if a field has been set.
+func (o *MandateSenderAccount) HasBic() bool {
+	if o != nil && !IsNil(o.Bic) {
+		return true
+	}
+
+	return false
+}
+
+// SetBic gets a reference to the given string and assigns it to the Bic field.
+func (o *MandateSenderAccount) SetBic(v string) {
+	o.Bic = &v
+}
+
 // GetMetadata returns the Metadata field value if set, zero value otherwise.
 func (o *MandateSenderAccount) GetMetadata() map[string]string {
 	if o == nil || IsNil(o.Metadata) {
@@ -464,6 +498,9 @@ func (o MandateSenderAccount) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.BankCode) {
 		toSerialize["bank_code"] = o.BankCode
 	}
+	if !IsNil(o.Bic) {
+		toSerialize["bic"] = o.Bic
+	}
 	if !IsNil(o.Metadata) {
 		toSerialize["metadata"] = o.Metadata
 	}
@@ -499,6 +536,7 @@ func (o *MandateSenderAccount) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "institution_name")
 		delete(additionalProperties, "user_id")
 		delete(additionalProperties, "bank_code")
+		delete(additionalProperties, "bic")
 		delete(additionalProperties, "metadata")
 		o.AdditionalProperties = additionalProperties
 	}

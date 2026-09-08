@@ -8103,6 +8103,7 @@ components:
           institution_name: HSBC
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
           bank_code: bank_code
+          bic: DBSSSGSGXXX
           metadata:
             key: metadata
         fees:
@@ -8328,6 +8329,7 @@ components:
             institution_name: HSBC
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             bank_code: bank_code
+            bic: DBSSSGSGXXX
             metadata:
               key: metadata
           fees:
@@ -8470,6 +8472,7 @@ components:
             institution_name: HSBC
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             bank_code: bank_code
+            bic: DBSSSGSGXXX
             metadata:
               key: metadata
           fees:
@@ -8614,6 +8617,7 @@ components:
           institution_name: HSBC
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
           bank_code: bank_code
+          bic: DBSSSGSGXXX
           metadata:
             key: metadata
         fees:
@@ -8824,6 +8828,7 @@ components:
             institution_name: HSBC
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             bank_code: bank_code
+            bic: DBSSSGSGXXX
             metadata:
               key: metadata
           fees:
@@ -8906,6 +8911,7 @@ components:
             institution_name: HSBC
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             bank_code: bank_code
+            bic: DBSSSGSGXXX
             metadata:
               key: metadata
           fees:
@@ -9233,6 +9239,7 @@ components:
           institution_name: HSBC
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
           bank_code: bank_code
+          bic: DBSSSGSGXXX
           metadata:
             key: metadata
         mandate_details:
@@ -9619,6 +9626,7 @@ components:
               institution_name: HSBC
               user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
               bank_code: bank_code
+              bic: DBSSSGSGXXX
               metadata:
                 key: metadata
             mandate_details:
@@ -9772,6 +9780,7 @@ components:
               institution_name: HSBC
               user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
               bank_code: bank_code
+              bic: DBSSSGSGXXX
               metadata:
                 key: metadata
             mandate_details:
@@ -10047,6 +10056,7 @@ components:
             institution_name: HSBC
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             bank_code: bank_code
+            bic: DBSSSGSGXXX
             metadata:
               key: metadata
           fees:
@@ -10163,6 +10173,7 @@ components:
               institution_name: HSBC
               user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
               bank_code: bank_code
+              bic: DBSSSGSGXXX
               metadata:
                 key: metadata
             mandate_details:
@@ -10905,6 +10916,7 @@ components:
           institution_name: HSBC
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
           bank_code: bank_code
+          bic: DBSSSGSGXXX
           metadata:
             key: metadata
         mandate_details:
@@ -10994,6 +11006,7 @@ components:
           institution_name: HSBC
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
           bank_code: bank_code
+          bic: DBSSSGSGXXX
           metadata:
             key: metadata
         mandate_details:
@@ -11078,6 +11091,7 @@ components:
             institution_name: HSBC
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             bank_code: bank_code
+            bic: DBSSSGSGXXX
             metadata:
               key: metadata
           mandate_details:
@@ -11159,6 +11173,7 @@ components:
             institution_name: HSBC
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             bank_code: bank_code
+            bic: DBSSSGSGXXX
             metadata:
               key: metadata
           mandate_details:
@@ -12341,6 +12356,7 @@ components:
         institution_name: HSBC
         user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
         bank_code: bank_code
+        bic: DBSSSGSGXXX
         metadata:
           key: metadata
       properties:
@@ -12378,6 +12394,12 @@ components:
           example: 01GY6H0JA7BS8EVGY56NSHFX2E
           type: string
         bank_code:
+          type: string
+        bic:
+          description: BIC (SWIFT code) of the sender’s institution. Only returned
+            when account_type is EXTERNAL_ACCOUNT and the institution has a registered
+            BIC.
+          example: DBSSSGSGXXX
           type: string
         metadata:
           additionalProperties:
@@ -13297,6 +13319,7 @@ components:
             institution_name: HSBC
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             bank_code: bank_code
+            bic: DBSSSGSGXXX
             metadata:
               key: metadata
           mandate_details:
@@ -14127,6 +14150,7 @@ components:
             institution_name: HSBC
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             bank_code: bank_code
+            bic: DBSSSGSGXXX
             metadata:
               key: metadata
           fees:
@@ -14269,6 +14293,7 @@ components:
             institution_name: HSBC
             user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
             bank_code: bank_code
+            bic: DBSSSGSGXXX
             metadata:
               key: metadata
           fees:
