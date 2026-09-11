@@ -27,6 +27,7 @@ const (
 	EDDA_HK            PaymentSubtype = "EDDA_HK"
 	CARD_KR            PaymentSubtype = "CARD_KR"
 	CARD_GENERIC       PaymentSubtype = "CARD_GENERIC"
+	CARD_STORED        PaymentSubtype = "CARD_STORED"
 	WALLET_GENERIC     PaymentSubtype = "WALLET_GENERIC"
 	GOCARDLESS_GENERIC PaymentSubtype = "GOCARDLESS_GENERIC"
 	MANUAL_GENERIC     PaymentSubtype = "MANUAL_GENERIC"
@@ -42,6 +43,7 @@ var AllowedPaymentSubtypeEnumValues = []PaymentSubtype{
 	"EDDA_HK",
 	"CARD_KR",
 	"CARD_GENERIC",
+	"CARD_STORED",
 	"WALLET_GENERIC",
 	"GOCARDLESS_GENERIC",
 	"MANUAL_GENERIC",

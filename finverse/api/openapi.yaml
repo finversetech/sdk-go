@@ -3219,6 +3219,7 @@ components:
       - EDDA_HK
       - CARD_KR
       - CARD_GENERIC
+      - CARD_STORED
       - WALLET_GENERIC
       - GOCARDLESS_GENERIC
       - MANUAL_GENERIC
