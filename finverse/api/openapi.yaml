@@ -12532,6 +12532,7 @@ components:
           institution_name: HSBC
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
           bank_code: "004"
+          bic: DBSSSGSGXXX
           branch_code: "123"
           currencies:
           - HKD
@@ -12564,6 +12565,7 @@ components:
           institution_name: HSBC
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
           bank_code: "004"
+          bic: DBSSSGSGXXX
           branch_code: "123"
           currencies:
           - HKD
@@ -12605,6 +12607,7 @@ components:
           institution_name: HSBC
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
           bank_code: "004"
+          bic: DBSSSGSGXXX
           branch_code: "123"
           currencies:
           - HKD
@@ -12647,6 +12650,7 @@ components:
           institution_name: HSBC
           user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
           bank_code: "004"
+          bic: DBSSSGSGXXX
           branch_code: "123"
           currencies:
           - HKD
@@ -12707,6 +12711,7 @@ components:
         institution_name: HSBC
         user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
         bank_code: "004"
+        bic: DBSSSGSGXXX
         branch_code: "123"
         currencies:
         - HKD
@@ -12751,6 +12756,7 @@ components:
         institution_name: HSBC
         user_id: 01GY6H0JA7BS8EVGY56NSHFX2E
         bank_code: "004"
+        bic: DBSSSGSGXXX
         branch_code: "123"
         currencies:
         - HKD
@@ -12805,6 +12811,12 @@ components:
         bank_code:
           description: 3-digit code associated with bank
           example: "004"
+          type: string
+        bic:
+          description: BIC (SWIFT code) of the account’s institution. Only returned
+            when account_type is EXTERNAL_ACCOUNT and the institution has a registered
+            BIC.
+          example: DBSSSGSGXXX
           type: string
         branch_code:
           description: 3-digit code used to identify specific bank branch

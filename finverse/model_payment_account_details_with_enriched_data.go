@@ -40,6 +40,8 @@ type PaymentAccountDetailsWithEnrichedData struct {
 	UserId *string `json:"user_id,omitempty"`
 	// 3-digit code associated with bank
 	BankCode *string `json:"bank_code,omitempty"`
+	// BIC (SWIFT code) of the account’s institution. Only returned when account_type is EXTERNAL_ACCOUNT and the institution has a registered BIC.
+	Bic *string `json:"bic,omitempty"`
 	// 3-digit code used to identify specific bank branch
 	BranchCode *string `json:"branch_code,omitempty"`
 	// List of currencies supported by the payment account
@@ -384,6 +386,38 @@ func (o *PaymentAccountDetailsWithEnrichedData) HasBankCode() bool {
 // SetBankCode gets a reference to the given string and assigns it to the BankCode field.
 func (o *PaymentAccountDetailsWithEnrichedData) SetBankCode(v string) {
 	o.BankCode = &v
+}
+
+// GetBic returns the Bic field value if set, zero value otherwise.
+func (o *PaymentAccountDetailsWithEnrichedData) GetBic() string {
+	if o == nil || IsNil(o.Bic) {
+		var ret string
+		return ret
+	}
+	return *o.Bic
+}
+
+// GetBicOk returns a tuple with the Bic field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentAccountDetailsWithEnrichedData) GetBicOk() (*string, bool) {
+	if o == nil || IsNil(o.Bic) {
+		return nil, false
+	}
+	return o.Bic, true
+}
+
+// HasBic returns a boolean if a field has been set.
+func (o *PaymentAccountDetailsWithEnrichedData) HasBic() bool {
+	if o != nil && !IsNil(o.Bic) {
+		return true
+	}
+
+	return false
+}
+
+// SetBic gets a reference to the given string and assigns it to the Bic field.
+func (o *PaymentAccountDetailsWithEnrichedData) SetBic(v string) {
+	o.Bic = &v
 }
 
 // GetBranchCode returns the BranchCode field value if set, zero value otherwise.
@@ -742,6 +776,9 @@ func (o PaymentAccountDetailsWithEnrichedData) ToMap() (map[string]interface{}, 
 	if !IsNil(o.BankCode) {
 		toSerialize["bank_code"] = o.BankCode
 	}
+	if !IsNil(o.Bic) {
+		toSerialize["bic"] = o.Bic
+	}
 	if !IsNil(o.BranchCode) {
 		toSerialize["branch_code"] = o.BranchCode
 	}
@@ -826,6 +863,7 @@ func (o *PaymentAccountDetailsWithEnrichedData) UnmarshalJSON(data []byte) (err 
 		delete(additionalProperties, "institution_name")
 		delete(additionalProperties, "user_id")
 		delete(additionalProperties, "bank_code")
+		delete(additionalProperties, "bic")
 		delete(additionalProperties, "branch_code")
 		delete(additionalProperties, "currencies")
 		delete(additionalProperties, "business_units")
