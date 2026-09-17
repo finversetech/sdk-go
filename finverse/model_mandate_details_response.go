@@ -35,9 +35,11 @@ type MandateDetailsResponse struct {
 	Description *string `json:"description,omitempty"`
 	// A bank specific reference, what the end user may see
 	MandateBankReference *string `json:"mandate_bank_reference,omitempty"`
-	ProcessorEntityName  *string `json:"processor_entity_name,omitempty"`
-	CollectionEntityName *string `json:"collection_entity_name,omitempty"`
-	AdditionalProperties map[string]interface{}
+	// Finverse-generated authorization reference for mandate setup with external processors.
+	FinverseAuthorizationReference *string `json:"finverse_authorization_reference,omitempty"`
+	ProcessorEntityName            *string `json:"processor_entity_name,omitempty"`
+	CollectionEntityName           *string `json:"collection_entity_name,omitempty"`
+	AdditionalProperties           map[string]interface{}
 }
 
 type _MandateDetailsResponse MandateDetailsResponse
@@ -330,6 +332,38 @@ func (o *MandateDetailsResponse) SetMandateBankReference(v string) {
 	o.MandateBankReference = &v
 }
 
+// GetFinverseAuthorizationReference returns the FinverseAuthorizationReference field value if set, zero value otherwise.
+func (o *MandateDetailsResponse) GetFinverseAuthorizationReference() string {
+	if o == nil || IsNil(o.FinverseAuthorizationReference) {
+		var ret string
+		return ret
+	}
+	return *o.FinverseAuthorizationReference
+}
+
+// GetFinverseAuthorizationReferenceOk returns a tuple with the FinverseAuthorizationReference field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MandateDetailsResponse) GetFinverseAuthorizationReferenceOk() (*string, bool) {
+	if o == nil || IsNil(o.FinverseAuthorizationReference) {
+		return nil, false
+	}
+	return o.FinverseAuthorizationReference, true
+}
+
+// HasFinverseAuthorizationReference returns a boolean if a field has been set.
+func (o *MandateDetailsResponse) HasFinverseAuthorizationReference() bool {
+	if o != nil && !IsNil(o.FinverseAuthorizationReference) {
+		return true
+	}
+
+	return false
+}
+
+// SetFinverseAuthorizationReference gets a reference to the given string and assigns it to the FinverseAuthorizationReference field.
+func (o *MandateDetailsResponse) SetFinverseAuthorizationReference(v string) {
+	o.FinverseAuthorizationReference = &v
+}
+
 // GetProcessorEntityName returns the ProcessorEntityName field value if set, zero value otherwise.
 func (o *MandateDetailsResponse) GetProcessorEntityName() string {
 	if o == nil || IsNil(o.ProcessorEntityName) {
@@ -426,6 +460,9 @@ func (o MandateDetailsResponse) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.MandateBankReference) {
 		toSerialize["mandate_bank_reference"] = o.MandateBankReference
 	}
+	if !IsNil(o.FinverseAuthorizationReference) {
+		toSerialize["finverse_authorization_reference"] = o.FinverseAuthorizationReference
+	}
 	if !IsNil(o.ProcessorEntityName) {
 		toSerialize["processor_entity_name"] = o.ProcessorEntityName
 	}
@@ -483,6 +520,7 @@ func (o *MandateDetailsResponse) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "transaction_limits")
 		delete(additionalProperties, "description")
 		delete(additionalProperties, "mandate_bank_reference")
+		delete(additionalProperties, "finverse_authorization_reference")
 		delete(additionalProperties, "processor_entity_name")
 		delete(additionalProperties, "collection_entity_name")
 		o.AdditionalProperties = additionalProperties

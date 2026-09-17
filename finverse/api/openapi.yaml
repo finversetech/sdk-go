@@ -9259,6 +9259,7 @@ components:
             period: DAILY
           description: description
           mandate_bank_reference: mandate_bank_reference
+          finverse_authorization_reference: finverse_authorization_reference
           processor_entity_name: processor_entity_name
           collection_entity_name: collection_entity_name
         fees:
@@ -9646,6 +9647,7 @@ components:
                 period: DAILY
               description: description
               mandate_bank_reference: mandate_bank_reference
+              finverse_authorization_reference: finverse_authorization_reference
               processor_entity_name: processor_entity_name
               collection_entity_name: collection_entity_name
             fees:
@@ -9800,6 +9802,7 @@ components:
                 period: DAILY
               description: description
               mandate_bank_reference: mandate_bank_reference
+              finverse_authorization_reference: finverse_authorization_reference
               processor_entity_name: processor_entity_name
               collection_entity_name: collection_entity_name
             fees:
@@ -10193,6 +10196,7 @@ components:
                 period: DAILY
               description: description
               mandate_bank_reference: mandate_bank_reference
+              finverse_authorization_reference: finverse_authorization_reference
               processor_entity_name: processor_entity_name
               collection_entity_name: collection_entity_name
             fees:
@@ -10936,6 +10940,7 @@ components:
             period: DAILY
           description: description
           mandate_bank_reference: mandate_bank_reference
+          finverse_authorization_reference: finverse_authorization_reference
           processor_entity_name: processor_entity_name
           collection_entity_name: collection_entity_name
         fees:
@@ -11026,6 +11031,7 @@ components:
             period: DAILY
           description: description
           mandate_bank_reference: mandate_bank_reference
+          finverse_authorization_reference: finverse_authorization_reference
           processor_entity_name: processor_entity_name
           collection_entity_name: collection_entity_name
         fees:
@@ -11111,6 +11117,7 @@ components:
               period: DAILY
             description: description
             mandate_bank_reference: mandate_bank_reference
+            finverse_authorization_reference: finverse_authorization_reference
             processor_entity_name: processor_entity_name
             collection_entity_name: collection_entity_name
           fees:
@@ -11193,6 +11200,7 @@ components:
               period: DAILY
             description: description
             mandate_bank_reference: mandate_bank_reference
+            finverse_authorization_reference: finverse_authorization_reference
             processor_entity_name: processor_entity_name
             collection_entity_name: collection_entity_name
           fees:
@@ -11526,6 +11534,7 @@ components:
           period: DAILY
         description: description
         mandate_bank_reference: mandate_bank_reference
+        finverse_authorization_reference: finverse_authorization_reference
         processor_entity_name: processor_entity_name
         collection_entity_name: collection_entity_name
       properties:
@@ -11557,6 +11566,10 @@ components:
           type: string
         mandate_bank_reference:
           description: "A bank specific reference, what the end user may see"
+          type: string
+        finverse_authorization_reference:
+          description: Finverse-generated authorization reference for mandate setup
+            with external processors.
           type: string
         processor_entity_name:
           type: string
@@ -12062,6 +12075,7 @@ components:
             period: DAILY
           description: description
           mandate_bank_reference: mandate_bank_reference
+          finverse_authorization_reference: finverse_authorization_reference
           processor_entity_name: processor_entity_name
           collection_entity_name: collection_entity_name
         recipient:
@@ -13445,6 +13459,7 @@ components:
               period: DAILY
             description: description
             mandate_bank_reference: mandate_bank_reference
+            finverse_authorization_reference: finverse_authorization_reference
             processor_entity_name: processor_entity_name
             collection_entity_name: collection_entity_name
           fees:
