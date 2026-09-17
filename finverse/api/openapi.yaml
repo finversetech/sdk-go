@@ -9738,6 +9738,9 @@ components:
               funds_settlement: funds_settlement
               authorization_source: authorization_source
               verified_at: 2000-01-23T04:56:07.000+00:00
+            cashfree_metadata:
+              cf_subscription_id: cf_subscription_id
+              upi_id: upi_id
         - payment_method_id: payment_method_id
           payment_method_type: CARD
           live: true
@@ -9893,6 +9896,9 @@ components:
               funds_settlement: funds_settlement
               authorization_source: authorization_source
               verified_at: 2000-01-23T04:56:07.000+00:00
+            cashfree_metadata:
+              cf_subscription_id: cf_subscription_id
+              upi_id: upi_id
         sender:
           created_at: 2000-01-23T04:56:07.000+00:00
           email: email
@@ -10287,6 +10293,9 @@ components:
               funds_settlement: funds_settlement
               authorization_source: authorization_source
               verified_at: 2000-01-23T04:56:07.000+00:00
+            cashfree_metadata:
+              cf_subscription_id: cf_subscription_id
+              upi_id: upi_id
         integration_metadata:
           integration_id: RAPIDSTOR
           rapidstor_metadata:
@@ -13297,6 +13306,9 @@ components:
             payments_require_approval: true
             funds_settlement: managed
             verified_at: 2000-01-23T04:56:07.000+00:00
+          cashfree_metadata:
+            cf_subscription_id: cf_subscription_id
+            upi_id: upi_id
         payment_method_type: CARD
       properties:
         card:
@@ -13335,6 +13347,9 @@ components:
           payments_require_approval: true
           funds_settlement: managed
           verified_at: 2000-01-23T04:56:07.000+00:00
+        cashfree_metadata:
+          cf_subscription_id: cf_subscription_id
+          upi_id: upi_id
       properties:
         integration_id:
           enum:
@@ -13342,6 +13357,7 @@ components:
           - CYBERSOURCE
           - ADYEN
           - GOCARDLESS
+          - CASHFREE
           type: string
         stripe_metadata:
           $ref: "#/components/schemas/PaymentMethodIntegrationMetadata_stripe_metadata"
@@ -13351,6 +13367,8 @@ components:
           $ref: "#/components/schemas/PaymentMethodIntegrationMetadata_adyen_metadata"
         gocardless_metadata:
           $ref: "#/components/schemas/PaymentMethodIntegrationMetadata_gocardless_metadata"
+        cashfree_metadata:
+          $ref: "#/components/schemas/PaymentMethodIntegrationMetadata_cashfree_metadata"
       required:
       - integration_id
       type: object
@@ -13381,6 +13399,9 @@ components:
           funds_settlement: funds_settlement
           authorization_source: authorization_source
           verified_at: 2000-01-23T04:56:07.000+00:00
+        cashfree_metadata:
+          cf_subscription_id: cf_subscription_id
+          upi_id: upi_id
       properties:
         integration_id:
           type: string
@@ -13392,6 +13413,8 @@ components:
           $ref: "#/components/schemas/PaymentMethodIntegrationMetadataResponse_adyen_metadata"
         gocardless_metadata:
           $ref: "#/components/schemas/PaymentMethodIntegrationMetadataResponse_gocardless_metadata"
+        cashfree_metadata:
+          $ref: "#/components/schemas/PaymentMethodIntegrationMetadataResponse_cashfree_metadata"
       type: object
     PaymentMethodResponse:
       example:
@@ -13550,6 +13573,9 @@ components:
             funds_settlement: funds_settlement
             authorization_source: authorization_source
             verified_at: 2000-01-23T04:56:07.000+00:00
+          cashfree_metadata:
+            cf_subscription_id: cf_subscription_id
+            upi_id: upi_id
       properties:
         payment_method_id:
           type: string
@@ -15040,6 +15066,18 @@ components:
       required:
       - mandate_id
       type: object
+    PaymentMethodIntegrationMetadata_cashfree_metadata:
+      example:
+        cf_subscription_id: cf_subscription_id
+        upi_id: upi_id
+      properties:
+        cf_subscription_id:
+          description: Cashfree subscription reference
+          type: string
+        upi_id:
+          description: UPI ID used for the mandate
+          type: string
+      type: object
     PaymentMethodIntegrationMetadataResponse_stripe_metadata_customer:
       example:
         id: id
@@ -15137,6 +15175,19 @@ components:
             \ (YYYY-MM-DDTHH:MM:SS.SSSZ)"
           format: date-time
           nullable: true
+          type: string
+      type: object
+    PaymentMethodIntegrationMetadataResponse_cashfree_metadata:
+      example:
+        cf_subscription_id: cf_subscription_id
+        upi_id: upi_id
+      nullable: true
+      properties:
+        cf_subscription_id:
+          description: Cashfree subscription reference
+          type: string
+        upi_id:
+          description: UPI ID used for the mandate
           type: string
       type: object
     PaymentSnapshotPaymentMethod_card:

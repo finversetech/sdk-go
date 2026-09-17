@@ -25,6 +25,7 @@ type PaymentMethodIntegrationMetadataResponse struct {
 	CybersourceMetadata  NullablePaymentMethodIntegrationMetadataResponseCybersourceMetadata `json:"cybersource_metadata,omitempty"`
 	AdyenMetadata        NullablePaymentMethodIntegrationMetadataResponseAdyenMetadata       `json:"adyen_metadata,omitempty"`
 	GocardlessMetadata   NullablePaymentMethodIntegrationMetadataResponseGocardlessMetadata  `json:"gocardless_metadata,omitempty"`
+	CashfreeMetadata     NullablePaymentMethodIntegrationMetadataResponseCashfreeMetadata    `json:"cashfree_metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -251,6 +252,49 @@ func (o *PaymentMethodIntegrationMetadataResponse) UnsetGocardlessMetadata() {
 	o.GocardlessMetadata.Unset()
 }
 
+// GetCashfreeMetadata returns the CashfreeMetadata field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *PaymentMethodIntegrationMetadataResponse) GetCashfreeMetadata() PaymentMethodIntegrationMetadataResponseCashfreeMetadata {
+	if o == nil || IsNil(o.CashfreeMetadata.Get()) {
+		var ret PaymentMethodIntegrationMetadataResponseCashfreeMetadata
+		return ret
+	}
+	return *o.CashfreeMetadata.Get()
+}
+
+// GetCashfreeMetadataOk returns a tuple with the CashfreeMetadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *PaymentMethodIntegrationMetadataResponse) GetCashfreeMetadataOk() (*PaymentMethodIntegrationMetadataResponseCashfreeMetadata, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.CashfreeMetadata.Get(), o.CashfreeMetadata.IsSet()
+}
+
+// HasCashfreeMetadata returns a boolean if a field has been set.
+func (o *PaymentMethodIntegrationMetadataResponse) HasCashfreeMetadata() bool {
+	if o != nil && o.CashfreeMetadata.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetCashfreeMetadata gets a reference to the given NullablePaymentMethodIntegrationMetadataResponseCashfreeMetadata and assigns it to the CashfreeMetadata field.
+func (o *PaymentMethodIntegrationMetadataResponse) SetCashfreeMetadata(v PaymentMethodIntegrationMetadataResponseCashfreeMetadata) {
+	o.CashfreeMetadata.Set(&v)
+}
+
+// SetCashfreeMetadataNil sets the value for CashfreeMetadata to be an explicit nil
+func (o *PaymentMethodIntegrationMetadataResponse) SetCashfreeMetadataNil() {
+	o.CashfreeMetadata.Set(nil)
+}
+
+// UnsetCashfreeMetadata ensures that no value is present for CashfreeMetadata, not even an explicit nil
+func (o *PaymentMethodIntegrationMetadataResponse) UnsetCashfreeMetadata() {
+	o.CashfreeMetadata.Unset()
+}
+
 func (o PaymentMethodIntegrationMetadataResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -275,6 +319,9 @@ func (o PaymentMethodIntegrationMetadataResponse) ToMap() (map[string]interface{
 	}
 	if o.GocardlessMetadata.IsSet() {
 		toSerialize["gocardless_metadata"] = o.GocardlessMetadata.Get()
+	}
+	if o.CashfreeMetadata.IsSet() {
+		toSerialize["cashfree_metadata"] = o.CashfreeMetadata.Get()
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -303,6 +350,7 @@ func (o *PaymentMethodIntegrationMetadataResponse) UnmarshalJSON(data []byte) (e
 		delete(additionalProperties, "cybersource_metadata")
 		delete(additionalProperties, "adyen_metadata")
 		delete(additionalProperties, "gocardless_metadata")
+		delete(additionalProperties, "cashfree_metadata")
 		o.AdditionalProperties = additionalProperties
 	}
 
