@@ -33,6 +33,7 @@ const (
 	MANUAL_GENERIC     PaymentSubtype = "MANUAL_GENERIC"
 	MANUAL_KR          PaymentSubtype = "MANUAL_KR"
 	BANKPAY_KR         PaymentSubtype = "BANKPAY_KR"
+	UPI_IN             PaymentSubtype = "UPI_IN"
 )
 
 // All allowed values of PaymentSubtype enum
@@ -49,6 +50,7 @@ var AllowedPaymentSubtypeEnumValues = []PaymentSubtype{
 	"MANUAL_GENERIC",
 	"MANUAL_KR",
 	"BANKPAY_KR",
+	"UPI_IN",
 }
 
 func (v *PaymentSubtype) UnmarshalJSON(src []byte) error {

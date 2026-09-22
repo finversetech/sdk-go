@@ -3225,6 +3225,7 @@ components:
       - MANUAL_GENERIC
       - MANUAL_KR
       - BANKPAY_KR
+      - UPI_IN
       type: string
     PaymentMethodType:
       description: The payment method type
