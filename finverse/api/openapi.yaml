@@ -13610,9 +13610,21 @@ components:
           $ref: "#/components/schemas/MandateFvLinkResponse"
         card:
           $ref: "#/components/schemas/CardFvLinkResponse"
+        integration_metadata:
+          $ref: "#/components/schemas/PaymentMethodIntegrationMetadataFvLinkResponse"
       required:
       - payment_method_id
       - payment_method_type
+      type: object
+    PaymentMethodIntegrationMetadataFvLinkResponse:
+      properties:
+        cashfree_metadata:
+          $ref: "#/components/schemas/CashfreeMetadataFvLinkResponse"
+      type: object
+    CashfreeMetadataFvLinkResponse:
+      properties:
+        upi_id:
+          type: string
       type: object
     AvailablePaymentMethodsFvLinkResponse:
       properties:

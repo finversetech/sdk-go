@@ -21,11 +21,12 @@ var _ MappedNullable = &PaymentMethodFvLinkResponse{}
 
 // PaymentMethodFvLinkResponse struct for PaymentMethodFvLinkResponse
 type PaymentMethodFvLinkResponse struct {
-	PaymentMethodId      string                 `json:"payment_method_id"`
-	PaymentMethodType    PaymentMethodType      `json:"payment_method_type"`
-	RecipientEntityName  *string                `json:"recipient_entity_name,omitempty"`
-	Mandate              *MandateFvLinkResponse `json:"mandate,omitempty"`
-	Card                 *CardFvLinkResponse    `json:"card,omitempty"`
+	PaymentMethodId      string                                          `json:"payment_method_id"`
+	PaymentMethodType    PaymentMethodType                               `json:"payment_method_type"`
+	RecipientEntityName  *string                                         `json:"recipient_entity_name,omitempty"`
+	Mandate              *MandateFvLinkResponse                          `json:"mandate,omitempty"`
+	Card                 *CardFvLinkResponse                             `json:"card,omitempty"`
+	IntegrationMetadata  *PaymentMethodIntegrationMetadataFvLinkResponse `json:"integration_metadata,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -194,6 +195,38 @@ func (o *PaymentMethodFvLinkResponse) SetCard(v CardFvLinkResponse) {
 	o.Card = &v
 }
 
+// GetIntegrationMetadata returns the IntegrationMetadata field value if set, zero value otherwise.
+func (o *PaymentMethodFvLinkResponse) GetIntegrationMetadata() PaymentMethodIntegrationMetadataFvLinkResponse {
+	if o == nil || IsNil(o.IntegrationMetadata) {
+		var ret PaymentMethodIntegrationMetadataFvLinkResponse
+		return ret
+	}
+	return *o.IntegrationMetadata
+}
+
+// GetIntegrationMetadataOk returns a tuple with the IntegrationMetadata field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *PaymentMethodFvLinkResponse) GetIntegrationMetadataOk() (*PaymentMethodIntegrationMetadataFvLinkResponse, bool) {
+	if o == nil || IsNil(o.IntegrationMetadata) {
+		return nil, false
+	}
+	return o.IntegrationMetadata, true
+}
+
+// HasIntegrationMetadata returns a boolean if a field has been set.
+func (o *PaymentMethodFvLinkResponse) HasIntegrationMetadata() bool {
+	if o != nil && !IsNil(o.IntegrationMetadata) {
+		return true
+	}
+
+	return false
+}
+
+// SetIntegrationMetadata gets a reference to the given PaymentMethodIntegrationMetadataFvLinkResponse and assigns it to the IntegrationMetadata field.
+func (o *PaymentMethodFvLinkResponse) SetIntegrationMetadata(v PaymentMethodIntegrationMetadataFvLinkResponse) {
+	o.IntegrationMetadata = &v
+}
+
 func (o PaymentMethodFvLinkResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -214,6 +247,9 @@ func (o PaymentMethodFvLinkResponse) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Card) {
 		toSerialize["card"] = o.Card
+	}
+	if !IsNil(o.IntegrationMetadata) {
+		toSerialize["integration_metadata"] = o.IntegrationMetadata
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -264,6 +300,7 @@ func (o *PaymentMethodFvLinkResponse) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "recipient_entity_name")
 		delete(additionalProperties, "mandate")
 		delete(additionalProperties, "card")
+		delete(additionalProperties, "integration_metadata")
 		o.AdditionalProperties = additionalProperties
 	}
 
