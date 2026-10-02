@@ -21,6 +21,8 @@ var _ MappedNullable = &MandateFvLinkDetails{}
 // MandateFvLinkDetails struct for MandateFvLinkDetails
 type MandateFvLinkDetails struct {
 	CollectionEntityName *string `json:"collection_entity_name,omitempty"`
+	// UPI ID (VPA) used for the mandate
+	UpiId                *string `json:"upi_id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -75,6 +77,38 @@ func (o *MandateFvLinkDetails) SetCollectionEntityName(v string) {
 	o.CollectionEntityName = &v
 }
 
+// GetUpiId returns the UpiId field value if set, zero value otherwise.
+func (o *MandateFvLinkDetails) GetUpiId() string {
+	if o == nil || IsNil(o.UpiId) {
+		var ret string
+		return ret
+	}
+	return *o.UpiId
+}
+
+// GetUpiIdOk returns a tuple with the UpiId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MandateFvLinkDetails) GetUpiIdOk() (*string, bool) {
+	if o == nil || IsNil(o.UpiId) {
+		return nil, false
+	}
+	return o.UpiId, true
+}
+
+// HasUpiId returns a boolean if a field has been set.
+func (o *MandateFvLinkDetails) HasUpiId() bool {
+	if o != nil && !IsNil(o.UpiId) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpiId gets a reference to the given string and assigns it to the UpiId field.
+func (o *MandateFvLinkDetails) SetUpiId(v string) {
+	o.UpiId = &v
+}
+
 func (o MandateFvLinkDetails) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -87,6 +121,9 @@ func (o MandateFvLinkDetails) ToMap() (map[string]interface{}, error) {
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.CollectionEntityName) {
 		toSerialize["collection_entity_name"] = o.CollectionEntityName
+	}
+	if !IsNil(o.UpiId) {
+		toSerialize["upi_id"] = o.UpiId
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -111,6 +148,7 @@ func (o *MandateFvLinkDetails) UnmarshalJSON(data []byte) (err error) {
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "collection_entity_name")
+		delete(additionalProperties, "upi_id")
 		o.AdditionalProperties = additionalProperties
 	}
 

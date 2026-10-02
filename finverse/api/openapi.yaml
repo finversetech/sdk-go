@@ -13617,21 +13617,9 @@ components:
           $ref: "#/components/schemas/MandateFvLinkResponse"
         card:
           $ref: "#/components/schemas/CardFvLinkResponse"
-        integration_metadata:
-          $ref: "#/components/schemas/PaymentMethodIntegrationMetadataFvLinkResponse"
       required:
       - payment_method_id
       - payment_method_type
-      type: object
-    PaymentMethodIntegrationMetadataFvLinkResponse:
-      properties:
-        cashfree_metadata:
-          $ref: "#/components/schemas/CashfreeMetadataFvLinkResponse"
-      type: object
-    CashfreeMetadataFvLinkResponse:
-      properties:
-        upi_id:
-          type: string
       type: object
     AvailablePaymentMethodsFvLinkResponse:
       properties:
@@ -13713,6 +13701,9 @@ components:
     MandateFvLinkDetails:
       properties:
         collection_entity_name:
+          type: string
+        upi_id:
+          description: UPI ID (VPA) used for the mandate
           type: string
       type: object
     CardFvLinkResponse:
