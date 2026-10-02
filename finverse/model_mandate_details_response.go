@@ -39,7 +39,9 @@ type MandateDetailsResponse struct {
 	FinverseAuthorizationReference *string `json:"finverse_authorization_reference,omitempty"`
 	ProcessorEntityName            *string `json:"processor_entity_name,omitempty"`
 	CollectionEntityName           *string `json:"collection_entity_name,omitempty"`
-	AdditionalProperties           map[string]interface{}
+	// UPI ID (VPA) used for the mandate
+	UpiId                *string `json:"upi_id,omitempty"`
+	AdditionalProperties map[string]interface{}
 }
 
 type _MandateDetailsResponse MandateDetailsResponse
@@ -428,6 +430,38 @@ func (o *MandateDetailsResponse) SetCollectionEntityName(v string) {
 	o.CollectionEntityName = &v
 }
 
+// GetUpiId returns the UpiId field value if set, zero value otherwise.
+func (o *MandateDetailsResponse) GetUpiId() string {
+	if o == nil || IsNil(o.UpiId) {
+		var ret string
+		return ret
+	}
+	return *o.UpiId
+}
+
+// GetUpiIdOk returns a tuple with the UpiId field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *MandateDetailsResponse) GetUpiIdOk() (*string, bool) {
+	if o == nil || IsNil(o.UpiId) {
+		return nil, false
+	}
+	return o.UpiId, true
+}
+
+// HasUpiId returns a boolean if a field has been set.
+func (o *MandateDetailsResponse) HasUpiId() bool {
+	if o != nil && !IsNil(o.UpiId) {
+		return true
+	}
+
+	return false
+}
+
+// SetUpiId gets a reference to the given string and assigns it to the UpiId field.
+func (o *MandateDetailsResponse) SetUpiId(v string) {
+	o.UpiId = &v
+}
+
 func (o MandateDetailsResponse) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -468,6 +502,9 @@ func (o MandateDetailsResponse) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.CollectionEntityName) {
 		toSerialize["collection_entity_name"] = o.CollectionEntityName
+	}
+	if !IsNil(o.UpiId) {
+		toSerialize["upi_id"] = o.UpiId
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -523,6 +560,7 @@ func (o *MandateDetailsResponse) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "finverse_authorization_reference")
 		delete(additionalProperties, "processor_entity_name")
 		delete(additionalProperties, "collection_entity_name")
+		delete(additionalProperties, "upi_id")
 		o.AdditionalProperties = additionalProperties
 	}
 

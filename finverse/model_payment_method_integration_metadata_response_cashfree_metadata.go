@@ -21,9 +21,7 @@ var _ MappedNullable = &PaymentMethodIntegrationMetadataResponseCashfreeMetadata
 // PaymentMethodIntegrationMetadataResponseCashfreeMetadata struct for PaymentMethodIntegrationMetadataResponseCashfreeMetadata
 type PaymentMethodIntegrationMetadataResponseCashfreeMetadata struct {
 	// Cashfree subscription reference
-	CfSubscriptionId *string `json:"cf_subscription_id,omitempty"`
-	// UPI ID used for the mandate
-	UpiId                *string `json:"upi_id,omitempty"`
+	CfSubscriptionId     *string `json:"cf_subscription_id,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -78,38 +76,6 @@ func (o *PaymentMethodIntegrationMetadataResponseCashfreeMetadata) SetCfSubscrip
 	o.CfSubscriptionId = &v
 }
 
-// GetUpiId returns the UpiId field value if set, zero value otherwise.
-func (o *PaymentMethodIntegrationMetadataResponseCashfreeMetadata) GetUpiId() string {
-	if o == nil || IsNil(o.UpiId) {
-		var ret string
-		return ret
-	}
-	return *o.UpiId
-}
-
-// GetUpiIdOk returns a tuple with the UpiId field value if set, nil otherwise
-// and a boolean to check if the value has been set.
-func (o *PaymentMethodIntegrationMetadataResponseCashfreeMetadata) GetUpiIdOk() (*string, bool) {
-	if o == nil || IsNil(o.UpiId) {
-		return nil, false
-	}
-	return o.UpiId, true
-}
-
-// HasUpiId returns a boolean if a field has been set.
-func (o *PaymentMethodIntegrationMetadataResponseCashfreeMetadata) HasUpiId() bool {
-	if o != nil && !IsNil(o.UpiId) {
-		return true
-	}
-
-	return false
-}
-
-// SetUpiId gets a reference to the given string and assigns it to the UpiId field.
-func (o *PaymentMethodIntegrationMetadataResponseCashfreeMetadata) SetUpiId(v string) {
-	o.UpiId = &v
-}
-
 func (o PaymentMethodIntegrationMetadataResponseCashfreeMetadata) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -122,9 +88,6 @@ func (o PaymentMethodIntegrationMetadataResponseCashfreeMetadata) ToMap() (map[s
 	toSerialize := map[string]interface{}{}
 	if !IsNil(o.CfSubscriptionId) {
 		toSerialize["cf_subscription_id"] = o.CfSubscriptionId
-	}
-	if !IsNil(o.UpiId) {
-		toSerialize["upi_id"] = o.UpiId
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -149,7 +112,6 @@ func (o *PaymentMethodIntegrationMetadataResponseCashfreeMetadata) UnmarshalJSON
 
 	if err = json.Unmarshal(data, &additionalProperties); err == nil {
 		delete(additionalProperties, "cf_subscription_id")
-		delete(additionalProperties, "upi_id")
 		o.AdditionalProperties = additionalProperties
 	}
 

@@ -9263,6 +9263,7 @@ components:
           finverse_authorization_reference: finverse_authorization_reference
           processor_entity_name: processor_entity_name
           collection_entity_name: collection_entity_name
+          upi_id: upi_id
         fees:
         - amount: 100
           currency: HKD
@@ -9651,6 +9652,7 @@ components:
               finverse_authorization_reference: finverse_authorization_reference
               processor_entity_name: processor_entity_name
               collection_entity_name: collection_entity_name
+              upi_id: upi_id
             fees:
             - amount: 100
               currency: HKD
@@ -9741,7 +9743,6 @@ components:
               verified_at: 2000-01-23T04:56:07.000+00:00
             cashfree_metadata:
               cf_subscription_id: cf_subscription_id
-              upi_id: upi_id
         - payment_method_id: payment_method_id
           payment_method_type: CARD
           live: true
@@ -9809,6 +9810,7 @@ components:
               finverse_authorization_reference: finverse_authorization_reference
               processor_entity_name: processor_entity_name
               collection_entity_name: collection_entity_name
+              upi_id: upi_id
             fees:
             - amount: 100
               currency: HKD
@@ -9899,7 +9901,6 @@ components:
               verified_at: 2000-01-23T04:56:07.000+00:00
             cashfree_metadata:
               cf_subscription_id: cf_subscription_id
-              upi_id: upi_id
         sender:
           created_at: 2000-01-23T04:56:07.000+00:00
           email: email
@@ -10206,6 +10207,7 @@ components:
               finverse_authorization_reference: finverse_authorization_reference
               processor_entity_name: processor_entity_name
               collection_entity_name: collection_entity_name
+              upi_id: upi_id
             fees:
             - amount: 100
               currency: HKD
@@ -10296,7 +10298,6 @@ components:
               verified_at: 2000-01-23T04:56:07.000+00:00
             cashfree_metadata:
               cf_subscription_id: cf_subscription_id
-              upi_id: upi_id
         integration_metadata:
           integration_id: RAPIDSTOR
           rapidstor_metadata:
@@ -10953,6 +10954,7 @@ components:
           finverse_authorization_reference: finverse_authorization_reference
           processor_entity_name: processor_entity_name
           collection_entity_name: collection_entity_name
+          upi_id: upi_id
         fees:
         - amount: 100
           currency: HKD
@@ -11044,6 +11046,7 @@ components:
           finverse_authorization_reference: finverse_authorization_reference
           processor_entity_name: processor_entity_name
           collection_entity_name: collection_entity_name
+          upi_id: upi_id
         fees:
         - amount: 100
           currency: HKD
@@ -11130,6 +11133,7 @@ components:
             finverse_authorization_reference: finverse_authorization_reference
             processor_entity_name: processor_entity_name
             collection_entity_name: collection_entity_name
+            upi_id: upi_id
           fees:
           - amount: 100
             currency: HKD
@@ -11213,6 +11217,7 @@ components:
             finverse_authorization_reference: finverse_authorization_reference
             processor_entity_name: processor_entity_name
             collection_entity_name: collection_entity_name
+            upi_id: upi_id
           fees:
           - amount: 100
             currency: HKD
@@ -11547,6 +11552,7 @@ components:
         finverse_authorization_reference: finverse_authorization_reference
         processor_entity_name: processor_entity_name
         collection_entity_name: collection_entity_name
+        upi_id: upi_id
       properties:
         dda_reference:
           description: "The direct debit authorization reference, if empty this will\
@@ -11584,6 +11590,9 @@ components:
         processor_entity_name:
           type: string
         collection_entity_name:
+          type: string
+        upi_id:
+          description: UPI ID (VPA) used for the mandate
           type: string
       required:
       - currency
@@ -12088,6 +12097,7 @@ components:
           finverse_authorization_reference: finverse_authorization_reference
           processor_entity_name: processor_entity_name
           collection_entity_name: collection_entity_name
+          upi_id: upi_id
         recipient:
           name: name
       properties:
@@ -13309,7 +13319,6 @@ components:
             verified_at: 2000-01-23T04:56:07.000+00:00
           cashfree_metadata:
             cf_subscription_id: cf_subscription_id
-            upi_id: upi_id
         payment_method_type: CARD
       properties:
         card:
@@ -13350,7 +13359,6 @@ components:
           verified_at: 2000-01-23T04:56:07.000+00:00
         cashfree_metadata:
           cf_subscription_id: cf_subscription_id
-          upi_id: upi_id
       properties:
         integration_id:
           enum:
@@ -13402,7 +13410,6 @@ components:
           verified_at: 2000-01-23T04:56:07.000+00:00
         cashfree_metadata:
           cf_subscription_id: cf_subscription_id
-          upi_id: upi_id
       properties:
         integration_id:
           type: string
@@ -13486,6 +13493,7 @@ components:
             finverse_authorization_reference: finverse_authorization_reference
             processor_entity_name: processor_entity_name
             collection_entity_name: collection_entity_name
+            upi_id: upi_id
           fees:
           - amount: 100
             currency: HKD
@@ -13576,7 +13584,6 @@ components:
             verified_at: 2000-01-23T04:56:07.000+00:00
           cashfree_metadata:
             cf_subscription_id: cf_subscription_id
-            upi_id: upi_id
       properties:
         payment_method_id:
           type: string
@@ -15082,13 +15089,9 @@ components:
     PaymentMethodIntegrationMetadata_cashfree_metadata:
       example:
         cf_subscription_id: cf_subscription_id
-        upi_id: upi_id
       properties:
         cf_subscription_id:
           description: Cashfree subscription reference
-          type: string
-        upi_id:
-          description: UPI ID used for the mandate
           type: string
       type: object
     PaymentMethodIntegrationMetadataResponse_stripe_metadata_customer:
@@ -15193,14 +15196,10 @@ components:
     PaymentMethodIntegrationMetadataResponse_cashfree_metadata:
       example:
         cf_subscription_id: cf_subscription_id
-        upi_id: upi_id
       nullable: true
       properties:
         cf_subscription_id:
           description: Cashfree subscription reference
-          type: string
-        upi_id:
-          description: UPI ID used for the mandate
           type: string
       type: object
     PaymentSnapshotPaymentMethod_card:
