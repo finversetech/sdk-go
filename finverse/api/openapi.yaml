@@ -5041,6 +5041,9 @@ components:
           other_info:
             bank_code: bank_code
         color: "#FFFFFF"
+        logos:
+          full: https://link.prod.finverse.net/img/institutions/hsbc.svg
+          square: https://link.prod.finverse.net/img/square/hsbc.svg
         updated_at: 2000-01-23T04:56:07.000+00:00
         login_actions:
         - type: ACTION
@@ -5200,6 +5203,8 @@ components:
         color:
           example: "#FFFFFF"
           type: string
+        logos:
+          $ref: "#/components/schemas/InstitutionLogos"
         updated_at:
           format: date-time
           type: string
@@ -5215,6 +5220,20 @@ components:
       - products_supported
       - status
       - user_type
+      type: object
+    InstitutionLogos:
+      example:
+        full: https://link.prod.finverse.net/img/institutions/hsbc.svg
+        square: https://link.prod.finverse.net/img/square/hsbc.svg
+      properties:
+        full:
+          description: URL of the full-size (rectangular) institution logo
+          example: https://link.prod.finverse.net/img/institutions/hsbc.svg
+          type: string
+        square:
+          description: URL of the square institution icon
+          example: https://link.prod.finverse.net/img/square/hsbc.svg
+          type: string
       type: object
     LoginDetails:
       example:

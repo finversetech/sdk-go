@@ -38,6 +38,7 @@ type Institution struct {
 	LoginMethods          []LoginMethod          `json:"login_methods,omitempty"`
 	PaymentInfo           *PaymentInfo           `json:"payment_info,omitempty"`
 	Color                 *string                `json:"color,omitempty"`
+	Logos                 *InstitutionLogos      `json:"logos,omitempty"`
 	UpdatedAt             *time.Time             `json:"updated_at,omitempty"`
 	LoginActions          []LoginAction          `json:"login_actions,omitempty"`
 	AdditionalProperties  map[string]interface{}
@@ -525,6 +526,38 @@ func (o *Institution) SetColor(v string) {
 	o.Color = &v
 }
 
+// GetLogos returns the Logos field value if set, zero value otherwise.
+func (o *Institution) GetLogos() InstitutionLogos {
+	if o == nil || IsNil(o.Logos) {
+		var ret InstitutionLogos
+		return ret
+	}
+	return *o.Logos
+}
+
+// GetLogosOk returns a tuple with the Logos field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *Institution) GetLogosOk() (*InstitutionLogos, bool) {
+	if o == nil || IsNil(o.Logos) {
+		return nil, false
+	}
+	return o.Logos, true
+}
+
+// HasLogos returns a boolean if a field has been set.
+func (o *Institution) HasLogos() bool {
+	if o != nil && !IsNil(o.Logos) {
+		return true
+	}
+
+	return false
+}
+
+// SetLogos gets a reference to the given InstitutionLogos and assigns it to the Logos field.
+func (o *Institution) SetLogos(v InstitutionLogos) {
+	o.Logos = &v
+}
+
 // GetUpdatedAt returns the UpdatedAt field value if set, zero value otherwise.
 func (o *Institution) GetUpdatedAt() time.Time {
 	if o == nil || IsNil(o.UpdatedAt) {
@@ -633,6 +666,9 @@ func (o Institution) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.Color) {
 		toSerialize["color"] = o.Color
 	}
+	if !IsNil(o.Logos) {
+		toSerialize["logos"] = o.Logos
+	}
 	if !IsNil(o.UpdatedAt) {
 		toSerialize["updated_at"] = o.UpdatedAt
 	}
@@ -704,6 +740,7 @@ func (o *Institution) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "login_methods")
 		delete(additionalProperties, "payment_info")
 		delete(additionalProperties, "color")
+		delete(additionalProperties, "logos")
 		delete(additionalProperties, "updated_at")
 		delete(additionalProperties, "login_actions")
 		o.AdditionalProperties = additionalProperties

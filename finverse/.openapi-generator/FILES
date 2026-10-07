@@ -119,6 +119,7 @@ model_income_response.go
 model_income_stream.go
 model_income_total.go
 model_institution.go
+model_institution_logos.go
 model_institution_short.go
 model_integration_metadata_payment_user_request.go
 model_integration_metadata_request.go
