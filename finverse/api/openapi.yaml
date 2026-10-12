@@ -11338,6 +11338,7 @@ components:
             - BANKPAY_KR
             - CARD_GENERIC
             - BANK_GENERIC
+            - RUPAY
             type: string
           type: array
           x-omitempty: true
