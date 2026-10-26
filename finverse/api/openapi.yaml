@@ -53,7 +53,7 @@ paths:
             schema:
               $ref: "#/components/schemas/TokenRequest"
         description: token request
-        required: false
+        required: true
       responses:
         "200":
           content:

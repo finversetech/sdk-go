@@ -117,6 +117,9 @@ func (a *PublicAPIService) GenerateCustomerAccessTokenExecute(r PublicAPIGenerat
 	localVarHeaderParams := make(map[string]string)
 	localVarQueryParams := url.Values{}
 	localVarFormParams := url.Values{}
+	if r.tokenRequest == nil {
+		return localVarReturnValue, nil, reportError("tokenRequest is required and must be specified")
+	}
 
 	// to determine the Content-Type header
 	localVarHTTPContentTypes := []string{"application/json"}
