@@ -26,8 +26,8 @@ type CreateMandateSenderResponse struct {
 	Name   *string `json:"name,omitempty"`
 	Email  *string `json:"email,omitempty"`
 	// Customer App's user ID, representing the end-user making the payment.
-	ExternalUserId string          `json:"external_user_id"`
-	UserType       PaymentUserType `json:"user_type"`
+	ExternalUserId string           `json:"external_user_id"`
+	UserType       *PaymentUserType `json:"user_type,omitempty"`
 	// Sender details which will be used for fraud checking.
 	UserDetails          []SenderDetail `json:"user_details,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -39,11 +39,10 @@ type _CreateMandateSenderResponse CreateMandateSenderResponse
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewCreateMandateSenderResponse(userId string, externalUserId string, userType PaymentUserType) *CreateMandateSenderResponse {
+func NewCreateMandateSenderResponse(userId string, externalUserId string) *CreateMandateSenderResponse {
 	this := CreateMandateSenderResponse{}
 	this.UserId = userId
 	this.ExternalUserId = externalUserId
-	this.UserType = userType
 	return &this
 }
 
@@ -167,28 +166,36 @@ func (o *CreateMandateSenderResponse) SetExternalUserId(v string) {
 	o.ExternalUserId = v
 }
 
-// GetUserType returns the UserType field value
+// GetUserType returns the UserType field value if set, zero value otherwise.
 func (o *CreateMandateSenderResponse) GetUserType() PaymentUserType {
-	if o == nil {
+	if o == nil || IsNil(o.UserType) {
 		var ret PaymentUserType
 		return ret
 	}
-
-	return o.UserType
+	return *o.UserType
 }
 
-// GetUserTypeOk returns a tuple with the UserType field value
+// GetUserTypeOk returns a tuple with the UserType field value if set, nil otherwise
 // and a boolean to check if the value has been set.
 func (o *CreateMandateSenderResponse) GetUserTypeOk() (*PaymentUserType, bool) {
-	if o == nil {
+	if o == nil || IsNil(o.UserType) {
 		return nil, false
 	}
-	return &o.UserType, true
+	return o.UserType, true
 }
 
-// SetUserType sets field value
+// HasUserType returns a boolean if a field has been set.
+func (o *CreateMandateSenderResponse) HasUserType() bool {
+	if o != nil && !IsNil(o.UserType) {
+		return true
+	}
+
+	return false
+}
+
+// SetUserType gets a reference to the given PaymentUserType and assigns it to the UserType field.
 func (o *CreateMandateSenderResponse) SetUserType(v PaymentUserType) {
-	o.UserType = v
+	o.UserType = &v
 }
 
 // GetUserDetails returns the UserDetails field value if set, zero value otherwise.
@@ -241,7 +248,9 @@ func (o CreateMandateSenderResponse) ToMap() (map[string]interface{}, error) {
 		toSerialize["email"] = o.Email
 	}
 	toSerialize["external_user_id"] = o.ExternalUserId
-	toSerialize["user_type"] = o.UserType
+	if !IsNil(o.UserType) {
+		toSerialize["user_type"] = o.UserType
+	}
 	if !IsNil(o.UserDetails) {
 		toSerialize["user_details"] = o.UserDetails
 	}
@@ -260,7 +269,6 @@ func (o *CreateMandateSenderResponse) UnmarshalJSON(data []byte) (err error) {
 	requiredProperties := []string{
 		"user_id",
 		"external_user_id",
-		"user_type",
 	}
 
 	allProperties := make(map[string]interface{})

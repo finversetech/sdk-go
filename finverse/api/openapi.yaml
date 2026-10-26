@@ -11509,7 +11509,6 @@ components:
       required:
       - external_user_id
       - user_id
-      - user_type
       type: object
     CreateMandateSenderResponse:
       example:
@@ -11556,7 +11555,6 @@ components:
       required:
       - external_user_id
       - user_id
-      - user_type
       type: object
     MandateDetailsResponse:
       example:
