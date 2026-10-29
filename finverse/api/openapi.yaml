@@ -8173,6 +8173,7 @@ components:
               acquirer_authorization_reference: "524506894419"
               brand_product_name: visacommercialpremiumcredit
               card_number_alias: F046886807590403
+              accountholder_name: John Doe
               is_commercial: true
           wallet:
             wallet_details:
@@ -8399,6 +8400,7 @@ components:
                 acquirer_authorization_reference: "524506894419"
                 brand_product_name: visacommercialpremiumcredit
                 card_number_alias: F046886807590403
+                accountholder_name: John Doe
                 is_commercial: true
             wallet:
               wallet_details:
@@ -8542,6 +8544,7 @@ components:
                 acquirer_authorization_reference: "524506894419"
                 brand_product_name: visacommercialpremiumcredit
                 card_number_alias: F046886807590403
+                accountholder_name: John Doe
                 is_commercial: true
             wallet:
               wallet_details:
@@ -9728,6 +9731,7 @@ components:
               acquirer_authorization_reference: "524506894419"
               brand_product_name: visacommercialpremiumcredit
               card_number_alias: F046886807590403
+              accountholder_name: John Doe
               is_commercial: true
             recipient_account:
               business_units:
@@ -9886,6 +9890,7 @@ components:
               acquirer_authorization_reference: "524506894419"
               brand_product_name: visacommercialpremiumcredit
               card_number_alias: F046886807590403
+              accountholder_name: John Doe
               is_commercial: true
             recipient_account:
               business_units:
@@ -10136,6 +10141,7 @@ components:
                 acquirer_authorization_reference: "524506894419"
                 brand_product_name: visacommercialpremiumcredit
                 card_number_alias: F046886807590403
+                accountholder_name: John Doe
                 is_commercial: true
             wallet:
               wallet_details:
@@ -10283,6 +10289,7 @@ components:
               acquirer_authorization_reference: "524506894419"
               brand_product_name: visacommercialpremiumcredit
               card_number_alias: F046886807590403
+              accountholder_name: John Doe
               is_commercial: true
             recipient_account:
               business_units:
@@ -10658,6 +10665,7 @@ components:
           acquirer_authorization_reference: "524506894419"
           brand_product_name: visacommercialpremiumcredit
           card_number_alias: F046886807590403
+          accountholder_name: John Doe
           is_commercial: true
         recipient_account:
           business_units:
@@ -10714,6 +10722,7 @@ components:
         acquirer_authorization_reference: "524506894419"
         brand_product_name: visacommercialpremiumcredit
         card_number_alias: F046886807590403
+        accountholder_name: John Doe
         is_commercial: true
       properties:
         brand:
@@ -10765,6 +10774,10 @@ components:
         card_number_alias:
           description: The card number alias
           example: F046886807590403
+          type: string
+        accountholder_name:
+          description: The cardholder name returned by the card processor
+          example: John Doe
           type: string
         is_commercial:
           description: Whether the card is a commercial card
@@ -13568,6 +13581,7 @@ components:
             acquirer_authorization_reference: "524506894419"
             brand_product_name: visacommercialpremiumcredit
             card_number_alias: F046886807590403
+            accountholder_name: John Doe
             is_commercial: true
           recipient_account:
             business_units:
@@ -13804,6 +13818,7 @@ components:
             acquirer_authorization_reference: "524506894419"
             brand_product_name: visacommercialpremiumcredit
             card_number_alias: F046886807590403
+            accountholder_name: John Doe
             is_commercial: true
         wallet:
           wallet_details:
@@ -14376,6 +14391,7 @@ components:
                 acquirer_authorization_reference: "524506894419"
                 brand_product_name: visacommercialpremiumcredit
                 card_number_alias: F046886807590403
+                accountholder_name: John Doe
                 is_commercial: true
             wallet:
               wallet_details:
@@ -14519,6 +14535,7 @@ components:
                 acquirer_authorization_reference: "524506894419"
                 brand_product_name: visacommercialpremiumcredit
                 card_number_alias: F046886807590403
+                accountholder_name: John Doe
                 is_commercial: true
             wallet:
               wallet_details:
@@ -15240,6 +15257,7 @@ components:
           acquirer_authorization_reference: "524506894419"
           brand_product_name: visacommercialpremiumcredit
           card_number_alias: F046886807590403
+          accountholder_name: John Doe
           is_commercial: true
       properties:
         card_details:

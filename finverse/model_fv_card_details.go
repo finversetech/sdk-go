@@ -44,6 +44,8 @@ type FVCardDetails struct {
 	BrandProductName *string `json:"brand_product_name,omitempty"`
 	// The card number alias
 	CardNumberAlias *string `json:"card_number_alias,omitempty"`
+	// The cardholder name returned by the card processor
+	AccountholderName *string `json:"accountholder_name,omitempty"`
 	// Whether the card is a commercial card
 	IsCommercial         NullableBool `json:"is_commercial,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -548,6 +550,38 @@ func (o *FVCardDetails) SetCardNumberAlias(v string) {
 	o.CardNumberAlias = &v
 }
 
+// GetAccountholderName returns the AccountholderName field value if set, zero value otherwise.
+func (o *FVCardDetails) GetAccountholderName() string {
+	if o == nil || IsNil(o.AccountholderName) {
+		var ret string
+		return ret
+	}
+	return *o.AccountholderName
+}
+
+// GetAccountholderNameOk returns a tuple with the AccountholderName field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *FVCardDetails) GetAccountholderNameOk() (*string, bool) {
+	if o == nil || IsNil(o.AccountholderName) {
+		return nil, false
+	}
+	return o.AccountholderName, true
+}
+
+// HasAccountholderName returns a boolean if a field has been set.
+func (o *FVCardDetails) HasAccountholderName() bool {
+	if o != nil && !IsNil(o.AccountholderName) {
+		return true
+	}
+
+	return false
+}
+
+// SetAccountholderName gets a reference to the given string and assigns it to the AccountholderName field.
+func (o *FVCardDetails) SetAccountholderName(v string) {
+	o.AccountholderName = &v
+}
+
 // GetIsCommercial returns the IsCommercial field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *FVCardDetails) GetIsCommercial() bool {
 	if o == nil || IsNil(o.IsCommercial.Get()) {
@@ -646,6 +680,9 @@ func (o FVCardDetails) ToMap() (map[string]interface{}, error) {
 	if !IsNil(o.CardNumberAlias) {
 		toSerialize["card_number_alias"] = o.CardNumberAlias
 	}
+	if !IsNil(o.AccountholderName) {
+		toSerialize["accountholder_name"] = o.AccountholderName
+	}
 	if o.IsCommercial.IsSet() {
 		toSerialize["is_commercial"] = o.IsCommercial.Get()
 	}
@@ -686,6 +723,7 @@ func (o *FVCardDetails) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "acquirer_authorization_reference")
 		delete(additionalProperties, "brand_product_name")
 		delete(additionalProperties, "card_number_alias")
+		delete(additionalProperties, "accountholder_name")
 		delete(additionalProperties, "is_commercial")
 		o.AdditionalProperties = additionalProperties
 	}
