@@ -21,10 +21,12 @@ var _ MappedNullable = &FvEmbeddedErrorModel{}
 
 // FvEmbeddedErrorModel struct for FvEmbeddedErrorModel
 type FvEmbeddedErrorModel struct {
-	Type                 FinverseErrorCategory `json:"type"`
-	ErrorCode            string                `json:"error_code"`
-	Message              string                `json:"message"`
-	Details              string                `json:"details"`
+	Type      FinverseErrorCategory `json:"type"`
+	ErrorCode string                `json:"error_code"`
+	Message   string                `json:"message"`
+	Details   string                `json:"details"`
+	// Human-readable error detail safe for display to the end user
+	DisplayDetails       string `json:"display_details"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -34,12 +36,13 @@ type _FvEmbeddedErrorModel FvEmbeddedErrorModel
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFvEmbeddedErrorModel(type_ FinverseErrorCategory, errorCode string, message string, details string) *FvEmbeddedErrorModel {
+func NewFvEmbeddedErrorModel(type_ FinverseErrorCategory, errorCode string, message string, details string, displayDetails string) *FvEmbeddedErrorModel {
 	this := FvEmbeddedErrorModel{}
 	this.Type = type_
 	this.ErrorCode = errorCode
 	this.Message = message
 	this.Details = details
+	this.DisplayDetails = displayDetails
 	return &this
 }
 
@@ -147,6 +150,30 @@ func (o *FvEmbeddedErrorModel) SetDetails(v string) {
 	o.Details = v
 }
 
+// GetDisplayDetails returns the DisplayDetails field value
+func (o *FvEmbeddedErrorModel) GetDisplayDetails() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.DisplayDetails
+}
+
+// GetDisplayDetailsOk returns a tuple with the DisplayDetails field value
+// and a boolean to check if the value has been set.
+func (o *FvEmbeddedErrorModel) GetDisplayDetailsOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.DisplayDetails, true
+}
+
+// SetDisplayDetails sets field value
+func (o *FvEmbeddedErrorModel) SetDisplayDetails(v string) {
+	o.DisplayDetails = v
+}
+
 func (o FvEmbeddedErrorModel) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -161,6 +188,7 @@ func (o FvEmbeddedErrorModel) ToMap() (map[string]interface{}, error) {
 	toSerialize["error_code"] = o.ErrorCode
 	toSerialize["message"] = o.Message
 	toSerialize["details"] = o.Details
+	toSerialize["display_details"] = o.DisplayDetails
 
 	for key, value := range o.AdditionalProperties {
 		toSerialize[key] = value
@@ -178,6 +206,7 @@ func (o *FvEmbeddedErrorModel) UnmarshalJSON(data []byte) (err error) {
 		"error_code",
 		"message",
 		"details",
+		"display_details",
 	}
 
 	allProperties := make(map[string]interface{})
@@ -211,6 +240,7 @@ func (o *FvEmbeddedErrorModel) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "error_code")
 		delete(additionalProperties, "message")
 		delete(additionalProperties, "details")
+		delete(additionalProperties, "display_details")
 		o.AdditionalProperties = additionalProperties
 	}
 

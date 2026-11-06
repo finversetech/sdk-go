@@ -25,6 +25,8 @@ type FvErrorModelV2 struct {
 	ErrorCode string                `json:"error_code"`
 	Message   string                `json:"message"`
 	Details   string                `json:"details"`
+	// Human-readable error detail safe for display to the end user
+	DisplayDetails string `json:"display_details"`
 	// The request_id provided in the request header
 	RequestId            string `json:"request_id"`
 	AdditionalProperties map[string]interface{}
@@ -36,12 +38,13 @@ type _FvErrorModelV2 FvErrorModelV2
 // This constructor will assign default values to properties that have it defined,
 // and makes sure properties required by API are set, but the set of arguments
 // will change when the set of required properties is changed
-func NewFvErrorModelV2(type_ FinverseErrorCategory, errorCode string, message string, details string, requestId string) *FvErrorModelV2 {
+func NewFvErrorModelV2(type_ FinverseErrorCategory, errorCode string, message string, details string, displayDetails string, requestId string) *FvErrorModelV2 {
 	this := FvErrorModelV2{}
 	this.Type = type_
 	this.ErrorCode = errorCode
 	this.Message = message
 	this.Details = details
+	this.DisplayDetails = displayDetails
 	this.RequestId = requestId
 	return &this
 }
@@ -150,6 +153,30 @@ func (o *FvErrorModelV2) SetDetails(v string) {
 	o.Details = v
 }
 
+// GetDisplayDetails returns the DisplayDetails field value
+func (o *FvErrorModelV2) GetDisplayDetails() string {
+	if o == nil {
+		var ret string
+		return ret
+	}
+
+	return o.DisplayDetails
+}
+
+// GetDisplayDetailsOk returns a tuple with the DisplayDetails field value
+// and a boolean to check if the value has been set.
+func (o *FvErrorModelV2) GetDisplayDetailsOk() (*string, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return &o.DisplayDetails, true
+}
+
+// SetDisplayDetails sets field value
+func (o *FvErrorModelV2) SetDisplayDetails(v string) {
+	o.DisplayDetails = v
+}
+
 // GetRequestId returns the RequestId field value
 func (o *FvErrorModelV2) GetRequestId() string {
 	if o == nil {
@@ -188,6 +215,7 @@ func (o FvErrorModelV2) ToMap() (map[string]interface{}, error) {
 	toSerialize["error_code"] = o.ErrorCode
 	toSerialize["message"] = o.Message
 	toSerialize["details"] = o.Details
+	toSerialize["display_details"] = o.DisplayDetails
 	toSerialize["request_id"] = o.RequestId
 
 	for key, value := range o.AdditionalProperties {
@@ -206,6 +234,7 @@ func (o *FvErrorModelV2) UnmarshalJSON(data []byte) (err error) {
 		"error_code",
 		"message",
 		"details",
+		"display_details",
 		"request_id",
 	}
 
@@ -240,6 +269,7 @@ func (o *FvErrorModelV2) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "error_code")
 		delete(additionalProperties, "message")
 		delete(additionalProperties, "details")
+		delete(additionalProperties, "display_details")
 		delete(additionalProperties, "request_id")
 		o.AdditionalProperties = additionalProperties
 	}

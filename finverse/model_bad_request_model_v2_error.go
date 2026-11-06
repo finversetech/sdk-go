@@ -26,6 +26,8 @@ type BadRequestModelV2Error struct {
 	Code      int32                 `json:"code"`
 	Message   string                `json:"message"`
 	Details   *string               `json:"details,omitempty"`
+	// Human-readable error detail safe for display to the end user
+	DisplayDetails *string `json:"display_details,omitempty"`
 	// The request_id provided in the request header
 	RequestId            string `json:"request_id"`
 	AdditionalProperties map[string]interface{}
@@ -183,6 +185,38 @@ func (o *BadRequestModelV2Error) SetDetails(v string) {
 	o.Details = &v
 }
 
+// GetDisplayDetails returns the DisplayDetails field value if set, zero value otherwise.
+func (o *BadRequestModelV2Error) GetDisplayDetails() string {
+	if o == nil || IsNil(o.DisplayDetails) {
+		var ret string
+		return ret
+	}
+	return *o.DisplayDetails
+}
+
+// GetDisplayDetailsOk returns a tuple with the DisplayDetails field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *BadRequestModelV2Error) GetDisplayDetailsOk() (*string, bool) {
+	if o == nil || IsNil(o.DisplayDetails) {
+		return nil, false
+	}
+	return o.DisplayDetails, true
+}
+
+// HasDisplayDetails returns a boolean if a field has been set.
+func (o *BadRequestModelV2Error) HasDisplayDetails() bool {
+	if o != nil && !IsNil(o.DisplayDetails) {
+		return true
+	}
+
+	return false
+}
+
+// SetDisplayDetails gets a reference to the given string and assigns it to the DisplayDetails field.
+func (o *BadRequestModelV2Error) SetDisplayDetails(v string) {
+	o.DisplayDetails = &v
+}
+
 // GetRequestId returns the RequestId field value
 func (o *BadRequestModelV2Error) GetRequestId() string {
 	if o == nil {
@@ -223,6 +257,9 @@ func (o BadRequestModelV2Error) ToMap() (map[string]interface{}, error) {
 	toSerialize["message"] = o.Message
 	if !IsNil(o.Details) {
 		toSerialize["details"] = o.Details
+	}
+	if !IsNil(o.DisplayDetails) {
+		toSerialize["display_details"] = o.DisplayDetails
 	}
 	toSerialize["request_id"] = o.RequestId
 
@@ -277,6 +314,7 @@ func (o *BadRequestModelV2Error) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "code")
 		delete(additionalProperties, "message")
 		delete(additionalProperties, "details")
+		delete(additionalProperties, "display_details")
 		delete(additionalProperties, "request_id")
 		o.AdditionalProperties = additionalProperties
 	}
