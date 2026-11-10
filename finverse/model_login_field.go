@@ -22,8 +22,10 @@ var _ MappedNullable = &LoginField{}
 type LoginField struct {
 	Key  *string `json:"key,omitempty"`
 	Name *string `json:"name,omitempty"`
-	// could be password, text, number
-	Type                 *string `json:"type,omitempty"`
+	// could be password, text, number, select
+	Type *string `json:"type,omitempty"`
+	// This is only applicable when the field type is select
+	Options              []LoginFieldOption `json:"options,omitempty"`
 	AdditionalProperties map[string]interface{}
 }
 
@@ -142,6 +144,38 @@ func (o *LoginField) SetType(v string) {
 	o.Type = &v
 }
 
+// GetOptions returns the Options field value if set, zero value otherwise.
+func (o *LoginField) GetOptions() []LoginFieldOption {
+	if o == nil || IsNil(o.Options) {
+		var ret []LoginFieldOption
+		return ret
+	}
+	return o.Options
+}
+
+// GetOptionsOk returns a tuple with the Options field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+func (o *LoginField) GetOptionsOk() ([]LoginFieldOption, bool) {
+	if o == nil || IsNil(o.Options) {
+		return nil, false
+	}
+	return o.Options, true
+}
+
+// HasOptions returns a boolean if a field has been set.
+func (o *LoginField) HasOptions() bool {
+	if o != nil && !IsNil(o.Options) {
+		return true
+	}
+
+	return false
+}
+
+// SetOptions gets a reference to the given []LoginFieldOption and assigns it to the Options field.
+func (o *LoginField) SetOptions(v []LoginFieldOption) {
+	o.Options = v
+}
+
 func (o LoginField) MarshalJSON() ([]byte, error) {
 	toSerialize, err := o.ToMap()
 	if err != nil {
@@ -160,6 +194,9 @@ func (o LoginField) ToMap() (map[string]interface{}, error) {
 	}
 	if !IsNil(o.Type) {
 		toSerialize["type"] = o.Type
+	}
+	if !IsNil(o.Options) {
+		toSerialize["options"] = o.Options
 	}
 
 	for key, value := range o.AdditionalProperties {
@@ -186,6 +223,7 @@ func (o *LoginField) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "key")
 		delete(additionalProperties, "name")
 		delete(additionalProperties, "type")
+		delete(additionalProperties, "options")
 		o.AdditionalProperties = additionalProperties
 	}
 

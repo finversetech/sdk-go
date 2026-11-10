@@ -5017,9 +5017,19 @@ components:
           - key: password
             name: Password
             type: password
+            options:
+            - label: Singapore
+              value: SG
+            - label: Singapore
+              value: SG
           - key: password
             name: Password
             type: password
+            options:
+            - label: Singapore
+              value: SG
+            - label: Singapore
+              value: SG
         - id: SMS OTP
           name: SMS OTP
           is_default_method: true
@@ -5028,9 +5038,19 @@ components:
           - key: password
             name: Password
             type: password
+            options:
+            - label: Singapore
+              value: SG
+            - label: Singapore
+              value: SG
           - key: password
             name: Password
             type: password
+            options:
+            - label: Singapore
+              value: SG
+            - label: Singapore
+              value: SG
         payment_info:
           currencies_supported:
           - HKD
@@ -5262,9 +5282,19 @@ components:
         - key: password
           name: Password
           type: password
+          options:
+          - label: Singapore
+            value: SG
+          - label: Singapore
+            value: SG
         - key: password
           name: Password
           type: password
+          options:
+          - label: Singapore
+            value: SG
+          - label: Singapore
+            value: SG
       properties:
         id:
           example: SMS OTP
@@ -5350,6 +5380,11 @@ components:
         key: password
         name: Password
         type: password
+        options:
+        - label: Singapore
+          value: SG
+        - label: Singapore
+          value: SG
       properties:
         key:
           example: password
@@ -5358,9 +5393,32 @@ components:
           example: Password
           type: string
         type:
-          description: "could be password, text, number"
+          description: "could be password, text, number, select"
           example: password
           type: string
+        options:
+          description: This is only applicable when the field type is select
+          items:
+            $ref: "#/components/schemas/LoginFieldOption"
+          type: array
+          x-omitempty: true
+      type: object
+    LoginFieldOption:
+      example:
+        label: Singapore
+        value: SG
+      properties:
+        label:
+          description: The text displayed in the select element
+          example: Singapore
+          type: string
+        value:
+          description: The value submitted when this option is selected
+          example: SG
+          type: string
+      required:
+      - label
+      - value
       type: object
     TokenRequest:
       example:
