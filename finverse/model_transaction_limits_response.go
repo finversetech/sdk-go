@@ -24,10 +24,12 @@ type TransactionLimitsResponse struct {
 	MaxPeriodAmount *int32 `json:"max_period_amount,omitempty"`
 	// Maximum number of transactions (of any amount) that can be executed during the reference period.
 	MaxPeriodCount *int32 `json:"max_period_count,omitempty"`
-	// The maximum amount of money that can be transferred in a single transaction under this mandate. Expressed in currency's smallest unit or “minor unit”, as defined in ISO 4217.
+	// The maximum amount of money that can be transferred in a single transaction under this mandate. This is the final limit applied, which may differ from the merchant-requested limit (e.g. capped by the payment method). Expressed in currency's smallest unit or “minor unit”, as defined in ISO 4217.
 	MaxTransactionAmount *int32 `json:"max_transaction_amount,omitempty"`
 	// The maximum amount of money that can be transferred in a single transaction under this mandate set by the payer. Expressed in currency's smallest unit or “minor unit”, as defined in ISO 4217.
 	MaxTransactionAmountSetByPayerInitial NullableInt32 `json:"max_transaction_amount_set_by_payer_initial,omitempty"`
+	// The maximum amount of money per transaction requested by the merchant when creating the mandate. Expressed in currency's smallest unit or “minor unit”, as defined in ISO 4217.
+	MaxTransactionAmountRequestedByMerchant NullableInt32 `json:"max_transaction_amount_requested_by_merchant,omitempty"`
 	// Reference calendar periods for the payment limits. Possible values (DAILY, WEEKLY, MONTHLY, QUARTERLY, YEARLY)
 	Period               NullableString `json:"period,omitempty"`
 	AdditionalProperties map[string]interface{}
@@ -191,6 +193,49 @@ func (o *TransactionLimitsResponse) UnsetMaxTransactionAmountSetByPayerInitial()
 	o.MaxTransactionAmountSetByPayerInitial.Unset()
 }
 
+// GetMaxTransactionAmountRequestedByMerchant returns the MaxTransactionAmountRequestedByMerchant field value if set, zero value otherwise (both if not set or set to explicit null).
+func (o *TransactionLimitsResponse) GetMaxTransactionAmountRequestedByMerchant() int32 {
+	if o == nil || IsNil(o.MaxTransactionAmountRequestedByMerchant.Get()) {
+		var ret int32
+		return ret
+	}
+	return *o.MaxTransactionAmountRequestedByMerchant.Get()
+}
+
+// GetMaxTransactionAmountRequestedByMerchantOk returns a tuple with the MaxTransactionAmountRequestedByMerchant field value if set, nil otherwise
+// and a boolean to check if the value has been set.
+// NOTE: If the value is an explicit nil, `nil, true` will be returned
+func (o *TransactionLimitsResponse) GetMaxTransactionAmountRequestedByMerchantOk() (*int32, bool) {
+	if o == nil {
+		return nil, false
+	}
+	return o.MaxTransactionAmountRequestedByMerchant.Get(), o.MaxTransactionAmountRequestedByMerchant.IsSet()
+}
+
+// HasMaxTransactionAmountRequestedByMerchant returns a boolean if a field has been set.
+func (o *TransactionLimitsResponse) HasMaxTransactionAmountRequestedByMerchant() bool {
+	if o != nil && o.MaxTransactionAmountRequestedByMerchant.IsSet() {
+		return true
+	}
+
+	return false
+}
+
+// SetMaxTransactionAmountRequestedByMerchant gets a reference to the given NullableInt32 and assigns it to the MaxTransactionAmountRequestedByMerchant field.
+func (o *TransactionLimitsResponse) SetMaxTransactionAmountRequestedByMerchant(v int32) {
+	o.MaxTransactionAmountRequestedByMerchant.Set(&v)
+}
+
+// SetMaxTransactionAmountRequestedByMerchantNil sets the value for MaxTransactionAmountRequestedByMerchant to be an explicit nil
+func (o *TransactionLimitsResponse) SetMaxTransactionAmountRequestedByMerchantNil() {
+	o.MaxTransactionAmountRequestedByMerchant.Set(nil)
+}
+
+// UnsetMaxTransactionAmountRequestedByMerchant ensures that no value is present for MaxTransactionAmountRequestedByMerchant, not even an explicit nil
+func (o *TransactionLimitsResponse) UnsetMaxTransactionAmountRequestedByMerchant() {
+	o.MaxTransactionAmountRequestedByMerchant.Unset()
+}
+
 // GetPeriod returns the Period field value if set, zero value otherwise (both if not set or set to explicit null).
 func (o *TransactionLimitsResponse) GetPeriod() string {
 	if o == nil || IsNil(o.Period.Get()) {
@@ -256,6 +301,9 @@ func (o TransactionLimitsResponse) ToMap() (map[string]interface{}, error) {
 	if o.MaxTransactionAmountSetByPayerInitial.IsSet() {
 		toSerialize["max_transaction_amount_set_by_payer_initial"] = o.MaxTransactionAmountSetByPayerInitial.Get()
 	}
+	if o.MaxTransactionAmountRequestedByMerchant.IsSet() {
+		toSerialize["max_transaction_amount_requested_by_merchant"] = o.MaxTransactionAmountRequestedByMerchant.Get()
+	}
 	if o.Period.IsSet() {
 		toSerialize["period"] = o.Period.Get()
 	}
@@ -285,6 +333,7 @@ func (o *TransactionLimitsResponse) UnmarshalJSON(data []byte) (err error) {
 		delete(additionalProperties, "max_period_count")
 		delete(additionalProperties, "max_transaction_amount")
 		delete(additionalProperties, "max_transaction_amount_set_by_payer_initial")
+		delete(additionalProperties, "max_transaction_amount_requested_by_merchant")
 		delete(additionalProperties, "period")
 		o.AdditionalProperties = additionalProperties
 	}

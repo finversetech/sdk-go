@@ -9370,6 +9370,7 @@ components:
             max_period_count: 1
             max_transaction_amount: 1
             max_transaction_amount_set_by_payer_initial: 5
+            max_transaction_amount_requested_by_merchant: 5
             period: DAILY
           description: description
           mandate_bank_reference: mandate_bank_reference
@@ -9598,6 +9599,7 @@ components:
             max_period_count: 1
             max_transaction_amount: 1
             max_transaction_amount_set_by_payer_initial: 5
+            max_transaction_amount_requested_by_merchant: 5
             period: DAILY
           description: description
         payment_method_types:
@@ -9760,6 +9762,7 @@ components:
                 max_period_count: 1
                 max_transaction_amount: 1
                 max_transaction_amount_set_by_payer_initial: 5
+                max_transaction_amount_requested_by_merchant: 5
                 period: DAILY
               description: description
               mandate_bank_reference: mandate_bank_reference
@@ -9921,6 +9924,7 @@ components:
                 max_period_count: 1
                 max_transaction_amount: 1
                 max_transaction_amount_set_by_payer_initial: 5
+                max_transaction_amount_requested_by_merchant: 5
                 period: DAILY
               description: description
               mandate_bank_reference: mandate_bank_reference
@@ -10054,7 +10058,7 @@ components:
               corp_code: corp_code
               s_location_code: s_location_code
               tenant_id: tenant_id
-              i_anniv_days: 5
+              i_anniv_days: 2
               tenant_default_currency: tenant_default_currency
               account_token: account_token
               unit_type_id: unit_type_id
@@ -10090,6 +10094,7 @@ components:
               max_period_count: 1
               max_transaction_amount: 1
               max_transaction_amount_set_by_payer_initial: 5
+              max_transaction_amount_requested_by_merchant: 5
               period: DAILY
             description: description
           payment_method_types:
@@ -10323,6 +10328,7 @@ components:
                 max_period_count: 1
                 max_transaction_amount: 1
                 max_transaction_amount_set_by_payer_initial: 5
+                max_transaction_amount_requested_by_merchant: 5
                 period: DAILY
               description: description
               mandate_bank_reference: mandate_bank_reference
@@ -10429,7 +10435,7 @@ components:
             corp_code: corp_code
             s_location_code: s_location_code
             tenant_id: tenant_id
-            i_anniv_days: 5
+            i_anniv_days: 2
             tenant_default_currency: tenant_default_currency
             account_token: account_token
             unit_type_id: unit_type_id
@@ -10579,7 +10585,7 @@ components:
         corp_code: corp_code
         s_location_code: s_location_code
         tenant_id: tenant_id
-        i_anniv_days: 5
+        i_anniv_days: 2
         tenant_default_currency: tenant_default_currency
         account_token: account_token
         unit_type_id: unit_type_id
@@ -10648,7 +10654,7 @@ components:
           corp_code: corp_code
           s_location_code: s_location_code
           tenant_id: tenant_id
-          i_anniv_days: 5
+          i_anniv_days: 2
           tenant_default_currency: tenant_default_currency
           account_token: account_token
           unit_type_id: unit_type_id
@@ -11080,6 +11086,7 @@ components:
             max_period_count: 1
             max_transaction_amount: 1
             max_transaction_amount_set_by_payer_initial: 5
+            max_transaction_amount_requested_by_merchant: 5
             period: DAILY
           description: description
           mandate_bank_reference: mandate_bank_reference
@@ -11173,6 +11180,7 @@ components:
             max_period_count: 1
             max_transaction_amount: 1
             max_transaction_amount_set_by_payer_initial: 5
+            max_transaction_amount_requested_by_merchant: 5
             period: DAILY
           description: description
           mandate_bank_reference: mandate_bank_reference
@@ -11261,6 +11269,7 @@ components:
               max_period_count: 1
               max_transaction_amount: 1
               max_transaction_amount_set_by_payer_initial: 5
+              max_transaction_amount_requested_by_merchant: 5
               period: DAILY
             description: description
             mandate_bank_reference: mandate_bank_reference
@@ -11346,6 +11355,7 @@ components:
               max_period_count: 1
               max_transaction_amount: 1
               max_transaction_amount_set_by_payer_initial: 5
+              max_transaction_amount_requested_by_merchant: 5
               period: DAILY
             description: description
             mandate_bank_reference: mandate_bank_reference
@@ -11681,6 +11691,7 @@ components:
           max_period_count: 1
           max_transaction_amount: 1
           max_transaction_amount_set_by_payer_initial: 5
+          max_transaction_amount_requested_by_merchant: 5
           period: DAILY
         description: description
         mandate_bank_reference: mandate_bank_reference
@@ -11821,6 +11832,7 @@ components:
           max_period_count: 1
           max_transaction_amount: 1
           max_transaction_amount_set_by_payer_initial: 5
+          max_transaction_amount_requested_by_merchant: 5
           period: DAILY
         description: description
       properties:
@@ -11967,6 +11979,7 @@ components:
         max_period_count: 1
         max_transaction_amount: 1
         max_transaction_amount_set_by_payer_initial: 5
+        max_transaction_amount_requested_by_merchant: 5
         period: DAILY
       properties:
         max_period_amount:
@@ -11982,14 +11995,22 @@ components:
           type: integer
         max_transaction_amount:
           description: "The maximum amount of money that can be transferred in a single\
-            \ transaction under this mandate. Expressed in currency's smallest unit\
-            \ or “minor unit”, as defined in ISO 4217."
+            \ transaction under this mandate. This is the final limit applied, which\
+            \ may differ from the merchant-requested limit (e.g. capped by the payment\
+            \ method). Expressed in currency's smallest unit or “minor unit”, as defined\
+            \ in ISO 4217."
           minimum: 1
           type: integer
         max_transaction_amount_set_by_payer_initial:
           description: "The maximum amount of money that can be transferred in a single\
             \ transaction under this mandate set by the payer. Expressed in currency's\
             \ smallest unit or “minor unit”, as defined in ISO 4217."
+          nullable: true
+          type: integer
+        max_transaction_amount_requested_by_merchant:
+          description: "The maximum amount of money per transaction requested by the\
+            \ merchant when creating the mandate. Expressed in currency's smallest\
+            \ unit or “minor unit”, as defined in ISO 4217."
           nullable: true
           type: integer
         period:
@@ -12227,6 +12248,7 @@ components:
             max_period_count: 1
             max_transaction_amount: 1
             max_transaction_amount_set_by_payer_initial: 5
+            max_transaction_amount_requested_by_merchant: 5
             period: DAILY
           description: description
           mandate_bank_reference: mandate_bank_reference
@@ -13274,7 +13296,7 @@ components:
             corp_code: corp_code
             s_location_code: s_location_code
             tenant_id: tenant_id
-            i_anniv_days: 5
+            i_anniv_days: 2
             tenant_default_currency: tenant_default_currency
             account_token: account_token
             unit_type_id: unit_type_id
@@ -13351,7 +13373,7 @@ components:
             corp_code: corp_code
             s_location_code: s_location_code
             tenant_id: tenant_id
-            i_anniv_days: 5
+            i_anniv_days: 2
             tenant_default_currency: tenant_default_currency
             account_token: account_token
             unit_type_id: unit_type_id
@@ -13623,6 +13645,7 @@ components:
               max_period_count: 1
               max_transaction_amount: 1
               max_transaction_amount_set_by_payer_initial: 5
+              max_transaction_amount_requested_by_merchant: 5
               period: DAILY
             description: description
             mandate_bank_reference: mandate_bank_reference
