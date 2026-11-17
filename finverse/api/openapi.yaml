@@ -7923,6 +7923,7 @@ components:
           - PROPERTY_LOAN
           - TERM_LOAN
           - BRIDGE_LOAN
+          - PREPAID_CARD
           - UNKNOWN
           example: SAVINGS
           type: string
